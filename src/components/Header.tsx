@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Sun, Moon, Zap } from 'lucide-react';
+import { Sun, Moon, Zap } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import './Header.css';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
     if (emailSection) {
       emailSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavigation = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -26,10 +32,9 @@ const Header: React.FC = () => {
   }, []);
 
   const navItems = [
-    { label: 'Problème', href: '#problem' },
-    { label: 'Solution', href: '#product-demo' },
-    { label: 'Fonctionnalités', href: '#features' },
-    { label: 'Témoignages', href: '#testimonials' },
+    { label: 'Problème', sectionId: 'problem' },
+    { label: 'Fonctionnalités', sectionId: 'features' },
+    { label: 'Témoignages', sectionId: 'testimonials' },
   ];
 
   return (
@@ -58,9 +63,9 @@ const Header: React.FC = () => {
         {/* Desktop Navigation */}
         <nav className="nav-desktop">
           {navItems.map((item, index) => (
-            <motion.a
+            <motion.button
               key={item.label}
-              href={item.href}
+              onClick={() => handleNavigation(item.sectionId)}
               className="nav-link"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -68,13 +73,13 @@ const Header: React.FC = () => {
               whileHover={{ y: -2 }}
             >
               {item.label}
-            </motion.a>
+            </motion.button>
           ))}
         </nav>
 
         {/* Header Actions */}
         <div className="header-actions">
-          {/* Theme Toggle */}
+          {/* Theme Toggle - Now visible on both desktop and mobile */}
           <motion.div
             className="theme-toggle-wrapper"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -94,7 +99,7 @@ const Header: React.FC = () => {
             </button>
           </motion.div>
 
-          {/* CTA Button */}
+          {/* CTA Button - Desktop only */}
           <motion.button
             className="btn btn-primary cta-button"
             onClick={scrollToEmailForm}
@@ -106,54 +111,8 @@ const Header: React.FC = () => {
           >
             Commencer Gratuitement
           </motion.button>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="mobile-menu-button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
       </div>
-
-      {/* Mobile Navigation */}
-      <motion.nav
-        className={`nav-mobile ${isMobileMenuOpen ? 'open' : ''}`}
-        initial={false}
-        animate={{ height: isMobileMenuOpen ? 'auto' : 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="nav-mobile-content glass">
-          {navItems.map((item, index) => (
-            <motion.a
-              key={item.label}
-              href={item.href}
-              className="nav-link-mobile"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ 
-                opacity: isMobileMenuOpen ? 1 : 0, 
-                x: isMobileMenuOpen ? 0 : -20 
-              }}
-              transition={{ delay: index * 0.1 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {item.label}
-            </motion.a>
-          ))}
-          <motion.button
-            className="cta-button-mobile"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ 
-              opacity: isMobileMenuOpen ? 1 : 0, 
-              x: isMobileMenuOpen ? 0 : -20 
-            }}
-            transition={{ delay: 0.4 }}
-          >
-            <span className="gradient-text">Commencer Gratuitement</span>
-          </motion.button>
-        </div>
-      </motion.nav>
     </motion.header>
   );
 };

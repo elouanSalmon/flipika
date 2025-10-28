@@ -101,6 +101,10 @@
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--radius-md);
   letter-spacing: 0.025em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .nav-link:hover {
@@ -217,68 +221,7 @@
   left: 100%;
 }
 
-/* Mobile Menu */
-.mobile-menu-button {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--color-text-primary);
-  cursor: pointer;
-  padding: var(--spacing-sm);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
-}
-
-.mobile-menu-button:hover {
-  background: var(--glass-bg);
-}
-
-.nav-mobile {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-}
-
-.nav-mobile-content {
-  margin: var(--spacing-md) var(--spacing-lg);
-  padding: var(--spacing-lg);
-  border-radius: var(--radius-xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.nav-link-mobile {
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-weight: 500;
-  padding: var(--spacing-sm) 0;
-  transition: all var(--transition-fast);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.nav-link-mobile:hover {
-  color: var(--color-text-primary);
-  padding-left: var(--spacing-sm);
-}
-
-.cta-button-mobile {
-  background: var(--gradient-primary);
-  border: none;
-  padding: var(--spacing-md);
-  border-radius: var(--radius-lg);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  margin-top: var(--spacing-sm);
-}
-
-.cta-button-mobile:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glow);
-}
+/* Mobile styles removed - using theme toggle instead of hamburger menu */
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -287,20 +230,39 @@
   }
   
   .cta-button {
-    display: none;
-  }
-  
-  .mobile-menu-button {
-    display: block;
+    display: none !important;
   }
   
   .header-container {
     padding: 0 var(--spacing-md);
+    gap: var(--spacing-sm);
+  }
+  
+  .header-actions {
+    gap: var(--spacing-sm);
+  }
+  
+  .logo-content {
+    display: none;
+  }
+  
+  .logo {
+    gap: 0;
+  }
+  
+  /* Keep theme toggle visible on mobile */
+  .theme-toggle-wrapper {
+    display: block !important;
   }
 }
 
-@media (min-width: 769px) {
-  .nav-mobile {
-    display: none;
+@media (max-width: 480px) {
+  .header-container {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  /* Keep theme toggle visible on small mobile too */
+  .theme-toggle-wrapper {
+    display: block !important;
   }
 }

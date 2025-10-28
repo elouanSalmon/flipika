@@ -4,12 +4,11 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Problem from './components/Problem';
 import Features from './components/Features';
-import ProductDemo from './components/ProductDemo';
 import Differentiation from './components/Differentiation';
 import SocialProof from './components/Testimonials';
-
 import EmailCapture from './components/EmailCapture';
 import Footer from './components/Footer';
+import CookieConsent from './components/CookieConsent';
 import './App.css';
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
         <Hero />
         <Problem />
         <Features />
-        <ProductDemo />
         <Differentiation />
         <SocialProof />
         <EmailCapture />
@@ -58,6 +56,9 @@ function App() {
           ease: "linear"
         }}
       />
+      
+      {/* Cookie Consent */}
+      <CookieConsent />
       </div>
     </ThemeProvider>
   );

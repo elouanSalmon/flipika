@@ -20,24 +20,7 @@ const Differentiation: React.FC = () => {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0
-    }
-  };
 
   const differentiators = [
     {
@@ -112,15 +95,9 @@ const Differentiation: React.FC = () => {
       </div>
       
       <div className="differentiation-container">
-        <motion.div
-          className="differentiation-content"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
+        <div className="differentiation-content">
           {/* Header */}
-          <motion.div className="differentiation-header" variants={itemVariants}>
+          <div className="differentiation-header">
             <div className="diff-badge">
               <Shield size={16} />
               <span>Pourquoi nous</span>
@@ -132,19 +109,14 @@ const Differentiation: React.FC = () => {
               Nous ne sommes pas un autre "outil IA marketing classique". 
               Voici ce qui nous distingue vraiment.
             </p>
-          </motion.div>
+          </div>
 
           {/* Differentiators Grid */}
-          <motion.div className="differentiators-grid" variants={itemVariants}>
+          <div className="differentiators-grid">
             {differentiators.map((diff, index) => (
-              <motion.div
+              <div
                 key={diff.title}
                 className="differentiator-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
               >
                 <div className="diff-icon">
                   <diff.icon size={32} />
@@ -154,12 +126,12 @@ const Differentiation: React.FC = () => {
                   <p className="diff-card-subtitle">{diff.subtitle}</p>
                   <p className="diff-card-description">{diff.description}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Comparison Table */}
-          <motion.div className="comparison-section" variants={itemVariants}>
+          <div className="comparison-section">
             <div className="comparison-header">
               <h3>Flipika vs Autres outils IA</h3>
               <p>Une comparaison honnête de ce qui nous rend uniques</p>
@@ -177,13 +149,9 @@ const Differentiation: React.FC = () => {
               
               <div className="comparison-rows">
                 {comparison.map((item, index) => (
-                  <motion.div
+                  <div
                     key={item.feature}
                     className="comparison-row"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                    viewport={{ once: true }}
                   >
                     <div className="feature-cell">{item.feature}</div>
                     <div className="flipika-cell">
@@ -200,29 +168,27 @@ const Differentiation: React.FC = () => {
                         <X size={16} className="x-icon" />
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Bottom CTA */}
-          <motion.div className="diff-cta" variants={itemVariants}>
+          <div className="diff-cta">
             <div className="cta-content">
               <h3>Prêt à voir la différence ?</h3>
               <p>Découvrez pourquoi les Media Buyers choisissent Flipika</p>
             </div>
-            <motion.button
+            <button
               className="cta-button"
               onClick={scrollToEmailForm}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
               <span>Rejoindre la waitlist</span>
               <TrendingUp size={18} />
-            </motion.button>
-          </motion.div>
-        </motion.div>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );
