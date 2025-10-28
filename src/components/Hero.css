@@ -175,6 +175,7 @@
   display: flex;
   gap: var(--spacing-lg);
   align-items: center;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .cta-primary {
@@ -439,6 +440,10 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding-top: 80px; /* Space for fixed header on mobile */
+  }
+  
   .hero-container {
     padding: 0 var(--spacing-md);
   }
@@ -479,6 +484,7 @@
 @media (max-width: 480px) {
   .hero {
     min-height: 90vh;
+    padding-top: 70px; /* Slightly less padding for smaller screens */
   }
   
   .hero-content {

@@ -405,6 +405,11 @@
     font-size: 1.125rem;
   }
 
+  .differentiators-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
   .differentiator-card {
     padding: var(--spacing-lg);
   }

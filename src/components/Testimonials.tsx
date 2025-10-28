@@ -21,6 +21,11 @@ const SocialProof: React.FC = () => {
     }
   };
 
+  // Détecter si on est sur mobile pour désactiver les animations de survol
+  const isMobile = () => {
+    return window.innerWidth <= 480;
+  };
+
   const earlyAdopters = [
     {
       id: 1,
@@ -170,7 +175,7 @@ const SocialProof: React.FC = () => {
               key={metric.label}
               className={`metric-showcase-card metric-${metric.color}`}
               variants={itemVariants}
-              whileHover={{ y: -5, scale: 1.05 }}
+              whileHover={isMobile() ? {} : { y: -5, scale: 1.05 }}
             >
               <div className="metric-icon">
                 <metric.icon size={24} />
@@ -196,7 +201,7 @@ const SocialProof: React.FC = () => {
               key={testimonial.id}
               className="testimonial-card early-adopter-card"
               variants={itemVariants}
-              whileHover={{ 
+              whileHover={isMobile() ? {} : { 
                 y: -8, 
                 scale: 1.02,
                 transition: { duration: 0.3, ease: "easeOut" }
@@ -278,7 +283,7 @@ const SocialProof: React.FC = () => {
           <motion.button
             className="cta-button primary"
             onClick={scrollToEmailForm}
-            whileHover={{ scale: 1.05 }}
+            whileHover={isMobile() ? {} : { scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <span>Rejoindre la waitlist</span>

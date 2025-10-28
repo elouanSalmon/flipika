@@ -168,15 +168,6 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <motion.a 
-                    href="#product-demo"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Solution
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
                     href="#testimonials"
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring" as const, stiffness: 300 }}
