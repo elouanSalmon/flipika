@@ -69,16 +69,16 @@ const EmailCapture: React.FC = () => {
           {/* Header */}
           <div className="capture-header">
             <div className="capture-icon">
-              <Mail size={32} />
+              <Mail size={28} />
             </div>
             
             <h2 className="capture-title">
-              Prêt à <span className="gradient-text">Révolutionner</span> vos Publicités ?
+              Rejoignez la <span className="gradient-text">Révolution</span> Google Ads
             </h2>
             
             <p className="capture-subtitle">
-              Rejoignez les +100 beta testeurs qui découvrent en avant-première 
-              les fonctionnalités révolutionnaires de Flipika.
+              Soyez parmi les premiers à accéder à l'IA qui transforme vos campagnes en machines à profit. 
+              <strong>Places limitées pour la bêta exclusive.</strong>
             </p>
           </div>
 
@@ -112,7 +112,7 @@ const EmailCapture: React.FC = () => {
                   />
                 ) : (
                   <>
-                    <span>Commencer Gratuitement</span>
+                    <span>Réserver ma Place Bêta</span>
                     <ArrowRight size={20} />
                   </>
                 )}
@@ -141,31 +141,31 @@ const EmailCapture: React.FC = () => {
           <div className="capture-benefits">
             <div className="benefit-item">
               <CheckCircle size={16} className="benefit-icon" />
-              <span>Essai gratuit de 14 jours</span>
+              <span>Accès bêta gratuit à vie</span>
             </div>
             <div className="benefit-item">
               <CheckCircle size={16} className="benefit-icon" />
-              <span>Aucune carte de crédit requise</span>
+              <span>Support prioritaire 1-on-1</span>
             </div>
             <div className="benefit-item">
               <CheckCircle size={16} className="benefit-icon" />
-              <span>Configuration en 5 minutes</span>
+              <span>Influence sur les nouvelles fonctionnalités</span>
             </div>
           </div>
 
           {/* Trust Indicators */}
           <div className="trust-indicators">
             <div className="trust-item">
-              <span className="trust-number gradient-text">10,000+</span>
-              <span className="trust-label">Utilisateurs Actifs</span>
+              <span className="trust-number gradient-text">127</span>
+              <span className="trust-label">Beta Testeurs Actifs</span>
             </div>
             <div className="trust-item">
-              <span className="trust-number gradient-text">€50M+</span>
-              <span className="trust-label">Budget Géré</span>
+              <span className="trust-number gradient-text">73</span>
+              <span className="trust-label">Places Restantes</span>
             </div>
             <div className="trust-item">
-              <span className="trust-number gradient-text">4.9/5</span>
-              <span className="trust-label">Note Moyenne</span>
+              <span className="trust-number gradient-text">+340%</span>
+              <span className="trust-label">ROAS Moyen</span>
             </div>
           </div>
         </motion.div>

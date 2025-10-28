@@ -2,8 +2,12 @@ import { motion } from 'framer-motion';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Problem from './components/Problem';
 import Features from './components/Features';
-import Testimonials from './components/Testimonials';
+import ProductDemo from './components/ProductDemo';
+import Differentiation from './components/Differentiation';
+import SocialProof from './components/Testimonials';
+
 import EmailCapture from './components/EmailCapture';
 import Footer from './components/Footer';
 import './App.css';
@@ -20,8 +24,11 @@ function App() {
       <Header />
       <main>
         <Hero />
+        <Problem />
         <Features />
-        <Testimonials />
+        <ProductDemo />
+        <Differentiation />
+        <SocialProof />
         <EmailCapture />
       </main>
       <Footer />
