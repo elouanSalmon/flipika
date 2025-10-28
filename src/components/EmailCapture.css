@@ -1,5 +1,5 @@
 .email-capture {
-  padding: var(--spacing-3xl) 0;
+  padding: var(--spacing-4xl) 0;
   position: relative;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .capture-title {
-  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-size: var(--font-size-section-title);
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: var(--spacing-lg);
@@ -54,7 +54,7 @@
 }
 
 .capture-subtitle {
-  font-size: 1.125rem;
+  font-size: var(--font-size-lg);
   line-height: 1.6;
   color: var(--color-text-secondary);
   max-width: 600px;
@@ -98,7 +98,7 @@
   border: 2px solid rgba(0, 102, 255, 0.3);
   border-radius: var(--radius-xl);
   color: var(--color-text-primary);
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   transition: all var(--transition-normal);
   backdrop-filter: var(--glass-backdrop);
   box-shadow: 0 4px 20px rgba(0, 102, 255, 0.1);
@@ -139,7 +139,7 @@
   border-radius: var(--radius-xl);
   color: white;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: var(--font-size-button);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -176,7 +176,7 @@
   gap: var(--spacing-sm);
   padding: var(--spacing-md);
   border-radius: var(--radius-lg);
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
   font-weight: 500;
 }
 
@@ -243,7 +243,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .email-capture {
-    padding: var(--spacing-2xl) 0;
+    padding: var(--spacing-3xl) 0;
   }
   
   .email-capture-container {

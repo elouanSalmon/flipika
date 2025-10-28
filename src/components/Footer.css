@@ -124,7 +124,7 @@
 }
 
 .footer-logo {
-  font-size: 28px;
+  font-size: var(--font-size-3xl);
   font-weight: 700;
   margin: 0;
 }
@@ -133,7 +133,7 @@
   color: var(--color-text-secondary);
   line-height: 1.6;
   margin-bottom: 30px;
-  font-size: 16px;
+  font-size: var(--font-size-base);
 }
 
 /* Footer Stats */
@@ -155,7 +155,7 @@
 }
 
 .stat-number {
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--color-primary);
   margin-bottom: 4px;
@@ -164,7 +164,7 @@
 }
 
 .stat-label {
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;

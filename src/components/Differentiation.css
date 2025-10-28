@@ -69,14 +69,15 @@
   color: var(--color-primary);
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--radius-full);
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   font-weight: 500;
+  margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-lg);
   backdrop-filter: var(--glass-backdrop);
 }
 
 .diff-title {
-  font-size: 3rem;
+  font-size: var(--font-size-section-title);
   font-weight: 700;
   color: var(--color-text-primary);
   margin-bottom: var(--spacing-md);
@@ -84,7 +85,7 @@
 }
 
 .diff-subtitle {
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   color: var(--color-text-secondary);
   max-width: 600px;
   margin: 0 auto;
@@ -389,7 +390,7 @@
 
 @media (max-width: 768px) {
   .differentiation {
-    padding: var(--spacing-3xl) 0;
+    padding: var(--spacing-5xl) 0;
   }
 
   .differentiation-container {

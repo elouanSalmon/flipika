@@ -178,17 +178,42 @@
   --transition-slow: 0.5s ease-out;
   --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   
-  /* Typography */
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 1.875rem;
-  --font-size-4xl: 2.25rem;
-  --font-size-5xl: 3rem;
-  --font-size-6xl: 3.75rem;
+  /* Typography Scale - Harmonized */
+  --font-size-xs: 0.75rem;      /* 12px - Small labels, captions */
+  --font-size-sm: 0.875rem;     /* 14px - Small text, secondary info */
+  --font-size-base: 1rem;       /* 16px - Body text, default */
+  --font-size-lg: 1.125rem;     /* 18px - Large body text */
+  --font-size-xl: 1.25rem;      /* 20px - Small headings, lead text */
+  --font-size-2xl: 1.5rem;      /* 24px - H4, section titles */
+  --font-size-3xl: 1.875rem;    /* 30px - H3, important headings */
+  --font-size-4xl: 2.25rem;     /* 36px - H2, major headings */
+  --font-size-5xl: 3rem;        /* 48px - H1, hero titles */
+  --font-size-6xl: 3.75rem;     /* 60px - Display titles */
+  --font-size-7xl: 4.5rem;      /* 72px - Large display */
+  
+  /* Responsive Typography - Using clamp for fluid scaling */
+  --font-size-hero: clamp(2.5rem, 5vw, 4rem);           /* Hero main title */
+  --font-size-hero-sub: clamp(1.125rem, 2.5vw, 1.5rem); /* Hero subtitle */
+  --font-size-section-title: clamp(2rem, 4vw, 3rem);    /* Section titles */
+  --font-size-card-title: clamp(1.25rem, 2vw, 1.5rem);  /* Card titles */
+  
+  /* Semantic Typography Variables */
+  --font-size-button: var(--font-size-base);            /* Button text */
+  --font-size-button-sm: var(--font-size-sm);           /* Small buttons */
+  --font-size-button-lg: var(--font-size-lg);           /* Large buttons */
+  --font-size-caption: var(--font-size-xs);             /* Captions, labels */
+  --font-size-body: var(--font-size-base);              /* Body text */
+  --font-size-body-lg: var(--font-size-lg);             /* Large body text */
+  --font-size-lead: var(--font-size-xl);                /* Lead paragraphs */
+  
+  /* Icon Sizes - Harmonized with text */
+  --icon-size-xs: 0.75rem;      /* 12px */
+  --icon-size-sm: 1rem;         /* 16px */
+  --icon-size-base: 1.25rem;    /* 20px */
+  --icon-size-lg: 1.5rem;       /* 24px */
+  --icon-size-xl: 2rem;         /* 32px */
+  --icon-size-2xl: 2.5rem;      /* 40px */
+  --icon-size-3xl: 3rem;        /* 48px */
   
   /* Z-index */
   --z-dropdown: 1000;
@@ -253,13 +278,25 @@ body {
   padding: var(--spacing-md) var(--spacing-xl);
   border-radius: var(--radius-lg);
   font-weight: 600;
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-button);
   text-decoration: none;
   border: none;
   cursor: pointer;
   transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
+}
+
+.btn-sm {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-button-sm);
+  border-radius: var(--radius-md);
+}
+
+.btn-lg {
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  font-size: var(--font-size-button-lg);
+  border-radius: var(--radius-xl);
 }
 
 .btn-primary {
@@ -271,7 +308,6 @@ body {
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-xl), 0 0 20px rgba(var(--color-primary), 0.3);
-  border: 1px solid var(--color-primary);
 }
 
 .btn-secondary {
@@ -568,6 +604,41 @@ body {
   }
 }
 
+/* Typography Utility Classes */
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+.text-4xl { font-size: var(--font-size-4xl); }
+.text-5xl { font-size: var(--font-size-5xl); }
+.text-6xl { font-size: var(--font-size-6xl); }
+.text-7xl { font-size: var(--font-size-7xl); }
+
+/* Semantic Typography Classes */
+.text-hero { font-size: var(--font-size-hero); }
+.text-hero-sub { font-size: var(--font-size-hero-sub); }
+.text-section-title { font-size: var(--font-size-section-title); }
+.text-card-title { font-size: var(--font-size-card-title); }
+.text-button { font-size: var(--font-size-button); }
+.text-button-sm { font-size: var(--font-size-button-sm); }
+.text-button-lg { font-size: var(--font-size-button-lg); }
+.text-caption { font-size: var(--font-size-caption); }
+.text-body { font-size: var(--font-size-body); }
+.text-body-lg { font-size: var(--font-size-body-lg); }
+.text-lead { font-size: var(--font-size-lead); }
+
+/* Icon Size Classes */
+.icon-xs { width: var(--icon-size-xs); height: var(--icon-size-xs); }
+.icon-sm { width: var(--icon-size-sm); height: var(--icon-size-sm); }
+.icon-base { width: var(--icon-size-base); height: var(--icon-size-base); }
+.icon-lg { width: var(--icon-size-lg); height: var(--icon-size-lg); }
+.icon-xl { width: var(--icon-size-xl); height: var(--icon-size-xl); }
+.icon-2xl { width: var(--icon-size-2xl); height: var(--icon-size-2xl); }
+.icon-3xl { width: var(--icon-size-3xl); height: var(--icon-size-3xl); }
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
@@ -599,11 +670,34 @@ body {
   outline-offset: 2px;
 }
 
+/* Responsive images and media */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent horizontal overflow */
+* {
+  max-width: 100%;
+}
+
+/* Ensure containers don't overflow */
+.container, [class*="container"] {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Responsive typography */
 @media (max-width: 768px) {
   :root {
     --spacing-xl: 1.5rem;
     --spacing-2xl: 2rem;
     --spacing-3xl: 2.5rem;
+  }
+  
+  /* Ensure better text wrapping on mobile */
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    hyphens: auto;
   }
 }
