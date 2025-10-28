@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -9,7 +10,8 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <ThemeProvider>
+      <div className="App">
       {/* Background elements */}
       <div className="bg-gradient"></div>
       <div className="bg-grid"></div>
@@ -49,7 +51,8 @@ function App() {
           ease: "linear"
         }}
       />
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Zap, TrendingUp, Target } from 'lucide-react';
+import { ArrowRight, Play, Zap, TrendingUp, Target, Sparkles, Rocket, BarChart3 } from 'lucide-react';
 import './Hero.css';
 
 const Hero: React.FC = () => {
@@ -16,29 +16,37 @@ const Hero: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.15,
+        delayChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' as const }
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
     }
   };
 
+
+
   const stats = [
-    { icon: TrendingUp, value: '300%', label: 'ROI Moyen' },
-    { icon: Target, value: '85%', label: 'Précision IA' },
-    { icon: Zap, value: '24/7', label: 'Optimisation' }
+    { icon: TrendingUp, value: '300%', label: 'ROI Moyen', color: 'blue' },
+    { icon: Target, value: '85%', label: 'Précision IA', color: 'yellow' },
+    { icon: Zap, value: '24/7', label: 'Optimisation', color: 'blue' }
   ];
 
   return (
     <section className="hero">
+      {/* Background Elements */}
+      <div className="hero-bg">
+        <div className="hero-gradient"></div>
+        <div className="hero-grid"></div>
+      </div>
+
       <div className="hero-container">
         <motion.div
           className="hero-content"
@@ -47,30 +55,34 @@ const Hero: React.FC = () => {
           animate="visible"
         >
           {/* Badge */}
-          <motion.div className="hero-badge glass" variants={itemVariants}>
+          <motion.div className="hero-badge" variants={itemVariants}>
+            <div className="badge-glow"></div>
             <Zap size={16} className="badge-icon" />
-            <span>Plateforme IA #1 pour Google Ads</span>
+            <span>Intelligence Artificielle</span>
+            <div className="badge-pulse"></div>
           </motion.div>
 
           {/* Main Heading */}
           <motion.h1 className="hero-title" variants={itemVariants}>
-            Dominez{' '}
-            <span className="gradient-text">Google Ads avec l'IA</span>
+            Révolutionnez vos{' '}
+            <span className="gradient-text">Google Ads</span>
+            <br />
+            avec l'Intelligence Artificielle
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p className="hero-subtitle" variants={itemVariants}>
-            Découvrez Flipika. La plateforme IA secrète que les meilleurs 
-            media buyers utilisent pour optimiser leurs campagnes Google Ads. Automatisez 
-            vos enchères, créez des annonces performantes et maximisez votre ROI.
+            Découvrez Flipika, la plateforme IA qui transforme vos campagnes publicitaires. 
+            Automatisation intelligente, optimisation en temps réel et ROI maximisé. 
+            <strong> Rejoignez notre communauté de beta testeurs et découvrez l'avenir de la publicité IA.</strong>
           </motion.p>
 
           {/* CTA Buttons */}
           <motion.div className="hero-cta" variants={itemVariants}>
             <motion.button
-              className="cta-primary"
+              className="btn btn-primary cta-primary"
               onClick={scrollToEmailForm}
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
             >
               <span>Commencer Gratuitement</span>
@@ -78,9 +90,9 @@ const Hero: React.FC = () => {
             </motion.button>
             
             <motion.button
-              className="cta-secondary glass"
+              className="btn btn-secondary cta-secondary"
               onClick={scrollToEmailForm}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
               <Play size={18} />
@@ -93,13 +105,16 @@ const Hero: React.FC = () => {
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
-                className="stat-item glass"
-                whileHover={{ y: -5 }}
-                transition={{ delay: index * 0.1 }}
+                className={`stat-item stat-${stat.color}`}
+                whileHover={{ y: -8, scale: 1.05 }}
+                transition={{ delay: index * 0.1, type: "spring", stiffness: 300 }}
               >
-                <stat.icon size={24} className="stat-icon" />
+                <div className="stat-icon-wrapper">
+                  <stat.icon size={24} className="stat-icon" />
+                  <div className="stat-glow"></div>
+                </div>
                 <div className="stat-content">
-                  <div className="stat-value gradient-text">{stat.value}</div>
+                  <div className="stat-value">{stat.value}</div>
                   <div className="stat-label">{stat.label}</div>
                 </div>
               </motion.div>

@@ -68,21 +68,17 @@ const EmailCapture: React.FC = () => {
         >
           {/* Header */}
           <div className="capture-header">
-            <motion.div
-              className="capture-icon"
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            >
+            <div className="capture-icon">
               <Mail size={32} />
-            </motion.div>
+            </div>
             
             <h2 className="capture-title">
               Prêt à <span className="gradient-text">Révolutionner</span> vos Publicités ?
             </h2>
             
             <p className="capture-subtitle">
-              Rejoignez plus de 10,000+ marketeurs qui utilisent déjà Flipika pour 
-              optimiser leurs campagnes Google Ads et multiplier leur ROI.
+              Rejoignez les +100 beta testeurs qui découvrent en avant-première 
+              les fonctionnalités révolutionnaires de Flipika.
             </p>
           </div>
 
