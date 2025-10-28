@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Règles pour la collection email_subscriptions
+    match /email_subscriptions/{document} {
+      // Permettre la lecture et l'écriture pour tous (pour la collecte d'emails)
+      // En production, vous pourriez vouloir restreindre davantage
+      allow read, write: if true;
+    }
+    
+    // Bloquer l'accès à toutes les autres collections par défaut
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
