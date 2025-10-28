@@ -25,12 +25,13 @@ const SocialProof: React.FC = () => {
     {
       id: 1,
       name: "Pierre D.",
-      role: "Performance Marketer",
+      role: "Media Buyer",
       company: "TechStart",
       content: "J'ai rejoint la beta de Flipika il y a 3 mois. Résultat : +340% de ROAS sur mes campagnes Google Ads. L'IA comprend vraiment le performance marketing.",
       rating: 5,
       metric: "+340% ROAS",
       avatar: "PD",
+      avatarUrl: "https://randomuser.me/api/portraits/men/32.jpg",
       verified: true,
       betaUser: true
     },
@@ -43,6 +44,7 @@ const SocialProof: React.FC = () => {
       rating: 5,
       metric: "500k€ CA/mois",
       avatar: "ML",
+      avatarUrl: "https://randomuser.me/api/portraits/women/44.jpg",
       verified: true,
       betaUser: true
     },
@@ -55,6 +57,7 @@ const SocialProof: React.FC = () => {
       rating: 5,
       metric: "-60% CPA",
       avatar: "AM",
+      avatarUrl: "https://randomuser.me/api/portraits/men/75.jpg",
       verified: true,
       betaUser: true
     }
@@ -87,14 +90,7 @@ const SocialProof: React.FC = () => {
     }
   ];
 
-  const companies = [
-    { name: "TechStart", logo: "TS" },
-    { name: "Digital Growth", logo: "DG" },
-    { name: "Scale Agency", logo: "SA" },
-    { name: "E-Shop Pro", logo: "EP" },
-    { name: "StartupLab", logo: "SL" },
-    { name: "Fashion Forward", logo: "FF" }
-  ];
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -240,7 +236,15 @@ const SocialProof: React.FC = () => {
               {/* Author */}
               <div className="testimonial-author">
                 <div className="author-avatar">
-                  <span>{testimonial.avatar}</span>
+                  {testimonial.avatarUrl ? (
+                    <img 
+                      src={testimonial.avatarUrl} 
+                      alt={testimonial.name}
+                      className="avatar-image"
+                    />
+                  ) : (
+                    <span>{testimonial.avatar}</span>
+                  )}
                   {testimonial.verified && (
                     <div className="verified-badge">
                       <CheckCircle size={14} />
@@ -257,36 +261,7 @@ const SocialProof: React.FC = () => {
           ))}
         </motion.div>
 
-        {/* Companies Section */}
-        <motion.div
-          className="companies-section"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          <div className="companies-header">
-            <p>Ils nous font déjà confiance</p>
-          </div>
-          <div className="companies-grid">
-            {companies.map((company, index) => (
-              <motion.div
-                key={company.name}
-                className="company-logo"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.1 }}
-              >
-                <div className="logo-placeholder">
-                  {company.logo}
-                </div>
-                <span className="company-name">{company.name}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+
 
         {/* Waitlist CTA */}
         <motion.div

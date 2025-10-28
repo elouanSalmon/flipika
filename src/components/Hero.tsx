@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
           {/* Main Heading - YC Style Punchline */}
           <motion.h1 className="hero-title" variants={itemVariants}>
             Votre{' '}
-            <span className="gradient-text">IA Media Buyer</span>
+            <span className="gradient-text">Media Buyer IA</span>
             <br />
             pour Google Ads.
           </motion.h1>
@@ -66,7 +66,7 @@ const Hero: React.FC = () => {
           {/* Subtitle - Precise Value & Target */}
           <motion.p className="hero-subtitle" variants={itemVariants}>
             Flipika crée, gère et optimise automatiquement vos campagnes publicitaires — 
-            comme un marketeur expert, mais <strong>100x plus rapide</strong>.
+            comme un Media Buyer expert, mais <strong>100x plus rapide</strong>.
           </motion.p>
 
           {/* CTA Buttons */}

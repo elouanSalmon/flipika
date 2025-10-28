@@ -222,6 +222,7 @@
   align-items: center;
   gap: var(--spacing-lg);
   margin-top: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
 }
 
 .transition-line {

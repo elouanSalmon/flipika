@@ -99,7 +99,7 @@ const Problem: React.FC = () => {
             <div className="transition-line"></div>
             <p className="transition-text">
               C'est pourquoi nous avons créé <strong>Flipika</strong> — 
-              votre IA media buyer qui ne dort jamais.
+              votre media buyer IA qui ne dort jamais.
             </p>
             <div className="transition-line"></div>
           </motion.div>

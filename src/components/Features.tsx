@@ -22,7 +22,7 @@ const Features: React.FC = () => {
     {
       id: 'create-campaigns',
       icon: Rocket,
-      title: 'Créez des campagnes en minutes',
+      title: 'Lancez vos campagnes instantanément',
       subtitle: 'À partir d\'un simple brief',
       description: 'Fini les heures de configuration. Décrivez votre objectif et Flipika génère une campagne complète et optimisée.',
       benefits: [
@@ -38,11 +38,11 @@ const Features: React.FC = () => {
       icon: Zap,
       title: 'Auto-optimisation continue',
       subtitle: 'Enchères, budgets et mots-clés',
-      description: 'Votre IA media buyer ajuste automatiquement vos campagnes 24/7 pour maximiser vos performances.',
+      description: 'Votre media buyer IA ajuste automatiquement vos campagnes 24/7 pour maximiser vos performances.',
       benefits: [
         { icon: CheckCircle, text: 'Enchères optimisées en temps réel' },
         { icon: CheckCircle, text: 'Répartition intelligente du budget' },
-        { icon: CheckCircle, text: 'Mots-clés négatifs automatiques' }
+        { icon: CheckCircle, text: 'Optimisation automatique des mots-clés' }
       ],
       color: 'accent',
       gradient: 'from-emerald-500 to-emerald-600'

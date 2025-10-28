@@ -398,7 +398,7 @@ const ProductDemo: React.FC = () => {
                 </div>
               </div>
               <p className="explanation-cta">
-                <strong>Prêt à transformer vos résultats ?</strong> Rejoignez les 2,847 marketeurs qui utilisent déjà Flipika pour multiplier leurs performances.
+                <strong>Prêt à transformer vos résultats ?</strong> Rejoignez les 2,847 Media Buyers qui utilisent déjà Flipika pour multiplier leurs performances.
               </p>
             </div>
           </motion.div>

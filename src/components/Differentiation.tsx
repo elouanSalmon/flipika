@@ -49,7 +49,7 @@ const Differentiation: React.FC = () => {
     },
     {
       icon: Target,
-      title: "Conçu pour les performance marketers",
+      title: "Conçu pour les Media Buyers",
       subtitle: "Pas pour les créateurs de contenu",
       description: "Chaque fonctionnalité est pensée pour maximiser votre ROAS, pas pour créer des posts Instagram.",
       color: "secondary"
@@ -210,7 +210,7 @@ const Differentiation: React.FC = () => {
           <motion.div className="diff-cta" variants={itemVariants}>
             <div className="cta-content">
               <h3>Prêt à voir la différence ?</h3>
-              <p>Découvrez pourquoi les performance marketers choisissent Flipika</p>
+              <p>Découvrez pourquoi les Media Buyers choisissent Flipika</p>
             </div>
             <motion.button
               className="cta-button"
