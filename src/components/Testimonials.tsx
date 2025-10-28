@@ -32,9 +32,9 @@ const SocialProof: React.FC = () => {
       name: "Pierre D.",
       role: "Media Buyer",
       company: "TechStart",
-      content: "J'ai rejoint la beta de Flipika il y a 3 mois. Résultat : +340% de ROAS sur mes campagnes Google Ads. L'IA comprend vraiment le performance marketing.",
+      content: "J'ai rejoint la beta de Flipika il y a 2 mois. Résultat : +180% de ROAS sur mes campagnes Google Ads. L'IA comprend vraiment le performance marketing.",
       rating: 5,
-      metric: "+340% ROAS",
+      metric: "+180% ROAS",
       avatar: "PD",
       avatarUrl: "https://randomuser.me/api/portraits/men/32.jpg",
       verified: true,
@@ -45,9 +45,9 @@ const SocialProof: React.FC = () => {
       name: "Marie L.",
       role: "Media Buyer Freelance",
       company: "Indépendante",
-      content: "Flipika m'a fait passer de 50k€ à 500k€ de CA géré par mois. L'automatisation me fait gagner 20h/semaine que je peux consacrer à mes autres clients.",
+      content: "Flipika m'a fait passer de 30k€ à 120k€ de CA géré par mois. L'automatisation me fait gagner 15h/semaine que je peux consacrer à mes autres clients.",
       rating: 5,
-      metric: "500k€ CA/mois",
+      metric: "120k€ CA/mois",
       avatar: "ML",
       avatarUrl: "https://randomuser.me/api/portraits/women/44.jpg",
       verified: true,
@@ -58,9 +58,9 @@ const SocialProof: React.FC = () => {
       name: "Antoine M.",
       role: "Founder",
       company: "E-commerce",
-      content: "En tant qu'early adopter, j'ai vu Flipika évoluer. Aujourd'hui, c'est l'outil le plus puissant que j'ai testé pour Google Ads. Mes CPA ont baissé de 60%.",
+      content: "En tant que beta testeur, j'ai vu Flipika évoluer. Aujourd'hui, c'est l'outil le plus prometteur que j'ai testé pour Google Ads. Mes CPA ont baissé de 45%.",
       rating: 5,
-      metric: "-60% CPA",
+      metric: "-45% CPA",
       avatar: "AM",
       avatarUrl: "https://randomuser.me/api/portraits/men/75.jpg",
       verified: true,
@@ -70,19 +70,19 @@ const SocialProof: React.FC = () => {
 
   const metrics = [
     {
-      value: "150+",
-      label: "Early adopters",
+      value: "100+",
+      label: "Beta testeurs",
       icon: Users,
       color: "primary"
     },
     {
-      value: "+280%",
+      value: "+180%",
       label: "ROAS moyen",
       icon: TrendingUp,
       color: "accent"
     },
     {
-      value: "€2.3M",
+      value: "€850K",
       label: "Budget optimisé",
       icon: Target,
       color: "secondary"
@@ -152,13 +152,13 @@ const SocialProof: React.FC = () => {
         >
           <div className="testimonials-badge">
             <Award size={16} />
-            <span>Early Adopters</span>
+            <span>Beta Testeurs</span>
           </div>
           <h2 className="testimonials-title">
             Ils ont testé Flipika en <span className="gradient-text">avant-première</span>
           </h2>
           <p className="testimonials-subtitle">
-            Découvrez les résultats de nos 150+ early adopters qui utilisent déjà Flipika
+            Découvrez les résultats de nos 100+ beta testeurs qui utilisent déjà Flipika
           </p>
         </motion.div>
 

@@ -134,13 +134,13 @@ const Hero: React.FC = () => {
             <div className="mockup-content">
               <div className="metric-card glass">
                 <div className="metric-label">ROI Total</div>
-                <div className="metric-value gradient-text">+347%</div>
-                <div className="metric-trend">↗ +23% ce mois</div>
+                <div className="metric-value gradient-text">+180%</div>
+                <div className="metric-trend">↗ +15% ce mois</div>
               </div>
               
               <div className="metric-card glass">
                 <div className="metric-label">Coût par Acquisition</div>
-                <div className="metric-value gradient-text">-52%</div>
+                <div className="metric-value gradient-text">-35%</div>
                 <div className="metric-trend">↘ Optimisé par IA</div>
               </div>
               
