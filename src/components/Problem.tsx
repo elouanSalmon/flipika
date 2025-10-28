@@ -34,13 +34,13 @@ const Problem: React.FC = () => {
       icon: TrendingDown,
       title: "Vos campagnes sont incohérentes",
       description: "et difficiles à scaler.",
-      color: "orange"
+      color: "blue"
     },
     {
       icon: DollarSign,
       title: "Embaucher une agence ou un expert",
       description: "coûte cher et prend du temps.",
-      color: "yellow"
+      color: "blue"
     }
   ];
 

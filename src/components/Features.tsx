@@ -31,7 +31,7 @@ const Features: React.FC = () => {
         { icon: CheckCircle, text: 'Audiences ciblées' }
       ],
       color: 'primary',
-      gradient: 'from-blue-500 to-blue-600'
+      gradient: 'from-indigo-500 to-indigo-600'
     },
     {
       id: 'auto-optimize',
@@ -45,7 +45,7 @@ const Features: React.FC = () => {
         { icon: CheckCircle, text: 'Mots-clés négatifs automatiques' }
       ],
       color: 'accent',
-      gradient: 'from-yellow-500 to-yellow-600'
+      gradient: 'from-emerald-500 to-emerald-600'
     },
     {
       id: 'boost-roas',
@@ -59,7 +59,7 @@ const Features: React.FC = () => {
         { icon: CheckCircle, text: 'Prédictions de performance' }
       ],
       color: 'primary',
-      gradient: 'from-blue-600 to-blue-400'
+      gradient: 'from-indigo-600 to-indigo-400'
     },
     {
       id: 'actionable-insights',
@@ -73,7 +73,7 @@ const Features: React.FC = () => {
         { icon: CheckCircle, text: 'Alertes intelligentes' }
       ],
       color: 'accent',
-      gradient: 'from-purple-500 to-purple-600'
+      gradient: 'from-emerald-500 to-emerald-600'
     }
   ];
 
@@ -147,8 +147,8 @@ const Features: React.FC = () => {
               
               {/* Icon Section */}
               <div className="feature-header">
-                <div className="feature-icon-wrapper">
-                  <solution.icon size={24} className="feature-icon" />
+                <div className="feature-icon-wrapper icon-4xl">
+                  <solution.icon size={24} className="feature-icon icon-md" />
                   <div className="icon-glow"></div>
                 </div>
                 <div className="feature-badge">
@@ -173,7 +173,7 @@ const Features: React.FC = () => {
                       viewport={{ once: true }}
                     >
                       <div className="feature-item-icon-wrapper">
-                        <CheckCircle size={16} className="feature-item-icon" />
+                        <CheckCircle size={16} className="feature-item-icon icon-xs" />
                       </div>
                       <span>{item.text}</span>
                     </motion.div>

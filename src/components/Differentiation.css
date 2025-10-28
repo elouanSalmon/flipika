@@ -138,20 +138,20 @@
   background: rgba(var(--glass-rgb), 0.08);
 }
 
-.diff-blue {
+.diff-primary {
   --accent-color: var(--color-primary);
 }
 
-.diff-purple {
+.diff-secondary {
+  --accent-color: var(--color-secondary);
+}
+
+.diff-accent {
   --accent-color: var(--color-accent);
 }
 
-.diff-green {
-  --accent-color: var(--color-primary);
-}
-
-.diff-orange {
-  --accent-color: var(--color-secondary);
+.diff-warning {
+  --accent-color: var(--color-warning);
 }
 
 .diff-icon {
@@ -160,31 +160,31 @@
   justify-content: center;
   width: 64px;
   height: 64px;
-  background: rgba(0, 102, 255, 0.1);
-  border: 1px solid rgba(0, 102, 255, 0.2);
+  background: rgba(var(--color-primary), 0.1);
+  border: 1px solid rgba(var(--color-primary), 0.2);
   border-radius: var(--radius-lg);
   color: var(--accent-color);
   margin-bottom: var(--spacing-lg);
 }
 
-.diff-blue .diff-icon {
-  background: rgba(0, 102, 255, 0.1);
-  border-color: rgba(0, 102, 255, 0.2);
+.diff-primary .diff-icon {
+  background: rgba(var(--color-primary), 0.1);
+  border-color: rgba(var(--color-primary), 0.2);
 }
 
-.diff-purple .diff-icon {
-  background: rgba(0, 102, 255, 0.1);
-  border-color: rgba(0, 102, 255, 0.2);
+.diff-secondary .diff-icon {
+  background: rgba(var(--color-secondary), 0.1);
+  border-color: rgba(var(--color-secondary), 0.2);
 }
 
-.diff-green .diff-icon {
-  background: rgba(0, 102, 255, 0.1);
-  border-color: rgba(0, 102, 255, 0.2);
+.diff-accent .diff-icon {
+  background: rgba(var(--color-accent), 0.1);
+  border-color: rgba(var(--color-accent), 0.2);
 }
 
-.diff-orange .diff-icon {
-  background: rgba(255, 204, 0, 0.1);
-  border-color: rgba(255, 204, 0, 0.2);
+.diff-warning .diff-icon {
+  background: rgba(var(--color-warning), 0.1);
+  border-color: rgba(var(--color-warning), 0.2);
 }
 
 .diff-content h3 {
@@ -365,7 +365,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: var(--shadow-glow-blue);
+  box-shadow: var(--shadow-lg);
 }
 
 .cta-button:hover {

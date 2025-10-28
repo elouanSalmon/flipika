@@ -71,14 +71,15 @@
 .logo-subtitle {
   font-size: var(--font-size-xs);
   font-weight: 700;
-  background: var(--color-accent-yellow);
-  color: var(--color-text-primary);
+  background: rgba(var(--color-primary), 0.1);
+  color: var(--color-primary);
+  border: 1px solid rgba(var(--color-primary), 0.3);
   padding: 2px 8px;
   border-radius: var(--radius-full);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   align-self: flex-start;
-  box-shadow: 0 0 10px var(--color-accent-yellow-glow);
+  box-shadow: 0 0 8px var(--color-accent-glow);
 }
 
 /* Desktop Navigation */

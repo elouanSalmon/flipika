@@ -125,18 +125,18 @@
   left: var(--spacing-sm);
   width: 6px;
   height: 6px;
-  background: var(--color-accent-yellow);
+  background: var(--color-accent);
   border-radius: 50%;
   transform: translateY(-50%);
-  animation: pulse 2s infinite;
-  box-shadow: 0 0 10px var(--color-accent-yellow-glow);
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--shadow-glow-accent);
 }
 
 .badge-icon {
   position: relative;
   z-index: 1;
-  color: var(--color-accent-yellow);
-  filter: drop-shadow(0 0 4px var(--color-accent-yellow-glow));
+  color: var(--color-accent);
+  filter: drop-shadow(0 0 4px var(--shadow-glow-accent));
 }
 
 /* Title */
@@ -232,12 +232,16 @@
   transform: scaleX(1);
 }
 
-.stat-blue {
-  border-color: rgba(var(--primary-rgb), 0.3);
+.stat-primary {
+  border-color: rgba(0, 102, 255, 0.3);
 }
 
-.stat-yellow {
-  border-color: rgba(var(--accent-rgb), 0.3);
+.stat-secondary {
+  border-color: rgba(0, 102, 255, 0.3);
+}
+
+.stat-accent {
+  border-color: rgba(0, 102, 255, 0.3);
 }
 
 .stat-icon-wrapper {
@@ -245,20 +249,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
   border-radius: var(--radius-md);
-  background: rgba(var(--primary-rgb), 0.1);
+  background: rgba(0, 102, 255, 0.1);
 }
 
-.stat-blue .stat-icon-wrapper {
-  background: rgba(var(--primary-rgb), 0.1);
-  color: var(--primary);
+.stat-primary .stat-icon-wrapper {
+  background: rgba(0, 102, 255, 0.1);
+  color: var(--color-primary);
 }
 
-.stat-yellow .stat-icon-wrapper {
-  background: rgba(var(--accent-rgb), 0.1);
-  color: var(--accent);
+.stat-secondary .stat-icon-wrapper {
+  background: rgba(0, 102, 255, 0.1);
+  color: var(--color-secondary);
+}
+
+.stat-accent .stat-icon-wrapper {
+  background: rgba(0, 102, 255, 0.1);
+  color: var(--color-accent);
 }
 
 .stat-icon {
@@ -292,15 +299,19 @@
 .stat-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--color-text-primary);
 }
 
-.stat-blue .stat-value {
-  color: var(--primary);
+.stat-primary .stat-value {
+  color: var(--color-primary);
 }
 
-.stat-yellow .stat-value {
-  color: var(--accent);
+.stat-secondary .stat-value {
+  color: var(--color-secondary);
+}
+
+.stat-accent .stat-value {
+  color: var(--color-accent);
 }
 
 .stat-label {
@@ -408,11 +419,6 @@
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
-  50% { opacity: 0.5; transform: translateY(-50%) scale(1.2); }
 }
 
 /* Responsive Design */
