@@ -166,7 +166,7 @@
 }
 
 .feature-accent .feature-icon-wrapper {
-  background: rgba(251, 191, 36, 0.1);
+  background: rgba(255, 204, 0, 0.1);
   color: var(--color-accent-yellow);
   box-shadow: 0 0 15px var(--color-accent-yellow-glow);
 }
@@ -345,6 +345,18 @@
     padding: var(--spacing-xl);
     min-height: 450px;
   }
+}
+
+/* Mini-CTA */
+.features-mini-cta {
+  text-align: center;
+  margin-top: var(--spacing-4xl);
+}
+
+.features-mini-cta .btn {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {

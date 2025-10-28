@@ -26,10 +26,10 @@ const Header: React.FC = () => {
   }, []);
 
   const navItems = [
-    { label: 'Plateforme', href: '#platform' },
+    { label: 'Problème', href: '#problem' },
+    { label: 'Solution', href: '#product-demo' },
     { label: 'Fonctionnalités', href: '#features' },
     { label: 'Témoignages', href: '#testimonials' },
-    { label: 'Tarifs', href: '#pricing' },
   ];
 
   return (

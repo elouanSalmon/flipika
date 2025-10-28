@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Zap, TrendingUp, Target, Sparkles, Rocket, BarChart3 } from 'lucide-react';
+import { ArrowRight, Play, Zap, TrendingUp, Target } from 'lucide-react';
 import './Hero.css';
 
 const Hero: React.FC = () => {
@@ -26,8 +26,7 @@ const Hero: React.FC = () => {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+      y: 0
     }
   };
 
@@ -54,27 +53,20 @@ const Hero: React.FC = () => {
           initial="hidden"
           animate="visible"
         >
-          {/* Badge */}
-          <motion.div className="hero-badge" variants={itemVariants}>
-            <div className="badge-glow"></div>
-            <Zap size={16} className="badge-icon" />
-            <span>Intelligence Artificielle</span>
-            <div className="badge-pulse"></div>
-          </motion.div>
 
-          {/* Main Heading */}
+
+          {/* Main Heading - YC Style Punchline */}
           <motion.h1 className="hero-title" variants={itemVariants}>
-            Révolutionnez vos{' '}
-            <span className="gradient-text">Google Ads</span>
+            Votre{' '}
+            <span className="gradient-text">IA Media Buyer</span>
             <br />
-            avec l'Intelligence Artificielle
+            pour Google Ads.
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle - Precise Value & Target */}
           <motion.p className="hero-subtitle" variants={itemVariants}>
-            Découvrez Flipika, la plateforme IA qui transforme vos campagnes publicitaires. 
-            Automatisation intelligente, optimisation en temps réel et ROI maximisé. 
-            <strong> Rejoignez notre communauté de beta testeurs et découvrez l'avenir de la publicité IA.</strong>
+            Flipika crée, gère et optimise automatiquement vos campagnes publicitaires — 
+            comme un marketeur expert, mais <strong>100x plus rapide</strong>.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -85,7 +77,7 @@ const Hero: React.FC = () => {
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span>Commencer Gratuitement</span>
+              <span>Rejoindre la waitlist</span>
               <ArrowRight size={20} />
             </motion.button>
             
@@ -96,7 +88,7 @@ const Hero: React.FC = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Play size={18} />
-              <span>Voir la Démo</span>
+              <span>Voir comment ça marche</span>
             </motion.button>
           </motion.div>
 
@@ -107,7 +99,7 @@ const Hero: React.FC = () => {
                 key={stat.label}
                 className={`stat-item stat-${stat.color}`}
                 whileHover={{ y: -8, scale: 1.05 }}
-                transition={{ delay: index * 0.1, type: "spring", stiffness: 300 }}
+                transition={{ delay: index * 0.1, type: "spring" as const, stiffness: 300 }}
               >
                 <div className="stat-icon-wrapper">
                   <stat.icon size={24} className="stat-icon" />

@@ -350,15 +350,15 @@
 }
 
 .mockup-dots span:first-child {
-  background: #ff5f57;
+  background: var(--color-primary);
 }
 
 .mockup-dots span:nth-child(2) {
-  background: #ffbd2e;
+  background: var(--color-secondary);
 }
 
 .mockup-dots span:last-child {
-  background: #28ca42;
+  background: var(--color-primary);
 }
 
 .mockup-title {

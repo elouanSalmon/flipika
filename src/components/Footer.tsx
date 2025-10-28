@@ -9,9 +9,7 @@ import {
   Facebook,
   Instagram,
   ArrowUp,
-  Sparkles,
   Rocket,
-  BarChart3,
   Globe,
   Shield,
   Zap
@@ -107,7 +105,7 @@ const Footer: React.FC = () => {
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Twitter size={20} />
+                  <Twitter size={18} />
                   <div className="social-glow"></div>
                 </motion.a>
                 <motion.a 
@@ -117,7 +115,7 @@ const Footer: React.FC = () => {
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Linkedin size={20} />
+                  <Linkedin size={18} />
                   <div className="social-glow"></div>
                 </motion.a>
                 <motion.a 
@@ -127,7 +125,7 @@ const Footer: React.FC = () => {
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Facebook size={20} />
+                  <Facebook size={18} />
                   <div className="social-glow"></div>
                 </motion.a>
                 <motion.a 
@@ -154,45 +152,36 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#features"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Fonctionnalités
                   </motion.a>
                 </li>
                 <li>
                   <motion.a 
-                    href="#pricing"
+                    href="#problem"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
-                    Tarifs
+                    Problème
                   </motion.a>
                 </li>
                 <li>
                   <motion.a 
-                    href="#integrations"
+                    href="#product-demo"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
-                    Intégrations
+                    Solution
                   </motion.a>
                 </li>
                 <li>
                   <motion.a 
-                    href="#api"
+                    href="#testimonials"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
-                    API
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
-                    href="#changelog"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    Nouveautés
+                    Témoignages
                   </motion.a>
                 </li>
               </ul>
@@ -209,7 +198,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#about"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     À propos
                   </motion.a>
@@ -218,7 +207,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#careers"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Carrières
                   </motion.a>
@@ -227,7 +216,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#press"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Presse
                   </motion.a>
@@ -236,7 +225,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#partners"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Partenaires
                   </motion.a>
@@ -245,7 +234,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#contact"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Contact
                   </motion.a>
@@ -264,7 +253,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#blog"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Blog
                   </motion.a>
@@ -273,7 +262,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#help"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Centre d'aide
                   </motion.a>
@@ -282,7 +271,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#guides"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Guides
                   </motion.a>
@@ -291,7 +280,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#webinars"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Webinaires
                   </motion.a>
@@ -300,7 +289,7 @@ const Footer: React.FC = () => {
                   <motion.a 
                     href="#community"
                     whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring" as const, stiffness: 300 }}
                   >
                     Communauté
                   </motion.a>
@@ -318,7 +307,7 @@ const Footer: React.FC = () => {
                 <motion.div 
                   className="contact-item"
                   whileHover={{ scale: 1.02, x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: "spring" as const, stiffness: 300 }}
                 >
                   <div className="contact-icon">
                     <Mail size={16} />
@@ -329,7 +318,7 @@ const Footer: React.FC = () => {
                 <motion.div 
                   className="contact-item"
                   whileHover={{ scale: 1.02, x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: "spring" as const, stiffness: 300 }}
                 >
                   <div className="contact-icon">
                     <Phone size={16} />
@@ -340,7 +329,7 @@ const Footer: React.FC = () => {
                 <motion.div 
                   className="contact-item"
                   whileHover={{ scale: 1.02, x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: "spring" as const, stiffness: 300 }}
                 >
                   <div className="contact-icon">
                     <MapPin size={16} />
@@ -363,28 +352,28 @@ const Footer: React.FC = () => {
                 <motion.a 
                   href="#privacy"
                   whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: "spring" as const, stiffness: 300 }}
                 >
                   Politique de confidentialité
                 </motion.a>
                 <motion.a 
                   href="#terms"
                   whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: "spring" as const, stiffness: 300 }}
                 >
                   Conditions d'utilisation
                 </motion.a>
                 <motion.a 
                   href="#cookies"
                   whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: "spring" as const, stiffness: 300 }}
                 >
                   Cookies
                 </motion.a>
                 <motion.a 
                   href="#legal"
                   whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: "spring" as const, stiffness: 300 }}
                 >
                   Mentions légales
                 </motion.a>

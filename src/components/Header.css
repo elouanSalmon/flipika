@@ -72,7 +72,7 @@
   font-size: var(--font-size-xs);
   font-weight: 700;
   background: var(--color-accent-yellow);
-  color: #1a1a1a;
+  color: var(--color-text-primary);
   padding: 2px 8px;
   border-radius: var(--radius-full);
   text-transform: uppercase;

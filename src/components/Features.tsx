@@ -1,63 +1,79 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Bolt, 
-  Palette, 
-  BarChart3, 
-  Brain, 
-  Rocket, 
-  Target,
   TrendingUp,
   Zap,
-  Eye,
   ArrowRight,
-  CheckCircle
+  Rocket,
+  CheckCircle,
+  Eye
 } from 'lucide-react';
 import './Features.css';
 
 const Features: React.FC = () => {
-  const features = [
+  const scrollToEmailForm = () => {
+    const emailSection = document.getElementById('email-capture');
+    if (emailSection) {
+      emailSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const solutions = [
     {
-      id: 'optimization',
-      icon: Zap,
-      title: 'Optimisation IA',
-      subtitle: 'Expert Google Ads IA Personnel',
-      description: 'Transformez vos campagnes avec notre IA experte qui analyse, optimise et automatise vos enchères en temps réel pour maximiser votre ROI.',
-      features: [
-        { icon: Brain, text: 'Optimisation automatique des enchères' },
-        { icon: Target, text: 'Ciblage intelligent par mots-clés' },
-        { icon: Rocket, text: 'Lancement automatisé de campagnes' }
+      id: 'create-campaigns',
+      icon: Rocket,
+      title: 'Créez des campagnes en minutes',
+      subtitle: 'À partir d\'un simple brief',
+      description: 'Fini les heures de configuration. Décrivez votre objectif et Flipika génère une campagne complète et optimisée.',
+      benefits: [
+        { icon: CheckCircle, text: 'Configuration automatique' },
+        { icon: CheckCircle, text: 'Mots-clés intelligents' },
+        { icon: CheckCircle, text: 'Audiences ciblées' }
       ],
       color: 'primary',
       gradient: 'from-blue-500 to-blue-600'
     },
     {
-      id: 'creatives',
-      icon: Palette,
-      title: 'Création d\'Annonces',
-      subtitle: 'Générateur IA Haute Performance',
-      description: 'Créez des annonces qui convertissent en quelques secondes. Notre IA génère, teste et optimise automatiquement vos créations publicitaires.',
-      features: [
-        { icon: Bolt, text: 'Génération IA instantanée' },
-        { icon: Eye, text: 'Tests A/B automatiques' },
-        { icon: TrendingUp, text: 'Optimisation en continu' }
+      id: 'auto-optimize',
+      icon: Zap,
+      title: 'Auto-optimisation continue',
+      subtitle: 'Enchères, budgets et mots-clés',
+      description: 'Votre IA media buyer ajuste automatiquement vos campagnes 24/7 pour maximiser vos performances.',
+      benefits: [
+        { icon: CheckCircle, text: 'Enchères optimisées en temps réel' },
+        { icon: CheckCircle, text: 'Répartition intelligente du budget' },
+        { icon: CheckCircle, text: 'Mots-clés négatifs automatiques' }
       ],
       color: 'accent',
       gradient: 'from-yellow-500 to-yellow-600'
     },
     {
-      id: 'analytics',
-      icon: BarChart3,
-      title: 'Analytics Avancés',
-      subtitle: 'Intelligence Prédictive',
-      description: 'Découvrez des insights cachés dans vos données. Notre IA prédit les performances et recommande les actions les plus rentables.',
-      features: [
-        { icon: BarChart3, text: 'Tableaux de bord intelligents' },
-        { icon: Brain, text: 'Prédictions de performance' },
-        { icon: Target, text: 'Recommandations personnalisées' }
+      id: 'boost-roas',
+      icon: TrendingUp,
+      title: 'Boostez votre ROAS',
+      subtitle: 'Avec l\'apprentissage IA continu',
+      description: 'Plus Flipika gère vos campagnes, plus elle devient performante. Chaque donnée améliore vos résultats.',
+      benefits: [
+        { icon: CheckCircle, text: 'ROAS en amélioration constante' },
+        { icon: CheckCircle, text: 'Apprentissage de vos données' },
+        { icon: CheckCircle, text: 'Prédictions de performance' }
       ],
       color: 'primary',
       gradient: 'from-blue-600 to-blue-400'
+    },
+    {
+      id: 'actionable-insights',
+      icon: Eye,
+      title: 'Insights actionnables',
+      subtitle: 'Sans setup, sans agence',
+      description: 'Recevez des recommandations claires et précises pour améliorer vos performances, directement dans votre dashboard.',
+      benefits: [
+        { icon: CheckCircle, text: 'Rapports automatiques' },
+        { icon: CheckCircle, text: 'Recommandations personnalisées' },
+        { icon: CheckCircle, text: 'Alertes intelligentes' }
+      ],
+      color: 'accent',
+      gradient: 'from-purple-500 to-purple-600'
     }
   ];
 
@@ -80,8 +96,7 @@ const Features: React.FC = () => {
       scale: 1,
       transition: { 
         duration: 0.8, 
-        ease: [0.25, 0.46, 0.45, 0.94],
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
@@ -99,12 +114,11 @@ const Features: React.FC = () => {
           viewport={{ once: true }}
         >
           <h2 className="features-title">
-            Maîtrisez l'<span className="gradient-text">Optimisation IA des Publicités</span> pour Google
+            Ce que <span className="gradient-text">Flipika</span> fait pour vous
           </h2>
           <p className="features-subtitle">
-            Les publicités Google n'ont pas besoin d'être de la science-fiction. Notre Plateforme Publicitaire Intelligente 
-            avec Gestionnaire de Campagne IA vous permet de passer moins de temps dans Google Ads Manager et d'accomplir plus 
-            avec l'automatisation intelligente des publicités Google.
+            Pas de features d'abord — des résultats concrets. 
+            Voici comment Flipika transforme votre approche Google Ads.
           </p>
         </motion.div>
 
@@ -116,10 +130,10 @@ const Features: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {features.map((feature, index) => (
+          {solutions.map((solution, index) => (
             <motion.div
-              key={feature.id}
-              className={`feature-card feature-${feature.color}`}
+              key={solution.id}
+              className={`feature-card feature-${solution.color}`}
               variants={itemVariants}
               whileHover={{ 
                 y: -15, 
@@ -134,7 +148,7 @@ const Features: React.FC = () => {
               {/* Icon Section */}
               <div className="feature-header">
                 <div className="feature-icon-wrapper">
-                  <feature.icon size={28} className="feature-icon" />
+                  <solution.icon size={24} className="feature-icon" />
                   <div className="icon-glow"></div>
                 </div>
                 <div className="feature-badge">
@@ -144,12 +158,12 @@ const Features: React.FC = () => {
               
               {/* Content */}
               <div className="feature-content">
-                <h3 className="feature-title">{feature.title}</h3>
-                <h4 className="feature-subtitle">{feature.subtitle}</h4>
-                <p className="feature-description">{feature.description}</p>
+                <h3 className="feature-title">{solution.title}</h3>
+                <h4 className="feature-subtitle">{solution.subtitle}</h4>
+                <p className="feature-description">{solution.description}</p>
                 
                 <div className="feature-list">
-                  {feature.features.map((item, idx) => (
+                  {solution.benefits.map((item, idx) => (
                     <motion.div 
                       key={idx} 
                       className="feature-item"
@@ -172,14 +186,33 @@ const Features: React.FC = () => {
                 className="feature-cta btn btn-secondary"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={scrollToEmailForm}
               >
                 <span>Découvrir</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={20} />
               </motion.button>
             </motion.div>
           ))}
         </motion.div>
 
+        {/* Mini-CTA */}
+        <motion.div
+          className="features-mini-cta"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          <motion.button
+            className="btn btn-outline"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={scrollToEmailForm}
+          >
+            <span>Voir comment ça marche</span>
+            <ArrowRight size={20} />
+          </motion.button>
+        </motion.div>
 
       </div>
     </section>
