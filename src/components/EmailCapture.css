@@ -86,27 +86,36 @@
   left: var(--spacing-lg);
   top: 50%;
   transform: translateY(-50%);
-  color: var(--color-text-muted);
+  color: rgba(59, 130, 246, 0.7);
   pointer-events: none;
+  transition: all var(--transition-normal);
 }
 
 .email-input {
   width: 100%;
   padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) 3rem;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(59, 130, 246, 0.3);
   border-radius: var(--radius-xl);
   color: var(--color-text-primary);
   font-size: 1rem;
   transition: all var(--transition-normal);
   backdrop-filter: var(--glass-backdrop);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
 }
 
 .email-input:focus {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-  background: var(--glass-bg-hover);
+  border-color: var(--color-accent-yellow);
+  box-shadow: 0 0 0 3px var(--color-accent-yellow-glow), 0 4px 25px rgba(59, 130, 246, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.email-input:focus + .input-icon,
+.input-wrapper:focus-within .input-icon {
+  color: var(--color-accent-yellow);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .email-input.error {

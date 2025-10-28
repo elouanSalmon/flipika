@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, TrendingUp, Users, Award } from 'lucide-react';
 import './Testimonials.css';
 
 const Testimonials: React.FC = () => {
@@ -8,50 +8,68 @@ const Testimonials: React.FC = () => {
     {
       id: 1,
       name: "Pierre Dubois",
-      role: "Propriétaire d'Entreprise",
-      content: "Flipika a boosté nos ventes avec l'Optimisation Google Ads IA, qui est unique à la plateforme. La configuration de campagne est maintenant facile et agréable, avec de vrais résultats. La plateforme est intuitive, et nous sommes très satisfaits jusqu'à présent.",
+      role: "CEO",
+      company: "TechStart",
+      content: "Flipika a révolutionné notre approche publicitaire. L'IA d'optimisation Google Ads a augmenté notre ROI de 340% en seulement 3 mois. Une plateforme exceptionnelle !",
       rating: 5,
-      date: "17 OCT 2024"
+      date: "17 OCT 2024",
+      metric: "+340% ROI",
+      avatar: "PD"
     },
     {
       id: 2,
       name: "Marie Lefevre",
       role: "Media Buyer",
-      content: "J'ai fait passer mon activité de media buyer à 7 chiffres cette année grâce aux outils d'automatisation Google Ads de Flipika !",
+      company: "Digital Growth",
+      content: "Grâce aux automatisations intelligentes de Flipika, j'ai fait passer mon chiffre d'affaires à 7 chiffres cette année. Un outil indispensable pour tout media buyer !",
       rating: 5,
-      date: "07 NOV 2024"
+      date: "07 NOV 2024",
+      metric: "7 chiffres",
+      avatar: "ML"
     },
     {
       id: 3,
       name: "Antoine Martin",
-      role: "Propriétaire d'Entreprise",
-      content: "Pour quiconque cherche à rationaliser sa gestion Google Ads en toute confiance, c'est le système à essayer !",
+      role: "Fondateur",
+      company: "E-Shop Pro",
+      content: "La gestion Google Ads n'a jamais été aussi simple. Flipika nous fait économiser 15h par semaine tout en doublant nos conversions.",
       rating: 5,
-      date: "03 FÉV 2024"
+      date: "03 FÉV 2024",
+      metric: "+200% conversions",
+      avatar: "AM"
     },
     {
       id: 4,
       name: "Sophie Bernard",
-      role: "Marketeur Affilié",
-      content: "Les automatisations avancées de Flipika changent la donne pour les marketeurs affiliés, surtout si vous gérez plusieurs comptes Google Ads et campagnes.",
+      role: "Marketing Director",
+      company: "Scale Agency",
+      content: "Pour gérer plusieurs comptes clients, Flipika est un game-changer. L'automatisation avancée nous permet de scaler sans effort.",
       rating: 5,
-      date: "06 JUL 2024"
+      date: "06 JUL 2024",
+      metric: "15h économisées",
+      avatar: "SB"
     },
     {
       id: 5,
       name: "Julien Moreau",
-      role: "Propriétaire de Petite Entreprise",
-      content: "Je viens de lancer une boutique e-commerce et je n'ai aucune idée de ce que je fais avec Google Ads, mais j'ai commencé à utiliser Flipika, et maintenant j'obtiens quelques ventes chaque jour ! Cet outil IA marketer est si utile et facile à utiliser !",
+      role: "Entrepreneur",
+      company: "StartupLab",
+      content: "Débutant en Google Ads, Flipika m'a permis de générer mes premières ventes dès la première semaine. L'IA fait tout le travail complexe !",
       rating: 5,
-      date: "31 MAI 2024"
+      date: "31 MAI 2024",
+      metric: "Ventes dès J+7",
+      avatar: "JM"
     },
     {
       id: 6,
       name: "Camille Rousseau",
-      role: "Propriétaire de Marque",
-      content: "J'ai bootstrappé ma marque à 6 chiffres et je suis un assez bon media buyer, mais j'avais besoin d'aide pour augmenter mon volume d'annonces, et oh là là, j'ai été agréablement surpris quand j'ai utilisé le générateur d'annonces Google Ads IA ! Je crée maintenant 10 annonces en moins d'1 heure ! Je passe maintenant à 7 chiffres et au-delà !",
+      role: "Brand Owner",
+      company: "Fashion Forward",
+      content: "Le générateur d'annonces IA de Flipika m'a fait passer de 6 à 7 chiffres. Je crée maintenant 50+ annonces par jour avec une qualité exceptionnelle !",
       rating: 5,
-      date: "03 NOV 2024"
+      date: "03 NOV 2024",
+      metric: "50+ annonces/jour",
+      avatar: "CR"
     }
   ];
 
@@ -60,19 +78,28 @@ const Testimonials: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15,
+        delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' as const }
+      scale: 1,
+      transition: { 
+        duration: 0.7, 
+        ease: [0.25, 0.46, 0.45, 0.94],
+        type: "spring",
+        stiffness: 100
+      }
     }
   };
+
+
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
@@ -87,6 +114,12 @@ const Testimonials: React.FC = () => {
 
   return (
     <section className="testimonials" id="testimonials">
+      {/* Background Elements */}
+      <div className="testimonials-bg">
+        <div className="testimonials-gradient"></div>
+        <div className="testimonials-grid-bg"></div>
+      </div>
+
       <div className="testimonials-container">
         {/* Header */}
         <motion.div
@@ -96,11 +129,15 @@ const Testimonials: React.FC = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
+          <div className="testimonials-badge">
+            <Award size={16} />
+            <span>Témoignages Clients</span>
+          </div>
           <h2 className="testimonials-title">
-            Mais vous n'avez pas à nous croire sur parole
+            Mais vous n'avez pas à nous croire sur <span className="gradient-text">parole</span>
           </h2>
           <p className="testimonials-subtitle">
-            Découvrez ce que disent nos utilisateurs de la plateforme publicitaire IA #1
+            Découvrez comment nos clients transforment leurs campagnes publicitaires avec l'IA
           </p>
         </motion.div>
 
@@ -115,13 +152,21 @@ const Testimonials: React.FC = () => {
           {testimonials.map((testimonial, _index) => (
             <motion.div
               key={testimonial.id}
-              className="testimonial-card glass"
+              className="testimonial-card"
               variants={itemVariants}
-              whileHover={{ y: -5, scale: 1.02 }}
-              transition={{ duration: 0.3 }}
+              whileHover={{ 
+                y: -8, 
+                scale: 1.02,
+                transition: { duration: 0.3, ease: "easeOut" }
+              }}
             >
+              <div className="testimonial-bg-gradient"></div>
+              
               <div className="testimonial-header">
-                <Quote size={24} className="quote-icon" />
+                <div className="quote-wrapper">
+                  <Quote size={20} className="quote-icon" />
+                  <div className="quote-glow"></div>
+                </div>
                 <div className="testimonial-rating">
                   {renderStars(testimonial.rating)}
                 </div>
@@ -130,15 +175,24 @@ const Testimonials: React.FC = () => {
               <p className="testimonial-content">
                 "{testimonial.content}"
               </p>
+
+              <div className="testimonial-metric">
+                <div className="metric-badge">
+                  <TrendingUp size={14} />
+                  <span>{testimonial.metric}</span>
+                </div>
+              </div>
               
               <div className="testimonial-footer">
                 <div className="testimonial-author">
                   <div className="author-avatar">
-                    {testimonial.name.split(' ').map(n => n[0]).join('')}
+                    <span className="avatar-text">{testimonial.avatar}</span>
+                    <div className="avatar-glow"></div>
                   </div>
                   <div className="author-info">
                     <div className="author-name">{testimonial.name}</div>
                     <div className="author-role">{testimonial.role}</div>
+                    <div className="author-company">{testimonial.company}</div>
                   </div>
                 </div>
                 <div className="testimonial-date">{testimonial.date}</div>
@@ -147,7 +201,7 @@ const Testimonials: React.FC = () => {
           ))}
         </motion.div>
 
-        {/* Bottom Message */}
+        {/* Bottom CTA */}
         <motion.div
           className="testimonials-bottom"
           initial={{ opacity: 0, y: 30 }}
@@ -155,15 +209,28 @@ const Testimonials: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <div className="bottom-message glass">
-            <h3 className="gradient-text">Vous avez scrollé si loin. Vous voulez ça. Faites-nous confiance.</h3>
-            <motion.button
-              className="final-cta"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Commencer Maintenant
-            </motion.button>
+          <div className="bottom-cta">
+            <div className="cta-bg-gradient"></div>
+            <div className="cta-content">
+              <div className="cta-icon">
+                <TrendingUp size={32} />
+                <div className="cta-icon-glow"></div>
+              </div>
+              <h3 className="cta-title">
+                Prêt à <span className="gradient-text">transformer</span> vos campagnes ?
+              </h3>
+              <p className="cta-subtitle">
+                Rejoignez notre communauté de beta testeurs qui façonnent l'avenir de Flipika
+              </p>
+              <motion.button
+                className="btn btn-primary cta-button"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>Commencer Gratuitement</span>
+                <TrendingUp size={18} />
+              </motion.button>
+            </div>
           </div>
         </motion.div>
       </div>

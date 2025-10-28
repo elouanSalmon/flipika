@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon, Zap } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
 import './Header.css';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
@@ -44,8 +46,13 @@ const Header: React.FC = () => {
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
         >
-          <span className="logo-text gradient-text">Flipika</span>
-          <span className="logo-subtitle">IA</span>
+          <div className="logo-icon">
+            <Zap size={24} />
+          </div>
+          <div className="logo-content">
+            <span className="logo-text gradient-text">Flipika</span>
+            <span className="logo-subtitle">IA</span>
+          </div>
         </motion.div>
 
         {/* Desktop Navigation */}
@@ -65,26 +72,49 @@ const Header: React.FC = () => {
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <motion.button
-          className="cta-button glass"
-          onClick={scrollToEmailForm}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.6 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <span className="gradient-text">Commencer Gratuitement</span>
-        </motion.button>
+        {/* Header Actions */}
+        <div className="header-actions">
+          {/* Theme Toggle */}
+          <motion.div
+            className="theme-toggle-wrapper"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <button
+              className={`theme-toggle ${theme === 'dark' ? 'dark' : 'light'}`}
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+            >
+              <div className="toggle-track">
+                <div className="toggle-thumb">
+                  {theme === 'dark' ? <Moon size={14} /> : <Sun size={14} />}
+                </div>
+              </div>
+            </button>
+          </motion.div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="mobile-menu-button"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          {/* CTA Button */}
+          <motion.button
+            className="btn btn-primary cta-button"
+            onClick={scrollToEmailForm}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Commencer Gratuitement
+          </motion.button>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="mobile-menu-button"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
