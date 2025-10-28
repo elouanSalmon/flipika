@@ -33,9 +33,9 @@ const Hero: React.FC = () => {
 
 
   const stats = [
-    { icon: TrendingUp, value: '300%', label: 'ROI Moyen', color: 'blue' },
-    { icon: Target, value: '85%', label: 'Précision IA', color: 'yellow' },
-    { icon: Zap, value: '24/7', label: 'Optimisation', color: 'blue' }
+    { icon: TrendingUp, value: '300%', label: 'ROI Moyen', color: 'primary' },
+    { icon: Target, value: '85%', label: 'Précision IA', color: 'accent' },
+    { icon: Zap, value: '24/7', label: 'Optimisation', color: 'secondary' }
   ];
 
   return (
@@ -101,8 +101,8 @@ const Hero: React.FC = () => {
                 whileHover={{ y: -8, scale: 1.05 }}
                 transition={{ delay: index * 0.1, type: "spring" as const, stiffness: 300 }}
               >
-                <div className="stat-icon-wrapper">
-                  <stat.icon size={24} className="stat-icon" />
+                <div className="stat-icon-wrapper icon-2xl">
+                  <stat.icon size={24} className="stat-icon icon-md" />
                   <div className="stat-glow"></div>
                 </div>
                 <div className="stat-content">

@@ -1,15 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Tech Blue & Yellow Palette - Light Mode */
+  /* Harmonized Color Palette - Light Mode */
   --color-primary: #0066ff;
+  --primary-rgb: 0, 102, 255; /* RGB values for rgba() usage */
   --color-primary-light: #3385ff;
   --color-primary-dark: #0052cc;
-  --color-secondary: #ffcc00;
-  --color-secondary-light: #ffd633;
-  --color-secondary-dark: #e6b800;
-  --color-accent: #00d4ff;
-  --color-accent-dark: #0099cc;
+  --color-secondary: #0066ff; /* Blue instead of secondary yellow */
+  --color-secondary-light: #3385ff;
+  --color-secondary-dark: #0052cc;
+  --color-accent: #0066ff; /* Blue for better harmony */
+  --accent-rgb: 0, 102, 255; /* RGB values for accent color */
+  --color-accent-dark: #0052cc;
+  
+  /* Glass and Surface Variables */
+  --glass-rgb: 255, 255, 255; /* White glass for light mode */
+  --glass-border-rgb: 226, 232, 240; /* Light border */
+  --border-rgb: 226, 232, 240; /* Standard border */
+  --surface-rgb: 248, 250, 252; /* Surface background */
   
   /* Background Colors - Light Mode */
   --color-bg-primary: #ffffff;
@@ -49,28 +57,43 @@
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
   --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.15);
   --shadow-glow-blue: 0 0 30px rgba(0, 102, 255, 0.3);
-  --shadow-glow-yellow: 0 0 30px rgba(255, 204, 0, 0.3);
+  --shadow-glow-accent: 0 0 30px rgba(0, 102, 255, 0.3);
   
   /* Grid Colors */
   --color-grid: rgba(100, 116, 139, 0.08);
   
-  /* Accent Colors */
-  --color-accent-yellow: #fbbf24;
-  --color-accent-yellow-light: #fde047;
-  --color-accent-yellow-glow: rgba(251, 191, 36, 0.3);
+  /* Accent Colors for highlights */
+  --color-accent-highlight: var(--color-primary); /* Use primary blue for highlights */
+  --color-accent-highlight-light: #60a5fa;
+  --color-accent-highlight-dark: #1d4ed8;
+  --color-accent-glow: rgba(59, 130, 246, 0.2);
+  
+  /* Status Colors */
+  --color-success: var(--color-accent);
+  --color-warning: var(--color-primary);
+  --color-error: #ef4444;
+  --color-info: var(--color-primary);
 }
 
 /* Dark Mode Variables */
 [data-theme="dark"] {
-  /* Tech Blue & Yellow Palette - Dark Mode */
+  /* Harmonized Color Palette - Dark Mode */
   --color-primary: #3385ff;
+  --primary-rgb: 51, 133, 255; /* RGB values for rgba() usage in dark mode */
   --color-primary-light: #66a3ff;
   --color-primary-dark: #0066ff;
-  --color-secondary: #ffd633;
-  --color-secondary-light: #ffe066;
-  --color-secondary-dark: #ffcc00;
-  --color-accent: #33e0ff;
-  --color-accent-dark: #00d4ff;
+  --color-secondary: #3385ff; /* Blue for dark mode */
+  --color-secondary-light: #66a3ff;
+  --color-secondary-dark: #0066ff;
+  --color-accent: #3385ff; /* Blue for dark mode */
+  --accent-rgb: 51, 133, 255; /* RGB values for accent color in dark mode */
+  --color-accent-dark: #0066ff;
+  
+  /* Glass and Surface Variables - Dark Mode */
+  --glass-rgb: 17, 24, 39; /* Dark glass for dark mode */
+  --glass-border-rgb: 55, 65, 81; /* Dark border */
+  --border-rgb: 55, 65, 81; /* Standard border for dark mode */
+  --surface-rgb: 31, 41, 55; /* Surface background for dark mode */
   
   /* Background Colors - Dark Mode */
   --color-bg-primary: #0a0e1a;
@@ -109,15 +132,22 @@
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
   --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.7);
   --shadow-glow-blue: 0 0 30px rgba(51, 133, 255, 0.4);
-  --shadow-glow-yellow: 0 0 30px rgba(255, 214, 51, 0.4);
+  --shadow-glow-accent: 0 0 30px rgba(34, 197, 94, 0.4);
   
   /* Grid Colors - Dark Mode */
   --color-grid: rgba(255, 255, 255, 0.05);
   
-  /* Accent Colors */
-  --color-accent-yellow: #fbbf24;
-  --color-accent-yellow-light: #fde047;
-  --color-accent-yellow-glow: rgba(251, 191, 36, 0.2);
+  /* Accent Colors for highlights - Dark Mode */
+  --color-accent-highlight: var(--color-primary); /* Use primary blue for highlights */
+  --color-accent-highlight-light: #60a5fa;
+  --color-accent-highlight-dark: #1e40af;
+  --color-accent-glow: rgba(96, 165, 250, 0.15);
+  
+  /* Status Colors */
+  --color-success: var(--color-accent);
+  --color-warning: var(--color-primary);
+  --color-error: #f87171;
+  --color-info: var(--color-primary);
 }
 
 /* Common Variables */
@@ -240,8 +270,8 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-xl), var(--shadow-glow-blue), 0 0 20px var(--color-accent-yellow-glow);
-  border: 1px solid var(--color-accent-yellow);
+  box-shadow: var(--shadow-xl), 0 0 20px rgba(var(--color-primary), 0.3);
+  border: 1px solid var(--color-primary);
 }
 
 .btn-secondary {
@@ -255,6 +285,60 @@ body {
   background: var(--glass-bg-hover);
   border-color: var(--color-primary);
   transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  backdrop-filter: var(--glass-backdrop);
+}
+
+.btn-outline:hover {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-accent:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-warning {
+  background: var(--color-warning);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-warning:hover {
+  background: var(--color-warning-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Button sizes */
+.btn-sm {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+.btn-lg {
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  font-size: var(--font-size-lg);
+}
+
+.btn-xl {
+  padding: var(--spacing-xl) var(--spacing-3xl);
+  font-size: var(--font-size-xl);
 }
 
 /* Card styles */
@@ -339,8 +423,8 @@ body {
 }
 
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
-  50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.5); }
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 102, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(0, 102, 255, 0.5); }
 }
 
 @keyframes fadeInUp {
@@ -354,6 +438,53 @@ body {
   }
 }
 
+/* Icon sizes standardization */
+.icon-xs {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-sm {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-md {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-lg {
+  width: 32px;
+  height: 32px;
+}
+
+.icon-xl {
+  width: 40px;
+  height: 40px;
+}
+
+.icon-2xl {
+  width: 48px;
+  height: 48px;
+}
+
+.icon-3xl {
+  width: 56px;
+  height: 56px;
+}
+
+.icon-4xl {
+  width: 64px;
+  height: 64px;
+}
+
+.icon-5xl {
+  width: 80px;
+  height: 80px;
+}
+
+/* Animation utilities */
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -362,8 +493,79 @@ body {
   animation: glow 2s ease-in-out infinite;
 }
 
-.animate-fade-in-up {
+.animate-fadeInUp {
   animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-bounce {
+  animation: bounce 1s ease-in-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Additional keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40%, 43% {
+    transform: translateY(-15px);
+  }
+  70% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
 }
 
 /* Scrollbar styling */
@@ -387,7 +589,7 @@ body {
 
 /* Selection styling */
 ::selection {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(0, 102, 255, 0.3);
   color: var(--color-text-primary);
 }
 

@@ -45,28 +45,28 @@ const Differentiation: React.FC = () => {
       title: "Pas un autre outil de copywriting IA",
       subtitle: "Un vrai media buyer",
       description: "Flipika ne génère pas juste du texte. Il analyse, optimise et gère vos campagnes comme un expert avec 10 ans d'expérience.",
-      color: "blue"
+      color: "primary"
     },
     {
       icon: Target,
       title: "Conçu pour les performance marketers",
       subtitle: "Pas pour les créateurs de contenu",
       description: "Chaque fonctionnalité est pensée pour maximiser votre ROAS, pas pour créer des posts Instagram.",
-      color: "purple"
+      color: "secondary"
     },
     {
       icon: Database,
       title: "Utilise VOS vraies données Google Ads",
       subtitle: "Pas des prompts génériques",
       description: "Flipika se connecte directement à votre compte Google Ads pour des optimisations basées sur vos métriques réelles.",
-      color: "green"
+      color: "accent"
     },
     {
       icon: TrendingUp,
       title: "Apprend et s'améliore à chaque campagne",
       subtitle: "IA évolutive",
       description: "Plus vous utilisez Flipika, plus il comprend votre business et optimise selon vos objectifs spécifiques.",
-      color: "orange"
+      color: "warning"
     }
   ];
 

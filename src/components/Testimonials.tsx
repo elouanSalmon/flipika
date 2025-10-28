@@ -65,25 +65,25 @@ const SocialProof: React.FC = () => {
       value: "150+",
       label: "Early adopters",
       icon: Users,
-      color: "blue"
+      color: "primary"
     },
     {
       value: "+280%",
       label: "ROAS moyen",
       icon: TrendingUp,
-      color: "green"
+      color: "accent"
     },
     {
       value: "€2.3M",
       label: "Budget optimisé",
       icon: Target,
-      color: "purple"
+      color: "secondary"
     },
     {
       value: "98%",
       label: "Satisfaction",
       icon: Star,
-      color: "orange"
+      color: "warning"
     }
   ];
 

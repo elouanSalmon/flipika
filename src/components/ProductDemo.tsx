@@ -41,28 +41,28 @@ const ProductDemo: React.FC = () => {
       value: "€847K",
       change: "+127% vs mois dernier",
       trend: "up",
-      color: "green"
+      color: "accent"
     },
     {
       label: "ROAS",
       value: "6.8x",
       change: "+89% grâce à l'IA",
       trend: "up",
-      color: "blue"
+      color: "primary"
     },
     {
       label: "Conversions",
       value: "12,847",
       change: "+156% ce trimestre",
       trend: "up",
-      color: "purple"
+      color: "secondary"
     },
     {
       label: "CPA",
       value: "€18.50",
       change: "-67% optimisé",
       trend: "down",
-      color: "green"
+      color: "warning"
     }
   ];
 
