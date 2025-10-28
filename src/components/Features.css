@@ -406,8 +406,34 @@
 }
 
 @media (max-width: 480px) {
+  .features {
+    /* Améliorer le scroll sur mobile */
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+  }
+  
+  .features-container {
+    /* Assurer que le conteneur ne déborde pas */
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .features-grid {
+    /* Éviter les débordements horizontaux */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
   .feature-card {
     padding: var(--spacing-md);
+    /* Améliorer le scroll interne */
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    /* Améliorer les performances de scroll */
+    will-change: auto;
+    transform: translateZ(0);
   }
   
   .feature-header {
@@ -423,6 +449,9 @@
   .feature-cta {
     width: 100%;
     justify-content: center;
+    /* Améliorer l'interaction tactile */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
