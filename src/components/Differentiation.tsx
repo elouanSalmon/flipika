@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { 
   Brain, 
   Target, 
@@ -113,7 +112,7 @@ const Differentiation: React.FC = () => {
 
           {/* Differentiators Grid */}
           <div className="differentiators-grid">
-            {differentiators.map((diff, index) => (
+            {differentiators.map((diff) => (
               <div
                 key={diff.title}
                 className="differentiator-card"
@@ -148,7 +147,7 @@ const Differentiation: React.FC = () => {
               </div>
               
               <div className="comparison-rows">
-                {comparison.map((item, index) => (
+                {comparison.map((item) => (
                   <div
                     key={item.feature}
                     className="comparison-row"
