@@ -2,27 +2,38 @@
   "header": {
     "tagline": "Optimisation IA des campagnes Google Ads",
     "getStarted": "Commencer",
-    "language": "Langue"
+    "language": "Langue",
+    "home": "Accueil",
+    "features": "Fonctionnalités",
+    "pricing": "Tarifs",
+    "testimonials": "Témoignages",
+    "contact": "Contact"
   },
   "hero": {
     "title": "Transformez vos campagnes Google Ads avec l'IA",
-    "subtitle": "Les petites entreprises perdent des milliers d'euros en publicité inefficace",
+    "subtitle": "Créez des campagnes performantes en quelques minutes grâce à l'IA",
     "description": "Notre IA optimise automatiquement vos campagnes Google Ads pour maximiser votre retour sur investissement. Obtenez plus de clients tout en réduisant votre budget publicitaire.",
     "getStarted": "Commencer gratuitement",
-    "noCreditCard": "Pas de carte bancaire requise"
+    "noCreditCard": "Pas de carte bancaire requise",
+    "cta": "Commencer Gratuitement",
+    "ctaSecondary": "En Savoir Plus"
   },
   "problem": {
-    "title": "Pourquoi 90% des campagnes Google Ads échouent",
-    "subtitle": "Les entreprises perdent en moyenne 30% de leur budget publicitaire",
+    "title": "Le Problème",
+    "subtitle": "Les petites entreprises perdent des milliers d'euros en publicité inefficace",
+    "description": "83% des petites entreprises échouent à créer des publicités qui convertissent. Cela coûte en moyenne 5 000€ par an en publicité gaspillée.",
     "issues": {
-      "budget": "Budget gaspillé sur des mauvais mots-clés",
-      "time": "Pas assez de temps pour optimiser",
-      "complexity": "Trop complexe pour les non-experts",
-      "competition": "Concurrence féroce sur les enchères"
+      "timeManagement": "Vous passez des heures à gérer Google Ads",
+      "budgetWaste": "et gaspillez encore du budget.",
+      "inconsistentCampaigns": "Vos campagnes sont incohérentes",
+      "difficultToScale": "et difficiles à scaler.",
+      "expensiveAgency": "Embaucher une agence ou un expert",
+      "costlyAndTime": "coûte cher et prend du temps."
     }
   },
   "features": {
-    "title": "Optimisation IA complète",
+    "title": "Fonctionnalités Puissantes",
+    "subtitle": "Des résultats concrets – voilà comment Flipika transforme votre approche Google Ads.",
     "aiGeneration": {
       "title": "Génération IA d'annonces",
       "description": "Créez des annonces performantes avec notre IA qui analyse vos concurrents et votre marché"
@@ -38,99 +49,203 @@
     "buttons": {
       "learnMore": "En savoir plus",
       "getStarted": "Commencer"
+    },
+    "createCampaigns": {
+      "title": "Lancez des campagnes instantanément",
+      "subtitle": "À partir d'un simple brief",
+      "description": "Décrivez votre objectif, Flipika génère une campagne complète et optimisée.",
+      "benefits": [
+        "Configuration automatique",
+        "Mots-clés intelligents",
+        "Audiences ciblées"
+      ]
+    },
+    "autoOptimize": {
+      "title": "Auto‑optimisation continue",
+      "subtitle": "Enchères, budgets et mots‑clés",
+      "description": "Votre media buyer IA ajuste vos campagnes 24/7 pour maximiser la performance.",
+      "benefits": [
+        "Enchères optimisées en temps réel",
+        "Allocation de budget intelligente",
+        "Optimisation automatique des mots‑clés"
+      ]
+    },
+    "boostRoas": {
+      "title": "Boostez votre ROAS",
+      "subtitle": "Grâce à l'apprentissage continu",
+      "description": "Plus Flipika gère vos campagnes, plus elles deviennent performantes.",
+      "benefits": [
+        "ROAS en amélioration constante",
+        "Apprentissage sur vos données",
+        "Prédictions de performance"
+      ]
+    },
+    "actionableInsights": {
+      "title": "Insights actionnables",
+      "subtitle": "Sans setup, sans agence",
+      "description": "Recevez des recommandations claires et précises directement dans votre dashboard.",
+      "benefits": [
+        "Rapports automatiques",
+        "Recommandations personnalisées",
+        "Alertes intelligentes"
+      ]
     }
   },
   "differentiation": {
-    "title": "Pourquoi choisir Flipika ?",
-    "subtitle": "Contrairement aux autres plateformes qui nécessitent des connaissances techniques",
-    "items": {
-      "noTechnical": "Pas de compétences techniques requises",
-      "fastSetup": "Configuration en 5 minutes",
-      "aiPowered": "IA qui apprend de vos résultats",
-      "affordable": "Prix abordable pour les petites entreprises"
+    "title": "Pourquoi Nous Choisir ?",
+    "subtitle": "Bien plus qu'un outil IA",
+    "description": "Ce qui nous distingue des solutions génériques",
+    "notCopywritingTool": {
+      "title": "Pas un simple outil de rédaction IA",
+      "subtitle": "Un vrai media buyer",
+      "description": "Flipika n'écrit pas seulement du texte. Il analyse, optimise et gère vos campagnes comme un expert."
+    },
+    "designedForMediaBuyers": {
+      "title": "Conçu pour les Media Buyers",
+      "subtitle": "Pas pour les créateurs de contenu",
+      "description": "Chaque fonctionnalité est pensée pour maximiser votre ROAS."
+    },
+    "usesRealData": {
+      "title": "Utilise VOS vraies données Google Ads",
+      "subtitle": "Pas des prompts génériques",
+      "description": "Flipika se connecte directement à votre compte pour des optimisations basées sur vos métriques."
+    },
+    "learnsAndImproves": {
+      "title": "Apprend et s'améliore à chaque campagne",
+      "subtitle": "IA évolutive",
+      "description": "Plus vous utilisez Flipika, mieux il comprend votre business et optimise selon vos objectifs."
+    },
+    "cta": "Découvrir la différence",
+    "ctaSubtitle": "Pourquoi les Media Buyers choisissent Flipika",
+    "comparison": {
+      "title": "Flipika vs autres outils IA",
+      "subtitle": "Comparatif honnête de ce qui nous rend uniques",
+      "featureHeader": "Fonctionnalité",
+      "flipikaHeader": "Flipika",
+      "othersHeader": "Autres outils IA",
+      "campaignManagement": "Gestion de campagne complète",
+      "realTimeOptimization": "Optimisation en temps réel",
+      "directGoogleAds": "Connexion directe à Google Ads",
+      "specializedAI": "IA spécialisée performance marketing",
+      "continuousLearning": "Apprentissage continu",
+      "genericText": "Génération de texte générique"
     }
   },
   "testimonials": {
     "title": "Ce que disent nos clients",
-    "subtitle": "Des centaines d'entreprises ont déjà fait confiance à Flipika",
-    "marie": {
-      "name": "Marie D.",
-      "company": "Boutique en ligne",
-      "text": "J'ai doublé mes ventes en 2 mois grâce à Flipika. Je n'y connaissais rien en publicité, maintenant je suis tranquille."
+    "subtitle": "Des résultats concrets pour des entreprises comme la vôtre",
+    "cta": "Rejoindre les entreprises performantes",
+    "ctaSubtitle": "Commencez votre essai gratuit aujourd'hui",
+    "betaUser": "Utilisateur Bêta",
+    "stats": {
+      "earlyAdopters": "Early adopters",
+      "averageRoas": "ROAS moyen",
+      "budgetOptimized": "Budget optimisé",
+      "satisfaction": "Satisfaction"
     },
-    "jean": {
-      "name": "Jean L.",
-      "company": "Restaurant",
-      "text": "Incroyable ! J'ai réduit mon budget de 40% tout en ayant plus de clients. Le système fonctionne vraiment."
-    },
-    "sophie": {
-      "name": "Sophie M.",
-      "company": "Services B2B",
-      "text": "Enfin une solution simple pour Google Ads. Je recommande à tous mes amis entrepreneurs."
+    "reviews": {
+      "pierre": {
+        "name": "Pierre D.",
+        "role": "Media Buyer",
+        "company": "TechStart",
+        "content": "J'ai rejoint la bêta Flipika il y a 3 mois. Résultat : +340% de ROAS sur mes campagnes Google Ads.",
+        "metric": "+340% ROAS"
+      },
+      "marie": {
+        "name": "Marie L.",
+        "role": "Media Buyer Freelance",
+        "company": "Indépendant",
+        "content": "Flipika m'a fait passer de 50k€ à 500k€ de revenu géré par mois. L'automatisation me fait gagner 20h/semaine.",
+        "metric": "500k€ revenu/mois"
+      },
+      "julien": {
+        "name": "Julien R.",
+        "role": "CEO & Fondateur",
+        "company": "E-commerce Pro",
+        "content": "Nous avons testé 3 agences avant Flipika. Rien d'aussi performant. Notre CPA a chuté de 60% en 2 mois.",
+        "metric": "-60% CPA"
+      }
     }
   },
   "emailCapture": {
-    "title": "Prêt à booster vos campagnes ?",
-    "subtitle": "Rejoignez des milliers d'entreprises qui optimisent leurs publicités",
+    "title": "Prêt à Booster Vos Publicités ?",
+    "subtitle": "Commencez votre essai gratuit de 14 jours",
     "emailPlaceholder": "Entrez votre email",
-    "submitButton": "Commencer gratuitement",
+    "submitButton": "Commencer l'Essai Gratuit",
+    "successMessage": "Merci ! Vérifiez votre email pour commencer.",
+    "errorEmailRequired": "Veuillez entrer votre adresse email",
+    "errorEmailInvalid": "Veuillez entrer une adresse email valide",
+    "errorGeneric": "Une erreur est survenue. Veuillez réessayer.",
     "benefits": {
-      "title": "Ce que vous obtenez :",
-      "item1": "Audit gratuit de vos campagnes actuelles",
-      "item2": "Accès immédiat à notre plateforme IA",
-      "item3": "Support personnalisé pour démarrer"
+      "freeBeta": "Accès bêta gratuit à vie",
+      "prioritySupport": "Support prioritaire 1‑on‑1",
+      "influence": "Influence sur les nouvelles fonctionnalités"
     },
     "trust": {
-      "text": "✓ Pas de carte bancaire requise",
-      "security": "✓ Sécurisé et confidentiel"
-    },
-    "error": {
-      "invalidEmail": "Veuillez entrer un email valide",
-      "alreadySubscribed": "Cet email est déjà inscrit",
-      "genericError": "Une erreur est survenue. Veuillez réessayer."
-    },
-    "success": {
-      "title": "Merci !",
-      "message": "Votre inscription a été confirmée. Vérifiez votre email pour commencer."
+      "activeBeta": "Beta Testeurs Actifs",
+      "remainingSpots": "Places Restantes",
+      "averageRoas": "ROAS Moyen"
     }
   },
   "footer": {
-    "copyright": "© 2024 Flipika. Tous droits réservés.",
-    "legal": {
-      "privacy": "Politique de confidentialité",
-      "terms": "Conditions d'utilisation"
-    }
+    "copyright": "Tous droits réservés",
+    "legal": "Mentions Légales",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation"
   },
   "cookieConsent": {
-    "message": "Nous utilisons des cookies pour améliorer votre expérience. En continuant, vous acceptez notre utilisation des cookies.",
+    "message": "Nous utilisons des cookies pour améliorer votre expérience. En continuant à utiliser notre site, vous acceptez notre utilisation des cookies.",
     "accept": "Accepter",
-    "learnMore": "En savoir plus"
+    "decline": "Refuser",
+    "learnMore": "En Savoir Plus"
   },
   "legalNotices": {
     "title": "Mentions Légales",
     "backToHome": "Retour à l'accueil",
-    "company": {
-      "title": "Éditeur du site",
-      "name": "Flipika SAS",
-      "address": "123 rue de l'Innovation, 75001 Paris, France",
-      "siret": "SIRET : 123 456 789 00010",
-      "phone": "Téléphone : +33 1 23 45 67 89",
-      "email": "Email : contact@flipika.com"
+    "sections": {
+      "generalInfo": {
+        "title": "1. Informations générales",
+        "content": "Le présent site est édité par <strong>Flipika</strong>, société par actions simplifiée au capital de 1 000 euros, immatriculée au RCS de Paris sous le numéro 123 456 789.",
+        "address": "<strong>Siège social :</strong> 123 rue de l'Innovation, 75001 Paris, France",
+        "phone": "<strong>Téléphone :</strong> +33 (0)1 23 45 67 89",
+        "email": "<strong>Email :</strong> contact@flipika.com",
+        "director": "<strong>Directeur de la publication :</strong> Elouan Salmon"
+      },
+      "hosting": {
+        "title": "2. Hébergement",
+        "content": "Le site est hébergé par <strong>Google Cloud Platform</strong>",
+        "address": "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irlande.",
+        "phone": "<strong>Téléphone :</strong> +353 1 436 1000"
+      },
+      "intellectualProperty": {
+        "title": "3. Propriété intellectuelle",
+        "content1": "Tous les contenus du site (textes, images, vidéos, logos, marques, etc.) sont protégés par les lois françaises et internationales sur la propriété intellectuelle.",
+        "content2": "Toute reproduction, représentation, modification, adaptation ou exploitation, même partielle, de ces contenus est strictement interdite sans autorisation écrite préalable de Flipika."
+      },
+      "personalData": {
+        "title": "4. Données personnelles",
+        "content1": "Les données personnelles collectées sur le site sont utilisées uniquement dans le cadre des services fournis par Flipika, conformément à notre politique de confidentialité.",
+        "content2": "Conformément au RGPD, vous disposez des droits d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition sur vos données personnelles."
+      },
+      "cookies": {
+        "title": "5. Cookies",
+        "content": "Le site utilise des cookies pour améliorer l'expérience utilisateur. En naviguant sur le site, vous acceptez l'utilisation de ces cookies. Vous pouvez configurer vos préférences à tout moment."
+      },
+      "liability": {
+        "title": "6. Limitation de responsabilité",
+        "content1": "Flipika s'efforce de fournir des informations aussi exactes que possible sur le site, mais ne peut être tenue responsable de toute erreur, omission ou inexactitude.",
+        "content2": "L'utilisateur du site reconnaît avoir vérifié la compatibilité de son équipement avec le site et que ses capacités techniques permettent un accès et une utilisation sans erreur du site et de ses services."
+      },
+      "applicableLaw": {
+        "title": "7. Droit applicable et juridiction",
+        "content": "Les présentes mentions légales sont soumises au droit français. En cas de litige, une solution amiable sera recherchée. À défaut, les tribunaux de Paris seront seuls compétents."
+      },
+      "contact": {
+        "title": "8. Contact",
+        "content": "Pour toute question concernant ces mentions légales ou le site en général, vous pouvez nous contacter à : <strong>legal@flipika.com</strong>"
+      }
     },
-    "hosting": {
-      "title": "Hébergeur",
-      "provider": "Vercel Inc.",
-      "address": "340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis",
-      "website": "Site web : https://vercel.com"
-    },
-    "intellectualProperty": {
-      "title": "Propriété intellectuelle",
-      "content": "Le site Flipika et l'ensemble de ses contenus (textes, images, logos, etc.) sont la propriété exclusive de Flipika SAS et sont protégés par les lois sur la propriété intellectuelle."
-    },
-    "dataProtection": {
-      "title": "Protection des données",
-      "content": "Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles."
-    }
+    "lastUpdate": "<strong>Dernière mise à jour :</strong> 1er janvier 2024"
   },
   "privacyPolicy": {
     "title": "Politique de Confidentialité",
