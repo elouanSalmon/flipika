@@ -156,15 +156,15 @@ const EmailCapture: React.FC = () => {
           {/* Trust Indicators */}
           <div className="trust-indicators">
             <div className="trust-item">
-              <span className="trust-number gradient-text">87</span>
+              <span className="trust-number gradient-text">127</span>
               <span className="trust-label">Beta Testeurs Actifs</span>
             </div>
             <div className="trust-item">
-              <span className="trust-number gradient-text">13</span>
+              <span className="trust-number gradient-text">73</span>
               <span className="trust-label">Places Restantes</span>
             </div>
             <div className="trust-item">
-              <span className="trust-number gradient-text">+180%</span>
+              <span className="trust-number gradient-text">+340%</span>
               <span className="trust-label">ROAS Moyen</span>
             </div>
           </div>

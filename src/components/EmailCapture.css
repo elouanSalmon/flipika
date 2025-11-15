@@ -244,6 +244,7 @@
 @media (max-width: 768px) {
   .email-capture {
     padding: var(--spacing-3xl) 0;
+    touch-action: pan-y;
   }
   
   .email-capture-container {
@@ -284,6 +285,12 @@
   
   .capture-subtitle {
     font-size: 1rem;
+  }
+  
+  .email-input,
+  .submit-button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 

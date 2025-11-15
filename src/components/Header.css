@@ -266,3 +266,29 @@
     display: block !important;
   }
 }
+
+/* Amélioration du scroll tactile */
+@media (max-width: 768px) {
+  .header {
+    touch-action: pan-y;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  .header-container {
+    touch-action: pan-y;
+  }
+  
+  /* Optimiser le scroll du header */
+  .header.scrolled {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Empêcher les interactions qui bloquent le scroll */
+  .logo,
+  .theme-toggle {
+    touch-action: manipulation;
+  }
+}

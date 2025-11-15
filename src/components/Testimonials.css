@@ -550,38 +550,14 @@
 }
 
 @media (max-width: 480px) {
-  .testimonials {
-    /* Améliorer le scroll sur mobile */
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-    position: relative;
-  }
-  
-  .testimonials-container {
-    /* Assurer que le conteneur ne déborde pas */
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  
   .testimonials-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
-    /* Éviter les débordements horizontaux */
-    width: 100%;
-    max-width: 100%;
   }
   
   .testimonial-card {
     padding: var(--spacing-md);
     min-height: auto;
-    /* Améliorer le scroll interne */
-    max-width: 100%;
-    overflow: hidden;
-    /* Éviter les débordements */
-    box-sizing: border-box;
-    /* Améliorer les performances de scroll */
-    will-change: auto;
-    transform: translateZ(0);
   }
   
   .testimonial-header {
@@ -609,9 +585,6 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
-    /* Améliorer le rendu du texte */
-    max-width: 100%;
-    overflow: hidden;
   }
   
   .testimonial-text {
@@ -621,9 +594,6 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
-    /* Améliorer le rendu du texte */
-    max-width: 100%;
-    overflow: hidden;
   }
   
   /* Désactiver les effets de survol sur mobile pour éviter les débordements */
@@ -648,41 +618,10 @@
   
   .bottom-cta {
     padding: var(--spacing-xl);
-    /* Éviter les débordements */
-    max-width: 100%;
-    box-sizing: border-box;
   }
   
   .floating-element {
     display: none;
-  }
-  
-  /* Améliorer les métriques sur mobile */
-  .metrics-showcase {
-    /* Éviter les débordements horizontaux */
-    overflow-x: hidden;
-    width: 100%;
-  }
-  
-  .metric-showcase-card {
-    /* Améliorer le scroll */
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-  
-  /* Améliorer le CTA social proof */
-  .social-proof-cta {
-    /* Éviter les débordements */
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-  
-  .social-proof-cta .cta-button {
-    /* Améliorer l'interaction tactile */
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
   }
 }
 

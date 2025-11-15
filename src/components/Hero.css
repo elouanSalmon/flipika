@@ -362,15 +362,15 @@
 }
 
 .mockup-dots span:first-child {
-  background: var(--color-primary);
+  background: #ff5f57; /* Rouge Mac */
 }
 
 .mockup-dots span:nth-child(2) {
-  background: var(--color-secondary);
+  background: #ffbd2e; /* Jaune Mac */
 }
 
 .mockup-dots span:last-child {
-  background: var(--color-primary);
+  background: #28ca42; /* Vert Mac */
 }
 
 .mockup-title {
@@ -493,5 +493,36 @@
   
   .dashboard-mockup {
     max-width: 100%;
+  }
+}
+
+/* Amélioration du scroll tactile */
+@media (max-width: 768px) {
+  .hero {
+    touch-action: pan-y;
+    -webkit-touch-callout: none;
+  }
+  
+  .hero-container {
+    touch-action: pan-y;
+  }
+  
+  /* Optimiser les éléments flottants */
+  .floating-element {
+    pointer-events: none;
+    touch-action: none;
+    will-change: transform;
+  }
+  
+  /* Optimiser les animations pour le scroll */
+  .hero-stats,
+  .hero-cta {
+    touch-action: pan-y;
+  }
+  
+  /* Empêcher les cartes de bloquer le scroll */
+  .stat-item,
+  .metric-card {
+    touch-action: manipulation;
   }
 }
