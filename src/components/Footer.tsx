@@ -66,9 +66,9 @@ const Footer: React.FC = () => {
           viewport={{ once: true }}
         >
           {/* Main Footer Content */}
-          <div className="footer-main">
+          <div className="footer-main footer-main-simplified">
             {/* Brand Section */}
-            <motion.div className="footer-brand" variants={itemVariants}>
+            <motion.div className="footer-brand footer-brand-expanded" variants={itemVariants}>
               <div className="brand-header">
                 <div className="brand-icon">
                   <Zap size={28} />
@@ -140,86 +140,91 @@ const Footer: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Legal Links Section */}
-            <motion.div className="footer-section" variants={itemVariants}>
-              <div className="section-header">
-                <Shield size={20} />
-                <h4 className="footer-title">Informations Légales</h4>
-              </div>
-              <ul className="footer-links">
-                <li>
-                  <motion.div 
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    <Link to="/mentions-legales" className="footer-link">
-                      Mentions Légales
-                    </Link>
-                  </motion.div>
-                </li>
-                <li>
-                  <motion.div 
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    <Link to="/politique-confidentialite" className="footer-link">
-                      Politique de confidentialité
-                    </Link>
-                  </motion.div>
-                </li>
-                <li>
-                  <motion.div 
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    <Link to="/conditions-utilisation" className="footer-link">
-                      Conditions d'utilisation
-                    </Link>
-                  </motion.div>
-                </li>
-              </ul>
-            </motion.div>
+            {/* Legal & Contact Section */}
+            <motion.div className="footer-section footer-section-combined" variants={itemVariants}>
+              <div className="combined-sections">
+                {/* Legal Links */}
+                <div className="legal-subsection">
+                  <div className="section-header">
+                    <Shield size={20} />
+                    <h4 className="footer-title">Informations Légales</h4>
+                  </div>
+                  <ul className="footer-links">
+                    <li>
+                      <motion.div 
+                        whileHover={{ x: 5 }}
+                        transition={{ type: "spring" as const, stiffness: 300 }}
+                      >
+                        <Link to="/mentions-legales" className="footer-link">
+                          Mentions Légales
+                        </Link>
+                      </motion.div>
+                    </li>
+                    <li>
+                      <motion.div 
+                        whileHover={{ x: 5 }}
+                        transition={{ type: "spring" as const, stiffness: 300 }}
+                      >
+                        <Link to="/politique-confidentialite" className="footer-link">
+                          Politique de confidentialité
+                        </Link>
+                      </motion.div>
+                    </li>
+                    <li>
+                      <motion.div 
+                        whileHover={{ x: 5 }}
+                        transition={{ type: "spring" as const, stiffness: 300 }}
+                      >
+                        <Link to="/conditions-utilisation" className="footer-link">
+                          Conditions d'utilisation
+                        </Link>
+                      </motion.div>
+                    </li>
+                  </ul>
+                </div>
 
-            {/* Contact Info */}
-            <motion.div className="footer-section" variants={itemVariants}>
-              <div className="section-header">
-                <Mail size={20} />
-                <h4 className="footer-title">Contact</h4>
-              </div>
-              <div className="contact-info">
-                <motion.div 
-                  className="contact-item"
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  transition={{ type: "spring" as const, stiffness: 300 }}
-                >
-                  <div className="contact-icon">
-                    <Mail size={16} />
-                    <div className="contact-glow"></div>
+                {/* Contact Info */}
+                <div className="contact-subsection">
+                  <div className="section-header">
+                    <Mail size={20} />
+                    <h4 className="footer-title">Contact</h4>
                   </div>
-                  <span>contact@flipika.com</span>
-                </motion.div>
-                <motion.div 
-                  className="contact-item"
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  transition={{ type: "spring" as const, stiffness: 300 }}
-                >
-                  <div className="contact-icon">
-                    <Phone size={16} />
-                    <div className="contact-glow"></div>
+                  <div className="contact-info">
+                    <motion.div 
+                      className="contact-item"
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      transition={{ type: "spring" as const, stiffness: 300 }}
+                    >
+                      <div className="contact-icon">
+                        <Mail size={16} />
+                        <div className="contact-glow"></div>
+                      </div>
+                      <span>contact@flipika.com</span>
+                    </motion.div>
+                    <motion.div 
+                      className="contact-item"
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      transition={{ type: "spring" as const, stiffness: 300 }}
+                    >
+                      <div className="contact-icon">
+                        <Phone size={16} />
+                        <div className="contact-glow"></div>
+                      </div>
+                      <span>+33 6 76 06 19 02</span>
+                    </motion.div>
+                    <motion.div 
+                      className="contact-item"
+                      whileHover={{ scale: 1.02, x: 5 }}
+                      transition={{ type: "spring" as const, stiffness: 300 }}
+                    >
+                      <div className="contact-icon">
+                        <MapPin size={16} />
+                        <div className="contact-glow"></div>
+                      </div>
+                      <span>Paris, France</span>
+                    </motion.div>
                   </div>
-                  <span>+33 6 76 06 19 02 (France)</span>
-                </motion.div>
-                <motion.div 
-                  className="contact-item"
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  transition={{ type: "spring" as const, stiffness: 300 }}
-                >
-                  <div className="contact-icon">
-                    <MapPin size={16} />
-                    <div className="contact-glow"></div>
-                  </div>
-                  <span>1 RUE DE STOCKHOLM 75008 PARIS</span>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           </div>
