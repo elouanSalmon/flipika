@@ -69,3 +69,24 @@ main {
     background-size: 30px 30px;
   }
 }
+
+/* Amélioration du scroll tactile */
+@media (max-width: 768px) {
+  .App {
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  /* Empêcher les éléments flottants de bloquer le scroll */
+  .floating-orb {
+    pointer-events: none;
+    touch-action: none;
+  }
+  
+  /* Optimiser la grille d'arrière-plan */
+  .bg-grid {
+    pointer-events: none;
+    touch-action: none;
+  }
+}

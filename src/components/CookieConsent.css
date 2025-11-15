@@ -96,6 +96,12 @@
 @media (max-width: 768px) {
   .cookie-consent {
     padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    border-radius: 0;
   }
   
   .cookie-consent-content {
@@ -112,6 +118,38 @@
   .cookie-btn {
     flex: 1;
     max-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cookie-consent {
+    left: var(--spacing-sm);
+    right: var(--spacing-sm);
+    bottom: var(--spacing-sm);
+    padding: var(--spacing-md);
+  }
+  
+  .cookie-consent-actions {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .cookie-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Amélioration du scroll tactile */
+@media (max-width: 768px) {
+  .cookie-consent {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+  }
+  
+  .cookie-btn {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
