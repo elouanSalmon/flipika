@@ -1,9 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, Clock, DollarSign, TrendingDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './Problem.css';
 
 const Problem: React.FC = () => {
+  const { t } = useTranslation();
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -26,20 +29,20 @@ const Problem: React.FC = () => {
   const problems = [
     {
       icon: Clock,
-      title: "Vous passez des heures à gérer Google Ads",
-      description: "et gaspillez encore du budget.",
+      title: t('common:problem.issues.timeManagement'),
+      description: t('common:problem.issues.budgetWaste'),
       color: "red"
     },
     {
       icon: TrendingDown,
-      title: "Vos campagnes sont incohérentes",
-      description: "et difficiles à scaler.",
+      title: t('common:problem.issues.inconsistentCampaigns'),
+      description: t('common:problem.issues.difficultToScale'),
       color: "blue"
     },
     {
       icon: DollarSign,
-      title: "Embaucher une agence ou un expert",
-      description: "coûte cher et prend du temps.",
+      title: t('common:problem.issues.expensiveAgency'),
+      description: t('common:problem.issues.costlyAndTime'),
       color: "blue"
     }
   ];
@@ -64,10 +67,10 @@ const Problem: React.FC = () => {
           <motion.div className="problem-header" variants={itemVariants}>
             <div className="problem-badge">
               <AlertTriangle size={20} />
-              <span>Le problème</span>
+              <span>{t('common:problem.title')}</span>
             </div>
             <h2 className="problem-title">
-              Vous reconnaissez-vous ?
+              {t('common:problem.subtitle')}
             </h2>
           </motion.div>
 
@@ -98,8 +101,7 @@ const Problem: React.FC = () => {
           <motion.div className="problem-transition" variants={itemVariants}>
             <div className="transition-line"></div>
             <p className="transition-text">
-              C'est pourquoi nous avons créé <strong>Flipika</strong> — 
-              votre media buyer IA qui ne dort jamais.
+              {t('common:problem.description')}
             </p>
             <div className="transition-line"></div>
           </motion.div>

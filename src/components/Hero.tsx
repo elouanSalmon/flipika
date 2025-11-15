@@ -1,9 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Zap, TrendingUp, Target } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './Hero.css';
 
 const Hero: React.FC = () => {
+  const { t } = useTranslation();
+  
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
     if (emailSection) {
@@ -57,16 +60,12 @@ const Hero: React.FC = () => {
 
           {/* Main Heading - YC Style Punchline */}
           <motion.h1 className="hero-title" variants={itemVariants}>
-            Votre{' '}
-            <span className="gradient-text">Media Buyer IA</span>
-            <br />
-            pour Google Ads.
+            {t('common:hero.title')}
           </motion.h1>
 
           {/* Subtitle - Precise Value & Target */}
           <motion.p className="hero-subtitle" variants={itemVariants}>
-            Flipika crée, gère et optimise automatiquement vos campagnes publicitaires — 
-            comme un Media Buyer expert, mais <strong>100x plus rapide</strong>.
+            {t('common:hero.subtitle')}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -77,7 +76,7 @@ const Hero: React.FC = () => {
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span>Rejoindre la waitlist</span>
+              <span>{t('common:hero.cta')}</span>
               <ArrowRight size={20} />
             </motion.button>
             
@@ -88,7 +87,7 @@ const Hero: React.FC = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Play size={18} />
-              <span>Voir comment ça marche</span>
+              <span>{t('common:hero.ctaSecondary')}</span>
             </motion.button>
           </motion.div>
 

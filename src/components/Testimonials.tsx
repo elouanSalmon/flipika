@@ -11,9 +11,12 @@ import {
   CheckCircle,
   ArrowUp
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './Testimonials.css';
 
 const SocialProof: React.FC = () => {
+  const { t } = useTranslation();
+  
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
     if (emailSection) {
@@ -29,12 +32,12 @@ const SocialProof: React.FC = () => {
   const earlyAdopters = [
     {
       id: 1,
-      name: "Pierre D.",
-      role: "Media Buyer",
-      company: "TechStart",
-      content: "J'ai rejoint la beta de Flipika il y a 3 mois. Résultat : +340% de ROAS sur mes campagnes Google Ads. L'IA comprend vraiment le performance marketing.",
+      name: t('common:testimonials.reviews.pierre.name'),
+      role: t('common:testimonials.reviews.pierre.role'),
+      company: t('common:testimonials.reviews.pierre.company'),
+      content: t('common:testimonials.reviews.pierre.content'),
       rating: 5,
-      metric: "+340% ROAS",
+      metric: t('common:testimonials.reviews.pierre.metric'),
       avatar: "PD",
       avatarUrl: "https://randomuser.me/api/portraits/men/32.jpg",
       verified: true,
@@ -42,12 +45,12 @@ const SocialProof: React.FC = () => {
     },
     {
       id: 2,
-      name: "Marie L.",
-      role: "Media Buyer Freelance",
-      company: "Indépendante",
-      content: "Flipika m'a fait passer de 50k€ à 500k€ de CA géré par mois. L'automatisation me fait gagner 20h/semaine que je peux consacrer à mes autres clients.",
+      name: t('common:testimonials.reviews.marie.name'),
+      role: t('common:testimonials.reviews.marie.role'),
+      company: t('common:testimonials.reviews.marie.company'),
+      content: t('common:testimonials.reviews.marie.content'),
       rating: 5,
-      metric: "500k€ CA/mois",
+      metric: t('common:testimonials.reviews.marie.metric'),
       avatar: "ML",
       avatarUrl: "https://randomuser.me/api/portraits/women/44.jpg",
       verified: true,
@@ -55,12 +58,12 @@ const SocialProof: React.FC = () => {
     },
     {
       id: 3,
-      name: "Antoine M.",
-      role: "Founder",
-      company: "E-commerce",
-      content: "En tant qu'early adopter, j'ai vu Flipika évoluer. Aujourd'hui, c'est l'outil le plus puissant que j'ai testé pour Google Ads. Mes CPA ont baissé de 60%.",
+      name: t('common:testimonials.reviews.julien.name'),
+      role: t('common:testimonials.reviews.julien.role'),
+      company: t('common:testimonials.reviews.julien.company'),
+      content: t('common:testimonials.reviews.julien.content'),
       rating: 5,
-      metric: "-60% CPA",
+      metric: t('common:testimonials.reviews.julien.metric'),
       avatar: "AM",
       avatarUrl: "https://randomuser.me/api/portraits/men/75.jpg",
       verified: true,
@@ -71,25 +74,25 @@ const SocialProof: React.FC = () => {
   const metrics = [
     {
       value: "150+",
-      label: "Early adopters",
+      label: t('common:testimonials.stats.earlyAdopters'),
       icon: Users,
       color: "primary"
     },
     {
       value: "+280%",
-      label: "ROAS moyen",
+      label: t('common:testimonials.stats.averageRoas'),
       icon: TrendingUp,
       color: "accent"
     },
     {
       value: "€2.3M",
-      label: "Budget optimisé",
+      label: t('common:testimonials.stats.budgetOptimized'),
       icon: Target,
       color: "secondary"
     },
     {
       value: "98%",
-      label: "Satisfaction",
+      label: t('common:testimonials.stats.satisfaction'),
       icon: Star,
       color: "warning"
     }
@@ -152,13 +155,13 @@ const SocialProof: React.FC = () => {
         >
           <div className="testimonials-badge">
             <Award size={16} />
-            <span>Early Adopters</span>
+            <span>{t('common:testimonials.stats.earlyAdopters')}</span>
           </div>
           <h2 className="testimonials-title">
-            Ils ont testé Flipika en <span className="gradient-text">avant-première</span>
+            {t('common:testimonials.title')}
           </h2>
           <p className="testimonials-subtitle">
-            Découvrez les résultats de nos 150+ early adopters qui utilisent déjà Flipika
+            {t('common:testimonials.subtitle')}
           </p>
         </motion.div>
 
@@ -211,7 +214,7 @@ const SocialProof: React.FC = () => {
               {testimonial.betaUser && (
                 <div className="beta-badge">
                   <Zap size={16} />
-                  <span>Beta User</span>
+                  <span>{t('common:testimonials.betaUser')}</span>
                 </div>
               )}
 
@@ -277,8 +280,8 @@ const SocialProof: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="cta-content">
-            <h3>Rejoignez les early adopters</h3>
-            <p>Soyez parmi les premiers à accéder à Flipika et transformez vos campagnes Google Ads</p>
+            <h3>{t('common:testimonials.cta')}</h3>
+            <p>{t('common:testimonials.ctaSubtitle')}</p>
           </div>
           <motion.button
             className="cta-button primary"
@@ -286,7 +289,7 @@ const SocialProof: React.FC = () => {
             whileHover={isMobile() ? {} : { scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span>Rejoindre la waitlist</span>
+            <span>{t('common:hero.cta')}</span>
             <TrendingUp size={18} />
           </motion.button>
         </motion.div>

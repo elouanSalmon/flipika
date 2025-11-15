@@ -1,0 +1,244 @@
+{
+  "header": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "testimonials": "Testimonials",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Transform Your Advertising with AI",
+    "subtitle": "Create high-performing ad campaigns in minutes with artificial intelligence",
+    "cta": "Start Free",
+    "ctaSecondary": "Learn More"
+  },
+  "problem": {
+    "title": "The Problem",
+    "subtitle": "Small businesses lose thousands on ineffective advertising",
+    "description": "83% of small businesses fail to create ads that convert. This costs an average of €5,000 per year in wasted advertising.",
+    "issues": {
+      "timeManagement": "You spend hours managing Google Ads",
+      "budgetWaste": "and still waste budget.",
+      "inconsistentCampaigns": "Your campaigns are inconsistent",
+      "difficultToScale": "and difficult to scale.",
+      "expensiveAgency": "Hiring an agency or expert",
+      "costlyAndTime": "is expensive and time-consuming."
+    }
+  },
+  "features": {
+    "title": "Powerful Features",
+    "subtitle": "No features first — concrete results. Here's how Flipika transforms your Google Ads approach.",
+    "aiGeneration": {
+      "title": "AI Ad Generation",
+      "description": "Create optimized ads in seconds with our advanced AI technology"
+    },
+    "analytics": {
+      "title": "Real-time Analytics",
+      "description": "Track your campaign performance with our detailed dashboard"
+    },
+    "optimization": {
+      "title": "Continuous Optimization",
+      "description": "Our AI automatically optimizes your campaigns for better results"
+    },
+    "createCampaigns": {
+      "title": "Launch campaigns instantly",
+      "subtitle": "From a simple brief",
+      "description": "No more hours of setup. Describe your goal and Flipika generates a complete, optimized campaign.",
+      "benefits": [
+        "Automatic setup",
+        "Smart keywords",
+        "Targeted audiences"
+      ]
+    },
+    "autoOptimize": {
+      "title": "Continuous auto-optimization",
+      "subtitle": "Bids, budgets and keywords",
+      "description": "Your AI media buyer automatically adjusts your campaigns 24/7 to maximize your performance.",
+      "benefits": [
+        "Real-time optimized bids",
+        "Smart budget allocation",
+        "Automatic keyword optimization"
+      ]
+    },
+    "boostRoas": {
+      "title": "Boost your ROAS",
+      "subtitle": "With continuous AI learning",
+      "description": "The more Flipika manages your campaigns, the more performant it becomes. Every data improves your results.",
+      "benefits": [
+        "Constantly improving ROAS",
+        "Learning from your data",
+        "Performance predictions"
+      ]
+    },
+    "actionableInsights": {
+      "title": "Actionable insights",
+      "subtitle": "No setup, no agency",
+      "description": "Receive clear and precise recommendations to improve your performance, directly in your dashboard.",
+      "benefits": [
+        "Automatic reports",
+        "Personalized recommendations",
+        "Smart alerts"
+      ]
+    }
+  },
+  "differentiation": {
+    "title": "Why Choose Us?",
+    "subtitle": "Not just another AI toolbox",
+    "description": "What distinguishes us from generic solutions",
+    "item1": "AI specifically designed for local advertising",
+    "item2": "Simple and intuitive interface",
+    "item3": "Responsive customer support",
+    "item4": "Affordable pricing for small businesses",
+    "notCopywritingTool": {
+      "title": "Not another AI copywriting tool",
+      "subtitle": "A real media buyer",
+      "description": "Flipika doesn't just generate text. It analyzes, optimizes and manages your campaigns like an expert with 10 years of experience."
+    },
+    "designedForMediaBuyers": {
+      "title": "Designed for Media Buyers",
+      "subtitle": "Not for content creators",
+      "description": "Every feature is designed to maximize your ROAS, not to create Instagram posts."
+    },
+    "usesRealData": {
+      "title": "Uses YOUR real Google Ads data",
+      "subtitle": "Not generic prompts",
+      "description": "Flipika connects directly to your Google Ads account for optimizations based on your real metrics."
+    },
+    "learnsAndImproves": {
+      "title": "Learns and improves with every campaign",
+      "subtitle": "Evolutionary AI",
+      "description": "The more you use Flipika, the more it understands your business and optimizes according to your specific goals."
+    },
+    "cta": "Discover the Difference",
+    "ctaSubtitle": "Discover why Media Buyers choose Flipika",
+    "comparison": {
+      "title": "Flipika vs Other AI Tools",
+      "subtitle": "An honest comparison of what makes us unique",
+      "featureHeader": "Feature",
+      "flipikaHeader": "Flipika",
+      "othersHeader": "Other AI Tools",
+      "campaignManagement": "Complete campaign management",
+      "realTimeOptimization": "Real-time optimization",
+      "directGoogleAds": "Direct Google Ads connection",
+      "specializedAI": "Specialized performance marketing AI",
+      "continuousLearning": "Continuous learning",
+      "genericText": "Generic text generation"
+    }
+  },
+  "testimonials": {
+    "title": "What Our Customers Say",
+    "subtitle": "Real results for businesses like yours",
+    "cta": "Join Successful Businesses",
+    "ctaSubtitle": "Start your free trial today",
+    "betaUser": "Beta User",
+    "stats": {
+      "earlyAdopters": "Early adopters",
+      "averageRoas": "Average ROAS",
+      "budgetOptimized": "Budget optimized",
+      "satisfaction": "Satisfaction"
+    },
+    "reviews": {
+      "pierre": {
+        "name": "Pierre D.",
+        "role": "Media Buyer",
+        "company": "TechStart",
+        "content": "I joined Flipika's beta 3 months ago. Result: +340% ROAS on my Google Ads campaigns. The AI really understands performance marketing.",
+        "metric": "+340% ROAS"
+      },
+      "marie": {
+        "name": "Marie L.",
+        "role": "Freelance Media Buyer",
+        "company": "Independent",
+        "content": "Flipika took me from 50k€ to 500k€ in managed revenue per month. The automation saves me 20h/week that I can dedicate to my other clients.",
+        "metric": "500k€ revenue/month"
+      },
+      "julien": {
+        "name": "Julien R.",
+        "role": "CEO & Founder",
+        "company": "E-commerce Pro",
+        "content": "We tested 3 agencies before Flipika. Nothing worked as well. Our CPA dropped 60% in 2 months. It's like having a full-time Google Ads expert.",
+        "metric": "-60% CPA"
+      }
+    }
+  },
+  "emailCapture": {
+    "title": "Ready to Boost Your Ads?",
+    "subtitle": "Start your 14-day free trial",
+    "emailPlaceholder": "Enter your email",
+    "submitButton": "Start Free Trial",
+    "successMessage": "Thank you! Check your email to get started.",
+    "errorEmailRequired": "Please enter your email address",
+    "errorEmailInvalid": "Please enter a valid email address",
+    "errorGeneric": "An error occurred. Please try again.",
+    "benefits": {
+      "freeBeta": "Free lifetime beta access",
+      "prioritySupport": "Priority 1-on-1 support",
+      "influence": "Influence on new features"
+    },
+    "trust": {
+      "activeBeta": "Active Beta Testers",
+      "remainingSpots": "Remaining Spots",
+      "averageRoas": "Average ROAS"
+    }
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "legal": "Legal Notices",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "cookieConsent": {
+    "message": "We use cookies to enhance your experience. By continuing to use our site, you accept our use of cookies.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "learnMore": "Learn More"
+  },
+  "legalNotices": {
+    "title": "Legal Notices",
+    "backToHome": "Back to Home",
+    "sections": {
+      "generalInfo": {
+        "title": "1. General Information",
+        "content": "The present website is published by <strong>Flipika</strong>, a simplified joint stock company with capital of 1,000 euros, registered with the Paris Trade and Companies Register under number 123 456 789.",
+        "address": "<strong>Registered office:</strong> 123 Innovation Street, 75001 Paris, France",
+        "phone": "<strong>Phone:</strong> +33 (0)1 23 45 67 89",
+        "email": "<strong>Email:</strong> contact@flipika.com",
+        "director": "<strong>Publication Director:</strong> Elouan Salmon"
+      },
+      "hosting": {
+        "title": "2. Hosting",
+        "content": "The website is hosted by <strong>Google Cloud Platform</strong>,",
+        "address": "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.",
+        "phone": "<strong>Phone:</strong> +353 1 436 1000"
+      },
+      "intellectualProperty": {
+        "title": "3. Intellectual Property",
+        "content1": "All content on the website (texts, images, videos, logos, trademarks, etc.) is protected by French and international intellectual property laws.",
+        "content2": "Any reproduction, representation, modification, adaptation or exploitation, even partial, of this content is strictly prohibited without prior written permission from Flipika."
+      },
+      "personalData": {
+        "title": "4. Personal Data",
+        "content1": "Personal data collected on the website is used solely within the framework of services provided by Flipika, in accordance with our privacy policy.",
+        "content2": "In accordance with the General Data Protection Regulation (GDPR), you have the right to access, rectify, erase, restrict, port, and object to your personal data."
+      },
+      "cookies": {
+        "title": "5. Cookies",
+        "content": "The website uses cookies to improve user experience. By browsing the website, you accept the use of these cookies. You can configure your cookie preferences at any time."
+      },
+      "liability": {
+        "title": "6. Liability Limitation",
+        "content1": "Flipika strives to provide information as accurate as possible on the website, but cannot be held responsible for any error, omission or inaccuracy.",
+        "content2": "The website user acknowledges having verified the compatibility of their computer equipment with the website and that their technical capabilities allow access and error-free use of the website and its services."
+      },
+      "applicableLaw": {
+        "title": "7. Applicable Law and Jurisdiction",
+        "content": "These legal notices are subject to French law. In case of dispute, an amicable solution will be sought. Failing that, the courts of Paris will have sole jurisdiction."
+      },
+      "contact": {
+        "title": "8. Contact",
+        "content": "For any questions regarding these legal notices or the website in general, you can contact us at: <strong>legal@flipika.com</strong>"
+      }
+    },
+    "lastUpdate": "<strong>Last updated:</strong> January 1, 2024"
+  }
+}

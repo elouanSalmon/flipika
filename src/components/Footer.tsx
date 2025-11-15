@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Footer.css';
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <footer className="footer-simple">
       <div className="footer-simple-container">
@@ -13,18 +15,18 @@ const Footer: React.FC = () => {
           
           <div className="footer-simple-links">
             <Link to="/mentions-legales" className="footer-simple-link">
-              Mentions Légales
+              {t('common:footer.legal')}
             </Link>
             <Link to="/politique-confidentialite" className="footer-simple-link">
-              Confidentialité
+              {t('common:footer.privacy')}
             </Link>
             <Link to="/conditions-utilisation" className="footer-simple-link">
-              Conditions
+              {t('common:footer.terms')}
             </Link>
           </div>
           
           <div className="footer-simple-copyright">
-            © 2025 Flipika. Tous droits réservés.
+            © 2025 Flipika. {t('common:footer.copyright')}.
           </div>
         </div>
       </div>
