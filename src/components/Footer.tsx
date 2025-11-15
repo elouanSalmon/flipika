@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   Mail, 
   Phone, 
@@ -9,8 +10,6 @@ import {
   Facebook,
   Instagram,
   ArrowUp,
-  Rocket,
-  Globe,
   Shield,
   Zap
 } from 'lucide-react';
@@ -141,149 +140,42 @@ const Footer: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Product Links */}
-            <motion.div className="footer-section" variants={itemVariants}>
-              <div className="section-header">
-                <Rocket size={20} />
-                <h4 className="footer-title">Produit</h4>
-              </div>
-              <ul className="footer-links">
-                <li>
-                  <motion.a 
-                    href="#features"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Fonctionnalités
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
-                    href="#problem"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Problème
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
-                    href="#testimonials"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Témoignages
-                  </motion.a>
-                </li>
-              </ul>
-            </motion.div>
-
-            {/* Company Links */}
-            <motion.div className="footer-section" variants={itemVariants}>
-              <div className="section-header">
-                <Globe size={20} />
-                <h4 className="footer-title">Entreprise</h4>
-              </div>
-              <ul className="footer-links">
-                <li>
-                  <motion.a 
-                    href="#about"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    À propos
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
-                    href="#careers"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Carrières
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
-                    href="#press"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Presse
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
-                    href="#partners"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Partenaires
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
-                    href="#contact"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Contact
-                  </motion.a>
-                </li>
-              </ul>
-            </motion.div>
-
-            {/* Resources Links */}
+            {/* Legal Links Section */}
             <motion.div className="footer-section" variants={itemVariants}>
               <div className="section-header">
                 <Shield size={20} />
-                <h4 className="footer-title">Ressources</h4>
+                <h4 className="footer-title">Informations Légales</h4>
               </div>
               <ul className="footer-links">
                 <li>
-                  <motion.a 
-                    href="#blog"
+                  <motion.div 
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring" as const, stiffness: 300 }}
                   >
-                    Blog
-                  </motion.a>
+                    <Link to="/mentions-legales" className="footer-link">
+                      Mentions Légales
+                    </Link>
+                  </motion.div>
                 </li>
                 <li>
-                  <motion.a 
-                    href="#help"
+                  <motion.div 
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring" as const, stiffness: 300 }}
                   >
-                    Centre d'aide
-                  </motion.a>
+                    <Link to="/politique-confidentialite" className="footer-link">
+                      Politique de confidentialité
+                    </Link>
+                  </motion.div>
                 </li>
                 <li>
-                  <motion.a 
-                    href="#guides"
+                  <motion.div 
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring" as const, stiffness: 300 }}
                   >
-                    Guides
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
-                    href="#webinars"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Webinaires
-                  </motion.a>
-                </li>
-                <li>
-                  <motion.a 
-                    href="#community"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring" as const, stiffness: 300 }}
-                  >
-                    Communauté
-                  </motion.a>
+                    <Link to="/conditions-utilisation" className="footer-link">
+                      Conditions d'utilisation
+                    </Link>
+                  </motion.div>
                 </li>
               </ul>
             </motion.div>
@@ -340,34 +232,30 @@ const Footer: React.FC = () => {
             <div className="footer-bottom-bg"></div>
             <div className="footer-bottom-content">
               <div className="legal-links">
-                <motion.a 
-                  href="#privacy"
+                <motion.div 
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring" as const, stiffness: 300 }}
                 >
-                  Politique de confidentialité
-                </motion.a>
-                <motion.a 
-                  href="#terms"
+                  <Link to="/politique-confidentialite" className="footer-link">
+                    Politique de confidentialité
+                  </Link>
+                </motion.div>
+                <motion.div 
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring" as const, stiffness: 300 }}
                 >
-                  Conditions d'utilisation
-                </motion.a>
-                <motion.a 
-                  href="#cookies"
+                  <Link to="/conditions-utilisation" className="footer-link">
+                    Conditions d'utilisation
+                  </Link>
+                </motion.div>
+                <motion.div 
                   whileHover={{ y: -2 }}
                   transition={{ type: "spring" as const, stiffness: 300 }}
                 >
-                  Cookies
-                </motion.a>
-                <motion.a 
-                  href="#legal"
-                  whileHover={{ y: -2 }}
-                  transition={{ type: "spring" as const, stiffness: 300 }}
-                >
-                  Mentions légales
-                </motion.a>
+                  <Link to="/mentions-legales" className="footer-link">
+                    Mentions légales
+                  </Link>
+                </motion.div>
               </div>
               
               <div className="footer-bottom-right">

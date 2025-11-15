@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sun, Moon, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import './Header.css';
 
@@ -15,12 +16,7 @@ const Header: React.FC = () => {
     }
   };
 
-  const handleNavigation = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,9 +28,9 @@ const Header: React.FC = () => {
   }, []);
 
   const navItems = [
-    { label: 'Problème', sectionId: 'problem' },
-    { label: 'Fonctionnalités', sectionId: 'features' },
-    { label: 'Témoignages', sectionId: 'testimonials' },
+    { label: 'Mentions Légales', path: '/mentions-legales' },
+    { label: 'Confidentialité', path: '/politique-confidentialite' },
+    { label: 'Conditions', path: '/conditions-utilisation' },
   ];
 
   return (
@@ -63,17 +59,17 @@ const Header: React.FC = () => {
         {/* Desktop Navigation */}
         <nav className="nav-desktop">
           {navItems.map((item, index) => (
-            <motion.button
+            <motion.div
               key={item.label}
-              onClick={() => handleNavigation(item.sectionId)}
-              className="nav-link"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.3 }}
               whileHover={{ y: -2 }}
             >
-              {item.label}
-            </motion.button>
+              <Link to={item.path} className="nav-link">
+                {item.label}
+              </Link>
+            </motion.div>
           ))}
         </nav>
 
