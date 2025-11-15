@@ -1,9 +1,9 @@
-import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs, Timestamp } from 'firebase/firestore';
 import { db } from './config';
 
 export interface EmailSubscription {
   email: string;
-  timestamp: any;
+  timestamp: Timestamp | ReturnType<typeof serverTimestamp>;
   source: string;
   userAgent?: string;
   ipAddress?: string;
@@ -65,17 +65,17 @@ export const subscribeEmail = async (email: string): Promise<{ success: boolean;
       message: 'Merci ! Votre inscription a été confirmée.'
     };
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('❌ Erreur lors de l\'ajout de l\'email:', error);
     
     // Messages d'erreur plus spécifiques
     let errorMessage = 'Une erreur est survenue. Veuillez réessayer plus tard.';
     
-    if (error?.code === 'permission-denied') {
+    if (error && typeof error === 'object' && 'code' in error && error.code === 'permission-denied') {
       errorMessage = 'Permissions insuffisantes. Veuillez contacter le support.';
-    } else if (error?.code === 'unavailable') {
+    } else if (error && typeof error === 'object' && 'code' in error && error.code === 'unavailable') {
       errorMessage = 'Service temporairement indisponible. Veuillez réessayer.';
-    } else if (error?.message?.includes('Firestore')) {
+    } else if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string' && error.message.includes('Firestore')) {
       errorMessage = 'Base de données non disponible. Veuillez réessayer plus tard.';
     }
     

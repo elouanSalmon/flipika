@@ -21,25 +21,27 @@
 }
 
 .language-switcher__current span {
-  color: white;
+  color: var(--color-text-primary);
   font-size: 14px;
   font-weight: 500;
 }
 
 .language-switcher__dropdown {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 8px);
   right: 0;
-  background: white;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
   padding: 8px;
-  min-width: 150px;
+  min-width: 180px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
-  z-index: 1000;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+  z-index: 2000;
+  overflow: visible;
 }
 
 .language-switcher:hover .language-switcher__dropdown {
@@ -60,7 +62,7 @@
   cursor: pointer;
   text-align: left;
   font-size: 14px;
-  color: #333;
+  color: var(--color-text-primary);
   transition: background-color 0.2s ease;
 }
 
@@ -69,8 +71,8 @@
 }
 
 .language-switcher__option--active {
-  background-color: #007bff;
-  color: white;
+  background-color: rgba(var(--primary-rgb), 0.1);
+  color: var(--color-primary);
 }
 
 .language-switcher__option--active:hover {

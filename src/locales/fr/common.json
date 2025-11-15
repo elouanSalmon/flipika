@@ -1,90 +1,371 @@
 {
   "header": {
-    "home": "Accueil",
-    "features": "Fonctionnalités",
-    "pricing": "Tarifs",
-    "testimonials": "Témoignages",
-    "contact": "Contact"
+    "tagline": "Optimisation IA des campagnes Google Ads",
+    "getStarted": "Commencer",
+    "language": "Langue"
   },
   "hero": {
-    "title": "Transformez Votre Publicité avec l'IA",
-    "subtitle": "Créez des campagnes publicitaires performantes en quelques minutes grâce à l'intelligence artificielle",
-    "cta": "Commencer Gratuitement",
-    "ctaSecondary": "En Savoir Plus"
+    "title": "Transformez vos campagnes Google Ads avec l'IA",
+    "subtitle": "Les petites entreprises perdent des milliers d'euros en publicité inefficace",
+    "description": "Notre IA optimise automatiquement vos campagnes Google Ads pour maximiser votre retour sur investissement. Obtenez plus de clients tout en réduisant votre budget publicitaire.",
+    "getStarted": "Commencer gratuitement",
+    "noCreditCard": "Pas de carte bancaire requise"
   },
   "problem": {
-    "title": "Le Problème",
-    "subtitle": "Les petites entreprises perdent des milliers d'euros en publicité inefficace",
-    "description": "83% des petites entreprises échouent à créer des publicités qui convertissent. Cela coûte en moyenne 5 000€ par an en publicité gaspillée.",
+    "title": "Pourquoi 90% des campagnes Google Ads échouent",
+    "subtitle": "Les entreprises perdent en moyenne 30% de leur budget publicitaire",
     "issues": {
-      "timeManagement": "Vous passez des heures à gérer Google Ads",
-      "budgetWaste": "et gaspillez encore du budget.",
-      "inconsistentCampaigns": "Vos campagnes sont incohérentes",
-      "difficultToScale": "et difficiles à scaler.",
-      "expensiveAgency": "Embaucher une agence ou un expert",
-      "costlyAndTime": "coûte cher et prend du temps."
+      "budget": "Budget gaspillé sur des mauvais mots-clés",
+      "time": "Pas assez de temps pour optimiser",
+      "complexity": "Trop complexe pour les non-experts",
+      "competition": "Concurrence féroce sur les enchères"
     }
   },
   "features": {
-    "title": "Fonctionnalités Puissantes",
+    "title": "Optimisation IA complète",
     "aiGeneration": {
-      "title": "Génération IA de Publicités",
-      "description": "Créez des publicités optimisées en quelques secondes avec notre technologie d'IA avancée"
+      "title": "Génération IA d'annonces",
+      "description": "Créez des annonces performantes avec notre IA qui analyse vos concurrents et votre marché"
     },
     "analytics": {
-      "title": "Analytiques en Temps Réel",
-      "description": "Suivez les performances de vos campagnes avec notre tableau de bord détaillé"
+      "title": "Analytiques en temps réel",
+      "description": "Suivez vos performances avec des tableaux de bord détaillés et des insights actionnables"
     },
     "optimization": {
-      "title": "Optimisation Continue",
-      "description": "Notre IA optimise automatiquement vos campagnes pour de meilleurs résultats"
+      "title": "Optimisation automatique",
+      "description": "Notre IA ajuste automatiquement vos enchères, mots-clés et ciblage pour maximiser vos conversions"
     },
     "buttons": {
-      "discover": "Découvrir",
-      "seeHow": "Voir comment ça marche"
+      "learnMore": "En savoir plus",
+      "getStarted": "Commencer"
     }
   },
   "differentiation": {
-    "title": "Pourquoi Nous Choisir ?",
-    "item1": "IA spécialement conçue pour la publicité locale",
-    "item2": "Interface simple et intuitive",
-    "item3": "Support client réactif",
-    "item4": "Prix abordables pour les petites entreprises"
+    "title": "Pourquoi choisir Flipika ?",
+    "subtitle": "Contrairement aux autres plateformes qui nécessitent des connaissances techniques",
+    "items": {
+      "noTechnical": "Pas de compétences techniques requises",
+      "fastSetup": "Configuration en 5 minutes",
+      "aiPowered": "IA qui apprend de vos résultats",
+      "affordable": "Prix abordable pour les petites entreprises"
+    }
   },
   "testimonials": {
-    "title": "Ce Que Disent Nos Clients",
-    "subtitle": "Des résultats concrets pour des entreprises comme la vôtre"
+    "title": "Ce que disent nos clients",
+    "subtitle": "Des centaines d'entreprises ont déjà fait confiance à Flipika",
+    "marie": {
+      "name": "Marie D.",
+      "company": "Boutique en ligne",
+      "text": "J'ai doublé mes ventes en 2 mois grâce à Flipika. Je n'y connaissais rien en publicité, maintenant je suis tranquille."
+    },
+    "jean": {
+      "name": "Jean L.",
+      "company": "Restaurant",
+      "text": "Incroyable ! J'ai réduit mon budget de 40% tout en ayant plus de clients. Le système fonctionne vraiment."
+    },
+    "sophie": {
+      "name": "Sophie M.",
+      "company": "Services B2B",
+      "text": "Enfin une solution simple pour Google Ads. Je recommande à tous mes amis entrepreneurs."
+    }
   },
   "emailCapture": {
-    "title": "Prêt à Booster Vos Publicités ?",
-    "subtitle": "Commencez votre essai gratuit de 14 jours",
+    "title": "Prêt à booster vos campagnes ?",
+    "subtitle": "Rejoignez des milliers d'entreprises qui optimisent leurs publicités",
     "emailPlaceholder": "Entrez votre email",
-    "submitButton": "Commencer l'Essai Gratuit",
-    "successMessage": "Merci ! Vérifhez votre email pour commencer.",
-    "errorEmailRequired": "Veuillez entrer votre adresse email",
-    "errorEmailInvalid": "Veuillez entrer une adresse email valide",
-    "errorGeneric": "Une erreur est survenue. Veuillez réessayer.",
+    "submitButton": "Commencer gratuitement",
     "benefits": {
-      "freeBeta": "Accès bêta gratuit à vie",
-      "prioritySupport": "Support prioritaire 1-on-1",
-      "influence": "Influence sur les nouvelles fonctionnalités"
+      "title": "Ce que vous obtenez :",
+      "item1": "Audit gratuit de vos campagnes actuelles",
+      "item2": "Accès immédiat à notre plateforme IA",
+      "item3": "Support personnalisé pour démarrer"
     },
     "trust": {
-      "activeBeta": "Beta Testeurs Actifs",
-      "remainingSpots": "Places Restantes",
-      "averageRoas": "ROAS Moyen"
+      "text": "✓ Pas de carte bancaire requise",
+      "security": "✓ Sécurisé et confidentiel"
+    },
+    "error": {
+      "invalidEmail": "Veuillez entrer un email valide",
+      "alreadySubscribed": "Cet email est déjà inscrit",
+      "genericError": "Une erreur est survenue. Veuillez réessayer."
+    },
+    "success": {
+      "title": "Merci !",
+      "message": "Votre inscription a été confirmée. Vérifiez votre email pour commencer."
     }
   },
   "footer": {
-    "copyright": "Tous droits réservés",
-    "legal": "Mentions Légales",
-    "privacy": "Politique de Confidentialité",
-    "terms": "Conditions d'Utilisation"
+    "copyright": "© 2024 Flipika. Tous droits réservés.",
+    "legal": {
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation"
+    }
   },
   "cookieConsent": {
-    "message": "Nous utilisons des cookies pour améliorer votre expérience. En continuant à utiliser notre site, vous acceptez notre utilisation des cookies.",
+    "message": "Nous utilisons des cookies pour améliorer votre expérience. En continuant, vous acceptez notre utilisation des cookies.",
     "accept": "Accepter",
-    "decline": "Refuser",
-    "learnMore": "En Savoir Plus"
+    "learnMore": "En savoir plus"
+  },
+  "legalNotices": {
+    "title": "Mentions Légales",
+    "backToHome": "Retour à l'accueil",
+    "company": {
+      "title": "Éditeur du site",
+      "name": "Flipika SAS",
+      "address": "123 rue de l'Innovation, 75001 Paris, France",
+      "siret": "SIRET : 123 456 789 00010",
+      "phone": "Téléphone : +33 1 23 45 67 89",
+      "email": "Email : contact@flipika.com"
+    },
+    "hosting": {
+      "title": "Hébergeur",
+      "provider": "Vercel Inc.",
+      "address": "340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis",
+      "website": "Site web : https://vercel.com"
+    },
+    "intellectualProperty": {
+      "title": "Propriété intellectuelle",
+      "content": "Le site Flipika et l'ensemble de ses contenus (textes, images, logos, etc.) sont la propriété exclusive de Flipika SAS et sont protégés par les lois sur la propriété intellectuelle."
+    },
+    "dataProtection": {
+      "title": "Protection des données",
+      "content": "Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles."
+    }
+  },
+  "privacyPolicy": {
+    "title": "Politique de Confidentialité",
+    "backToHome": "Retour à l'accueil",
+    "lastUpdate": "<strong>Dernière mise à jour :</strong> 1er janvier 2024",
+    "sections": {
+      "introduction": {
+        "title": "1. Introduction",
+        "content": "Chez Flipika, la protection de vos données personnelles est notre priorité. Cette politique de confidentialité explique comment nous collectons, utilisons, stockons et protégeons vos informations personnelles conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés."
+      },
+      "whoWeAre": {
+        "title": "2. Qui sommes-nous ?",
+        "content": "Le responsable du traitement de vos données personnelles est :",
+        "company": "<strong>Flipika SAS</strong>",
+        "address": "Siège social : 123 rue de l'Innovation, 75001 Paris, France",
+        "email": "Email : privacy@flipika.com",
+        "siret": "SIRET : 123 456 789 00010"
+      },
+      "dataCollected": {
+        "title": "3. Données collectées",
+        "content": "Nous collectons les données suivantes :",
+        "list": [
+          "Informations d'identification : nom, prénom, email",
+          "Informations professionnelles : entreprise, poste",
+          "Données de connexion : adresse IP, type de navigateur",
+          "Données d'utilisation : pages visitées, temps passé sur le site",
+          "Données publicitaires : comptes Google Ads connectés"
+        ]
+      },
+      "legalBasis": {
+        "title": "4. Base légale du traitement",
+        "content": "Nous traitons vos données sur les bases légales suivantes :",
+        "list": [
+          "Consentement : pour l'envoi de newsletters et de communications marketing",
+          "Contrat : pour fournir nos services et gérer votre compte",
+          "Intérêt légitime : pour améliorer nos services et prévenir la fraude",
+          "Obligation légale : pour respecter nos obligations comptables et fiscales"
+        ]
+      },
+      "dataUsage": {
+        "title": "5. Utilisation des données",
+        "content": "Vos données sont utilisées pour :",
+        "list": [
+          "Fournir et améliorer nos services",
+          "Personnaliser votre expérience utilisateur",
+          "Vous envoyer des communications marketing (avec votre consentement)",
+          "Analyser l'utilisation de notre service",
+          "Détecter et prévenir la fraude",
+          "Respecter nos obligations légales"
+        ]
+      },
+      "dataRetention": {
+        "title": "6. Conservation des données",
+        "content": "Nous conservons vos données pendant :",
+        "list": [
+          "Données de compte : durée de votre abonnement + 3 ans",
+          "Données de facturation : 10 ans (obligation légale)",
+          "Données de marketing : jusqu'à désinscription + 3 ans",
+          "Données de connexion : 1 an",
+          "Données de support : 3 ans après la résolution du ticket"
+        ]
+      },
+      "dataSharing": {
+        "title": "7. Partage des données",
+        "content": "Nous ne partageons vos données qu'avec :",
+        "list": [
+          "Google Ads (via leurs API, uniquement avec votre consentement)",
+          "Fournisseurs de services techniques (hébergement, email)",
+          "Autorités légales (sur demande légale)",
+          "Partenaires commerciaux (avec votre consentement explicite)"
+        ]
+      },
+      "dataSecurity": {
+        "title": "8. Sécurité des données",
+        "content": "Nous mettons en œuvre les mesures de sécurité suivantes :",
+        "list": [
+          "Chiffrement des données en transit et au repos",
+          "Authentification à deux facteurs pour l'accès administrateur",
+          "Sauvegardes régulières des données",
+          "Contrôles d'accès stricts",
+          "Audit de sécurité régulier",
+          "Formation du personnel à la sécurité"
+        ]
+      },
+      "yourRights": {
+        "title": "9. Vos droits",
+        "content": "Conformément au RGPD, vous disposez des droits suivants :",
+        "list": [
+          "Droit d'accès : consulter vos données personnelles",
+          "Droit de rectification : corriger vos données inexactes",
+          "Droit à l'effacement : demander la suppression de vos données",
+          "Droit à la portabilité : recevoir vos données dans un format lisible",
+          "Droit d'opposition : vous opposer au traitement de vos données",
+          "Droit de limitation : limiter le traitement de vos données",
+          "Droit de ne pas être profilé : ne pas faire l'objet d'une décision automatisée"
+        ],
+        "exercise": "Pour exercer ces droits, contactez-nous à : privacy@flipika.com"
+      },
+      "cookies": {
+        "title": "10. Cookies et technologies similaires",
+        "content": "Nous utilisons des cookies pour :",
+        "list": [
+          "Fonctionnalités essentielles (connexion, préférences)",
+          "Analyses d'utilisation (Google Analytics)",
+          "Publicités personnalisées (avec consentement)",
+          "Performances du site"
+        ],
+        "consent": "Vous pouvez gérer vos préférences cookies à tout moment via notre centre de préférences."
+      },
+      "internationalTransfers": {
+        "title": "11. Transferts internationaux",
+        "content": "Vos données peuvent être transférées vers des pays hors UE. Dans ce cas, nous garantissons :",
+        "list": [
+          "Des clauses contractuelles types approuvées par la Commission européenne",
+          "Des garanties appropriées pour protéger vos données",
+          "Des mesures de sécurité renforcées"
+        ]
+      },
+      "policyChanges": {
+        "title": "12. Modifications de la politique",
+        "content": "Nous nous réservons le droit de modifier cette politique à tout moment. Les modifications seront :",
+        "list": [
+          "Communiquées par email aux utilisateurs enregistrés",
+          "Publiées sur cette page avec la date de mise à jour",
+          "Effectives 30 jours après la publication"
+        ]
+      },
+      "contact": {
+        "title": "13. Contact",
+        "content": "Pour toute question concernant cette politique de confidentialité :",
+        "email": "<strong>Email :</strong> privacy@flipika.com",
+        "address": "<strong>Adresse postale :</strong> Flipika - Privacy, 123 rue de l'Innovation, 75001 Paris",
+        "cnil": "Vous avez également le droit de déposer une réclamation auprès de la CNIL : <a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener noreferrer\"> www.cnil.fr</a>"
+      }
+    }
+  },
+  "termsOfService": {
+    "title": "Conditions d'Utilisation",
+    "backToHome": "Retour à l'accueil",
+    "lastUpdate": "<strong>Dernière mise à jour :</strong> 1er janvier 2024",
+    "sections": {
+      "acceptance": {
+        "title": "1. Acceptation des conditions",
+        "content": "En accédant et en utilisant le site web Flipika (ci-après \"le Service\"), vous acceptez d'être lié par ces Conditions d'Utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre Service."
+      },
+      "serviceDescription": {
+        "title": "2. Description du service",
+        "content1": "Flipika fournit une plateforme d'automatisation et d'optimisation des campagnes publicitaires Google Ads utilisant l'intelligence artificielle. Le Service inclut l'accès à notre plateforme, aux outils d'analyse, et aux recommandations générées par notre IA.",
+        "content2": "Le Service est fourni \"tel quel\" et peut être modifié, suspendu ou interrompu à tout moment sans préavis."
+      },
+      "accessConditions": {
+        "title": "3. Conditions d'accès",
+        "content": "L'utilisation du Service nécessite la création d'un compte utilisateur. Vous vous engagez à :",
+        "list": [
+          "Fournir des informations exactes, complètes et à jour lors de l'inscription",
+          "Maintenir la confidentialité de vos identifiants de connexion",
+          "Être responsable de toutes les activités effectuées sous votre compte",
+          "Nous informer immédiatement de toute utilisation non autorisée de votre compte"
+        ]
+      },
+      "authorizedUse": {
+        "title": "4. Utilisation autorisée",
+        "content": "Vous acceptez d'utiliser le Service uniquement pour des usages légaux et conformes à ces conditions. Il est interdit de :",
+        "list": [
+          "Utiliser le Service de manière à violer les lois applicables",
+          "Transmettre des virus, malwares ou tout code malveillant",
+          "Tenter d'accéder à des zones non autorisées du Service",
+          "Utiliser des robots, spiders ou autres moyens automatisés sans autorisation",
+          "Collecter des données personnelles d'autres utilisateurs sans consentement",
+          "Utiliser le Service pour du spam ou des communications non sollicitées",
+          "Afficher, copier ou télécharger des portions non autorisées du Service",
+          "Contourner ou désactiver les mesures de sécurité du Service"
+        ]
+      },
+      "intellectualProperty": {
+        "title": "5. Propriété intellectuelle",
+        "content1": "Le Service et son contenu original (sauf contenu généré par les utilisateurs), fonctionnalités et fonctionnalités sont et resteront la propriété exclusive de Flipika et de ses concédants.",
+        "content2": "Le Service est protégé par le droit d'auteur, les marques commerciales et autres lois. Aucune partie du Service ne peut être copiée, modifiée, distribuée, vendue ou exploitée sans notre consentement écrit préalable."
+      },
+      "userData": {
+        "title": "6. Données utilisateur",
+        "content1": "Vous gardez la propriété de tout contenu que vous soumettez, publiez ou affichez via le Service. En soumettant ce contenu, vous accordez à Flipika une licence mondiale, non exclusive, transférable, sous-licenciable, libre de redevances pour utiliser, copier, modifier, distribuer et afficher ce contenu dans le cadre du Service.",
+        "content2": "Vous déclarez et garantissez que : (i) vous détenez les droits sur le contenu ou avez le droit de le publier, et (ii) le contenu ne viole pas les droits de tiers ou les lois applicables."
+      },
+      "googleAdsAccounts": {
+        "title": "7. Comptes Google Ads",
+        "content": "Lorsque vous connectez vos comptes Google Ads à Flipika, vous autorisez notre plateforme à :",
+        "list": [
+          "Accéder à vos données de campagnes publicitaires",
+          "Générer des recommandations et optimisations basées sur vos données",
+          "Appliquer des optimisations à vos campagnes avec votre consentement"
+        ]
+      },
+      "pricingBilling": {
+        "title": "8. Tarifs et facturation",
+        "content1": "Les conditions tarifaires du Service sont décrites sur notre site et peuvent être modifiées à tout moment. Tout changement sera communiqué avant sa prise d'effet.",
+        "content2": "Les factures sont payables à réception. En cas de non-paiement, Flipika se réserve le droit de suspendre l'accès au Service jusqu'à régularisation."
+      },
+      "termination": {
+        "title": "9. Résiliation",
+        "content1": "Nous pouvons suspendre ou résilier l'accès au Service immédiatement, sans préavis ni responsabilité, pour toute raison, notamment en cas de violation des Conditions.",
+        "content2": "Vous pouvez mettre fin à votre utilisation du Service à tout moment en fermant votre compte ou en contactant le support."
+      },
+      "liability": {
+        "title": "10. Limitation de responsabilité",
+        "content1": "Flipika ne saurait être tenue responsable de tout dommage indirect, accessoire, spécial, consécutif ou punitif, y compris la perte de bénéfices, de données ou d'autres pertes immatérielles, résultant de votre utilisation ou de l'impossibilité d'utiliser le Service.",
+        "content2": "Nous nous efforçons de maintenir un haut niveau de disponibilité, mais nous ne garantissons pas un accès ininterrompu ou sans erreur au Service."
+      },
+      "warrantyDisclaimer": {
+        "title": "11. Garantie et clause de non-responsabilité",
+        "content1": "Le Service est fourni \"TEL QUEL\" et \"SELON DISPONIBILITÉ\" sans garantie d'aucune sorte. Flipika décline expressément toutes les garanties, expresses ou implicites, y compris mais sans s'y limiter, les garanties implicites de qualité marchande, d'adéquation à un usage particulier et de non-contrefaçon.",
+        "content2": "Flipika ne garantit pas que : (i) le Service sera ininterrompu, sécurisé ou sans erreur, (ii) les résultats obtenus par l'utilisation du Service seront exacts ou fiables, (iii) la qualité des produits, services, informations ou autres matériels achetés ou obtenus par vous répondra à vos attentes."
+      },
+      "changes": {
+        "title": "12. Modifications des conditions",
+        "content": "Nous nous réservons le droit de modifier ces Conditions d'Utilisation à tout moment. Les modifications seront publiées sur cette page avec la date de mise à jour."
+      },
+      "serviceChanges": {
+        "title": "13. Modifications du Service",
+        "content": "Flipika se réserve le droit de modifier ou interrompre, temporairement ou définitivement, le Service ou toute partie de celui-ci avec ou sans préavis. Flipika ne sera pas responsable envers vous ou tout tiers pour toute modification, suspension ou interruption du Service."
+      },
+      "applicableLaw": {
+        "title": "14. Droit applicable",
+        "content": "Ces Conditions sont régies par le droit français. En cas de litige, une solution amiable sera recherchée. À défaut, les tribunaux de Paris seront compétents."
+      },
+      "generalProvisions": {
+        "title": "15. Dispositions générales",
+        "content1": "Ces Conditions constituent l'intégralité de l'accord entre vous et Flipika concernant le Service et remplacent tous les accords antérieurs ou contemporains, écrits ou oraux.",
+        "content2": "Si une disposition de ces Conditions est jugée invalide ou inapplicable, les autres dispositions resteront en vigueur. Le fait que Flipika n'exerce pas ou n'applique pas un droit ou une disposition ne constitue pas une renonciation."
+      },
+      "contact": {
+        "title": "16. Contact",
+        "content": "Pour toute question concernant ces Conditions d'Utilisation, vous pouvez nous contacter à :",
+        "email": "<strong>Email :</strong> legal@flipika.com"
+      }
+    }
   }
 }

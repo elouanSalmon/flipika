@@ -41,7 +41,7 @@ const EmailCapture: React.FC = () => {
         setStatus('error');
         setMessage(result.message);
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
       setMessage(t('common:emailCapture.errorGeneric') || 'Une erreur est survenue. Veuillez réessayer.');
     } finally {
