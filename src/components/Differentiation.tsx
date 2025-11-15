@@ -9,9 +9,12 @@ import {
   CheckCircle,
   X
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './Differentiation.css';
 
 const Differentiation: React.FC = () => {
+  const { t } = useTranslation();
+  
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
     if (emailSection) {
@@ -24,62 +27,62 @@ const Differentiation: React.FC = () => {
   const differentiators = [
     {
       icon: Brain,
-      title: "Pas un autre outil de copywriting IA",
-      subtitle: "Un vrai media buyer",
-      description: "Flipika ne génère pas juste du texte. Il analyse, optimise et gère vos campagnes comme un expert avec 10 ans d'expérience.",
+      title: t('common:differentiation.notCopywritingTool.title'),
+      subtitle: t('common:differentiation.notCopywritingTool.subtitle'),
+      description: t('common:differentiation.notCopywritingTool.description'),
       color: "primary"
     },
     {
       icon: Target,
-      title: "Conçu pour les Media Buyers",
-      subtitle: "Pas pour les créateurs de contenu",
-      description: "Chaque fonctionnalité est pensée pour maximiser votre ROAS, pas pour créer des posts Instagram.",
+      title: t('common:differentiation.designedForMediaBuyers.title'),
+      subtitle: t('common:differentiation.designedForMediaBuyers.subtitle'),
+      description: t('common:differentiation.designedForMediaBuyers.description'),
       color: "secondary"
     },
     {
       icon: Database,
-      title: "Utilise VOS vraies données Google Ads",
-      subtitle: "Pas des prompts génériques",
-      description: "Flipika se connecte directement à votre compte Google Ads pour des optimisations basées sur vos métriques réelles.",
+      title: t('common:differentiation.usesRealData.title'),
+      subtitle: t('common:differentiation.usesRealData.subtitle'),
+      description: t('common:differentiation.usesRealData.description'),
       color: "accent"
     },
     {
       icon: TrendingUp,
-      title: "Apprend et s'améliore à chaque campagne",
-      subtitle: "IA évolutive",
-      description: "Plus vous utilisez Flipika, plus il comprend votre business et optimise selon vos objectifs spécifiques.",
+      title: t('common:differentiation.learnsAndImproves.title'),
+      subtitle: t('common:differentiation.learnsAndImproves.subtitle'),
+      description: t('common:differentiation.learnsAndImproves.description'),
       color: "warning"
     }
   ];
 
   const comparison = [
     {
-      feature: "Gestion complète des campagnes",
+      feature: t('common:differentiation.comparison.campaignManagement'),
       flipika: true,
       others: false
     },
     {
-      feature: "Optimisation en temps réel",
+      feature: t('common:differentiation.comparison.realTimeOptimization'),
       flipika: true,
       others: false
     },
     {
-      feature: "Connexion directe Google Ads",
+      feature: t('common:differentiation.comparison.directGoogleAds'),
       flipika: true,
       others: false
     },
     {
-      feature: "IA spécialisée performance marketing",
+      feature: t('common:differentiation.comparison.specializedAI'),
       flipika: true,
       others: false
     },
     {
-      feature: "Apprentissage continu",
+      feature: t('common:differentiation.comparison.continuousLearning'),
       flipika: true,
       others: false
     },
     {
-      feature: "Génération de texte générique",
+      feature: t('common:differentiation.comparison.genericText'),
       flipika: false,
       others: true
     }
@@ -99,14 +102,13 @@ const Differentiation: React.FC = () => {
           <div className="differentiation-header">
             <div className="diff-badge">
               <Shield size={16} />
-              <span>Pourquoi nous</span>
+              <span>{t('common:differentiation.title')}</span>
             </div>
             <h2 className="diff-title">
-              Pourquoi Flipika est différent
+              {t('common:differentiation.subtitle')}
             </h2>
             <p className="diff-subtitle">
-              Nous ne sommes pas un autre "outil IA marketing classique". 
-              Voici ce qui nous distingue vraiment.
+              {t('common:differentiation.description')}
             </p>
           </div>
 
@@ -132,18 +134,18 @@ const Differentiation: React.FC = () => {
           {/* Comparison Table */}
           <div className="comparison-section">
             <div className="comparison-header">
-              <h3>Flipika vs Autres outils IA</h3>
-              <p>Une comparaison honnête de ce qui nous rend uniques</p>
+              <h3>{t('common:differentiation.comparison.title')}</h3>
+              <p>{t('common:differentiation.comparison.subtitle')}</p>
             </div>
             
             <div className="comparison-table">
               <div className="comparison-headers">
-                <div className="feature-header">Fonctionnalité</div>
+                <div className="feature-header">{t('common:differentiation.comparison.featureHeader')}</div>
                 <div className="flipika-header">
                   <Zap size={20} />
-                  <span>Flipika</span>
+                  <span>{t('common:differentiation.comparison.flipikaHeader')}</span>
                 </div>
-                <div className="others-header">Autres outils IA</div>
+                <div className="others-header">{t('common:differentiation.comparison.othersHeader')}</div>
               </div>
               
               <div className="comparison-rows">
@@ -176,14 +178,14 @@ const Differentiation: React.FC = () => {
           {/* Bottom CTA */}
           <div className="diff-cta">
             <div className="cta-content">
-              <h3>Prêt à voir la différence ?</h3>
-              <p>Découvrez pourquoi les Media Buyers choisissent Flipika</p>
+              <h3>{t('common:differentiation.cta')}</h3>
+              <p>{t('common:differentiation.ctaSubtitle') || 'Discover why Media Buyers choose Flipika'}</p>
             </div>
             <button
               className="cta-button"
               onClick={scrollToEmailForm}
             >
-              <span>Rejoindre la waitlist</span>
+              <span>{t('common:hero.cta')}</span>
               <TrendingUp size={18} />
             </button>
           </div>

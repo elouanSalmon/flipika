@@ -1,0 +1,88 @@
+.language-switcher {
+  position: relative;
+  display: inline-block;
+}
+
+.language-switcher__current {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.language-switcher__current:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.language-switcher__current span {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.language-switcher__dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  min-width: 150px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.language-switcher:hover .language-switcher__dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-switcher__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.language-switcher__option:hover {
+  background-color: #f5f5f5;
+}
+
+.language-switcher__option--active {
+  background-color: #007bff;
+  color: white;
+}
+
+.language-switcher__option--active:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .language-switcher__current {
+    padding: 6px 10px;
+  }
+  
+  .language-switcher__current span {
+    font-size: 12px;
+  }
+}

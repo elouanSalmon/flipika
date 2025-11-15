@@ -1,0 +1,90 @@
+{
+  "header": {
+    "home": "Accueil",
+    "features": "Fonctionnalités",
+    "pricing": "Tarifs",
+    "testimonials": "Témoignages",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Transformez Votre Publicité avec l'IA",
+    "subtitle": "Créez des campagnes publicitaires performantes en quelques minutes grâce à l'intelligence artificielle",
+    "cta": "Commencer Gratuitement",
+    "ctaSecondary": "En Savoir Plus"
+  },
+  "problem": {
+    "title": "Le Problème",
+    "subtitle": "Les petites entreprises perdent des milliers d'euros en publicité inefficace",
+    "description": "83% des petites entreprises échouent à créer des publicités qui convertissent. Cela coûte en moyenne 5 000€ par an en publicité gaspillée.",
+    "issues": {
+      "timeManagement": "Vous passez des heures à gérer Google Ads",
+      "budgetWaste": "et gaspillez encore du budget.",
+      "inconsistentCampaigns": "Vos campagnes sont incohérentes",
+      "difficultToScale": "et difficiles à scaler.",
+      "expensiveAgency": "Embaucher une agence ou un expert",
+      "costlyAndTime": "coûte cher et prend du temps."
+    }
+  },
+  "features": {
+    "title": "Fonctionnalités Puissantes",
+    "aiGeneration": {
+      "title": "Génération IA de Publicités",
+      "description": "Créez des publicités optimisées en quelques secondes avec notre technologie d'IA avancée"
+    },
+    "analytics": {
+      "title": "Analytiques en Temps Réel",
+      "description": "Suivez les performances de vos campagnes avec notre tableau de bord détaillé"
+    },
+    "optimization": {
+      "title": "Optimisation Continue",
+      "description": "Notre IA optimise automatiquement vos campagnes pour de meilleurs résultats"
+    },
+    "buttons": {
+      "discover": "Découvrir",
+      "seeHow": "Voir comment ça marche"
+    }
+  },
+  "differentiation": {
+    "title": "Pourquoi Nous Choisir ?",
+    "item1": "IA spécialement conçue pour la publicité locale",
+    "item2": "Interface simple et intuitive",
+    "item3": "Support client réactif",
+    "item4": "Prix abordables pour les petites entreprises"
+  },
+  "testimonials": {
+    "title": "Ce Que Disent Nos Clients",
+    "subtitle": "Des résultats concrets pour des entreprises comme la vôtre"
+  },
+  "emailCapture": {
+    "title": "Prêt à Booster Vos Publicités ?",
+    "subtitle": "Commencez votre essai gratuit de 14 jours",
+    "emailPlaceholder": "Entrez votre email",
+    "submitButton": "Commencer l'Essai Gratuit",
+    "successMessage": "Merci ! Vérifhez votre email pour commencer.",
+    "errorEmailRequired": "Veuillez entrer votre adresse email",
+    "errorEmailInvalid": "Veuillez entrer une adresse email valide",
+    "errorGeneric": "Une erreur est survenue. Veuillez réessayer.",
+    "benefits": {
+      "freeBeta": "Accès bêta gratuit à vie",
+      "prioritySupport": "Support prioritaire 1-on-1",
+      "influence": "Influence sur les nouvelles fonctionnalités"
+    },
+    "trust": {
+      "activeBeta": "Beta Testeurs Actifs",
+      "remainingSpots": "Places Restantes",
+      "averageRoas": "ROAS Moyen"
+    }
+  },
+  "footer": {
+    "copyright": "Tous droits réservés",
+    "legal": "Mentions Légales",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation"
+  },
+  "cookieConsent": {
+    "message": "Nous utilisons des cookies pour améliorer votre expérience. En continuant à utiliser notre site, vous acceptez notre utilisation des cookies.",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "learnMore": "En Savoir Plus"
+  }
+}

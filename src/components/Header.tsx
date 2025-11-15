@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sun, Moon, Zap } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 import './Header.css';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { t } = useTranslation();
 
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
@@ -34,9 +37,10 @@ const Header: React.FC = () => {
   }, []);
 
   const navItems = [
-    { label: 'Problème', sectionId: 'problem' },
-    { label: 'Fonctionnalités', sectionId: 'features' },
-    { label: 'Témoignages', sectionId: 'testimonials' },
+    { label: t('common:header.home'), sectionId: 'hero' },
+    { label: t('common:problem.title'), sectionId: 'problem' },
+    { label: t('common:features.title'), sectionId: 'features' },
+    { label: t('common:testimonials.title'), sectionId: 'testimonials' },
   ];
 
   return (
@@ -81,6 +85,9 @@ const Header: React.FC = () => {
 
         {/* Header Actions */}
         <div className="header-actions">
+          {/* Language Switcher */}
+          <LanguageSwitcher />
+          
           {/* Theme Toggle - Now visible on both desktop and mobile */}
           <motion.div
             className="theme-toggle-wrapper"
@@ -111,7 +118,7 @@ const Header: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Commencer Gratuitement
+            {t('common:hero.cta')}
           </motion.button>
         </div>
       </div>

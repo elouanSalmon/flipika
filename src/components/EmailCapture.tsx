@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { subscribeEmail, validateEmail } from '../firebase/emailService';
 import './EmailCapture.css';
 
 const EmailCapture: React.FC = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -15,13 +17,13 @@ const EmailCapture: React.FC = () => {
     
     if (!email.trim()) {
       setStatus('error');
-      setMessage('Veuillez entrer votre adresse email');
+      setMessage(t('common:emailCapture.errorEmailRequired') || 'Veuillez entrer votre adresse email');
       return;
     }
 
     if (!validateEmail(email)) {
       setStatus('error');
-      setMessage('Veuillez entrer une adresse email valide');
+      setMessage(t('common:emailCapture.errorEmailInvalid') || 'Veuillez entrer une adresse email valide');
       return;
     }
 
@@ -41,7 +43,7 @@ const EmailCapture: React.FC = () => {
       }
     } catch (error) {
       setStatus('error');
-      setMessage('Une erreur est survenue. Veuillez réessayer.');
+      setMessage(t('common:emailCapture.errorGeneric') || 'Une erreur est survenue. Veuillez réessayer.');
     } finally {
       setIsSubmitting(false);
     }
@@ -73,12 +75,11 @@ const EmailCapture: React.FC = () => {
             </div>
             
             <h2 className="capture-title">
-              Rejoignez la <span className="gradient-text">Révolution</span> Google Ads
+              {t('common:emailCapture.title')}
             </h2>
             
             <p className="capture-subtitle">
-              Soyez parmi les premiers à accéder à l'IA qui transforme vos campagnes en machines à profit. 
-              <strong>Places limitées pour la bêta exclusive.</strong>
+              {t('common:emailCapture.subtitle')}
             </p>
           </div>
 
@@ -89,7 +90,7 @@ const EmailCapture: React.FC = () => {
                 <Mail size={20} className="input-icon" />
                 <input
                   type="email"
-                  placeholder="Entrez votre adresse email"
+                  placeholder={t('common:emailCapture.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={`email-input ${status === 'error' ? 'error' : ''}`}
@@ -112,7 +113,7 @@ const EmailCapture: React.FC = () => {
                   />
                 ) : (
                   <>
-                    <span>Réserver ma Place Bêta</span>
+                    <span>{t('common:emailCapture.submitButton')}</span>
                     <ArrowRight size={20} />
                   </>
                 )}
@@ -141,15 +142,15 @@ const EmailCapture: React.FC = () => {
           <div className="capture-benefits">
             <div className="benefit-item">
               <CheckCircle size={16} className="benefit-icon" />
-              <span>Accès bêta gratuit à vie</span>
+              <span>{t('common:emailCapture.benefits.freeBeta')}</span>
             </div>
             <div className="benefit-item">
               <CheckCircle size={16} className="benefit-icon" />
-              <span>Support prioritaire 1-on-1</span>
+              <span>{t('common:emailCapture.benefits.prioritySupport')}</span>
             </div>
             <div className="benefit-item">
               <CheckCircle size={16} className="benefit-icon" />
-              <span>Influence sur les nouvelles fonctionnalités</span>
+              <span>{t('common:emailCapture.benefits.influence')}</span>
             </div>
           </div>
 
@@ -157,15 +158,15 @@ const EmailCapture: React.FC = () => {
           <div className="trust-indicators">
             <div className="trust-item">
               <span className="trust-number gradient-text">127</span>
-              <span className="trust-label">Beta Testeurs Actifs</span>
+              <span className="trust-label">{t('common:emailCapture.trust.activeBeta')}</span>
             </div>
             <div className="trust-item">
               <span className="trust-number gradient-text">73</span>
-              <span className="trust-label">Places Restantes</span>
+              <span className="trust-label">{t('common:emailCapture.trust.remainingSpots')}</span>
             </div>
             <div className="trust-item">
               <span className="trust-number gradient-text">+340%</span>
-              <span className="trust-label">ROAS Moyen</span>
+              <span className="trust-label">{t('common:emailCapture.trust.averageRoas')}</span>
             </div>
           </div>
         </motion.div>

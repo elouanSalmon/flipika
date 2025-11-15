@@ -1,0 +1,102 @@
+},
+  "privacyPolicy": {
+    "title": "Politique de Confidentialité",
+    "backToHome": "Retour à l'accueil",
+    "sections": {
+      "introduction": {
+        "title": "1. Introduction",
+        "content": "Chez Flipika, la protection de vos données personnelles est notre priorité. Cette politique de confidentialité explique comment nous collectons, utilisons, stockons et protégeons vos informations personnelles conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés."
+      },
+      "whoWeAre": {
+        "title": "2. Qui sommes-nous ?",
+        "content": "Le responsable du traitement de vos données personnelles est :",
+        "company": "<strong>Flipika SAS</strong>",
+        "address": "Siège social : 123 rue de l'Innovation, 75001 Paris, France",
+        "email": "Email : privacy@flipika.com",
+        "siret": "SIRET : 123 456 789 00010"
+      },
+      "dataCollected": {
+        "title": "3. Données collectées",
+        "content": "Nous collectons les données suivantes :",
+        "identificationData": "<strong>Données d'identification :</strong> nom, prénom, adresse email",
+        "connectionData": "<strong>Données de connexion :</strong> adresse IP, type de navigateur, logs de connexion",
+        "usageData": "<strong>Données d'utilisation :</strong> pages visitées, temps passé sur le site",
+        "commercialData": "<strong>Données commerciales :</strong> informations sur votre utilisation de nos services"
+      },
+      "legalBasis": {
+        "title": "4. Base légale du traitement",
+        "content": "Nous traitons vos données sur les bases légales suivantes :",
+        "consent": "<strong>Consentement :</strong> pour l'envoi de newsletters et communications marketing",
+        "contract": "<strong>Contrat :</strong> pour fournir nos services",
+        "legitimateInterest": "<strong>Intérêt légitime :</strong> pour améliorer nos services et prévenir la fraude",
+        "legalObligation": "<strong>Obligation légale :</strong> pour respecter nos obligations comptables et fiscales"
+      },
+      "dataUsage": {
+        "title": "5. Utilisation des données",
+        "content": "Vos données sont utilisées pour :",
+        "provideServices": "Fournir et améliorer nos services",
+        "contact": "Vous contacter concernant nos services",
+        "marketing": "Envoyer des communications marketing (avec votre consentement)",
+        "analytics": "Analyser l'utilisation du site et améliorer l'expérience utilisateur",
+        "legal": "Respecter nos obligations légales"
+      },
+      "dataRetention": {
+        "title": "6. Conservation des données",
+        "content": "Nous conservons vos données personnelles uniquement pendant la durée nécessaire aux finalités pour lesquelles elles ont été collectées :",
+        "contactData": "<strong>Données de contact :</strong> 3 ans après le dernier contact",
+        "accountData": "<strong>Données de compte :</strong> durée du contrat + 5 ans",
+        "navigationData": "<strong>Données de navigation :</strong> 13 mois maximum",
+        "billingData": "<strong>Données de facturation :</strong> 10 ans (obligation légale)"
+      },
+      "dataSharing": {
+        "title": "7. Partage des données",
+        "content1": "Nous ne vendons jamais vos données personnelles. Elles peuvent être partagées avec :",
+        "providers": "Prestataires techniques (hébergement, email, analytics)",
+        "authorities": "Autorités légales (sur demande légale)",
+        "successors": "Successeurs en cas de cession d'activité",
+        "content2": "Tous nos partenaires sont soumis à des obligations de confidentialité strictes."
+      },
+      "dataSecurity": {
+        "title": "8. Sécurité des données",
+        "content1": "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, modification, divulgation ou destruction.",
+        "content2": "Ces mesures incluent : chiffrement des données, pare-feu, accès restreints, sauvegardes régulières, et formation du personnel."
+      },
+      "yourRights": {
+        "title": "9. Vos droits",
+        "content": "Conformément au RGPD, vous disposez des droits suivants :",
+        "accessRight": "<strong>Droit d'accès :</strong> obtenir une copie de vos données",
+        "rectificationRight": "<strong>Droit de rectification :</strong> corriger vos données inexactes",
+        "erasureRight": "<strong>Droit d'effacement :</strong> demander la suppression de vos données",
+        "portabilityRight": "<strong>Droit à la portabilité :</strong> recevoir vos données dans un format structuré",
+        "oppositionRight": "<strong>Droit d'opposition :</strong> vous opposer au traitement de vos données",
+        "limitationRight": "<strong>Droit de limitation :</strong> restreindre le traitement de vos données",
+        "contact": "Pour exercer ces droits, contactez-nous à : <strong>privacy@flipika.com</strong> ou par courrier à l'adresse indiquée ci-dessus."
+      },
+      "cookies": {
+        "title": "10. Cookies",
+        "content": "Nous utilisons des cookies pour améliorer votre expérience sur notre site. Les cookies utilisés incluent :",
+        "essentialCookies": "<strong>Cookies essentiels :</strong> nécessaires au fonctionnement du site",
+        "preferenceCookies": "<strong>Cookies de préférence :</strong> mémorisent vos choix",
+        "analyticsCookies": "<strong>Cookies d'analyse :</strong> mesurent l'audience du site",
+        "marketingCookies": "<strong>Cookies marketing :</strong> avec votre consentement préalable",
+        "configuration": "Vous pouvez configurer vos préférences en matière de cookies à tout moment via notre outil de gestion des cookies."
+      },
+      "internationalTransfers": {
+        "title": "11. Transferts internationaux",
+        "content": "Vos données peuvent être transférées vers des pays hors UE dans le cadre de l'utilisation de certains services (Google Cloud, etc.). Ces transferts sont protégés par des clauses contractuelles types approuvées par la Commission Européenne."
+      },
+      "policyChanges": {
+        "title": "12. Modifications de la politique",
+        "content": "Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Les modifications seront publiées sur cette page avec indication de la date de mise à jour. Nous vous informerons par email des changements significatifs."
+      },
+      "contact": {
+        "title": "13. Contact",
+        "content": "Pour toute question concern cette politique de confidentialité ou vos données personnelles, vous pouvez nous contacter :",
+        "email": "<strong>Email :</strong> privacy@flipika.com",
+        "address": "<strong>Adresse postale :</strong> Flipika - Privacy, 123 rue de l'Innovation, 75001 Paris",
+        "cnil": "Vous avez également le droit de déposer une réclamation auprès de la CNIL : <a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener noreferrer\"> www.cnil.fr</a>"
+      }
+    },
+    "lastUpdate": "<strong>Dernière mise à jour :</strong> 1er janvier 2024"
+  }
+}

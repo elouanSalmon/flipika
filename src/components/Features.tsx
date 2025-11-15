@@ -8,9 +8,12 @@ import {
   CheckCircle,
   Eye
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './Features.css';
 
 const Features: React.FC = () => {
+  const { t } = useTranslation();
+  
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
     if (emailSection) {
@@ -22,13 +25,13 @@ const Features: React.FC = () => {
     {
       id: 'create-campaigns',
       icon: Rocket,
-      title: 'Lancez vos campagnes instantanément',
-      subtitle: 'À partir d\'un simple brief',
-      description: 'Fini les heures de configuration. Décrivez votre objectif et Flipika génère une campagne complète et optimisée.',
+      title: t('common:features.createCampaigns.title'),
+      subtitle: t('common:features.createCampaigns.subtitle'),
+      description: t('common:features.createCampaigns.description'),
       benefits: [
-        { icon: CheckCircle, text: 'Configuration automatique' },
-        { icon: CheckCircle, text: 'Mots-clés intelligents' },
-        { icon: CheckCircle, text: 'Audiences ciblées' }
+        { icon: CheckCircle, text: t('common:features.createCampaigns.benefits.0') },
+        { icon: CheckCircle, text: t('common:features.createCampaigns.benefits.1') },
+        { icon: CheckCircle, text: t('common:features.createCampaigns.benefits.2') }
       ],
       color: 'primary',
       gradient: 'from-indigo-500 to-indigo-600'
@@ -36,13 +39,13 @@ const Features: React.FC = () => {
     {
       id: 'auto-optimize',
       icon: Zap,
-      title: 'Auto-optimisation continue',
-      subtitle: 'Enchères, budgets et mots-clés',
-      description: 'Votre media buyer IA ajuste automatiquement vos campagnes 24/7 pour maximiser vos performances.',
+      title: t('common:features.autoOptimize.title'),
+      subtitle: t('common:features.autoOptimize.subtitle'),
+      description: t('common:features.autoOptimize.description'),
       benefits: [
-        { icon: CheckCircle, text: 'Enchères optimisées en temps réel' },
-        { icon: CheckCircle, text: 'Répartition intelligente du budget' },
-        { icon: CheckCircle, text: 'Optimisation automatique des mots-clés' }
+        { icon: CheckCircle, text: t('common:features.autoOptimize.benefits.0') },
+        { icon: CheckCircle, text: t('common:features.autoOptimize.benefits.1') },
+        { icon: CheckCircle, text: t('common:features.autoOptimize.benefits.2') }
       ],
       color: 'accent',
       gradient: 'from-emerald-500 to-emerald-600'
@@ -50,13 +53,13 @@ const Features: React.FC = () => {
     {
       id: 'boost-roas',
       icon: TrendingUp,
-      title: 'Boostez votre ROAS',
-      subtitle: 'Avec l\'apprentissage IA continu',
-      description: 'Plus Flipika gère vos campagnes, plus elle devient performante. Chaque donnée améliore vos résultats.',
+      title: t('common:features.boostRoas.title'),
+      subtitle: t('common:features.boostRoas.subtitle'),
+      description: t('common:features.boostRoas.description'),
       benefits: [
-        { icon: CheckCircle, text: 'ROAS en amélioration constante' },
-        { icon: CheckCircle, text: 'Apprentissage de vos données' },
-        { icon: CheckCircle, text: 'Prédictions de performance' }
+        { icon: CheckCircle, text: t('common:features.boostRoas.benefits.0') },
+        { icon: CheckCircle, text: t('common:features.boostRoas.benefits.1') },
+        { icon: CheckCircle, text: t('common:features.boostRoas.benefits.2') }
       ],
       color: 'primary',
       gradient: 'from-indigo-600 to-indigo-400'
@@ -64,13 +67,13 @@ const Features: React.FC = () => {
     {
       id: 'actionable-insights',
       icon: Eye,
-      title: 'Insights actionnables',
-      subtitle: 'Sans setup, sans agence',
-      description: 'Recevez des recommandations claires et précises pour améliorer vos performances, directement dans votre dashboard.',
+      title: t('common:features.actionableInsights.title'),
+      subtitle: t('common:features.actionableInsights.subtitle'),
+      description: t('common:features.actionableInsights.description'),
       benefits: [
-        { icon: CheckCircle, text: 'Rapports automatiques' },
-        { icon: CheckCircle, text: 'Recommandations personnalisées' },
-        { icon: CheckCircle, text: 'Alertes intelligentes' }
+        { icon: CheckCircle, text: t('common:features.actionableInsights.benefits.0') },
+        { icon: CheckCircle, text: t('common:features.actionableInsights.benefits.1') },
+        { icon: CheckCircle, text: t('common:features.actionableInsights.benefits.2') }
       ],
       color: 'accent',
       gradient: 'from-emerald-500 to-emerald-600'
@@ -114,11 +117,10 @@ const Features: React.FC = () => {
           viewport={{ once: true }}
         >
           <h2 className="features-title">
-            Ce que <span className="gradient-text">Flipika</span> fait pour vous
+            {t('common:features.title')}
           </h2>
           <p className="features-subtitle">
-            Pas de features d'abord — des résultats concrets. 
-            Voici comment Flipika transforme votre approche Google Ads.
+            {t('common:features.subtitle')}
           </p>
         </motion.div>
 

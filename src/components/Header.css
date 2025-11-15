@@ -137,6 +137,22 @@
   gap: var(--spacing-md);
 }
 
+/* Language Switcher in Header */
+.header-actions .language-switcher {
+  margin-right: var(--spacing-sm);
+}
+
+.header-actions .language-switcher__current {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.header-actions .language-switcher__current:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
 /* Theme Toggle */
 .theme-toggle-wrapper {
   display: flex;
