@@ -26,7 +26,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'fr',
+    fallbackLng: ['fr', 'en'],
     debug: false,
     detection: detectionOptions,
     interpolation: {
@@ -34,6 +34,7 @@ i18n
     },
     defaultNS: 'common',
     ns: ['common'],
+    load: 'languageOnly',
   });
 
 export default i18n;

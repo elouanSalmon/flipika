@@ -8,6 +8,7 @@
   transition: all var(--transition-normal);
   backdrop-filter: blur(0px);
   background: transparent;
+  overflow: visible;
 }
 
 .header.scrolled {
@@ -26,6 +27,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-lg);
+  overflow: visible;
 }
 
 /* Logo */

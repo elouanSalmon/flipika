@@ -199,7 +199,7 @@ const SocialProof: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {earlyAdopters.map((testimonial, _index) => (
+          {earlyAdopters.map((testimonial) => (
             <motion.div
               key={testimonial.id}
               className="testimonial-card early-adopter-card"
