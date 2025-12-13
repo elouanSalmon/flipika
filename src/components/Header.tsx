@@ -38,9 +38,9 @@ const Header: React.FC = () => {
 
   const navItems = [
     { label: t('common:header.home'), sectionId: 'hero' },
-    { label: t('common:problem.title'), sectionId: 'problem' },
-    { label: t('common:features.title'), sectionId: 'features' },
-    { label: t('common:testimonials.title'), sectionId: 'testimonials' },
+    { label: t('common:header.problem'), sectionId: 'problem' },
+    { label: t('common:header.features'), sectionId: 'features' },
+    { label: t('common:header.testimonials'), sectionId: 'testimonials' },
   ];
 
   return (
@@ -87,7 +87,7 @@ const Header: React.FC = () => {
         <div className="header-actions">
           {/* Language Switcher */}
           <LanguageSwitcher />
-          
+
           {/* Theme Toggle - Now visible on both desktop and mobile */}
           <motion.div
             className="theme-toggle-wrapper"

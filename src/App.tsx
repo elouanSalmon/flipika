@@ -1,80 +1,66 @@
-import { motion } from 'framer-motion';
-import { Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Problem from './components/Problem';
-import Features from './components/Features';
-import Differentiation from './components/Differentiation';
-import SocialProof from './components/Testimonials';
-import EmailCapture from './components/EmailCapture';
-import Footer from './components/Footer';
-import CookieConsent from './components/CookieConsent';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import Landing from './pages/Landing';
+import Login from './pages/Login';
+import AppLayout from './layouts/AppLayout';
+import Dashboard from './pages/Dashboard';
+import Copilot from './pages/Copilot';
+import Campaigns from './pages/Campaigns';
 import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import NotFound from './pages/NotFound';
 import './App.css';
+
+// Protected Route Component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { currentUser, loading } = useAuth();
+
+  if (loading) {
+    return <div className="h-screen flex items-center justify-center text-blue-600">Loading...</div>;
+  }
+
+  if (!currentUser) {
+    return <Navigate to="/secret-login" replace />;
+  }
+
+  return children;
+};
 
 function App() {
   return (
     <ThemeProvider>
-      <div className="App">
-        {/* Background elements */}
-        <div className="bg-gradient"></div>
-        <div className="bg-grid"></div>
-        
-        {/* Header */}
-        <Header />
-        
-        {/* Routes */}
-        <Routes>
-          <Route path="/" element={
-            <main>
-              <Hero />
-              <Problem />
-              <Features />
-              <Differentiation />
-              <SocialProof />
-              <EmailCapture />
-            </main>
-          } />
-          <Route path="/mentions-legales" element={<LegalNotices />} />
-          <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
-          <Route path="/conditions-utilisation" element={<TermsOfService />} />
-        </Routes>
-        
-        {/* Footer */}
-        <Footer />
-        
-        {/* Floating elements for visual appeal */}
-        <motion.div
-          className="floating-orb orb-1"
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -100, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="floating-orb orb-2"
-          animate={{
-            x: [0, -150, 0],
-            y: [0, 150, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        
-        {/* Cookie Consent */}
-        <CookieConsent />
-      </div>
+      <AuthProvider>
+        <div className="App">
+          <Routes>
+            {/* Public Landing Pages */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/mentions-legales" element={<LegalNotices />} />
+            <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
+            <Route path="/conditions-utilisation" element={<TermsOfService />} />
+
+            {/* Auth Pages */}
+            <Route path="/secret-login" element={<Login />} />
+
+            {/* Protected App Routes */}
+            <Route path="/app" element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }>
+              <Route index element={<Navigate to="dashboard" replace />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="copilot" element={<Copilot />} />
+              <Route path="campaigns" element={<Campaigns />} />
+            </Route>
+
+            {/* 404 Route */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

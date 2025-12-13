@@ -3,53 +3,61 @@
 :root {
   /* Harmonized Color Palette - Light Mode */
   --color-primary: #0066ff;
-  --primary-rgb: 0, 102, 255; /* RGB values for rgba() usage */
+  --primary-rgb: 0, 102, 255;
+  /* RGB values for rgba() usage */
   --color-primary-light: #3385ff;
   --color-primary-dark: #0052cc;
-  --color-secondary: #0066ff; /* Blue instead of secondary yellow */
+  --color-secondary: #0066ff;
+  /* Blue instead of secondary yellow */
   --color-secondary-light: #3385ff;
   --color-secondary-dark: #0052cc;
-  --color-accent: #0066ff; /* Blue for better harmony */
-  --accent-rgb: 0, 102, 255; /* RGB values for accent color */
+  --color-accent: #0066ff;
+  /* Blue for better harmony */
+  --accent-rgb: 0, 102, 255;
+  /* RGB values for accent color */
   --color-accent-dark: #0052cc;
-  
+
   /* Glass and Surface Variables */
-  --glass-rgb: 255, 255, 255; /* White glass for light mode */
-  --glass-border-rgb: 226, 232, 240; /* Light border */
-  --border-rgb: 226, 232, 240; /* Standard border */
-  --surface-rgb: 248, 250, 252; /* Surface background */
-  
+  --glass-rgb: 255, 255, 255;
+  /* White glass for light mode */
+  --glass-border-rgb: 226, 232, 240;
+  /* Light border */
+  --border-rgb: 226, 232, 240;
+  /* Standard border */
+  --surface-rgb: 248, 250, 252;
+  /* Surface background */
+
   /* Background Colors - Light Mode */
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f8fafc;
   --color-bg-tertiary: #f1f5f9;
   --color-bg-card: rgba(255, 255, 255, 0.8);
   --color-bg-overlay: rgba(255, 255, 255, 0.95);
-  
+
   /* Text Colors - Light Mode */
   --color-text-primary: #0f172a;
   --color-text-secondary: #475569;
   --color-text-muted: #64748b;
   --color-text-inverse: #ffffff;
-  
+
   /* Border Colors */
   --color-border: #e2e8f0;
   --color-border-light: #f1f5f9;
   --color-border-dark: #cbd5e1;
-  
+
   /* Glassmorphism - Light Mode */
   --glass-bg: rgba(255, 255, 255, 0.25);
   --glass-bg-hover: rgba(255, 255, 255, 0.35);
   --glass-border: rgba(255, 255, 255, 0.3);
   --glass-shadow: 0 8px 32px rgba(0, 102, 255, 0.1);
   --glass-backdrop: blur(20px);
-  
+
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, #0066ff 0%, #0080ff 100%);
   --gradient-secondary: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%);
   --gradient-bg: radial-gradient(ellipse at top, #f8fafc 0%, #ffffff 100%);
   --gradient-hero: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(0, 128, 255, 0.1) 100%);
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
@@ -58,16 +66,17 @@
   --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.15);
   --shadow-glow-blue: 0 0 30px rgba(0, 102, 255, 0.3);
   --shadow-glow-accent: 0 0 30px rgba(0, 102, 255, 0.3);
-  
+
   /* Grid Colors */
   --color-grid: rgba(100, 116, 139, 0.08);
-  
+
   /* Accent Colors for highlights */
-  --color-accent-highlight: var(--color-primary); /* Use primary blue for highlights */
+  --color-accent-highlight: var(--color-primary);
+  /* Use primary blue for highlights */
   --color-accent-highlight-light: #60a5fa;
   --color-accent-highlight-dark: #1d4ed8;
   --color-accent-glow: rgba(59, 130, 246, 0.2);
-  
+
   /* Status Colors */
   --color-success: var(--color-accent);
   --color-warning: var(--color-primary);
@@ -79,52 +88,60 @@
 [data-theme="dark"] {
   /* Harmonized Color Palette - Dark Mode */
   --color-primary: #3385ff;
-  --primary-rgb: 51, 133, 255; /* RGB values for rgba() usage in dark mode */
+  --primary-rgb: 51, 133, 255;
+  /* RGB values for rgba() usage in dark mode */
   --color-primary-light: #66a3ff;
   --color-primary-dark: #0066ff;
-  --color-secondary: #3385ff; /* Blue for dark mode */
+  --color-secondary: #3385ff;
+  /* Blue for dark mode */
   --color-secondary-light: #66a3ff;
   --color-secondary-dark: #0066ff;
-  --color-accent: #3385ff; /* Blue for dark mode */
-  --accent-rgb: 51, 133, 255; /* RGB values for accent color in dark mode */
+  --color-accent: #3385ff;
+  /* Blue for dark mode */
+  --accent-rgb: 51, 133, 255;
+  /* RGB values for accent color in dark mode */
   --color-accent-dark: #0066ff;
-  
+
   /* Glass and Surface Variables - Dark Mode */
-  --glass-rgb: 17, 24, 39; /* Dark glass for dark mode */
-  --glass-border-rgb: 55, 65, 81; /* Dark border */
-  --border-rgb: 55, 65, 81; /* Standard border for dark mode */
-  --surface-rgb: 31, 41, 55; /* Surface background for dark mode */
-  
+  --glass-rgb: 17, 24, 39;
+  /* Dark glass for dark mode */
+  --glass-border-rgb: 55, 65, 81;
+  /* Dark border */
+  --border-rgb: 55, 65, 81;
+  /* Standard border for dark mode */
+  --surface-rgb: 31, 41, 55;
+  /* Surface background for dark mode */
+
   /* Background Colors - Dark Mode */
   --color-bg-primary: #0a0e1a;
   --color-bg-secondary: #111827;
   --color-bg-tertiary: #1f2937;
   --color-bg-card: rgba(17, 24, 39, 0.8);
   --color-bg-overlay: rgba(10, 14, 26, 0.95);
-  
+
   /* Text Colors - Dark Mode */
   --color-text-primary: #f8fafc;
   --color-text-secondary: #cbd5e1;
   --color-text-muted: #94a3b8;
   --color-text-inverse: #0f172a;
-  
+
   /* Border Colors - Dark Mode */
   --color-border: #374151;
   --color-border-light: #4b5563;
   --color-border-dark: #1f2937;
-  
+
   /* Glassmorphism - Dark Mode */
   --glass-bg: rgba(17, 24, 39, 0.3);
   --glass-bg-hover: rgba(17, 24, 39, 0.5);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  
+
   /* Gradients - Dark Mode */
   --gradient-primary: linear-gradient(135deg, #3385ff 0%, #66a3ff 100%);
   --gradient-secondary: linear-gradient(135deg, #33e0ff 0%, #3385ff 100%);
   --gradient-bg: radial-gradient(ellipse at top, #1f2937 0%, #0a0e1a 100%);
   --gradient-hero: linear-gradient(135deg, rgba(51, 133, 255, 0.1) 0%, rgba(102, 163, 255, 0.1) 100%);
-  
+
   /* Shadows - Dark Mode */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
@@ -133,16 +150,17 @@
   --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.7);
   --shadow-glow-blue: 0 0 30px rgba(51, 133, 255, 0.4);
   --shadow-glow-accent: 0 0 30px rgba(34, 197, 94, 0.4);
-  
+
   /* Grid Colors - Dark Mode */
   --color-grid: rgba(255, 255, 255, 0.05);
-  
+
   /* Accent Colors for highlights - Dark Mode */
-  --color-accent-highlight: var(--color-primary); /* Use primary blue for highlights */
+  --color-accent-highlight: var(--color-primary);
+  /* Use primary blue for highlights */
   --color-accent-highlight-light: #60a5fa;
   --color-accent-highlight-dark: #1e40af;
   --color-accent-glow: rgba(96, 165, 250, 0.15);
-  
+
   /* Status Colors */
   --color-success: var(--color-accent);
   --color-warning: var(--color-primary);
@@ -162,7 +180,9 @@
   --spacing-3xl: 4rem;
   --spacing-4xl: 5rem;
   --spacing-5xl: 6rem;
-  
+  --spacing-8xl: 8rem;
+  --spacing-10xl: 10rem;
+
   /* Border radius */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
@@ -171,50 +191,79 @@
   --radius-2xl: 1.5rem;
   --radius-3xl: 2rem;
   --radius-full: 9999px;
-  
+
   /* Transitions */
   --transition-fast: 0.15s ease-out;
   --transition-normal: 0.3s ease-out;
   --transition-slow: 0.5s ease-out;
   --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  
+
   /* Typography Scale - Harmonized */
-  --font-size-xs: 0.75rem;      /* 12px - Small labels, captions */
-  --font-size-sm: 0.875rem;     /* 14px - Small text, secondary info */
-  --font-size-base: 1rem;       /* 16px - Body text, default */
-  --font-size-lg: 1.125rem;     /* 18px - Large body text */
-  --font-size-xl: 1.25rem;      /* 20px - Small headings, lead text */
-  --font-size-2xl: 1.5rem;      /* 24px - H4, section titles */
-  --font-size-3xl: 1.875rem;    /* 30px - H3, important headings */
-  --font-size-4xl: 2.25rem;     /* 36px - H2, major headings */
-  --font-size-5xl: 3rem;        /* 48px - H1, hero titles */
-  --font-size-6xl: 3.75rem;     /* 60px - Display titles */
-  --font-size-7xl: 4.5rem;      /* 72px - Large display */
-  
+  --font-size-xs: 0.75rem;
+  /* 12px - Small labels, captions */
+  --font-size-sm: 0.875rem;
+  /* 14px - Small text, secondary info */
+  --font-size-base: 1rem;
+  /* 16px - Body text, default */
+  --font-size-lg: 1.125rem;
+  /* 18px - Large body text */
+  --font-size-xl: 1.25rem;
+  /* 20px - Small headings, lead text */
+  --font-size-2xl: 1.5rem;
+  /* 24px - H4, section titles */
+  --font-size-3xl: 1.875rem;
+  /* 30px - H3, important headings */
+  --font-size-4xl: 2.25rem;
+  /* 36px - H2, major headings */
+  --font-size-5xl: 3rem;
+  /* 48px - H1, hero titles */
+  --font-size-6xl: 3.75rem;
+  /* 60px - Display titles */
+  --font-size-7xl: 4.5rem;
+  /* 72px - Large display */
+
   /* Responsive Typography - Using clamp for fluid scaling */
-  --font-size-hero: clamp(2.5rem, 5vw, 4rem);           /* Hero main title */
-  --font-size-hero-sub: clamp(1.125rem, 2.5vw, 1.5rem); /* Hero subtitle */
-  --font-size-section-title: clamp(2rem, 4vw, 3rem);    /* Section titles */
-  --font-size-card-title: clamp(1.25rem, 2vw, 1.5rem);  /* Card titles */
-  
+  --font-size-hero: clamp(2rem, 4vw, 3rem);
+  /* Hero main title */
+  --font-size-hero-sub: clamp(1.125rem, 2.5vw, 1.5rem);
+  /* Hero subtitle */
+  --font-size-section-title: clamp(2rem, 4vw, 3rem);
+  /* Section titles */
+  --font-size-card-title: clamp(1.25rem, 2vw, 1.5rem);
+  /* Card titles */
+
   /* Semantic Typography Variables */
-  --font-size-button: var(--font-size-base);            /* Button text */
-  --font-size-button-sm: var(--font-size-sm);           /* Small buttons */
-  --font-size-button-lg: var(--font-size-lg);           /* Large buttons */
-  --font-size-caption: var(--font-size-xs);             /* Captions, labels */
-  --font-size-body: var(--font-size-base);              /* Body text */
-  --font-size-body-lg: var(--font-size-lg);             /* Large body text */
-  --font-size-lead: var(--font-size-xl);                /* Lead paragraphs */
-  
+  --font-size-button: var(--font-size-base);
+  /* Button text */
+  --font-size-button-sm: var(--font-size-sm);
+  /* Small buttons */
+  --font-size-button-lg: var(--font-size-lg);
+  /* Large buttons */
+  --font-size-caption: var(--font-size-xs);
+  /* Captions, labels */
+  --font-size-body: var(--font-size-base);
+  /* Body text */
+  --font-size-body-lg: var(--font-size-lg);
+  /* Large body text */
+  --font-size-lead: var(--font-size-xl);
+  /* Lead paragraphs */
+
   /* Icon Sizes - Harmonized with text */
-  --icon-size-xs: 0.75rem;      /* 12px */
-  --icon-size-sm: 1rem;         /* 16px */
-  --icon-size-base: 1.25rem;    /* 20px */
-  --icon-size-lg: 1.5rem;       /* 24px */
-  --icon-size-xl: 2rem;         /* 32px */
-  --icon-size-2xl: 2.5rem;      /* 40px */
-  --icon-size-3xl: 3rem;        /* 48px */
-  
+  --icon-size-xs: 0.75rem;
+  /* 12px */
+  --icon-size-sm: 1rem;
+  /* 16px */
+  --icon-size-base: 1.25rem;
+  /* 20px */
+  --icon-size-lg: 1.5rem;
+  /* 24px */
+  --icon-size-xl: 2rem;
+  /* 32px */
+  --icon-size-2xl: 2.5rem;
+  /* 40px */
+  --icon-size-3xl: 3rem;
+  /* 48px */
+
   /* Z-index */
   --z-dropdown: 1000;
   --z-sticky: 1020;
@@ -429,38 +478,105 @@ body {
 }
 
 /* Utility classes */
-.text-primary { color: var(--color-text-primary); }
-.text-secondary { color: var(--color-text-secondary); }
-.text-muted { color: var(--color-text-muted); }
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
+.text-primary {
+  color: var(--color-text-primary);
+}
 
-.bg-primary { background: var(--color-primary); }
-.bg-secondary { background: var(--color-secondary); }
-.bg-gradient { background: var(--gradient-primary); }
+.text-secondary {
+  color: var(--color-text-secondary);
+}
 
-.shadow-sm { box-shadow: var(--shadow-sm); }
-.shadow-md { box-shadow: var(--shadow-md); }
-.shadow-lg { box-shadow: var(--shadow-lg); }
-.shadow-xl { box-shadow: var(--shadow-xl); }
+.text-muted {
+  color: var(--color-text-muted);
+}
 
-.rounded-sm { border-radius: var(--radius-sm); }
-.rounded-md { border-radius: var(--radius-md); }
-.rounded-lg { border-radius: var(--radius-lg); }
-.rounded-xl { border-radius: var(--radius-xl); }
-.rounded-2xl { border-radius: var(--radius-2xl); }
-.rounded-full { border-radius: var(--radius-full); }
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.bg-primary {
+  background: var(--color-primary);
+}
+
+.bg-secondary {
+  background: var(--color-secondary);
+}
+
+.bg-gradient {
+  background: var(--gradient-primary);
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-xl {
+  border-radius: var(--radius-xl);
+}
+
+.rounded-2xl {
+  border-radius: var(--radius-2xl);
+}
+
+.rounded-full {
+  border-radius: var(--radius-full);
+}
 
 /* Animations */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(0, 102, 255, 0.3); }
-  50% { box-shadow: 0 0 30px rgba(0, 102, 255, 0.5); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(0, 102, 255, 0.5);
+  }
 }
 
 @keyframes fadeInUp {
@@ -468,6 +584,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -555,8 +672,13 @@ body {
 
 /* Additional keyframes */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideInLeft {
@@ -564,6 +686,7 @@ body {
     opacity: 0;
     transform: translateX(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -575,6 +698,7 @@ body {
     opacity: 0;
     transform: translateX(30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -582,22 +706,33 @@ body {
 }
 
 @keyframes bounce {
-  0%, 20%, 53%, 80%, 100% {
+
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
     transform: translateY(0);
   }
-  40%, 43% {
+
+  40%,
+  43% {
     transform: translateY(-15px);
   }
+
   70% {
     transform: translateY(-7px);
   }
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.8;
     transform: scale(1.05);
@@ -605,39 +740,130 @@ body {
 }
 
 /* Typography Utility Classes */
-.text-xs { font-size: var(--font-size-xs); }
-.text-sm { font-size: var(--font-size-sm); }
-.text-base { font-size: var(--font-size-base); }
-.text-lg { font-size: var(--font-size-lg); }
-.text-xl { font-size: var(--font-size-xl); }
-.text-2xl { font-size: var(--font-size-2xl); }
-.text-3xl { font-size: var(--font-size-3xl); }
-.text-4xl { font-size: var(--font-size-4xl); }
-.text-5xl { font-size: var(--font-size-5xl); }
-.text-6xl { font-size: var(--font-size-6xl); }
-.text-7xl { font-size: var(--font-size-7xl); }
+.text-xs {
+  font-size: var(--font-size-xs);
+}
+
+.text-sm {
+  font-size: var(--font-size-sm);
+}
+
+.text-base {
+  font-size: var(--font-size-base);
+}
+
+.text-lg {
+  font-size: var(--font-size-lg);
+}
+
+.text-xl {
+  font-size: var(--font-size-xl);
+}
+
+.text-2xl {
+  font-size: var(--font-size-2xl);
+}
+
+.text-3xl {
+  font-size: var(--font-size-3xl);
+}
+
+.text-4xl {
+  font-size: var(--font-size-4xl);
+}
+
+.text-5xl {
+  font-size: var(--font-size-5xl);
+}
+
+.text-6xl {
+  font-size: var(--font-size-6xl);
+}
+
+.text-7xl {
+  font-size: var(--font-size-7xl);
+}
 
 /* Semantic Typography Classes */
-.text-hero { font-size: var(--font-size-hero); }
-.text-hero-sub { font-size: var(--font-size-hero-sub); }
-.text-section-title { font-size: var(--font-size-section-title); }
-.text-card-title { font-size: var(--font-size-card-title); }
-.text-button { font-size: var(--font-size-button); }
-.text-button-sm { font-size: var(--font-size-button-sm); }
-.text-button-lg { font-size: var(--font-size-button-lg); }
-.text-caption { font-size: var(--font-size-caption); }
-.text-body { font-size: var(--font-size-body); }
-.text-body-lg { font-size: var(--font-size-body-lg); }
-.text-lead { font-size: var(--font-size-lead); }
+.text-hero {
+  font-size: var(--font-size-hero);
+}
+
+.text-hero-sub {
+  font-size: var(--font-size-hero-sub);
+}
+
+.text-section-title {
+  font-size: var(--font-size-section-title);
+}
+
+.text-card-title {
+  font-size: var(--font-size-card-title);
+}
+
+.text-button {
+  font-size: var(--font-size-button);
+}
+
+.text-button-sm {
+  font-size: var(--font-size-button-sm);
+}
+
+.text-button-lg {
+  font-size: var(--font-size-button-lg);
+}
+
+.text-caption {
+  font-size: var(--font-size-caption);
+}
+
+.text-body {
+  font-size: var(--font-size-body);
+}
+
+.text-body-lg {
+  font-size: var(--font-size-body-lg);
+}
+
+.text-lead {
+  font-size: var(--font-size-lead);
+}
 
 /* Icon Size Classes */
-.icon-xs { width: var(--icon-size-xs); height: var(--icon-size-xs); }
-.icon-sm { width: var(--icon-size-sm); height: var(--icon-size-sm); }
-.icon-base { width: var(--icon-size-base); height: var(--icon-size-base); }
-.icon-lg { width: var(--icon-size-lg); height: var(--icon-size-lg); }
-.icon-xl { width: var(--icon-size-xl); height: var(--icon-size-xl); }
-.icon-2xl { width: var(--icon-size-2xl); height: var(--icon-size-2xl); }
-.icon-3xl { width: var(--icon-size-3xl); height: var(--icon-size-3xl); }
+.icon-xs {
+  width: var(--icon-size-xs);
+  height: var(--icon-size-xs);
+}
+
+.icon-sm {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+
+.icon-base {
+  width: var(--icon-size-base);
+  height: var(--icon-size-base);
+}
+
+.icon-lg {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+}
+
+.icon-xl {
+  width: var(--icon-size-xl);
+  height: var(--icon-size-xl);
+}
+
+.icon-2xl {
+  width: var(--icon-size-2xl);
+  height: var(--icon-size-2xl);
+}
+
+.icon-3xl {
+  width: var(--icon-size-3xl);
+  height: var(--icon-size-3xl);
+}
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
@@ -671,7 +897,9 @@ body {
 }
 
 /* Responsive images and media */
-img, video, iframe {
+img,
+video,
+iframe {
   max-width: 100%;
   height: auto;
 }
@@ -682,7 +910,8 @@ img, video, iframe {
 }
 
 /* Ensure containers don't overflow */
-.container, [class*="container"] {
+.container,
+[class*="container"] {
   max-width: 100%;
   overflow-x: hidden;
 }
@@ -696,19 +925,24 @@ img, video, iframe {
     --font-size-hero-title: 2.5rem;
     --font-size-section-title: 2rem;
   }
-  
+
   /* Ensure better text wrapping on mobile */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     word-wrap: break-word;
     hyphens: auto;
   }
-  
+
   /* Improve button responsiveness */
   .btn {
     min-height: 44px;
     padding: var(--spacing-sm) var(--spacing-md);
   }
-  
+
   /* Better spacing for mobile */
   section {
     padding-left: var(--spacing-md);
@@ -717,69 +951,6 @@ img, video, iframe {
 }
 
 /* Amélioration du scroll tactile */
-@media (max-width: 768px) {
-  /* Touch-action pour améliorer le scroll */
-  body {
-    touch-action: pan-y;
-    -webkit-overflow-scrolling: touch;
-    overflow-scrolling: touch;
-  }
-  
-  /* Empêcher les éléments de bloquer le scroll */
-  .header,
-  .hero,
-  section {
-    touch-action: pan-y;
-  }
-  
-  /* Améliorer le scroll des conteneurs */
-  .container,
-  [class*="container"] {
-    touch-action: pan-y;
-  }
-  
-  /* S'assurer que les boutons ne bloquent pas le scroll */
-  .btn,
-  button {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  /* Optimiser les animations pour le scroll */
-  .animate-float,
-  .animate-glow,
-  .floating-element {
-    will-change: transform;
-    transform: translateZ(0);
-  }
-  
-  /* Optimiser les éléments avec overflow hidden */
-  [class*="card"],
-  .glass,
-  [class*="glass"] {
-    touch-action: pan-y;
-    transform: translateZ(0);
-  }
-  
-  /* Empêcher les éléments fixes de bloquer le scroll */
-  [style*="position: fixed"],
-  [style*="position:sticky"],
-  .fixed,
-  .sticky {
-    touch-action: none;
-    pointer-events: none;
-  }
-  
-  /* Mais permettre les interactions sur les éléments interactifs */
-  .header *,
-  .btn *,
-  button *,
-  a *,
-  [role="button"] * {
-    pointer-events: auto;
-  }
-}
-
 @media (max-width: 480px) {
   :root {
     --spacing-md: 0.75rem;
@@ -788,7 +959,7 @@ img, video, iframe {
     --font-size-hero-title: 2rem;
     --font-size-section-title: 1.75rem;
   }
-  
+
   /* Smaller buttons on very small screens */
   .btn {
     font-size: var(--font-size-sm);

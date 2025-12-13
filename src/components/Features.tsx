@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  TrendingUp,
+import {
   Zap,
   ArrowRight,
   Rocket,
@@ -13,7 +12,7 @@ import './Features.css';
 
 const Features: React.FC = () => {
   const { t } = useTranslation();
-  
+
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
     if (emailSection) {
@@ -50,20 +49,7 @@ const Features: React.FC = () => {
       color: 'accent',
       gradient: 'from-emerald-500 to-emerald-600'
     },
-    {
-      id: 'boost-roas',
-      icon: TrendingUp,
-      title: t('common:features.boostRoas.title'),
-      subtitle: t('common:features.boostRoas.subtitle'),
-      description: t('common:features.boostRoas.description'),
-      benefits: [
-        { icon: CheckCircle, text: t('common:features.boostRoas.benefits.0') },
-        { icon: CheckCircle, text: t('common:features.boostRoas.benefits.1') },
-        { icon: CheckCircle, text: t('common:features.boostRoas.benefits.2') }
-      ],
-      color: 'primary',
-      gradient: 'from-indigo-600 to-indigo-400'
-    },
+
     {
       id: 'actionable-insights',
       icon: Eye,
@@ -97,8 +83,8 @@ const Features: React.FC = () => {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { 
-        duration: 0.8, 
+      transition: {
+        duration: 0.8,
         type: "spring" as const,
         stiffness: 100
       }
@@ -137,8 +123,8 @@ const Features: React.FC = () => {
               key={solution.id}
               className={`feature-card feature-${solution.color}`}
               variants={itemVariants}
-              whileHover={{ 
-                y: -15, 
+              whileHover={{
+                y: -15,
                 scale: 1.03,
                 transition: { duration: 0.3, ease: "easeOut" }
               }}
@@ -146,7 +132,7 @@ const Features: React.FC = () => {
             >
               {/* Card Background Gradient */}
               <div className="feature-bg-gradient"></div>
-              
+
               {/* Icon Section */}
               <div className="feature-header">
                 <div className="feature-icon-wrapper icon-4xl">
@@ -157,17 +143,17 @@ const Features: React.FC = () => {
                   <span className="badge-text">IA</span>
                 </div>
               </div>
-              
+
               {/* Content */}
               <div className="feature-content">
                 <h3 className="feature-title">{solution.title}</h3>
                 <h4 className="feature-subtitle">{solution.subtitle}</h4>
                 <p className="feature-description">{solution.description}</p>
-                
+
                 <div className="feature-list">
                   {solution.benefits.map((item, idx) => (
-                    <motion.div 
-                      key={idx} 
+                    <motion.div
+                      key={idx}
                       className="feature-item"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -182,7 +168,7 @@ const Features: React.FC = () => {
                   ))}
                 </div>
               </div>
-              
+
               {/* CTA Button */}
               <motion.button
                 className="feature-cta btn btn-secondary"

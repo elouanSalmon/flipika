@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Star, 
-  Quote, 
-  TrendingUp, 
-  Award, 
-  Users, 
-  Target, 
+import {
+  Star,
+  Quote,
+  TrendingUp,
+  Award,
+  Users,
+  Target,
   Zap,
   CheckCircle,
   ArrowUp
@@ -16,7 +16,7 @@ import './Testimonials.css';
 
 const SocialProof: React.FC = () => {
   const { t } = useTranslation();
-  
+
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
     if (emailSection) {
@@ -43,19 +43,7 @@ const SocialProof: React.FC = () => {
       verified: true,
       betaUser: true
     },
-    {
-      id: 2,
-      name: t('common:testimonials.reviews.marie.name'),
-      role: t('common:testimonials.reviews.marie.role'),
-      company: t('common:testimonials.reviews.marie.company'),
-      content: t('common:testimonials.reviews.marie.content'),
-      rating: 5,
-      metric: t('common:testimonials.reviews.marie.metric'),
-      avatar: "ML",
-      avatarUrl: "https://randomuser.me/api/portraits/women/44.jpg",
-      verified: true,
-      betaUser: true
-    },
+
     {
       id: 3,
       name: t('common:testimonials.reviews.julien.name'),
@@ -117,8 +105,8 @@ const SocialProof: React.FC = () => {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { 
-        duration: 0.7, 
+      transition: {
+        duration: 0.7,
         type: "spring" as const,
         stiffness: 100
       }
@@ -204,8 +192,8 @@ const SocialProof: React.FC = () => {
               key={testimonial.id}
               className="testimonial-card early-adopter-card"
               variants={itemVariants}
-              whileHover={isMobile() ? {} : { 
-                y: -8, 
+              whileHover={isMobile() ? {} : {
+                y: -8,
                 scale: 1.02,
                 transition: { duration: 0.3, ease: "easeOut" }
               }}
@@ -245,8 +233,8 @@ const SocialProof: React.FC = () => {
               <div className="testimonial-author">
                 <div className="author-avatar">
                   {testimonial.avatarUrl ? (
-                    <img 
-                      src={testimonial.avatarUrl} 
+                    <img
+                      src={testimonial.avatarUrl}
                       alt={testimonial.name}
                       className="avatar-image"
                     />
