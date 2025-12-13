@@ -14,7 +14,7 @@ const Copilot = () => {
 
     if (!isConnected) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-140px)] text-center space-y-6">
+            <div className="flex flex-col items-center justify-center !min-h-[100vh] text-center space-y-6">
                 <div className="p-4 bg-orange-50 dark:bg-orange-900/10 rounded-full">
                     <AlertCircle size={48} className="text-orange-500" />
                 </div>

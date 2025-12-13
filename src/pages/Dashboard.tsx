@@ -102,7 +102,7 @@ const Dashboard = () => {
 
     if (step === 'CONNECT') {
         return (
-            <div className="flex flex-col items-center justify-center p-12 text-center space-y-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm min-h-[calc(100vh-140px)]">
+            <div className="flex flex-col items-center justify-center p-12 text-center space-y-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm !min-h-[100vh]">
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-full">
                     <BarChart3 size={48} className="text-blue-600" />
                 </div>

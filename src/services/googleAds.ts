@@ -1,5 +1,5 @@
 import { auth } from '../firebase/config';
-import { MOCK_CUSTOMERS, MOCK_CAMPAIGNS } from './mockData';
+// import { MOCK_CUSTOMERS, MOCK_CAMPAIGNS } from './mockData';
 
 const FUNCTIONS_BASE_URL = 'https://us-central1-flipika.cloudfunctions.net';
 
