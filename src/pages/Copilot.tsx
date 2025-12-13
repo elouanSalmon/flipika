@@ -32,7 +32,7 @@ const Copilot = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto h-[calc(100vh-8rem)] flex flex-col">
+        <div className="min-h-screen max-w-4xl mx-auto h-[calc(100vh-8rem)] flex flex-col">
             <div className="card flex-1 flex flex-col p-0 overflow-hidden relative">
                 {/* Chat Header */}
                 <div className="p-6 border-b border-[var(--color-border)] bg-[var(--color-bg-secondary)]/50 backdrop-blur-sm flex items-center gap-4">

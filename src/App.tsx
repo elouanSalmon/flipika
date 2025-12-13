@@ -12,6 +12,7 @@ import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import NotFound from './pages/NotFound';
+import OAuthCallback from './pages/OAuthCallback';
 import './App.css';
 
 // Protected Route Component
@@ -43,6 +44,7 @@ function App() {
 
             {/* Auth Pages */}
             <Route path="/secret-login" element={<Login />} />
+            <Route path="/oauth/callback" element={<OAuthCallback />} />
 
             {/* Protected App Routes */}
             <Route path="/app" element={

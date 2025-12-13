@@ -1,4 +1,6 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   LayoutDashboard,
   MessageSquare,
@@ -8,17 +10,26 @@ import {
   Zap,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
-import { motion } from "framer-motion";
 import "../components/Header.css"; // Use header styles
-import "../components/app/Connected.css";
+import "../components/app/Connected.css"; // We might need to adjust or remove this if it enforced sidebar layout
 import Footer from "../components/Footer";
 
 const AppLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -29,117 +40,133 @@ const AppLayout = () => {
     }
   };
 
+  const navItems = [
+    { path: "/app/dashboard", label: "Overview", icon: LayoutDashboard },
+    { path: "/app/copilot", label: "AI Copilot", icon: MessageSquare, badge: "New" },
+    { path: "/app/campaigns", label: "Campaigns", icon: List },
+  ];
+
   return (
-    <div className="app-connected flex h-screen bg-[var(--color-bg-secondary)] overflow-hidden">
-      {/* Sidebar - Increased width and padding */}
-      <aside className="w-72 glass border-r border-[var(--color-border)] flex flex-col z-20">
-        {/* Logo Area */}
-        <div className="p-8">
-          <Link to="/" className="logo">
-            <div className="logo-icon scale-90">
+    <div className="min-h-dvh bg-[var(--color-bg-secondary)] flex flex-col">
+      {/* Header */}
+      <motion.header
+        className={`header ${isScrolled ? 'scrolled' : ''}`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        <div className="header-container">
+          {/* Logo */}
+          <motion.div
+            className="logo"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => navigate('/app/dashboard')}
+          >
+            <div className="logo-icon">
               <Zap size={24} />
             </div>
             <div className="logo-content">
-              <span className="logo-text gradient-text text-2xl">Flipika</span>
-              <span className="logo-subtitle text-sm">IA</span>
+              <span className="logo-text gradient-text">Flipika</span>
+              <span className="logo-subtitle">IA</span>
             </div>
-          </Link>
+          </motion.div>
+
+          {/* Desktop Navigation */}
+          <nav className="nav-desktop">
+            {navItems.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.path}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.3 }}
+                >
+                  <Link
+                    to={item.path}
+                    className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      color: isActive(item.path) ? 'var(--color-primary)' : undefined,
+                      background: isActive(item.path) ? 'var(--glass-bg)' : undefined,
+                    }}
+                  >
+                    <Icon size={16} />
+                    {item.label}
+                    {item.badge && (
+                      <span style={{
+                        fontSize: '10px',
+                        fontWeight: 700,
+                        padding: '2px 6px',
+                        borderRadius: 'var(--radius-full)',
+                        background: 'rgba(59, 130, 246, 0.1)',
+                        color: 'var(--color-primary)',
+                        border: '1px solid rgba(59, 130, 246, 0.3)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                      }}>
+                        {item.badge}
+                      </span>
+                    )}
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </nav>
+
+          {/* Header Actions */}
+          <div className="header-actions">
+            <motion.button
+              className="nav-link"
+              onClick={() => {/* Settings handler */ }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}
+            >
+              <Settings size={16} />
+              <span className="hidden md:inline">Settings</span>
+            </motion.button>
+
+            <motion.button
+              className="btn btn-primary"
+              onClick={handleLogout}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontSize: 'var(--font-size-sm)',
+                fontWeight: 600,
+              }}
+            >
+              <LogOut size={16} />
+              <span className="hidden sm:inline">Log Out</span>
+            </motion.button>
+          </div>
+        </div>
+      </motion.header>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col" style={{ paddingTop: '80px' }}>
+        <div className="content-container py-8 space-y-8 flex-1">
+          <Outlet />
         </div>
 
-        <nav className="flex-1 px-6 space-y-3 overflow-y-auto">
-          <div className="nav-section-title mb-4 px-2">Menu Principal</div>
-
-          <Link
-            to="/app/dashboard"
-            className={`nav-item ${isActive("/app/dashboard") ? "active" : ""}`}
-          >
-            <LayoutDashboard size={22} className="icon" />
-            Overview
-          </Link>
-
-          <Link
-            to="/app/copilot"
-            className={`nav-item ${isActive("/app/copilot") ? "active" : ""}`}
-          >
-            <MessageSquare size={22} className="icon" />
-            AI Copilot
-            <span className="nav-badge">New</span>
-          </Link>
-
-          <Link
-            to="/app/campaigns"
-            className={`nav-item ${isActive("/app/campaigns") ? "active" : ""}`}
-          >
-            <List size={22} className="icon" />
-            New Campaigns
-          </Link>
-        </nav>
-
-        <div className="p-6 border-t border-[var(--color-border)] space-y-3 bg-[var(--color-bg-secondary)]/30 backdrop-blur-sm">
-          <button className="nav-item w-full">
-            <Settings size={22} className="icon" />
-            Settings
-          </button>
-          <button onClick={handleLogout} className="nav-item danger w-full">
-            <LogOut size={22} className="icon" />
-            Log Out
-          </button>
-        </div>
-      </aside>
-
-      {/* Main Content - Improved Spacing */}
-      <div className="flex-1 flex flex-col overflow-hidden relative">
-        {/* Background Gradient */}
-        <div className="absolute inset-0 pointer-events-none opacity-40 bg-[var(--gradient-bg)]"></div>
-
-        <header className="h-20 glass border-b border-[var(--color-border)] sticky top-0 z-10 backdrop-blur-md">
-          <div className="content-container flex items-center justify-between w-full">
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight gradient-text">
-                {isActive("/app/dashboard")
-                  ? "Dashboard"
-                  : isActive("/app/copilot")
-                    ? "AI Copilot"
-                    : "New Campaigns"}
-              </h1>
-              <p className="text-xs text-[var(--color-text-secondary)] mt-1">
-                {isActive("/app/dashboard")
-                  ? "Bienvenue sur votre espace de pilotage"
-                  : isActive("/app/copilot")
-                    ? "Votre assistant d'optimisation en temps réel"
-                    : "Gérez vos performances"}
-              </p>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <div className="flex flex-col items-end hidden md:flex">
-                <span className="text-sm font-semibold text-[var(--color-text-primary)]">
-                  Demo User
-                </span>
-                <span className="text-xs text-[var(--color-text-muted)]">
-                  Pro Plan
-                </span>
-              </div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] text-white flex items-center justify-center font-bold shadow-lg shadow-blue-500/20 cursor-pointer border border-white/20"
-              >
-                FK
-              </motion.div>
-            </div>
-          </div>
-        </header>
-
-        <main className="overflow-auto flex-1 relative z-0 scroll-smooth flex flex-col">
-          <div className="content-container space-y-8">
-            <Outlet />
-          </div>
-
-          {/* App Footer: identical to landing */}
-          <Footer />
-        </main>
-      </div>
+        <Footer />
+      </main>
     </div>
   );
 };

@@ -39,31 +39,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const linkGoogleAds = async () => {
-        const provider = new GoogleAuthProvider();
-        provider.addScope('https://www.googleapis.com/auth/adwords');
-        provider.addScope('https://www.googleapis.com/auth/analytics.readonly');
-        // Force account selection to ensure user picks the right ads account
-        provider.setCustomParameters({
-            prompt: 'select_account consent'
-        });
-
         try {
-            // We use signInWithPopup to get the credential with the new scope
-            // In a real app with backend, we would send the code/token to the server
-            const result = await signInWithPopup(auth, provider);
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const accessToken = credential?.accessToken;
+            // Get current user's ID token
+            const user = auth.currentUser;
+            if (!user) {
+                throw new Error("User not authenticated");
+            }
 
-            if (accessToken) {
-                // For MVP: We just store in local storage to simulate "connected" state
-                // Real implementation: Send to backend to store refresh token
-                localStorage.setItem('google_ads_token', accessToken);
-                // Trigger a user profile update (stub)
+            const idToken = await user.getIdToken();
+
+            // Call backend HTTP endpoint directly with auth header
+            const response = await fetch('https://us-central1-flipika.cloudfunctions.net/initiateOAuth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${idToken}`
+                }
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to initiate OAuth');
+            }
+
+            const data = await response.json();
+
+            if (data.success && data.authUrl) {
+                // Redirect to Google OAuth
+                window.location.href = data.authUrl;
                 return true;
             }
+
             return false;
         } catch (error) {
-            console.error("Error linking Google Ads:", error);
+            console.error("Error initiating OAuth:", error);
             throw error;
         }
     };

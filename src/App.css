@@ -1,6 +1,6 @@
 .App {
   position: relative;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
 }
 
@@ -21,7 +21,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     linear-gradient(var(--color-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
   background-size: 50px 50px;
@@ -64,7 +64,7 @@ main {
     width: 150px;
     height: 150px;
   }
-  
+
   .bg-grid {
     background-size: 30px 30px;
   }
@@ -77,13 +77,13 @@ main {
     position: relative;
     min-height: 100vh;
   }
-  
+
   /* Empêcher les éléments flottants de bloquer le scroll */
   .floating-orb {
     pointer-events: none;
     touch-action: none;
   }
-  
+
   /* Optimiser la grille d'arrière-plan */
   .bg-grid {
     pointer-events: none;

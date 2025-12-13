@@ -1,15 +1,41 @@
-import { Search, Filter, AlertCircle, Plus } from 'lucide-react';
-
-import { isGoogleAdsConnected } from '../services/googleAds';
+import { Search, Filter, AlertCircle, Plus, RefreshCw } from 'lucide-react';
+import { isGoogleAdsConnected, fetchCampaigns, getLinkedCustomerId } from '../services/googleAds';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Campaigns = () => {
     const [isConnected, setIsConnected] = useState(false);
+    const [campaigns, setCampaigns] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        setIsConnected(isGoogleAdsConnected());
+        const connected = isGoogleAdsConnected();
+        setIsConnected(connected);
+        if (connected) {
+            loadCampaigns();
+        }
     }, []);
+
+    const loadCampaigns = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            // @ts-ignore
+            const result = await fetchCampaigns();
+            const response = result as any;
+            if (response.success && response.campaigns) {
+                setCampaigns(response.campaigns);
+            } else {
+                setError("Impossible de charger les campagnes.");
+            }
+        } catch (err) {
+            console.error(err);
+            setError("Erreur lors du chargement des campagnes.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     if (!isConnected) {
         return (
@@ -30,16 +56,20 @@ const Campaigns = () => {
         );
     }
 
-    // Real state: No campaigns loaded yet (MVP without backend)
     return (
-        <div>
+        <div className="min-h-screen">
             {/* Header Actions */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                 <div>
                     <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Campagnes</h2>
-                    <p className="text-[var(--color-text-secondary)] text-sm">Gérez et analysez vos performances</p>
+                    <p className="text-[var(--color-text-secondary)] text-sm">
+                        Compte: {getLinkedCustomerId()}
+                    </p>
                 </div>
                 <div className="flex gap-3">
+                    <button onClick={loadCampaigns} className="btn btn-ghost btn-sm">
+                        <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+                    </button>
                     <button className="btn btn-secondary btn-sm gap-2" disabled>
                         <Filter size={16} />
                         Filtrer
@@ -51,22 +81,55 @@ const Campaigns = () => {
                 </div>
             </div>
 
-            {/* Empty State for Connected Account */}
-            <div className="card py-16 flex flex-col items-center justify-center text-center space-y-4">
-                <div className="w-16 h-16 bg-[var(--color-bg-secondary)] rounded-full flex items-center justify-center mb-2">
-                    <Search size={32} className="text-[var(--color-text-muted)]" />
+            {error && <div className="alert alert-error mb-6">{error}</div>}
+
+            {loading ? (
+                <div className="flex justify-center py-12">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                 </div>
-                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
-                    Aucune campagne trouvée
-                </h3>
-                <p className="text-[var(--color-text-secondary)] max-w-sm mx-auto">
-                    Nous n'avons trouvé aucune campagne active sur ce compte pour le moment.
-                </p>
-                <button className="btn btn-primary mt-4">
-                    <Plus size={18} />
-                    Créer une campagne
-                </button>
-            </div>
+            ) : campaigns.length > 0 ? (
+                <div className="card overflow-hidden bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700">
+                    <table className="w-full">
+                        <thead className="bg-gray-50 dark:bg-gray-700/50 text-left text-xs uppercase tracking-wider text-gray-500">
+                            <tr>
+                                <th className="p-4">Nom</th>
+                                <th className="p-4">Statut</th>
+                                <th className="p-4 text-right">Dépenses</th>
+                                <th className="p-4 text-right">Impressions</th>
+                                <th className="p-4 text-right">Clics</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                            {campaigns.map((c) => (
+                                <tr key={c.id}>
+                                    <td className="p-4 font-medium">{c.name}</td>
+                                    <td className="p-4"><span className={`badge badge-sm ${c.status === 'ENABLED' ? 'badge-success' : 'badge-neutral'}`}>{c.status}</span></td>
+                                    <td className="p-4 text-right">{c.cost ? c.cost.toFixed(2) : 0} €</td>
+                                    <td className="p-4 text-right">{c.impressions}</td>
+                                    <td className="p-4 text-right">{c.clicks}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            ) : (
+                /* Empty State for Connected Account */
+                <div className="card py-16 flex flex-col items-center justify-center text-center space-y-4">
+                    <div className="w-16 h-16 bg-[var(--color-bg-secondary)] rounded-full flex items-center justify-center mb-2">
+                        <Search size={32} className="text-[var(--color-text-muted)]" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                        Aucune campagne trouvée
+                    </h3>
+                    <p className="text-[var(--color-text-secondary)] max-w-sm mx-auto">
+                        Nous n'avons trouvé aucune campagne active sur ce compte pour le moment.
+                    </p>
+                    <button className="btn btn-primary mt-4">
+                        <Plus size={18} />
+                        Créer une campagne
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
