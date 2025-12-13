@@ -6,6 +6,7 @@ interface AuthContextType {
     currentUser: User | null;
     loading: boolean;
     loginWithGoogle: () => Promise<void>;
+    linkGoogleAds: () => Promise<boolean>;
     logout: () => Promise<void>;
 }
 
@@ -37,7 +38,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         await signInWithPopup(auth, provider);
     };
 
+    const linkGoogleAds = async () => {
+        const provider = new GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/adwords');
+        provider.addScope('https://www.googleapis.com/auth/analytics.readonly');
+        // Force account selection to ensure user picks the right ads account
+        provider.setCustomParameters({
+            prompt: 'select_account consent'
+        });
+
+        try {
+            // We use signInWithPopup to get the credential with the new scope
+            // In a real app with backend, we would send the code/token to the server
+            const result = await signInWithPopup(auth, provider);
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const accessToken = credential?.accessToken;
+
+            if (accessToken) {
+                // For MVP: We just store in local storage to simulate "connected" state
+                // Real implementation: Send to backend to store refresh token
+                localStorage.setItem('google_ads_token', accessToken);
+                // Trigger a user profile update (stub)
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error("Error linking Google Ads:", error);
+            throw error;
+        }
+    };
+
     const logout = async () => {
+        localStorage.removeItem('google_ads_token'); // Clear ads token on logout
         await signOut(auth);
     };
 
@@ -45,6 +77,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         currentUser,
         loading,
         loginWithGoogle,
+        linkGoogleAds,
         logout
     };
 
