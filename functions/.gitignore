@@ -1,1 +1,10 @@
-v1
+# Build artifacts
+lib/
+# Dependencies
+node_modules/
+# Logs
+*.log
+# Secrets
+.env
+.env.*
+!.env.example
