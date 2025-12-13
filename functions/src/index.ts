@@ -71,9 +71,14 @@ export const listCampaigns = onRequest({ memory: '512MiB' }, async (req, res) =>
           campaign.id, 
           campaign.name, 
           campaign.status,
+          campaign.advertising_channel_type,
+          campaign.start_date,
+          campaign.end_date,
           metrics.cost_micros,
           metrics.impressions,
-          metrics.clicks 
+          metrics.clicks,
+          metrics.ctr,
+          metrics.average_cpc
         FROM campaign 
         WHERE campaign.status != 'REMOVED'
         ORDER BY campaign.name
@@ -86,9 +91,14 @@ export const listCampaigns = onRequest({ memory: '512MiB' }, async (req, res) =>
         id: row.campaign.id?.toString() || '',
         name: row.campaign.name || 'Unnamed Campaign',
         status: row.campaign.status || 'UNKNOWN',
+        type: row.campaign.advertising_channel_type || 'UNKNOWN',
+        startDate: row.campaign.start_date || null,
+        endDate: row.campaign.end_date || null,
         cost: (row.metrics?.cost_micros || 0) / 1000000,
         impressions: row.metrics?.impressions || 0,
-        clicks: row.metrics?.clicks || 0
+        clicks: row.metrics?.clicks || 0,
+        ctr: row.metrics?.ctr || 0,
+        averageCpc: (row.metrics?.average_cpc || 0) / 1000000
       }));
 
       res.status(200).json({

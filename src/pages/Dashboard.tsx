@@ -16,18 +16,42 @@ const Dashboard = () => {
         checkStatus();
     }, []);
 
-    const checkStatus = () => {
-        const connected = isGoogleAdsConnected();
+    const checkStatus = async () => {
         const storedCid = getLinkedCustomerId();
 
-        if (!connected) {
-            setStep('CONNECT');
-        } else if (!storedCid) {
-            setStep('SELECT_ACCOUNT');
-            loadCustomers();
-        } else {
+        if (storedCid) {
             setStep('DASHBOARD');
             loadCampaigns();
+            return;
+        }
+
+        // If no local CID, check if we are connected on backend
+        // by trying to fetch accessible customers
+        setLoading(true);
+        try {
+            // @ts-ignore
+            const result = await fetchAccessibleCustomers();
+            const response = result as any;
+
+            // If we have customers, we are connected!
+            if (response.customers && response.customers.length > 0) {
+                setCustomers(response.customers);
+                // If only one, auto-select? For now let user choose
+                setStep('SELECT_ACCOUNT');
+            } else if (response.customers && response.customers.length === 0) {
+                // Connected but no ads accounts
+                setError("Aucun compte Google Ads trouvé associé à ce compte Google.");
+                setStep('SELECT_ACCOUNT');
+            } else {
+                // Likely not connected (412/401 handled by service returning error usually or we need to check property)
+                // If success is false or no consumers, assume Connect needed
+                setStep('CONNECT');
+            }
+        } catch (e) {
+            // If fetch failed, assume we need to connect
+            setStep('CONNECT');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -73,11 +97,12 @@ const Dashboard = () => {
         try {
             const success = await linkGoogleAds();
             if (success) {
-                setStep('SELECT_ACCOUNT');
-                loadCustomers();
+                // Determine next step based on result
+                // But linkGoogleAds redirects, so we might not get here if redirect happens immediately
             }
         } catch (error) {
             console.error("Connection failed", error);
+            setError("Échec de la connexion.");
         } finally {
             setLoading(false);
         }
@@ -119,7 +144,7 @@ const Dashboard = () => {
 
     if (step === 'SELECT_ACCOUNT') {
         return (
-            <div className="max-w-md mx-auto space-y-6">
+            <div className="max-w-md mx-auto space-y-6 pt-12">
                 <h2 className="text-2xl font-bold text-center">Choisissez un compte</h2>
                 {error && <div className="text-red-500 text-center text-sm">{error}</div>}
 
@@ -161,28 +186,38 @@ const Dashboard = () => {
             {error && <div className="alert alert-error">{error}</div>}
 
             <div className="card overflow-hidden bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700">
-                <table className="w-full">
-                    <thead className="bg-gray-50 dark:bg-gray-700/50 text-left text-xs uppercase tracking-wider text-gray-500">
-                        <tr>
-                            <th className="p-4">Nom</th>
-                            <th className="p-4">Statut</th>
-                            <th className="p-4 text-right">Dépenses</th>
-                            <th className="p-4 text-right">Clics</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                        {campaigns.length > 0 ? campaigns.map((c) => (
-                            <tr key={c.id}>
-                                <td className="p-4 font-medium">{c.name}</td>
-                                <td className="p-4"><span className="badge badge-sm">{c.status}</span></td>
-                                <td className="p-4 text-right">{c.cost ? c.cost.toFixed(2) : 0} €</td>
-                                <td className="p-4 text-right">{c.clicks}</td>
+                <div className="overflow-x-auto">
+                    <table className="w-full">
+                        <thead className="bg-gray-50 dark:bg-gray-700/50 text-left text-xs uppercase tracking-wider text-gray-500">
+                            <tr>
+                                <th className="p-4">Nom</th>
+                                <th className="p-4">Statut</th>
+                                <th className="p-4">Type</th>
+                                <th className="p-4 text-right">Dépenses</th>
+                                <th className="p-4 text-right">Impr.</th>
+                                <th className="p-4 text-right">Clics</th>
+                                <th className="p-4 text-right">CTR</th>
+                                <th className="p-4 text-right">CPC Moy.</th>
                             </tr>
-                        )) : (
-                            <tr><td colSpan={4} className="p-8 text-center text-gray-500">Aucune campagne active.</td></tr>
-                        )}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                            {campaigns.length > 0 ? campaigns.map((c) => (
+                                <tr key={c.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
+                                    <td className="p-4 font-medium">{c.name}</td>
+                                    <td className="p-4"><span className={`badge badge-sm ${c.status === 'ENABLED' ? 'badge-success' : 'badge-ghost'}`}>{c.status}</span></td>
+                                    <td className="p-4 text-xs text-gray-500">{c.type || 'Inconnu'}</td>
+                                    <td className="p-4 text-right font-medium">{c.cost ? c.cost.toFixed(2) + ' €' : '-'}</td>
+                                    <td className="p-4 text-right">{c.impressions?.toLocaleString() || '-'}</td>
+                                    <td className="p-4 text-right">{c.clicks?.toLocaleString() || '-'}</td>
+                                    <td className="p-4 text-right">{c.ctr ? (c.ctr * 100).toFixed(2) + '%' : '-'}</td>
+                                    <td className="p-4 text-right">{c.averageCpc ? c.averageCpc.toFixed(2) + ' €' : '-'}</td>
+                                </tr>
+                            )) : (
+                                <tr><td colSpan={8} className="p-8 text-center text-gray-500">Aucune campagne active trouvée.</td></tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
