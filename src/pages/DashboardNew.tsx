@@ -89,10 +89,6 @@ const DashboardNew = () => {
         setAlerts(prev => prev.filter(a => a.id !== alertId));
     };
 
-    const handleViewDetails = (accountId: string) => {
-        navigate(`/app/campaigns?account=${accountId}`);
-    };
-
     const handleAudit = (accountId: string) => {
         navigate(`/app/audit?account=${accountId}`);
     };

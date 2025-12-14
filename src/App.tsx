@@ -10,7 +10,6 @@ import Dashboard from './pages/Dashboard';
 import DashboardNew from './pages/DashboardNew';
 import AuditPage from './pages/AuditPage';
 import Copilot from './pages/Copilot';
-import Campaigns from './pages/Campaigns';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 import LegalNotices from './pages/LegalNotices';
@@ -63,7 +62,6 @@ function App() {
                 <Route path="dashboard-old" element={<Dashboard />} />
                 <Route path="audit" element={<AuditPage />} />
                 <Route path="copilot" element={<Copilot />} />
-                <Route path="campaigns" element={<Campaigns />} />
                 <Route path="reports" element={<Reports />} />
                 <Route path="settings" element={<Settings />} />
               </Route>

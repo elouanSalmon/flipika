@@ -52,7 +52,6 @@ const AppLayout = () => {
     { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { path: "/app/audit", label: "Audit", icon: TrendingUp },
     { path: "/app/reports", label: "Rapports", icon: FileText },
-    { path: "/app/campaigns", label: "Campagnes", icon: List },
   ];
 
   return (
