@@ -1,14 +1,23 @@
 import { useState, useEffect } from 'react';
-import { Download, FileText } from 'lucide-react';
+import { Download, FileText, Lock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import dataService from '../services/dataService';
 import type { Account, Campaign } from '../types/business';
 import type { ReportConfig } from '../types/reports';
+import { useDemoMode } from '../contexts/DemoModeContext';
+import { useGoogleAds } from '../contexts/GoogleAdsContext';
 
 const ReportsPage = () => {
+    const navigate = useNavigate();
+    const { isDemoMode } = useDemoMode();
+    const { isConnected } = useGoogleAds();
     const [accounts, setAccounts] = useState<Account[]>([]);
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [showConfig, setShowConfig] = useState(false);
     const [generating, setGenerating] = useState(false);
+
+    // Check if user has access (connected account or demo mode)
+    const hasAccess = isConnected || isDemoMode;
 
     const [config, setConfig] = useState<ReportConfig>({
         accountId: '',
@@ -121,24 +130,55 @@ const ReportsPage = () => {
     };
 
     return (
-        <div className="space-y-8 p-8">
+        <div className="space-y-6 md:space-y-8 p-4 md:p-8">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold">Rapports</h1>
-                    <p className="text-gray-500 mt-1">Générez des rapports détaillés de performance</p>
+                    <h1 className="text-2xl md:text-3xl font-bold">Rapports</h1>
+                    <p className="text-gray-500 mt-1 text-sm md:text-base">Créez des rapports personnalisés pour vos clients</p>
                 </div>
-                <button
-                    onClick={() => setShowConfig(true)}
-                    className="btn btn-primary flex items-center gap-2"
-                >
-                    <FileText size={18} />
-                    Nouveau rapport
-                </button>
+                {hasAccess && (
+                    <button
+                        onClick={() => setShowConfig(true)}
+                        className="btn btn-primary flex items-center gap-2 w-full md:w-auto justify-center"
+                    >
+                        <FileText size={18} />
+                        Nouveau rapport
+                    </button>
+                )}
             </div>
 
+            {/* Restricted Access Message */}
+            {!hasAccess && (
+                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-12 text-center">
+                    <div className="flex justify-center mb-6">
+                        <div className="w-20 h-20 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                            <Lock size={40} className="text-blue-600 dark:text-blue-400" />
+                        </div>
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3">Accès restreint</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                        Pour accéder à la fonctionnalité de génération de rapports, vous devez connecter un compte Google Ads ou activer le mode démo.
+                    </p>
+                    <div className="flex gap-4 justify-center">
+                        <button
+                            onClick={() => navigate('/app/settings')}
+                            className="btn btn-primary"
+                        >
+                            Connecter Google Ads
+                        </button>
+                        <button
+                            onClick={() => navigate('/app/dashboard')}
+                            className="btn btn-secondary"
+                        >
+                            Activer le mode démo
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Report Configuration */}
-            {showConfig && (
+            {hasAccess && showConfig && (
                 <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 overflow-hidden">
                     {/* Header */}
                     <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/30">

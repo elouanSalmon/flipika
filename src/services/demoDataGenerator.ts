@@ -440,6 +440,65 @@ class DemoDataGenerator {
             recommendations: allRecommendations,
         };
     }
+
+    /**
+     * Generate aggregated report data from campaigns
+     */
+    generateReportData(campaigns: Campaign[]): CampaignMetrics {
+        // Aggregate all campaign metrics
+        const aggregated: CampaignMetrics = {
+            impressions: 0,
+            clicks: 0,
+            cost: 0,
+            conversions: 0,
+            conversionValue: 0,
+            ctr: 0,
+            cpc: 0,
+            cpa: 0,
+            roas: 0,
+            qualityScore: 0,
+        };
+
+        campaigns.forEach(campaign => {
+            aggregated.impressions += campaign.metrics.impressions;
+            aggregated.clicks += campaign.metrics.clicks;
+            aggregated.cost += campaign.metrics.cost;
+            aggregated.conversions += campaign.metrics.conversions;
+            aggregated.conversionValue += campaign.metrics.conversionValue;
+        });
+
+        // Calculate derived metrics
+        aggregated.ctr = aggregated.impressions > 0
+            ? (aggregated.clicks / aggregated.impressions) * 100
+            : 0;
+
+        aggregated.cpc = aggregated.clicks > 0
+            ? aggregated.cost / aggregated.clicks
+            : 0;
+
+        aggregated.cpa = aggregated.conversions > 0
+            ? aggregated.cost / aggregated.conversions
+            : 0;
+
+        aggregated.roas = aggregated.cost > 0
+            ? aggregated.conversionValue / aggregated.cost
+            : 0;
+
+        // Average quality score
+        const totalQS = campaigns.reduce((sum, c) => sum + (c.metrics.qualityScore || 0), 0);
+        aggregated.qualityScore = campaigns.length > 0
+            ? Math.round(totalQS / campaigns.length)
+            : 0;
+
+        // Round values
+        aggregated.ctr = parseFloat(aggregated.ctr.toFixed(2));
+        aggregated.cpc = parseFloat(aggregated.cpc.toFixed(2));
+        aggregated.cpa = parseFloat(aggregated.cpa.toFixed(2));
+        aggregated.roas = parseFloat(aggregated.roas.toFixed(2));
+
+        return aggregated;
+    }
 }
 
 export default DemoDataGenerator;
+

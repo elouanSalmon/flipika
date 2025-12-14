@@ -11,10 +11,12 @@ import {
   Moon,
   TrendingUp,
   TestTube,
+  Menu,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useDemoMode } from "../contexts/DemoModeContext";
 import { useTheme } from "../hooks/useTheme";
+import MobileMenu from "../components/MobileMenu";
 import "../components/Header.css"; // Use header styles
 import "../components/app/Connected.css"; // We might need to adjust or remove this if it enforced sidebar layout
 import Footer from "../components/Footer";
@@ -26,6 +28,7 @@ const AppLayout = () => {
   const { theme, toggleTheme } = useTheme();
   const { isDemoMode } = useDemoMode();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -78,6 +81,20 @@ const AppLayout = () => {
               <span className="logo-subtitle">IA</span>
             </div>
           </motion.div>
+
+          {/* Burger Menu Button - Mobile Only */}
+          <motion.button
+            className="burger-menu-button"
+            onClick={() => setIsMobileMenuOpen(true)}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Ouvrir le menu"
+          >
+            <Menu size={24} />
+          </motion.button>
 
           {/* Desktop Navigation */}
           <nav className="nav-desktop">
@@ -199,6 +216,9 @@ const AppLayout = () => {
 
         <Footer />
       </main>
+
+      {/* Mobile Menu */}
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
     </div>
   );
 };

@@ -41,3 +41,11 @@ export interface GeneratedReport {
 }
 
 export type ReportFormat = 'pdf' | 'excel' | 'pptx' | 'csv';
+
+export interface ReportData {
+    config: ReportConfig;
+    account: any;
+    campaigns: any[];
+    aggregatedMetrics: any;
+    timeSeriesData?: any;
+}

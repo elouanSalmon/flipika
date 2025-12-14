@@ -189,12 +189,12 @@ const DashboardNew = () => {
     }
 
     return (
-        <div className="space-y-8 p-8">
+        <div className="space-y-6 md:space-y-8 p-4 md:p-8">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold">Dashboard</h1>
-                    <p className="text-gray-500 mt-1">
+                    <h1 className="text-2xl md:text-3xl font-bold">Dashboard</h1>
+                    <p className="text-gray-500 mt-1 text-sm md:text-base">
                         {isDemoMode ? 'Mode Démo - ' : ''}Vue d'ensemble de vos campagnes Google Ads
                     </p>
                 </div>
