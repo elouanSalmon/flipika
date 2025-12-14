@@ -57,31 +57,41 @@ const Campaigns = () => {
     }
 
     return (
-        <div className="min-h-screen">
+        <div className="space-y-6">
             {/* Header Actions */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-                <div>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                <div className="space-y-1">
                     <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Campagnes</h2>
                     <p className="text-[var(--color-text-secondary)] text-sm">
                         Compte: {getLinkedCustomerId()}
                     </p>
                 </div>
                 <div className="flex gap-3">
-                    <button onClick={loadCampaigns} className="btn btn-ghost btn-sm">
-                        <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+                    <button onClick={loadCampaigns} className="btn btn-ghost" title="Actualiser">
+                        <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
                     </button>
-                    <button className="btn btn-secondary btn-sm gap-2" disabled>
+                    <button className="btn btn-secondary gap-2" disabled>
                         <Filter size={16} />
                         Filtrer
                     </button>
-                    <button className="btn btn-primary btn-sm gap-2" disabled>
+                    <button className="btn btn-primary gap-2" disabled>
                         <Search size={16} />
                         Rechercher
                     </button>
                 </div>
             </div>
 
-            {error && <div className="alert alert-error mb-6">{error}</div>}
+            {error && (
+                <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-5">
+                    <div className="flex items-start gap-3">
+                        <AlertCircle size={22} className="text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                            <h3 className="text-sm font-semibold text-red-800 dark:text-red-300 mb-1">Erreur</h3>
+                            <p className="text-sm text-red-700 dark:text-red-400 leading-relaxed">{error}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {loading ? (
                 <div className="flex justify-center py-12">

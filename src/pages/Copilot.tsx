@@ -77,25 +77,25 @@ const Copilot = () => {
 
             {/* Audit List */}
             <div className="grid gap-4">
-                <h2 className="text-xl font-bold px-2">Recommandations Prioritaires</h2>
+                <h2 className="text-xl font-bold mb-2">Recommandations Prioritaires</h2>
                 {auditItems.map((item) => (
                     <div key={item.id} className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:shadow-md transition-all group">
-                        <div className="flex items-start gap-4 p-2">
+                        <div className="flex items-start gap-4 p-5">
                             <div className={`mt-1 p-2 rounded-lg ${item.severity === 'high' ? 'bg-red-50 text-red-500' :
                                 item.severity === 'medium' ? 'bg-orange-50 text-orange-500' : 'bg-blue-50 text-blue-500'
                                 }`}>
                                 <AlertTriangle size={20} />
                             </div>
                             <div className="flex-1">
-                                <div className="flex justify-between items-start">
+                                <div className="flex justify-between items-start mb-2">
                                     <h3 className="font-bold text-lg">{item.title}</h3>
                                     <span className={`badge badge-sm uppercase font-bold ${item.severity === 'high' ? 'badge-error' :
                                         item.severity === 'medium' ? 'badge-warning' : 'badge-info'
                                         }`}>{item.severity}</span>
                                 </div>
-                                <p className="text-gray-500 mt-1">{item.description}</p>
+                                <p className="text-gray-500">{item.description}</p>
                             </div>
-                            <button className="btn btn-sm btn-ghost group-hover:bg-gray-100 dark:group-hover:bg-gray-700 self-center">
+                            <button className="btn btn-ghost group-hover:bg-gray-100 dark:group-hover:bg-gray-700 self-center">
                                 <span className="mr-2">{item.action}</span>
                                 <ArrowRight size={16} />
                             </button>
