@@ -46,10 +46,9 @@ const AppLayout = () => {
 
   const navItems = [
     { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { path: "/app/copilot", label: "Audit", icon: Zap, badge: "Beta" }, // Copilot file reused for Audit
+    { path: "/app/copilot", label: "Audit", icon: Zap, badge: "Beta" },
     { path: "/app/reports", label: "Rapports", icon: FileText },
     { path: "/app/campaigns", label: "Campagnes", icon: List },
-    { path: "/app/settings", label: "Paramètres", icon: Settings },
   ];
 
   return (
@@ -145,22 +144,24 @@ const AppLayout = () => {
               </button>
             </motion.div>
 
-            <motion.button
-              className="nav-link"
-              onClick={() => {/* Settings handler */ }}
+            <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-              }}
             >
-              <Settings size={16} />
-              <span className="hidden md:inline">Settings</span>
-            </motion.button>
+              <Link
+                to="/app/settings"
+                className="nav-link"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                <Settings size={16} />
+                <span className="hidden md:inline">Settings</span>
+              </Link>
+            </motion.div>
 
             <motion.button
               className="btn btn-primary"
