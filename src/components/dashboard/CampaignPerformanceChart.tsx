@@ -1,6 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import type { Campaign } from '../../types/business';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface CampaignPerformanceChartProps {
     campaigns: Campaign[];
@@ -13,6 +14,16 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
     metric = 'cost',
     loading = false,
 }) => {
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
+
+    const colors = {
+        grid: isDark ? '#374151' : '#e5e7eb',
+        axis: isDark ? '#9ca3af' : '#6b7280',
+        tooltipBg: isDark ? '#1f2937' : '#ffffff',
+        tooltipBorder: isDark ? '#374151' : '#e5e7eb',
+        tooltipText: isDark ? '#f3f4f6' : '#111827',
+    };
     const getMetricValue = (campaign: Campaign): number => {
         switch (metric) {
             case 'cost':
@@ -74,19 +85,20 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
                 </select>
             </div>
             <ResponsiveContainer width="100%" height={350}>
-                <BarChart data={chartData} layout="horizontal">
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                    <XAxis type="number" stroke="#6b7280" style={{ fontSize: '12px' }} />
-                    <YAxis type="category" dataKey="name" stroke="#6b7280" style={{ fontSize: '12px' }} width={150} />
+                <BarChart data={chartData} layout="horizontal" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
+                    <XAxis type="number" stroke={colors.axis} tick={{ fill: colors.axis }} style={{ fontSize: '12px' }} />
+                    <YAxis type="category" dataKey="name" stroke={colors.axis} tick={{ fill: colors.axis }} style={{ fontSize: '12px' }} width={150} />
                     <Tooltip
                         contentStyle={{
-                            backgroundColor: '#fff',
-                            border: '1px solid #e5e7eb',
+                            backgroundColor: colors.tooltipBg,
+                            border: `1px solid ${colors.tooltipBorder}`,
                             borderRadius: '8px',
+                            color: colors.tooltipText,
                         }}
                     />
                     <Legend />
-                    <Bar dataKey="value" name={getMetricLabel()} fill="#3b82f6" radius={[0, 8, 8, 0]} />
+                    <Bar dataKey="value" fill="#3b82f6" radius={[0, 8, 8, 0]} isAnimationActive={false} />
                 </BarChart>
             </ResponsiveContainer>
         </div>

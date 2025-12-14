@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DemoModeProvider } from './contexts/DemoModeContext';
+import { GoogleAdsProvider } from './contexts/GoogleAdsContext';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import AppLayout from './layouts/AppLayout';
@@ -39,62 +40,64 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <DemoModeProvider>
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: 'var(--color-bg-primary)',
-                color: 'var(--color-text-primary)',
-                border: '1px solid var(--color-border)',
-              },
-              success: {
-                iconTheme: {
-                  primary: '#10b981',
-                  secondary: '#fff',
+        <GoogleAdsProvider>
+          <DemoModeProvider>
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: 'var(--color-bg-primary)',
+                  color: 'var(--color-text-primary)',
+                  border: '1px solid var(--color-border)',
                 },
-              },
-              error: {
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#fff',
+                success: {
+                  iconTheme: {
+                    primary: '#10b981',
+                    secondary: '#fff',
+                  },
                 },
-              },
-            }}
-          />
-          <div className="App">
-            <Routes>
-              {/* Public Landing Pages */}
-              <Route path="/" element={<Landing />} />
-              <Route path="/mentions-legales" element={<LegalNotices />} />
-              <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
-              <Route path="/conditions-utilisation" element={<TermsOfService />} />
+                error: {
+                  iconTheme: {
+                    primary: '#ef4444',
+                    secondary: '#fff',
+                  },
+                },
+              }}
+            />
+            <div className="App">
+              <Routes>
+                {/* Public Landing Pages */}
+                <Route path="/" element={<Landing />} />
+                <Route path="/mentions-legales" element={<LegalNotices />} />
+                <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
+                <Route path="/conditions-utilisation" element={<TermsOfService />} />
 
-              {/* Auth Pages */}
-              <Route path="/secret-login" element={<Login />} />
-              <Route path="/oauth/callback" element={<OAuthCallback />} />
+                {/* Auth Pages */}
+                <Route path="/secret-login" element={<Login />} />
+                <Route path="/oauth/callback" element={<OAuthCallback />} />
 
-              {/* Protected App Routes */}
-              <Route path="/app" element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }>
-                <Route index element={<Navigate to="dashboard" replace />} />
-                <Route path="dashboard" element={<DashboardNew />} />
-                <Route path="dashboard-old" element={<Dashboard />} />
-                <Route path="audit" element={<AuditPage />} />
-                <Route path="copilot" element={<Copilot />} />
-                <Route path="reports" element={<Reports />} />
-                <Route path="settings" element={<Settings />} />
-              </Route>
+                {/* Protected App Routes */}
+                <Route path="/app" element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }>
+                  <Route index element={<Navigate to="dashboard" replace />} />
+                  <Route path="dashboard" element={<DashboardNew />} />
+                  <Route path="dashboard-old" element={<Dashboard />} />
+                  <Route path="audit" element={<AuditPage />} />
+                  <Route path="copilot" element={<Copilot />} />
+                  <Route path="reports" element={<Reports />} />
+                  <Route path="settings" element={<Settings />} />
+                </Route>
 
-              {/* 404 Route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-        </DemoModeProvider>
+                {/* 404 Route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
+          </DemoModeProvider>
+        </GoogleAdsProvider>
       </AuthProvider>
     </ThemeProvider>
   );

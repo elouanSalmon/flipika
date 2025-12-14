@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Sun, Moon, Zap } from 'lucide-react';
-import { useTheme } from '../hooks/useTheme';
+import { Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggle from './ThemeToggle';
 import './Header.css';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { theme, toggleTheme } = useTheme();
   const { t } = useTranslation();
 
   const scrollToEmailForm = () => {
@@ -95,17 +94,7 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <button
-              className={`theme-toggle ${theme === 'dark' ? 'dark' : 'light'}`}
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-            >
-              <div className="toggle-track">
-                <div className="toggle-thumb">
-                  {theme === 'dark' ? <Moon size={14} /> : <Sun size={14} />}
-                </div>
-              </div>
-            </button>
+            <ThemeToggle />
           </motion.div>
 
           {/* CTA Button - Desktop only */}

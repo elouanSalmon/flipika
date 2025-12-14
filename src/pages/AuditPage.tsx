@@ -126,7 +126,7 @@ const AuditPage = () => {
                                 loadCampaigns(e.target.value);
                                 setAuditResult(null);
                             }}
-                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
                         >
                             {accounts.map(account => (
                                 <option key={account.id} value={account.id}>
@@ -147,7 +147,7 @@ const AuditPage = () => {
                                 setSelectedCampaignId(e.target.value);
                                 setAuditResult(null);
                             }}
-                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="all">Toutes les campagnes</option>
                             {campaigns.map(campaign => (
@@ -166,7 +166,7 @@ const AuditPage = () => {
                         <select
                             value={period}
                             onChange={(e) => setPeriod(e.target.value as '30' | '60' | '90')}
-                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="30">30 derniers jours</option>
                             <option value="60">60 derniers jours</option>

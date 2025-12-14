@@ -129,17 +129,28 @@ class DemoDataGenerator {
     }
 
     /**
-     * Generate realistic campaign metrics
+     * Generate realistic campaign metrics with better variance
      */
     private generateCampaignMetrics(budget: number): CampaignMetrics {
-        const cost = faker.number.float({ min: budget * 0.5, max: budget * 1.2, fractionDigits: 2 });
-        const impressions = faker.number.int({ min: 10000, max: 500000 });
-        const clicks = faker.number.int({ min: Math.floor(impressions * 0.01), max: Math.floor(impressions * 0.05) });
-        const conversions = faker.number.int({ min: Math.floor(clicks * 0.02), max: Math.floor(clicks * 0.1) });
-        const conversionValue = conversions * faker.number.float({ min: 50, max: 500, fractionDigits: 2 });
+        const cost = faker.number.float({ min: budget * 0.4, max: budget * 1.1, fractionDigits: 2 });
+
+        // More realistic impression ranges based on campaign type
+        const impressions = faker.number.int({ min: 15000, max: 800000 });
+
+        // CTR between 1% and 8% (realistic range)
+        const targetCTR = faker.number.float({ min: 0.01, max: 0.08, fractionDigits: 4 });
+        const clicks = Math.round(impressions * targetCTR);
+
+        // Conversion rate between 2% and 15% of clicks
+        const targetCR = faker.number.float({ min: 0.02, max: 0.15, fractionDigits: 4 });
+        const conversions = Math.max(1, Math.round(clicks * targetCR));
+
+        // Conversion value based on realistic AOV (Average Order Value)
+        const avgOrderValue = faker.number.float({ min: 30, max: 800, fractionDigits: 2 });
+        const conversionValue = conversions * avgOrderValue;
 
         const ctr = (clicks / impressions) * 100;
-        const cpc = cost / clicks;
+        const cpc = clicks > 0 ? cost / clicks : 0;
         const cpa = conversions > 0 ? cost / conversions : 0;
         const roas = cost > 0 ? conversionValue / cost : 0;
 
@@ -153,24 +164,43 @@ class DemoDataGenerator {
             cpc: parseFloat(cpc.toFixed(2)),
             cpa: parseFloat(cpa.toFixed(2)),
             roas: parseFloat(roas.toFixed(2)),
-            qualityScore: faker.number.int({ min: 3, max: 10 }),
+            qualityScore: faker.number.int({ min: 4, max: 10 }),
         };
     }
 
     /**
-     * Generate campaigns for an account
+     * Generate campaigns for an account with realistic names
      */
     generateCampaigns(accountId: string, count: number, complexity: DemoComplexity): Campaign[] {
         const campaignTypes = ['SEARCH', 'DISPLAY', 'VIDEO', 'SHOPPING', 'PERFORMANCE_MAX'] as const;
 
+        const campaignNameTemplates = {
+            SEARCH: ['Recherche - ', 'Search - ', 'Mots-clés - '],
+            DISPLAY: ['Display - ', 'Bannières - ', 'GDN - '],
+            VIDEO: ['Vidéo - ', 'YouTube - ', 'Video Ads - '],
+            SHOPPING: ['Shopping - ', 'Produits - ', 'E-commerce - '],
+            PERFORMANCE_MAX: ['Performance Max - ', 'PMax - ', 'Automatique - '],
+        };
+
         return Array.from({ length: count }, (_, i) => {
             const budget = this.generateBudget(complexity);
             const type = faker.helpers.arrayElement(campaignTypes);
+            const namePrefix = faker.helpers.arrayElement(campaignNameTemplates[type]);
+            const nameSuffix = faker.helpers.arrayElement([
+                'Général',
+                'Marque',
+                'Conversion',
+                'Notoriété',
+                'Remarketing',
+                'Prospection',
+                'Q4 2024',
+                'Promo',
+            ]);
 
             return {
                 id: `demo-campaign-${accountId}-${i + 1}`,
                 accountId,
-                name: `${type} Campaign ${i + 1}`,
+                name: `${namePrefix}${nameSuffix}`,
                 status: faker.helpers.arrayElement(['ENABLED', 'ENABLED', 'ENABLED', 'PAUSED'] as const),
                 type,
                 budget: {
@@ -180,7 +210,7 @@ class DemoDataGenerator {
                 metrics: this.generateCampaignMetrics(budget.daily * 30),
                 settings: {
                     startDate: faker.date.past({ years: 1 }),
-                    biddingStrategy: faker.helpers.arrayElement(['TARGET_CPA', 'MAXIMIZE_CONVERSIONS', 'TARGET_ROAS']),
+                    biddingStrategy: faker.helpers.arrayElement(['TARGET_CPA', 'MAXIMIZE_CONVERSIONS', 'TARGET_ROAS', 'MAXIMIZE_CLICKS']),
                     targetLocation: ['FR'],
                     targetLanguages: ['fr'],
                 },
@@ -191,35 +221,66 @@ class DemoDataGenerator {
     }
 
     /**
-     * Generate time series metrics for charts
+     * Generate time series metrics for charts with realistic trends
      */
     generateTimeSeriesMetrics(dateRange: DateRange): TimeSeriesMetrics {
         const days = Math.ceil((dateRange.end.getTime() - dateRange.start.getTime()) / (1000 * 60 * 60 * 24));
-        const dataPoints: TimeSeriesDataPoint[] = [];
+
+        // Base values with some randomness
+        const baseSpend = faker.number.float({ min: 200, max: 800, fractionDigits: 2 });
+        const baseImpressions = faker.number.int({ min: 5000, max: 25000 });
+        const baseClicks = faker.number.int({ min: 200, max: 1200 });
+        const baseConversions = faker.number.int({ min: 10, max: 80 });
+
+        // Growth/decline trends (between -0.5% and +1.5% per day)
+        const spendTrend = faker.number.float({ min: -0.005, max: 0.015, fractionDigits: 4 });
+        const impressionsTrend = faker.number.float({ min: -0.003, max: 0.02, fractionDigits: 4 });
+        const clicksTrend = faker.number.float({ min: -0.005, max: 0.018, fractionDigits: 4 });
+        const conversionsTrend = faker.number.float({ min: -0.008, max: 0.012, fractionDigits: 4 });
+
+        const spend: TimeSeriesDataPoint[] = [];
+        const impressions: TimeSeriesDataPoint[] = [];
+        const clicks: TimeSeriesDataPoint[] = [];
+        const conversions: TimeSeriesDataPoint[] = [];
 
         for (let i = 0; i <= days; i++) {
             const date = new Date(dateRange.start);
             date.setDate(date.getDate() + i);
-            dataPoints.push({ date, value: 0 });
+
+            // Apply trend with daily variance
+            const dayVariance = faker.number.float({ min: 0.85, max: 1.15, fractionDigits: 3 });
+            const trendMultiplier = 1 + (spendTrend * i);
+
+            // Weekend effect (lower on weekends)
+            const dayOfWeek = date.getDay();
+            const weekendFactor = (dayOfWeek === 0 || dayOfWeek === 6) ? 0.7 : 1.0;
+
+            spend.push({
+                date,
+                value: parseFloat((baseSpend * trendMultiplier * dayVariance * weekendFactor).toFixed(2)),
+            });
+
+            impressions.push({
+                date,
+                value: Math.round(baseImpressions * (1 + impressionsTrend * i) * dayVariance * weekendFactor),
+            });
+
+            clicks.push({
+                date,
+                value: Math.round(baseClicks * (1 + clicksTrend * i) * dayVariance * weekendFactor),
+            });
+
+            conversions.push({
+                date,
+                value: Math.round(baseConversions * (1 + conversionsTrend * i) * dayVariance * weekendFactor),
+            });
         }
 
         return {
-            spend: dataPoints.map(dp => ({
-                date: dp.date,
-                value: faker.number.float({ min: 50, max: 500, fractionDigits: 2 }),
-            })),
-            impressions: dataPoints.map(dp => ({
-                date: dp.date,
-                value: faker.number.int({ min: 1000, max: 20000 }),
-            })),
-            clicks: dataPoints.map(dp => ({
-                date: dp.date,
-                value: faker.number.int({ min: 50, max: 1000 }),
-            })),
-            conversions: dataPoints.map(dp => ({
-                date: dp.date,
-                value: faker.number.int({ min: 2, max: 50 }),
-            })),
+            spend,
+            impressions,
+            clicks,
+            conversions,
         };
     }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import type { Account } from '../../types/business';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface BudgetDistributionChartProps {
     accounts: Account[];
@@ -10,11 +11,14 @@ interface BudgetDistributionChartProps {
 const COLORS = ['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#06b6d4'];
 
 const BudgetDistributionChart: React.FC<BudgetDistributionChartProps> = ({ accounts, loading = false }) => {
-    const chartData = accounts.map((account, index) => ({
-        name: account.name,
-        value: account.currentSpend,
-        color: COLORS[index % COLORS.length],
-    }));
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
+
+    const colors = {
+        tooltipBg: isDark ? '#1f2937' : '#ffffff',
+        tooltipBorder: isDark ? '#374151' : '#e5e7eb',
+        tooltipText: isDark ? '#f3f4f6' : '#111827',
+    };
 
     if (loading) {
         return (
@@ -23,6 +27,20 @@ const BudgetDistributionChart: React.FC<BudgetDistributionChartProps> = ({ accou
             </div>
         );
     }
+
+    if (!accounts || accounts.length === 0) {
+        return (
+            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 h-80 flex items-center justify-center">
+                <div className="text-gray-400">Aucune donnée disponible</div>
+            </div>
+        );
+    }
+
+    const chartData = accounts.map((account, index) => ({
+        name: account.name,
+        value: Number(account.currentSpend) || 0,
+        color: COLORS[index % COLORS.length],
+    }));
 
     return (
         <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
@@ -33,10 +51,11 @@ const BudgetDistributionChart: React.FC<BudgetDistributionChartProps> = ({ accou
                         data={chartData}
                         cx="50%"
                         cy="50%"
-                        innerRadius={60}
+                        labelLine={false}
                         outerRadius={100}
-                        paddingAngle={5}
+                        fill="#8884d8"
                         dataKey="value"
+                        isAnimationActive={false}
                     >
                         {chartData.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={entry.color} />
@@ -45,9 +64,10 @@ const BudgetDistributionChart: React.FC<BudgetDistributionChartProps> = ({ accou
                     <Tooltip
                         formatter={(value: number) => `${value.toFixed(2)} €`}
                         contentStyle={{
-                            backgroundColor: '#fff',
-                            border: '1px solid #e5e7eb',
+                            backgroundColor: colors.tooltipBg,
+                            border: `1px solid ${colors.tooltipBorder}`,
                             borderRadius: '8px',
+                            color: colors.tooltipText,
                         }}
                     />
                     <Legend />
