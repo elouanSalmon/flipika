@@ -30,7 +30,7 @@ const Settings = () => {
                             <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/30 p-5 rounded-xl border border-gray-200 dark:border-gray-600">
                                 <div>
                                     <p className="font-semibold text-base">
-                                        {isDemoMode ? '✨ Mode démo activé' : 'Mode démo désactivé'}
+                                        {isDemoMode ? 'Mode démo activé' : 'Mode démo désactivé'}
                                     </p>
                                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                         {isDemoMode
@@ -45,7 +45,7 @@ const Settings = () => {
                                 >
                                     <div className="toggle-track">
                                         <div className="toggle-thumb">
-                                            {isDemoMode ? '✨' : '🔒'}
+                                            {isDemoMode ? 'ON' : 'OFF'}
                                         </div>
                                     </div>
                                 </button>

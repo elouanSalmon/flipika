@@ -166,9 +166,7 @@ const Dashboard = () => {
                                 <AlertCircle size={28} className="text-white" strokeWidth={2.5} />
                             </div>
                             <div className="flex-1">
-                                <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                                    ⚠️ Erreur de connexion
-                                </h3>
+                                <h3 className="text-lg font-bold text-white mb-2">Erreur de connexion</h3>
                                 <p className="text-red-50 leading-relaxed font-medium">{error}</p>
                             </div>
                         </div>
@@ -197,9 +195,7 @@ const Dashboard = () => {
                                 <AlertCircle size={24} className="text-white" strokeWidth={2.5} />
                             </div>
                             <div className="flex-1">
-                                <h3 className="text-base font-bold text-white mb-1 flex items-center gap-2">
-                                    ⚠️ Erreur
-                                </h3>
+                                <h3 className="text-base font-bold text-white mb-1">Erreur</h3>
                                 <p className="text-red-50 leading-relaxed font-medium text-sm">{error}</p>
                             </div>
                         </div>
@@ -248,9 +244,7 @@ const Dashboard = () => {
                             <AlertCircle size={28} className="text-white" strokeWidth={2.5} />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                                ⚠️ Erreur
-                            </h3>
+                            <h3 className="text-lg font-bold text-white mb-2">Erreur</h3>
                             <p className="text-red-50 leading-relaxed font-medium">{error}</p>
                         </div>
                     </div>

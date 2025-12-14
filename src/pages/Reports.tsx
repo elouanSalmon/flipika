@@ -138,115 +138,118 @@ const Reports = () => {
 
             {/* Report Configuration Modal/Panel */}
             {showConfig && (
-                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 space-y-6">
-                    <div className="flex items-center justify-between">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+                    <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-700">
                         <h2 className="text-xl font-bold">Configuration du rapport</h2>
                         <button onClick={() => setShowConfig(false)} className="btn btn-ghost btn-sm">
                             ✕
                         </button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Account Selection */}
-                        <div className="space-y-2">
-                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                Compte Google Ads
-                            </label>
-                            <select
-                                value={config.accountId}
-                                onChange={(e) => setConfig({ ...config, accountId: e.target.value })}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            >
-                                {accounts.map(account => (
-                                    <option key={account.id} value={account.id}>
-                                        {account.name}
-                                    </option>
-                                ))}
-                            </select>
+                    <div className="p-6 space-y-8">
+                        {/* Account and Date Selection */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* Account Selection */}
+                            <div className="space-y-3">
+                                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    Compte Google Ads
+                                </label>
+                                <select
+                                    value={config.accountId}
+                                    onChange={(e) => setConfig({ ...config, accountId: e.target.value })}
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                >
+                                    {accounts.map(account => (
+                                        <option key={account.id} value={account.id}>
+                                            {account.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Date Range */}
+                            <div className="space-y-3">
+                                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    Période
+                                </label>
+                                <div className="flex gap-3">
+                                    <input
+                                        type="date"
+                                        value={config.startDate}
+                                        onChange={(e) => setConfig({ ...config, startDate: e.target.value })}
+                                        className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all"
+                                    />
+                                    <span className="flex items-center text-gray-400 font-bold">→</span>
+                                    <input
+                                        type="date"
+                                        value={config.endDate}
+                                        onChange={(e) => setConfig({ ...config, endDate: e.target.value })}
+                                        className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all"
+                                    />
+                                </div>
+                            </div>
                         </div>
 
-                        {/* Date Range */}
-                        <div className="space-y-2">
+                        {/* Metrics Selection */}
+                        <div className="space-y-4">
                             <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                Période
+                                Métriques à inclure
                             </label>
-                            <div className="flex gap-3">
-                                <input
-                                    type="date"
-                                    value={config.startDate}
-                                    onChange={(e) => setConfig({ ...config, startDate: e.target.value })}
-                                    className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"
-                                />
-                                <span className="flex items-center text-gray-400">→</span>
-                                <input
-                                    type="date"
-                                    value={config.endDate}
-                                    onChange={(e) => setConfig({ ...config, endDate: e.target.value })}
-                                    className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"
-                                />
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                {Object.entries(config.includeMetrics).map(([key, value]) => (
+                                    <button
+                                        key={key}
+                                        onClick={() => toggleMetric(key as keyof typeof config.includeMetrics)}
+                                        className={`p-4 rounded-xl border-2 transition-all font-medium text-sm ${value
+                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                                                : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
+                                            }`}
+                                    >
+                                        <div className="flex items-center justify-between gap-2">
+                                            <span className="capitalize">{key}</span>
+                                            {value && <Check size={16} className="text-blue-600 dark:text-blue-400 flex-shrink-0" />}
+                                        </div>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Additional Options */}
+                        <div className="space-y-4">
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                Options supplémentaires
+                            </label>
+                            <div className="space-y-3">
+                                <label className="flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer transition-all">
+                                    <input
+                                        type="checkbox"
+                                        checked={config.includeCampaigns}
+                                        onChange={(e) => setConfig({ ...config, includeCampaigns: e.target.checked })}
+                                        className="w-5 h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 flex-shrink-0"
+                                    />
+                                    <div className="flex-1">
+                                        <p className="font-medium text-sm text-gray-900 dark:text-gray-100">Détail des campagnes</p>
+                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Inclure le tableau détaillé de toutes les campagnes</p>
+                                    </div>
+                                </label>
+                                <label className="flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer transition-all">
+                                    <input
+                                        type="checkbox"
+                                        checked={config.includeCharts}
+                                        onChange={(e) => setConfig({ ...config, includeCharts: e.target.checked })}
+                                        className="w-5 h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 flex-shrink-0"
+                                    />
+                                    <div className="flex-1">
+                                        <p className="font-medium text-sm text-gray-900 dark:text-gray-100">Graphiques de performance</p>
+                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Ajouter des visualisations graphiques</p>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                     </div>
 
-                    {/* Metrics Selection */}
-                    <div className="space-y-3">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                            Métriques à inclure
-                        </label>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            {Object.entries(config.includeMetrics).map(([key, value]) => (
-                                <button
-                                    key={key}
-                                    onClick={() => toggleMetric(key as keyof typeof config.includeMetrics)}
-                                    className={`p-3 rounded-xl border-2 transition-all ${value
-                                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                                        : 'border-gray-200 dark:border-gray-600 hover:border-gray-300'
-                                        }`}
-                                >
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium capitalize">{key}</span>
-                                        {value && <Check size={16} className="text-blue-600" />}
-                                    </div>
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Additional Options */}
-                    <div className="space-y-3">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                            Options supplémentaires
-                        </label>
-                        <div className="space-y-2">
-                            <label className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    checked={config.includeCampaigns}
-                                    onChange={(e) => setConfig({ ...config, includeCampaigns: e.target.checked })}
-                                    className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                />
-                                <div className="flex-1">
-                                    <p className="font-medium text-sm">Détail des campagnes</p>
-                                    <p className="text-xs text-gray-500">Inclure le tableau détaillé de toutes les campagnes</p>
-                                </div>
-                            </label>
-                            <label className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    checked={config.includeCharts}
-                                    onChange={(e) => setConfig({ ...config, includeCharts: e.target.checked })}
-                                    className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                />
-                                <div className="flex-1">
-                                    <p className="font-medium text-sm">Graphiques de performance</p>
-                                    <p className="text-xs text-gray-500">Ajouter des visualisations graphiques</p>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
                     {/* Actions */}
-                    <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-600">
+                    <div className="flex justify-end gap-3 p-6 bg-gray-50 dark:bg-gray-700/30 border-t border-gray-100 dark:border-gray-700">
                         <button
                             onClick={() => setShowConfig(false)}
                             className="btn btn-ghost"
