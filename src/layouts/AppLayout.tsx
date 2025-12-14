@@ -105,21 +105,6 @@ const AppLayout = () => {
                   >
                     <Icon size={16} />
                     {item.label}
-                    {item.badge && (
-                      <span style={{
-                        fontSize: '10px',
-                        fontWeight: 700,
-                        padding: '2px 6px',
-                        borderRadius: 'var(--radius-full)',
-                        background: 'rgba(59, 130, 246, 0.1)',
-                        color: 'var(--color-primary)',
-                        border: '1px solid rgba(59, 130, 246, 0.3)',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                      }}>
-                        {item.badge}
-                      </span>
-                    )}
                   </Link>
                 </motion.div>
               );
