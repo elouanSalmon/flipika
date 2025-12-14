@@ -27,24 +27,26 @@ const Settings = () => {
                                 Testez toutes les fonctionnalités de Flipika avec des données fictives sans connecter votre compte Google Ads.
                             </p>
 
-                            <div className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 p-5 rounded-xl border-2 border-purple-200 dark:border-purple-700">
+                            <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/30 p-5 rounded-xl border border-gray-200 dark:border-gray-600">
                                 <div>
                                     <p className="font-semibold text-base">
                                         {isDemoMode ? '✨ Mode démo activé' : 'Mode démo désactivé'}
                                     </p>
-                                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                         {isDemoMode
                                             ? 'Vous utilisez des données fictives'
                                             : 'Vous utilisez vos données Google Ads réelles'}
                                     </p>
                                 </div>
                                 <button
+                                    className={`theme-toggle ${isDemoMode ? 'dark' : 'light'}`}
                                     onClick={toggleDemoMode}
-                                    className={`toggle-switch ${isDemoMode ? 'active' : ''}`}
                                     aria-label="Toggle demo mode"
                                 >
-                                    <div className="toggle-thumb">
-                                        {isDemoMode ? '✨' : '🔒'}
+                                    <div className="toggle-track">
+                                        <div className="toggle-thumb">
+                                            {isDemoMode ? '✨' : '🔒'}
+                                        </div>
                                     </div>
                                 </button>
                             </div>
