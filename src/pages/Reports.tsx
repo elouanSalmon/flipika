@@ -1,13 +1,16 @@
 import { FileText, Download } from 'lucide-react';
 import { useState } from 'react';
+import { useDemoMode } from '../contexts/DemoModeContext';
 
 const Reports = () => {
+    const { isDemoMode } = useDemoMode();
     const [generating, setGenerating] = useState(false);
 
-    const reports = [
+    // Only show mock reports in demo mode
+    const reports = isDemoMode ? [
         { id: 1, name: 'Rapport Mensuel - Octobre 2024', date: '01/11/2024', type: 'Performance Globale' },
         { id: 2, name: 'Analyse Hebdomadaire (S42)', date: '21/10/2024', type: 'Hebdomadaire' },
-    ];
+    ] : [];
 
     const handleGenerate = () => {
         setGenerating(true);
@@ -24,8 +27,9 @@ const Reports = () => {
                 </div>
                 <button
                     onClick={handleGenerate}
-                    disabled={generating}
+                    disabled={generating || !isDemoMode}
                     className="btn btn-primary flex items-center gap-2"
+                    title={!isDemoMode ? "Activez le mode démo pour tester cette fonctionnalité" : ""}
                 >
                     {generating ? (
                         <>
@@ -41,20 +45,22 @@ const Reports = () => {
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Stats Card */}
-                <div className="card bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800">
-                    <div className="flex items-start justify-between">
-                        <div>
-                            <p className="text-sm font-medium text-blue-600 dark:text-blue-400">Rapports générés</p>
-                            <h3 className="text-2xl font-bold mt-1">12</h3>
-                        </div>
-                        <div className="p-2 bg-blue-100 dark:bg-blue-800 rounded-lg">
-                            <FileText className="text-blue-600 dark:text-blue-400" size={20} />
+            {isDemoMode && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Stats Card */}
+                    <div className="card bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800">
+                        <div className="flex items-start justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-blue-600 dark:text-blue-400">Rapports générés</p>
+                                <h3 className="text-2xl font-bold mt-1">12</h3>
+                            </div>
+                            <div className="p-2 bg-blue-100 dark:bg-blue-800 rounded-lg">
+                                <FileText className="text-blue-600 dark:text-blue-400" size={20} />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
 
             <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700">
                 <h3 className="text-lg font-bold mb-4 px-4">Historique</h3>
@@ -69,7 +75,7 @@ const Reports = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                            {reports.map((report) => (
+                            {reports.length > 0 ? reports.map((report) => (
                                 <tr key={report.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
                                     <td className="p-4 font-medium flex items-center gap-3">
                                         <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-500">
@@ -85,7 +91,15 @@ const Reports = () => {
                                         </button>
                                     </td>
                                 </tr>
-                            ))}
+                            )) : (
+                                <tr>
+                                    <td colSpan={4} className="p-12 text-center text-gray-500">
+                                        {isDemoMode
+                                            ? "Aucun rapport généré pour le moment"
+                                            : "Activez le mode démo dans les paramètres pour tester la génération de rapports"}
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

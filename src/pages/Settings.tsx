@@ -27,9 +27,9 @@ const Settings = () => {
                                 Testez toutes les fonctionnalités de Flipika avec des données fictives sans connecter votre compte Google Ads.
                             </p>
 
-                            <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/30 p-4 rounded-xl">
+                            <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/30 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-600">
                                 <div>
-                                    <p className="font-medium text-sm">
+                                    <p className="font-semibold text-base">
                                         {isDemoMode ? 'Mode démo activé' : 'Mode démo désactivé'}
                                     </p>
                                     <p className="text-xs text-gray-500 mt-1">
@@ -40,13 +40,14 @@ const Settings = () => {
                                 </div>
                                 <button
                                     onClick={toggleDemoMode}
-                                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${isDemoMode
+                                    aria-label="Toggle demo mode"
+                                    className={`relative inline-flex h-10 w-20 flex-shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 ${isDemoMode
                                         ? 'bg-purple-600'
                                         : 'bg-gray-300 dark:bg-gray-600'
                                         }`}
                                 >
                                     <span
-                                        className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${isDemoMode ? 'translate-x-7' : 'translate-x-1'
+                                        className={`inline-block h-8 w-8 transform rounded-full bg-white shadow-lg transition-transform duration-200 ease-in-out ${isDemoMode ? 'translate-x-11' : 'translate-x-1'
                                             }`}
                                     />
                                 </button>
