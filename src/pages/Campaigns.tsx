@@ -1,5 +1,4 @@
-```
-import { Search, Filter, AlertCircle, Plus, RefreshCw } from 'lucide-react';
+import { Search, Filter, Plus, RefreshCw } from 'lucide-react';
 import ErrorCard from '../components/ErrorCard';
 import { isGoogleAdsConnected, fetchCampaigns, getLinkedCustomerId } from '../services/googleAds';
 import { useEffect, useState } from 'react';
@@ -105,7 +104,7 @@ const Campaigns = () => {
                             {campaigns.map((c) => (
                                 <tr key={c.id}>
                                     <td className="p-4 font-medium">{c.name}</td>
-                                    <td className="p-4"><span className={`badge badge - sm ${ c.status === 'ENABLED' ? 'badge-success' : 'badge-neutral' } `}>{c.status}</span></td>
+                                    <td className="p-4"><span className={`badge badge - sm ${c.status === 'ENABLED' ? 'badge-success' : 'badge-neutral'} `}>{c.status}</span></td>
                                     <td className="p-4 text-right">{c.cost ? c.cost.toFixed(2) : 0} €</td>
                                     <td className="p-4 text-right">{c.impressions}</td>
                                     <td className="p-4 text-right">{c.clicks}</td>

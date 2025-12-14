@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { BarChart3, ArrowRight, RefreshCw, LogOut, AlertCircle } from 'lucide-react';
+import { BarChart3, ArrowRight, RefreshCw, LogOut } from 'lucide-react';
 import ErrorCard from '../components/ErrorCard';
 import { useAuth } from '../contexts/AuthContext';
 import { getLinkedCustomerId, fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
