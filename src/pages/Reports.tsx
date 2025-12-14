@@ -1,9 +1,8 @@
-import { FileText, Download, Calendar, Settings as SettingsIcon, ChevronDown, Check } from 'lucide-react';
+import { FileText, Download, Settings as SettingsIcon, Check } from 'lucide-react';
 import { useState } from 'react';
 import { useDemoMode } from '../contexts/DemoModeContext';
 import { isGoogleAdsConnected, getLinkedCustomerId } from '../services/googleAds';
 import { Link } from 'react-router-dom';
-import { generateMockCampaigns } from '../services/mockData';
 
 interface ReportConfig {
     accountId: string;
@@ -200,8 +199,8 @@ const Reports = () => {
                                     key={key}
                                     onClick={() => toggleMetric(key as keyof typeof config.includeMetrics)}
                                     className={`p-3 rounded-xl border-2 transition-all ${value
-                                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                                            : 'border-gray-200 dark:border-gray-600 hover:border-gray-300'
+                                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                                        : 'border-gray-200 dark:border-gray-600 hover:border-gray-300'
                                         }`}
                                 >
                                     <div className="flex items-center justify-between">
