@@ -146,7 +146,6 @@ const DashboardNew = () => {
             {/* Accounts List */}
             <AccountsList
                 accounts={accounts}
-                onViewDetails={handleViewDetails}
                 onAudit={handleAudit}
                 onGenerateReport={handleGenerateReport}
                 loading={loading}

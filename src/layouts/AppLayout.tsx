@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import {
   LayoutDashboard,
   FileText,
-  List,
   LogOut,
   Settings,
   Zap,
