@@ -49,6 +49,7 @@ const AppLayout = () => {
     { path: "/app/copilot", label: "Audit", icon: Zap, badge: "Beta" }, // Copilot file reused for Audit
     { path: "/app/reports", label: "Rapports", icon: FileText },
     { path: "/app/campaigns", label: "Campagnes", icon: List },
+    { path: "/app/settings", label: "Paramètres", icon: Settings },
   ];
 
   return (

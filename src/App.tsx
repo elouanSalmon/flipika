@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import Copilot from './pages/Copilot';
 import Campaigns from './pages/Campaigns';
 import Reports from './pages/Reports';
+import Settings from './pages/Settings';
 import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -58,6 +59,7 @@ function App() {
               <Route path="copilot" element={<Copilot />} />
               <Route path="campaigns" element={<Campaigns />} />
               <Route path="reports" element={<Reports />} /> {/* Added Reports route */}
+              <Route path="settings" element={<Settings />} />
             </Route>
 
             {/* 404 Route */}
