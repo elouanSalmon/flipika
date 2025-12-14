@@ -15,15 +15,104 @@ const getAuthHeaders = async () => {
 };
 
 export const isGoogleAdsConnected = (): boolean => {
-    // We can't know for sure without asking backend, but we can check if customer ID is selected
-    // For a better UX, we should fetch this status on load. 
-    // For now, let's return false if no customer ID is linked locally,
-    // assuming the flow is: Connect -> Store Customer ID
-    return !!localStorage.getItem('google_ads_customer_id');
+    // Check if user has connected (either has customer_id or connection flag)
+    return !!(localStorage.getItem('google_ads_customer_id') || localStorage.getItem('google_ads_connected'));
 };
 
 export const getLinkedCustomerId = (): string | null => {
     return localStorage.getItem('google_ads_customer_id');
+};
+
+/**
+ * Initiates the Google Ads OAuth flow
+ * Opens a popup window for the user to authorize Google Ads access
+ */
+export const initiateGoogleAdsOAuth = async () => {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            throw new Error("User must be authenticated to connect Google Ads");
+        }
+
+        // Get the OAuth URL from the backend
+        const headers = await getAuthHeaders();
+        const response = await fetch(`${FUNCTIONS_BASE_URL}/initiateOAuth`, {
+            method: 'POST',
+            headers
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error ${response.status}: ${errorText}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.success || !data.authUrl) {
+            throw new Error(data.error || 'Failed to get authorization URL');
+        }
+
+        // Open OAuth popup
+        const width = 600;
+        const height = 700;
+        const left = window.screen.width / 2 - width / 2;
+        const top = window.screen.height / 2 - height / 2;
+
+        const popup = window.open(
+            data.authUrl,
+            'Google Ads Authorization',
+            `width=${width},height=${height},left=${left},top=${top},toolbar=no,menubar=no,scrollbars=yes,resizable=yes`
+        );
+
+        if (!popup) {
+            throw new Error('Popup was blocked. Please allow popups for this site.');
+        }
+
+        // Listen for the OAuth callback by checking URL changes
+        return new Promise((resolve, reject) => {
+            const checkPopup = setInterval(() => {
+                if (popup.closed) {
+                    clearInterval(checkPopup);
+                    // Check if connection was successful
+                    if (isGoogleAdsConnected()) {
+                        resolve({ success: true });
+                    } else {
+                        reject(new Error('OAuth flow was cancelled or failed'));
+                    }
+                }
+
+                // Try to detect if the popup has been redirected back to our app
+                try {
+                    if (popup.location.href.includes('/app/dashboard')) {
+                        const url = new URL(popup.location.href);
+                        if (url.searchParams.get('oauth') === 'success') {
+                            popup.close();
+                            clearInterval(checkPopup);
+                            resolve({ success: true });
+                        } else if (url.searchParams.get('error')) {
+                            popup.close();
+                            clearInterval(checkPopup);
+                            reject(new Error(url.searchParams.get('message') || 'OAuth failed'));
+                        }
+                    }
+                } catch (e) {
+                    // Cross-origin error - popup is still on Google's domain, which is expected
+                }
+            }, 500);
+
+            // Timeout after 5 minutes
+            setTimeout(() => {
+                clearInterval(checkPopup);
+                if (!popup.closed) {
+                    popup.close();
+                }
+                reject(new Error('OAuth flow timed out'));
+            }, 5 * 60 * 1000);
+        });
+    } catch (error: any) {
+        console.error("Failed to initiate Google Ads OAuth:", error);
+        throw error;
+    }
 };
 
 export const fetchAccessibleCustomers = async () => {

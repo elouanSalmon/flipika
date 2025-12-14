@@ -11,15 +11,30 @@ const OAuthCallback = () => {
     const oauth = searchParams.get('oauth');
     const error = searchParams.get('error');
     const message = searchParams.get('message');
+    const uid = searchParams.get('uid');
 
     useEffect(() => {
+        // If OAuth was successful, mark it in localStorage
+        // The actual customer ID will be fetched later from backend
+        if (oauth === 'success' && uid) {
+            // Set a temporary flag to indicate connection success
+            localStorage.setItem('google_ads_connected', 'true');
+
+            // Trigger a storage event for other tabs/windows
+            window.dispatchEvent(new StorageEvent('storage', {
+                key: 'google_ads_connected',
+                newValue: 'true',
+                url: window.location.href
+            }));
+        }
+
         // Auto-redirect after 2 seconds
         const timer = setTimeout(() => {
             navigate('/app/dashboard');
         }, 2000);
 
         return () => clearTimeout(timer);
-    }, [navigate]);
+    }, [navigate, oauth, uid]);
 
     if (error) {
         return (

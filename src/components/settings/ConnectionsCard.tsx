@@ -1,10 +1,26 @@
+import { useState } from 'react';
 import { Link as LinkIcon, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { initiateGoogleAdsOAuth } from '../../services/googleAds';
+import { useGoogleAds } from '../../contexts/GoogleAdsContext';
+import toast from 'react-hot-toast';
 
 const ConnectionsCard = () => {
-    const handleConnect = () => {
-        // This will be connected to the existing Google Ads OAuth flow
-        console.log('Connecting to Google Ads...');
+    const [isConnecting, setIsConnecting] = useState(false);
+    const { isConnected, refreshConnectionStatus } = useGoogleAds();
+
+    const handleConnect = async () => {
+        setIsConnecting(true);
+        try {
+            await initiateGoogleAdsOAuth();
+            toast.success('Compte Google Ads connecté avec succès !');
+            refreshConnectionStatus();
+        } catch (error: any) {
+            console.error('Failed to connect Google Ads:', error);
+            toast.error(error.message || 'Échec de la connexion à Google Ads');
+        } finally {
+            setIsConnecting(false);
+        }
     };
 
     return (
@@ -33,17 +49,22 @@ const ConnectionsCard = () => {
                     </div>
                     <div>
                         <p className="font-semibold text-gray-900 dark:text-gray-100">Google Ads</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">Non connecté</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                            {isConnected ? 'Connecté' : 'Non connecté'}
+                        </p>
                     </div>
                 </div>
-                <motion.button
-                    onClick={handleConnect}
-                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 active:scale-95 transition-all duration-200 text-sm font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                >
-                    Connecter
-                </motion.button>
+                {!isConnected && (
+                    <motion.button
+                        onClick={handleConnect}
+                        disabled={isConnecting}
+                        className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 active:scale-95 transition-all duration-200 text-sm font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                        whileHover={{ scale: isConnecting ? 1 : 1.02 }}
+                        whileTap={{ scale: isConnecting ? 1 : 0.98 }}
+                    >
+                        {isConnecting ? 'Connexion...' : 'Connecter'}
+                    </motion.button>
+                )}
             </div>
 
             <div className="mt-4 p-3.5 bg-blue-50/50 dark:bg-blue-900/20 backdrop-blur-sm rounded-xl border border-blue-200/50 dark:border-blue-800/50 shadow-sm">
