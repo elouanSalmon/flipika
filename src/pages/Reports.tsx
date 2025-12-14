@@ -1,142 +1,143 @@
-import { FileText, Download, Settings as SettingsIcon, Check } from 'lucide-react';
-import { useState } from 'react';
-import { useDemoMode } from '../contexts/DemoModeContext';
-import { isGoogleAdsConnected, getLinkedCustomerId } from '../services/googleAds';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Download, FileText, Calendar, Settings as SettingsIcon } from 'lucide-react';
+import dataService from '../services/dataService';
+import type { Account, Campaign } from '../types/business';
+import type { ReportConfig } from '../types/reports';
 
-interface ReportConfig {
-    accountId: string;
-    startDate: string;
-    endDate: string;
-    includeMetrics: {
-        spend: boolean;
-        impressions: boolean;
-        clicks: boolean;
-        conversions: boolean;
-        ctr: boolean;
-        cpc: boolean;
-        roas: boolean;
-    };
-    includeCampaigns: boolean;
-    includeCharts: boolean;
-}
-
-const Reports = () => {
-    const { isDemoMode } = useDemoMode();
-    const [generating, setGenerating] = useState(false);
+const ReportsPage = () => {
+    const [accounts, setAccounts] = useState<Account[]>([]);
+    const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [showConfig, setShowConfig] = useState(false);
-    const isConnected = isGoogleAdsConnected();
-
-    // Mock accounts for demo
-    const mockAccounts = [
-        { id: 'demo-account-1', name: 'Mon Entreprise SAS' },
-        { id: 'demo-account-2', name: 'E-commerce Store' },
-    ];
+    const [generating, setGenerating] = useState(false);
 
     const [config, setConfig] = useState<ReportConfig>({
-        accountId: isDemoMode ? mockAccounts[0].id : getLinkedCustomerId() || '',
-        startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-        endDate: new Date().toISOString().split('T')[0],
-        includeMetrics: {
-            spend: true,
-            impressions: true,
-            clicks: true,
-            conversions: true,
-            ctr: true,
-            cpc: true,
-            roas: true,
+        accountId: '',
+        campaignIds: [],
+        period: {
+            start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            end: new Date(),
+            preset: 'last_month',
         },
-        includeCampaigns: true,
-        includeCharts: true,
+        modules: {
+            executiveSummary: true,
+            globalMetrics: true,
+            campaignAnalysis: true,
+            adGroupAnalysis: false,
+            keywordPerformance: true,
+            adPerformance: false,
+            demographics: false,
+            geography: false,
+            devices: false,
+            timeEvolution: true,
+            recommendations: true,
+            comparison: true,
+            budgetVsSpend: true,
+        },
+        customization: {
+            reportName: 'Rapport de performance Google Ads',
+            notes: '',
+        },
     });
 
-    const reports = isDemoMode ? [
-        {
-            id: 1,
-            name: 'Rapport Mensuel - Décembre 2024',
-            date: '14/12/2024',
-            type: 'Performance Globale',
-            accountName: 'Mon Entreprise SAS'
-        },
-        {
-            id: 2,
-            name: 'Analyse Hebdomadaire (S50)',
-            date: '10/12/2024',
-            type: 'Hebdomadaire',
-            accountName: 'E-commerce Store'
-        },
-    ] : [];
+    useEffect(() => {
+        loadAccounts();
+    }, []);
 
-    const handleGenerate = async () => {
-        setGenerating(true);
-        // Simulate PDF generation
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        setGenerating(false);
-        setShowConfig(false);
-        // In real implementation, this would call a PDF generation service
+    useEffect(() => {
+        if (config.accountId) {
+            loadCampaigns(config.accountId);
+        }
+    }, [config.accountId]);
+
+    const loadAccounts = async () => {
+        try {
+            const data = await dataService.getAccounts();
+            setAccounts(data);
+            if (data.length > 0 && !config.accountId) {
+                setConfig(prev => ({ ...prev, accountId: data[0].id }));
+            }
+        } catch (error) {
+            console.error('Error loading accounts:', error);
+        }
     };
 
-    const toggleMetric = (metric: keyof typeof config.includeMetrics) => {
+    const loadCampaigns = async (accountId: string) => {
+        try {
+            const data = await dataService.getCampaigns(accountId);
+            setCampaigns(data);
+        } catch (error) {
+            console.error('Error loading campaigns:', error);
+        }
+    };
+
+    const toggleModule = (module: keyof typeof config.modules) => {
         setConfig(prev => ({
             ...prev,
-            includeMetrics: {
-                ...prev.includeMetrics,
-                [metric]: !prev.includeMetrics[metric]
-            }
+            modules: {
+                ...prev.modules,
+                [module]: !prev.modules[module],
+            },
         }));
     };
 
-    // Not connected and not in demo mode
-    if (!isConnected && !isDemoMode) {
-        return (
-            <div className="space-y-6">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
-                    <div className="space-y-1">
-                        <h1 className="text-2xl font-bold">Rapports Clients</h1>
-                        <p className="text-gray-500 text-sm">Générez et téléchargez vos rapports de performance.</p>
-                    </div>
-                </div>
+    const toggleCampaign = (campaignId: string) => {
+        setConfig(prev => ({
+            ...prev,
+            campaignIds: prev.campaignIds.includes(campaignId)
+                ? prev.campaignIds.filter(id => id !== campaignId)
+                : [...prev.campaignIds, campaignId],
+        }));
+    };
 
-                <div className="flex flex-col items-center justify-center p-16 text-center space-y-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
-                    <div className="p-6 bg-blue-50 dark:bg-blue-900/20 rounded-full">
-                        <FileText size={56} className="text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <div className="max-w-md space-y-3">
-                        <h2 className="text-2xl font-bold">Compte Google Ads requis</h2>
-                        <p className="text-gray-500 text-base leading-relaxed">
-                            Connectez votre compte Google Ads pour générer des rapports de performance personnalisés avec vos données réelles.
-                        </p>
-                    </div>
-                    <Link to="/app/dashboard" className="btn btn-primary btn-lg mt-4">
-                        Connecter Google Ads
-                    </Link>
-                </div>
-            </div>
-        );
-    }
+    const handleGenerate = async () => {
+        setGenerating(true);
+        try {
+            // TODO: Implement actual report generation
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            alert('Rapport généré avec succès !');
+            setShowConfig(false);
+        } catch (error) {
+            console.error('Error generating report:', error);
+            alert('Erreur lors de la génération du rapport');
+        } finally {
+            setGenerating(false);
+        }
+    };
 
-    const accounts = isDemoMode ? mockAccounts : [{ id: config.accountId, name: 'Compte principal' }];
+    const moduleLabels: Record<keyof typeof config.modules, string> = {
+        executiveSummary: 'Résumé exécutif',
+        globalMetrics: 'Métriques globales',
+        campaignAnalysis: 'Analyse par campagne',
+        adGroupAnalysis: 'Analyse par groupe d\'annonces',
+        keywordPerformance: 'Performance des mots-clés',
+        adPerformance: 'Performance des annonces',
+        demographics: 'Analyse démographique',
+        geography: 'Analyse géographique',
+        devices: 'Analyse des appareils',
+        timeEvolution: 'Évolution temporelle',
+        recommendations: 'Recommandations',
+        comparison: 'Comparaison période précédente',
+        budgetVsSpend: 'Budget vs dépenses',
+    };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-8 p-8">
             {/* Header */}
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
-                <div className="flex justify-between items-start">
-                    <div className="space-y-1">
-                        <h1 className="text-2xl font-bold">Rapports Clients</h1>
-                        <p className="text-gray-500 text-sm">Générez et téléchargez vos rapports de performance personnalisés</p>
-                    </div>
-                    <button
-                        onClick={() => setShowConfig(!showConfig)}
-                        className="btn btn-primary flex items-center gap-2"
-                    >
-                        <FileText size={18} />
-                        Nouveau Rapport
-                    </button>
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold">Rapports</h1>
+                    <p className="text-gray-500 mt-1">Générez des rapports détaillés de performance</p>
                 </div>
+                <button
+                    onClick={() => setShowConfig(true)}
+                    className="btn btn-primary flex items-center gap-2"
+                >
+                    <FileText size={18} />
+                    Nouveau rapport
+                </button>
             </div>
 
-            {/* Report Configuration Panel */}
+            {/* Report Configuration */}
             {showConfig && (
                 <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 overflow-hidden">
                     {/* Header */}
@@ -152,7 +153,7 @@ const Reports = () => {
 
                     {/* Form Content */}
                     <div className="p-8 space-y-8">
-                        {/* Account and Date Selection */}
+                        {/* Account and Period */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             {/* Account Selection */}
                             <div className="space-y-3">
@@ -161,7 +162,7 @@ const Reports = () => {
                                 </label>
                                 <select
                                     value={config.accountId}
-                                    onChange={(e) => setConfig({ ...config, accountId: e.target.value })}
+                                    onChange={(e) => setConfig({ ...config, accountId: e.target.value, campaignIds: [] })}
                                     className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                 >
                                     {accounts.map(account => (
@@ -172,89 +173,156 @@ const Reports = () => {
                                 </select>
                             </div>
 
-                            {/* Date Range */}
+                            {/* Period Selection */}
                             <div className="space-y-3">
                                 <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">
-                                    Période d'analyse
+                                    Période
                                 </label>
-                                <div className="flex gap-4 items-center">
-                                    <input
-                                        type="date"
-                                        value={config.startDate}
-                                        onChange={(e) => setConfig({ ...config, startDate: e.target.value })}
-                                        className="flex-1 px-4 py-3.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                                    />
-                                    <span className="text-gray-400 font-bold text-lg">→</span>
-                                    <input
-                                        type="date"
-                                        value={config.endDate}
-                                        onChange={(e) => setConfig({ ...config, endDate: e.target.value })}
-                                        className="flex-1 px-4 py-3.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                                    />
-                                </div>
+                                <select
+                                    value={config.period.preset}
+                                    onChange={(e) => {
+                                        const preset = e.target.value as ReportConfig['period']['preset'];
+                                        const now = new Date();
+                                        let start = new Date();
+                                        let end = new Date();
+
+                                        switch (preset) {
+                                            case 'last_month':
+                                                start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                                                end = new Date(now.getFullYear(), now.getMonth(), 0);
+                                                break;
+                                            case 'last_quarter':
+                                                const quarter = Math.floor(now.getMonth() / 3);
+                                                start = new Date(now.getFullYear(), (quarter - 1) * 3, 1);
+                                                end = new Date(now.getFullYear(), quarter * 3, 0);
+                                                break;
+                                            case 'this_year':
+                                                start = new Date(now.getFullYear(), 0, 1);
+                                                end = now;
+                                                break;
+                                            case 'last_year':
+                                                start = new Date(now.getFullYear() - 1, 0, 1);
+                                                end = new Date(now.getFullYear() - 1, 11, 31);
+                                                break;
+                                        }
+
+                                        setConfig({
+                                            ...config,
+                                            period: { start, end, preset },
+                                        });
+                                    }}
+                                    className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                >
+                                    <option value="last_month">Mois dernier</option>
+                                    <option value="last_quarter">Dernier trimestre</option>
+                                    <option value="this_year">Année en cours</option>
+                                    <option value="last_year">Année dernière</option>
+                                    <option value="custom">Personnalisé</option>
+                                </select>
                             </div>
                         </div>
 
-                        {/* Metrics Selection */}
-                        <div className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">
-                                    Métriques à inclure
+                        {/* Campaigns Selection */}
+                        <div className="space-y-3">
+                            <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">
+                                Campagnes à inclure
+                            </label>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-60 overflow-y-auto p-1">
+                                <label className="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer transition-all">
+                                    <input
+                                        type="checkbox"
+                                        checked={config.campaignIds.length === campaigns.length}
+                                        onChange={(e) => {
+                                            setConfig({
+                                                ...config,
+                                                campaignIds: e.target.checked ? campaigns.map(c => c.id) : [],
+                                            });
+                                        }}
+                                        className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                    />
+                                    <span className="font-semibold text-sm">Toutes les campagnes</span>
                                 </label>
-                                <p className="text-xs text-gray-500 dark:text-gray-400">Sélectionnez les indicateurs de performance à afficher</p>
-                            </div>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                {Object.entries(config.includeMetrics).map(([key, value]) => (
-                                    <button
-                                        key={key}
-                                        onClick={() => toggleMetric(key as keyof typeof config.includeMetrics)}
-                                        className={`p-4 rounded-xl border-2 transition-all font-semibold text-sm ${value
-                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 shadow-sm'
-                                                : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/30'
-                                            }`}
+                                {campaigns.map(campaign => (
+                                    <label
+                                        key={campaign.id}
+                                        className="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer transition-all"
                                     >
-                                        <div className="flex items-center justify-between gap-2">
-                                            <span className="capitalize">{key}</span>
-                                            {value && <Check size={18} className="text-blue-600 dark:text-blue-400 flex-shrink-0" />}
-                                        </div>
-                                    </button>
+                                        <input
+                                            type="checkbox"
+                                            checked={config.campaignIds.includes(campaign.id)}
+                                            onChange={() => toggleCampaign(campaign.id)}
+                                            className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                        />
+                                        <span className="text-sm">{campaign.name}</span>
+                                    </label>
                                 ))}
                             </div>
                         </div>
 
-                        {/* Additional Options */}
+                        {/* Modules Selection */}
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">
-                                    Options supplémentaires
+                                    Modules à inclure
                                 </label>
-                                <p className="text-xs text-gray-500 dark:text-gray-400">Enrichissez votre rapport avec des données détaillées</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">Sélectionnez les sections à inclure dans le rapport</p>
                             </div>
-                            <div className="space-y-3">
-                                <label className="flex items-start gap-4 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 hover:border-gray-300 dark:hover:border-gray-500 cursor-pointer transition-all">
-                                    <input
-                                        type="checkbox"
-                                        checked={config.includeCampaigns}
-                                        onChange={(e) => setConfig({ ...config, includeCampaigns: e.target.checked })}
-                                        className="w-5 h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-2 flex-shrink-0"
-                                    />
-                                    <div className="flex-1">
-                                        <p className="font-bold text-sm text-gray-900 dark:text-gray-100">Détail des campagnes</p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">Inclure un tableau détaillé avec toutes vos campagnes et leurs performances</p>
-                                    </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                {Object.entries(config.modules).map(([key, value]) => (
+                                    <label
+                                        key={key}
+                                        className="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer transition-all"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            checked={value}
+                                            onChange={() => toggleModule(key as keyof typeof config.modules)}
+                                            className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                        />
+                                        <span className="text-sm font-medium">{moduleLabels[key as keyof typeof config.modules]}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Customization */}
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">
+                                    Personnalisation
                                 </label>
-                                <label className="flex items-start gap-4 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 hover:border-gray-300 dark:hover:border-gray-500 cursor-pointer transition-all">
+                                <p className="text-xs text-gray-500 dark:text-gray-400">Personnalisez l'apparence de votre rapport</p>
+                            </div>
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Nom du rapport
+                                    </label>
                                     <input
-                                        type="checkbox"
-                                        checked={config.includeCharts}
-                                        onChange={(e) => setConfig({ ...config, includeCharts: e.target.checked })}
-                                        className="w-5 h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-2 flex-shrink-0"
+                                        type="text"
+                                        value={config.customization.reportName}
+                                        onChange={(e) => setConfig({
+                                            ...config,
+                                            customization: { ...config.customization, reportName: e.target.value },
+                                        })}
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"
                                     />
-                                    <div className="flex-1">
-                                        <p className="font-bold text-sm text-gray-900 dark:text-gray-100">Graphiques de performance</p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">Ajouter des visualisations graphiques pour une meilleure compréhension</p>
-                                    </div>
-                                </label>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Notes additionnelles
+                                    </label>
+                                    <textarea
+                                        value={config.customization.notes}
+                                        onChange={(e) => setConfig({
+                                            ...config,
+                                            customization: { ...config.customization, notes: e.target.value },
+                                        })}
+                                        className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"
+                                        rows={3}
+                                        placeholder="Ajoutez des notes ou commentaires..."
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -269,7 +337,7 @@ const Reports = () => {
                         </button>
                         <button
                             onClick={handleGenerate}
-                            disabled={generating}
+                            disabled={generating || !config.accountId || config.campaignIds.length === 0}
                             className="btn btn-primary px-6 flex items-center gap-2"
                         >
                             {generating ? (
@@ -288,111 +356,18 @@ const Reports = () => {
                 </div>
             )}
 
-            {/* Stats Cards */}
-            {isDemoMode && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="card bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800 p-6">
-                        <div className="flex items-start justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">Rapports générés</p>
-                                <h3 className="text-3xl font-bold">12</h3>
-                                <p className="text-xs text-gray-500 mt-1">Ce mois-ci</p>
-                            </div>
-                            <div className="p-3 bg-blue-100 dark:bg-blue-800 rounded-xl">
-                                <FileText className="text-blue-600 dark:text-blue-400" size={24} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="card bg-green-50 dark:bg-green-900/20 border-green-100 dark:border-green-800 p-6">
-                        <div className="flex items-start justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-green-600 dark:text-green-400 mb-1">Téléchargements</p>
-                                <h3 className="text-3xl font-bold">48</h3>
-                                <p className="text-xs text-gray-500 mt-1">Total</p>
-                            </div>
-                            <div className="p-3 bg-green-100 dark:bg-green-800 rounded-xl">
-                                <Download className="text-green-600 dark:text-green-400" size={24} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="card bg-purple-50 dark:bg-purple-900/20 border-purple-100 dark:border-purple-800 p-6">
-                        <div className="flex items-start justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-purple-600 dark:text-purple-400 mb-1">Comptes analysés</p>
-                                <h3 className="text-3xl font-bold">2</h3>
-                                <p className="text-xs text-gray-500 mt-1">Actifs</p>
-                            </div>
-                            <div className="p-3 bg-purple-100 dark:bg-purple-800 rounded-xl">
-                                <SettingsIcon className="text-purple-600 dark:text-purple-400" size={24} />
-                            </div>
-                        </div>
-                    </div>
+            {/* Reports History (placeholder) */}
+            {!showConfig && (
+                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-12 text-center">
+                    <FileText size={48} className="mx-auto mb-4 text-gray-400" />
+                    <h3 className="text-lg font-semibold mb-2">Aucun rapport généré</h3>
+                    <p className="text-gray-500 mb-6">
+                        Cliquez sur "Nouveau rapport" pour créer votre premier rapport de performance.
+                    </p>
                 </div>
             )}
-
-            {/* Reports History */}
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700">
-                <div className="p-6 border-b border-gray-100 dark:border-gray-700">
-                    <h3 className="text-lg font-bold">Historique des rapports</h3>
-                    <p className="text-sm text-gray-500 mt-1">Accédez à vos rapports précédemment générés</p>
-                </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead className="bg-gray-50 dark:bg-gray-700/50 text-left text-xs uppercase tracking-wider text-gray-500">
-                            <tr>
-                                <th className="p-4">Nom du rapport</th>
-                                <th className="p-4">Compte</th>
-                                <th className="p-4">Date de génération</th>
-                                <th className="p-4">Type</th>
-                                <th className="p-4 text-right">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                            {reports.length > 0 ? reports.map((report) => (
-                                <tr key={report.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
-                                    <td className="p-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                                <FileText size={18} className="text-blue-600 dark:text-blue-400" />
-                                            </div>
-                                            <span className="font-medium">{report.name}</span>
-                                        </div>
-                                    </td>
-                                    <td className="p-4 text-gray-600 dark:text-gray-400">{report.accountName}</td>
-                                    <td className="p-4 text-gray-500">{report.date}</td>
-                                    <td className="p-4">
-                                        <span className="badge badge-sm badge-ghost">{report.type}</span>
-                                    </td>
-                                    <td className="p-4 text-right">
-                                        <button className="btn btn-ghost btn-sm text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20">
-                                            <Download size={16} />
-                                            <span className="ml-2">Télécharger</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                            )) : (
-                                <tr>
-                                    <td colSpan={5} className="p-16 text-center">
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div className="p-4 bg-gray-100 dark:bg-gray-700 rounded-full">
-                                                <FileText size={32} className="text-gray-400" />
-                                            </div>
-                                            <div>
-                                                <p className="font-medium text-gray-700 dark:text-gray-300">Aucun rapport généré</p>
-                                                <p className="text-sm text-gray-500 mt-1">Cliquez sur "Nouveau Rapport" pour commencer</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     );
 };
 
-export default Reports;
+export default ReportsPage;
