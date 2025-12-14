@@ -150,23 +150,30 @@ const Dashboard = () => {
 
     if (step === 'CONNECT') {
         return (
-            <div className="flex flex-col items-center justify-center text-center space-y-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-12">
+            <div className="flex flex-col items-center justify-center text-center space-y-8 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-12">
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-full">
                     <BarChart3 size={48} className="text-blue-600" />
                 </div>
-                <div className="max-w-md space-y-2">
+                <div className="max-w-md space-y-3">
                     <h2 className="text-2xl font-bold">Connectez Google Ads</h2>
                     <p className="text-gray-500">Accédez à vos campagnes pour commencer l'optimisation.</p>
                 </div>
 
                 {error && (
-                    <div className="w-full max-w-md bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 p-4 rounded-lg flex items-center gap-3 text-left">
-                        <AlertCircle size={20} className="shrink-0" />
-                        <div className="text-sm">{error}</div>
+                    <div className="w-full max-w-md bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-5 shadow-sm">
+                        <div className="flex items-start gap-3">
+                            <div className="shrink-0 mt-0.5">
+                                <AlertCircle size={22} className="text-red-600 dark:text-red-400" />
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="text-sm font-semibold text-red-800 dark:text-red-300 mb-1">Erreur de connexion</h3>
+                                <p className="text-sm text-red-700 dark:text-red-400 leading-relaxed">{error}</p>
+                            </div>
+                        </div>
                     </div>
                 )}
 
-                <button onClick={handleConnect} disabled={loading} className="btn btn-primary btn-wide">
+                <button onClick={handleConnect} disabled={loading} className="btn btn-primary btn-wide mt-2">
                     {loading ? 'Connexion...' : 'Connecter un compte'}
                 </button>
             </div>
@@ -175,23 +182,34 @@ const Dashboard = () => {
 
     if (step === 'SELECT_ACCOUNT') {
         return (
-            <div className="max-w-md mx-auto space-y-6 pt-12">
-                <h2 className="text-2xl font-bold text-center">Choisissez un compte</h2>
-                {error && <div className="text-red-500 text-center text-sm">{error}</div>}
+            <div className="max-w-md mx-auto space-y-8">
+                <div className="space-y-3">
+                    <h2 className="text-2xl font-bold text-center">Choisissez un compte</h2>
+                    <p className="text-gray-500 text-center text-sm">Sélectionnez le compte Google Ads à utiliser</p>
+                </div>
+
+                {error && (
+                    <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-4">
+                        <div className="flex items-start gap-3">
+                            <AlertCircle size={20} className="text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+                            <p className="text-sm text-red-700 dark:text-red-400 leading-relaxed">{error}</p>
+                        </div>
+                    </div>
+                )}
 
                 {loading ? (
-                    <div className="text-center p-8">Recherche des comptes...</div>
+                    <div className="text-center p-12 text-gray-500">Recherche des comptes...</div>
                 ) : (
                     <div className="grid gap-3">
                         {customers.map((cust, idx) => (
-                            <button key={idx} onClick={() => selectCustomer(cust)} className="card p-4 hover:border-blue-500 transition-all flex items-center justify-between group text-left">
-                                <span className="font-medium">Compte {cust.split('/')[1]}</span>
-                                <ArrowRight className="opacity-0 group-hover:opacity-100 text-blue-500" />
+                            <button key={idx} onClick={() => selectCustomer(cust)} className="card p-5 hover:border-blue-500 hover:shadow-md transition-all flex items-center justify-between group text-left">
+                                <span className="font-medium text-lg">Compte {cust.split('/')[1]}</span>
+                                <ArrowRight className="opacity-0 group-hover:opacity-100 text-blue-500 transition-opacity" />
                             </button>
                         ))}
                     </div>
                 )}
-                <button onClick={handleLogoutAds} className="btn btn-ghost w-full btn-sm">Annuler</button>
+                <button onClick={handleLogoutAds} className="btn btn-ghost w-full mt-4">Annuler</button>
             </div>
         );
     }
@@ -200,21 +218,31 @@ const Dashboard = () => {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
-                <div>
+                <div className="space-y-1">
                     <h1 className="text-2xl font-bold">Vos Campagnes</h1>
                     <p className="text-gray-500 text-sm">Compte: {getLinkedCustomerId()}</p>
                 </div>
-                <div className="flex gap-2">
-                    <button onClick={() => loadCampaigns()} className="btn btn-ghost btn-sm">
-                        <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
+                <div className="flex gap-3">
+                    <button onClick={() => loadCampaigns()} className="btn btn-ghost" title="Actualiser">
+                        <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
                     </button>
-                    <button onClick={handleLogoutAds} className="btn btn-ghost btn-sm text-red-500">
-                        <LogOut size={16} />
+                    <button onClick={handleLogoutAds} className="btn btn-ghost text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" title="Déconnecter">
+                        <LogOut size={18} />
                     </button>
                 </div>
             </div>
 
-            {error && <div className="alert alert-error">{error}</div>}
+            {error && (
+                <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-5">
+                    <div className="flex items-start gap-3">
+                        <AlertCircle size={22} className="text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                            <h3 className="text-sm font-semibold text-red-800 dark:text-red-300 mb-1">Erreur</h3>
+                            <p className="text-sm text-red-700 dark:text-red-400 leading-relaxed">{error}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="card overflow-hidden bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700">
                 <div className="overflow-x-auto">
