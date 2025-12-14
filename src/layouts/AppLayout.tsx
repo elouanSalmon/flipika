@@ -10,8 +10,11 @@ import {
   Zap,
   Sun,
   Moon,
+  TrendingUp,
+  TestTube,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
+import { useDemoMode } from "../contexts/DemoModeContext";
 import { useTheme } from "../hooks/useTheme";
 import "../components/Header.css"; // Use header styles
 import "../components/app/Connected.css"; // We might need to adjust or remove this if it enforced sidebar layout
@@ -22,6 +25,7 @@ const AppLayout = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const { isDemoMode } = useDemoMode();
   const [isScrolled, setIsScrolled] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
@@ -46,7 +50,7 @@ const AppLayout = () => {
 
   const navItems = [
     { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { path: "/app/copilot", label: "Audit", icon: Zap, badge: "Beta" },
+    { path: "/app/audit", label: "Audit", icon: TrendingUp },
     { path: "/app/reports", label: "Rapports", icon: FileText },
     { path: "/app/campaigns", label: "Campagnes", icon: List },
   ];
@@ -124,6 +128,21 @@ const AppLayout = () => {
 
           {/* Header Actions */}
           <div className="header-actions">
+            {/* Demo Mode Badge */}
+            {isDemoMode && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 border border-purple-300 dark:border-purple-700"
+              >
+                <TestTube size={14} className="text-purple-600 dark:text-purple-400" />
+                <span className="text-xs font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wide">
+                  Mode Démo
+                </span>
+              </motion.div>
+            )}
+
             {/* Theme Toggle */}
             <motion.div
               className="theme-toggle-wrapper"
