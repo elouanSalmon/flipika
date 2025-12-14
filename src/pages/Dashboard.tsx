@@ -160,14 +160,16 @@ const Dashboard = () => {
                 </div>
 
                 {error && (
-                    <div className="w-full max-w-md bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-5">
-                        <div className="flex items-start gap-3">
-                            <div className="shrink-0 mt-0.5">
-                                <AlertCircle size={22} className="text-red-600 dark:text-red-400" />
+                    <div className="w-full max-w-md bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-6 shadow-2xl border-4 border-red-400">
+                        <div className="flex items-start gap-4">
+                            <div className="shrink-0 p-3 bg-white/20 rounded-full backdrop-blur-sm">
+                                <AlertCircle size={28} className="text-white" strokeWidth={2.5} />
                             </div>
                             <div className="flex-1">
-                                <h3 className="text-sm font-semibold text-red-800 dark:text-red-300 mb-1">Erreur de connexion</h3>
-                                <p className="text-sm text-red-700 dark:text-red-400 leading-relaxed">{error}</p>
+                                <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                                    ⚠️ Erreur de connexion
+                                </h3>
+                                <p className="text-red-50 leading-relaxed font-medium">{error}</p>
                             </div>
                         </div>
                     </div>
@@ -189,10 +191,17 @@ const Dashboard = () => {
                 </div>
 
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-4">
-                        <div className="flex items-start gap-3">
-                            <AlertCircle size={20} className="text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
-                            <p className="text-sm text-red-700 dark:text-red-400 leading-relaxed">{error}</p>
+                    <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-6 shadow-2xl border-4 border-red-400">
+                        <div className="flex items-start gap-4">
+                            <div className="shrink-0 p-3 bg-white/20 rounded-full backdrop-blur-sm">
+                                <AlertCircle size={24} className="text-white" strokeWidth={2.5} />
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="text-base font-bold text-white mb-1 flex items-center gap-2">
+                                    ⚠️ Erreur
+                                </h3>
+                                <p className="text-red-50 leading-relaxed font-medium text-sm">{error}</p>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -233,12 +242,16 @@ const Dashboard = () => {
             </div>
 
             {error && (
-                <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-5">
-                    <div className="flex items-start gap-3">
-                        <AlertCircle size={22} className="text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+                <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-6 shadow-2xl border-4 border-red-400">
+                    <div className="flex items-start gap-4">
+                        <div className="shrink-0 p-3 bg-white/20 rounded-full backdrop-blur-sm">
+                            <AlertCircle size={28} className="text-white" strokeWidth={2.5} />
+                        </div>
                         <div className="flex-1">
-                            <h3 className="text-sm font-semibold text-red-800 dark:text-red-300 mb-1">Erreur</h3>
-                            <p className="text-sm text-red-700 dark:text-red-400 leading-relaxed">{error}</p>
+                            <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                                ⚠️ Erreur
+                            </h3>
+                            <p className="text-red-50 leading-relaxed font-medium">{error}</p>
                         </div>
                     </div>
                 </div>
