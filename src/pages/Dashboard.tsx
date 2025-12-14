@@ -160,7 +160,7 @@ const Dashboard = () => {
                 </div>
 
                 {error && (
-                    <div className="w-full max-w-md bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-5 shadow-sm">
+                    <div className="w-full max-w-md bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-xl p-5">
                         <div className="flex items-start gap-3">
                             <div className="shrink-0 mt-0.5">
                                 <AlertCircle size={22} className="text-red-600 dark:text-red-400" />
