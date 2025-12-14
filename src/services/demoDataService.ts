@@ -5,7 +5,6 @@ import type {
     MetricsParams,
     Alert,
     AuditResult,
-    DateRange,
 } from '../types/business';
 import type { DemoDataConfig } from '../types/demo';
 import DemoDataGenerator from './demoDataGenerator';

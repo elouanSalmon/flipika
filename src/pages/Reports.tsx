@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Download, FileText, Calendar, Settings as SettingsIcon } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Download, FileText } from 'lucide-react';
 import dataService from '../services/dataService';
 import type { Account, Campaign } from '../types/business';
 import type { ReportConfig } from '../types/reports';

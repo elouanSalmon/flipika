@@ -3,13 +3,12 @@ import type {
     Account,
     Campaign,
     CampaignMetrics,
-    TimeSeriesMetrics,
     TimeSeriesDataPoint,
+    TimeSeriesMetrics,
     DateRange,
     Alert,
     AuditResult,
     Recommendation,
-    CategoryScore,
 } from '../types/business';
 import type { DemoDataConfig, DemoComplexity, DemoIndustry } from '../types/demo';
 
@@ -41,12 +40,12 @@ class DemoDataGenerator {
                 `${faker.person.lastName()} & Associates`,
             ],
             saas: [
-                `${faker.word.adjective()}${faker.hacker.noun()}`,
-                `${faker.company.buzzVerb()}${faker.company.buzzNoun()}`,
+                `${faker.word.adjective()}${faker.hacker.noun()} `,
+                `${faker.company.buzzVerb()}${faker.company.buzzNoun()} `,
                 `${faker.hacker.verb()} Platform`,
             ],
             local: [
-                `${faker.person.lastName()}'s ${faker.commerce.department()}`,
+                `${faker.person.lastName()} 's ${faker.commerce.department()}`,
                 `${faker.location.city()} ${faker.commerce.product()} Shop`,
                 `Local ${faker.commerce.department()}`,
             ],

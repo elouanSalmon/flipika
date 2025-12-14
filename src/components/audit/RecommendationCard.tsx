@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, X, AlertTriangle, TrendingUp, Wrench, StickyNote } from 'lucide-react';
+import { Check, X, TrendingUp, Wrench, StickyNote } from 'lucide-react';
 import type { Recommendation } from '../../types/business';
 
 interface RecommendationCardProps {

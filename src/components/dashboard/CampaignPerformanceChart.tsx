@@ -37,23 +37,9 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
         }
     };
 
-    const getMetricLabel = (): string => {
-        switch (metric) {
-            case 'cost':
-                return 'Dépenses (€)';
-            case 'conversions':
-                return 'Conversions';
-            case 'roas':
-                return 'ROAS';
-            default:
-                return '';
-        }
-    };
-
-    // Sort campaigns by metric and take top 5 and bottom 5
+    // Sort campaigns by metric and take top 5
     const sortedCampaigns = [...campaigns].sort((a, b) => getMetricValue(b) - getMetricValue(a));
     const top5 = sortedCampaigns.slice(0, 5);
-    const bottom5 = sortedCampaigns.slice(-5).reverse();
 
     const chartData = [
         ...top5.map(c => ({

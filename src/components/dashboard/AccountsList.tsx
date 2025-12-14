@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import { FileText, TrendingUp, BarChart3, Search, Filter } from 'lucide-react';
 import type { Account } from '../../types/business';
 
