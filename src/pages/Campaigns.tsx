@@ -1,4 +1,4 @@
-import { Search, Filter, Plus, RefreshCw } from 'lucide-react';
+import { Search, Filter, Plus, RefreshCw, AlertCircle } from 'lucide-react';
 import ErrorCard from '../components/ErrorCard';
 import { isGoogleAdsConnected, fetchCampaigns, getLinkedCustomerId } from '../services/googleAds';
 import { useEffect, useState } from 'react';
