@@ -27,12 +27,12 @@ const Settings = () => {
                                 Testez toutes les fonctionnalités de Flipika avec des données fictives sans connecter votre compte Google Ads.
                             </p>
 
-                            <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/30 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-600">
+                            <div className="flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 p-5 rounded-xl border-2 border-purple-200 dark:border-purple-700">
                                 <div>
                                     <p className="font-semibold text-base">
-                                        {isDemoMode ? 'Mode démo activé' : 'Mode démo désactivé'}
+                                        {isDemoMode ? '✨ Mode démo activé' : 'Mode démo désactivé'}
                                     </p>
-                                    <p className="text-xs text-gray-500 mt-1">
+                                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                                         {isDemoMode
                                             ? 'Vous utilisez des données fictives'
                                             : 'Vous utilisez vos données Google Ads réelles'}
@@ -40,16 +40,12 @@ const Settings = () => {
                                 </div>
                                 <button
                                     onClick={toggleDemoMode}
+                                    className={`toggle-switch ${isDemoMode ? 'active' : ''}`}
                                     aria-label="Toggle demo mode"
-                                    className={`relative inline-flex h-10 w-20 flex-shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 ${isDemoMode
-                                        ? 'bg-purple-600'
-                                        : 'bg-gray-300 dark:bg-gray-600'
-                                        }`}
                                 >
-                                    <span
-                                        className={`inline-block h-8 w-8 transform rounded-full bg-white shadow-lg transition-transform duration-200 ease-in-out ${isDemoMode ? 'translate-x-11' : 'translate-x-1'
-                                            }`}
-                                    />
+                                    <div className="toggle-thumb">
+                                        {isDemoMode ? '✨' : '🔒'}
+                                    </div>
                                 </button>
                             </div>
 

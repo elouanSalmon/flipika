@@ -1,12 +1,15 @@
-import { FileText, Download } from 'lucide-react';
+import { FileText, Download, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useDemoMode } from '../contexts/DemoModeContext';
+import { isGoogleAdsConnected } from '../services/googleAds';
+import { Link } from 'react-router-dom';
 
 const Reports = () => {
     const { isDemoMode } = useDemoMode();
     const [generating, setGenerating] = useState(false);
+    const isConnected = isGoogleAdsConnected();
 
-    // Only show mock reports in demo mode
+    // Show mock reports in demo mode, real reports when connected
     const reports = isDemoMode ? [
         { id: 1, name: 'Rapport Mensuel - Octobre 2024', date: '01/11/2024', type: 'Performance Globale' },
         { id: 2, name: 'Analyse Hebdomadaire (S42)', date: '21/10/2024', type: 'Hebdomadaire' },
@@ -18,6 +21,35 @@ const Reports = () => {
         setTimeout(() => setGenerating(false), 2000);
     };
 
+    // Not connected and not in demo mode
+    if (!isConnected && !isDemoMode) {
+        return (
+            <div className="space-y-6">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <div className="space-y-1">
+                        <h1 className="text-2xl font-bold">Rapports Clients</h1>
+                        <p className="text-gray-500 text-sm">Générez et téléchargez vos rapports de performance.</p>
+                    </div>
+                </div>
+
+                <div className="flex flex-col items-center justify-center p-12 text-center space-y-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <div className="p-4 bg-orange-50 dark:bg-orange-900/10 rounded-full">
+                        <AlertCircle size={48} className="text-orange-500" />
+                    </div>
+                    <div className="max-w-md space-y-3">
+                        <h2 className="text-2xl font-bold">Compte Google Ads requis</h2>
+                        <p className="text-gray-500">
+                            Connectez votre compte Google Ads pour générer des rapports de performance personnalisés.
+                        </p>
+                    </div>
+                    <Link to="/app/dashboard" className="btn btn-primary">
+                        Connecter Google Ads
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
@@ -27,9 +59,8 @@ const Reports = () => {
                 </div>
                 <button
                     onClick={handleGenerate}
-                    disabled={generating || !isDemoMode}
+                    disabled={generating}
                     className="btn btn-primary flex items-center gap-2"
-                    title={!isDemoMode ? "Activez le mode démo pour tester cette fonctionnalité" : ""}
                 >
                     {generating ? (
                         <>
@@ -94,9 +125,7 @@ const Reports = () => {
                             )) : (
                                 <tr>
                                     <td colSpan={4} className="p-12 text-center text-gray-500">
-                                        {isDemoMode
-                                            ? "Aucun rapport généré pour le moment"
-                                            : "Activez le mode démo dans les paramètres pour tester la génération de rapports"}
+                                        Aucun rapport généré pour le moment
                                     </td>
                                 </tr>
                             )}
