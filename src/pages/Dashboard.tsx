@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BarChart3, ArrowRight, RefreshCw, LogOut, AlertCircle } from 'lucide-react';
+import ErrorCard from '../components/ErrorCard';
 import { useAuth } from '../contexts/AuthContext';
 import { getLinkedCustomerId, fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
 
@@ -159,19 +160,7 @@ const Dashboard = () => {
                     <p className="text-gray-500">Accédez à vos campagnes pour commencer l'optimisation.</p>
                 </div>
 
-                {error && (
-                    <div className="w-full max-w-md bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-6 shadow-2xl border-4 border-red-400">
-                        <div className="flex items-start gap-4">
-                            <div className="shrink-0 p-3 bg-white/20 rounded-full backdrop-blur-sm">
-                                <AlertCircle size={28} className="text-white" strokeWidth={2.5} />
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="text-lg font-bold text-white mb-2">Erreur de connexion</h3>
-                                <p className="text-red-50 leading-relaxed font-medium">{error}</p>
-                            </div>
-                        </div>
-                    </div>
-                )}
+                {error && <ErrorCard title="Erreur de connexion" message={error} />}
 
                 <button onClick={handleConnect} disabled={loading} className="btn btn-primary btn-wide mt-2">
                     {loading ? 'Connexion...' : 'Connecter un compte'}
@@ -188,19 +177,7 @@ const Dashboard = () => {
                     <p className="text-gray-500 text-center text-sm">Sélectionnez le compte Google Ads à utiliser</p>
                 </div>
 
-                {error && (
-                    <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-6 shadow-2xl border-4 border-red-400">
-                        <div className="flex items-start gap-4">
-                            <div className="shrink-0 p-3 bg-white/20 rounded-full backdrop-blur-sm">
-                                <AlertCircle size={24} className="text-white" strokeWidth={2.5} />
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="text-base font-bold text-white mb-1">Erreur</h3>
-                                <p className="text-red-50 leading-relaxed font-medium text-sm">{error}</p>
-                            </div>
-                        </div>
-                    </div>
-                )}
+                {error && <ErrorCard message={error} />}
 
                 {loading ? (
                     <div className="text-center p-12 text-gray-500">Recherche des comptes...</div>
@@ -237,19 +214,7 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {error && (
-                <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-6 shadow-2xl border-4 border-red-400">
-                    <div className="flex items-start gap-4">
-                        <div className="shrink-0 p-3 bg-white/20 rounded-full backdrop-blur-sm">
-                            <AlertCircle size={28} className="text-white" strokeWidth={2.5} />
-                        </div>
-                        <div className="flex-1">
-                            <h3 className="text-lg font-bold text-white mb-2">Erreur</h3>
-                            <p className="text-red-50 leading-relaxed font-medium">{error}</p>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {error && <ErrorCard message={error} />}
 
             <div className="card overflow-hidden bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700">
                 <div className="overflow-x-auto">

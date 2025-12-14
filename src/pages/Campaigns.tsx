@@ -1,4 +1,6 @@
+```
 import { Search, Filter, AlertCircle, Plus, RefreshCw } from 'lucide-react';
+import ErrorCard from '../components/ErrorCard';
 import { isGoogleAdsConnected, fetchCampaigns, getLinkedCustomerId } from '../services/googleAds';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -81,19 +83,7 @@ const Campaigns = () => {
                 </div>
             </div>
 
-            {error && (
-                <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-6 shadow-2xl border-4 border-red-400">
-                    <div className="flex items-start gap-4">
-                        <div className="shrink-0 p-3 bg-white/20 rounded-full backdrop-blur-sm">
-                            <AlertCircle size={28} className="text-white" strokeWidth={2.5} />
-                        </div>
-                        <div className="flex-1">
-                            <h3 className="text-lg font-bold text-white mb-2">Erreur de connexion</h3>
-                            <p className="text-red-50 leading-relaxed font-medium">{error}</p>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {error && <ErrorCard title="Erreur de connexion" message={error} />}
 
             {loading ? (
                 <div className="flex justify-center py-12">
@@ -115,7 +105,7 @@ const Campaigns = () => {
                             {campaigns.map((c) => (
                                 <tr key={c.id}>
                                     <td className="p-4 font-medium">{c.name}</td>
-                                    <td className="p-4"><span className={`badge badge-sm ${c.status === 'ENABLED' ? 'badge-success' : 'badge-neutral'}`}>{c.status}</span></td>
+                                    <td className="p-4"><span className={`badge badge - sm ${ c.status === 'ENABLED' ? 'badge-success' : 'badge-neutral' } `}>{c.status}</span></td>
                                     <td className="p-4 text-right">{c.cost ? c.cost.toFixed(2) : 0} €</td>
                                     <td className="p-4 text-right">{c.impressions}</td>
                                     <td className="p-4 text-right">{c.clicks}</td>

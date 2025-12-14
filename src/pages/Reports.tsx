@@ -136,28 +136,33 @@ const Reports = () => {
                 </div>
             </div>
 
-            {/* Report Configuration Modal/Panel */}
+            {/* Report Configuration Panel */}
             {showConfig && (
-                <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
-                    <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-700">
-                        <h2 className="text-xl font-bold">Configuration du rapport</h2>
+                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 overflow-hidden">
+                    {/* Header */}
+                    <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/30">
+                        <div>
+                            <h2 className="text-xl font-bold">Configuration du rapport</h2>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Personnalisez votre rapport de performance</p>
+                        </div>
                         <button onClick={() => setShowConfig(false)} className="btn btn-ghost btn-sm">
                             ✕
                         </button>
                     </div>
 
-                    <div className="p-6 space-y-8">
+                    {/* Form Content */}
+                    <div className="p-8 space-y-8">
                         {/* Account and Date Selection */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             {/* Account Selection */}
                             <div className="space-y-3">
-                                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">
                                     Compte Google Ads
                                 </label>
                                 <select
                                     value={config.accountId}
                                     onChange={(e) => setConfig({ ...config, accountId: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                    className="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                 >
                                     {accounts.map(account => (
                                         <option key={account.id} value={account.id}>
@@ -169,22 +174,22 @@ const Reports = () => {
 
                             {/* Date Range */}
                             <div className="space-y-3">
-                                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    Période
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300">
+                                    Période d'analyse
                                 </label>
-                                <div className="flex gap-3">
+                                <div className="flex gap-4 items-center">
                                     <input
                                         type="date"
                                         value={config.startDate}
                                         onChange={(e) => setConfig({ ...config, startDate: e.target.value })}
-                                        className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all"
+                                        className="flex-1 px-4 py-3.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                     />
-                                    <span className="flex items-center text-gray-400 font-bold">→</span>
+                                    <span className="text-gray-400 font-bold text-lg">→</span>
                                     <input
                                         type="date"
                                         value={config.endDate}
                                         onChange={(e) => setConfig({ ...config, endDate: e.target.value })}
-                                        className="flex-1 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all"
+                                        className="flex-1 px-4 py-3.5 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                     />
                                 </div>
                             </div>
@@ -192,22 +197,25 @@ const Reports = () => {
 
                         {/* Metrics Selection */}
                         <div className="space-y-4">
-                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                Métriques à inclure
-                            </label>
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">
+                                    Métriques à inclure
+                                </label>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">Sélectionnez les indicateurs de performance à afficher</p>
+                            </div>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                                 {Object.entries(config.includeMetrics).map(([key, value]) => (
                                     <button
                                         key={key}
                                         onClick={() => toggleMetric(key as keyof typeof config.includeMetrics)}
-                                        className={`p-4 rounded-xl border-2 transition-all font-medium text-sm ${value
-                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                                                : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
+                                        className={`p-4 rounded-xl border-2 transition-all font-semibold text-sm ${value
+                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 shadow-sm'
+                                                : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/30'
                                             }`}
                                     >
                                         <div className="flex items-center justify-between gap-2">
                                             <span className="capitalize">{key}</span>
-                                            {value && <Check size={16} className="text-blue-600 dark:text-blue-400 flex-shrink-0" />}
+                                            {value && <Check size={18} className="text-blue-600 dark:text-blue-400 flex-shrink-0" />}
                                         </div>
                                     </button>
                                 ))}
@@ -216,50 +224,53 @@ const Reports = () => {
 
                         {/* Additional Options */}
                         <div className="space-y-4">
-                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                Options supplémentaires
-                            </label>
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">
+                                    Options supplémentaires
+                                </label>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">Enrichissez votre rapport avec des données détaillées</p>
+                            </div>
                             <div className="space-y-3">
-                                <label className="flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer transition-all">
+                                <label className="flex items-start gap-4 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 hover:border-gray-300 dark:hover:border-gray-500 cursor-pointer transition-all">
                                     <input
                                         type="checkbox"
                                         checked={config.includeCampaigns}
                                         onChange={(e) => setConfig({ ...config, includeCampaigns: e.target.checked })}
-                                        className="w-5 h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 flex-shrink-0"
+                                        className="w-5 h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-2 flex-shrink-0"
                                     />
                                     <div className="flex-1">
-                                        <p className="font-medium text-sm text-gray-900 dark:text-gray-100">Détail des campagnes</p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Inclure le tableau détaillé de toutes les campagnes</p>
+                                        <p className="font-bold text-sm text-gray-900 dark:text-gray-100">Détail des campagnes</p>
+                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">Inclure un tableau détaillé avec toutes vos campagnes et leurs performances</p>
                                     </div>
                                 </label>
-                                <label className="flex items-start gap-4 p-4 rounded-xl border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 cursor-pointer transition-all">
+                                <label className="flex items-start gap-4 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/30 hover:border-gray-300 dark:hover:border-gray-500 cursor-pointer transition-all">
                                     <input
                                         type="checkbox"
                                         checked={config.includeCharts}
                                         onChange={(e) => setConfig({ ...config, includeCharts: e.target.checked })}
-                                        className="w-5 h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 flex-shrink-0"
+                                        className="w-5 h-5 mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-2 flex-shrink-0"
                                     />
                                     <div className="flex-1">
-                                        <p className="font-medium text-sm text-gray-900 dark:text-gray-100">Graphiques de performance</p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Ajouter des visualisations graphiques</p>
+                                        <p className="font-bold text-sm text-gray-900 dark:text-gray-100">Graphiques de performance</p>
+                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">Ajouter des visualisations graphiques pour une meilleure compréhension</p>
                                     </div>
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    {/* Actions */}
-                    <div className="flex justify-end gap-3 p-6 bg-gray-50 dark:bg-gray-700/30 border-t border-gray-100 dark:border-gray-700">
+                    {/* Footer Actions */}
+                    <div className="flex justify-end gap-4 p-6 bg-gray-50 dark:bg-gray-700/30 border-t border-gray-100 dark:border-gray-700">
                         <button
                             onClick={() => setShowConfig(false)}
-                            className="btn btn-ghost"
+                            className="btn btn-ghost px-6"
                         >
                             Annuler
                         </button>
                         <button
                             onClick={handleGenerate}
                             disabled={generating}
-                            className="btn btn-primary flex items-center gap-2"
+                            className="btn btn-primary px-6 flex items-center gap-2"
                         >
                             {generating ? (
                                 <>
