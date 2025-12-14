@@ -98,47 +98,58 @@ exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async
         res.status(400).send("Missing code or state parameter");
         return;
     }
+    let userId = 'unknown';
     try {
+        console.log("OAuth callback started, code:", !!code, "state:", !!state);
         // Verify state to prevent CSRF
         const stateDoc = await admin.firestore()
             .collection('oauth_states')
             .doc(state)
             .get();
         if (!stateDoc.exists) {
+            console.error("State document not found:", state);
             throw new Error("Invalid state parameter");
         }
         const stateData = stateDoc.data();
-        const userId = stateData.userId;
+        userId = stateData.userId;
+        console.log("Found userId from state:", userId);
         // Check if state has expired
         if (stateData.expiresAt.toMillis() < Date.now()) {
+            console.error("State expired for userId:", userId);
             throw new Error("State has expired");
         }
         // Exchange code for tokens
         const oauth2Client = await getOAuth2Client();
+        console.log("Exchanging code for tokens...");
         const { tokens } = await oauth2Client.getToken(code);
+        console.log("Received tokens, has refresh_token:", !!tokens.refresh_token);
         if (!tokens.refresh_token) {
+            console.error("No refresh token received for userId:", userId);
             throw new Error("No refresh token received. User may have already authorized this app.");
         }
         // Store refresh token in Firestore
-        await admin.firestore()
+        console.log("Storing refresh token for userId:", userId);
+        const docRef = admin.firestore()
             .collection('users')
             .doc(userId)
             .collection('tokens')
-            .doc('google_ads')
-            .set({
+            .doc('google_ads');
+        await docRef.set({
             refresh_token: tokens.refresh_token,
             scopes: tokens.scope?.split(' ') || [],
             created_at: admin.firestore.FieldValue.serverTimestamp(),
             updated_at: admin.firestore.FieldValue.serverTimestamp()
         });
+        console.log("Token stored successfully for userId:", userId);
         // Clean up state
         await stateDoc.ref.delete();
-        // Redirect back to app
-        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?oauth=success`);
+        console.log("State cleaned up, redirecting...");
+        // Redirect back to app with UID for debugging
+        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?oauth=success&uid=${userId}`);
     }
     catch (error) {
-        console.error("OAuth callback error:", error);
-        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?error=oauth_failed&message=${encodeURIComponent(error.message)}`);
+        console.error("OAuth callback error for userId:", userId, "error:", error);
+        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?error=oauth_failed&message=${encodeURIComponent(error.message)}&uid=${userId}`);
     }
 });
 //# sourceMappingURL=oauth.js.map

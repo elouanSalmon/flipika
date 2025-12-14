@@ -11,7 +11,7 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "demo-project.appspot.com",
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "123456789",
   appId: import.meta.env.VITE_FIREBASE_APP_ID || "demo-app-id",
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-DEMO"
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialiser Firebase
@@ -22,6 +22,9 @@ export const db = getFirestore(app);
 
 // Initialiser Analytics (optionnel)
 export const auth = getAuth(app);
-export const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;
+
+// Only initialize analytics if we have a real measurement ID
+const hasMeasurementId = firebaseConfig.measurementId && firebaseConfig.measurementId !== 'G-DEMO';
+export const analytics = (typeof window !== 'undefined' && hasMeasurementId) ? getAnalytics(app) : null;
 
 export default app;

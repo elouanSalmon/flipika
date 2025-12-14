@@ -40,11 +40,11 @@ export const fetchAccessibleCustomers = async () => {
 
         const data = await response.json();
         return data;
-    } catch (error) {
+    } catch (error: any) {
         console.error("Failed to fetch customers:", error);
         // Fallback to mock data for development/testing ONLY if strictly needed, 
         // but now we want real data.
-        return { success: false, error: 'Failed to fetch customers' };
+        return { success: false, error: error.message || 'Failed to fetch customers' };
     }
 };
 

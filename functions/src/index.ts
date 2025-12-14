@@ -1,5 +1,6 @@
 import * as admin from "firebase-admin";
 import { onRequest } from "firebase-functions/v2/https";
+import { defineSecret } from "firebase-functions/params";
 import * as cors from "cors";
 
 admin.initializeApp();
@@ -10,12 +11,16 @@ const corsHandler = cors({ origin: true });
 // Re-export OAuth functions
 export { initiateOAuth, handleOAuthCallback } from "./oauth";
 
-const DEVELOPER_TOKEN = process.env.GOOGLE_ADS_DEVELOPER_TOKEN!;
+// Define the secret
+const googleAdsDeveloperToken = defineSecret("GOOGLE_ADS_DEVELOPER_TOKEN");
 
 /**
  * List campaigns for a specific customer using stored refresh token
  */
-export const listCampaigns = onRequest({ memory: '512MiB' }, async (req, res) => {
+export const listCampaigns = onRequest({
+  memory: '512MiB',
+  secrets: [googleAdsDeveloperToken]
+}, async (req, res) => {
   return corsHandler(req, res, async () => {
     // 1. Verify Authentication
     const authHeader = req.headers.authorization;
@@ -45,7 +50,7 @@ export const listCampaigns = onRequest({ memory: '512MiB' }, async (req, res) =>
         .get();
 
       if (!tokenDoc.exists) {
-        res.status(412).json({ error: "No Google Ads account connected. Please connect your account first." });
+        res.status(412).json({ error: `No Google Ads account connected for user ${userId}. Please connect your account first.` });
         return;
       }
 
@@ -57,7 +62,7 @@ export const listCampaigns = onRequest({ memory: '512MiB' }, async (req, res) =>
       const client = new GoogleAdsApi({
         client_id: process.env.GOOGLE_ADS_CLIENT_ID!,
         client_secret: process.env.GOOGLE_ADS_CLIENT_SECRET!,
-        developer_token: DEVELOPER_TOKEN,
+        developer_token: googleAdsDeveloperToken.value(),
       });
 
       const customer = client.Customer({
@@ -116,7 +121,10 @@ export const listCampaigns = onRequest({ memory: '512MiB' }, async (req, res) =>
 /**
  * Get accessible customer accounts using stored refresh token
  */
-export const getAccessibleCustomers = onRequest({ memory: '512MiB' }, async (req, res) => {
+export const getAccessibleCustomers = onRequest({
+  memory: '512MiB',
+  secrets: [googleAdsDeveloperToken]
+}, async (req, res) => {
   return corsHandler(req, res, async () => {
     // 1. Verify Authentication
     const authHeader = req.headers.authorization;
@@ -139,7 +147,7 @@ export const getAccessibleCustomers = onRequest({ memory: '512MiB' }, async (req
         .get();
 
       if (!tokenDoc.exists) {
-        res.status(412).json({ error: "No Google Ads account connected. Please connect your account first." });
+        res.status(412).json({ error: `No Google Ads account connected for user ${userId}. Please connect your account first.` });
         return;
       }
 
@@ -151,7 +159,7 @@ export const getAccessibleCustomers = onRequest({ memory: '512MiB' }, async (req
       const client = new GoogleAdsApi({
         client_id: process.env.GOOGLE_ADS_CLIENT_ID!,
         client_secret: process.env.GOOGLE_ADS_CLIENT_SECRET!,
-        developer_token: DEVELOPER_TOKEN,
+        developer_token: googleAdsDeveloperToken.value(),
       });
 
       // 4. List accessible customers

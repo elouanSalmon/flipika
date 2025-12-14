@@ -4,31 +4,65 @@
   color: var(--color-text-secondary);
   text-decoration: none;
 }
+
 .app-connected a:hover {
   color: var(--color-text-primary);
   text-decoration: underline;
+}
+
+/* Main content wrapper - ensures full viewport height */
+.app-content-wrapper {
+  min-height: calc(100vh - 80px - 200px);
+  /* viewport - header - footer approx */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Center content vertically when it doesn't fill the space */
+  align-items: center;
+  /* Center content horizontally */
+  padding-top: var(--spacing-2xl);
+  /* Gap between header and content */
+  padding-bottom: var(--spacing-2xl);
 }
 
 /* Containers & sections */
 .app-connected .content-container {
   max-width: 80rem;
   margin: 0 auto;
-  padding: var(--spacing-xl) var(--spacing-2xl);
+  padding: 0 var(--spacing-2xl);
+  width: 100%;
+  flex: 1;
 }
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .app-content-wrapper {
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
+  }
+
+  .app-connected .content-container {
+    padding: 0 var(--spacing-lg);
+  }
+}
+
 .app-connected .section {
   padding: var(--spacing-xl) 0;
 }
+
 .app-connected .section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: var(--spacing-lg);
 }
+
 .app-connected .section-title {
   font-size: var(--font-size-2xl);
   font-weight: 700;
   color: var(--color-text-primary);
 }
+
 .app-connected .section-subtitle {
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
@@ -44,14 +78,17 @@
   font-size: var(--font-size-sm);
   font-weight: 600;
 }
+
 .app-connected .badge-positive {
   background: rgba(var(--primary-rgb), 0.1);
   color: var(--color-primary);
 }
+
 .app-connected .badge-negative {
   background: rgba(239, 68, 68, 0.12);
   color: var(--color-error);
 }
+
 .app-connected .badge-change {
   padding: 0.25rem 0.5rem;
   border-radius: var(--radius-full);
@@ -59,11 +96,13 @@
   font-weight: 600;
   border: 1px solid var(--color-border);
 }
+
 .app-connected .badge-change.is-up {
   background: rgba(var(--primary-rgb), 0.08);
   color: var(--color-primary);
   border-color: rgba(var(--primary-rgb), 0.2);
 }
+
 .app-connected .badge-change.is-down {
   background: rgba(239, 68, 68, 0.12);
   color: var(--color-error);
@@ -81,15 +120,18 @@
   background: var(--glass-bg);
   backdrop-filter: var(--glass-backdrop);
 }
+
 .app-connected .status-badge.active {
   border-color: rgba(var(--primary-rgb), 0.3);
   color: var(--color-text-primary);
 }
+
 .app-connected .status-badge.paused {
   border-color: var(--color-border);
   color: var(--color-text-secondary);
   opacity: 0.9;
 }
+
 .app-connected .status-badge.learning {
   border-color: rgba(var(--primary-rgb), 0.2);
   color: var(--color-text-secondary);
@@ -100,6 +142,7 @@
   color: var(--color-text-secondary);
   font-weight: 600;
 }
+
 .app-connected .link:hover {
   color: var(--color-text-primary);
   text-decoration: underline;
@@ -110,6 +153,7 @@
   width: 100%;
   border-collapse: collapse;
 }
+
 .app-connected .table th {
   padding: 1rem 1.5rem;
   font-size: var(--font-size-xs);
@@ -118,6 +162,7 @@
   letter-spacing: 0.08em;
   border-bottom: 1px solid var(--color-border);
 }
+
 .app-connected .table td {
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--color-border);
@@ -127,6 +172,7 @@
 .app-connected .card-tight {
   padding: var(--spacing-lg);
 }
+
 .app-connected .card-loose {
   padding: var(--spacing-2xl);
 }
@@ -141,6 +187,7 @@
   font-size: var(--font-size-sm);
   transition: all var(--transition-normal);
 }
+
 .app-connected .chip:hover {
   border-color: var(--color-primary);
   background: var(--glass-bg-hover);
@@ -159,29 +206,36 @@
   transition: all var(--transition-normal);
   cursor: pointer;
 }
+
 .app-connected .btn-wide {
   min-width: 280px;
 }
+
 .app-connected .btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
+
 .app-connected .btn-primary {
   color: white;
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   border-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);
 }
+
 .app-connected .btn-primary:hover {
   filter: brightness(1.05);
 }
+
 .app-connected .btn-primary:active {
   transform: translateY(1px);
 }
+
 .app-connected .btn-outline {
   background: var(--glass-bg);
   color: var(--color-text-primary);
 }
+
 .app-connected .btn-outline:hover {
   background: var(--glass-bg-hover);
   border-color: var(--color-primary);
@@ -195,6 +249,7 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
+
 .app-connected .nav-item {
   display: flex;
   align-items: center;
@@ -204,45 +259,55 @@
   color: var(--color-text-secondary);
   transition: all var(--transition-normal);
 }
+
 .app-connected .nav-item:hover {
   background: var(--glass-bg-hover);
   transform: translateX(2px);
 }
+
 .app-connected .nav-item.active {
   background: var(--color-primary);
   color: white;
   box-shadow: 0 10px 24px rgba(59, 130, 246, 0.25);
 }
+
 .app-connected .nav-item .icon {
   color: var(--color-text-muted);
   transition: color var(--transition-fast);
 }
+
 .app-connected .nav-item:hover .icon {
   color: var(--color-primary);
 }
+
 .app-connected .nav-item.active .icon {
   color: white;
 }
+
 .app-connected .nav-badge {
   margin-left: auto;
   font-size: 10px;
   padding: 0.25rem 0.5rem;
   border-radius: var(--radius-full);
   backdrop-filter: var(--glass-backdrop);
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
+
 .app-connected .nav-item.active .nav-badge {
-  background: rgba(255,255,255,0.22);
+  background: rgba(255, 255, 255, 0.22);
   color: white;
 }
+
 .app-connected .nav-item:not(.active) .nav-badge {
   background: var(--glass-bg);
   color: var(--color-text-secondary);
   border-color: var(--color-border);
 }
+
 .app-connected .nav-item.danger {
   color: var(--color-error);
 }
+
 .app-connected .nav-item.danger:hover {
   background: rgba(239, 68, 68, 0.08);
 }

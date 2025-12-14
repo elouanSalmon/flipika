@@ -11,6 +11,10 @@
     ],
     "rewrites": [
       {
+        "source": "/oauth/callback",
+        "function": "handleOAuthCallback"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

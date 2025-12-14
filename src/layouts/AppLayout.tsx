@@ -3,13 +3,16 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard,
-  MessageSquare,
+  FileText,
   List,
   LogOut,
   Settings,
   Zap,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "../hooks/useTheme";
 import "../components/Header.css"; // Use header styles
 import "../components/app/Connected.css"; // We might need to adjust or remove this if it enforced sidebar layout
 import Footer from "../components/Footer";
@@ -18,6 +21,7 @@ const AppLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
 
   const isActive = (path: string) => location.pathname === path;
@@ -41,9 +45,10 @@ const AppLayout = () => {
   };
 
   const navItems = [
-    { path: "/app/dashboard", label: "Overview", icon: LayoutDashboard },
-    { path: "/app/copilot", label: "AI Copilot", icon: MessageSquare, badge: "New" },
-    { path: "/app/campaigns", label: "Campaigns", icon: List },
+    { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { path: "/app/copilot", label: "Audit", icon: Zap, badge: "Beta" }, // Copilot file reused for Audit
+    { path: "/app/reports", label: "Rapports", icon: FileText },
+    { path: "/app/campaigns", label: "Campagnes", icon: List },
   ];
 
   return (
@@ -119,6 +124,26 @@ const AppLayout = () => {
 
           {/* Header Actions */}
           <div className="header-actions">
+            {/* Theme Toggle */}
+            <motion.div
+              className="theme-toggle-wrapper"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <button
+                className={`theme-toggle ${theme === 'dark' ? 'dark' : 'light'}`}
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+              >
+                <div className="toggle-track">
+                  <div className="toggle-thumb">
+                    {theme === 'dark' ? <Moon size={14} /> : <Sun size={14} />}
+                  </div>
+                </div>
+              </button>
+            </motion.div>
+
             <motion.button
               className="nav-link"
               onClick={() => {/* Settings handler */ }}
@@ -161,8 +186,11 @@ const AppLayout = () => {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col" style={{ paddingTop: '80px' }}>
-        <div className="content-container py-8 space-y-8 flex-1">
-          <Outlet />
+        {/* Content Wrapper - ensures min-height and spacing */}
+        <div className="app-content-wrapper">
+          <div className="content-container">
+            <Outlet />
+          </div>
         </div>
 
         <Footer />

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { BarChart3, ArrowRight, RefreshCw, LogOut } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import { BarChart3, ArrowRight, RefreshCw, LogOut, AlertCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { isGoogleAdsConnected, getLinkedCustomerId, fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
+import { getLinkedCustomerId, fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
 
 const Dashboard = () => {
-    const { linkGoogleAds } = useAuth();
+    const { linkGoogleAds, currentUser } = useAuth();
+    const [searchParams] = useSearchParams();
     const [step, setStep] = useState<'LOADING' | 'CONNECT' | 'SELECT_ACCOUNT' | 'DASHBOARD'>('LOADING');
     const [customers, setCustomers] = useState<string[]>([]);
     const [campaigns, setCampaigns] = useState<any[]>([]);
@@ -13,62 +15,81 @@ const Dashboard = () => {
 
     // Initial Load Logic
     useEffect(() => {
-        checkStatus();
-    }, []);
+        const oauthError = searchParams.get('error');
+        const oauthMessage = searchParams.get('message');
+        const oauthSuccess = searchParams.get('oauth');
 
-    const checkStatus = async () => {
+        if (oauthError) {
+            setError(oauthMessage || "Erreur d'authentification OAuth");
+            setStep('CONNECT');
+        } else if (oauthSuccess === 'success') {
+            // Give Firebase a moment to propagate the write if needed, then check
+            setTimeout(() => {
+                checkStatus(true);
+            }, 1000);
+        } else {
+            checkStatus();
+        }
+    }, [searchParams]);
+
+    const checkStatus = async (forceRefresh = false) => {
         const storedCid = getLinkedCustomerId();
+        console.log("Checking status for User ID:", currentUser?.uid);
+        // Debugging: Log current user ID
+        // @ts-ignore
+        // const currentUser = window.auth?.currentUser || { uid: 'unknown' }; // Hacky access or use hook if available properly in scope, but useAuth is cleaner
+        // Better: use the auth from context if possible, but it's not in scope of checkStatus easily without refactoring.
+        // Actually, checkStatus is inside the component, so we can access `useAuth` values if we destructured them.
+        // We destructured `linkGoogleAds`. Let's destructure `currentUser` too.
 
-        if (storedCid) {
+        if (storedCid && !forceRefresh) {
             setStep('DASHBOARD');
             loadCampaigns();
             return;
         }
 
         // If no local CID, check if we are connected on backend
-        // by trying to fetch accessible customers
+        await loadCustomers(true);
+    };
+
+    const loadCustomers = async (isCheck = false) => {
         setLoading(true);
         try {
             // @ts-ignore
             const result = await fetchAccessibleCustomers();
             const response = result as any;
 
-            // If we have customers, we are connected!
             if (response.customers && response.customers.length > 0) {
                 setCustomers(response.customers);
-                // If only one, auto-select? For now let user choose
                 setStep('SELECT_ACCOUNT');
+                setError(null);
             } else if (response.customers && response.customers.length === 0) {
-                // Connected but no ads accounts
                 setError("Aucun compte Google Ads trouvé associé à ce compte Google.");
                 setStep('SELECT_ACCOUNT');
             } else {
-                // Likely not connected (412/401 handled by service returning error usually or we need to check property)
-                // If success is false or no consumers, assume Connect needed
-                setStep('CONNECT');
-            }
-        } catch (e) {
-            // If fetch failed, assume we need to connect
-            setStep('CONNECT');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const loadCustomers = async () => {
-        setLoading(true);
-        try {
-            // @ts-ignore
-            const result = await fetchAccessibleCustomers();
-            const response = result as any;
-            if (response.customers && response.customers.length > 0) {
-                setCustomers(response.customers);
-            } else {
-                setError("Aucun compte trouvé. Assurez-vous d'avoir accès à un compte Google Ads.");
+                console.warn("Check status: Connected but no customers found or not connected", response);
+                // Not connected
+                if (isCheck) {
+                    setStep('CONNECT');
+                    // Optional: set a temporary error to see if something went wrong
+                    if (response.error) {
+                        // Simplify the 412 error for the user
+                        if (response.error.includes("412") || response.error.includes("No Google Ads account")) {
+                            setError("Compte non connecté. Veuillez relancer la connexion.");
+                        } else {
+                            setError(`Erreur connexion: ${response.error}`);
+                        }
+                    }
+                }
+                else setError("Aucun compte trouvé.");
             }
         } catch (err: any) {
-            console.error(err);
-            setError("Impossible de charger les comptes.");
+            console.error("Check status error:", err);
+            if (isCheck) {
+                setStep('CONNECT');
+                setError(`Erreur de vérification: ${err.message || 'Inconnue'}`);
+            }
+            else setError("Impossible de charger les comptes.");
         } finally {
             setLoading(false);
         }
@@ -94,6 +115,7 @@ const Dashboard = () => {
 
     const handleConnect = async () => {
         setLoading(true);
+        setError(null);
         try {
             const success = await linkGoogleAds();
             if (success) {
@@ -121,13 +143,14 @@ const Dashboard = () => {
         setStep('CONNECT');
         setCampaigns([]);
         setCustomers([]);
+        setError(null);
     };
 
     if (step === 'LOADING') return <div className="p-12 text-center">Chargement...</div>;
 
     if (step === 'CONNECT') {
         return (
-            <div className="flex flex-col items-center justify-center p-12 text-center space-y-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm !min-h-[100vh]">
+            <div className="flex flex-col items-center justify-center text-center space-y-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-12">
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-full">
                     <BarChart3 size={48} className="text-blue-600" />
                 </div>
@@ -135,6 +158,14 @@ const Dashboard = () => {
                     <h2 className="text-2xl font-bold">Connectez Google Ads</h2>
                     <p className="text-gray-500">Accédez à vos campagnes pour commencer l'optimisation.</p>
                 </div>
+
+                {error && (
+                    <div className="w-full max-w-md bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 p-4 rounded-lg flex items-center gap-3 text-left">
+                        <AlertCircle size={20} className="shrink-0" />
+                        <div className="text-sm">{error}</div>
+                    </div>
+                )}
+
                 <button onClick={handleConnect} disabled={loading} className="btn btn-primary btn-wide">
                     {loading ? 'Connexion...' : 'Connecter un compte'}
                 </button>
@@ -167,7 +198,7 @@ const Dashboard = () => {
 
     // DASHBOARD VIEW
     return (
-        <div className="min-h-screen space-y-6">
+        <div className="space-y-6">
             <div className="flex justify-between items-center bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
                 <div>
                     <h1 className="text-2xl font-bold">Vos Campagnes</h1>

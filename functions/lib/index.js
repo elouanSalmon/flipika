@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
+const params_1 = require("firebase-functions/params");
 const cors = require("cors");
 admin.initializeApp();
 // Initialize CORS middleware
@@ -11,11 +12,15 @@ const corsHandler = cors({ origin: true });
 var oauth_1 = require("./oauth");
 Object.defineProperty(exports, "initiateOAuth", { enumerable: true, get: function () { return oauth_1.initiateOAuth; } });
 Object.defineProperty(exports, "handleOAuthCallback", { enumerable: true, get: function () { return oauth_1.handleOAuthCallback; } });
-const DEVELOPER_TOKEN = process.env.GOOGLE_ADS_DEVELOPER_TOKEN;
+// Define the secret
+const googleAdsDeveloperToken = (0, params_1.defineSecret)("GOOGLE_ADS_DEVELOPER_TOKEN");
 /**
  * List campaigns for a specific customer using stored refresh token
  */
-exports.listCampaigns = (0, https_1.onRequest)({ memory: '512MiB' }, async (req, res) => {
+exports.listCampaigns = (0, https_1.onRequest)({
+    memory: '512MiB',
+    secrets: [googleAdsDeveloperToken]
+}, async (req, res) => {
     return corsHandler(req, res, async () => {
         // 1. Verify Authentication
         const authHeader = req.headers.authorization;
@@ -41,7 +46,7 @@ exports.listCampaigns = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
                 .doc('google_ads')
                 .get();
             if (!tokenDoc.exists) {
-                res.status(412).json({ error: "No Google Ads account connected. Please connect your account first." });
+                res.status(412).json({ error: `No Google Ads account connected for user ${userId}. Please connect your account first.` });
                 return;
             }
             const tokenData = tokenDoc.data();
@@ -51,7 +56,7 @@ exports.listCampaigns = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
             const client = new GoogleAdsApi({
                 client_id: process.env.GOOGLE_ADS_CLIENT_ID,
                 client_secret: process.env.GOOGLE_ADS_CLIENT_SECRET,
-                developer_token: DEVELOPER_TOKEN,
+                developer_token: googleAdsDeveloperToken.value(),
             });
             const customer = client.Customer({
                 customer_id: customerId.replace('customers/', ''),
@@ -63,9 +68,14 @@ exports.listCampaigns = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
           campaign.id, 
           campaign.name, 
           campaign.status,
+          campaign.advertising_channel_type,
+          campaign.start_date,
+          campaign.end_date,
           metrics.cost_micros,
           metrics.impressions,
-          metrics.clicks 
+          metrics.clicks,
+          metrics.ctr,
+          metrics.average_cpc
         FROM campaign 
         WHERE campaign.status != 'REMOVED'
         ORDER BY campaign.name
@@ -76,9 +86,14 @@ exports.listCampaigns = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
                 id: row.campaign.id?.toString() || '',
                 name: row.campaign.name || 'Unnamed Campaign',
                 status: row.campaign.status || 'UNKNOWN',
+                type: row.campaign.advertising_channel_type || 'UNKNOWN',
+                startDate: row.campaign.start_date || null,
+                endDate: row.campaign.end_date || null,
                 cost: (row.metrics?.cost_micros || 0) / 1000000,
                 impressions: row.metrics?.impressions || 0,
-                clicks: row.metrics?.clicks || 0
+                clicks: row.metrics?.clicks || 0,
+                ctr: row.metrics?.ctr || 0,
+                averageCpc: (row.metrics?.average_cpc || 0) / 1000000
             }));
             res.status(200).json({
                 success: true,
@@ -94,7 +109,10 @@ exports.listCampaigns = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
 /**
  * Get accessible customer accounts using stored refresh token
  */
-exports.getAccessibleCustomers = (0, https_1.onRequest)({ memory: '512MiB' }, async (req, res) => {
+exports.getAccessibleCustomers = (0, https_1.onRequest)({
+    memory: '512MiB',
+    secrets: [googleAdsDeveloperToken]
+}, async (req, res) => {
     return corsHandler(req, res, async () => {
         // 1. Verify Authentication
         const authHeader = req.headers.authorization;
@@ -114,7 +132,7 @@ exports.getAccessibleCustomers = (0, https_1.onRequest)({ memory: '512MiB' }, as
                 .doc('google_ads')
                 .get();
             if (!tokenDoc.exists) {
-                res.status(412).json({ error: "No Google Ads account connected. Please connect your account first." });
+                res.status(412).json({ error: `No Google Ads account connected for user ${userId}. Please connect your account first.` });
                 return;
             }
             const tokenData = tokenDoc.data();
@@ -124,7 +142,7 @@ exports.getAccessibleCustomers = (0, https_1.onRequest)({ memory: '512MiB' }, as
             const client = new GoogleAdsApi({
                 client_id: process.env.GOOGLE_ADS_CLIENT_ID,
                 client_secret: process.env.GOOGLE_ADS_CLIENT_SECRET,
-                developer_token: DEVELOPER_TOKEN,
+                developer_token: googleAdsDeveloperToken.value(),
             });
             // 4. List accessible customers
             const response = await client.listAccessibleCustomers(refreshToken);

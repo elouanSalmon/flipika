@@ -1,6 +1,4 @@
-import { Sparkles, Send, AlertCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
-
+import { AlertTriangle, ArrowRight, TrendingUp } from 'lucide-react';
 import { isGoogleAdsConnected } from '../services/googleAds';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -12,16 +10,40 @@ const Copilot = () => {
         setIsConnected(isGoogleAdsConnected());
     }, []);
 
+    const auditItems = [
+        {
+            id: 1,
+            severity: 'high',
+            title: 'Scores de qualité faibles',
+            description: '3 campagnes ont un score de qualité inférieur à 5/10.',
+            action: 'Optimiser les annonces'
+        },
+        {
+            id: 2,
+            severity: 'medium',
+            title: 'Budget limité',
+            description: 'La campagne "Search - Paris" est limitée par le budget.',
+            action: 'Ajuster le budget'
+        },
+        {
+            id: 3,
+            severity: 'low',
+            title: 'Mots-clés en doublon',
+            description: 'Détection de mots-clés similaires dans différents groupes.',
+            action: 'Nettoyer'
+        }
+    ];
+
     if (!isConnected) {
         return (
             <div className="flex flex-col items-center justify-center !min-h-[100vh] text-center space-y-6">
                 <div className="p-4 bg-orange-50 dark:bg-orange-900/10 rounded-full">
-                    <AlertCircle size={48} className="text-orange-500" />
+                    <AlertTriangle size={48} className="text-orange-500" />
                 </div>
                 <div className="max-w-md space-y-2">
                     <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Source de données manquante</h2>
                     <p className="text-[var(--color-text-secondary)]">
-                        L'IA a besoin d'accéder à votre compte Google Ads pour générer des recommandations.
+                        L'IA a besoin d'accéder à votre compte Google Ads pour générer l'audit.
                     </p>
                 </div>
                 <Link to="/app/dashboard" className="btn btn-primary">
@@ -32,69 +54,54 @@ const Copilot = () => {
     }
 
     return (
-        <div className="min-h-screen max-w-4xl mx-auto h-[calc(100vh-8rem)] flex flex-col">
-            <div className="card flex-1 flex flex-col p-0 overflow-hidden relative">
-                {/* Chat Header */}
-                <div className="p-6 border-b border-[var(--color-border)] bg-[var(--color-bg-secondary)]/50 backdrop-blur-sm flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-lg shadow-blue-500/20">
-                        <Sparkles className="text-white" size={20} />
-                    </div>
+        <div className="space-y-8 max-w-5xl mx-auto">
+            {/* Header Score for Audit */}
+            <div className="card bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-8 border-none transform transition-transform hover:scale-[1.01]">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                     <div>
-                        <h2 className="text-lg font-bold text-[var(--color-text-primary)]">Flipika AI Copilot</h2>
-                        <p className="text-xs text-[var(--color-text-secondary)] flex items-center gap-2">
-                            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                            Online & Ready to optimize
+                        <h1 className="text-3xl font-bold mb-2">Audit de Performance</h1>
+                        <p className="opacity-90 max-w-lg">
+                            Votre compte a été analysé. Voici les opportunités d'optimisation détectées pour améliorer votre ROAS.
                         </p>
                     </div>
+                    <div className="flex items-center gap-4 bg-white/10 p-4 rounded-2xl backdrop-blur-sm">
+                        <div className="text-center">
+                            <div className="text-4xl font-bold">72<span className="text-xl opacity-70">/100</span></div>
+                            <div className="text-xs uppercase tracking-wider opacity-80 font-semibold">Santé du Compte</div>
+                        </div>
+                        <div className="h-12 w-[1px] bg-white/20"></div>
+                        <TrendingUp size={32} className="text-green-300" />
+                    </div>
                 </div>
+            </div>
 
-                {/* Chat Area - Connected State */}
-                <div className="flex-1 p-8 overflow-y-auto flex flex-col items-center justify-center text-center">
-                    <motion.div
-                        initial={{ scale: 0.9, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        className="w-24 h-24 mb-6 rounded-full bg-[var(--color-primary-light)]/10 flex items-center justify-center relative"
-                    >
-                        <div className="absolute inset-0 rounded-full bg-[var(--color-primary)] opacity-10 blur-xl animate-pulse"></div>
-                        <Sparkles className="text-[var(--color-primary)] relative z-10" size={40} />
-                    </motion.div>
-
-                    <h3 className="text-xl font-bold text-[var(--color-text-primary)] mb-2">
-                        Prêt à analyser vos performances
-                    </h3>
-                    <p className="text-[var(--color-text-secondary)] max-w-md mb-8">
-                        Posez-moi une question sur vos campagnes, vos dépenses, ou demandez-moi d'auditer votre compte.
-                    </p>
-
-                    {/* Suggestions Chips */}
-                    <div className="flex flex-wrap justify-center gap-3 max-w-lg">
-                        {['Audit général du compte', 'Pourquoi mon CTR baisse ?', 'Optimiser mes mots-clés', 'Résumé des dépenses hier'].map((suggestion) => (
-                            <button
-                                key={suggestion}
-                                className="chip cursor-pointer"
-                            >
-                                {suggestion}
+            {/* Audit List */}
+            <div className="grid gap-4">
+                <h2 className="text-xl font-bold px-2">Recommandations Prioritaires</h2>
+                {auditItems.map((item) => (
+                    <div key={item.id} className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:shadow-md transition-all group">
+                        <div className="flex items-start gap-4 p-2">
+                            <div className={`mt-1 p-2 rounded-lg ${item.severity === 'high' ? 'bg-red-50 text-red-500' :
+                                item.severity === 'medium' ? 'bg-orange-50 text-orange-500' : 'bg-blue-50 text-blue-500'
+                                }`}>
+                                <AlertTriangle size={20} />
+                            </div>
+                            <div className="flex-1">
+                                <div className="flex justify-between items-start">
+                                    <h3 className="font-bold text-lg">{item.title}</h3>
+                                    <span className={`badge badge-sm uppercase font-bold ${item.severity === 'high' ? 'badge-error' :
+                                        item.severity === 'medium' ? 'badge-warning' : 'badge-info'
+                                        }`}>{item.severity}</span>
+                                </div>
+                                <p className="text-gray-500 mt-1">{item.description}</p>
+                            </div>
+                            <button className="btn btn-sm btn-ghost group-hover:bg-gray-100 dark:group-hover:bg-gray-700 self-center">
+                                <span className="mr-2">{item.action}</span>
+                                <ArrowRight size={16} />
                             </button>
-                        ))}
+                        </div>
                     </div>
-                </div>
-
-                {/* Input Area */}
-                <div className="p-6 border-t border-[var(--color-border)] bg-[var(--color-bg-secondary)]/30">
-                    <div className="relative">
-                        <input
-                            type="text"
-                            placeholder="Message Flipika Copilot..."
-                            className="w-full pl-6 pr-14 py-4 rounded-xl bg-[var(--color-bg-primary)] border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] transition-all shadow-sm"
-                        />
-                        <button className="absolute right-2 top-2 p-2 rounded-lg bg-[var(--color-primary)] text-white hover:opacity-90 transition-opacity">
-                            <Send size={20} />
-                        </button>
-                    </div>
-                    <p className="text-center text-[10px] text-[var(--color-text-muted)] mt-3">
-                        L'IA peut faire des erreurs. Vérifiez les informations importantes.
-                    </p>
-                </div>
+                ))}
             </div>
         </div>
     );
