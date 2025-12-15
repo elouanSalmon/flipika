@@ -103,3 +103,59 @@ export const trackPageView = (path: string, title?: string): void => {
         console.error('Failed to track page view:', error);
     }
 };
+
+/**
+ * Update Google Consent Mode status
+ * Called by cookie consent library when user makes choices
+ */
+export const updateConsent = (consentSettings: {
+    ad_storage?: 'granted' | 'denied';
+    analytics_storage?: 'granted' | 'denied';
+    ad_user_data?: 'granted' | 'denied';
+    ad_personalization?: 'granted' | 'denied';
+}): void => {
+    if (typeof window === 'undefined' || !window.gtag) return;
+
+    try {
+        window.gtag('consent', 'update', consentSettings);
+        console.log('Consent updated:', consentSettings);
+    } catch (error) {
+        console.error('Failed to update consent:', error);
+    }
+};
+
+/**
+ * Grant all consent (for "Accept All" button)
+ */
+export const grantAllConsent = (): void => {
+    updateConsent({
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+    });
+};
+
+/**
+ * Deny all consent (for "Reject All" button)
+ */
+export const denyAllConsent = (): void => {
+    updateConsent({
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+    });
+};
+
+// Type augmentation for gtag
+declare global {
+    interface Window {
+        gtag?: (
+            command: string,
+            action: string,
+            params?: Record<string, any>
+        ) => void;
+        dataLayer?: any[];
+    }
+}

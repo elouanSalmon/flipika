@@ -7,7 +7,8 @@
     "features": "Fonctions",
     "pricing": "Tarifs",
     "testimonials": "Avis",
-    "contact": "Contact"
+    "contact": "Contact",
+    "login": "Se connecter"
   },
   "hero": {
     "title": "Votre copilote IA Google Ads qui booste vos performances",
@@ -505,5 +506,11 @@
         "email": "<strong>Email :</strong> legal@flipika.com"
       }
     }
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "description": "Oups ! La page que vous recherchez semble avoir disparu dans le cyberespace.",
+    "backButton": "Retour",
+    "homeButton": "Accueil"
   }
 }

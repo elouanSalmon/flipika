@@ -1,0 +1,15 @@
+# Robots.txt pour Flipika
+# Génération automatique du sitemap via Cloud Functions
+
+User-agent: *
+Allow: /
+
+# Sitemap principal
+Sitemap: https://flipika.com/sitemap.xml
+
+# Bloquer les pages privées de l'application
+Disallow: /app/
+
+# Bloquer les pages d'authentification
+Disallow: /login
+Disallow: /oauth/

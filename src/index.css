@@ -980,3 +980,505 @@ iframe {
   margin: 0 auto;
   padding: 0 var(--spacing-md);
 }
+
+/* ========================================
+   Cookie Consent Custom Styling (Flipika Theme)
+   ======================================== */
+
+/* Consent Modal Container (Bottom Banner) - Light Mode */
+#cc-main .cm {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(0, 102, 255, 0.2) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5) inset !important;
+  padding: 32px !important;
+  margin: 24px !important;
+  max-width: 900px !important;
+}
+
+/* Modal Title */
+#cc-main .cm__title {
+  color: #0f172a !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  margin-bottom: 12px !important;
+  line-height: 1.4 !important;
+}
+
+/* Modal Description */
+#cc-main .cm__desc {
+  color: #475569 !important;
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  margin-bottom: 24px !important;
+}
+
+/* Buttons Container */
+#cc-main .cm__btns {
+  display: flex !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+}
+
+/* Primary Button (Accept All) - BLUE THEME */
+#cc-main .cm__btn--primary,
+#cc-main .pm__btn--primary {
+  background: linear-gradient(135deg, #0066ff 0%, #0080ff 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 14px 28px !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  min-height: 48px !important;
+}
+
+#cc-main .cm__btn--primary:hover,
+#cc-main .pm__btn--primary:hover {
+  background: linear-gradient(135deg, #0052cc 0%, #0066ff 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4) !important;
+}
+
+/* Secondary Buttons (Reject All / Customize) */
+#cc-main .cm__btn--secondary,
+#cc-main .pm__btn--secondary {
+  background: rgba(255, 255, 255, 0.5) !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 14px 28px !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  min-height: 48px !important;
+}
+
+#cc-main .cm__btn--secondary:hover,
+#cc-main .pm__btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: #0066ff !important;
+  color: #0066ff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.15) !important;
+}
+
+/* Footer Links */
+#cc-main .cm__footer {
+  margin-top: 20px !important;
+  padding-top: 16px !important;
+  border-top: 1px solid #e2e8f0 !important;
+  display: flex !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+}
+
+#cc-main .cm__footer a {
+  color: #0066ff !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+#cc-main .cm__footer a:hover {
+  color: #0052cc !important;
+  text-decoration: underline !important;
+}
+
+/* Preferences Modal */
+#cc-main .pm {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(0, 102, 255, 0.2) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2) !important;
+  max-width: 600px !important;
+}
+
+#cc-main .pm__header {
+  background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, rgba(0, 128, 255, 0.05) 100%) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 24px !important;
+}
+
+#cc-main .pm__title {
+  color: #0f172a !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+}
+
+#cc-main .pm__close-btn {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 8px !important;
+  width: 32px !important;
+  height: 32px !important;
+  transition: all 0.2s ease !important;
+}
+
+#cc-main .pm__close-btn:hover {
+  background: rgba(0, 102, 255, 0.1) !important;
+}
+
+#cc-main .pm__body {
+  padding: 24px !important;
+  background: #ffffff !important;
+}
+
+#cc-main .pm__section {
+  margin-bottom: 24px !important;
+}
+
+#cc-main .pm__section-title {
+  color: #0f172a !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+#cc-main .pm__section-desc,
+#cc-main .pm__section-desc-wrapper {
+  color: #475569 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* Cookie Category Blocks */
+#cc-main .pm__section--toggle {
+  background: rgba(248, 250, 252, 0.8) !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  margin-bottom: 12px !important;
+  transition: all 0.3s ease !important;
+}
+
+#cc-main .pm__section--toggle:hover {
+  background: rgba(240, 245, 255, 0.9) !important;
+  border-color: #0066ff !important;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.1) !important;
+}
+
+#cc-main .pm__section--toggle .pm__section-title {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+#cc-main .pm__section--toggle .pm__section-desc {
+  color: #64748b !important;
+}
+
+/* Toggle Switch */
+#cc-main .pm__toggle {
+  background: #cbd5e1 !important;
+  border-radius: 999px !important;
+  transition: background 0.3s ease !important;
+}
+
+#cc-main .pm__toggle.toggle--on {
+  background: #0066ff !important;
+}
+
+#cc-main .pm__toggle-marker {
+  background: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+#cc-main .pm__footer {
+  padding: 20px 24px !important;
+  background: rgba(248, 250, 252, 0.5) !important;
+  border-top: 1px solid #e2e8f0 !important;
+  border-radius: 0 0 16px 16px !important;
+}
+
+/* ========================================
+   DARK MODE - Complete Override
+   ======================================== */
+
+[data-theme="dark"] #cc-main .cm {
+  background: rgba(17, 24, 39, 0.95) !important;
+  border: 1px solid rgba(51, 133, 255, 0.3) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
+}
+
+[data-theme="dark"] #cc-main .cm__title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] #cc-main .cm__desc {
+  color: #cbd5e1 !important;
+}
+
+/* Dark Mode Buttons */
+[data-theme="dark"] #cc-main .cm__btn--primary,
+[data-theme="dark"] #cc-main .pm__btn--primary {
+  background: linear-gradient(135deg, #3385ff 0%, #66a3ff 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(51, 133, 255, 0.4) !important;
+}
+
+[data-theme="dark"] #cc-main .cm__btn--primary:hover,
+[data-theme="dark"] #cc-main .pm__btn--primary:hover {
+  background: linear-gradient(135deg, #0066ff 0%, #3385ff 100%) !important;
+  box-shadow: 0 6px 20px rgba(51, 133, 255, 0.5) !important;
+}
+
+[data-theme="dark"] #cc-main .cm__btn--secondary,
+[data-theme="dark"] #cc-main .pm__btn--secondary {
+  background: rgba(17, 24, 39, 0.8) !important;
+  color: #f8fafc !important;
+  border: 1px solid #374151 !important;
+}
+
+[data-theme="dark"] #cc-main .cm__btn--secondary:hover,
+[data-theme="dark"] #cc-main .pm__btn--secondary:hover {
+  background: rgba(31, 41, 55, 0.9) !important;
+  border-color: #3385ff !important;
+  color: #3385ff !important;
+  box-shadow: 0 4px 12px rgba(51, 133, 255, 0.2) !important;
+}
+
+[data-theme="dark"] #cc-main .cm__footer {
+  border-top: 1px solid #374151 !important;
+}
+
+[data-theme="dark"] #cc-main .cm__footer a {
+  color: #3385ff !important;
+}
+
+[data-theme="dark"] #cc-main .cm__footer a:hover {
+  color: #66a3ff !important;
+}
+
+/* Dark Mode Preferences Modal */
+[data-theme="dark"] #cc-main .pm {
+  background: rgba(17, 24, 39, 0.98) !important;
+  border: 1px solid rgba(51, 133, 255, 0.3) !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-theme="dark"] #cc-main .pm__header {
+  background: linear-gradient(135deg, rgba(51, 133, 255, 0.1) 0%, rgba(102, 163, 255, 0.1) 100%) !important;
+  border-bottom: 1px solid #374151 !important;
+}
+
+[data-theme="dark"] #cc-main .pm__title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] #cc-main .pm__close-btn {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-theme="dark"] #cc-main .pm__close-btn:hover {
+  background: rgba(51, 133, 255, 0.2) !important;
+}
+
+[data-theme="dark"] #cc-main .pm__body {
+  background: #111827 !important;
+}
+
+[data-theme="dark"] #cc-main .pm__section-title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] #cc-main .pm__section-desc,
+[data-theme="dark"] #cc-main .pm__section-desc-wrapper {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] #cc-main .pm__section--toggle {
+  background: rgba(31, 41, 55, 0.8) !important;
+  border: 1px solid #374151 !important;
+}
+
+[data-theme="dark"] #cc-main .pm__section--toggle:hover {
+  background: rgba(31, 41, 55, 1) !important;
+  border-color: #3385ff !important;
+  box-shadow: 0 4px 12px rgba(51, 133, 255, 0.2) !important;
+}
+
+[data-theme="dark"] #cc-main .pm__section--toggle .pm__section-title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] #cc-main .pm__section--toggle .pm__section-desc {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] #cc-main .pm__toggle {
+  background: #4b5563 !important;
+}
+
+[data-theme="dark"] #cc-main .pm__toggle.toggle--on {
+  background: #3385ff !important;
+}
+
+[data-theme="dark"] #cc-main .pm__footer {
+  background: rgba(31, 41, 55, 0.5) !important;
+  border-top: 1px solid #374151 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #cc-main .cm {
+    margin: 12px !important;
+    padding: 24px !important;
+    border-radius: 12px !important;
+  }
+
+  #cc-main .cm__title {
+    font-size: 18px !important;
+  }
+
+  #cc-main .cm__desc {
+    font-size: 14px !important;
+  }
+
+  #cc-main .cm__btns {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  #cc-main .cm__btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  #cc-main .pm {
+    max-width: 95vw !important;
+    margin: 12px !important;
+  }
+}
+
+/* ========================================
+   ULTRA-SPECIFIC OVERRIDES - Force Blue Theme
+   ======================================== */
+
+/* Force all primary buttons to be blue - highest specificity */
+#cc-main button[data-role="all"],
+#cc-main button[data-role="accept-all"],
+#cc-main .cm__btn[data-role="all"],
+#cc-main .pm__btn[data-role="all"],
+#cc-main .cm button.cm__btn--primary,
+#cc-main .pm button.pm__btn--primary,
+#cc-main button.cm__btn--primary,
+#cc-main button.pm__btn--primary {
+  background: linear-gradient(135deg, #0066ff 0%, #0080ff 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+#cc-main button[data-role="all"]:hover,
+#cc-main button[data-role="accept-all"]:hover,
+#cc-main .cm__btn[data-role="all"]:hover,
+#cc-main .pm__btn[data-role="all"]:hover,
+#cc-main .cm button.cm__btn--primary:hover,
+#cc-main .pm button.pm__btn--primary:hover,
+#cc-main button.cm__btn--primary:hover,
+#cc-main button.pm__btn--primary:hover {
+  background: linear-gradient(135deg, #0052cc 0%, #0066ff 100%) !important;
+  color: #ffffff !important;
+}
+
+/* Force secondary buttons - no white background */
+#cc-main button[data-role="necessary"],
+#cc-main button[data-role="show-preferencesModal"],
+#cc-main .cm__btn[data-role="necessary"],
+#cc-main .cm__btn[data-role="show-preferencesModal"],
+#cc-main .cm button.cm__btn--secondary,
+#cc-main .pm button.pm__btn--secondary,
+#cc-main button.cm__btn--secondary,
+#cc-main button.pm__btn--secondary {
+  background: rgba(255, 255, 255, 0.5) !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+#cc-main button[data-role="necessary"]:hover,
+#cc-main button[data-role="show-preferencesModal"]:hover,
+#cc-main .cm__btn[data-role="necessary"]:hover,
+#cc-main .cm__btn[data-role="show-preferencesModal"]:hover,
+#cc-main .cm button.cm__btn--secondary:hover,
+#cc-main .pm button.pm__btn--secondary:hover,
+#cc-main button.cm__btn--secondary:hover,
+#cc-main button.pm__btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #0066ff !important;
+  border-color: #0066ff !important;
+}
+
+/* Dark mode ultra-specific overrides */
+[data-theme="dark"] #cc-main button[data-role="all"],
+[data-theme="dark"] #cc-main button[data-role="accept-all"],
+[data-theme="dark"] #cc-main .cm__btn[data-role="all"],
+[data-theme="dark"] #cc-main .pm__btn[data-role="all"],
+[data-theme="dark"] #cc-main .cm button.cm__btn--primary,
+[data-theme="dark"] #cc-main .pm button.pm__btn--primary,
+[data-theme="dark"] #cc-main button.cm__btn--primary,
+[data-theme="dark"] #cc-main button.pm__btn--primary {
+  background: linear-gradient(135deg, #3385ff 0%, #66a3ff 100%) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] #cc-main button[data-role="all"]:hover,
+[data-theme="dark"] #cc-main button[data-role="accept-all"]:hover,
+[data-theme="dark"] #cc-main .cm__btn[data-role="all"]:hover,
+[data-theme="dark"] #cc-main .pm__btn[data-role="all"]:hover,
+[data-theme="dark"] #cc-main .cm button.cm__btn--primary:hover,
+[data-theme="dark"] #cc-main .pm button.pm__btn--primary:hover,
+[data-theme="dark"] #cc-main button.cm__btn--primary:hover,
+[data-theme="dark"] #cc-main button.pm__btn--primary:hover {
+  background: linear-gradient(135deg, #0066ff 0%, #3385ff 100%) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] #cc-main button[data-role="necessary"],
+[data-theme="dark"] #cc-main button[data-role="show-preferencesModal"],
+[data-theme="dark"] #cc-main .cm__btn[data-role="necessary"],
+[data-theme="dark"] #cc-main .cm__btn[data-role="show-preferencesModal"],
+[data-theme="dark"] #cc-main .cm button.cm__btn--secondary,
+[data-theme="dark"] #cc-main .pm button.pm__btn--secondary,
+[data-theme="dark"] #cc-main button.cm__btn--secondary,
+[data-theme="dark"] #cc-main button.pm__btn--secondary {
+  background: rgba(17, 24, 39, 0.8) !important;
+  color: #f8fafc !important;
+  border: 1px solid #374151 !important;
+}
+
+[data-theme="dark"] #cc-main button[data-role="necessary"]:hover,
+[data-theme="dark"] #cc-main button[data-role="show-preferencesModal"]:hover,
+[data-theme="dark"] #cc-main .cm__btn[data-role="necessary"]:hover,
+[data-theme="dark"] #cc-main .cm__btn[data-role="show-preferencesModal"]:hover,
+[data-theme="dark"] #cc-main .cm button.cm__btn--secondary:hover,
+[data-theme="dark"] #cc-main .pm button.pm__btn--secondary:hover,
+[data-theme="dark"] #cc-main button.cm__btn--secondary:hover,
+[data-theme="dark"] #cc-main button.pm__btn--secondary:hover {
+  background: rgba(31, 41, 55, 0.9) !important;
+  color: #3385ff !important;
+  border-color: #3385ff !important;
+}
+
+/* Force all buttons to never have pure white or black backgrounds */
+#cc-main button,
+#cc-main .cm__btn,
+#cc-main .pm__btn {
+  background-color: transparent !important;
+}
+
+/* Prevent any default button styles from showing */
+#cc-main button:not(.cm__btn--primary):not(.pm__btn--primary):not([data-role="all"]) {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme="dark"] #cc-main button:not(.cm__btn--primary):not(.pm__btn--primary):not([data-role="all"]) {
+  background: rgba(17, 24, 39, 0.8) !important;
+}

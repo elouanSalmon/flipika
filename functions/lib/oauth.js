@@ -4,8 +4,25 @@ exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const cors = require("cors");
-// Initialize CORS middleware
-const corsHandler = cors({ origin: true });
+const rateLimiter_1 = require("./rateLimiter");
+const validators_1 = require("./validators");
+// CORS configuration - restrict to allowed origins
+const allowedOrigins = [
+    'https://flipika.web.app',
+    'https://flipika.firebaseapp.com',
+    'http://localhost:5173', // Dev only
+];
+const corsHandler = cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+});
 // Helper to safely get env vars
 const getEnvVar = (name) => {
     const value = process.env[name];
@@ -51,6 +68,17 @@ exports.initiateOAuth = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
             const idToken = authHeader.split('Bearer ')[1];
             const decodedToken = await admin.auth().verifyIdToken(idToken);
             const userId = decodedToken.uid;
+            // Rate limiting: 5 requests per minute
+            const allowed = await (0, rateLimiter_1.checkRateLimit)(userId, 'oauth_initiate', {
+                maxRequests: 5,
+                windowMs: 60000,
+            });
+            if (!allowed) {
+                res.status(429).json({
+                    error: 'Too many requests. Please try again later.'
+                });
+                return;
+            }
             const state = generateState();
             // Store state in Firestore for verification
             await admin.firestore()
@@ -79,7 +107,10 @@ exports.initiateOAuth = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
         }
         catch (error) {
             console.error("Error in initiateOAuth:", error);
-            res.status(500).json({ error: `Failed to initiate OAuth: ${error.message}` });
+            // Don't expose internal error details to client
+            res.status(500).json({
+                error: 'An error occurred during authentication. Please try again.'
+            });
         }
     });
 });
@@ -94,8 +125,15 @@ exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async
         res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?error=oauth_failed`);
         return;
     }
-    if (!code || !state) {
-        res.status(400).send("Missing code or state parameter");
+    // Validate inputs
+    if (!(0, validators_1.isValidState)(state)) {
+        console.error("Invalid state parameter:", state);
+        res.status(400).send("Invalid state parameter");
+        return;
+    }
+    if (!(0, validators_1.isValidOAuthCode)(code)) {
+        console.error("Invalid code parameter");
+        res.status(400).send("Invalid code parameter");
         return;
     }
     let userId = 'unknown';
@@ -149,7 +187,8 @@ exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async
     }
     catch (error) {
         console.error("OAuth callback error for userId:", userId, "error:", error);
-        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?error=oauth_failed&message=${encodeURIComponent(error.message)}&uid=${userId}`);
+        // Don't expose error details in URL
+        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?error=oauth_failed`);
     }
 });
 //# sourceMappingURL=oauth.js.map

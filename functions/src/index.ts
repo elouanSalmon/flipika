@@ -11,6 +11,17 @@ const corsHandler = cors({ origin: true });
 // Re-export OAuth functions
 export { initiateOAuth, handleOAuthCallback } from "./oauth";
 
+// Re-export Domain Redirect function
+export { domainRedirect } from "./domainRedirect";
+
+// Re-export Sitemap functions
+export { serveSitemap } from "./serveSitemap";
+export { generateSitemap } from "./generateSitemap";
+
+// Re-export Backup function
+export { backupFirestore } from "./backupFirestore";
+
+
 // Define the secret
 const googleAdsDeveloperToken = defineSecret("GOOGLE_ADS_DEVELOPER_TOKEN");
 

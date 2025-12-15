@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Home, ArrowLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import SimpleHeader from '../components/SimpleHeader';
 import Footer from '../components/Footer';
 
 const NotFound = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <div className="min-h-screen bg-[var(--color-bg-primary)] overflow-hidden flex flex-col">
@@ -39,9 +41,9 @@ const NotFound = () => {
                         transition={{ delay: 0.2 }}
                         className="space-y-6"
                     >
-                        <h2 className="text-3xl font-bold text-primary">Page introuvable</h2>
+                        <h2 className="text-3xl font-bold text-primary">{t('common:notFound.title')}</h2>
                         <p className="text-secondary max-w-md mx-auto text-lg">
-                            Oups ! La page que vous recherchez semble avoir disparu dans le cyberespace.
+                            {t('common:notFound.description')}
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -50,14 +52,14 @@ const NotFound = () => {
                                 className="btn btn-secondary gap-2"
                             >
                                 <ArrowLeft size={18} />
-                                Retour
+                                {t('common:notFound.backButton')}
                             </button>
                             <button
                                 onClick={() => navigate('/')}
                                 className="btn btn-primary gap-2"
                             >
                                 <Home size={18} />
-                                Accueil
+                                {t('common:notFound.homeButton')}
                             </button>
                         </div>
                     </motion.div>

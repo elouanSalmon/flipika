@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -12,6 +12,17 @@ const corsHandler = cors({ origin: true });
 var oauth_1 = require("./oauth");
 Object.defineProperty(exports, "initiateOAuth", { enumerable: true, get: function () { return oauth_1.initiateOAuth; } });
 Object.defineProperty(exports, "handleOAuthCallback", { enumerable: true, get: function () { return oauth_1.handleOAuthCallback; } });
+// Re-export Domain Redirect function
+var domainRedirect_1 = require("./domainRedirect");
+Object.defineProperty(exports, "domainRedirect", { enumerable: true, get: function () { return domainRedirect_1.domainRedirect; } });
+// Re-export Sitemap functions
+var serveSitemap_1 = require("./serveSitemap");
+Object.defineProperty(exports, "serveSitemap", { enumerable: true, get: function () { return serveSitemap_1.serveSitemap; } });
+var generateSitemap_1 = require("./generateSitemap");
+Object.defineProperty(exports, "generateSitemap", { enumerable: true, get: function () { return generateSitemap_1.generateSitemap; } });
+// Re-export Backup function
+var backupFirestore_1 = require("./backupFirestore");
+Object.defineProperty(exports, "backupFirestore", { enumerable: true, get: function () { return backupFirestore_1.backupFirestore; } });
 // Define the secret
 const googleAdsDeveloperToken = (0, params_1.defineSecret)("GOOGLE_ADS_DEVELOPER_TOKEN");
 /**

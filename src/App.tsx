@@ -8,6 +8,8 @@ import { GoogleAdsProvider } from './contexts/GoogleAdsContext';
 import { usePageTracking } from './hooks/usePageTracking';
 import { useUserTracking } from './hooks/useUserTracking';
 import HubSpotChat from './components/HubSpotChat';
+import CookieConsent from './components/CookieConsent';
+import InstallPWA from './components/InstallPWA';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import AppLayout from './layouts/AppLayout';
@@ -78,6 +80,8 @@ function App() {
               }}
             />
             <HubSpotChat />
+            <CookieConsent />
+            <InstallPWA />
             <AnalyticsTracker />
             <div className="App">
               <Routes>

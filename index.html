@@ -17,6 +17,26 @@
     })();
   </script>
 
+  <!-- Google Consent Mode v2 - MUST LOAD BEFORE GA4 -->
+  <script>
+    // Initialize Google Consent Mode v2 with defaults set to "denied"
+    // This MUST execute before gtag.js loads to enable Advanced Consent Mode
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+
+    // Set default consent to "denied" for all signals
+    // This ensures no cookies are set before user consent
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500 // Wait 500ms for consent banner to load
+    });
+
+    console.log('Google Consent Mode v2 initialized with defaults: denied');
+  </script>
+
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-E53HHVW9DH"></script>
   <script>
@@ -30,6 +50,7 @@
       cookie_flags: 'SameSite=None;Secure'
     });
   </script>
+
 
   <!-- Primary Meta Tags -->
   <title>Flipika - Votre Media Buyer IA pour Google Ads | Optimisation Automatique</title>
@@ -63,6 +84,14 @@
   <meta name="theme-color" content="#0066ff" />
   <meta name="msapplication-TileColor" content="#0066ff" />
   <link rel="canonical" href="https://flipika.com/" />
+
+  <!-- iOS PWA Support -->
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Flipika" />
+  <meta name="format-detection" content="telephone=no" />
 
 
 

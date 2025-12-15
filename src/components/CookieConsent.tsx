@@ -1,59 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import './CookieConsent.css';
+import { useEffect } from 'react';
+import * as CookieConsent from 'vanilla-cookieconsent';
+import { cookieConsentConfig } from '../config/consent-config';
+import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
-const CookieConsent: React.FC = () => {
-  const { t } = useTranslation();
-  const [isVisible, setIsVisible] = useState(false);
-
+/**
+ * CookieConsent Component
+ * Initializes and manages the cookie consent banner
+ * Implements Google Consent Mode v2 (Advanced Implementation)
+ */
+const CookieConsentComponent = () => {
   useEffect(() => {
-    // Vérifier si l'utilisateur a déjà donné son consentement
-    const hasConsented = localStorage.getItem('cookieConsent');
-    if (!hasConsented) {
-      setIsVisible(true);
-    }
+    // Initialize cookie consent
+    CookieConsent.run(cookieConsentConfig);
+
+    console.log('Cookie Consent initialized');
+
+    // Cleanup on unmount
+    return () => {
+      // Note: vanilla-cookieconsent doesn't provide a destroy method
+      // The library handles its own cleanup
+    };
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem('cookieConsent', 'accepted');
-    setIsVisible(false);
-  };
-
-  const handleDecline = () => {
-    localStorage.setItem('cookieConsent', 'declined');
-    setIsVisible(false);
-  };
-
-  if (!isVisible) {
-    return null;
-  }
-
-  return (
-    <div className="cookie-consent">
-      <div className="cookie-consent-content">
-        <div className="cookie-consent-text">
-          <h3>🍪 {t('common:cookieConsent.message')}</h3>
-          <p>
-            {t('common:cookieConsent.message')}
-          </p>
-        </div>
-        <div className="cookie-consent-actions">
-          <button 
-            className="cookie-btn cookie-btn-decline" 
-            onClick={handleDecline}
-          >
-            {t('common:cookieConsent.decline')}
-          </button>
-          <button 
-            className="cookie-btn cookie-btn-accept" 
-            onClick={handleAccept}
-          >
-            {t('common:cookieConsent.accept')}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+  // This component doesn't render anything
+  // The library manages its own DOM elements
+  return null;
 };
 
-export default CookieConsent;
+export default CookieConsentComponent;

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Zap, Moon, Sun } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
+import { Zap } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggle from './ThemeToggle';
 import '../components/Header.css'; // Reuse existing header styles
 
 const SimpleHeader = () => {
     const [scrolled, setScrolled] = useState(false);
-    const { t, i18n } = useTranslation();
-    const { theme, toggleTheme } = useTheme();
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     // Gestion du scroll pour l'effet de fond
@@ -19,11 +19,6 @@ const SimpleHeader = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const toggleLanguage = () => {
-        const newLang = i18n.language === 'fr' ? 'en' : 'fr';
-        i18n.changeLanguage(newLang);
-    };
 
     return (
         <header className={`header ${scrolled ? 'scrolled' : ''}`}>
@@ -44,20 +39,10 @@ const SimpleHeader = () => {
                 {/* Actions */}
                 <div className="header-actions">
                     {/* Language Switcher */}
-                    <button
-                        onClick={toggleLanguage}
-                        className="p-2 rounded-lg hover:bg-[var(--glass-bg-hover)] transition-colors text-sm font-medium"
-                    >
-                        {i18n.language === 'fr' ? 'EN' : 'FR'}
-                    </button>
+                    <LanguageSwitcher />
 
                     {/* Theme Toggle */}
-                    <button
-                        onClick={toggleTheme}
-                        className="p-2 rounded-lg hover:bg-[var(--glass-bg-hover)] transition-colors"
-                    >
-                        {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                    </button>
+                    <ThemeToggle />
 
                     {/* CTA */}
                     <button className="btn btn-primary btn-sm" onClick={() => navigate('/secret-login')}>

@@ -8,7 +8,8 @@
     "pricing": "Pricing",
     "testimonials": "Reviews",
     "contact": "Contact",
-    "problem": "Issues"
+    "problem": "Issues",
+    "login": "Login"
   },
   "hero": {
     "title": "Your Google Ads AI Copilot that boosts your performance",
@@ -506,5 +507,11 @@
         "email": "<strong>Email:</strong> legal@flipika.com"
       }
     }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Oops! The page you are looking for seems to have disappeared into cyberspace.",
+    "backButton": "Back",
+    "homeButton": "Home"
   }
 }
