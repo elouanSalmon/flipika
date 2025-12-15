@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { SafeHTML } from '../components/SafeHTML';
 import './LegalPages.css';
 
 const LegalNotices: React.FC = () => {
@@ -20,7 +21,7 @@ const LegalNotices: React.FC = () => {
             {t('common:legalNotices.backToHome')}
           </Link>
 
-          <motion.h1 
+          <motion.h1
             className="legal-title"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -29,7 +30,7 @@ const LegalNotices: React.FC = () => {
             {t('common:legalNotices.title')}
           </motion.h1>
 
-          <motion.div 
+          <motion.div
             className="legal-content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -37,59 +38,59 @@ const LegalNotices: React.FC = () => {
           >
             <section className="legal-section">
               <h2>{t('common:legalNotices.sections.generalInfo.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.generalInfo.content') }} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.generalInfo.content')} />
               <p>
-                <span dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.generalInfo.address') }} /><br/>
-                <span dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.generalInfo.phone') }} /><br/>
-                <span dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.generalInfo.email') }} /><br/>
-                <span dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.generalInfo.director') }} />
+                <SafeHTML tag="span" html={t('common:legalNotices.sections.generalInfo.address')} /><br />
+                <SafeHTML tag="span" html={t('common:legalNotices.sections.generalInfo.phone')} /><br />
+                <SafeHTML tag="span" html={t('common:legalNotices.sections.generalInfo.email')} /><br />
+                <SafeHTML tag="span" html={t('common:legalNotices.sections.generalInfo.director')} />
               </p>
             </section>
 
             <section className="legal-section">
               <h2>{t('common:legalNotices.sections.hosting.title')}</h2>
               <p>
-                <span dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.hosting.content') }} /><br/>
-                <span dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.hosting.address') }} /><br/>
-                <span dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.hosting.phone') }} />
+                <SafeHTML tag="span" html={t('common:legalNotices.sections.hosting.content')} /><br />
+                <SafeHTML tag="span" html={t('common:legalNotices.sections.hosting.address')} /><br />
+                <SafeHTML tag="span" html={t('common:legalNotices.sections.hosting.phone')} />
               </p>
             </section>
 
             <section className="legal-section">
               <h2>{t('common:legalNotices.sections.intellectualProperty.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.intellectualProperty.content1') }} />
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.intellectualProperty.content2') }} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.intellectualProperty.content1')} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.intellectualProperty.content2')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:legalNotices.sections.personalData.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.personalData.content1') }} />
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.personalData.content2') }} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.personalData.content1')} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.personalData.content2')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:legalNotices.sections.cookies.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.cookies.content') }} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.cookies.content')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:legalNotices.sections.liability.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.liability.content1') }} />
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.liability.content2') }} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.liability.content1')} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.liability.content2')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:legalNotices.sections.applicableLaw.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.applicableLaw.content') }} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.applicableLaw.content')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:legalNotices.sections.contact.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.sections.contact.content') }} />
+              <SafeHTML tag="p" html={t('common:legalNotices.sections.contact.content')} />
             </section>
 
             <div className="legal-update-info">
-              <p dangerouslySetInnerHTML={{ __html: t('common:legalNotices.lastUpdate') }} />
+              <SafeHTML tag="p" html={t('common:legalNotices.lastUpdate')} />
             </div>
           </motion.div>
         </motion.div>

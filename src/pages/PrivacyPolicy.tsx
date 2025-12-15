@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { SafeHTML } from '../components/SafeHTML';
 import './LegalPages.css';
 
 const PrivacyPolicy: React.FC = () => {
@@ -20,7 +21,7 @@ const PrivacyPolicy: React.FC = () => {
             {t('common:privacyPolicy.backToHome')}
           </Link>
 
-          <motion.h1 
+          <motion.h1
             className="legal-title"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -29,7 +30,7 @@ const PrivacyPolicy: React.FC = () => {
             {t('common:privacyPolicy.title')}
           </motion.h1>
 
-          <motion.div 
+          <motion.div
             className="legal-content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -37,16 +38,16 @@ const PrivacyPolicy: React.FC = () => {
           >
             <section className="legal-section">
               <h2>{t('common:privacyPolicy.sections.introduction.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.introduction.content') }} />
+              <SafeHTML tag="p" html={t('common:privacyPolicy.sections.introduction.content')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:privacyPolicy.sections.whoWeAre.title')}</h2>
               <p>
-                {t('common:privacyPolicy.sections.whoWeAre.content')}<br/>
-                {t('common:privacyPolicy.sections.whoWeAre.company')}<br/>
-                {t('common:privacyPolicy.sections.whoWeAre.address')}<br/>
-                {t('common:privacyPolicy.sections.whoWeAre.email')}<br/>
+                {t('common:privacyPolicy.sections.whoWeAre.content')}<br />
+                {t('common:privacyPolicy.sections.whoWeAre.company')}<br />
+                {t('common:privacyPolicy.sections.whoWeAre.address')}<br />
+                {t('common:privacyPolicy.sections.whoWeAre.email')}<br />
                 {t('common:privacyPolicy.sections.whoWeAre.siret')}
               </p>
             </section>
@@ -55,10 +56,10 @@ const PrivacyPolicy: React.FC = () => {
               <h2>{t('common:privacyPolicy.sections.dataCollected.title')}</h2>
               <p>{t('common:privacyPolicy.sections.dataCollected.content')}</p>
               <ul>
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataCollected.identificationData') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataCollected.connectionData') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataCollected.usageData') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataCollected.commercialData') }} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.dataCollected.identificationData')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.dataCollected.connectionData')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.dataCollected.usageData')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.dataCollected.commercialData')} />
               </ul>
             </section>
 
@@ -66,10 +67,10 @@ const PrivacyPolicy: React.FC = () => {
               <h2>{t('common:privacyPolicy.sections.legalBasis.title')}</h2>
               <p>{t('common:privacyPolicy.sections.legalBasis.content')}</p>
               <ul>
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.legalBasis.consent') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.legalBasis.contract') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.legalBasis.legitimateInterest') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.legalBasis.legalObligation') }} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.legalBasis.consent')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.legalBasis.contract')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.legalBasis.legitimateInterest')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.legalBasis.legalObligation')} />
               </ul>
             </section>
 
@@ -87,23 +88,23 @@ const PrivacyPolicy: React.FC = () => {
 
             <section className="legal-section">
               <h2>{t('common:privacyPolicy.sections.dataRetention.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataRetention.content') }} />
+              <SafeHTML tag="p" html={t('common:privacyPolicy.sections.dataRetention.content')} />
               <ul>
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataRetention.contactData') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataRetention.accountData') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataRetention.navigationData') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataRetention.billingData', { defaultValue: '' }) }} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.dataRetention.contactData')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.dataRetention.accountData')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.dataRetention.navigationData')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.dataRetention.billingData', { defaultValue: '' })} />
               </ul>
             </section>
 
             <section className="legal-section">
               <h2>{t('common:privacyPolicy.sections.dataSharing.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataSharing.content') }} />
+              <SafeHTML tag="p" html={t('common:privacyPolicy.sections.dataSharing.content')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:privacyPolicy.sections.dataSecurity.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.dataSecurity.content') }} />
+              <SafeHTML tag="p" html={t('common:privacyPolicy.sections.dataSecurity.content')} />
             </section>
 
             <section className="legal-section">
@@ -127,36 +128,36 @@ const PrivacyPolicy: React.FC = () => {
               <h2>{t('common:privacyPolicy.sections.cookies.title')}</h2>
               <p>{t('common:privacyPolicy.sections.cookies.content')}</p>
               <ul>
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.cookies.essentialCookies') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.cookies.preferenceCookies') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.cookies.analyticsCookies') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.cookies.marketingCookies') }} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.cookies.essentialCookies')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.cookies.preferenceCookies')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.cookies.analyticsCookies')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.cookies.marketingCookies')} />
               </ul>
-              <p dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.cookies.manage') }} />
+              <SafeHTML tag="p" html={t('common:privacyPolicy.sections.cookies.manage')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:privacyPolicy.sections.internationalTransfers.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.internationalTransfers.content') }} />
+              <SafeHTML tag="p" html={t('common:privacyPolicy.sections.internationalTransfers.content')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:privacyPolicy.sections.policyChanges.title')}</h2>
-              <p dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.policyChanges.content') }} />
+              <SafeHTML tag="p" html={t('common:privacyPolicy.sections.policyChanges.content')} />
             </section>
 
             <section className="legal-section">
               <h2>{t('common:privacyPolicy.sections.contact.title')}</h2>
               <p>{t('common:privacyPolicy.sections.contact.content')}</p>
               <ul>
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.contact.email') }} />
-                <li dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.contact.address') }} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.contact.email')} />
+                <SafeHTML tag="li" html={t('common:privacyPolicy.sections.contact.address')} />
               </ul>
-              <p dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.sections.contact.cnil') }} />
+              <SafeHTML tag="p" html={t('common:privacyPolicy.sections.contact.cnil')} />
             </section>
 
             <div className="legal-update-info">
-              <p dangerouslySetInnerHTML={{ __html: t('common:privacyPolicy.lastUpdate') }} />
+              <SafeHTML tag="p" html={t('common:privacyPolicy.lastUpdate')} />
             </div>
           </motion.div>
         </motion.div>

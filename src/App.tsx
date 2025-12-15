@@ -5,6 +5,9 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DemoModeProvider } from './contexts/DemoModeContext';
 import { GoogleAdsProvider } from './contexts/GoogleAdsContext';
+import { usePageTracking } from './hooks/usePageTracking';
+import { useUserTracking } from './hooks/useUserTracking';
+import HubSpotChat from './components/HubSpotChat';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import AppLayout from './layouts/AppLayout';
@@ -36,10 +39,19 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return children;
 };
 
+// Analytics tracking component
+const AnalyticsTracker = () => {
+  usePageTracking();
+  useUserTracking();
+  return null;
+};
+
+
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
+        <AnalyticsTracker />
         <GoogleAdsProvider>
           <DemoModeProvider>
             <Toaster
@@ -65,6 +77,8 @@ function App() {
                 },
               }}
             />
+            <HubSpotChat />
+            <AnalyticsTracker />
             <div className="App">
               <Routes>
                 {/* Public Landing Pages */}

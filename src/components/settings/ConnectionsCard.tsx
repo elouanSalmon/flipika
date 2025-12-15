@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 const ConnectionsCard = () => {
     const { isConnected, refreshConnectionStatus } = useGoogleAds();
-    const { currentUser, loginWithGoogle, logout } = useAuth();
+    const { currentUser, loginWithGoogle } = useAuth();
 
     const handleConnectGoogleAds = async () => {
         try {
@@ -25,16 +25,6 @@ const ConnectionsCard = () => {
         } catch (error) {
             console.error('Error connecting Google:', error);
             toast.error('Erreur lors de la connexion Google');
-        }
-    };
-
-    const handleDisconnectGoogle = async () => {
-        try {
-            await logout();
-            toast.success('Compte Google déconnecté');
-        } catch (error) {
-            console.error('Error disconnecting Google:', error);
-            toast.error('Erreur lors de la déconnexion');
         }
     };
 
@@ -66,34 +56,35 @@ const ConnectionsCard = () => {
                                 />
                             </svg>
                         </div>
-                        <div>
+                        <div className="flex-1">
                             <h3 className="font-semibold text-gray-900 dark:text-gray-100">Compte Google</h3>
                             <p className="text-sm text-gray-500 dark:text-gray-400">
                                 {currentUser ? currentUser.email : 'Non connecté'}
                             </p>
+                            {currentUser && (
+                                <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                                    Méthode d'authentification principale
+                                </p>
+                            )}
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${currentUser
-                            ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                            : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                            }`}>
-                            {currentUser ? 'Connecté' : 'Non connecté'}
-                        </span>
                         {currentUser ? (
-                            <button
-                                onClick={handleDisconnectGoogle}
-                                className="btn btn-ghost btn-sm"
-                            >
-                                Déconnecter
-                            </button>
+                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
+                                Connecté
+                            </span>
                         ) : (
-                            <button
-                                onClick={handleConnectGoogle}
-                                className="btn btn-primary btn-sm"
-                            >
-                                Connecter
-                            </button>
+                            <>
+                                <span className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
+                                    Non connecté
+                                </span>
+                                <button
+                                    onClick={handleConnectGoogle}
+                                    className="btn btn-primary btn-sm"
+                                >
+                                    Connecter
+                                </button>
+                            </>
                         )}
                     </div>
                 </div>

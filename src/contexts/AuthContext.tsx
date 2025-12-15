@@ -1,6 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../firebase/config';
-import { onAuthStateChanged, type User, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import {
+    onAuthStateChanged,
+    type User,
+    signOut,
+    GoogleAuthProvider,
+    signInWithPopup,
+    EmailAuthProvider,
+    linkWithCredential,
+    updatePassword,
+    reauthenticateWithCredential
+} from 'firebase/auth';
 
 interface AuthContextType {
     currentUser: User | null;
@@ -8,6 +18,9 @@ interface AuthContextType {
     loginWithGoogle: () => Promise<void>;
     linkGoogleAds: () => Promise<boolean>;
     logout: () => Promise<void>;
+    hasPasswordProvider: () => boolean;
+    createPassword: (password: string) => Promise<void>;
+    changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -82,12 +95,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         await signOut(auth);
     };
 
+    const hasPasswordProvider = (): boolean => {
+        if (!currentUser) return false;
+        return currentUser.providerData.some(provider => provider.providerId === 'password');
+    };
+
+    const createPassword = async (password: string): Promise<void> => {
+        if (!currentUser) {
+            throw new Error('User not authenticated');
+        }
+        if (!currentUser.email) {
+            throw new Error('User email not found');
+        }
+
+        const credential = EmailAuthProvider.credential(currentUser.email, password);
+        await linkWithCredential(currentUser, credential);
+    };
+
+    const changePassword = async (currentPassword: string, newPassword: string): Promise<void> => {
+        if (!currentUser) {
+            throw new Error('User not authenticated');
+        }
+        if (!currentUser.email) {
+            throw new Error('User email not found');
+        }
+
+        // Reauthenticate user before changing password
+        const credential = EmailAuthProvider.credential(currentUser.email, currentPassword);
+        await reauthenticateWithCredential(currentUser, credential);
+
+        // Update password
+        await updatePassword(currentUser, newPassword);
+    };
+
     const value = {
         currentUser,
         loading,
         loginWithGoogle,
         linkGoogleAds,
-        logout
+        logout,
+        hasPasswordProvider,
+        createPassword,
+        changePassword
     };
 
     return (

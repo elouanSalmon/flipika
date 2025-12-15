@@ -33,9 +33,9 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score, previousScore, breakdo
         <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-8">
             <h3 className="text-lg font-bold mb-6">Score de santé global</h3>
 
-            <div className="flex items-center justify-center mb-8">
+            <div className="flex items-center gap-8">
                 {/* Circular gauge */}
-                <div className="relative w-48 h-48">
+                <div className="relative w-48 h-48 flex-shrink-0">
                     <svg className="w-full h-full transform -rotate-90">
                         {/* Background circle */}
                         <circle
@@ -76,37 +76,37 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score, previousScore, breakdo
                         )}
                     </div>
                 </div>
-            </div>
 
-            {/* Category breakdown */}
-            <div className="space-y-3">
-                <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">Détail par catégorie</h4>
-                {Object.entries(breakdown).map(([key, value]) => {
-                    const labels: Record<string, string> = {
-                        structure: 'Structure',
-                        targeting: 'Ciblage',
-                        keywords: 'Mots-clés',
-                        ads: 'Annonces',
-                        budget: 'Budget',
-                        extensions: 'Extensions',
-                        landingPages: 'Pages de destination',
-                    };
+                {/* Category breakdown */}
+                <div className="flex-1 space-y-3">
+                    <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">Détail par catégorie</h4>
+                    {Object.entries(breakdown).map(([key, value]) => {
+                        const labels: Record<string, string> = {
+                            structure: 'Structure',
+                            targeting: 'Ciblage',
+                            keywords: 'Mots-clés',
+                            ads: 'Annonces',
+                            budget: 'Budget',
+                            extensions: 'Extensions',
+                            landingPages: 'Pages de destination',
+                        };
 
-                    return (
-                        <div key={key} className="flex items-center gap-3">
-                            <span className="text-sm font-medium w-32">{labels[key]}</span>
-                            <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div
-                                    className={`h-2 rounded-full bg-gradient-to-r ${getScoreBg(value)}`}
-                                    style={{ width: `${value}%` }}
-                                ></div>
+                        return (
+                            <div key={key} className="flex items-center gap-3">
+                                <span className="text-sm font-medium w-32">{labels[key]}</span>
+                                <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div
+                                        className={`h-2 rounded-full bg-gradient-to-r ${getScoreBg(value)}`}
+                                        style={{ width: `${value}%` }}
+                                    ></div>
+                                </div>
+                                <span className={`text-sm font-semibold w-12 text-right ${getScoreColor(value)}`}>
+                                    {value}
+                                </span>
                             </div>
-                            <span className={`text-sm font-semibold w-12 text-right ${getScoreColor(value)}`}>
-                                {value}
-                            </span>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

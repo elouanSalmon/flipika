@@ -6,8 +6,9 @@ import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const SecurityCard = () => {
-    const { logout } = useAuth();
+    const { logout, hasPasswordProvider, createPassword, changePassword } = useAuth();
     const navigate = useNavigate();
+    const hasPassword = hasPasswordProvider();
     const [showPasswordModal, setShowPasswordModal] = useState(false);
     const [showPassword, setShowPassword] = useState({ current: false, new: false, confirm: false });
     const [passwordForm, setPasswordForm] = useState({
@@ -26,7 +27,7 @@ const SecurityCard = () => {
         }
     };
 
-    const handleChangePassword = async () => {
+    const handlePasswordSubmit = async () => {
         if (passwordForm.new !== passwordForm.confirm) {
             toast.error('Les mots de passe ne correspondent pas');
             return;
@@ -36,13 +37,30 @@ const SecurityCard = () => {
             return;
         }
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            toast.success('Mot de passe modifié avec succès');
+            if (hasPassword) {
+                // Change existing password
+                if (!passwordForm.current) {
+                    toast.error('Veuillez entrer votre mot de passe actuel');
+                    return;
+                }
+                await changePassword(passwordForm.current, passwordForm.new);
+                toast.success('Mot de passe modifié avec succès');
+            } else {
+                // Create new password
+                await createPassword(passwordForm.new);
+                toast.success('Mot de passe créé avec succès');
+            }
             setShowPasswordModal(false);
             setPasswordForm({ current: '', new: '', confirm: '' });
-        } catch (error) {
-            console.error('Password change error:', error);
-            toast.error('Erreur lors du changement de mot de passe');
+        } catch (error: any) {
+            console.error('Password operation error:', error);
+            if (error.code === 'auth/wrong-password') {
+                toast.error('Mot de passe actuel incorrect');
+            } else if (error.code === 'auth/weak-password') {
+                toast.error('Le mot de passe est trop faible');
+            } else {
+                toast.error(hasPassword ? 'Erreur lors du changement de mot de passe' : 'Erreur lors de la création du mot de passe');
+            }
         }
     };
 
@@ -88,8 +106,12 @@ const SecurityCard = () => {
                                 <Lock size={18} className="text-blue-600 dark:text-blue-400" />
                             </div>
                             <div className="text-left">
-                                <p className="font-semibold text-gray-900 dark:text-gray-100">Changer le mot de passe</p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">Modifié il y a 30 jours</p>
+                                <p className="font-semibold text-gray-900 dark:text-gray-100">
+                                    {hasPassword ? 'Changer le mot de passe' : 'Créer un mot de passe'}
+                                </p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    {hasPassword ? 'Modifié il y a 30 jours' : 'Ajoutez une méthode d\'authentification alternative'}
+                                </p>
                             </div>
                         </div>
                         <ChevronRight size={20} className="text-blue-500/50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300" />
@@ -131,7 +153,9 @@ const SecurityCard = () => {
                             className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full shadow-2xl border border-blue-500/20 dark:border-blue-500/30"
                         >
                             <div className="flex items-center justify-between mb-6">
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Changer le mot de passe</h3>
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                                    {hasPassword ? 'Changer le mot de passe' : 'Créer un mot de passe'}
+                                </h3>
                                 <button
                                     onClick={() => setShowPasswordModal(false)}
                                     className="p-2 hover:bg-gray-100/50 dark:hover:bg-gray-700/50 rounded-lg transition-colors duration-200"
@@ -141,24 +165,26 @@ const SecurityCard = () => {
                             </div>
 
                             <div className="space-y-4">
-                                <div>
-                                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Mot de passe actuel</label>
-                                    <div className="relative">
-                                        <input
-                                            type={showPassword.current ? "text" : "password"}
-                                            value={passwordForm.current}
-                                            onChange={(e) => setPasswordForm({ ...passwordForm, current: e.target.value })}
-                                            className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-blue-500/30 dark:border-blue-500/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50"
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={() => setShowPassword({ ...showPassword, current: !showPassword.current })}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500/70 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-                                        >
-                                            {showPassword.current ? <EyeOff size={18} /> : <Eye size={18} />}
-                                        </button>
+                                {hasPassword && (
+                                    <div>
+                                        <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Mot de passe actuel</label>
+                                        <div className="relative">
+                                            <input
+                                                type={showPassword.current ? "text" : "password"}
+                                                value={passwordForm.current}
+                                                onChange={(e) => setPasswordForm({ ...passwordForm, current: e.target.value })}
+                                                className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-blue-500/30 dark:border-blue-500/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword({ ...showPassword, current: !showPassword.current })}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500/70 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                                            >
+                                                {showPassword.current ? <EyeOff size={18} /> : <Eye size={18} />}
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
 
                                 <div>
                                     <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Nouveau mot de passe</label>
@@ -228,12 +254,12 @@ const SecurityCard = () => {
                                     Annuler
                                 </motion.button>
                                 <motion.button
-                                    onClick={handleChangePassword}
+                                    onClick={handlePasswordSubmit}
                                     className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 active:scale-95 transition-all duration-200 font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
                                     whileHover={{ scale: 1.01 }}
                                     whileTap={{ scale: 0.98 }}
                                 >
-                                    Changer
+                                    {hasPassword ? 'Changer' : 'Créer'}
                                 </motion.button>
                             </div>
                         </motion.div>

@@ -236,41 +236,37 @@ const AuditPage = () => {
                     {/* Audit Results */}
                     {auditResult && (
                         <>
-                            {/* Health Score */}
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                                <div className="lg:col-span-1">
-                                    <HealthScore
-                                        score={auditResult.overallScore}
-                                        breakdown={{
-                                            structure: auditResult.categories.structure.score,
-                                            targeting: auditResult.categories.targeting.score,
-                                            keywords: auditResult.categories.keywords.score,
-                                            ads: auditResult.categories.ads.score,
-                                            budget: auditResult.categories.budget.score,
-                                            extensions: auditResult.categories.extensions.score,
-                                            landingPages: auditResult.categories.landingPages.score,
-                                        }}
-                                    />
-                                </div>
+                            {/* Health Score - Full Width */}
+                            <HealthScore
+                                score={auditResult.overallScore}
+                                breakdown={{
+                                    structure: auditResult.categories.structure.score,
+                                    targeting: auditResult.categories.targeting.score,
+                                    keywords: auditResult.categories.keywords.score,
+                                    ads: auditResult.categories.ads.score,
+                                    budget: auditResult.categories.budget.score,
+                                    extensions: auditResult.categories.extensions.score,
+                                    landingPages: auditResult.categories.landingPages.score,
+                                }}
+                            />
 
-                                {/* Quick stats */}
-                                <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Recommandations totales</p>
-                                        <p className="text-3xl font-bold">{auditResult.recommendations.length}</p>
-                                    </div>
-                                    <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Priorité urgente</p>
-                                        <p className="text-3xl font-bold text-red-600 dark:text-red-400">
-                                            {auditResult.recommendations.filter(r => r.priority === 'URGENT').length}
-                                        </p>
-                                    </div>
-                                    <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Impact élevé</p>
-                                        <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
-                                            {auditResult.recommendations.filter(r => r.impact === 'HIGH').length}
-                                        </p>
-                                    </div>
+                            {/* Quick stats */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Recommandations totales</p>
+                                    <p className="text-3xl font-bold">{auditResult.recommendations.length}</p>
+                                </div>
+                                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Priorité urgente</p>
+                                    <p className="text-3xl font-bold text-red-600 dark:text-red-400">
+                                        {auditResult.recommendations.filter(r => r.priority === 'URGENT').length}
+                                    </p>
+                                </div>
+                                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Impact élevé</p>
+                                    <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
+                                        {auditResult.recommendations.filter(r => r.impact === 'HIGH').length}
+                                    </p>
                                 </div>
                             </div>
 

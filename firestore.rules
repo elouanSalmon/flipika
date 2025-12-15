@@ -1,21 +1,122 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Default deny all
+    
+    // ========================================
+    // FONCTIONS HELPER DE VALIDATION
+    // ========================================
+    
+    // Vérifie qu'une chaîne est valide et dans les limites
+    function isValidString(str, minLen, maxLen) {
+      return str is string 
+        && str.size() >= minLen 
+        && str.size() <= maxLen;
+    }
+    
+    // Vérifie qu'un timestamp est récent (moins de 5 minutes)
+    function isRecentTimestamp(timestamp) {
+      return timestamp is timestamp 
+        && timestamp > request.time - duration.value(5, 'm');
+    }
+    
+    // Vérifie que l'utilisateur est authentifié
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Vérifie que l'utilisateur est propriétaire
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // ========================================
+    // RÈGLES PAR DÉFAUT : DENY ALL
+    // ========================================
     match /{document=**} {
       allow read, write: if false;
     }
     
-    // Users can read/write their own tokens
+    // ========================================
+    // TOKENS GOOGLE ADS (Refresh Tokens)
+    // ========================================
     match /users/{userId}/tokens/{tokenId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Lecture : uniquement le propriétaire
+      allow read: if isOwner(userId);
+      
+      // Écriture : uniquement le propriétaire + validation du schéma
+      allow write: if isOwner(userId) 
+        && request.resource.data.keys().hasAll(['refresh_token', 'scopes', 'created_at', 'updated_at'])
+        && isValidString(request.resource.data.refresh_token, 10, 500)
+        && request.resource.data.scopes is list
+        && request.resource.data.scopes.size() <= 10
+        && request.resource.data.created_at is timestamp
+        && request.resource.data.updated_at is timestamp;
     }
     
-    // OAuth states (temporary, for CSRF protection)
+    // ========================================
+    // OAUTH STATES (Protection CSRF)
+    // ========================================
     match /oauth_states/{stateId} {
-      // Only allow creation and deletion, not reading
-      allow create: if request.auth != null;
-      allow delete: if request.auth != null;
+      // Création : utilisateur authentifié + validation
+      allow create: if isAuthenticated()
+        && request.resource.data.keys().hasAll(['userId', 'createdAt', 'expiresAt'])
+        && request.resource.data.userId == request.auth.uid
+        && isValidString(stateId, 20, 50) // État aléatoire sécurisé
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.expiresAt is timestamp
+        && request.resource.data.expiresAt > request.time; // Expiration future
+      
+      // Suppression : uniquement le propriétaire OU expiration automatique
+      allow delete: if isAuthenticated() 
+        && (resource.data.userId == request.auth.uid 
+            || resource.data.expiresAt < request.time);
+      
+      // Pas de lecture pour renforcer la sécurité CSRF
+      allow read: if false;
+    }
+    
+    // ========================================
+    // PROFILS UTILISATEURS
+    // ========================================
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      
+      allow create: if isOwner(userId)
+        && request.resource.data.email is string
+        && request.resource.data.email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+      
+      allow update: if isOwner(userId);
+      
+      allow delete: if isOwner(userId);
+    }
+    
+    // ========================================
+    // DONNÉES GOOGLE ADS (Campagnes, Métriques)
+    // ========================================
+    match /users/{userId}/campaigns/{campaignId} {
+      allow read: if isOwner(userId);
+      
+      // Écriture uniquement via Cloud Functions (pas directement depuis le client)
+      allow write: if false;
+    }
+    
+    match /users/{userId}/reports/{reportId} {
+      allow read: if isOwner(userId);
+      
+      allow create, update: if isOwner(userId)
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 1
+        && request.resource.data.title.size() <= 200;
+      
+      allow delete: if isOwner(userId);
+    }
+    
+    // ========================================
+    // RATE LIMITS (pour Cloud Functions)
+    // ========================================
+    match /rate_limits/{limitId} {
+      // Seulement accessible par les Cloud Functions
+      allow read, write: if false;
     }
   }
 }
