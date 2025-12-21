@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
@@ -81,10 +83,18 @@ const ReportsPage = () => {
 
     const loadCampaigns = async (accountId: string) => {
         try {
+            console.log('Loading campaigns for account:', accountId);
             const data = await dataService.getCampaigns(accountId);
+            console.log('Campaigns loaded:', data);
             setCampaigns(data);
+            if (data.length === 0) {
+                toast.error('Aucune campagne trouvée pour ce compte');
+            } else {
+                toast.success(`${data.length} campagnes chargées`);
+            }
         } catch (error) {
             console.error('Error loading campaigns:', error);
+            toast.error('Erreur lors du chargement des campagnes');
         }
     };
 
@@ -185,97 +195,115 @@ const ReportsPage = () => {
     };
 
     const handleGenerateInitialReport = () => {
-        if (selectedCampaignIds.length === 0) {
-            alert('Veuillez sélectionner au moins une campagne');
-            return;
-        }
+        try {
+            console.log('Generating report...', { selectedAccountId, selectedCampaignIds, campaignsCount: campaigns.length });
 
-        const account = accounts.find(a => a.id === selectedAccountId);
-        const selectedCampaigns = campaigns.filter(c => selectedCampaignIds.includes(c.id));
-        const aggregatedMetrics = calculateAggregatedMetrics(selectedCampaigns);
+            if (selectedCampaignIds.length === 0) {
+                console.warn('No campaigns selected');
+                toast.error('Veuillez sélectionner au moins une campagne');
+                return;
+            }
 
-        const newSections: ReportSection[] = [];
-        let order = 0;
+            const account = accounts.find(a => a.id === selectedAccountId);
+            console.log('Selected account:', account);
 
-        // Cover page
-        newSections.push({
-            id: `section-cover-${Date.now()}`,
-            type: SectionType.COVER,
-            title: 'Page de couverture',
-            content: {
-                type: 'doc',
-                content: [
-                    {
-                        type: 'heading',
-                        attrs: { level: 1 },
-                        content: [{ type: 'text', text: reportTitle }]
-                    },
-                    {
-                        type: 'paragraph',
-                        content: [{ type: 'text', text: account?.name || '' }]
-                    },
-                    {
-                        type: 'paragraph',
-                        content: [{ type: 'text', text: new Date().toLocaleDateString('fr-FR') }]
-                    }
-                ]
-            },
-            order: order++,
-        });
+            const selectedCampaigns = campaigns.filter(c => selectedCampaignIds.includes(c.id));
+            console.log('Selected campaigns:', selectedCampaigns);
 
-        // Executive Summary
-        if (selectedModules.executiveSummary && account) {
+            const aggregatedMetrics = calculateAggregatedMetrics(selectedCampaigns);
+            console.log('Aggregated metrics:', aggregatedMetrics);
+
+            const newSections: ReportSection[] = [];
+            let order = 0;
+
+            // Cover page
             newSections.push({
-                id: `section-summary-${Date.now()}`,
-                type: SectionType.EXECUTIVE_SUMMARY,
-                title: 'Résumé Exécutif',
-                content: generateExecutiveSummary(
-                    aggregatedMetrics,
-                    account.name,
-                    new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-                    new Date()
-                ),
+                id: `section-cover-${Date.now()}`,
+                type: SectionType.COVER,
+                title: 'Page de couverture',
+                content: {
+                    type: 'doc',
+                    content: [
+                        {
+                            type: 'heading',
+                            attrs: { level: 1 },
+                            content: [{ type: 'text', text: reportTitle }]
+                        },
+                        {
+                            type: 'paragraph',
+                            content: [{ type: 'text', text: account?.name || '' }]
+                        },
+                        {
+                            type: 'paragraph',
+                            content: [{ type: 'text', text: new Date().toLocaleDateString('fr-FR') }]
+                        }
+                    ]
+                },
                 order: order++,
             });
-        }
 
-        // Metrics
-        if (selectedModules.metrics) {
-            newSections.push({
-                id: `section-metrics-${Date.now()}`,
-                type: SectionType.METRICS,
-                title: 'Métriques Globales',
-                content: generateMetricsSection(aggregatedMetrics),
-                order: order++,
-            });
-        }
+            // Executive Summary
+            if (selectedModules.executiveSummary && account) {
+                const now = new Date();
+                const periodStart = new Date(now.getFullYear(), now.getMonth(), 1); // Debut du mois
+                const periodEnd = now;
 
-        // Campaign Analysis
-        if (selectedModules.campaignAnalysis) {
-            newSections.push({
-                id: `section-analysis-${Date.now()}`,
-                type: SectionType.CAMPAIGN_ANALYSIS,
-                title: 'Analyse des Campagnes',
-                content: generateCampaignAnalysis(selectedCampaigns),
-                order: order++,
-            });
-        }
+                newSections.push({
+                    id: `section-summary-${Date.now()}`,
+                    type: SectionType.EXECUTIVE_SUMMARY,
+                    title: 'Résumé Exécutif',
+                    content: generateExecutiveSummary(
+                        aggregatedMetrics,
+                        account.name,
+                        periodStart,
+                        periodEnd
+                    ),
+                    order: order++,
+                });
+            }
 
-        // Recommendations
-        if (selectedModules.recommendations) {
-            newSections.push({
-                id: `section-recommendations-${Date.now()}`,
-                type: SectionType.RECOMMENDATIONS,
-                title: 'Recommandations',
-                content: generateRecommendations(selectedCampaigns, aggregatedMetrics),
-                order: order++,
-            });
-        }
+            // Metrics
+            if (selectedModules.metrics) {
+                newSections.push({
+                    id: `section-metrics-${Date.now()}`,
+                    type: SectionType.METRICS,
+                    title: 'Métriques Globales',
+                    content: generateMetricsSection(aggregatedMetrics),
+                    order: order++,
+                });
+            }
 
-        setSections(newSections);
-        setShowConfigModal(false);
-        setIsEditorMode(true);
-        setIsDirty(true);
+            // Campaign Analysis
+            if (selectedModules.campaignAnalysis) {
+                newSections.push({
+                    id: `section-analysis-${Date.now()}`,
+                    type: SectionType.CAMPAIGN_ANALYSIS,
+                    title: 'Analyse des Campagnes',
+                    content: generateCampaignAnalysis(selectedCampaigns),
+                    order: order++,
+                });
+            }
+
+            // Recommendations
+            if (selectedModules.recommendations) {
+                newSections.push({
+                    id: `section-recommendations-${Date.now()}`,
+                    type: SectionType.RECOMMENDATIONS,
+                    title: 'Recommandations',
+                    content: generateRecommendations(selectedCampaigns, aggregatedMetrics),
+                    order: order++,
+                });
+            }
+
+            setSections(newSections);
+            setShowConfigModal(false);
+            setIsEditorMode(true);
+            setIsDirty(true);
+            toast.success('Rapport généré avec succès');
+        } catch (error) {
+            console.error('Error generating report:', error);
+            toast.error('Erreur lors de la génération: ' + (error as Error).message);
+        }
     };
 
     const toggleCampaign = (campaignId: string) => {
@@ -365,7 +393,7 @@ const ReportsPage = () => {
     return (
         <div className="reports-page">
             {/* Configuration Modal */}
-            {showConfigModal && (
+            {showConfigModal && createPortal(
                 <div className="reports-config-modal-overlay">
                     <div className="reports-config-modal">
                         <div className="reports-config-header">
@@ -505,7 +533,8 @@ const ReportsPage = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
 
             {/* Header */}

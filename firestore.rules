@@ -14,9 +14,9 @@ service cloud.firestore {
     }
     
     // Vérifie qu'un timestamp est récent (moins de 5 minutes)
-    function isRecentTimestamp(timestamp) {
-      return timestamp is timestamp 
-        && timestamp > request.time - duration.value(5, 'm');
+    function isRecentTimestamp(ts) {
+      return ts is timestamp 
+        && ts > request.time - duration.value(5, 'm');
     }
     
     // Vérifie que l'utilisateur est authentifié
@@ -97,6 +97,12 @@ service cloud.firestore {
       allow read: if isOwner(userId);
       
       // Écriture uniquement via Cloud Functions (pas directement depuis le client)
+      // Écriture uniquement via Cloud Functions (pas directement depuis le client)
+      allow write: if false;
+    }
+    
+    match /users/{userId}/google_ads_accounts/{accountId} {
+      allow read: if isOwner(userId);
       allow write: if false;
     }
     

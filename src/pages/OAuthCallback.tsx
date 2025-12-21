@@ -14,21 +14,8 @@ const OAuthCallback = () => {
     const uid = searchParams.get('uid');
 
     useEffect(() => {
-        // If OAuth was successful, mark it in localStorage
-        // The actual customer ID will be fetched later from backend
-        if (oauth === 'success' && uid) {
-            // Set a temporary flag to indicate connection success
-            localStorage.setItem('google_ads_connected', 'true');
-
-            // Trigger a storage event for other tabs/windows
-            window.dispatchEvent(new StorageEvent('storage', {
-                key: 'google_ads_connected',
-                newValue: 'true',
-                url: window.location.href
-            }));
-        }
-
         // Auto-redirect after 2 seconds
+        // The GoogleAdsContext will automatically detect the connection via Firestore
         const timer = setTimeout(() => {
             navigate('/app/reports');
         }, 2000);

@@ -8,6 +8,7 @@ const rateLimiter_1 = require("./rateLimiter");
 const validators_1 = require("./validators");
 // CORS configuration - restrict to allowed origins
 const allowedOrigins = [
+    'https://flipika.com',
     'https://flipika.web.app',
     'https://flipika.firebaseapp.com',
     'http://localhost:5173', // Dev only
@@ -40,11 +41,14 @@ const getOAuth2Client = async () => {
     // Get env vars at runtime
     const clientId = getEnvVar('GOOGLE_ADS_CLIENT_ID');
     const clientSecret = getEnvVar('GOOGLE_ADS_CLIENT_SECRET');
-    const appUrl = process.env.APP_URL || 'https://flipika.web.app';
     if (!clientId || !clientSecret) {
         throw new Error("Missing Google Ads credentials");
     }
-    return new google.auth.OAuth2(clientId, clientSecret, `${appUrl}/oauth/callback`);
+    // Temporarily using flipika.com URL while Google propagates the Cloud Function URL
+    // TODO: Switch back to direct Cloud Function URL once Google OAuth propagates:
+    // const callbackUrl = 'https://handleoauthcallback-o3qo2yyzia-uc.a.run.app';
+    const callbackUrl = 'https://flipika.com/oauth/callback';
+    return new google.auth.OAuth2(clientId, clientSecret, callbackUrl);
 };
 // Generate a random state for CSRF protection
 const generateState = () => {
@@ -122,7 +126,7 @@ exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async
     // Handle OAuth errors
     if (error) {
         console.error("OAuth error:", error);
-        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?error=oauth_failed`);
+        res.redirect(`${process.env.APP_URL || 'https://flipika.com'}/app/reports?error=oauth_failed`);
         return;
     }
     // Validate inputs
@@ -183,12 +187,12 @@ exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async
         await stateDoc.ref.delete();
         console.log("State cleaned up, redirecting...");
         // Redirect back to app with UID for debugging
-        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?oauth=success&uid=${userId}`);
+        res.redirect(`${process.env.APP_URL || 'https://flipika.com'}/app/reports?oauth=success&uid=${userId}`);
     }
     catch (error) {
         console.error("OAuth callback error for userId:", userId, "error:", error);
         // Don't expose error details in URL
-        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?error=oauth_failed`);
+        res.redirect(`${process.env.APP_URL || 'https://flipika.com'}/app/reports?error=oauth_failed`);
     }
 });
 //# sourceMappingURL=oauth.js.map

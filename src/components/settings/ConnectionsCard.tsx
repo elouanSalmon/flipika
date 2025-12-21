@@ -1,11 +1,29 @@
+import { useState, useEffect } from 'react';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { initiateGoogleAdsOAuth } from '../../services/googleAds';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 
 const ConnectionsCard = () => {
-    const { isConnected, refreshConnectionStatus } = useGoogleAds();
+    const { isConnected, refreshConnectionStatus, disconnect, customerId, setLinkedCustomerId } = useGoogleAds();
     const { currentUser, loginWithGoogle } = useAuth();
+    const [accounts, setAccounts] = useState<any[]>([]);
+
+    useEffect(() => {
+        const loadAccounts = async () => {
+            if (isConnected) {
+                try {
+                    const module = await import('../../services/dataService');
+                    const dataService = module.default;
+                    const fetchedAccounts = await dataService.getAccounts();
+                    setAccounts(fetchedAccounts);
+                } catch (error) {
+                    console.error('Failed to load accounts:', error);
+                }
+            }
+        };
+        loadAccounts();
+    }, [isConnected]);
 
     const handleConnectGoogleAds = async () => {
         try {
@@ -89,48 +107,86 @@ const ConnectionsCard = () => {
                     </div>
                 </div>
 
-                {/* Google Ads */}
-                <div className="flex items-center justify-between p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/30">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center border-2 border-gray-200 dark:border-gray-600">
-                            <img src="/google-ads.svg" alt="Google Ads" className="w-7 h-7" />
+                <div className="flex flex-col gap-4 p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/30">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center border-2 border-gray-200 dark:border-gray-600">
+                                <img src="/google-ads.svg" alt="Google Ads" className="w-7 h-7" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-gray-900 dark:text-gray-100">Google Ads</h3>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    Connectez votre compte publicitaire
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 className="font-semibold text-gray-900 dark:text-gray-100">Google Ads</h3>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
-                                Connectez votre compte publicitaire
-                            </p>
+                        <div className="flex items-center gap-3">
+                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${isConnected
+                                ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+                                }`}>
+                                {isConnected ? 'Connecté' : 'Non connecté'}
+                            </span>
+                            {isConnected ? (
+                                <button
+                                    onClick={async () => {
+                                        if (confirm('Voulez-vous vraiment déconnecter votre compte Google Ads ?')) {
+                                            try {
+                                                await disconnect();
+                                                toast.success('Compte Google Ads déconnecté');
+                                            } catch (error) {
+                                                console.error('Error disconnecting:', error);
+                                                toast.error('Erreur lors de la déconnexion');
+                                            }
+                                        }
+                                    }}
+                                    className="btn btn-ghost btn-sm"
+                                >
+                                    Déconnecter
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={handleConnectGoogleAds}
+                                    className="btn btn-primary btn-sm"
+                                >
+                                    Connecter
+                                </button>
+                            )}
                         </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${isConnected
-                            ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                            : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-                            }`}>
-                            {isConnected ? 'Connecté' : 'Non connecté'}
-                        </span>
-                        {isConnected ? (
-                            <button
-                                onClick={() => {
-                                    if (confirm('Voulez-vous vraiment déconnecter votre compte Google Ads ?')) {
-                                        localStorage.removeItem('googleAdsConnected');
-                                        localStorage.removeItem('linkedCustomerId');
-                                        refreshConnectionStatus();
-                                        toast.success('Compte Google Ads déconnecté');
+
+                    <div className="mt-4 border-t border-gray-200 dark:border-gray-600 pt-4">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Compte par défaut
+                        </label>
+                        <div className="relative">
+                            <select
+                                value={customerId || ''}
+                                onChange={(e) => {
+                                    const newValue = e.target.value;
+                                    setLinkedCustomerId(newValue || null);
+                                    if (newValue) {
+                                        toast.success('Compte par défaut mis à jour');
                                     }
                                 }}
-                                className="btn btn-ghost btn-sm"
+                                className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer"
                             >
-                                Déconnecter
-                            </button>
-                        ) : (
-                            <button
-                                onClick={handleConnectGoogleAds}
-                                className="btn btn-primary btn-sm"
-                            >
-                                Connecter
-                            </button>
-                        )}
+                                <option value="">-- Sélectionner un compte --</option>
+                                {accounts.map((account) => (
+                                    <option key={account.id} value={account.id}>
+                                        {account.name} ({account.id})
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-500 dark:text-gray-400">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                            Ce compte sera utilisé par défaut dans le tableau de bord.
+                        </p>
                     </div>
                 </div>
             </div>

@@ -148,7 +148,7 @@ exports.getAccessibleCustomers = (0, https_1.onRequest)({
             }
             const tokenData = tokenDoc.data();
             const refreshToken = tokenData.refresh_token;
-            // 3. Initialize Google Ads Client
+            // 3. Initialize Google Ads Client (now using v21+ which supports Node.js 22)
             const { GoogleAdsApi } = await Promise.resolve().then(() => require("google-ads-api"));
             const client = new GoogleAdsApi({
                 client_id: process.env.GOOGLE_ADS_CLIENT_ID,
@@ -157,9 +157,61 @@ exports.getAccessibleCustomers = (0, https_1.onRequest)({
             });
             // 4. List accessible customers
             const response = await client.listAccessibleCustomers(refreshToken);
+            const resourceNames = response.resource_names || [];
+            const accounts = [];
+            const batch = admin.firestore().batch();
+            // Process concurrent requests
+            await Promise.all(resourceNames.slice(0, 20).map(async (resourceName) => {
+                try {
+                    const customerId = resourceName.split('/')[1];
+                    const customerClient = client.Customer({
+                        customer_id: customerId,
+                        refresh_token: refreshToken,
+                    });
+                    // Query details
+                    const query = `
+            SELECT 
+              customer.id, 
+              customer.descriptive_name, 
+              customer.currency_code, 
+              customer.time_zone 
+            FROM customer 
+            LIMIT 1
+          `;
+                    const rows = await customerClient.query(query);
+                    if (rows.length > 0 && rows[0].customer) {
+                        const info = rows[0].customer;
+                        const accountData = {
+                            id: info.id.toString(),
+                            name: info.descriptive_name || `Account ${info.id}`,
+                            currency: info.currency_code,
+                            timezone: info.time_zone,
+                            status: 'active',
+                            lastSync: admin.firestore.FieldValue.serverTimestamp()
+                        };
+                        accounts.push(accountData);
+                        // Cache in Firestore
+                        const docRef = admin.firestore()
+                            .collection('users')
+                            .doc(userId)
+                            .collection('google_ads_accounts')
+                            .doc(accountData.id);
+                        batch.set(docRef, accountData, { merge: true });
+                    }
+                }
+                catch (err) {
+                    console.warn(`Error fetching details for ${resourceName}:`, err);
+                }
+            }));
+            // Commit cache
+            if (accounts.length > 0) {
+                await batch.commit();
+            }
+            // Sort by name
+            accounts.sort((a, b) => a.name.localeCompare(b.name));
             res.status(200).json({
                 success: true,
-                customers: response.resource_names || []
+                customers: accounts
             });
         }
         catch (error) {

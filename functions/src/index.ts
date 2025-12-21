@@ -94,7 +94,9 @@ export const listCampaigns = onRequest({
           metrics.impressions,
           metrics.clicks,
           metrics.ctr,
-          metrics.average_cpc
+          metrics.average_cpc,
+          metrics.conversions,
+          metrics.conversions_value
         FROM campaign 
         WHERE campaign.status != 'REMOVED'
         ORDER BY campaign.name
@@ -105,16 +107,22 @@ export const listCampaigns = onRequest({
 
       const formattedCampaigns = campaigns.map((row: any) => ({
         id: row.campaign.id?.toString() || '',
+        customerId: customerId, // Inject customerId for frontend mapping
         name: row.campaign.name || 'Unnamed Campaign',
         status: row.campaign.status || 'UNKNOWN',
         type: row.campaign.advertising_channel_type || 'UNKNOWN',
         startDate: row.campaign.start_date || null,
         endDate: row.campaign.end_date || null,
-        cost: (row.metrics?.cost_micros || 0) / 1000000,
-        impressions: row.metrics?.impressions || 0,
-        clicks: row.metrics?.clicks || 0,
-        ctr: row.metrics?.ctr || 0,
-        averageCpc: (row.metrics?.average_cpc || 0) / 1000000
+        // Nest metrics to match liveDataService expectations
+        metrics: {
+          cost_micros: row.metrics?.cost_micros || 0,
+          impressions: row.metrics?.impressions || 0,
+          clicks: row.metrics?.clicks || 0,
+          ctr: row.metrics?.ctr || 0,
+          average_cpc: row.metrics?.average_cpc || 0,
+          conversions: row.metrics?.conversions || 0,
+          conversions_value: row.metrics?.conversions_value || 0
+        }
       }));
 
       res.status(200).json({
@@ -165,7 +173,7 @@ export const getAccessibleCustomers = onRequest({
       const tokenData = tokenDoc.data()!;
       const refreshToken = tokenData.refresh_token;
 
-      // 3. Initialize Google Ads Client
+      // 3. Initialize Google Ads Client (now using v21+ which supports Node.js 22)
       const { GoogleAdsApi } = await import("google-ads-api");
       const client = new GoogleAdsApi({
         client_id: process.env.GOOGLE_ADS_CLIENT_ID!,
@@ -175,10 +183,71 @@ export const getAccessibleCustomers = onRequest({
 
       // 4. List accessible customers
       const response = await client.listAccessibleCustomers(refreshToken);
+      const resourceNames = response.resource_names || [];
+
+      const accounts: any[] = [];
+      const batch = admin.firestore().batch();
+
+      // Process concurrent requests
+      await Promise.all(resourceNames.slice(0, 20).map(async (resourceName: string) => {
+        try {
+          const customerId = resourceName.split('/')[1];
+          const customerClient = client.Customer({
+            customer_id: customerId,
+            refresh_token: refreshToken,
+          });
+
+          // Query details
+          const query = `
+            SELECT 
+              customer.id, 
+              customer.descriptive_name, 
+              customer.currency_code, 
+              customer.time_zone 
+            FROM customer 
+            LIMIT 1
+          `;
+
+          const rows = await customerClient.query(query);
+
+          if (rows.length > 0 && rows[0].customer) {
+            const info = rows[0].customer;
+            const accountData = {
+              id: info.id!.toString(),
+              name: info.descriptive_name || `Account ${info.id}`,
+              currency: info.currency_code,
+              timezone: info.time_zone,
+              status: 'active',
+              lastSync: admin.firestore.FieldValue.serverTimestamp()
+            };
+
+            accounts.push(accountData);
+
+            // Cache in Firestore
+            const docRef = admin.firestore()
+              .collection('users')
+              .doc(userId)
+              .collection('google_ads_accounts')
+              .doc(accountData.id);
+
+            batch.set(docRef, accountData, { merge: true });
+          }
+        } catch (err) {
+          console.warn(`Error fetching details for ${resourceName}:`, err);
+        }
+      }));
+
+      // Commit cache
+      if (accounts.length > 0) {
+        await batch.commit();
+      }
+
+      // Sort by name
+      accounts.sort((a, b) => a.name.localeCompare(b.name));
 
       res.status(200).json({
         success: true,
-        customers: response.resource_names || []
+        customers: accounts
       });
 
     } catch (error: any) {

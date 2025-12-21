@@ -20,6 +20,37 @@ class LiveDataService {
      */
     async getAccounts(): Promise<Account[]> {
         try {
+            const { currentUser } = await import('../firebase/config').then(m => ({ currentUser: m.auth.currentUser }));
+
+            if (currentUser) {
+                // 1. Try to get accounts from Firestore cache first
+                const { getDocs, collection } = await import('firebase/firestore');
+                const { db } = await import('../firebase/config');
+
+                const accountsRef = collection(db, 'users', currentUser.uid, 'google_ads_accounts');
+                const snapshot = await getDocs(accountsRef);
+
+                if (!snapshot.empty) {
+                    console.log('Found accounts in Firestore cache');
+                    return snapshot.docs.map(doc => {
+                        const data = doc.data();
+                        return {
+                            id: data.id,
+                            name: data.name,
+                            status: 'active',
+                            currency: data.currency || 'EUR',
+                            timezone: data.timezone || 'Europe/Paris',
+                            currentSpend: 0,
+                            campaignCount: 0,
+                            performanceScore: 0,
+                            createdAt: new Date(),
+                            lastSync: data.lastSync?.toDate() || new Date(),
+                        };
+                    });
+                }
+            }
+
+            // 2. If no cache, fetch from API (which will also cache for next time)
             const response = await fetchAccessibleCustomers();
 
             if (!response.success || !response.customers) {
@@ -30,10 +61,10 @@ class LiveDataService {
             // Transform Google Ads customers to Account type
             const accounts: Account[] = response.customers.map((customer: any) => ({
                 id: customer.id,
-                name: customer.descriptiveName || customer.id,
+                name: customer.name || customer.descriptiveName || customer.id,
                 status: 'active' as const,
-                currency: 'EUR' as const, // Default, should come from API
-                timezone: 'Europe/Paris', // Default, should come from API
+                currency: customer.currency || 'EUR',
+                timezone: customer.timezone || 'Europe/Paris',
                 currentSpend: 0, // Will be calculated from campaigns
                 campaignCount: 0, // Will be calculated from campaigns
                 performanceScore: 0, // Will be calculated
@@ -72,16 +103,17 @@ class LiveDataService {
      */
     async getCampaigns(accountId: string): Promise<Campaign[]> {
         try {
-            const response = await fetchCampaigns();
+            const response = await fetchCampaigns(accountId);
 
             if (!response.success || !response.campaigns) {
                 console.error('Failed to fetch campaigns:', response.error);
                 return [];
             }
 
-            // Filter campaigns for this account and transform to Campaign type
+            console.log(`Fetched ${response.campaigns.length} campaigns for account ${accountId}`);
+
+            // Transform to Campaign type (Cloud function already filters by customerId)
             const campaigns: Campaign[] = response.campaigns
-                .filter((c: any) => c.customer === accountId || c.customerId === accountId)
                 .map((c: any) => this.transformCampaign(c, accountId));
 
             return campaigns;

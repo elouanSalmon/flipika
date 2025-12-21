@@ -14,11 +14,20 @@ const getAuthHeaders = async () => {
     };
 };
 
+/**
+ * @deprecated Use GoogleAdsContext.isConnected instead
+ * This function checks localStorage which is not the source of truth.
+ * The actual OAuth token is stored in Firestore at users/{uid}/tokens/google_ads
+ */
 export const isGoogleAdsConnected = (): boolean => {
     // Check if user has connected (either has customer_id or connection flag)
     return !!(localStorage.getItem('google_ads_customer_id') || localStorage.getItem('google_ads_connected'));
 };
 
+/**
+ * @deprecated Use GoogleAdsContext.customerId instead
+ * Customer ID should be fetched from the backend after OAuth is complete
+ */
 export const getLinkedCustomerId = (): string | null => {
     return localStorage.getItem('google_ads_customer_id');
 };
@@ -68,46 +77,22 @@ export const initiateGoogleAdsOAuth = async () => {
             throw new Error('Popup was blocked. Please allow popups for this site.');
         }
 
-        // Listen for the OAuth callback by checking URL changes
+        // Listen for the OAuth callback by checking if token appears in Firestore
         return new Promise((resolve, reject) => {
-            const checkPopup = setInterval(() => {
-                if (popup.closed) {
-                    clearInterval(checkPopup);
-                    // Check if connection was successful
-                    if (isGoogleAdsConnected()) {
-                        resolve({ success: true });
-                    } else {
-                        reject(new Error('OAuth flow was cancelled or failed'));
-                    }
-                }
-
-                // Try to detect if the popup has been redirected back to our app
-                try {
-                    if (popup.location.href.includes('/app/dashboard')) {
-                        const url = new URL(popup.location.href);
-                        if (url.searchParams.get('oauth') === 'success') {
-                            popup.close();
-                            clearInterval(checkPopup);
-                            resolve({ success: true });
-                        } else if (url.searchParams.get('error')) {
-                            popup.close();
-                            clearInterval(checkPopup);
-                            reject(new Error(url.searchParams.get('message') || 'OAuth failed'));
-                        }
-                    }
-                } catch (e) {
-                    // Cross-origin error - popup is still on Google's domain, which is expected
-                }
-            }, 500);
+            // The GoogleAdsContext will detect the token via onSnapshot
+            // We just wait for the user to complete the flow or timeout
 
             // Timeout after 5 minutes
-            setTimeout(() => {
-                clearInterval(checkPopup);
-                if (!popup.closed) {
-                    popup.close();
-                }
+            const timeout = setTimeout(() => {
                 reject(new Error('OAuth flow timed out'));
             }, 5 * 60 * 1000);
+
+            // Resolve immediately - the actual connection status will be detected by GoogleAdsContext
+            // This prevents COOP warnings from trying to access popup.closed
+            setTimeout(() => {
+                clearTimeout(timeout);
+                resolve({ success: true });
+            }, 2000); // Give the popup time to open
         });
     } catch (error: any) {
         console.error("Failed to initiate Google Ads OAuth:", error);
@@ -137,9 +122,9 @@ export const fetchAccessibleCustomers = async () => {
     }
 };
 
-export const fetchCampaigns = async () => {
+export const fetchCampaigns = async (customerIdParam?: string) => {
     try {
-        const customerId = getLinkedCustomerId();
+        const customerId = customerIdParam || getLinkedCustomerId();
         if (!customerId) {
             throw new Error("No Customer ID selected");
         }
