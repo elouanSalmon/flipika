@@ -7,8 +7,7 @@
     "features": "Fonctionnalités",
     "pricing": "Tarifs",
     "testimonials": "Avis",
-    "contact": "Contact",
-    "problem": "Problèmes"
+    "contact": "Contact"
   },
   "hero": {
     "title": "Des rapports Google Ads automatiques que vos clients comprennent",
@@ -52,53 +51,33 @@
       "getStarted": "Commencer"
     },
     "createCampaigns": {
-      "title": "Architecture modulaire par Widgets",
-      "subtitle": "Construisez vos rapports sur mesure",
-      "description": "Votre rapport est une collection de widgets personnalisables. Graphiques, tableaux, textes : assemblez-les par simple glisser-déposer.",
+      "title": "Un rapport prêt en quelques minutes",
+      "subtitle": "De la donnée brute au discours client",
+      "description": "Flipika transforme automatiquement vos données Google Ads en un rapport structuré et lisible.",
       "benefits": [
-        "Widgets modulaires et réutilisables",
-        "Drag & Drop pour personnaliser",
-        "Templates prêts à l'emploi"
+        "Connexion directe à Google Ads",
+        "Analyse automatique des performances",
+        "Rapport client prêt à envoyer"
       ]
     },
     "autoOptimize": {
-      "title": "Narrative Layer : Commentaires contextuels",
-      "subtitle": "Les chiffres avec du sens",
-      "description": "Ajoutez vos analyses et explications directement dans le rapport. C'est votre expertise qui apporte la vraie valeur au client.",
+      "title": "Moins de reporting, plus de stratégie",
+      "subtitle": "Concentrez-vous sur l’essentiel",
+      "description": "Passez moins de temps à justifier vos résultats et plus de temps à améliorer vos campagnes.",
       "benefits": [
-        "Éditeur de texte riche intégré",
-        "Expliquez les variations",
-        "Apportez votre valeur humaine"
+        "Moins de tâches répétitives",
+        "Plus de temps pour vos clients",
+        "Meilleure image professionnelle"
       ]
     },
     "actionableInsights": {
-      "title": "Automatisation et Scheduling",
-      "subtitle": "Envoi automatique programmé",
-      "description": "Programmez l'envoi de vos rapports : tous les lundis à 9h, chaque fin de mois... Vos clients reçoivent leurs rapports sans que vous leviez le petit doigt.",
+      "title": "Rapports clairs et actionnables",
+      "subtitle": "Chaque chiffre a une explication",
+      "description": "Flipika met en avant les informations importantes et élimine le bruit inutile.",
       "benefits": [
-        "Envoi automatique par email",
-        "Planning personnalisable",
-        "Gain de temps maximal"
-      ]
-    },
-    "whiteLabelPortal": {
-      "title": "Portail White-Label interactif",
-      "subtitle": "Liens de consultation live",
-      "description": "Au lieu d'un PDF statique, envoyez un lien personnalisé. Vos clients interagissent avec les graphiques et vous savez s'ils ont consulté le rapport.",
-      "benefits": [
-        "Graphiques interactifs",
-        "Tracking de consultation",
-        "Votre marque en avant"
-      ]
-    },
-    "dataSnapshots": {
-      "title": "Snapshots de données figées",
-      "subtitle": "Vos rapports restent immuables",
-      "description": "Les données sont \"gelées\" à la finalisation du rapport. Le rapport de janvier restera identique, même consulté en décembre.",
-      "benefits": [
-        "Données figées dans le temps",
-        "Rapports historiques fiables",
-        "Aucune modification rétroactive"
+        "Insights clés",
+        "Explications automatiques",
+        "Recommandations lisibles"
       ]
     }
   },
@@ -125,22 +104,7 @@
       "title": "IA au service du reporting",
       "subtitle": "Pas au centre",
       "description": "L’IA détecte les variations et structure le discours client."
-    },
-    "comparison": {
-      "title": "Flipika vs Solutions Traditionnelles",
-      "subtitle": "Comparaison honnête de ce qui nous rend uniques",
-      "featureHeader": "Fonctionnalité",
-      "flipikaHeader": "Flipika",
-      "othersHeader": "Autres outils",
-      "campaignManagement": "Rapports automatisés",
-      "realTimeOptimization": "Widgets personnalisables",
-      "directGoogleAds": "Connexion directe Google Ads",
-      "specializedAI": "IA spécialisée reporting",
-      "continuousLearning": "Snapshots de données",
-      "genericText": "Templates génériques"
-    },
-    "cta": "Prêt à transformer votre reporting ?",
-    "ctaSubtitle": "Rejoignez les Media Buyers qui gagnent du temps avec Flipika."
+    }
   },
   "testimonials": {
     "title": "Adopté par des Media Buyers",
@@ -184,6 +148,10 @@
       "freeBeta": "Accès bêta gratuit",
       "prioritySupport": "Support prioritaire",
       "influence": "Accès aux nouvelles fonctionnalités"
+    }
+  }
+}
+
     },
     "trust": {
       "activeBeta": "utilisateurs actifs",

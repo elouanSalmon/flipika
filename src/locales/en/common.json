@@ -1,188 +1,189 @@
 {
   "header": {
-    "tagline": "Google Ads AI",
-    "getStarted": "Get Started",
+    "tagline": "Google Ads Reports",
+    "getStarted": "See an example",
     "language": "Language",
     "home": "Home",
     "features": "Features",
     "pricing": "Pricing",
     "testimonials": "Reviews",
     "contact": "Contact",
-    "problem": "Issues",
-    "login": "Login"
+    "problem": "Issues"
   },
   "hero": {
-    "title": "Your Google Ads AI Copilot that boosts your performance",
-    "subtitle": "Analysis, optimizations, and automated client reports",
-    "description": "Your AI copilot monitors your campaigns 24/7, identifies performance opportunities, and automatically optimizes your results. Focus on strategy, it handles execution.",
-    "getStarted": "Try the Copilot",
+    "title": "Automatic Google Ads reports your clients actually understand",
+    "subtitle": "Save hours every month on client reporting",
+    "description": "Flipika automatically generates clear, explained, and ready-to-send Google Ads reports. No more exporting, formatting, or justifying every number.",
+    "getStarted": "See a report example",
     "noCreditCard": "No credit card required",
-    "cta": "Try the Copilot",
+    "cta": "Access the beta",
     "ctaSecondary": "See how it works"
   },
   "problem": {
-    "title": "Your performance stagnates, your costs increase",
-    "subtitle": "Manual performance analysis takes too much time",
-    "description": "Between keyword analysis, ad group optimization, and bid monitoring, you spend hours on repetitive tasks. Your campaigns lose performance while you analyze data.",
+    "title": "Google Ads reporting wastes your time",
+    "subtitle": "Hours spent on low-value tasks",
+    "description": "Between exports, dashboards, and explaining performance, client reporting becomes a recurring chore.",
     "issues": {
-      "timeManagement": "You spend hours managing Google Ads accounts",
-      "budgetWaste": "with dozens of dashboards to follow.",
-      "inconsistentCampaigns": "Your campaigns are hard to track",
-      "difficultToScale": "and optimize for scale.",
-      "expensiveAgency": "Client reports take long to create",
-      "costlyAndTime": "and waste your time in campaign management."
+      "timeManagement": "Hours lost every week",
+      "budgetWaste": "Dashboards clients don't understand",
+      "inconsistentCampaigns": "Numbers hard to explain",
+      "difficultToScale": "Reporting that prevents scaling",
+      "expensiveAgency": "Time-consuming reports",
+      "costlyAndTime": "Stress before every client call"
     }
   },
   "features": {
-    "title": "Your Google Ads AI Copilot",
-    "subtitle": "Optimize your ROAS, boost your CTR, reduce your costs",
+    "title": "Google Ads reporting, finally simple",
+    "subtitle": "Automatic, clear, and business-oriented",
     "aiGeneration": {
-      "title": "Automatic Quality Audit",
-      "description": "Your copilot scans your quality scores, identifies relevance issues, and suggests optimizations to improve your results."
+      "title": "Automatic client reports",
+      "description": "Generate complete Google Ads reports with key KPIs, variations, and ready-to-send explanations."
     },
     "analytics": {
-      "title": "Real-time Bid Optimization",
-      "description": "Automatic adjustment of max CPC based on your target CPAs, competition, and conversion opportunities."
+      "title": "Explained performance",
+      "description": "Flipika explains CPA, ROAS, and conversion variations with language your clients understand."
     },
     "optimization": {
-      "title": "AI-Optimized Creatives",
-      "description": "Generation of new ad variations based on your best historical CTR and conversion rates."
+      "title": "Actionable insights",
+      "description": "Highlight what worked, what underperformed, and next actions to take."
     },
     "buttons": {
       "learnMore": "Learn More",
       "getStarted": "Get Started"
     },
     "createCampaigns": {
-      "title": "Complete Audit and Campaign Creation",
-      "subtitle": "Identify issues and create campaigns in 2 minutes",
-      "description": "Complete scan of your Google Ads accounts with precise recommendations: keywords, ads, landing pages.",
+      "title": "Modular Widget Architecture",
+      "subtitle": "Build custom reports",
+      "description": "Your report is a collection of customizable widgets. Charts, tables, text: assemble them with simple drag & drop.",
       "benefits": [
-        "Campaign Scan",
-        "Automatically Identified Issues",
-        "1-Click New Campaign Creation"
+        "Modular and reusable widgets",
+        "Drag & Drop to customize",
+        "Ready-to-use templates"
       ]
     },
     "autoOptimize": {
-      "title": "Continuous Auto-Optimization",
-      "subtitle": "Bids, Budgets & Keywords",
-      "description": "Your AI copilot adjusts your campaigns to maximize account performance.",
+      "title": "Narrative Layer: Contextual Comments",
+      "subtitle": "Numbers with meaning",
+      "description": "Add your analysis and explanations directly in the report. Your expertise brings the real value to the client.",
       "benefits": [
-        "Real-time Optimized Bids and Keywords",
-        "Smart Budget Allocation",
-        "Improved ROAS"
+        "Integrated rich text editor",
+        "Explain variations",
+        "Bring your human value"
       ]
     },
     "actionableInsights": {
-      "title": "Performance Reports",
-      "subtitle": "Actionable Recommendations Daily",
-      "description": "Receive alerts on performance variations, new negative keywords, and budget opportunities.",
+      "title": "Automation and Scheduling",
+      "subtitle": "Scheduled automatic sending",
+      "description": "Schedule your report sending: every Monday at 9am, end of each month... Your clients receive their reports without you lifting a finger.",
       "benefits": [
-        "Smart Alerts",
-        "Automatic Client Reports",
-        "Identified Opportunities"
+        "Automatic email sending",
+        "Customizable schedule",
+        "Maximum time savings"
+      ]
+    },
+    "whiteLabelPortal": {
+      "title": "Interactive White-Label Portal",
+      "subtitle": "Live consultation links",
+      "description": "Instead of a static PDF, send a personalized link. Your clients interact with charts and you know if they viewed the report.",
+      "benefits": [
+        "Interactive charts",
+        "View tracking",
+        "Your brand front and center"
+      ]
+    },
+    "dataSnapshots": {
+      "title": "Frozen Data Snapshots",
+      "subtitle": "Your reports remain immutable",
+      "description": "Data is \"frozen\" when the report is finalized. January's report will stay identical, even when viewed in December.",
+      "benefits": [
+        "Time-frozen data",
+        "Reliable historical reports",
+        "No retroactive changes"
       ]
     }
   },
   "differentiation": {
-    "title": "Why Media Buyers Choose Flipika",
-    "subtitle": "Tools designed for your daily workflow",
-    "description": "Every feature is designed to simplify your media buyer work",
+    "title": "Why Media Buyers use Flipika",
+    "subtitle": "Built for Google Ads client reporting",
+    "description": "Flipika simplifies your reporting workflow without replacing your expertise.",
     "notCopywritingTool": {
-      "title": "Not just an AI copywriting tool",
-      "subtitle": "A real media buyer copilot",
-      "description": "Flipika doesn't just write text. It analyzes, optimizes, and manages your campaigns like an expert assistant."
+      "title": "Not another dashboard",
+      "subtitle": "A real client reporting tool",
+      "description": "Flipika transforms your Google Ads data into understandable and actionable reports."
     },
     "designedForMediaBuyers": {
       "title": "Designed for Media Buyers",
-      "subtitle": "And only for them",
-      "description": "Every feature is designed to maximize your ROAS."
+      "subtitle": "Freelancers and agencies",
+      "description": "Every feature is designed to save time on reporting."
     },
     "usesRealData": {
-      "title": "Uses YOUR real Google Ads data",
-      "subtitle": "Via the secure Google Ads API",
-      "description": "Flipika connects directly to your account for optimizations based on your metrics."
+      "title": "Real Google Ads data",
+      "subtitle": "Secure API connection",
+      "description": "Your reports are generated from your actual data."
     },
     "learnsAndImproves": {
-      "title": "Learns and improves with every campaign",
-      "subtitle": "Evolving AI",
-      "description": "The more you use Flipika, the better it understands your business and optimizes according to your goals."
+      "title": "AI for reporting",
+      "subtitle": "Not at the center",
+      "description": "AI detects variations and structures client communication."
     },
     "comparison": {
       "title": "Flipika vs Traditional Solutions",
       "subtitle": "Honest comparison of what makes us unique",
       "featureHeader": "Feature",
       "flipikaHeader": "Flipika",
-      "othersHeader": "Other AI Tools",
-      "campaignManagement": "Complete Campaign Management",
-      "realTimeOptimization": "Real-time Optimization",
-      "directGoogleAds": "Direct Google Ads Connection",
-      "specializedAI": "Performance Marketing Specialized AI",
-      "continuousLearning": "Continuous Learning",
-      "genericText": "Generic Text Generation",
-      "traditional": {
-        "title": "Traditional Agencies",
-        "cons": [
-          "€2000+ monthly fees",
-          "Slow communication",
-          "Generic strategies",
-          "Hidden markups"
-        ]
-      },
-      "flipika": {
-        "title": "Flipika AI",
-        "pros": [
-          "€99-299 per month",
-          "24/7 Optimization",
-          "Personalized AI",
-          "Transparent pricing"
-        ]
-      }
+      "othersHeader": "Other tools",
+      "campaignManagement": "Automated reports",
+      "realTimeOptimization": "Customizable widgets",
+      "directGoogleAds": "Direct Google Ads connection",
+      "specializedAI": "Specialized reporting AI",
+      "continuousLearning": "Data snapshots",
+      "genericText": "Generic templates"
     },
-    "cta": "Ready to Transform Your Campaigns?",
-    "ctaSubtitle": "Join thousands of media buyers optimizing with Flipika today."
+    "cta": "Ready to transform your reporting?",
+    "ctaSubtitle": "Join Media Buyers saving time with Flipika."
   },
   "testimonials": {
-    "title": "Concrete Results",
-    "subtitle": "Boosted performance thanks to their AI copilot",
-    "cta": "Join High-Performing Businesses",
-    "ctaSubtitle": "Start your free trial today",
+    "title": "Adopted by Media Buyers",
+    "subtitle": "Less reporting, more client value",
+    "cta": "Join the beta",
+    "ctaSubtitle": "Free early access",
     "betaUser": "Beta User",
     "stats": {
       "earlyAdopters": "Early adopters",
-      "averageRoas": "Average ROI",
-      "budgetOptimized": "Optimized Budget",
-      "satisfaction": "Client Satisfaction"
+      "averageRoas": "Time saved",
+      "budgetOptimized": "Reports generated",
+      "satisfaction": "Client satisfaction"
     },
     "reviews": {
       "pierre": {
         "name": "Pierre M.",
         "role": "Freelance Media Buyer",
         "company": "Manages 12 client accounts",
-        "content": "My cost per acquisition decreased by 35% in 3 months. The copilot automatically optimizes my bids and I can finally focus on strategy.",
-        "metric": "Costs -35%"
+        "content": "I was spending several hours a week on reporting. With Flipika, my Google Ads reports are automatically generated and my clients finally understand the performance.",
+        "metric": "4h saved / week"
       },
       "julien": {
         "name": "Julien R.",
         "role": "Traffic Manager",
         "company": "Media Buying Agency",
-        "content": "My return on investment increased by 68% on my e-commerce campaigns. The copilot identifies opportunities I was missing before.",
-        "metric": "ROAS +68%"
+        "content": "Reporting was a real bottleneck for the agency. Flipika allows us to send clear, structured, and ready-to-send reports without wasting time on formatting.",
+        "metric": "Reporting time cut in half"
       }
     }
   },
   "emailCapture": {
-    "title": "Ready to boost your Google Ads performance?",
-    "subtitle": "Get early access to the free private beta",
+    "title": "Tired of wasting time on your Google Ads reporting?",
+    "subtitle": "Access the private beta and generate your reports automatically",
     "emailPlaceholder": "Enter your work email",
-    "submitButton": "Try my AI copilot",
-    "successMessage": "Welcome! Your copilot awaits you in your inbox.",
+    "submitButton": "Access the beta",
+    "successMessage": "Welcome! Your access is coming by email.",
     "errorEmailRequired": "Please enter your email",
     "errorEmailInvalid": "Please enter a valid email",
     "errorGeneric": "An error occurred. Please try again.",
     "benefits": {
-      "freeBeta": "Free 14-day copilot access",
-      "prioritySupport": "1-on-1 support with the team",
-      "influence": "Priority access to new features"
+      "freeBeta": "Free beta access",
+      "prioritySupport": "Priority support",
+      "influence": "Access to new features"
     },
     "trust": {
       "activeBeta": "active users",
@@ -195,323 +196,5 @@
     "legal": "Legal Notices",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service"
-  },
-  "cookieConsent": {
-    "message": "We use cookies to improve your experience. By continuing to use our site, you agree to our use of cookies.",
-    "accept": "Accept",
-    "decline": "Decline",
-    "learnMore": "Learn More"
-  },
-  "legalNotices": {
-    "title": "Legal Notices",
-    "backToHome": "Back to Home",
-    "sections": {
-      "generalInfo": {
-        "title": "1. General Information",
-        "content": "This site is published by <strong>DISCO</strong>, a simplified joint-stock company (SAS) with a capital of 1000 euros, registered with the Paris RCS under number 927 707 836.",
-        "address": "<strong>Headquarters:</strong> DISCO, 1 rue de Stockholm, 75008 Paris, France",
-        "phone": "<strong>Phone:</strong> 06 76 06 19 02",
-        "email": "<strong>Email:</strong> helloflipika@gmail.com",
-        "director": "<strong>Publication Director:</strong> Mathis Colas"
-      },
-      "hosting": {
-        "title": "2. Hosting",
-        "content": "The site is hosted by <strong>Google Cloud Platform</strong>",
-        "address": "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.",
-        "phone": "<strong>Phone:</strong> +353 1 436 1000"
-      },
-      "intellectualProperty": {
-        "title": "3. Intellectual Property",
-        "content1": "All site content (texts, images, videos, logos, trademarks, etc.) is protected by French and international intellectual property laws.",
-        "content2": "Any reproduction, representation, modification, adaptation, or exploitation, even partial, of this content is strictly prohibited without prior written authorization from Flipika."
-      },
-      "personalData": {
-        "title": "4. Personal Data",
-        "content1": "Personal data collected on the site is used solely within the scope of services provided by Flipika, in accordance with our privacy policy.",
-        "content2": "In accordance with GDPR, you have the right to access, rectify, delete, restrict, port, and object to your personal data."
-      },
-      "cookies": {
-        "title": "5. Cookies",
-        "content": "The site uses cookies to improve user experience. By browsing the site, you accept the use of these cookies. You can configure your preferences at any time."
-      },
-      "liability": {
-        "title": "6. Limitation of Liability",
-        "content1": "Flipika strives to provide information as accurate as possible on the site but cannot be held responsible for any errors, omissions, or inaccuracies.",
-        "content2": "The site user acknowledges having verified the compatibility of their equipment with the site and that their technical capabilities allow for error-free access and use of the site and its services."
-      },
-      "applicableLaw": {
-        "title": "7. Applicable Law and Jurisdiction",
-        "content": "These legal notices are subject to French law. In case of dispute, an amicable solution will be sought. Failing that, the Paris courts will have sole jurisdiction."
-      },
-      "contact": {
-        "title": "8. Contact",
-        "content": "For any questions regarding these legal notices or the site in general, you can contact us at: <strong>flipika@gmail.com</strong>"
-      }
-    },
-    "lastUpdate": "<strong>Last updated:</strong> November 15, 2025"
-  },
-  "privacyPolicy": {
-    "title": "Privacy Policy",
-    "backToHome": "Back to Home",
-    "lastUpdate": "<strong>Last updated:</strong> November 15, 2025",
-    "sections": {
-      "introduction": {
-        "title": "1. Introduction",
-        "content": "At DISCO (operating as Flipika), protecting your personal data is our priority. This privacy policy explains how we collect, use, store, and protect your personal information in accordance with the General Data Protection Regulation (GDPR) and the Data Protection Act."
-      },
-      "whoWeAre": {
-        "title": "2. Who we are",
-        "content": "The controller of your personal data is:",
-        "company": "<strong>DISCO SAS</strong>",
-        "address": "Headquarters: DISCO, 1 rue de Stockholm, 75008 Paris, France",
-        "email": "Email: flipika@gmail.com",
-        "siret": "SIRET: 927 707 836 00015"
-      },
-      "dataCollected": {
-        "title": "3. Collected Data",
-        "content": "We collect the following data:",
-        "identificationData": "Identification information: name, first name, email",
-        "connectionData": "Connection data: IP address, browser type",
-        "usageData": "Usage data: pages visited, time spent on site",
-        "commercialData": "Advertising data: connected Google Ads accounts",
-        "list": [
-          "Identification information: name, first name, email",
-          "Professional information: company, position",
-          "Connection data: IP address, browser type",
-          "Usage data: pages visited, time spent on site",
-          "Advertising data: connected Google Ads accounts"
-        ]
-      },
-      "legalBasis": {
-        "title": "4. Legal Basis for Processing",
-        "content": "We process your data on the following legal bases:",
-        "consent": "Consent: for sending newsletters and marketing communications",
-        "contract": "Contract: to provide our services and manage your account",
-        "legitimateInterest": "Legitimate interest: to improve our services and prevent fraud",
-        "legalObligation": "Legal obligation: to comply with our accounting and tax obligations",
-        "list": [
-          "Consent: for sending newsletters and marketing communications",
-          "Contract: to provide our services and manage your account",
-          "Legitimate interest: to improve our services and prevent fraud",
-          "Legal obligation: to comply with our accounting and tax obligations"
-        ]
-      },
-      "dataUsage": {
-        "title": "5. Data Usage",
-        "content": "Your data is used to:",
-        "provideServices": "Provide and improve our services",
-        "contact": "Personalize your user experience",
-        "marketing": "Send you marketing communications (with your consent)",
-        "analytics": "Analyze usage of our service",
-        "legal": "Comply with our legal obligations",
-        "list": [
-          "Provide and improve our services",
-          "Personalize your user experience",
-          "Send you marketing communications (with your consent)",
-          "Analyze usage of our service",
-          "Detect and prevent fraud",
-          "Comply with our legal obligations"
-        ]
-      },
-      "dataRetention": {
-        "title": "6. Data Retention",
-        "content": "We retain your data for:",
-        "contactData": "Contact data: 3 years after last contact",
-        "accountData": "Account data: duration of your subscription + 3 years",
-        "navigationData": "Navigation data: 1 year",
-        "billingData": "Billing data: 10 years (legal obligation)",
-        "list": [
-          "Account data: duration of your subscription + 3 years",
-          "Billing data: 10 years (legal obligation)",
-          "Marketing data: until unsubscribe + 3 years",
-          "Connection data: 1 year",
-          "Support data: 3 years after ticket resolution"
-        ]
-      },
-      "dataSharing": {
-        "title": "7. Data Sharing",
-        "content": "We only share your data with:",
-        "list": [
-          "Google Ads (via their APIs, only with your consent)",
-          "Technical service providers (hosting, email)",
-          "Legal authorities (upon legal request)",
-          "Business partners (with your explicit consent)"
-        ]
-      },
-      "dataSecurity": {
-        "title": "8. Data Security",
-        "content": "We implement the following security measures:",
-        "list": [
-          "Data encryption in transit and at rest",
-          "Two-factor authentication for administrator access",
-          "Regular data backups",
-          "Strict access controls",
-          "Regular security audit",
-          "Staff security training"
-        ]
-      },
-      "yourRights": {
-        "title": "9. Your Rights",
-        "content": "In accordance with GDPR, you have the following rights:",
-        "list": [
-          "Right of access: consult your personal data",
-          "Right to rectification: correct inaccurate data",
-          "Right to erasure: request deletion of your data",
-          "Right to data portability: receive your data in a readable format",
-          "Right to object: object to the processing of your data",
-          "Right to restriction: limit the processing of your data",
-          "Right not to be profiled: not be subject to automated decision making"
-        ],
-        "exercise": "To exercise these rights, contact us at: flipika@gmail.com"
-      },
-      "cookies": {
-        "title": "10. Cookies and Similar Technologies",
-        "content": "We use cookies to:",
-        "essentialCookies": "Essential functionalities (login, preferences)",
-        "preferenceCookies": "User preferences (language, theme)",
-        "analyticsCookies": "Usage analytics (Google Analytics)",
-        "marketingCookies": "Personalized advertising (with consent)",
-        "list": [
-          "Essential functionalities (login, preferences)",
-          "Usage analytics (Google Analytics)",
-          "Personalized advertising (with consent)",
-          "Site performance"
-        ],
-        "consent": "You can manage your cookie preferences at any time via our preference center.",
-        "manage": "You can manage your cookie preferences at any time via our preference center."
-      },
-      "internationalTransfers": {
-        "title": "11. International Transfers",
-        "content": "Your data may be transferred to countries outside the EU. In this case, we guarantee:",
-        "list": [
-          "Standard contractual clauses approved by the European Commission",
-          "Appropriate safeguards to protect your data",
-          "Enhanced security measures"
-        ]
-      },
-      "policyChanges": {
-        "title": "12. Policy Changes",
-        "content": "We reserve the right to modify this policy at any time. Changes will be:",
-        "list": [
-          "Communicated by email to registered users",
-          "Published on this page with the update date",
-          "Effective 30 days after publication"
-        ]
-      },
-      "contact": {
-        "title": "13. Contact",
-        "content": "For any questions regarding this privacy policy:",
-        "email": "<strong>Email:</strong> flipika@gmail.com",
-        "address": "<strong>Postal Address:</strong> DISCO - Privacy, 1 rue de Stockholm, 75008 Paris",
-        "cnil": "You also have the right to file a complaint with the CNIL: <a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener noreferrer\"> www.cnil.fr</a>"
-      }
-    }
-  },
-  "termsOfService": {
-    "title": "Terms of Service",
-    "backToHome": "Back to Home",
-    "lastUpdate": "<strong>Last updated:</strong> January 1, 2024",
-    "sections": {
-      "acceptance": {
-        "title": "1. Acceptance of Terms",
-        "content": "By accessing and using the Flipika website (hereinafter \"the Service\"), you agree to be bound by these Terms of Service. If you do not accept these terms, please do not use our Service."
-      },
-      "serviceDescription": {
-        "title": "2. Service Description",
-        "content1": "Flipika provides a platform for automation and optimization of Google Ads campaigns using artificial intelligence. The Service includes access to our platform, analytics tools, and AI-generated recommendations.",
-        "content2": "The Service is provided \"as is\" and may be modified, suspended, or discontinued at any time without notice."
-      },
-      "accessConditions": {
-        "title": "3. Access Conditions",
-        "content": "Using the Service requires creating a user account. You agree to:",
-        "list": [
-          "Provide accurate, complete, and up-to-date information during registration",
-          "Maintain the confidentiality of your connection credentials",
-          "Be responsible for all activities performed under your account",
-          "Immediately inform us of any unauthorized use of your account"
-        ]
-      },
-      "authorizedUse": {
-        "title": "4. Authorized Use",
-        "content": "You agree to use the Service only for lawful purposes and in accordance with these terms. It is prohibited to:",
-        "list": [
-          "Use the Service in a way that violates applicable laws",
-          "Transmit viruses, malware, or any malicious code",
-          "Attempt to access unauthorized areas of the Service",
-          "Use robots, spiders, or other automated means without authorization",
-          "Collect personal data of other users without consent",
-          "Use the Service for spam or unsolicited communications",
-          "Display, copy, or download unauthorized portions of the Service",
-          "Circumvent or disable Service security measures"
-        ]
-      },
-      "intellectualProperty": {
-        "title": "5. Intellectual Property",
-        "content1": "The Service and its original content (except user-generated content), functionalities, and features are and will remain the exclusive property of Flipika and its licensors.",
-        "content2": "The Service is protected by copyright, trademarks, and other laws. No part of the Service may be copied, modified, distributed, sold, or exploited without our prior written consent."
-      },
-      "userData": {
-        "title": "6. User Data",
-        "content1": "You retain ownership of any content you submit, post, or display via the Service. By submitting this content, you grant Flipika a worldwide, non-exclusive, transferable, sub-licensable, royalty-free license to use, copy, modify, distribute, and display this content within the scope of the Service.",
-        "content2": "You represent and warrant that: (i) you own the rights to the content or have the right to publish it, and (ii) the content does not violate the rights of third parties or applicable laws."
-      },
-      "googleAdsAccounts": {
-        "title": "7. Google Ads Accounts",
-        "content": "When you connect your Google Ads accounts to Flipika, you authorize our platform to:",
-        "list": [
-          "Access your advertising campaign data",
-          "Generate recommendations and optimizations based on your data",
-          "Apply optimizations to your campaigns with your consent"
-        ]
-      },
-      "pricingBilling": {
-        "title": "8. Pricing and Billing",
-        "content1": "The pricing terms of the Service are described on our website and may be modified at any time. Any change will be communicated before taking effect.",
-        "content2": "Invoices are payable upon receipt. In case of non-payment, Flipika reserves the right to suspend access to the Service until regularization."
-      },
-      "termination": {
-        "title": "9. Termination",
-        "content1": "We may suspend or terminate access to the Service immediately, without notice or liability, for any reason, including for violation of the Terms.",
-        "content2": "You may terminate your use of the Service at any time by closing your account or contacting support."
-      },
-      "liability": {
-        "title": "10. Limitation of Liability",
-        "content1": "Flipika shall not be held liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or other intangible losses, resulting from your use or inability to use the Service.",
-        "content2": "We strive to maintain a high level of availability, but we do not guarantee uninterrupted or error-free access to the Service."
-      },
-      "warrantyDisclaimer": {
-        "title": "11. Warranty Disclaimer",
-        "content1": "The Service is provided \"AS IS\" and \"AS AVAILABLE\" without warranty of any kind. Flipika expressly disclaims all warranties, express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.",
-        "content2": "Flipika does not guarantee that: (i) the Service will be uninterrupted, secure, or error-free, (ii) the results obtained from the use of the Service will be accurate or reliable, (iii) the quality of products, services, information, or other materials purchased or obtained by you will meet your expectations."
-      },
-      "changes": {
-        "title": "12. Changes to Terms",
-        "content": "We reserve the right to modify these Terms of Service at any time. Modifications will be published on this page with the update date."
-      },
-      "serviceChanges": {
-        "title": "13. Modifications to the Service",
-        "content": "Flipika reserves the right to modify or discontinue, temporarily or permanently, the Service or any part thereof with or without notice. Flipika will not be liable to you or any third party for any modification, suspension, or discontinuation of the Service."
-      },
-      "applicableLaw": {
-        "title": "14. Applicable Law",
-        "content": "These Terms are governed by French law. In case of dispute, an amicable solution will be sought. Failing that, the Paris courts will be competent."
-      },
-      "generalProvisions": {
-        "title": "15. General Provisions",
-        "content1": "These Terms constitute the entire agreement between you and Flipika regarding the Service and supersede all prior or contemporaneous agreements, written or oral.",
-        "content2": "If any provision of these Terms is found to be invalid or unenforceable, the other provisions will remain in effect. The fact that Flipika does not exercise or enforce a right or provision does not constitute a waiver."
-      },
-      "contact": {
-        "title": "16. Contact",
-        "content": "For any questions regarding these Terms of Service, you can contact us at:",
-        "email": "<strong>Email:</strong> legal@flipika.com"
-      }
-    }
-  },
-  "notFound": {
-    "title": "Page Not Found",
-    "description": "Oops! The page you are looking for seems to have disappeared into cyberspace.",
-    "backButton": "Back",
-    "homeButton": "Home"
   }
 }

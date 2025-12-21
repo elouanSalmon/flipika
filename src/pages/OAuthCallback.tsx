@@ -30,7 +30,7 @@ const OAuthCallback = () => {
 
         // Auto-redirect after 2 seconds
         const timer = setTimeout(() => {
-            navigate('/app/dashboard');
+            navigate('/app/reports');
         }, 2000);
 
         return () => clearTimeout(timer);
@@ -51,7 +51,7 @@ const OAuthCallback = () => {
                             {message || 'Failed to connect your Google Ads account'}
                         </p>
                         <p className="text-sm text-[var(--color-text-muted)]">
-                            Redirecting to dashboard...
+                            Redirecting to reports...
                         </p>
                     </div>
                 </div>
@@ -74,7 +74,7 @@ const OAuthCallback = () => {
                             Your Google Ads account has been connected
                         </p>
                         <p className="text-sm text-[var(--color-text-muted)]">
-                            Redirecting to dashboard...
+                            Redirecting to reports...
                         </p>
                     </div>
                 </div>

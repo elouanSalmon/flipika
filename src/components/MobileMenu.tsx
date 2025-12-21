@@ -15,6 +15,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { useDemoMode } from '../contexts/DemoModeContext';
 import { useTheme } from '../hooks/useTheme';
+import { useFeatureFlags } from '../contexts/FeatureFlagsContext';
 import './MobileMenu.css';
 
 interface MobileMenuProps {
@@ -28,6 +29,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     const { logout } = useAuth();
     const { theme, toggleTheme } = useTheme();
     const { isDemoMode } = useDemoMode();
+    const { enableDashboard, enableAudit, enableReports } = useFeatureFlags();
 
     const isActive = (path: string) => location.pathname === path;
 
@@ -45,12 +47,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         onClose();
     };
 
+    // Filter navigation items based on feature flags
     const navItems = [
-        { path: '/app/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-        { path: '/app/audit', label: 'Audit', icon: TrendingUp },
-        { path: '/app/reports', label: 'Rapports', icon: FileText },
+        enableDashboard && { path: '/app/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+        enableAudit && { path: '/app/audit', label: 'Audit', icon: TrendingUp },
+        enableReports && { path: '/app/reports', label: 'Rapports', icon: FileText },
         { path: '/app/settings', label: 'Paramètres', icon: Settings },
-    ];
+    ].filter(Boolean) as Array<{ path: string; label: string; icon: typeof LayoutDashboard }>;
+
 
     return (
         <AnimatePresence>

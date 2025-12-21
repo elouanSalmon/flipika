@@ -6,7 +6,7 @@ import './Hero.css';
 
 const Hero: React.FC = () => {
   const { t } = useTranslation();
-  
+
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
     if (emailSection) {
@@ -36,9 +36,9 @@ const Hero: React.FC = () => {
 
 
   const stats = [
-    { icon: TrendingUp, value: '300%', label: 'ROI Moyen', color: 'primary' },
-    { icon: Target, value: '85%', label: 'Précision IA', color: 'accent' },
-    { icon: Zap, value: '24/7', label: 'Optimisation', color: 'secondary' }
+    { icon: TrendingUp, value: '4h', label: 'Gagnées / semaine', color: 'primary' },
+    { icon: Target, value: '100+', label: 'Rapports générés', color: 'accent' },
+    { icon: Zap, value: '2 min', label: 'Création rapport', color: 'secondary' }
   ];
 
   return (
@@ -79,7 +79,7 @@ const Hero: React.FC = () => {
               <span>{t('common:hero.cta')}</span>
               <ArrowRight size={20} />
             </motion.button>
-            
+
             <motion.button
               className="btn btn-secondary cta-secondary"
               onClick={scrollToEmailForm}
@@ -127,22 +127,22 @@ const Hero: React.FC = () => {
                 <span></span>
                 <span></span>
               </div>
-              <div className="mockup-title">Flipika Dashboard</div>
+              <div className="mockup-title">Rapport Client - Janvier 2024</div>
             </div>
-            
+
             <div className="mockup-content">
               <div className="metric-card glass">
-                <div className="metric-label">ROI Total</div>
-                <div className="metric-value gradient-text">+347%</div>
-                <div className="metric-trend">↗ +23% ce mois</div>
+                <div className="metric-label">Impressions</div>
+                <div className="metric-value gradient-text">125K</div>
+                <div className="metric-trend">↗ +18% vs mois dernier</div>
               </div>
-              
+
               <div className="metric-card glass">
-                <div className="metric-label">Coût par Acquisition</div>
-                <div className="metric-value gradient-text">-52%</div>
-                <div className="metric-trend">↘ Optimisé par IA</div>
+                <div className="metric-label">Taux de Conversion</div>
+                <div className="metric-value gradient-text">3.2%</div>
+                <div className="metric-trend">↗ Performance stable</div>
               </div>
-              
+
               <div className="chart-placeholder glass">
                 <div className="chart-bars">
                   <div className="bar" style={{ height: '60%' }}></div>
@@ -154,7 +154,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Floating elements */}
           <motion.div
             className="floating-element element-1"
@@ -163,7 +163,7 @@ const Hero: React.FC = () => {
           >
             <Zap size={20} />
           </motion.div>
-          
+
           <motion.div
             className="floating-element element-2"
             animate={{ y: [10, -10, 10] }}

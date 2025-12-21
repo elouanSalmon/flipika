@@ -1,157 +1,155 @@
 {
   "header": {
-    "tagline": "Rapports Google Ads",
-    "getStarted": "Voir un exemple",
+    "tagline": "IA Google Ads",
+    "getStarted": "Commencer",
     "language": "Langue",
     "home": "Accueil",
-    "features": "Fonctionnalités",
+    "features": "Fonctions",
     "pricing": "Tarifs",
     "testimonials": "Avis",
     "contact": "Contact",
-    "problem": "Problèmes"
+    "login": "Se connecter"
   },
   "hero": {
-    "title": "Des rapports Google Ads automatiques que vos clients comprennent",
-    "subtitle": "Gagnez des heures chaque mois sur vos reportings clients",
-    "description": "Flipika génère automatiquement des rapports Google Ads clairs, expliqués et prêts à envoyer. Plus besoin d’exporter, de mise en forme ou de justifier chaque chiffre.",
-    "getStarted": "Voir un exemple de rapport",
-    "noCreditCard": "Aucune carte bancaire requise",
-    "cta": "Accéder à la bêta",
+    "title": "Votre copilote IA Google Ads qui booste vos performances",
+    "subtitle": "Analyses, optimisations et rapports clients automatisés",
+    "description": "Votre copilote IA surveille vos campagnes 24/7, identifie les opportunités de performance et optimise automatiquement vos résultats. Concentrez-vous sur la stratégie, il gère l'exécution.",
+    "getStarted": "Tester le copilote",
+    "noCreditCard": "Pas de carte bancaire requise",
+    "cta": "Tester le copilote",
     "ctaSecondary": "Voir comment ça marche"
   },
   "problem": {
-    "title": "Le reporting Google Ads vous fait perdre un temps fou",
-    "subtitle": "Des heures passées sur une tâche à faible valeur",
-    "description": "Entre les exports, les dashboards et l’explication des performances, le reporting client devient une corvée récurrente.",
+    "title": "Vos performances stagnent, vos coûts augmentent",
+    "subtitle": "L'analyse manuelle des performances prend trop de temps",
+    "description": "Entre l'analyse des mots clés, l'optimisation des groupes d'annonces et le monitoring des enchères, vous passez des heures sur des tâches répétitives. Vos campagnes perdent en performance pendant que vous analysez les données.",
     "issues": {
-      "timeManagement": "Des heures perdues chaque semaine",
-      "budgetWaste": "Des dashboards que les clients ne comprennent pas",
-      "inconsistentCampaigns": "Des chiffres difficiles à expliquer",
-      "difficultToScale": "Un reporting qui empêche de scaler",
-      "expensiveAgency": "Des rapports longs à produire",
-      "costlyAndTime": "Du stress avant chaque call client"
+      "timeManagement": "Vous passez des heures à gérer des comptes Google Ads",
+      "budgetWaste": "avec des dizaines de dashboards à suivre.",
+      "inconsistentCampaigns": "Vos campagnes sont difficiles à suivre",
+      "difficultToScale": "et à optimiser pour le scale.",
+      "expensiveAgency": "Les rapports clients sont longs à réaliser",
+      "costlyAndTime": "et vous font perdre du temps dans la gestion de vos campagnes."
     }
   },
   "features": {
-    "title": "Le reporting Google Ads, enfin simple",
-    "subtitle": "Automatique, clair et orienté business",
+    "title": "Votre copilote IA Google Ads",
+    "subtitle": "Optimisez vos ROAS, boostez vos CTR, réduisez vos coûts",
     "aiGeneration": {
-      "title": "Rapports clients automatiques",
-      "description": "Générez des rapports Google Ads complets avec KPIs clés, variations et explications prêtes à envoyer."
+      "title": "Audit qualité automatique",
+      "description": "Votre copilote scanne vos scores de qualité, identifie les problèmes de pertinence et propose des optimisations pour améliorer vos résultats."
     },
     "analytics": {
-      "title": "Performances expliquées",
-      "description": "Flipika explique les variations de CPA, ROAS et conversions avec un discours compréhensible pour vos clients."
+      "title": "Optimisation des enchères en temps réel",
+      "description": "Ajustement automatique des CPC max basé sur vos CPA cibles, la concurrence et les opportunités de conversion."
     },
     "optimization": {
-      "title": "Insights actionnables",
-      "description": "Mettez en avant ce qui a fonctionné, ce qui a moins performé et les prochaines actions."
+      "title": "Créatifs optimisés par IA",
+      "description": "Génération de nouvelles variations d'annonces basées sur vos meilleurs CTR et taux de conversion historiques."
     },
     "buttons": {
       "learnMore": "En savoir plus",
       "getStarted": "Commencer"
     },
     "createCampaigns": {
-      "title": "Architecture modulaire par Widgets",
-      "subtitle": "Construisez vos rapports sur mesure",
-      "description": "Votre rapport est une collection de widgets personnalisables. Graphiques, tableaux, textes : assemblez-les par simple glisser-déposer.",
+      "title": "Audit complet et création de campagnes",
+      "subtitle": "Identifiez les problèmes et créez des campagnes en 2 minutes",
+      "description": "Scan complet de vos comptes Google Ads avec recommandations précises : mots-clés, annonces, pages de destination.",
       "benefits": [
-        "Widgets modulaires et réutilisables",
-        "Drag & Drop pour personnaliser",
-        "Templates prêts à l'emploi"
+        "Scan de vos campagnes",
+        "Problèmes automatiquement identifiés",
+        "Création de nouvelles campagnes en 1 clic"
       ]
     },
     "autoOptimize": {
-      "title": "Narrative Layer : Commentaires contextuels",
-      "subtitle": "Les chiffres avec du sens",
-      "description": "Ajoutez vos analyses et explications directement dans le rapport. C'est votre expertise qui apporte la vraie valeur au client.",
+      "title": "Auto-optimisation continue",
+      "subtitle": "Enchères, budgets et mots-clés",
+      "description": "Votre copilote IA ajuste vos campagnes pour maximiser la performance de vos comptes.",
       "benefits": [
-        "Éditeur de texte riche intégré",
-        "Expliquez les variations",
-        "Apportez votre valeur humaine"
+        "Enchères et mots-clés optimisés en temps réel",
+        "Allocation de budget intelligente",
+        "ROAS améliorés"
       ]
     },
     "actionableInsights": {
-      "title": "Automatisation et Scheduling",
-      "subtitle": "Envoi automatique programmé",
-      "description": "Programmez l'envoi de vos rapports : tous les lundis à 9h, chaque fin de mois... Vos clients reçoivent leurs rapports sans que vous leviez le petit doigt.",
+      "title": "Rapports de performances",
+      "subtitle": "Des recommandations actionnables chaque jour",
+      "description": "Recevez des alertes sur les variations de performance, nouveaux mots-clés négatifs et opportunités de budget.",
       "benefits": [
-        "Envoi automatique par email",
-        "Planning personnalisable",
-        "Gain de temps maximal"
-      ]
-    },
-    "whiteLabelPortal": {
-      "title": "Portail White-Label interactif",
-      "subtitle": "Liens de consultation live",
-      "description": "Au lieu d'un PDF statique, envoyez un lien personnalisé. Vos clients interagissent avec les graphiques et vous savez s'ils ont consulté le rapport.",
-      "benefits": [
-        "Graphiques interactifs",
-        "Tracking de consultation",
-        "Votre marque en avant"
-      ]
-    },
-    "dataSnapshots": {
-      "title": "Snapshots de données figées",
-      "subtitle": "Vos rapports restent immuables",
-      "description": "Les données sont \"gelées\" à la finalisation du rapport. Le rapport de janvier restera identique, même consulté en décembre.",
-      "benefits": [
-        "Données figées dans le temps",
-        "Rapports historiques fiables",
-        "Aucune modification rétroactive"
+        "Alertes intelligentes",
+        "Rapports clients automatiques",
+        "Opportunités identifiées"
       ]
     }
   },
   "differentiation": {
-    "title": "Pourquoi les Media Buyers utilisent Flipika",
-    "subtitle": "Pensé pour le reporting client Google Ads",
-    "description": "Flipika simplifie votre workflow de reporting sans remplacer votre expertise.",
+    "title": "Pourquoi les Media Buyers choisissent Flipika",
+    "subtitle": "Des outils conçus pour votre workflow quotidien",
+    "description": "Chaque fonctionnalité est pensée pour simplifier votre travail de media buyer",
     "notCopywritingTool": {
-      "title": "Pas un dashboard de plus",
-      "subtitle": "Un vrai outil de reporting client",
-      "description": "Flipika transforme vos données Google Ads en rapports compréhensibles et exploitables."
+      "title": "Pas un simple outil de rédaction IA",
+      "subtitle": "Un vrai copilote media buyer",
+      "description": "Flipika n'écrit pas seulement du texte. Il analyse, optimise et gère vos campagnes comme un assistant expert."
     },
     "designedForMediaBuyers": {
       "title": "Conçu pour les Media Buyers",
-      "subtitle": "Freelance et agences",
-      "description": "Chaque fonctionnalité est pensée pour gagner du temps sur le reporting."
+      "subtitle": "Et uniquement pour eux",
+      "description": "Chaque fonctionnalité est pensée pour maximiser votre ROAS."
     },
     "usesRealData": {
-      "title": "Données Google Ads réelles",
-      "subtitle": "Connexion API sécurisée",
-      "description": "Vos rapports sont générés à partir de vos vraies données."
+      "title": "Utilise VOS vraies données Google Ads",
+      "subtitle": "Via l'API sécurisée Google Ads",
+      "description": "Flipika se connecte directement à votre compte pour des optimisations basées sur vos métriques."
     },
     "learnsAndImproves": {
-      "title": "IA au service du reporting",
-      "subtitle": "Pas au centre",
-      "description": "L’IA détecte les variations et structure le discours client."
+      "title": "Apprend et s'améliore à chaque campagne",
+      "subtitle": "IA évolutive",
+      "description": "Plus vous utilisez Flipika, mieux il comprend votre business et optimise selon vos objectifs."
     },
     "comparison": {
       "title": "Flipika vs Solutions Traditionnelles",
-      "subtitle": "Comparaison honnête de ce qui nous rend uniques",
+      "subtitle": "Comparatif honnête de ce qui nous rend uniques",
       "featureHeader": "Fonctionnalité",
       "flipikaHeader": "Flipika",
-      "othersHeader": "Autres outils",
-      "campaignManagement": "Rapports automatisés",
-      "realTimeOptimization": "Widgets personnalisables",
-      "directGoogleAds": "Connexion directe Google Ads",
-      "specializedAI": "IA spécialisée reporting",
-      "continuousLearning": "Snapshots de données",
-      "genericText": "Templates génériques"
+      "othersHeader": "Autres outils IA",
+      "campaignManagement": "Gestion de campagne complète",
+      "realTimeOptimization": "Optimisation en temps réel",
+      "directGoogleAds": "Connexion directe à Google Ads",
+      "specializedAI": "IA spécialisée performance marketing",
+      "continuousLearning": "Apprentissage continu",
+      "genericText": "Génération de texte générique",
+      "traditional": {
+        "title": "Agences Traditionnelles",
+        "cons": [
+          "Frais mensuels de 2000€+",
+          "Communication lente",
+          "Stratégies génériques",
+          "Majorations cachées"
+        ]
+      },
+      "flipika": {
+        "title": "Flipika IA",
+        "pros": [
+          "99-299€ par mois",
+          "Optimisation 24/7",
+          "IA personnalisée",
+          "Tarification transparente"
+        ]
+      }
     },
-    "cta": "Prêt à transformer votre reporting ?",
-    "ctaSubtitle": "Rejoignez les Media Buyers qui gagnent du temps avec Flipika."
+    "cta": "Prêt à transformer vos campagnes ?",
+    "ctaSubtitle": "Rejoignez des milliers de media buyers qui optimisent avec Flipika dès aujourd'hui."
   },
   "testimonials": {
-    "title": "Adopté par des Media Buyers",
-    "subtitle": "Moins de reporting, plus de valeur client",
-    "cta": "Rejoindre la bêta",
-    "ctaSubtitle": "Accès anticipé gratuit",
+    "title": "Résultats Concrets",
+    "subtitle": "Des performances boostées grâce à leur copilote IA",
+    "cta": "Rejoindre les entreprises performantes",
+    "ctaSubtitle": "Commencez votre essai gratuit aujourd'hui",
     "betaUser": "Utilisateur Bêta",
     "stats": {
       "earlyAdopters": "Early adopters",
-      "averageRoas": "Temps gagné",
-      "budgetOptimized": "Rapports générés",
+      "averageRoas": "ROI moyen",
+      "budgetOptimized": "Budget optimisé",
       "satisfaction": "Satisfaction client"
     },
     "reviews": {
@@ -159,31 +157,31 @@
         "name": "Pierre M.",
         "role": "Media Buyer Freelance",
         "company": "Gère 12 comptes clients",
-        "content": "Je passais plusieurs heures par semaine à faire des reportings. Avec Flipika, mes rapports Google Ads sont générés automatiquement et mes clients comprennent enfin les performances.",
-        "metric": "4h gagnées / semaine"
+        "content": "Mon coût par acquisition a diminué de 35% en 3 mois. Le copilote optimise automatiquement mes enchères et je peux enfin me concentrer sur la stratégie.",
+        "metric": "Coûts -35%"
       },
       "julien": {
         "name": "Julien R.",
         "role": "Traffic Manager",
         "company": "Agence de Media Buying",
-        "content": "Le reporting était un vrai frein pour l’agence. Flipika nous permet d’envoyer des rapports clairs, structurés et prêts à l’envoi sans perdre de temps en mise en forme.",
-        "metric": "Temps de reporting divisé par 2"
+        "content": "Mon retour sur investissement a augmenté de 68% sur mes campagnes e-commerce. Le copilote identifie les opportunités que je manquais avant.",
+        "metric": "ROAS +68%"
       }
     }
   },
   "emailCapture": {
-    "title": "Marre de perdre du temps sur vos reportings Google Ads ?",
-    "subtitle": "Accédez à la bêta privée et générez vos rapports automatiquement",
+    "title": "Prêt(e) à booster vos performances Google Ads ?",
+    "subtitle": "Accédez en avant-première à la bêta privée gratuite",
     "emailPlaceholder": "Entrez votre email professionnel",
-    "submitButton": "Accéder à la bêta",
-    "successMessage": "Bienvenue ! Votre accès arrive par email.",
+    "submitButton": "Tester mon copilote IA",
+    "successMessage": "Bienvenue ! Votre copilote vous attend dans votre boîte mail.",
     "errorEmailRequired": "Veuillez entrer votre adresse email",
     "errorEmailInvalid": "Veuillez entrer une adresse email valide",
     "errorGeneric": "Une erreur est survenue. Veuillez réessayer.",
     "benefits": {
-      "freeBeta": "Accès bêta gratuit",
-      "prioritySupport": "Support prioritaire",
-      "influence": "Accès aux nouvelles fonctionnalités"
+      "freeBeta": "Accès copilote gratuit 14 jours",
+      "prioritySupport": "Support 1‑on‑1 avec l'équipe",
+      "influence": "Accès prioritaire aux nouvelles features"
     },
     "trust": {
       "activeBeta": "utilisateurs actifs",
@@ -246,7 +244,7 @@
       },
       "contact": {
         "title": "8. Contact",
-        "content": "Pour toute question concernant ces mentions légales ou le site en général, vous pouvez nous contacter à : <strong>helloflipika@gmail.com</strong>"
+        "content": "Pour toute question concernant ces mentions légales ou le site en général, vous pouvez nous contacter à : <strong>flipika@gmail.com</strong>"
       }
     },
     "lastUpdate": "<strong>Dernière mise à jour :</strong> 15 novembre 2025"
@@ -265,7 +263,7 @@
         "content": "Le responsable du traitement de vos données personnelles est :",
         "company": "<strong>DISCO SAS</strong>",
         "address": "Siège social : DISCO, 1 rue de Stockholm, 75008 Paris, France",
-        "email": "Email : helloflipika@gmail.com",
+        "email": "Email : flipika@gmail.com",
         "siret": "SIRET : 927 707 836 00015"
       },
       "dataCollected": {
@@ -508,5 +506,11 @@
         "email": "<strong>Email :</strong> legal@flipika.com"
       }
     }
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "description": "Oups ! La page que vous recherchez semble avoir disparu dans le cyberespace.",
+    "backButton": "Retour",
+    "homeButton": "Accueil"
   }
 }

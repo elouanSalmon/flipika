@@ -5,12 +5,14 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DemoModeProvider } from './contexts/DemoModeContext';
 import { GoogleAdsProvider } from './contexts/GoogleAdsContext';
+import { FeatureFlagsProvider, useFeatureFlags } from './contexts/FeatureFlagsContext';
 import { usePageTracking } from './hooks/usePageTracking';
 import { useUserTracking } from './hooks/useUserTracking';
 import HubSpotChat from './components/HubSpotChat';
 import CookieConsent from './components/CookieConsent';
 import InstallPWA from './components/InstallPWA';
 import Landing from './pages/Landing';
+import LandingFull from './pages/LandingFull';
 import Login from './pages/Login';
 import AppLayout from './layouts/AppLayout';
 import Dashboard from './pages/Dashboard';
@@ -48,6 +50,52 @@ const AnalyticsTracker = () => {
   return null;
 };
 
+// App Routes Component - needs access to feature flags
+const AppRoutes = () => {
+  const { enableDashboard, enableAudit, enableReports, enableCopilot, enableFullLanding } = useFeatureFlags();
+
+  // Determine the default route based on enabled features
+  const getDefaultRoute = () => {
+    if (enableReports) return 'reports';
+    if (enableDashboard) return 'dashboard';
+    if (enableAudit) return 'audit';
+    if (enableCopilot) return 'copilot';
+    return 'settings'; // Fallback to settings if nothing else is enabled
+  };
+
+  return (
+    <Routes>
+      {/* Public Landing Pages */}
+      <Route path="/" element={<Landing />} />
+      {enableFullLanding && <Route path="/full" element={<LandingFull />} />}
+      <Route path="/mentions-legales" element={<LegalNotices />} />
+      <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
+      <Route path="/conditions-utilisation" element={<TermsOfService />} />
+
+      {/* Auth Pages */}
+      <Route path="/secret-login" element={<Login />} />
+      <Route path="/oauth/callback" element={<OAuthCallback />} />
+
+      {/* Protected App Routes */}
+      <Route path="/app" element={
+        <ProtectedRoute>
+          <AppLayout />
+        </ProtectedRoute>
+      }>
+        <Route index element={<Navigate to={getDefaultRoute()} replace />} />
+        {enableDashboard && <Route path="dashboard" element={<DashboardNew />} />}
+        {enableDashboard && <Route path="dashboard-old" element={<Dashboard />} />}
+        {enableAudit && <Route path="audit" element={<AuditPage />} />}
+        {enableCopilot && <Route path="copilot" element={<Copilot />} />}
+        {enableReports && <Route path="reports" element={<Reports />} />}
+        <Route path="settings" element={<Settings />} />
+      </Route>
+
+      {/* 404 Route */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 function App() {
   return (
@@ -56,64 +104,38 @@ function App() {
         <AnalyticsTracker />
         <GoogleAdsProvider>
           <DemoModeProvider>
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                duration: 4000,
-                style: {
-                  background: 'var(--color-bg-primary)',
-                  color: 'var(--color-text-primary)',
-                  border: '1px solid var(--color-border)',
-                },
-                success: {
-                  iconTheme: {
-                    primary: '#10b981',
-                    secondary: '#fff',
+            <FeatureFlagsProvider>
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: 'var(--color-bg-primary)',
+                    color: 'var(--color-text-primary)',
+                    border: '1px solid var(--color-border)',
                   },
-                },
-                error: {
-                  iconTheme: {
-                    primary: '#ef4444',
-                    secondary: '#fff',
+                  success: {
+                    iconTheme: {
+                      primary: '#10b981',
+                      secondary: '#fff',
+                    },
                   },
-                },
-              }}
-            />
-            <HubSpotChat />
-            <CookieConsent />
-            <InstallPWA />
-            <AnalyticsTracker />
-            <div className="App">
-              <Routes>
-                {/* Public Landing Pages */}
-                <Route path="/" element={<Landing />} />
-                <Route path="/mentions-legales" element={<LegalNotices />} />
-                <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
-                <Route path="/conditions-utilisation" element={<TermsOfService />} />
-
-                {/* Auth Pages */}
-                <Route path="/secret-login" element={<Login />} />
-                <Route path="/oauth/callback" element={<OAuthCallback />} />
-
-                {/* Protected App Routes */}
-                <Route path="/app" element={
-                  <ProtectedRoute>
-                    <AppLayout />
-                  </ProtectedRoute>
-                }>
-                  <Route index element={<Navigate to="dashboard" replace />} />
-                  <Route path="dashboard" element={<DashboardNew />} />
-                  <Route path="dashboard-old" element={<Dashboard />} />
-                  <Route path="audit" element={<AuditPage />} />
-                  <Route path="copilot" element={<Copilot />} />
-                  <Route path="reports" element={<Reports />} />
-                  <Route path="settings" element={<Settings />} />
-                </Route>
-
-                {/* 404 Route */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>
+                  error: {
+                    iconTheme: {
+                      primary: '#ef4444',
+                      secondary: '#fff',
+                    },
+                  },
+                }}
+              />
+              <HubSpotChat />
+              <CookieConsent />
+              <InstallPWA />
+              <AnalyticsTracker />
+              <div className="App">
+                <AppRoutes />
+              </div>
+            </FeatureFlagsProvider>
           </DemoModeProvider>
         </GoogleAdsProvider>
       </AuthProvider>
@@ -122,3 +144,4 @@ function App() {
 }
 
 export default App;
+

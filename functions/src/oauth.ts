@@ -6,6 +6,7 @@ import { isValidState, isValidOAuthCode } from "./validators";
 
 // CORS configuration - restrict to allowed origins
 const allowedOrigins = [
+    'https://flipika.com',
     'https://flipika.web.app',
     'https://flipika.firebaseapp.com',
     'http://localhost:5173', // Dev only
@@ -41,7 +42,7 @@ const getOAuth2Client = async () => {
     // Get env vars at runtime
     const clientId = getEnvVar('GOOGLE_ADS_CLIENT_ID');
     const clientSecret = getEnvVar('GOOGLE_ADS_CLIENT_SECRET');
-    const appUrl = process.env.APP_URL || 'https://flipika.web.app';
+    const appUrl = process.env.APP_URL || 'https://flipika.com';
 
     if (!clientId || !clientSecret) {
         throw new Error("Missing Google Ads credentials");
@@ -141,7 +142,7 @@ export const handleOAuthCallback = onRequest({ memory: '512MiB' }, async (req, r
     // Handle OAuth errors
     if (error) {
         console.error("OAuth error:", error);
-        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?error=oauth_failed`);
+        res.redirect(`${process.env.APP_URL || 'https://flipika.com'}/app/dashboard?error=oauth_failed`);
         return;
     }
 
@@ -217,12 +218,12 @@ export const handleOAuthCallback = onRequest({ memory: '512MiB' }, async (req, r
         console.log("State cleaned up, redirecting...");
 
         // Redirect back to app with UID for debugging
-        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?oauth=success&uid=${userId}`);
+        res.redirect(`${process.env.APP_URL || 'https://flipika.com'}/app/dashboard?oauth=success&uid=${userId}`);
 
     } catch (error: any) {
         console.error("OAuth callback error for userId:", userId, "error:", error);
         // Don't expose error details in URL
-        res.redirect(`${process.env.APP_URL || 'https://flipika.web.app'}/app/dashboard?error=oauth_failed`);
+        res.redirect(`${process.env.APP_URL || 'https://flipika.com'}/app/dashboard?error=oauth_failed`);
     }
 });
 

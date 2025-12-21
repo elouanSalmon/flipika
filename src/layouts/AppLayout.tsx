@@ -16,6 +16,7 @@ import {
 import { useAuth } from "../contexts/AuthContext";
 import { useDemoMode } from "../contexts/DemoModeContext";
 import { useTheme } from "../hooks/useTheme";
+import { useFeatureFlags } from "../contexts/FeatureFlagsContext";
 import MobileMenu from "../components/MobileMenu";
 import "../components/Header.css"; // Use header styles
 import "../components/app/Connected.css"; // We might need to adjust or remove this if it enforced sidebar layout
@@ -27,6 +28,7 @@ const AppLayout = () => {
   const { logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const { isDemoMode } = useDemoMode();
+  const { enableDashboard, enableAudit, enableReports } = useFeatureFlags();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -50,11 +52,13 @@ const AppLayout = () => {
     }
   };
 
+  // Filter navigation items based on feature flags
   const navItems = [
-    { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { path: "/app/audit", label: "Audit", icon: TrendingUp },
-    { path: "/app/reports", label: "Rapports", icon: FileText },
-  ];
+    enableDashboard && { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    enableAudit && { path: "/app/audit", label: "Audit", icon: TrendingUp },
+    enableReports && { path: "/app/reports", label: "Rapports", icon: FileText },
+  ].filter(Boolean) as Array<{ path: string; label: string; icon: typeof LayoutDashboard }>;
+
 
   return (
     <div className="min-h-dvh bg-[var(--color-bg-secondary)] flex flex-col">
@@ -71,7 +75,7 @@ const AppLayout = () => {
             className="logo"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
-            onClick={() => navigate('/app/dashboard')}
+            onClick={() => navigate('/app/reports')}
           >
             <div className="logo-icon">
               <Zap size={24} />
