@@ -10,13 +10,16 @@ import {
     deleteReport,
 } from '../services/reportService';
 import { getUserProfile } from '../services/userProfileService';
+import dataService from '../services/dataService';
 import ReportEditorHeader from '../components/reports/ReportEditorHeader';
 import WidgetLibrary from '../components/reports/WidgetLibrary';
 import ReportCanvas from '../components/reports/ReportCanvas';
+import ThemeManager from '../components/themes/ThemeManager';
 import Spinner from '../components/common/Spinner';
 import type { EditableReport, WidgetConfig } from '../types/reportTypes';
 import { WidgetType } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
+import type { Account } from '../types/business';
 import './ReportEditor.css';
 
 const ReportEditor: React.FC = () => {
@@ -36,6 +39,10 @@ const ReportEditor: React.FC = () => {
     const [autoSaveStatus, setAutoSaveStatus] = useState<'saved' | 'saving' | 'error'>('saved');
     const [lastSaved, setLastSaved] = useState<Date | undefined>();
     const [isDirty, setIsDirty] = useState(false);
+
+    // Theme manager state
+    const [showThemeManager, setShowThemeManager] = useState(false);
+    const [accounts, setAccounts] = useState<Account[]>([]);
 
     const autoSaveTimerRef = useRef<number | null>(null);
 
@@ -69,6 +76,22 @@ const ReportEditor: React.FC = () => {
             }
         };
     }, [isDirty, report, widgets]);
+
+    // Load Google Ads accounts for theme manager
+    useEffect(() => {
+        if (currentUser) {
+            loadAccounts();
+        }
+    }, [currentUser]);
+
+    const loadAccounts = async () => {
+        try {
+            const data = await dataService.getAccounts();
+            setAccounts(data);
+        } catch (error) {
+            console.error('Error loading accounts:', error);
+        }
+    };
 
     const loadReport = async (id: string) => {
         try {
@@ -270,7 +293,7 @@ const ReportEditor: React.FC = () => {
                 accountId={report.accountId}
                 selectedTheme={selectedTheme}
                 onThemeSelect={handleThemeSelect}
-                onCreateTheme={() => {/* TODO */ }}
+                onCreateTheme={() => setShowThemeManager(true)}
                 onSave={handleSave}
                 onPublish={handlePublish}
                 onArchive={handleArchive}
@@ -284,6 +307,7 @@ const ReportEditor: React.FC = () => {
 
                 <ReportCanvas
                     widgets={widgets}
+                    design={report.design}
                     startDate={report.startDate}
                     endDate={report.endDate}
                     onReorder={handleWidgetReorder}
@@ -294,6 +318,23 @@ const ReportEditor: React.FC = () => {
                     onWidgetSelect={setSelectedWidgetId}
                 />
             </div>
+
+            {/* Theme Manager Modal */}
+            {showThemeManager && (
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+                    <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+                        <div className="p-6">
+                            <ThemeManager accounts={accounts} />
+                            <button
+                                onClick={() => setShowThemeManager(false)}
+                                className="mt-6 w-full px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                            >
+                                Fermer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

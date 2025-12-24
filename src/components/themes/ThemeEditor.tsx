@@ -27,6 +27,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
 }) => {
     const presets = getAllThemePresets();
     const defaultDesign = presets[0]?.design || {
+        mode: 'light' as const,
         colorScheme: {
             primary: '#3b82f6',
             secondary: '#1e40af',
@@ -69,6 +70,55 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                 ? prev.filter(id => id !== accountId)
                 : [...prev, accountId]
         );
+    };
+
+    const handleModeChange = (mode: 'light' | 'dark') => {
+        // Enforce background color constraints based on mode
+        let newBackground = design.colorScheme.background;
+        let newText = design.colorScheme.text;
+
+        if (mode === 'light') {
+            // Light mode: background must be light (high luminance)
+            // If current background is dark, switch to white
+            if (isColorDark(design.colorScheme.background)) {
+                newBackground = '#ffffff';
+            }
+            // Ensure text is dark for readability
+            if (!isColorDark(design.colorScheme.text)) {
+                newText = '#0f172a';
+            }
+        } else {
+            // Dark mode: background must be dark (low luminance)
+            // If current background is light, switch to dark
+            if (!isColorDark(design.colorScheme.background)) {
+                newBackground = '#0f172a';
+            }
+            // Ensure text is light for readability
+            if (isColorDark(design.colorScheme.text)) {
+                newText = '#f1f5f9';
+            }
+        }
+
+        setDesign({
+            ...design,
+            mode,
+            colorScheme: {
+                ...design.colorScheme,
+                background: newBackground,
+                text: newText,
+            },
+        });
+    };
+
+    // Helper function to determine if a color is dark
+    const isColorDark = (hexColor: string): boolean => {
+        const hex = hexColor.replace('#', '');
+        const r = parseInt(hex.substr(0, 2), 16);
+        const g = parseInt(hex.substr(2, 2), 16);
+        const b = parseInt(hex.substr(4, 2), 16);
+        // Calculate relative luminance
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return luminance < 0.5;
     };
 
     const handleSave = async () => {
@@ -180,6 +230,54 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                                     rows={2}
                                 />
                             </div>
+                        </div>
+
+                        {/* Mode Selection */}
+                        <div className="theme-editor-section">
+                            <div className="theme-editor-section-header">
+                                <h3>Mode d'affichage</h3>
+                                <p>Choisissez le mode clair ou sombre pour votre thème</p>
+                            </div>
+                            <div className="theme-editor-mode-selector">
+                                <button
+                                    type="button"
+                                    className={`theme-editor-mode-button ${design.mode === 'light' ? 'active' : ''}`}
+                                    onClick={() => handleModeChange('light')}
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <circle cx="12" cy="12" r="5" />
+                                        <line x1="12" y1="1" x2="12" y2="3" />
+                                        <line x1="12" y1="21" x2="12" y2="23" />
+                                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                                        <line x1="1" y1="12" x2="3" y2="12" />
+                                        <line x1="21" y1="12" x2="23" y2="12" />
+                                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                                    </svg>
+                                    <span>Clair</span>
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`theme-editor-mode-button ${design.mode === 'dark' ? 'active' : ''}`}
+                                    onClick={() => handleModeChange('dark')}
+                                >
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                                    </svg>
+                                    <span>Sombre</span>
+                                </button>
+                            </div>
+                            {design.mode === 'light' && (
+                                <p className="theme-editor-mode-hint">
+                                    💡 Mode clair : L'arrière-plan sera automatiquement clair et le texte sombre
+                                </p>
+                            )}
+                            {design.mode === 'dark' && (
+                                <p className="theme-editor-mode-hint">
+                                    🌙 Mode sombre : L'arrière-plan sera automatiquement sombre et le texte clair
+                                </p>
+                            )}
                         </div>
 
                         {/* Colors */}

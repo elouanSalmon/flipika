@@ -130,6 +130,7 @@ export interface ReportComment {
 }
 
 export interface ReportDesign {
+    mode: 'light' | 'dark';
     colorScheme: {
         primary: string;
         secondary: string;
@@ -170,6 +171,7 @@ export interface ReportTemplate {
 
 // Default Design
 export const defaultReportDesign: ReportDesign = {
+    mode: 'light',
     colorScheme: {
         primary: '#0066ff',
         secondary: '#3385ff',

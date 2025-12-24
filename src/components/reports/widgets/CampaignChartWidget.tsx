@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { LineChart, Line, BarChart, Bar, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { getWidgetData } from '../../../services/widgetService';
 import Spinner from '../../common/Spinner';
-import type { WidgetConfig } from '../../../types/reportTypes';
+import type { WidgetConfig, ReportDesign } from '../../../types/reportTypes';
 import './CampaignChartWidget.css';
 
 interface CampaignChartWidgetProps {
     config: WidgetConfig;
+    design: ReportDesign;
     accountId: string;
     campaignIds?: string[];
     startDate?: Date;
@@ -19,19 +20,9 @@ interface ChartDataPoint {
     [key: string]: any;
 }
 
-const CHART_COLORS = [
-    '#0066ff',
-    '#00d4ff',
-    '#10b981',
-    '#f59e0b',
-    '#ef4444',
-    '#8b5cf6',
-    '#ec4899',
-    '#06b6d4',
-];
-
 const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
     config,
+    design,
     accountId,
     campaignIds,
     startDate,
@@ -63,6 +54,18 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
         }
     };
 
+    // Generate chart colors based on theme
+    const chartColors = [
+        design.colorScheme.primary,
+        design.colorScheme.secondary,
+        design.colorScheme.accent,
+        '#10b981',
+        '#f59e0b',
+        '#ef4444',
+        '#8b5cf6',
+        '#ec4899',
+    ];
+
     const renderChart = () => {
         const chartType = config.settings?.chartType || 'line';
         const commonProps = {
@@ -77,19 +80,20 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
                         <XAxis
                             dataKey="date"
-                            tick={{ fontSize: 12 }}
-                            stroke="#64748b"
+                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
+                            stroke={design.colorScheme.text}
                         />
                         <YAxis
-                            tick={{ fontSize: 12 }}
-                            stroke="#64748b"
+                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
+                            stroke={design.colorScheme.text}
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                                border: '1px solid rgba(0, 0, 0, 0.1)',
+                                backgroundColor: design.colorScheme.background,
+                                border: `1px solid ${design.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
                                 borderRadius: '8px',
                                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                                color: design.colorScheme.text,
                             }}
                         />
                         <Legend />
@@ -98,7 +102,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                                 key={campaign.id}
                                 dataKey={campaign.id}
                                 name={campaign.name}
-                                fill={CHART_COLORS[index % CHART_COLORS.length]}
+                                fill={chartColors[index % chartColors.length]}
                                 radius={[4, 4, 0, 0]}
                             />
                         ))}
@@ -108,45 +112,23 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
             case 'area':
                 return (
                     <AreaChart {...commonProps}>
-                        <defs>
-                            {campaigns.map((campaign, index) => (
-                                <linearGradient
-                                    key={campaign.id}
-                                    id={`gradient-${campaign.id}`}
-                                    x1="0"
-                                    y1="0"
-                                    x2="0"
-                                    y2="1"
-                                >
-                                    <stop
-                                        offset="5%"
-                                        stopColor={CHART_COLORS[index % CHART_COLORS.length]}
-                                        stopOpacity={0.3}
-                                    />
-                                    <stop
-                                        offset="95%"
-                                        stopColor={CHART_COLORS[index % CHART_COLORS.length]}
-                                        stopOpacity={0}
-                                    />
-                                </linearGradient>
-                            ))}
-                        </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
                         <XAxis
                             dataKey="date"
-                            tick={{ fontSize: 12 }}
-                            stroke="#64748b"
+                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
+                            stroke={design.colorScheme.text}
                         />
                         <YAxis
-                            tick={{ fontSize: 12 }}
-                            stroke="#64748b"
+                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
+                            stroke={design.colorScheme.text}
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                                border: '1px solid rgba(0, 0, 0, 0.1)',
+                                backgroundColor: design.colorScheme.background,
+                                border: `1px solid ${design.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
                                 borderRadius: '8px',
                                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                                color: design.colorScheme.text,
                             }}
                         />
                         <Legend />
@@ -156,8 +138,9 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                                 type="monotone"
                                 dataKey={campaign.id}
                                 name={campaign.name}
-                                stroke={CHART_COLORS[index % CHART_COLORS.length]}
-                                fill={`url(#gradient-${campaign.id})`}
+                                stroke={chartColors[index % chartColors.length]}
+                                fill={chartColors[index % chartColors.length]}
+                                fillOpacity={0.2}
                                 strokeWidth={2}
                             />
                         ))}
@@ -171,19 +154,20 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
                         <XAxis
                             dataKey="date"
-                            tick={{ fontSize: 12 }}
-                            stroke="#64748b"
+                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
+                            stroke={design.colorScheme.text}
                         />
                         <YAxis
-                            tick={{ fontSize: 12 }}
-                            stroke="#64748b"
+                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
+                            stroke={design.colorScheme.text}
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                                border: '1px solid rgba(0, 0, 0, 0.1)',
+                                backgroundColor: design.colorScheme.background,
+                                border: `1px solid ${design.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
                                 borderRadius: '8px',
                                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                                color: design.colorScheme.text,
                             }}
                         />
                         <Legend />
@@ -193,7 +177,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                                 type="monotone"
                                 dataKey={campaign.id}
                                 name={campaign.name}
-                                stroke={CHART_COLORS[index % CHART_COLORS.length]}
+                                stroke={chartColors[index % chartColors.length]}
                                 strokeWidth={2}
                                 dot={{ r: 4 }}
                                 activeDot={{ r: 6 }}
@@ -232,10 +216,43 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
         );
     }
 
+    // Check if we have data to display
+    const hasData = chartData.length > 0 && campaigns.length > 0;
+
+    if (!hasData) {
+        return (
+            <div className="campaign-chart-widget empty">
+                <div className="widget-header">
+                    <h3>Graphique de campagne</h3>
+                    {editable && (
+                        <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
+                            ⚙️
+                        </button>
+                    )}
+                </div>
+                <div className="widget-content">
+                    <div className="empty-state">
+                        <p>Aucune donnée de campagne disponible</p>
+                        <p className="empty-hint">Sélectionnez des campagnes pour afficher le graphique</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className="campaign-chart-widget">
+        <div
+            className="campaign-chart-widget"
+            style={{
+                '--widget-primary': design.colorScheme.primary,
+                '--widget-text': design.colorScheme.text,
+                '--widget-background': design.colorScheme.background,
+                background: design.colorScheme.background,
+                color: design.colorScheme.text,
+            } as React.CSSProperties}
+        >
             <div className="widget-header">
-                <h3>Graphique de campagne</h3>
+                <h3 style={{ color: design.colorScheme.secondary }}>Graphique de campagne</h3>
                 {editable && (
                     <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
                         ⚙️

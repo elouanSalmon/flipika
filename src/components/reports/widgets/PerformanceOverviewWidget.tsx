@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { TrendingUp, TrendingDown, Eye, MousePointer, Target, DollarSign, Percent, BarChart3 } from 'lucide-react';
 import { getWidgetData } from '../../../services/widgetService';
 import Spinner from '../../common/Spinner';
-import type { WidgetConfig } from '../../../types/reportTypes';
+import type { WidgetConfig, ReportDesign } from '../../../types/reportTypes';
 import './PerformanceOverviewWidget.css';
 
 interface PerformanceOverviewWidgetProps {
     config: WidgetConfig;
+    design: ReportDesign;
     accountId: string;
     campaignIds?: string[];
     startDate?: Date;
@@ -45,6 +46,7 @@ const METRIC_LABELS: Record<string, string> = {
 
 const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
     config,
+    design,
     accountId,
     campaignIds,
     startDate,
@@ -71,6 +73,25 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
             setError('Impossible de charger les données');
         } finally {
             setLoading(false);
+        }
+    };
+
+    // Helper function to get card background color based on mode
+    const getCardBackground = () => {
+        if (design.mode === 'dark') {
+            // Dark mode: slightly lighter than background
+            return 'rgba(30, 41, 59, 0.6)';
+        } else {
+            // Light mode: slightly darker than white
+            return 'rgba(249, 250, 251, 0.9)';
+        }
+    };
+
+    const getCardBorder = () => {
+        if (design.mode === 'dark') {
+            return 'rgba(255, 255, 255, 0.1)';
+        } else {
+            return 'rgba(0, 0, 0, 0.06)';
         }
     };
 
@@ -103,9 +124,18 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
     }
 
     return (
-        <div className="performance-overview-widget">
+        <div
+            className="performance-overview-widget"
+            style={{
+                '--widget-primary': design.colorScheme.primary,
+                '--widget-text': design.colorScheme.text,
+                '--widget-background': design.colorScheme.background,
+                background: design.colorScheme.background,
+                color: design.colorScheme.text,
+            } as React.CSSProperties}
+        >
             <div className="widget-header">
-                <h3>Vue d'ensemble des performances</h3>
+                <h3 style={{ color: design.colorScheme.secondary }}>Vue d'ensemble des performances</h3>
                 {editable && (
                     <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
                         ⚙️
@@ -116,15 +146,30 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
             <div className="widget-content">
                 <div className="metrics-grid">
                     {metrics.map((metric) => (
-                        <div key={metric.name} className="metric-card">
-                            <div className="metric-icon">
+                        <div
+                            key={metric.name}
+                            className="metric-card"
+                            style={{
+                                background: getCardBackground(),
+                                borderColor: getCardBorder(),
+                                backgroundImage: 'none',
+                            }}
+                        >
+                            <div
+                                className="metric-icon"
+                                style={{
+                                    background: design.colorScheme.primary,
+                                }}
+                            >
                                 {METRIC_ICONS[metric.name] || <BarChart3 size={20} />}
                             </div>
                             <div className="metric-info">
-                                <div className="metric-label">
+                                <div className="metric-label" style={{ color: design.colorScheme.secondary }}>
                                     {METRIC_LABELS[metric.name] || metric.name}
                                 </div>
-                                <div className="metric-value">{metric.formatted}</div>
+                                <div className="metric-value" style={{ color: design.colorScheme.text }}>
+                                    {metric.formatted}
+                                </div>
                                 {metric.change !== undefined && (
                                     <div className={`metric-change ${metric.change >= 0 ? 'positive' : 'negative'}`}>
                                         {metric.change >= 0 ? (

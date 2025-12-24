@@ -4,12 +4,13 @@ import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Settings, Trash2 } from 'lucide-react';
 import PerformanceOverviewWidget from './widgets/PerformanceOverviewWidget';
 import CampaignChartWidget from './widgets/CampaignChartWidget';
-import type { WidgetConfig } from '../../types/reportTypes';
+import type { WidgetConfig, ReportDesign } from '../../types/reportTypes';
 import { WidgetType } from '../../types/reportTypes';
 import './WidgetItem.css';
 
 interface WidgetItemProps {
     widget: WidgetConfig;
+    design: ReportDesign;
     isSelected: boolean;
     startDate?: Date;
     endDate?: Date;
@@ -20,6 +21,7 @@ interface WidgetItemProps {
 
 const WidgetItem: React.FC<WidgetItemProps> = ({
     widget,
+    design,
     isSelected,
     startDate,
     endDate,
@@ -50,6 +52,7 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                         accountId={widget.accountId}
                         campaignIds={widget.campaignIds}
                         config={widget}
+                        design={design}
                         startDate={startDate}
                         endDate={endDate}
                     />
@@ -60,6 +63,7 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                         accountId={widget.accountId}
                         campaignIds={widget.campaignIds}
                         config={widget}
+                        design={design}
                         startDate={startDate}
                         endDate={endDate}
                     />

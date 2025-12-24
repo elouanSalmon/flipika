@@ -34,6 +34,7 @@ export const defaultThemePresets: ThemePreset[] = [
         description: 'Thème sombre moderne et élégant',
         isSystemDefault: true,
         design: {
+            mode: 'dark',
             colorScheme: {
                 primary: '#8b5cf6',
                 secondary: '#a78bfa',
@@ -66,6 +67,7 @@ export const defaultThemePresets: ThemePreset[] = [
         description: 'Couleurs vives avec dégradés dynamiques',
         isSystemDefault: true,
         design: {
+            mode: 'light',
             colorScheme: {
                 primary: '#ec4899',
                 secondary: '#f97316',
@@ -98,6 +100,7 @@ export const defaultThemePresets: ThemePreset[] = [
         description: 'Design minimaliste et épuré',
         isSystemDefault: true,
         design: {
+            mode: 'light',
             colorScheme: {
                 primary: '#18181b',
                 secondary: '#52525b',
@@ -130,6 +133,7 @@ export const defaultThemePresets: ThemePreset[] = [
         description: 'Thème corporate sobre et professionnel',
         isSystemDefault: true,
         design: {
+            mode: 'light',
             colorScheme: {
                 primary: '#475569',
                 secondary: '#64748b',

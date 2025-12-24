@@ -4,11 +4,12 @@ import type { DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Layout, Plus } from 'lucide-react';
 import WidgetItem from './WidgetItem';
-import type { WidgetConfig } from '../../types/reportTypes';
+import type { WidgetConfig, ReportDesign } from '../../types/reportTypes';
 import './ReportCanvas.css';
 
 interface ReportCanvasProps {
     widgets: WidgetConfig[];
+    design: ReportDesign;
     startDate?: Date;
     endDate?: Date;
     onReorder: (widgets: WidgetConfig[]) => void;
@@ -21,6 +22,7 @@ interface ReportCanvasProps {
 
 const ReportCanvas: React.FC<ReportCanvasProps> = ({
     widgets,
+    design,
     startDate,
     endDate,
     onReorder,
@@ -113,6 +115,7 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
                             <WidgetItem
                                 key={widget.id}
                                 widget={widget}
+                                design={design}
                                 isSelected={selectedWidgetId === widget.id}
                                 startDate={startDate}
                                 endDate={endDate}
