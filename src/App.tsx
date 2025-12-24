@@ -25,6 +25,7 @@ import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import NotFound from './pages/NotFound';
+import LanguageRedirect from './components/LanguageRedirect';
 import './App.css';
 
 // Protected Route Component
@@ -64,6 +65,10 @@ const AppRoutes = () => {
 
   return (
     <Routes>
+      {/* Language Redirects */}
+      <Route path="/en" element={<LanguageRedirect targetLanguage="en" />} />
+      <Route path="/fr" element={<LanguageRedirect targetLanguage="fr" />} />
+
       {/* Public Landing Pages */}
       <Route path="/" element={<Landing />} />
       {enableFullLanding && <Route path="/full" element={<LandingFull />} />}

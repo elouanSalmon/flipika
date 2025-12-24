@@ -508,5 +508,11 @@
         "email": "<strong>Email :</strong> legal@flipika.com"
       }
     }
+  },
+  "notFound": {
+    "title": "Page Introuvable",
+    "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "backButton": "Retour",
+    "homeButton": "Retour à l'accueil"
   }
 }
