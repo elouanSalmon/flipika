@@ -122,6 +122,41 @@ service cloud.firestore {
     }
     
     // ========================================
+    // GOOGLE ADS ACCOUNTS
+    // ========================================
+    match /googleAdsAccounts/{accountId} {
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ========================================
+    // REPORT THEMES
+    // ========================================
+    match /report_themes/{themeId} {
+      // Users can read their own themes (individual document)
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      
+      // Users can query/list their own themes
+      allow list: if request.auth != null 
+        && request.query.limit <= 100
+        && (
+          // Allow queries filtered by userId
+          !('where' in request.query) 
+          || (
+            request.query.where.size() > 0 
+            && request.query.where[0][0] == 'userId' 
+            && request.query.where[0][2] == request.auth.uid
+          )
+        );
+      
+      // Users can create themes with their own userId
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      
+      // Users can update and delete their own themes
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+
+    // ========================================
     // USERNAMES (Uniqueness tracking)
     // ========================================
     match /usernames/{username} {

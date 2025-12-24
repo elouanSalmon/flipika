@@ -3,6 +3,7 @@ import SecurityCard from '../components/settings/SecurityCard';
 import ConnectionsCard from '../components/settings/ConnectionsCard';
 import DemoModeCard from '../components/settings/DemoModeCard';
 import AppearanceCard from '../components/settings/AppearanceCard';
+import ThemesCard from '../components/settings/ThemesCard';
 import { motion } from 'framer-motion';
 
 const Settings = () => {
@@ -31,6 +32,9 @@ const Settings = () => {
 
                 {/* Google Ads Connection */}
                 <ConnectionsCard />
+
+                {/* Report Themes */}
+                <ThemesCard />
 
                 {/* Preferences Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

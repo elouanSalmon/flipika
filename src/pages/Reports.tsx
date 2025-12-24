@@ -5,23 +5,29 @@ import { useNavigate } from 'react-router-dom';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { Download, FileText, Lock, Eye, EyeOff, Settings, Layout } from 'lucide-react';
+import { Download, FileText, Lock, Eye, EyeOff, Settings, Layout, Palette } from 'lucide-react';
 import { useDemoMode } from '../contexts/DemoModeContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
+import { useAuth } from '../contexts/AuthContext';
 import dataService from '../services/dataService';
+import themeService from '../services/themeService';
 import { generateExecutiveSummary, generateMetricsSection, generateCampaignAnalysis, generateRecommendations } from '../services/sectionGenerator';
 import SectionLibrary from '../components/reports/SectionLibrary';
 import SectionItem from '../components/reports/SectionItem';
 import DesignPanel from '../components/reports/DesignPanel';
+import ThemeSelector from '../components/themes/ThemeSelector';
+import ThemeManager from '../components/themes/ThemeManager';
 import type { Account, Campaign, CampaignMetrics } from '../types/business';
 import type { ReportSection, ReportDesign, SectionTemplate } from '../types/reportTypes';
 import { SectionType, defaultReportDesign } from '../types/reportTypes';
+import type { ReportTheme } from '../types/reportThemes';
 import './Reports.css';
 
 const ReportsPage = () => {
     const navigate = useNavigate();
     const { isDemoMode } = useDemoMode();
     const { isConnected } = useGoogleAds();
+    const { currentUser } = useAuth();
     const hasAccess = isConnected || isDemoMode;
 
     const [accounts, setAccounts] = useState<Account[]>([]);
@@ -32,6 +38,10 @@ const ReportsPage = () => {
     // Two-step workflow: configuration then editor
     const [showConfigModal, setShowConfigModal] = useState(false);
     const [isEditorMode, setIsEditorMode] = useState(false);
+
+    // Theme management
+    const [selectedTheme, setSelectedTheme] = useState<ReportTheme | null>(null);
+    const [showThemeManager, setShowThemeManager] = useState(false);
 
     // Module selection for initial generation
     const [selectedModules, setSelectedModules] = useState({
@@ -66,8 +76,27 @@ const ReportsPage = () => {
     useEffect(() => {
         if (selectedAccountId) {
             loadCampaigns(selectedAccountId);
+            loadThemeForAccount(selectedAccountId);
         }
     }, [selectedAccountId]);
+
+    // Load theme linked to the selected account
+    const loadThemeForAccount = async (accountId: string) => {
+        if (!currentUser) return;
+
+        try {
+            const linkedTheme = await themeService.getThemeForAccount(currentUser.uid, accountId);
+            if (linkedTheme) {
+                setSelectedTheme(linkedTheme);
+                setDesign(linkedTheme.design);
+                if (linkedTheme.defaultModules) {
+                    setSelectedModules(linkedTheme.defaultModules);
+                }
+            }
+        } catch (error) {
+            console.error('Error loading theme for account:', error);
+        }
+    };
 
     const loadAccounts = async () => {
         try {
@@ -515,6 +544,32 @@ const ReportsPage = () => {
                                     />
                                 </div>
                             </div>
+
+                            {/* Theme Selection */}
+                            {currentUser && (
+                                <div className="reports-config-section">
+                                    <ThemeSelector
+                                        userId={currentUser.uid}
+                                        accountId={selectedAccountId}
+                                        selectedTheme={selectedTheme}
+                                        onThemeSelect={(theme) => {
+                                            setSelectedTheme(theme);
+                                            if (theme) {
+                                                setDesign(theme.design);
+                                                if (theme.defaultModules) {
+                                                    setSelectedModules(theme.defaultModules);
+                                                }
+                                            } else {
+                                                setDesign(defaultReportDesign);
+                                            }
+                                        }}
+                                        onCreateTheme={() => {
+                                            setShowConfigModal(false);
+                                            setShowThemeManager(true);
+                                        }}
+                                    />
+                                </div>
+                            )}
                         </div>
 
                         <div className="reports-config-footer">
@@ -581,6 +636,13 @@ const ReportsPage = () => {
                                     <option key={account.id} value={account.id}>{account.name}</option>
                                 ))}
                             </select>
+                            <button
+                                onClick={() => setShowThemeManager(true)}
+                                className="btn btn-icon"
+                                title="Gérer les thèmes"
+                            >
+                                <Palette size={18} />
+                            </button>
                             <button
                                 onClick={() => setShowDesignPanel(!showDesignPanel)}
                                 className={`btn btn-icon ${showDesignPanel ? 'btn-active' : ''}`}
@@ -676,6 +738,22 @@ const ReportsPage = () => {
                             className="btn btn-primary btn-large"
                         >
                             Commencer
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Theme Manager Modal */}
+            {showThemeManager && currentUser && (
+                <div className="reports-theme-manager-modal">
+                    <div className="reports-theme-manager-overlay" onClick={() => setShowThemeManager(false)} />
+                    <div className="reports-theme-manager-content">
+                        <ThemeManager accounts={accounts} />
+                        <button
+                            className="btn btn-secondary reports-theme-manager-close"
+                            onClick={() => setShowThemeManager(false)}
+                        >
+                            Fermer
                         </button>
                     </div>
                 </div>
