@@ -50,24 +50,30 @@ export const createUserProfile = async (
             throw new Error('Username is already taken');
         }
 
-        const userProfile: Omit<UserProfile, 'createdAt' | 'updatedAt'> = {
+        const userProfile: any = {
             uid: userId,
             email: data.email,
             username: normalizedUsername,
             firstName: data.firstName,
             lastName: data.lastName,
-            company: data.company,
-            description: data.description,
-            photoURL: data.photoURL,
             hasCompletedOnboarding: true,
-        };
-
-        // Create user profile document
-        await setDoc(doc(db, USERS_COLLECTION, userId), {
-            ...userProfile,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
-        });
+        };
+
+        // Only add optional fields if they have values
+        if (data.company) {
+            userProfile.company = data.company;
+        }
+        if (data.description) {
+            userProfile.description = data.description;
+        }
+        if (data.photoURL) {
+            userProfile.photoURL = data.photoURL;
+        }
+
+        // Create user profile document
+        await setDoc(doc(db, USERS_COLLECTION, userId), userProfile);
 
         // Reserve username
         await setDoc(doc(db, USERNAMES_COLLECTION, normalizedUsername), {
@@ -96,7 +102,15 @@ export const updateUserProfile = async (
         }
 
         const currentProfile = userDoc.data() as UserProfile;
-        const updateData: any = { ...updates, updatedAt: serverTimestamp() };
+        const updateData: any = { updatedAt: serverTimestamp() };
+
+        // Only add fields that are being updated and not undefined
+        Object.keys(updates).forEach(key => {
+            const value = (updates as any)[key];
+            if (value !== undefined) {
+                updateData[key] = value;
+            }
+        });
 
         // If username is being updated
         if (updates.username && updates.username !== currentProfile.username) {
