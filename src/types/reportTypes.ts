@@ -80,7 +80,8 @@ export interface EditableReport {
     title: string;
     content: JSONContent;
     sections: ReportSection[];
-    widgets: WidgetConfig[]; // Added widget support
+    widgetIds: string[]; // IDs of widgets in the widgets sub-collection
+    widgets: WidgetConfig[]; // Populated widgets (may be empty for list views)
     comments: ReportComment[];
     design: ReportDesign;
     status: 'draft' | 'published' | 'archived';

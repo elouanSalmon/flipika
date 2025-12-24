@@ -174,7 +174,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
                         <span className="stat-label">Sections</span>
                     </div>
                     <div className="stat">
-                        <span className="stat-value">{report.widgets?.length || 0}</span>
+                        <span className="stat-value">{report.widgetIds?.length || 0}</span>
                         <span className="stat-label">Widgets</span>
                     </div>
                     <div className="stat">
