@@ -1,6 +1,7 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import type { TimeSeriesDataPoint } from '../../types/business';
+import Spinner from '../common/Spinner';
 import { useTheme } from '../../contexts/ThemeContext';
 
 interface ConversionTrendChartProps {
@@ -23,7 +24,7 @@ const ConversionTrendChart: React.FC<ConversionTrendChartProps> = ({ data, loadi
     if (loading) {
         return (
             <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 h-80 flex items-center justify-center">
-                <div className="animate-pulse text-gray-400">Chargement...</div>
+                <Spinner size={32} />
             </div>
         );
     }

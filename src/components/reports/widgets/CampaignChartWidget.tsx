@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, BarChart, Bar, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { getWidgetData } from '../../../services/widgetService';
+import Spinner from '../../common/Spinner';
 import type { WidgetConfig } from '../../../types/reportTypes';
 import './CampaignChartWidget.css';
 
@@ -206,7 +207,9 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                     <h3>Graphique de campagne</h3>
                 </div>
                 <div className="widget-content">
-                    <div className="loading-spinner">Chargement du graphique...</div>
+                    <div className="flex justify-center py-8">
+                        <Spinner size={32} />
+                    </div>
                 </div>
             </div>
         );

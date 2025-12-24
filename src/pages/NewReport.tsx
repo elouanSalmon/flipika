@@ -5,6 +5,7 @@ import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { createReport } from '../services/reportService';
 import { fetchCampaigns, fetchAccessibleCustomers } from '../services/googleAds';
 import ReportConfigModal, { type ReportConfig } from '../components/reports/ReportConfigModal';
+import Spinner from '../components/common/Spinner';
 import type { Campaign } from '../types/business';
 import toast from 'react-hot-toast';
 
@@ -131,11 +132,9 @@ const NewReport: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '100vh',
-                fontSize: '1.125rem',
-                color: 'var(--color-text-secondary)'
+                height: '100vh'
             }}>
-                Chargement...
+                <Spinner size={48} />
             </div>
         );
     }

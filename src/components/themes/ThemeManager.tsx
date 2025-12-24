@@ -3,6 +3,7 @@ import { Plus, Edit2, Copy, Trash2, Link as LinkIcon, Palette } from 'lucide-rea
 import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import themeService from '../../services/themeService';
+import Spinner from '../common/Spinner';
 import type { ReportTheme } from '../../types/reportThemes';
 import type { Account } from '../../types/business';
 import ThemePreview from './ThemePreview';
@@ -86,7 +87,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
     if (loading) {
         return (
             <div className="theme-manager-loading">
-                <span className="loading loading-spinner loading-lg"></span>
+                <Spinner size={48} />
                 <p>Chargement des thèmes...</p>
             </div>
         );

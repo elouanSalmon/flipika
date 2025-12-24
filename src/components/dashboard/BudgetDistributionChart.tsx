@@ -1,6 +1,7 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import type { Account } from '../../types/business';
+import Spinner from '../common/Spinner';
 import { useTheme } from '../../contexts/ThemeContext';
 
 interface BudgetDistributionChartProps {
@@ -23,7 +24,7 @@ const BudgetDistributionChart: React.FC<BudgetDistributionChartProps> = ({ accou
     if (loading) {
         return (
             <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 h-80 flex items-center justify-center">
-                <div className="animate-pulse text-gray-400">Chargement...</div>
+                <Spinner size={32} />
             </div>
         );
     }

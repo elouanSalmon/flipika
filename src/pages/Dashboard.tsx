@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BarChart3, ArrowRight, RefreshCw, LogOut } from 'lucide-react';
 import ErrorCard from '../components/ErrorCard';
+import Spinner from '../components/common/Spinner';
 import { useAuth } from '../contexts/AuthContext';
 import { getLinkedCustomerId, fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
 
@@ -147,7 +148,11 @@ const Dashboard = () => {
         setError(null);
     };
 
-    if (step === 'LOADING') return <div className="p-12 text-center">Chargement...</div>;
+    if (step === 'LOADING') return (
+        <div className="flex items-center justify-center p-12">
+            <Spinner size={48} />
+        </div>
+    );
 
     if (step === 'CONNECT') {
         return (
@@ -180,7 +185,9 @@ const Dashboard = () => {
                 {error && <ErrorCard message={error} />}
 
                 {loading ? (
-                    <div className="text-center p-12 text-gray-500">Recherche des comptes...</div>
+                    <div className="flex justify-center p-12">
+                        <Spinner size={32} />
+                    </div>
                 ) : (
                     <div className="grid gap-3">
                         {customers.map((cust, idx) => (

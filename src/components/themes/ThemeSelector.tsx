@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import themeService from '../../services/themeService';
+import Spinner from '../common/Spinner';
 import type { ReportTheme } from '../../types/reportThemes';
 import ThemePreview from './ThemePreview';
 import './ThemeSelector.css';
@@ -60,8 +61,8 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
     if (loading) {
         return (
             <div className="theme-selector-loading">
-                <span className="loading loading-spinner loading-sm"></span>
-                Chargement des thèmes...
+                <Spinner size={16} />
+                <span style={{ marginLeft: '8px' }}>Chargement des thèmes...</span>
             </div>
         );
     }

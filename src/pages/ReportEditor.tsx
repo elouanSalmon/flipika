@@ -13,6 +13,7 @@ import { getUserProfile } from '../services/userProfileService';
 import ReportEditorHeader from '../components/reports/ReportEditorHeader';
 import WidgetLibrary from '../components/reports/WidgetLibrary';
 import ReportCanvas from '../components/reports/ReportCanvas';
+import Spinner from '../components/common/Spinner';
 import type { EditableReport, WidgetConfig } from '../types/reportTypes';
 import { WidgetType } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
@@ -246,7 +247,9 @@ const ReportEditor: React.FC = () => {
     if (isLoading) {
         return (
             <div className="report-editor loading">
-                <div className="loading-spinner">Chargement...</div>
+                <div className="flex flex-col items-center justify-center min-h-screen">
+                    <Spinner size={48} />
+                </div>
             </div>
         );
     }

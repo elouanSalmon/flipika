@@ -10,6 +10,7 @@ import {
     Legend,
 } from 'recharts';
 import type { TimeSeriesDataPoint } from '../../types/business';
+import Spinner from '../common/Spinner';
 import { useTheme } from '../../contexts/ThemeContext';
 
 interface SpendingChartProps {
@@ -33,7 +34,7 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ data, loading = false }) 
     if (loading) {
         return (
             <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 h-80 flex items-center justify-center">
-                <div className="animate-pulse text-gray-400">Chargement...</div>
+                <Spinner size={32} />
             </div>
         );
     }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TrendingUp, TrendingDown, Eye, MousePointer, Target, DollarSign, Percent, BarChart3 } from 'lucide-react';
 import { getWidgetData } from '../../../services/widgetService';
+import Spinner from '../../common/Spinner';
 import type { WidgetConfig } from '../../../types/reportTypes';
 import './PerformanceOverviewWidget.css';
 
@@ -76,7 +77,9 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
                     <h3>Vue d'ensemble des performances</h3>
                 </div>
                 <div className="widget-content">
-                    <div className="loading-spinner">Chargement...</div>
+                    <div className="flex justify-center py-8">
+                        <Spinner size={32} />
+                    </div>
                 </div>
             </div>
         );

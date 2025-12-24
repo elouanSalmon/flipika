@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Search, Grid, List as ListIcon, FileText, Loader2 } from 'lucide-react';
+import { Plus, Search, Grid, List as ListIcon, FileText } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { listUserReports, getReportCountByStatus } from '../services/reportService';
 import type { EditableReport } from '../types/reportTypes';
 import ReportCard from '../components/reports/ReportCard/ReportCard';
+import Spinner from '../components/common/Spinner';
 import './ReportsList.css';
 
 type ViewMode = 'grid' | 'list';
@@ -94,7 +95,7 @@ const ReportsList: React.FC = () => {
         return (
             <div className="reports-list-page">
                 <div className="loading-container">
-                    <Loader2 className="loading-spinner" size={48} />
+                    <Spinner size={48} />
                     <div className="loading-text">Chargement des rapports...</div>
                 </div>
             </div>
