@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Building, FileText, Check, Loader2 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -29,47 +29,43 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
     // Validation errors
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    // Check username availability with debounce
-    const checkUsername = async (value: string) => {
-        const normalized = normalizeUsername(value);
-        const validation = validateUsername(normalized);
-
-        if (!validation.valid) {
-            setUsernameAvailable(false);
-            setErrors({ ...errors, username: validation.error || 'Invalid username' });
+    // Check username availability with debounce using useEffect
+    useEffect(() => {
+        if (username.length < 3) {
+            setUsernameAvailable(null);
+            setErrors(prev => ({ ...prev, username: '' }));
             return;
         }
 
-        setUsernameChecking(true);
-        setErrors({ ...errors, username: '' });
+        const timeoutId = setTimeout(async () => {
+            const normalized = normalizeUsername(username);
+            const validation = validateUsername(normalized);
 
-        try {
-            const available = await checkUsernameAvailability(normalized);
-            setUsernameAvailable(available);
-            if (!available) {
-                setErrors({ ...errors, username: 'Username is already taken' });
+            if (!validation.valid) {
+                setUsernameAvailable(false);
+                setErrors(prev => ({ ...prev, username: validation.error || 'Invalid username' }));
+                return;
             }
-        } catch (error) {
-            console.error('Error checking username:', error);
-            setUsernameAvailable(false);
-        } finally {
-            setUsernameChecking(false);
-        }
-    };
 
-    const handleUsernameChange = (value: string) => {
-        setUsername(value);
-        setUsernameAvailable(null);
+            setUsernameChecking(true);
+            setErrors(prev => ({ ...prev, username: '' }));
 
-        // Debounce check
-        const timeoutId = setTimeout(() => {
-            if (value.length >= 3) {
-                checkUsername(value);
+            try {
+                const available = await checkUsernameAvailability(normalized);
+                setUsernameAvailable(available);
+                if (!available) {
+                    setErrors(prev => ({ ...prev, username: 'Username is already taken' }));
+                }
+            } catch (error) {
+                console.error('Error checking username:', error);
+                setUsernameAvailable(false);
+            } finally {
+                setUsernameChecking(false);
             }
         }, 500);
 
         return () => clearTimeout(timeoutId);
-    };
+    }, [username]);
 
     const validateDetailsForm = (): boolean => {
         const newErrors: Record<string, string> = {};
@@ -175,7 +171,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                 <input
                                     type="text"
                                     value={username}
-                                    onChange={(e) => handleUsernameChange(e.target.value)}
+                                    onChange={(e) => setUsername(e.target.value)}
                                     placeholder="mon-identifiant"
                                     className={`w-full px-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 ${errors.username
                                         ? 'border-red-500'
