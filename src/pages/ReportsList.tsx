@@ -1,6 +1,7 @@
+```javascript
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Search, Grid, List as ListIcon, FileText } from 'lucide-react';
+import { Plus, Search, Grid, List as ListIcon, FileText, Loader2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { listUserReports, getReportCountByStatus } from '../services/reportService';
 import type { EditableReport } from '../types/reportTypes';
@@ -82,7 +83,7 @@ const ReportsList: React.FC = () => {
     };
 
     const handleReportClick = (reportId: string) => {
-        navigate(`/app/reports/${reportId}`);
+        navigate(`/ app / reports / ${ reportId } `);
     };
 
     const handleReportDeleted = () => {
@@ -94,7 +95,7 @@ const ReportsList: React.FC = () => {
         return (
             <div className="reports-list-page">
                 <div className="loading-container">
-                    <div className="loading-spinner"></div>
+                    <Loader2 className="loading-spinner" size={48} />
                     <div className="loading-text">Chargement des rapports...</div>
                 </div>
             </div>
@@ -117,27 +118,27 @@ const ReportsList: React.FC = () => {
             {/* Status Filters */}
             <div className="status-filters">
                 <button
-                    className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
+                    className={`status - filter - btn ${ statusFilter === 'all' ? 'active' : '' } `}
                     onClick={() => setStatusFilter('all')}
                 >
                     Tous ({reports.length})
                 </button>
                 <button
-                    className={`status-filter-btn ${statusFilter === 'draft' ? 'active' : ''}`}
+                    className={`status - filter - btn ${ statusFilter === 'draft' ? 'active' : '' } `}
                     onClick={() => setStatusFilter('draft')}
                 >
                     <span className="status-badge draft">●</span>
                     Brouillons ({statusCounts.draft})
                 </button>
                 <button
-                    className={`status-filter-btn ${statusFilter === 'published' ? 'active' : ''}`}
+                    className={`status - filter - btn ${ statusFilter === 'published' ? 'active' : '' } `}
                     onClick={() => setStatusFilter('published')}
                 >
                     <span className="status-badge published">●</span>
                     Publiés ({statusCounts.published})
                 </button>
                 <button
-                    className={`status-filter-btn ${statusFilter === 'archived' ? 'active' : ''}`}
+                    className={`status - filter - btn ${ statusFilter === 'archived' ? 'active' : '' } `}
                     onClick={() => setStatusFilter('archived')}
                 >
                     <span className="status-badge archived">●</span>
@@ -159,14 +160,14 @@ const ReportsList: React.FC = () => {
 
                 <div className="view-controls">
                     <button
-                        className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                        className={`view - btn ${ viewMode === 'grid' ? 'active' : '' } `}
                         onClick={() => setViewMode('grid')}
                         title="Vue grille"
                     >
                         <Grid size={18} />
                     </button>
                     <button
-                        className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                        className={`view - btn ${ viewMode === 'list' ? 'active' : '' } `}
                         onClick={() => setViewMode('list')}
                         title="Vue liste"
                     >
@@ -195,7 +196,7 @@ const ReportsList: React.FC = () => {
                     )}
                 </div>
             ) : (
-                <div className={`reports-${viewMode}`}>
+                <div className={`reports - ${ viewMode } `}>
                     {filteredReports.map((report) => (
                         <ReportCard
                             key={report.id}
