@@ -155,39 +155,41 @@ const ConnectionsCard = () => {
                         </div>
                     </div>
 
-                    <div className="mt-4 border-t border-gray-200 dark:border-gray-600 pt-4">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Compte par défaut
-                        </label>
-                        <div className="relative">
-                            <select
-                                value={customerId || ''}
-                                onChange={(e) => {
-                                    const newValue = e.target.value;
-                                    setLinkedCustomerId(newValue || null);
-                                    if (newValue) {
-                                        toast.success('Compte par défaut mis à jour');
-                                    }
-                                }}
-                                className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer"
-                            >
-                                <option value="">-- Sélectionner un compte --</option>
-                                {accounts.map((account) => (
-                                    <option key={account.id} value={account.id}>
-                                        {account.name} ({account.id})
-                                    </option>
-                                ))}
-                            </select>
-                            <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-500 dark:text-gray-400">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                                </svg>
+                    {isConnected && (
+                        <div className="mt-4 border-t border-gray-200 dark:border-gray-600 pt-4">
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Compte par défaut
+                            </label>
+                            <div className="relative">
+                                <select
+                                    value={customerId || ''}
+                                    onChange={(e) => {
+                                        const newValue = e.target.value;
+                                        setLinkedCustomerId(newValue || null);
+                                        if (newValue) {
+                                            toast.success('Compte par défaut mis à jour');
+                                        }
+                                    }}
+                                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer"
+                                >
+                                    <option value="">-- Sélectionner un compte --</option>
+                                    {accounts.map((account) => (
+                                        <option key={account.id} value={account.id}>
+                                            {account.name} ({account.id})
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-500 dark:text-gray-400">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
                             </div>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                                Ce compte sera utilisé par défaut dans le tableau de bord.
+                            </p>
                         </div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            Ce compte sera utilisé par défaut dans le tableau de bord.
-                        </p>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>
