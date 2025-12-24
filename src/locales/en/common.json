@@ -203,5 +203,71 @@
     "description": "The page you're looking for doesn't exist or has been moved.",
     "backButton": "Go Back",
     "homeButton": "Back to Home"
+  },
+  "profile": {
+    "title": "Profile",
+    "username": "Unique username",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "company": "Company",
+    "description": "Description",
+    "optional": "(optional)",
+    "required": "*",
+    "edit": "Edit profile",
+    "save": "Save",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "shareUrl": "Share link: flipika.com/report/{username}/...",
+    "usernameAvailable": "✓ Username available",
+    "usernameRules": "3-30 characters, lowercase letters, numbers, hyphens and underscores only",
+    "characterCount": "{current}/{max}",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Failed to update profile"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to Flipika!",
+      "description": "Let's set up your profile in a few quick steps to start creating professional Google Ads reports.",
+      "start": "Get Started"
+    },
+    "username": {
+      "title": "Choose your username",
+      "description": "Your unique username will be used to share your reports via personalized URLs.",
+      "label": "Unique username",
+      "placeholder": "my-username",
+      "available": "✓ Username available",
+      "rules": "3-30 characters, lowercase letters, numbers, hyphens and underscores only",
+      "sharePreview": "Your reports will be shared via:",
+      "shareUrl": "flipika.com/report/{username}/...",
+      "back": "Back",
+      "continue": "Continue"
+    },
+    "details": {
+      "title": "Complete your profile",
+      "description": "This information will appear on your shared reports.",
+      "firstNamePlaceholder": "John",
+      "lastNamePlaceholder": "Doe",
+      "companyPlaceholder": "My Agency",
+      "descriptionPlaceholder": "Media Buyer specialized in e-commerce...",
+      "back": "Back",
+      "finish": "Finish",
+      "creating": "Creating..."
+    },
+    "complete": {
+      "title": "Profile created successfully!",
+      "description": "You will be redirected to the application..."
+    }
+  },
+  "validation": {
+    "usernameRequired": "Username is required",
+    "usernameTooShort": "Username must be at least {min} characters",
+    "usernameTooLong": "Username must be at most {max} characters",
+    "usernameInvalid": "Username can only contain lowercase letters, numbers, hyphens, and underscores",
+    "usernameTaken": "This username is already taken",
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Email is not valid"
   }
 }

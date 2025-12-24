@@ -11,16 +11,22 @@ import {
     updatePassword,
     reauthenticateWithCredential
 } from 'firebase/auth';
+import type { UserProfile, UpdateUserProfileData } from '../types/userProfile';
+import { getUserProfile, updateUserProfile as updateUserProfileService } from '../services/userProfileService';
 
 interface AuthContextType {
     currentUser: User | null;
+    userProfile: UserProfile | null;
     loading: boolean;
+    profileLoading: boolean;
     loginWithGoogle: () => Promise<void>;
     linkGoogleAds: () => Promise<boolean>;
     logout: () => Promise<void>;
     hasPasswordProvider: () => boolean;
     createPassword: (password: string) => Promise<void>;
     changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
+    updateProfile: (updates: UpdateUserProfileData) => Promise<void>;
+    refreshProfile: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,11 +41,30 @@ export const useAuth = () => {
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
+    const [profileLoading, setProfileLoading] = useState(false);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setCurrentUser(user);
+
+            if (user) {
+                // Load user profile
+                setProfileLoading(true);
+                try {
+                    const profile = await getUserProfile(user.uid);
+                    setUserProfile(profile);
+                } catch (error) {
+                    console.error('Error loading user profile:', error);
+                    setUserProfile(null);
+                } finally {
+                    setProfileLoading(false);
+                }
+            } else {
+                setUserProfile(null);
+            }
+
             setLoading(false);
         });
 
@@ -92,6 +117,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const logout = async () => {
         localStorage.removeItem('google_ads_token'); // Clear ads token on logout
+        setUserProfile(null);
         await signOut(auth);
     };
 
@@ -128,15 +154,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         await updatePassword(currentUser, newPassword);
     };
 
+    const updateProfile = async (updates: UpdateUserProfileData): Promise<void> => {
+        if (!currentUser) {
+            throw new Error('User not authenticated');
+        }
+
+        await updateUserProfileService(currentUser.uid, updates);
+
+        // Refresh profile after update
+        await refreshProfile();
+    };
+
+    const refreshProfile = async (): Promise<void> => {
+        if (!currentUser) return;
+
+        setProfileLoading(true);
+        try {
+            const profile = await getUserProfile(currentUser.uid);
+            setUserProfile(profile);
+        } catch (error) {
+            console.error('Error refreshing user profile:', error);
+        } finally {
+            setProfileLoading(false);
+        }
+    };
+
     const value = {
         currentUser,
+        userProfile,
         loading,
+        profileLoading,
         loginWithGoogle,
         linkGoogleAds,
         logout,
         hasPasswordProvider,
         createPassword,
-        changePassword
+        changePassword,
+        updateProfile,
+        refreshProfile
     };
 
     return (

@@ -83,11 +83,51 @@ service cloud.firestore {
       
       allow create: if isOwner(userId)
         && request.resource.data.email is string
-        && request.resource.data.email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+        && request.resource.data.email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')
+        && request.resource.data.username is string
+        && request.resource.data.username.size() >= 3
+        && request.resource.data.username.size() <= 30
+        && request.resource.data.username.matches('^[a-z0-9_-]+$')
+        && request.resource.data.firstName is string
+        && request.resource.data.firstName.size() >= 1
+        && request.resource.data.firstName.size() <= 50
+        && request.resource.data.lastName is string
+        && request.resource.data.lastName.size() >= 1
+        && request.resource.data.lastName.size() <= 50
+        && (!('company' in request.resource.data) || (request.resource.data.company is string && request.resource.data.company.size() <= 100))
+        && (!('description' in request.resource.data) || (request.resource.data.description is string && request.resource.data.description.size() <= 500))
+        && request.resource.data.hasCompletedOnboarding is bool;
       
-      allow update: if isOwner(userId);
+      allow update: if isOwner(userId)
+        && (!('username' in request.resource.data) || (
+          request.resource.data.username is string
+          && request.resource.data.username.size() >= 3
+          && request.resource.data.username.size() <= 30
+          && request.resource.data.username.matches('^[a-z0-9_-]+$')
+        ))
+        && (!('firstName' in request.resource.data) || (
+          request.resource.data.firstName is string
+          && request.resource.data.firstName.size() >= 1
+          && request.resource.data.firstName.size() <= 50
+        ))
+        && (!('lastName' in request.resource.data) || (
+          request.resource.data.lastName is string
+          && request.resource.data.lastName.size() >= 1
+          && request.resource.data.lastName.size() <= 50
+        ))
+        && (!('company' in request.resource.data) || (request.resource.data.company is string && request.resource.data.company.size() <= 100))
+        && (!('description' in request.resource.data) || (request.resource.data.description is string && request.resource.data.description.size() <= 500));
       
       allow delete: if isOwner(userId);
+    }
+    
+    // ========================================
+    // USERNAMES (Uniqueness tracking)
+    // ========================================
+    match /usernames/{username} {
+      // Only allow creation/update via authenticated users
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
     }
     
     // ========================================
@@ -112,9 +152,23 @@ service cloud.firestore {
       allow create, update: if isOwner(userId)
         && request.resource.data.title is string
         && request.resource.data.title.size() >= 1
-        && request.resource.data.title.size() <= 200;
+        && request.resource.data.title.size() <= 200
+        && (!('isPublic' in request.resource.data) || request.resource.data.isPublic is bool);
       
       allow delete: if isOwner(userId);
+    }
+    
+    // ========================================
+    // PUBLIC REPORTS (Shareable via username)
+    // ========================================
+    match /public_reports/{username}/{reportId} {
+      // Anyone can read public reports
+      allow read: if true;
+      
+      // Only the owner can write
+      allow write: if isAuthenticated() 
+        && exists(/databases/$(database)/documents/usernames/$(username))
+        && get(/databases/$(database)/documents/usernames/$(username)).data.userId == request.auth.uid;
     }
     
     // ========================================

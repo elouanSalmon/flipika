@@ -515,5 +515,71 @@
     "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
     "backButton": "Retour",
     "homeButton": "Retour à l'accueil"
+  },
+  "profile": {
+    "title": "Profil",
+    "username": "Identifiant unique",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "company": "Entreprise",
+    "description": "Description",
+    "optional": "(optionnel)",
+    "required": "*",
+    "edit": "Modifier le profil",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "saving": "Enregistrement...",
+    "shareUrl": "Lien de partage : flipika.com/report/{username}/...",
+    "usernameAvailable": "✓ Identifiant disponible",
+    "usernameRules": "3-30 caractères, lettres minuscules, chiffres, tirets et underscores uniquement",
+    "characterCount": "{current}/{max}",
+    "updateSuccess": "Profil mis à jour avec succès",
+    "updateError": "Échec de la mise à jour du profil"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Bienvenue sur Flipika !",
+      "description": "Configurons votre profil en quelques étapes rapides pour commencer à créer des rapports Google Ads professionnels.",
+      "start": "Commencer"
+    },
+    "username": {
+      "title": "Choisissez votre identifiant",
+      "description": "Votre identifiant unique sera utilisé pour partager vos rapports via des URLs personnalisées.",
+      "label": "Identifiant unique",
+      "placeholder": "mon-identifiant",
+      "available": "✓ Identifiant disponible",
+      "rules": "3-30 caractères, lettres minuscules, chiffres, tirets et underscores uniquement",
+      "sharePreview": "Vos rapports seront partagés via :",
+      "shareUrl": "flipika.com/report/{username}/...",
+      "back": "Retour",
+      "continue": "Continuer"
+    },
+    "details": {
+      "title": "Complétez votre profil",
+      "description": "Ces informations apparaîtront sur vos rapports partagés.",
+      "firstNamePlaceholder": "Jean",
+      "lastNamePlaceholder": "Dupont",
+      "companyPlaceholder": "Mon Agence",
+      "descriptionPlaceholder": "Media Buyer spécialisé en e-commerce...",
+      "back": "Retour",
+      "finish": "Terminer",
+      "creating": "Création..."
+    },
+    "complete": {
+      "title": "Profil créé avec succès !",
+      "description": "Vous allez être redirigé vers l'application..."
+    }
+  },
+  "validation": {
+    "usernameRequired": "L'identifiant est requis",
+    "usernameTooShort": "L'identifiant doit contenir au moins {min} caractères",
+    "usernameTooLong": "L'identifiant doit contenir au maximum {max} caractères",
+    "usernameInvalid": "L'identifiant ne peut contenir que des lettres minuscules, chiffres, tirets et underscores",
+    "usernameTaken": "Cet identifiant est déjà utilisé",
+    "firstNameRequired": "Le prénom est requis",
+    "lastNameRequired": "Le nom est requis",
+    "emailRequired": "L'email est requis",
+    "emailInvalid": "L'email n'est pas valide"
   }
 }

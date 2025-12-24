@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -11,6 +11,7 @@ import { useUserTracking } from './hooks/useUserTracking';
 import HubSpotChat from './components/HubSpotChat';
 import CookieConsent from './components/CookieConsent';
 import InstallPWA from './components/InstallPWA';
+import OnboardingModal from './components/onboarding/OnboardingModal';
 import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
 import Login from './pages/Login';
@@ -30,9 +31,22 @@ import './App.css';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { currentUser, loading } = useAuth();
+  const { currentUser, userProfile, loading, profileLoading } = useAuth();
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
-  if (loading) {
+  useEffect(() => {
+    if (!loading && !profileLoading && currentUser && userProfile) {
+      // Show onboarding if profile exists but onboarding not completed
+      if (!userProfile.hasCompletedOnboarding) {
+        setShowOnboarding(true);
+      }
+    } else if (!loading && !profileLoading && currentUser && !userProfile) {
+      // Show onboarding if no profile exists
+      setShowOnboarding(true);
+    }
+  }, [currentUser, userProfile, loading, profileLoading]);
+
+  if (loading || profileLoading) {
     return <div className="h-screen flex items-center justify-center text-blue-600">Loading...</div>;
   }
 
@@ -40,7 +54,14 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/secret-login" replace />;
   }
 
-  return children;
+  return (
+    <>
+      {showOnboarding && (
+        <OnboardingModal onComplete={() => setShowOnboarding(false)} />
+      )}
+      {children}
+    </>
+  );
 };
 
 // Analytics tracking component
