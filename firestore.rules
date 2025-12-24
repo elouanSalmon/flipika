@@ -207,6 +207,64 @@ service cloud.firestore {
     }
     
     // ========================================
+    // REPORTS (New CRUD System)
+    // ========================================
+    match /reports/{reportId} {
+      // Read: owner or if published
+      allow read: if isAuthenticated() && 
+        (request.auth.uid == resource.data.userId || resource.data.status == 'published');
+      
+      // Create: authenticated user with valid data
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 1
+        && request.resource.data.title.size() <= 200
+        && request.resource.data.status in ['draft', 'published', 'archived']
+        && request.resource.data.sections is list
+        && request.resource.data.widgetIds is list
+        && request.resource.data.campaignIds is list;
+      
+      // Update: only owner
+      allow update: if isAuthenticated() 
+        && request.auth.uid == resource.data.userId
+        && request.resource.data.userId == resource.data.userId; // Prevent userId change
+      
+      // Delete: only owner
+      allow delete: if isAuthenticated() 
+        && request.auth.uid == resource.data.userId;
+      
+      // Widgets sub-collection
+      match /widgets/{widgetId} {
+        // Read/Write: only if user owns the parent report
+        allow read, write: if isAuthenticated() 
+          && exists(/databases/$(database)/documents/reports/$(reportId))
+          && get(/databases/$(database)/documents/reports/$(reportId)).data.userId == request.auth.uid;
+      }
+    }
+    
+    // ========================================
+    // WIDGET TEMPLATES (Reusable configurations)
+    // ========================================
+    match /widgetTemplates/{templateId} {
+      // Read: owner or default templates
+      allow read: if isAuthenticated() 
+        && (resource.data.userId == request.auth.uid || resource.data.isDefault == true);
+      
+      // Create: authenticated user
+      allow create: if isAuthenticated() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.name is string
+        && request.resource.data.name.size() >= 1
+        && request.resource.data.name.size() <= 100
+        && request.resource.data.type in ['performance_overview', 'campaign_chart'];
+      
+      // Update/Delete: only owner
+      allow update, delete: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid;
+    }
+    
+    // ========================================
     // RATE LIMITS (pour Cloud Functions)
     // ========================================
     match /rate_limits/{limitId} {

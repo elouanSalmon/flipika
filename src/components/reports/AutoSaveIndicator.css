@@ -1,0 +1,115 @@
+.auto-save-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: all 0.3s;
+}
+
+.indicator-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.indicator-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.status-text {
+    font-weight: 600;
+    line-height: 1;
+}
+
+.last-saved-text {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    line-height: 1;
+}
+
+/* Saved State */
+.auto-save-indicator.saved {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.auto-save-indicator.saved .indicator-icon {
+    animation: checkmark 0.5s ease-in-out;
+}
+
+/* Saving State */
+.auto-save-indicator.saving {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.auto-save-indicator.saving .indicator-icon {
+    animation: spin 1s linear infinite;
+}
+
+/* Error State */
+.auto-save-indicator.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.auto-save-indicator.error .indicator-icon {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auto-save-indicator {
+        padding: 6px 10px;
+        font-size: 0.8125rem;
+    }
+
+    .last-saved-text {
+        display: none;
+    }
+}

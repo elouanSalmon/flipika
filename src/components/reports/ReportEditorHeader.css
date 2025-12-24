@@ -1,0 +1,213 @@
+.report-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-border);
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.report-editor-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.report-title-input {
+    flex: 1;
+    max-width: 500px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 8px 0;
+    transition: all 0.2s;
+}
+
+.report-title-input:hover {
+    border-bottom-color: var(--color-border);
+}
+
+.report-title-input:focus {
+    outline: none;
+    border-bottom-color: var(--color-primary);
+}
+
+.report-title-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.report-status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.report-status-badge.status-draft {
+    background: rgba(var(--warning-rgb), 0.1);
+    color: var(--color-warning);
+}
+
+.report-status-badge.status-published {
+    background: rgba(var(--success-rgb), 0.1);
+    color: var(--color-success);
+}
+
+.report-status-badge.status-archived {
+    background: rgba(var(--text-secondary-rgb), 0.1);
+    color: var(--color-text-secondary);
+}
+
+.report-editor-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.theme-selector-wrapper {
+    position: relative;
+}
+
+/* Actions Menu */
+.actions-menu-wrapper {
+    position: relative;
+}
+
+.actions-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+}
+
+.actions-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 200px;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-xl);
+    padding: 8px;
+    z-index: 999;
+    backdrop-filter: blur(10px);
+}
+
+.actions-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.actions-menu-item:hover {
+    background: var(--glass-bg-hover);
+}
+
+.actions-menu-item.danger {
+    color: var(--color-error);
+}
+
+.actions-menu-item.danger:hover {
+    background: rgba(var(--error-rgb), 0.1);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    background: var(--glass-bg-hover);
+}
+
+.btn-icon {
+    padding: 10px;
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+}
+
+.btn-icon:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .report-editor-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .report-editor-header-left {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .report-title-input {
+        max-width: none;
+    }
+
+    .report-editor-header-right {
+        justify-content: flex-end;
+    }
+
+    .btn span {
+        display: none;
+    }
+}

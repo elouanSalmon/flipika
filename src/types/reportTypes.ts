@@ -16,6 +16,61 @@ export const SectionType = {
 export type SectionType = typeof SectionType[keyof typeof SectionType];
 
 
+// Widget Types
+export const WidgetType = {
+    PERFORMANCE_OVERVIEW: 'performance_overview',
+    CAMPAIGN_CHART: 'campaign_chart',
+    TEXT_BLOCK: 'text_block',
+    CUSTOM: 'custom',
+} as const;
+
+export type WidgetType = typeof WidgetType[keyof typeof WidgetType];
+
+export interface WidgetConfig {
+    id: string;
+    type: WidgetType;
+    accountId: string;
+    campaignIds: string[];
+    order: number;
+    settings?: {
+        // Performance Overview
+        metrics?: string[]; // ['impressions', 'clicks', 'ctr', 'cpc', 'conversions', 'roas']
+        showComparison?: boolean;
+
+        // Campaign Chart
+        chartType?: 'line' | 'bar' | 'area';
+        timeRange?: string; // 'last_7_days', 'last_30_days', 'custom'
+
+        // Text Block
+        content?: string; // HTML content
+
+        // Custom
+        [key: string]: any; // Allow any custom settings
+    };
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface WidgetInstance {
+    id: string;
+    widgetConfigId: string;
+    reportId: string;
+    data?: any; // Cached data from Google Ads API
+    lastUpdated: Date;
+}
+
+export interface WidgetTemplate {
+    id: string;
+    userId?: string; // null for default templates
+    name: string;
+    description: string;
+    type: WidgetType;
+    defaultSettings: WidgetConfig['settings'];
+    thumbnail?: string;
+    isDefault: boolean;
+    createdAt: Date;
+}
+
 // Editable Report Types
 export interface EditableReport {
     id: string;
@@ -25,9 +80,13 @@ export interface EditableReport {
     title: string;
     content: JSONContent;
     sections: ReportSection[];
+    widgets: WidgetConfig[]; // Added widget support
     comments: ReportComment[];
     design: ReportDesign;
     status: 'draft' | 'published' | 'archived';
+    publishedAt?: Date; // When the report was published
+    lastAutoSave?: Date; // Last auto-save timestamp
+    shareUrl?: string; // Public share URL (if published)
     createdAt: Date;
     updatedAt: Date;
     version: number;

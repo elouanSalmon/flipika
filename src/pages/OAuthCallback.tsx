@@ -1,29 +1,82 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { auth } from '../firebase/config';
+
+const FUNCTIONS_BASE_URL = 'https://us-central1-flipika.cloudfunctions.net';
 
 /**
  * OAuth Callback page
- * Handles the redirect from Google OAuth and shows appropriate feedback
+ * Handles the redirect from Google OAuth and exchanges the code for tokens
  */
 const OAuthCallback = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const oauth = searchParams.get('oauth');
-    const error = searchParams.get('error');
-    const message = searchParams.get('message');
-    const uid = searchParams.get('uid');
+    const [status, setStatus] = useState<'processing' | 'success' | 'error'>('processing');
+    const [errorMessage, setErrorMessage] = useState<string>('');
 
     useEffect(() => {
-        // Auto-redirect after 2 seconds
-        // The GoogleAdsContext will automatically detect the connection via Firestore
-        const timer = setTimeout(() => {
-            navigate('/app/reports');
-        }, 2000);
+        const handleOAuthCallback = async () => {
+            const code = searchParams.get('code');
+            const state = searchParams.get('state');
+            const error = searchParams.get('error');
 
-        return () => clearTimeout(timer);
-    }, [navigate, oauth, uid]);
+            // Handle OAuth errors from Google
+            if (error) {
+                console.error('OAuth error from Google:', error);
+                setStatus('error');
+                setErrorMessage('Authorization was denied or failed');
+                setTimeout(() => navigate('/app/reports'), 3000);
+                return;
+            }
 
-    if (error) {
+            // Validate we have the required parameters
+            if (!code || !state) {
+                console.error('Missing code or state parameter');
+                setStatus('error');
+                setErrorMessage('Invalid callback parameters');
+                setTimeout(() => navigate('/app/reports'), 3000);
+                return;
+            }
+
+            try {
+                // Get the current user's ID token
+                const user = auth.currentUser;
+                if (!user) {
+                    throw new Error('User not authenticated');
+                }
+                const idToken = await user.getIdToken();
+
+                // Call the Cloud Function to exchange the code for tokens
+                const response = await fetch(`${FUNCTIONS_BASE_URL}/handleOAuthCallback?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to exchange OAuth code: ${response.status}`);
+                }
+
+                // Success!
+                console.log('OAuth callback successful');
+                setStatus('success');
+
+                // Redirect after showing success message
+                setTimeout(() => navigate('/app/reports'), 2000);
+
+            } catch (error: any) {
+                console.error('Error handling OAuth callback:', error);
+                setStatus('error');
+                setErrorMessage(error.message || 'Failed to connect your Google Ads account');
+                setTimeout(() => navigate('/app/reports'), 3000);
+            }
+        };
+
+        handleOAuthCallback();
+    }, [searchParams, navigate]);
+
+    if (status === 'error') {
         return (
             <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-secondary)]">
                 <div className="max-w-md w-full p-8 glass rounded-2xl border border-red-500/20">
@@ -35,7 +88,7 @@ const OAuthCallback = () => {
                         </div>
                         <h1 className="text-2xl font-bold text-red-500 mb-2">Connection Failed</h1>
                         <p className="text-[var(--color-text-secondary)] mb-4">
-                            {message || 'Failed to connect your Google Ads account'}
+                            {errorMessage}
                         </p>
                         <p className="text-sm text-[var(--color-text-muted)]">
                             Redirecting to reports...
@@ -46,7 +99,7 @@ const OAuthCallback = () => {
         );
     }
 
-    if (oauth === 'success') {
+    if (status === 'success') {
         return (
             <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-secondary)]">
                 <div className="max-w-md w-full p-8 glass rounded-2xl border border-green-500/20">
@@ -69,7 +122,7 @@ const OAuthCallback = () => {
         );
     }
 
-    // Loading state
+    // Processing state
     return (
         <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-secondary)]">
             <div className="max-w-md w-full p-8 glass rounded-2xl">

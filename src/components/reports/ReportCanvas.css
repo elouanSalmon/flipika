@@ -1,0 +1,135 @@
+.report-canvas {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--color-bg-primary);
+}
+
+.report-canvas.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    max-width: 400px;
+    padding: 48px 24px;
+}
+
+.empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 24px;
+    background: var(--glass-bg);
+    border: 2px dashed var(--color-border);
+    border-radius: 20px;
+    color: var(--color-text-muted);
+}
+
+.empty-state h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.empty-state p {
+    margin: 0 0 24px 0;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.empty-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+}
+
+/* Widgets Container */
+.widgets-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Drop Zone Indicator */
+.report-canvas[data-dragging="true"] {
+    background: var(--glass-bg);
+    border: 2px dashed var(--color-primary);
+}
+
+/* Scrollbar */
+.report-canvas::-webkit-scrollbar {
+    width: 8px;
+}
+
+.report-canvas::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.report-canvas::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+
+.report-canvas::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .report-canvas {
+        padding: 16px;
+    }
+
+    .widgets-container {
+        gap: 16px;
+    }
+
+    .empty-state {
+        padding: 32px 16px;
+    }
+
+    .empty-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .empty-state h3 {
+        font-size: 1.25rem;
+    }
+
+    .empty-state p {
+        font-size: 0.9375rem;
+    }
+}

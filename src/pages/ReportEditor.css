@@ -1,0 +1,29 @@
+.report-editor {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--color-bg-primary);
+}
+
+.report-editor.loading {
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+}
+
+.report-editor-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .report-editor-content {
+        flex-direction: column;
+    }
+}

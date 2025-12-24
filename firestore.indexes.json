@@ -1,15 +1,33 @@
 {
   "indexes": [
     {
-      "collectionGroup": "email_subscriptions",
+      "collectionGroup": "reports",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "email",
+          "fieldPath": "userId",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "timestamp",
+          "fieldPath": "updatedAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "reports",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "userId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updatedAt",
           "order": "DESCENDING"
         }
       ]

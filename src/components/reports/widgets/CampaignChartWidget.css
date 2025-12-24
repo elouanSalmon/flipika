@@ -1,0 +1,133 @@
+.campaign-chart-widget {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.campaign-chart-widget:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.widget-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-primary, #0f172a);
+    margin: 0;
+}
+
+.widget-settings-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.widget-settings-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.widget-content {
+    position: relative;
+    min-height: 400px;
+}
+
+/* Loading and Error States */
+.campaign-chart-widget.loading,
+.campaign-chart-widget.error {
+    min-height: 400px;
+}
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    color: var(--color-text-secondary, #64748b);
+    font-size: 1rem;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    color: #ef4444;
+    font-size: 1rem;
+}
+
+/* Recharts Customization */
+.recharts-wrapper {
+    font-family: inherit;
+}
+
+.recharts-legend-wrapper {
+    padding-top: 20px !important;
+}
+
+.recharts-legend-item {
+    margin-right: 20px !important;
+}
+
+.recharts-legend-item-text {
+    color: var(--color-text-primary, #0f172a) !important;
+    font-weight: 500 !important;
+}
+
+.recharts-tooltip-wrapper {
+    outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .campaign-chart-widget {
+        padding: 16px;
+    }
+
+    .widget-content {
+        min-height: 300px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .campaign-chart-widget {
+        background: rgba(15, 23, 42, 0.95);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .widget-header h3 {
+        color: #f1f5f9;
+    }
+
+    .recharts-legend-item-text {
+        color: #f1f5f9 !important;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.campaign-chart-widget {
+    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}

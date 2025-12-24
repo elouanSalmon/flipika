@@ -20,7 +20,9 @@ import Dashboard from './pages/Dashboard';
 import DashboardNew from './pages/DashboardNew';
 import AuditPage from './pages/AuditPage';
 import Copilot from './pages/Copilot';
-import Reports from './pages/Reports';
+import ReportEditor from './pages/ReportEditor';
+import NewReport from './pages/NewReport';
+import ReportsList from './pages/ReportsList';
 import Settings from './pages/Settings';
 import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -111,7 +113,9 @@ const AppRoutes = () => {
         {enableDashboard && <Route path="dashboard-old" element={<Dashboard />} />}
         {enableAudit && <Route path="audit" element={<AuditPage />} />}
         {enableCopilot && <Route path="copilot" element={<Copilot />} />}
-        {enableReports && <Route path="reports" element={<Reports />} />}
+        {enableReports && <Route path="reports" element={<ReportsList />} />}
+        {enableReports && <Route path="reports/new" element={<NewReport />} />}
+        {enableReports && <Route path="reports/:id" element={<ReportEditor />} />}
         <Route path="settings" element={<Settings />} />
       </Route>
 

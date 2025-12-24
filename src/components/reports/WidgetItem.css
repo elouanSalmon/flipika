@@ -1,0 +1,159 @@
+.widget-item {
+    position: relative;
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.widget-item:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.widget-item.selected {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+.widget-item.dragging {
+    cursor: grabbing;
+    box-shadow: var(--shadow-xl);
+    z-index: 1000;
+}
+
+/* Drag Handle */
+.widget-handle {
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-muted);
+    cursor: grab;
+    opacity: 0;
+    transition: all 0.2s;
+}
+
+.widget-item:hover .widget-handle {
+    opacity: 1;
+}
+
+.widget-handle:active {
+    cursor: grabbing;
+}
+
+/* Widget Content */
+.widget-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Widget Actions */
+.widget-actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.widget-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.widget-action-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.widget-action-btn.danger:hover {
+    border-color: var(--color-error);
+    color: var(--color-error);
+    background: rgba(var(--error-rgb), 0.1);
+}
+
+/* Text Block Widget */
+.text-block-widget {
+    min-height: 100px;
+    padding: 16px;
+    background: var(--glass-bg);
+    border-radius: 12px;
+}
+
+.text-block-widget [contenteditable] {
+    outline: none;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+}
+
+.text-block-widget [contenteditable]:focus {
+    background: var(--glass-bg-hover);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.text-block-widget p {
+    margin: 0 0 12px 0;
+}
+
+.text-block-widget p:last-child {
+    margin-bottom: 0;
+}
+
+/* Custom Widget */
+.custom-widget {
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--glass-bg);
+    border: 2px dashed var(--color-border);
+    border-radius: 12px;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .widget-item {
+        padding: 16px;
+    }
+
+    .widget-handle {
+        left: -8px;
+        width: 20px;
+        height: 40px;
+    }
+
+    .widget-actions {
+        top: 12px;
+        right: 12px;
+    }
+
+    .widget-action-btn {
+        width: 28px;
+        height: 28px;
+    }
+}

@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -11,24 +11,28 @@ import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { useAuth } from '../contexts/AuthContext';
 import dataService from '../services/dataService';
 import themeService from '../services/themeService';
+import { createReport, getReport, updateReport, autoSaveReport } from '../services/reportService';
 import { generateExecutiveSummary, generateMetricsSection, generateCampaignAnalysis, generateRecommendations } from '../services/sectionGenerator';
 import SectionLibrary from '../components/reports/SectionLibrary';
 import SectionItem from '../components/reports/SectionItem';
 import DesignPanel from '../components/reports/DesignPanel';
 import ThemeSelector from '../components/themes/ThemeSelector';
 import ThemeManager from '../components/themes/ThemeManager';
+import AutoSaveIndicator from '../components/reports/AutoSaveIndicator';
 import type { Account, Campaign, CampaignMetrics } from '../types/business';
-import type { ReportSection, ReportDesign, SectionTemplate } from '../types/reportTypes';
+import type { ReportSection, ReportDesign, SectionTemplate, WidgetConfig } from '../types/reportTypes';
 import { SectionType, defaultReportDesign } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
 import './Reports.css';
 
 const ReportsPage = () => {
     const navigate = useNavigate();
+    const { id: reportId } = useParams<{ id: string }>();
     const { isDemoMode } = useDemoMode();
     const { isConnected } = useGoogleAds();
     const { currentUser } = useAuth();
     const hasAccess = isConnected || isDemoMode;
+    const autoSaveTimerRef = useRef<number | null>(null);
 
     const [accounts, setAccounts] = useState<Account[]>([]);
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -60,6 +64,14 @@ const ReportsPage = () => {
     const [isDirty, setIsDirty] = useState(false);
     const [generating, setGenerating] = useState(false);
 
+    // Auto-save state
+    const [autoSaveStatus, setAutoSaveStatus] = useState<'saved' | 'saving' | 'error'>('saved');
+    const [lastSaved, setLastSaved] = useState<Date | undefined>();
+    const [currentReportId, setCurrentReportId] = useState<string | null>(reportId || null);
+
+    // Widgets state
+    const [widgets, setWidgets] = useState<WidgetConfig[]>([]);
+
     const sensors = useSensors(
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
@@ -79,6 +91,75 @@ const ReportsPage = () => {
             loadThemeForAccount(selectedAccountId);
         }
     }, [selectedAccountId]);
+
+    // Load existing report if editing
+    useEffect(() => {
+        if (reportId && currentUser) {
+            loadExistingReport(reportId);
+        }
+    }, [reportId, currentUser]);
+
+    // Auto-save effect
+    useEffect(() => {
+        if (isDirty && currentReportId && currentUser && isEditorMode) {
+            // Clear existing timer
+            if (autoSaveTimerRef.current) {
+                window.clearTimeout(autoSaveTimerRef.current);
+            }
+
+            // Set new timer for 30 seconds
+            autoSaveTimerRef.current = window.setTimeout(() => {
+                handleAutoSave();
+            }, 30000);
+        }
+
+        return () => {
+            if (autoSaveTimerRef.current) {
+                window.clearTimeout(autoSaveTimerRef.current);
+            }
+        };
+    }, [isDirty, sections, widgets, reportTitle, design]);
+
+    const loadExistingReport = async (id: string) => {
+        if (!currentUser) return;
+
+        try {
+            const report = await getReport(id);
+            if (report && report.userId === currentUser.uid) {
+                setReportTitle(report.title);
+                setSections(report.sections);
+                setWidgets(report.widgets || []);
+                setDesign(report.design);
+                setSelectedAccountId(report.accountId);
+                setSelectedCampaignIds(report.campaignIds);
+                setIsEditorMode(true);
+                setCurrentReportId(id);
+                setLastSaved(report.updatedAt);
+            }
+        } catch (error) {
+            console.error('Error loading report:', error);
+            toast.error('Erreur lors du chargement du rapport');
+        }
+    };
+
+    const handleAutoSave = useCallback(async () => {
+        if (!currentReportId || !currentUser) return;
+
+        try {
+            setAutoSaveStatus('saving');
+            await autoSaveReport(currentReportId, {
+                content: { type: 'doc', content: [] }, // TipTap content if needed
+                sections,
+                widgets,
+            });
+            setAutoSaveStatus('saved');
+            setLastSaved(new Date());
+            setIsDirty(false);
+        } catch (error) {
+            console.error('Auto-save error:', error);
+            setAutoSaveStatus('error');
+        }
+    }, [currentReportId, currentUser, sections, widgets]);
 
     // Load theme linked to the selected account
     const loadThemeForAccount = async (accountId: string) => {
@@ -223,7 +304,7 @@ const ReportsPage = () => {
         return aggregated;
     };
 
-    const handleGenerateInitialReport = () => {
+    const handleGenerateInitialReport = async () => {
         try {
             console.log('Generating report...', { selectedAccountId, selectedCampaignIds, campaignsCount: campaigns.length });
 
@@ -325,9 +406,31 @@ const ReportsPage = () => {
             }
 
             setSections(newSections);
+
+            // Create report in Firestore if user is authenticated
+            if (currentUser) {
+                try {
+                    const newReportId = await createReport(currentUser.uid, selectedAccountId, reportTitle);
+
+                    // Update the report with sections, widgets, and design
+                    await updateReport(newReportId, {
+                        campaignIds: selectedCampaignIds,
+                        sections: newSections,
+                        widgets: [],
+                        design,
+                    });
+
+                    setCurrentReportId(newReportId);
+                    setLastSaved(new Date());
+                } catch (error) {
+                    console.error('Error creating report:', error);
+                    // Continue anyway - report is in memory
+                }
+            }
+
             setShowConfigModal(false);
             setIsEditorMode(true);
-            setIsDirty(true);
+            setIsDirty(false);
             toast.success('Rapport généré avec succès');
         } catch (error) {
             console.error('Error generating report:', error);
@@ -607,7 +710,10 @@ const ReportsPage = () => {
                                 }}
                                 className="reports-title-input"
                             />
-                            {isDirty && <span className="reports-dirty-indicator">●</span>}
+                            <AutoSaveIndicator
+                                status={autoSaveStatus}
+                                lastSaved={lastSaved}
+                            />
                         </>
                     ) : (
                         <h1 className="reports-page-title">Rapports</h1>
