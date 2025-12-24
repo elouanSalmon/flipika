@@ -9,6 +9,8 @@ interface CampaignChartWidgetProps {
     config: WidgetConfig;
     accountId: string;
     campaignIds?: string[];
+    startDate?: Date;
+    endDate?: Date;
     editable?: boolean;
 }
 
@@ -32,6 +34,8 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
     config,
     accountId,
     campaignIds,
+    startDate,
+    endDate,
     editable = false,
 }) => {
     const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
@@ -41,14 +45,14 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
 
     useEffect(() => {
         loadData();
-    }, [config, accountId, campaignIds]);
+    }, [config, accountId, campaignIds, startDate, endDate]);
 
     const loadData = async () => {
         try {
             setLoading(true);
             setError(null);
 
-            const data = await getWidgetData(config, accountId, campaignIds);
+            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate);
             setChartData(data.chartData || []);
             setCampaigns(data.campaigns || []);
         } catch (err) {

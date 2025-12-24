@@ -9,6 +9,8 @@ import './ReportCanvas.css';
 
 interface ReportCanvasProps {
     widgets: WidgetConfig[];
+    startDate?: Date;
+    endDate?: Date;
     onReorder: (widgets: WidgetConfig[]) => void;
     onWidgetUpdate: (widgetId: string, config: Partial<WidgetConfig>) => void;
     onWidgetDelete: (widgetId: string) => void;
@@ -19,6 +21,8 @@ interface ReportCanvasProps {
 
 const ReportCanvas: React.FC<ReportCanvasProps> = ({
     widgets,
+    startDate,
+    endDate,
     onReorder,
     onWidgetUpdate,
     onWidgetDelete,
@@ -110,6 +114,8 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
                                 key={widget.id}
                                 widget={widget}
                                 isSelected={selectedWidgetId === widget.id}
+                                startDate={startDate}
+                                endDate={endDate}
                                 onSelect={() => onWidgetSelect(widget.id)}
                                 onUpdate={(config) => onWidgetUpdate(widget.id, config)}
                                 onDelete={() => onWidgetDelete(widget.id)}

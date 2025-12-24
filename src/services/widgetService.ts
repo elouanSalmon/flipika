@@ -84,17 +84,19 @@ export async function deleteWidget(widgetId: string): Promise<void> {
 export async function getWidgetData(
     widgetConfig: WidgetConfig,
     accountId: string,
-    campaignIds?: string[]
+    campaignIds?: string[],
+    startDate?: Date,
+    endDate?: Date
 ): Promise<any> {
     try {
         const { type, settings } = widgetConfig;
 
         switch (type) {
             case WidgetType.PERFORMANCE_OVERVIEW:
-                return await getPerformanceOverviewData(accountId, campaignIds, settings);
+                return await getPerformanceOverviewData(accountId, campaignIds, settings, startDate, endDate);
 
             case WidgetType.CAMPAIGN_CHART:
-                return await getCampaignChartData(accountId, campaignIds, settings);
+                return await getCampaignChartData(accountId, campaignIds, settings, startDate, endDate);
 
             default:
                 throw new Error(`Unknown widget type: ${type}`);
@@ -109,9 +111,11 @@ export async function getWidgetData(
  * Get Performance Overview widget data
  */
 async function getPerformanceOverviewData(
-    _accountId: string,
-    _campaignIds?: string[],
-    settings?: WidgetConfig['settings']
+    accountId: string,
+    campaignIds?: string[],
+    settings?: WidgetConfig['settings'],
+    startDate?: Date,
+    endDate?: Date
 ): Promise<{
     metrics: Array<{
         name: string;
@@ -121,8 +125,10 @@ async function getPerformanceOverviewData(
     }>;
 }> {
     try {
-        // TODO: Implement real Google Ads API call
-        // For now, return mock data
+        // TODO: Implement real Google Ads API call with date filtering
+        // For now, return mock data with date awareness
+        console.log('Fetching performance data:', { accountId, campaignIds, startDate, endDate });
+
         const selectedMetrics = settings?.metrics || [
             'impressions',
             'clicks',
@@ -132,9 +138,15 @@ async function getPerformanceOverviewData(
             'roas'
         ];
 
+        // Calculate days in range for more realistic mock data
+        const days = startDate && endDate
+            ? Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
+            : 30;
+
         const metricsData = selectedMetrics.map(metricName => {
-            // Mock data - replace with real API call
-            const metricValue = Math.random() * 1000;
+            // Mock data scaled by date range - replace with real API call
+            const baseValue = Math.random() * 1000;
+            const metricValue = baseValue * (days / 30); // Scale by date range
 
             return {
                 name: metricName,
@@ -155,9 +167,11 @@ async function getPerformanceOverviewData(
  * Get Campaign Chart widget data
  */
 async function getCampaignChartData(
-    _accountId: string,
+    accountId: string,
     campaignIds?: string[],
-    _settings?: WidgetConfig['settings']
+    _settings?: WidgetConfig['settings'],
+    startDate?: Date,
+    endDate?: Date
 ): Promise<{
     chartData: Array<{
         date: string;
@@ -166,19 +180,42 @@ async function getCampaignChartData(
     campaigns: Array<{ id: string; name: string }>;
 }> {
     try {
-        // TODO: Implement time series data fetching from Google Ads
-        // For now, return mock data structure
+        // Use real Google Ads API if we have all required parameters
+        if (accountId && campaignIds && campaignIds.length > 0 && startDate && endDate) {
+            const { fetchWidgetMetrics } = await import('./googleAds');
+            const response = await fetchWidgetMetrics(
+                accountId,
+                campaignIds,
+                startDate,
+                endDate,
+                'campaign_chart'
+            );
+
+            if (response.success && response.chartData && response.campaigns) {
+                return {
+                    chartData: response.chartData,
+                    campaigns: response.campaigns
+                };
+            }
+        }
+
+        // Fallback to mock data if API call fails or parameters are missing
+        console.log('Using mock data for campaign chart:', { accountId, campaignIds, startDate, endDate });
 
         const campaigns = campaignIds?.map(id => ({
             id,
             name: `Campaign ${id.slice(0, 8)}`,
         })) || [];
 
-        // Generate mock time series data
-        const days = 30;
+        // Use actual date range or default to last 30 days
+        const end = endDate || new Date();
+        const start = startDate || new Date(end.getTime() - 30 * 24 * 60 * 60 * 1000);
+        const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+
+        // Generate mock time series data for the actual date range
         const chartData = Array.from({ length: days }, (_, i) => {
-            const date = new Date();
-            date.setDate(date.getDate() - (days - i - 1));
+            const date = new Date(start);
+            date.setDate(start.getDate() + i);
 
             const dataPoint: any = {
                 date: date.toISOString().split('T')[0],

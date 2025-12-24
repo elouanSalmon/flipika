@@ -9,6 +9,8 @@ interface PerformanceOverviewWidgetProps {
     config: WidgetConfig;
     accountId: string;
     campaignIds?: string[];
+    startDate?: Date;
+    endDate?: Date;
     editable?: boolean;
 }
 
@@ -45,6 +47,8 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
     config,
     accountId,
     campaignIds,
+    startDate,
+    endDate,
     editable = false,
 }) => {
     const [metrics, setMetrics] = useState<MetricData[]>([]);
@@ -53,14 +57,14 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
 
     useEffect(() => {
         loadData();
-    }, [config, accountId, campaignIds]);
+    }, [config, accountId, campaignIds, startDate, endDate]);
 
     const loadData = async () => {
         try {
             setLoading(true);
             setError(null);
 
-            const data = await getWidgetData(config, accountId, campaignIds);
+            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate);
             setMetrics(data.metrics || []);
         } catch (err) {
             console.error('Error loading widget data:', err);

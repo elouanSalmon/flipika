@@ -87,6 +87,8 @@ export interface EditableReport {
     publishedAt?: Date; // When the report was published
     lastAutoSave?: Date; // Last auto-save timestamp
     shareUrl?: string; // Public share URL (if published)
+    startDate?: Date; // Start date for data filtering
+    endDate?: Date; // End date for data filtering
     createdAt: Date;
     updatedAt: Date;
     version: number;

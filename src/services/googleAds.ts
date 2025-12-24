@@ -1,5 +1,4 @@
 import { auth } from '../firebase/config';
-// import { MOCK_CUSTOMERS, MOCK_CAMPAIGNS } from './mockData';
 
 const FUNCTIONS_BASE_URL = 'https://us-central1-flipika.cloudfunctions.net';
 
@@ -16,17 +15,13 @@ const getAuthHeaders = async () => {
 
 /**
  * @deprecated Use GoogleAdsContext.isConnected instead
- * This function checks localStorage which is not the source of truth.
- * The actual OAuth token is stored in Firestore at users/{uid}/tokens/google_ads
  */
 export const isGoogleAdsConnected = (): boolean => {
-    // Check if user has connected (either has customer_id or connection flag)
     return !!(localStorage.getItem('google_ads_customer_id') || localStorage.getItem('google_ads_connected'));
 };
 
 /**
  * @deprecated Use GoogleAdsContext.customerId instead
- * Customer ID should be fetched from the backend after OAuth is complete
  */
 export const getLinkedCustomerId = (): string | null => {
     return localStorage.getItem('google_ads_customer_id');
@@ -34,7 +29,6 @@ export const getLinkedCustomerId = (): string | null => {
 
 /**
  * Initiates the Google Ads OAuth flow
- * Opens a popup window for the user to authorize Google Ads access
  */
 export const initiateGoogleAdsOAuth = async () => {
     try {
@@ -43,7 +37,6 @@ export const initiateGoogleAdsOAuth = async () => {
             throw new Error("User must be authenticated to connect Google Ads");
         }
 
-        // Get the OAuth URL from the backend
         const headers = await getAuthHeaders();
         const response = await fetch(`${FUNCTIONS_BASE_URL}/initiateOAuth`, {
             method: 'POST',
@@ -61,7 +54,6 @@ export const initiateGoogleAdsOAuth = async () => {
             throw new Error(data.error || 'Failed to get authorization URL');
         }
 
-        // Open OAuth popup
         const width = 600;
         const height = 700;
         const left = window.screen.width / 2 - width / 2;
@@ -77,22 +69,15 @@ export const initiateGoogleAdsOAuth = async () => {
             throw new Error('Popup was blocked. Please allow popups for this site.');
         }
 
-        // Listen for the OAuth callback by checking if token appears in Firestore
         return new Promise((resolve, reject) => {
-            // The GoogleAdsContext will detect the token via onSnapshot
-            // We just wait for the user to complete the flow or timeout
-
-            // Timeout after 5 minutes
             const timeout = setTimeout(() => {
                 reject(new Error('OAuth flow timed out'));
             }, 5 * 60 * 1000);
 
-            // Resolve immediately - the actual connection status will be detected by GoogleAdsContext
-            // This prevents COOP warnings from trying to access popup.closed
             setTimeout(() => {
                 clearTimeout(timeout);
                 resolve({ success: true });
-            }, 2000); // Give the popup time to open
+            }, 2000);
         });
     } catch (error: any) {
         console.error("Failed to initiate Google Ads OAuth:", error);
@@ -104,7 +89,7 @@ export const fetchAccessibleCustomers = async () => {
     try {
         const headers = await getAuthHeaders();
         const response = await fetch(`${FUNCTIONS_BASE_URL}/getAccessibleCustomers`, {
-            method: 'POST', // or GET depending on preference, but POST is safer with body if needed later
+            method: 'POST',
             headers
         });
 
@@ -116,8 +101,6 @@ export const fetchAccessibleCustomers = async () => {
         return data;
     } catch (error: any) {
         console.error("Failed to fetch customers:", error);
-        // Fallback to mock data for development/testing ONLY if strictly needed, 
-        // but now we want real data.
         return { success: false, error: error.message || 'Failed to fetch customers' };
     }
 };
@@ -145,5 +128,50 @@ export const fetchCampaigns = async (customerIdParam?: string) => {
     } catch (error) {
         console.error("Failed to fetch campaigns:", error);
         return { success: false, error: 'Failed to fetch campaigns' };
+    }
+};
+
+/**
+ * Fetch widget metrics for specific campaigns and date range
+ */
+export const fetchWidgetMetrics = async (
+    customerId: string,
+    campaignIds: string[],
+    startDate: Date,
+    endDate: Date,
+    widgetType: 'performance_overview' | 'campaign_chart'
+) => {
+    try {
+        const headers = await getAuthHeaders();
+
+        // Format dates as YYYY-MM-DD
+        const formatDate = (date: Date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
+
+        const response = await fetch(`${FUNCTIONS_BASE_URL}/getWidgetMetrics`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                customerId,
+                campaignIds,
+                startDate: formatDate(startDate),
+                endDate: formatDate(endDate),
+                widgetType
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${await response.text()}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Failed to fetch widget metrics:", error);
+        return { success: false, error: 'Failed to fetch widget metrics' };
     }
 };

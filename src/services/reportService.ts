@@ -38,7 +38,7 @@ export async function createReport(
     dateRange?: { start: string; end: string; preset?: string }
 ): Promise<string> {
     try {
-        const newReport = {
+        const newReport: any = {
             userId,
             accountId,
             campaignIds,
@@ -55,9 +55,14 @@ export async function createReport(
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
             version: 1,
-            // Store date range if provided
-            ...(dateRange && { dateRange }),
         };
+
+        // Store date range if provided
+        if (dateRange) {
+            newReport.startDate = new Date(dateRange.start);
+            newReport.endDate = new Date(dateRange.end);
+            newReport.dateRangePreset = dateRange.preset;
+        }
 
         const docRef = await addDoc(collection(db, REPORTS_COLLECTION), newReport);
         return docRef.id;
@@ -103,6 +108,8 @@ export async function getReportWithWidgets(
             updatedAt: reportData.updatedAt?.toDate() || new Date(),
             publishedAt: reportData.publishedAt?.toDate() || undefined,
             lastAutoSave: reportData.lastAutoSave?.toDate() || undefined,
+            startDate: reportData.startDate?.toDate ? reportData.startDate.toDate() : (reportData.startDate ? new Date(reportData.startDate) : undefined),
+            endDate: reportData.endDate?.toDate ? reportData.endDate.toDate() : (reportData.endDate ? new Date(reportData.endDate) : undefined),
             widgets,
         } as EditableReport;
 

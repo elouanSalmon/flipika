@@ -21,6 +21,9 @@ export { generateSitemap } from "./generateSitemap";
 // Re-export Backup function
 export { backupFirestore } from "./backupFirestore";
 
+// Re-export Widget Metrics function
+export { getWidgetMetrics } from "./widgetMetrics";
+
 
 // Define the secret
 const googleAdsDeveloperToken = defineSecret("GOOGLE_ADS_DEVELOPER_TOKEN");

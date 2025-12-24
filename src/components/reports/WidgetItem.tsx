@@ -11,6 +11,8 @@ import './WidgetItem.css';
 interface WidgetItemProps {
     widget: WidgetConfig;
     isSelected: boolean;
+    startDate?: Date;
+    endDate?: Date;
     onSelect: () => void;
     onUpdate: (config: Partial<WidgetConfig>) => void;
     onDelete: () => void;
@@ -19,6 +21,8 @@ interface WidgetItemProps {
 const WidgetItem: React.FC<WidgetItemProps> = ({
     widget,
     isSelected,
+    startDate,
+    endDate,
     onSelect,
     onUpdate,
     onDelete,
@@ -46,6 +50,8 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                         accountId={widget.accountId}
                         campaignIds={widget.campaignIds}
                         config={widget}
+                        startDate={startDate}
+                        endDate={endDate}
                     />
                 );
             case WidgetType.CAMPAIGN_CHART:
@@ -54,6 +60,8 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                         accountId={widget.accountId}
                         campaignIds={widget.campaignIds}
                         config={widget}
+                        startDate={startDate}
+                        endDate={endDate}
                     />
                 );
             case WidgetType.TEXT_BLOCK:

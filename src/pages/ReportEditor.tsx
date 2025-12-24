@@ -284,6 +284,8 @@ const ReportEditor: React.FC = () => {
 
                 <ReportCanvas
                     widgets={widgets}
+                    startDate={report.startDate}
+                    endDate={report.endDate}
                     onReorder={handleWidgetReorder}
                     onWidgetUpdate={handleWidgetUpdate}
                     onWidgetDelete={handleWidgetDelete}
