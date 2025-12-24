@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -23,6 +23,9 @@ Object.defineProperty(exports, "generateSitemap", { enumerable: true, get: funct
 // Re-export Backup function
 var backupFirestore_1 = require("./backupFirestore");
 Object.defineProperty(exports, "backupFirestore", { enumerable: true, get: function () { return backupFirestore_1.backupFirestore; } });
+// Re-export Widget Metrics function
+var widgetMetrics_1 = require("./widgetMetrics");
+Object.defineProperty(exports, "getWidgetMetrics", { enumerable: true, get: function () { return widgetMetrics_1.getWidgetMetrics; } });
 // Define the secret
 const googleAdsDeveloperToken = (0, params_1.defineSecret)("GOOGLE_ADS_DEVELOPER_TOKEN");
 /**
@@ -86,7 +89,9 @@ exports.listCampaigns = (0, https_1.onRequest)({
           metrics.impressions,
           metrics.clicks,
           metrics.ctr,
-          metrics.average_cpc
+          metrics.average_cpc,
+          metrics.conversions,
+          metrics.conversions_value
         FROM campaign 
         WHERE campaign.status != 'REMOVED'
         ORDER BY campaign.name
@@ -95,16 +100,22 @@ exports.listCampaigns = (0, https_1.onRequest)({
             const campaigns = await customer.query(query);
             const formattedCampaigns = campaigns.map((row) => ({
                 id: row.campaign.id?.toString() || '',
+                customerId: customerId,
                 name: row.campaign.name || 'Unnamed Campaign',
                 status: row.campaign.status || 'UNKNOWN',
                 type: row.campaign.advertising_channel_type || 'UNKNOWN',
                 startDate: row.campaign.start_date || null,
                 endDate: row.campaign.end_date || null,
-                cost: (row.metrics?.cost_micros || 0) / 1000000,
-                impressions: row.metrics?.impressions || 0,
-                clicks: row.metrics?.clicks || 0,
-                ctr: row.metrics?.ctr || 0,
-                averageCpc: (row.metrics?.average_cpc || 0) / 1000000
+                // Nest metrics to match liveDataService expectations
+                metrics: {
+                    cost_micros: row.metrics?.cost_micros || 0,
+                    impressions: row.metrics?.impressions || 0,
+                    clicks: row.metrics?.clicks || 0,
+                    ctr: row.metrics?.ctr || 0,
+                    average_cpc: row.metrics?.average_cpc || 0,
+                    conversions: row.metrics?.conversions || 0,
+                    conversions_value: row.metrics?.conversions_value || 0
+                }
             }));
             res.status(200).json({
                 success: true,
