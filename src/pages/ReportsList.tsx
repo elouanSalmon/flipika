@@ -83,7 +83,7 @@ const ReportsList: React.FC = () => {
     };
 
     const handleReportClick = (reportId: string) => {
-        navigate(`/ app / reports / ${reportId} `);
+        navigate(`/app/reports/${reportId}`);
     };
 
     const handleReportDeleted = () => {
@@ -118,27 +118,27 @@ const ReportsList: React.FC = () => {
             {/* Status Filters */}
             <div className="status-filters">
                 <button
-                    className={`status - filter - btn ${statusFilter === 'all' ? 'active' : ''} `}
+                    className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
                     onClick={() => setStatusFilter('all')}
                 >
                     Tous ({reports.length})
                 </button>
                 <button
-                    className={`status - filter - btn ${statusFilter === 'draft' ? 'active' : ''} `}
+                    className={`status-filter-btn ${statusFilter === 'draft' ? 'active' : ''}`}
                     onClick={() => setStatusFilter('draft')}
                 >
                     <span className="status-badge draft">●</span>
                     Brouillons ({statusCounts.draft})
                 </button>
                 <button
-                    className={`status - filter - btn ${statusFilter === 'published' ? 'active' : ''} `}
+                    className={`status-filter-btn ${statusFilter === 'published' ? 'active' : ''}`}
                     onClick={() => setStatusFilter('published')}
                 >
                     <span className="status-badge published">●</span>
                     Publiés ({statusCounts.published})
                 </button>
                 <button
-                    className={`status - filter - btn ${statusFilter === 'archived' ? 'active' : ''} `}
+                    className={`status-filter-btn ${statusFilter === 'archived' ? 'active' : ''}`}
                     onClick={() => setStatusFilter('archived')}
                 >
                     <span className="status-badge archived">●</span>
@@ -160,14 +160,14 @@ const ReportsList: React.FC = () => {
 
                 <div className="view-controls">
                     <button
-                        className={`view - btn ${viewMode === 'grid' ? 'active' : ''} `}
+                        className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
                         onClick={() => setViewMode('grid')}
                         title="Vue grille"
                     >
                         <Grid size={18} />
                     </button>
                     <button
-                        className={`view - btn ${viewMode === 'list' ? 'active' : ''} `}
+                        className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
                         onClick={() => setViewMode('list')}
                         title="Vue liste"
                     >
@@ -196,7 +196,7 @@ const ReportsList: React.FC = () => {
                     )}
                 </div>
             ) : (
-                <div className={`reports - ${viewMode} `}>
+                <div className={`reports-${viewMode}`}>
                     {filteredReports.map((report) => (
                         <ReportCard
                             key={report.id}
