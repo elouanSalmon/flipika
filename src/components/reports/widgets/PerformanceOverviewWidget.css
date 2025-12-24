@@ -103,7 +103,7 @@
     min-width: 0;
 }
 
-.metric-label {
+.widget-metric-label {
     font-size: 0.875rem;
     font-weight: 500;
     margin-bottom: 4px;
@@ -111,7 +111,7 @@
     letter-spacing: 0.5px;
 }
 
-.metric-value {
+.widget-metric-value {
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.2;
@@ -164,7 +164,7 @@
         grid-template-columns: 1fr;
     }
 
-    .metric-value {
+    .widget-metric-value {
         font-size: 1.5rem;
     }
 }
@@ -185,11 +185,11 @@
         border-color: rgba(255, 255, 255, 0.1);
     }
 
-    .metric-label {
+    .widget-metric-label {
         color: #94a3b8;
     }
 
-    .metric-value {
+    .widget-metric-value {
         color: #f1f5f9;
     }
 }

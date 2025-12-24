@@ -164,10 +164,10 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
                                 {METRIC_ICONS[metric.name] || <BarChart3 size={20} />}
                             </div>
                             <div className="metric-info">
-                                <div className="metric-label" style={{ color: design.colorScheme.secondary }}>
+                                <div className="widget-metric-label" style={{ color: design.colorScheme.secondary }}>
                                     {METRIC_LABELS[metric.name] || metric.name}
                                 </div>
-                                <div className="metric-value" style={{ color: design.colorScheme.text }}>
+                                <div className="widget-metric-value" style={{ color: design.colorScheme.text }}>
                                     {metric.formatted}
                                 </div>
                                 {metric.change !== undefined && (
