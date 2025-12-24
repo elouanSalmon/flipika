@@ -94,7 +94,8 @@ const ReportsList: React.FC = () => {
         return (
             <div className="reports-list-page">
                 <div className="loading-container">
-                    <div className="loading-spinner">Chargement des rapports...</div>
+                    <div className="loading-spinner"></div>
+                    <div className="loading-text">Chargement des rapports...</div>
                 </div>
             </div>
         );
