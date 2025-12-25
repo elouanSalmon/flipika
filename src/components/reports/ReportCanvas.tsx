@@ -12,12 +12,13 @@ interface ReportCanvasProps {
     design: ReportDesign;
     startDate?: Date;
     endDate?: Date;
-    onReorder: (widgets: WidgetConfig[]) => void;
-    onWidgetUpdate: (widgetId: string, config: Partial<WidgetConfig>) => void;
-    onWidgetDelete: (widgetId: string) => void;
-    onWidgetDrop: (widgetType: string) => void;
-    selectedWidgetId: string | null;
-    onWidgetSelect: (widgetId: string | null) => void;
+    onReorder?: (widgets: WidgetConfig[]) => void;
+    onWidgetUpdate?: (widgetId: string, config: Partial<WidgetConfig>) => void;
+    onWidgetDelete?: (widgetId: string) => void;
+    onWidgetDrop?: (widgetType: string) => void;
+    selectedWidgetId?: string | null;
+    onWidgetSelect?: (widgetId: string | null) => void;
+    isPublicView?: boolean; // Read-only mode for public viewing
 }
 
 const ReportCanvas: React.FC<ReportCanvasProps> = ({
@@ -31,6 +32,7 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
     onWidgetDrop,
     selectedWidgetId,
     onWidgetSelect,
+    isPublicView = false,
 }) => {
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -40,6 +42,8 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
     );
 
     const handleDragEnd = (event: DragEndEvent) => {
+        if (isPublicView || !onReorder) return;
+
         const { active, over } = event;
 
         if (over && active.id !== over.id) {
@@ -61,6 +65,8 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
     };
 
     const handleDrop = (e: React.DragEvent) => {
+        if (isPublicView || !onWidgetDrop) return;
+
         e.preventDefault();
         const widgetType = e.dataTransfer.getData('widgetType');
         if (widgetType) {
@@ -69,6 +75,7 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
     };
 
     const handleDragOver = (e: React.DragEvent) => {
+        if (isPublicView) return;
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
     };
@@ -119,9 +126,10 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
                                 isSelected={selectedWidgetId === widget.id}
                                 startDate={startDate}
                                 endDate={endDate}
-                                onSelect={() => onWidgetSelect(widget.id)}
-                                onUpdate={(config) => onWidgetUpdate(widget.id, config)}
-                                onDelete={() => onWidgetDelete(widget.id)}
+                                onSelect={onWidgetSelect ? () => onWidgetSelect(widget.id) : undefined}
+                                onUpdate={onWidgetUpdate ? (config) => onWidgetUpdate(widget.id, config) : undefined}
+                                onDelete={onWidgetDelete ? () => onWidgetDelete(widget.id) : undefined}
+                                isPublicView={isPublicView}
                             />
                         ))}
                     </div>

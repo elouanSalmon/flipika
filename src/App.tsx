@@ -23,6 +23,7 @@ import Copilot from './pages/Copilot';
 import ReportEditor from './pages/ReportEditor';
 import NewReport from './pages/NewReport';
 import ReportsList from './pages/ReportsList';
+import PublicReportView from './pages/PublicReportView';
 import Settings from './pages/Settings';
 import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -126,6 +127,9 @@ const AppRoutes = () => {
           </ProtectedRoute>
         } />
       )}
+
+      {/* Public Report View - No authentication required */}
+      <Route path="/:username/reports/:reportId" element={<PublicReportView />} />
 
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />

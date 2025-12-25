@@ -11,23 +11,25 @@ import './WidgetItem.css';
 interface WidgetItemProps {
     widget: WidgetConfig;
     design: ReportDesign;
-    isSelected: boolean;
+    isSelected?: boolean;
     startDate?: Date;
     endDate?: Date;
-    onSelect: () => void;
-    onUpdate: (config: Partial<WidgetConfig>) => void;
-    onDelete: () => void;
+    onSelect?: () => void;
+    onUpdate?: (config: Partial<WidgetConfig>) => void;
+    onDelete?: () => void;
+    isPublicView?: boolean;
 }
 
 const WidgetItem: React.FC<WidgetItemProps> = ({
     widget,
     design,
-    isSelected,
+    isSelected = false,
     startDate,
     endDate,
     onSelect,
     onUpdate,
     onDelete,
+    isPublicView = false,
 }) => {
     const {
         attributes,
@@ -75,12 +77,14 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                             contentEditable
                             suppressContentEditableWarning
                             onBlur={(e) => {
-                                onUpdate({
-                                    settings: {
-                                        ...widget.settings,
-                                        content: e.currentTarget.innerHTML,
-                                    },
-                                });
+                                if (onUpdate) {
+                                    onUpdate({
+                                        settings: {
+                                            ...widget.settings,
+                                            content: e.currentTarget.innerHTML,
+                                        },
+                                    });
+                                }
                             }}
                             dangerouslySetInnerHTML={{
                                 __html: widget.settings?.content || '<p>Cliquez pour éditer...</p>',
@@ -103,21 +107,23 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
         <div
             ref={setNodeRef}
             style={style}
-            className={`widget-item ${isSelected ? 'selected' : ''} ${isDragging ? 'dragging' : ''}`}
+            className={`widget-item ${isSelected ? 'selected' : ''} ${isDragging ? 'dragging' : ''} ${isPublicView ? 'public-view' : ''}`}
             onClick={onSelect}
         >
-            {/* Drag Handle */}
-            <div className="widget-handle" {...attributes} {...listeners}>
-                <GripVertical size={20} />
-            </div>
+            {/* Drag Handle - Hidden in public view */}
+            {!isPublicView && (
+                <div className="widget-handle" {...attributes} {...listeners}>
+                    <GripVertical size={20} />
+                </div>
+            )}
 
             {/* Widget Content */}
             <div className="widget-content">
                 {renderWidget()}
             </div>
 
-            {/* Widget Actions */}
-            {isSelected && (
+            {/* Widget Actions - Hidden in public view */}
+            {!isPublicView && isSelected && onDelete && (
                 <div className="widget-actions">
                     <button
                         className="widget-action-btn"

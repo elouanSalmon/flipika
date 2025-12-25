@@ -356,6 +356,60 @@ export async function publishReport(reportId: string, username: string): Promise
 }
 
 /**
+ * Get a public report (no authentication required)
+ * Only returns reports with status 'published'
+ */
+export async function getPublicReport(
+    reportId: string
+): Promise<{ report: EditableReport; widgets: WidgetConfig[] } | null> {
+    try {
+        // Get report document
+        const reportRef = doc(db, REPORTS_COLLECTION, reportId);
+        const reportSnap = await getDoc(reportRef);
+
+        if (!reportSnap.exists()) {
+            return null;
+        }
+
+        const reportData = reportSnap.data();
+
+        // Only return published reports
+        if (reportData.status !== 'published') {
+            return null;
+        }
+
+        // Get widgets from sub-collection
+        const widgetsRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
+        const widgetsQuery = query(widgetsRef, orderBy('order', 'asc'));
+        const widgetsSnap = await getDocs(widgetsQuery);
+
+        const widgets: WidgetConfig[] = widgetsSnap.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+            createdAt: doc.data().createdAt?.toDate() || new Date(),
+            updatedAt: doc.data().updatedAt?.toDate() || new Date(),
+        } as WidgetConfig));
+
+        const report: EditableReport = {
+            id: reportSnap.id,
+            ...reportData,
+            createdAt: reportData.createdAt?.toDate() || new Date(),
+            updatedAt: reportData.updatedAt?.toDate() || new Date(),
+            publishedAt: reportData.publishedAt?.toDate() || undefined,
+            lastAutoSave: reportData.lastAutoSave?.toDate() || undefined,
+            startDate: reportData.startDate?.toDate ? reportData.startDate.toDate() : (reportData.startDate ? new Date(reportData.startDate) : undefined),
+            endDate: reportData.endDate?.toDate ? reportData.endDate.toDate() : (reportData.endDate ? new Date(reportData.endDate) : undefined),
+            widgets,
+        } as EditableReport;
+
+        return { report, widgets };
+    } catch (error) {
+        console.error('Error getting public report:', error);
+        return null;
+    }
+}
+
+/**
  * Archive a report
  */
 export async function archiveReport(reportId: string): Promise<void> {
@@ -453,6 +507,78 @@ export async function duplicateReport(
     } catch (error) {
         console.error('Error duplicating report:', error);
         throw new Error('Failed to duplicate report');
+    }
+}
+
+/**
+ * Update report settings (accountId, campaignIds, date range)
+ * Also updates all associated widgets with the new parameters
+ */
+export async function updateReportSettings(
+    reportId: string,
+    settings: {
+        accountId?: string;
+        campaignIds?: string[];
+        startDate?: Date;
+        endDate?: Date;
+        dateRangePreset?: string;
+    }
+): Promise<void> {
+    try {
+        const batch = writeBatch(db);
+
+        // Update report document
+        const reportRef = doc(db, REPORTS_COLLECTION, reportId);
+        const reportUpdates: any = {
+            updatedAt: serverTimestamp(),
+            version: increment(1),
+        };
+
+        if (settings.accountId !== undefined) {
+            reportUpdates.accountId = settings.accountId;
+        }
+        if (settings.campaignIds !== undefined) {
+            reportUpdates.campaignIds = settings.campaignIds;
+        }
+        if (settings.startDate !== undefined) {
+            reportUpdates.startDate = settings.startDate;
+        }
+        if (settings.endDate !== undefined) {
+            reportUpdates.endDate = settings.endDate;
+        }
+        if (settings.dateRangePreset !== undefined) {
+            reportUpdates.dateRangePreset = settings.dateRangePreset;
+        }
+
+        batch.update(reportRef, reportUpdates);
+
+        // Update all widgets with new accountId and campaignIds
+        if (settings.accountId !== undefined || settings.campaignIds !== undefined) {
+            const widgetsRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
+            const widgetsSnap = await getDocs(widgetsRef);
+
+            widgetsSnap.docs.forEach(widgetDoc => {
+                const widgetRef = doc(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION, widgetDoc.id);
+                const widgetUpdates: any = {
+                    updatedAt: serverTimestamp(),
+                };
+
+                if (settings.accountId !== undefined) {
+                    widgetUpdates.accountId = settings.accountId;
+                }
+                if (settings.campaignIds !== undefined) {
+                    widgetUpdates.campaignIds = settings.campaignIds;
+                }
+
+                batch.update(widgetRef, widgetUpdates);
+            });
+        }
+
+        // Commit all changes atomically
+        await batch.commit();
+    } catch (error) {
+        console.error('Error updating report settings:', error);
+        throw new Error('Failed to update report settings');
     }
 }
 

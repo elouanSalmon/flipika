@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TrendingUp, TrendingDown, Eye, MousePointer, Target, DollarSign, Percent, BarChart3 } from 'lucide-react';
+import { TrendingUp, TrendingDown, Eye, MousePointer, Target, DollarSign, Percent, BarChart3, AlertTriangle } from 'lucide-react';
 import { getWidgetData } from '../../../services/widgetService';
 import Spinner from '../../common/Spinner';
 import type { WidgetConfig, ReportDesign } from '../../../types/reportTypes';
@@ -56,6 +56,7 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
     const [metrics, setMetrics] = useState<MetricData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [isMockData, setIsMockData] = useState(false);
 
     useEffect(() => {
         loadData();
@@ -68,6 +69,7 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
 
             const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate);
             setMetrics(data.metrics || []);
+            setIsMockData(data.isMockData || false);
         } catch (err) {
             console.error('Error loading widget data:', err);
             setError('Impossible de charger les données');
@@ -136,6 +138,12 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
         >
             <div className="widget-header">
                 <h3 style={{ color: design.colorScheme.secondary }}>Vue d'ensemble des performances</h3>
+                {isMockData && (
+                    <span className="mock-data-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
+                        <AlertTriangle size={14} />
+                        Démo
+                    </span>
+                )}
                 {editable && (
                     <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
                         ⚙️

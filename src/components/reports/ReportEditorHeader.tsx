@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap } from 'lucide-react';
+import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap, Settings, Link } from 'lucide-react';
+import toast from 'react-hot-toast';
 import AutoSaveIndicator from './AutoSaveIndicator';
 import './ReportEditorHeader.css';
 
@@ -10,12 +11,14 @@ interface ReportEditorHeaderProps {
     autoSaveStatus: 'saved' | 'saving' | 'error';
     lastSaved?: Date;
     status: 'draft' | 'published' | 'archived';
+    shareUrl?: string; // Public share URL for published reports
 
     // Actions
     onSave: () => void;
     onPublish: () => void;
     onArchive: () => void;
     onDelete: () => void;
+    onOpenSettings: () => void;
 
     // State
     isSaving: boolean;
@@ -28,10 +31,12 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
     autoSaveStatus,
     lastSaved,
     status,
+    shareUrl,
     onSave,
     onPublish,
     onArchive,
     onDelete,
+    onOpenSettings,
     isSaving,
     canPublish,
 }) => {
@@ -76,6 +81,15 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
             <div className="report-editor-header-right">
                 {/* Primary Actions */}
                 <button
+                    onClick={onOpenSettings}
+                    className="btn btn-secondary"
+                    title="Paramètres du rapport"
+                >
+                    <Settings size={18} />
+                    <span>Paramètres</span>
+                </button>
+
+                <button
                     onClick={onSave}
                     disabled={isSaving || autoSaveStatus === 'saving'}
                     className="btn btn-secondary"
@@ -94,6 +108,21 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                     >
                         <Share2 size={18} />
                         <span>Publier</span>
+                    </button>
+                )}
+
+                {status === 'published' && shareUrl && (
+                    <button
+                        onClick={() => {
+                            const fullUrl = `${window.location.origin}${shareUrl}`;
+                            navigator.clipboard.writeText(fullUrl);
+                            toast.success('Lien copié dans le presse-papier !');
+                        }}
+                        className="btn btn-secondary"
+                        title="Copier le lien public"
+                    >
+                        <Link size={18} />
+                        <span>Copier le lien</span>
                     </button>
                 )}
 

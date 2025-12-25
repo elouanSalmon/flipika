@@ -8,18 +8,21 @@ import {
     publishReport,
     archiveReport,
     deleteReport,
+    updateReportSettings,
 } from '../services/reportService';
 import { getUserProfile } from '../services/userProfileService';
 import dataService from '../services/dataService';
+import { fetchCampaigns } from '../services/googleAds';
 import ReportEditorHeader from '../components/reports/ReportEditorHeader';
 import WidgetLibrary from '../components/reports/WidgetLibrary';
 import ReportCanvas from '../components/reports/ReportCanvas';
 import ThemeManager from '../components/themes/ThemeManager';
+import ReportConfigModal, { type ReportConfig } from '../components/reports/ReportConfigModal';
 import Spinner from '../components/common/Spinner';
 import type { EditableReport, WidgetConfig } from '../types/reportTypes';
 import { WidgetType } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
-import type { Account } from '../types/business';
+import type { Account, Campaign } from '../types/business';
 import './ReportEditor.css';
 
 const ReportEditor: React.FC = () => {
@@ -43,6 +46,11 @@ const ReportEditor: React.FC = () => {
     // Theme manager state
     const [showThemeManager, setShowThemeManager] = useState(false);
     const [accounts, setAccounts] = useState<Account[]>([]);
+
+    // Settings modal state
+    const [showSettingsModal, setShowSettingsModal] = useState(false);
+    const [settingsCampaigns, setSettingsCampaigns] = useState<Campaign[]>([]);
+    const [settingsAccountId, setSettingsAccountId] = useState<string>('');
 
     const autoSaveTimerRef = useRef<number | null>(null);
 
@@ -267,6 +275,87 @@ const ReportEditor: React.FC = () => {
         setIsDirty(true);
     };
 
+    const handleOpenSettings = async () => {
+        if (!report) return;
+
+        try {
+            // Set the account ID for the modal
+            setSettingsAccountId(report.accountId);
+
+            // Load campaigns for the current account
+            const response = await fetchCampaigns(report.accountId);
+            if (response.success && response.campaigns) {
+                setSettingsCampaigns(Array.isArray(response.campaigns) ? response.campaigns : []);
+            } else {
+                setSettingsCampaigns([]);
+            }
+
+            setShowSettingsModal(true);
+        } catch (error) {
+            console.error('Error loading campaigns for settings:', error);
+            toast.error('Erreur lors du chargement des campagnes');
+        }
+    };
+
+    const handleUpdateSettings = async (config: ReportConfig) => {
+        if (!report) return;
+
+        try {
+            setIsSaving(true);
+
+            // Update report settings
+            await updateReportSettings(report.id, {
+                accountId: config.accountId,
+                campaignIds: config.campaignIds,
+                startDate: new Date(config.dateRange.start),
+                endDate: new Date(config.dateRange.end),
+                dateRangePreset: config.dateRange.preset,
+            });
+
+            // Update local state
+            setReport({
+                ...report,
+                accountId: config.accountId,
+                campaignIds: config.campaignIds,
+                startDate: new Date(config.dateRange.start),
+                endDate: new Date(config.dateRange.end),
+            });
+
+            // Update all widgets with new parameters
+            setWidgets(widgets.map(w => ({
+                ...w,
+                accountId: config.accountId,
+                campaignIds: config.campaignIds,
+            })));
+
+            setShowSettingsModal(false);
+            toast.success('Paramètres mis à jour');
+
+            // Reload the report to get fresh data
+            await loadReport(report.id);
+        } catch (error) {
+            console.error('Error updating settings:', error);
+            toast.error('Erreur lors de la mise à jour des paramètres');
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    const handleSettingsAccountChange = async (accountId: string) => {
+        setSettingsAccountId(accountId);
+        try {
+            const response = await fetchCampaigns(accountId);
+            if (response.success && response.campaigns) {
+                setSettingsCampaigns(Array.isArray(response.campaigns) ? response.campaigns : []);
+            } else {
+                setSettingsCampaigns([]);
+            }
+        } catch (error) {
+            console.error('Error loading campaigns:', error);
+            setSettingsCampaigns([]);
+        }
+    };
+
     if (isLoading) {
         return (
             <div className="report-editor loading">
@@ -281,10 +370,6 @@ const ReportEditor: React.FC = () => {
         return null;
     }
 
-    // Ensure we have valid dates for widgets (default to last 30 days)
-    const endDate = report.endDate || new Date();
-    const startDate = report.startDate || new Date(endDate.getTime() - 30 * 24 * 60 * 60 * 1000);
-
     return (
         <div className="report-editor">
             <ReportEditorHeader
@@ -293,10 +378,12 @@ const ReportEditor: React.FC = () => {
                 autoSaveStatus={autoSaveStatus}
                 lastSaved={lastSaved}
                 status={report.status}
+                shareUrl={report.shareUrl}
                 onSave={handleSave}
                 onPublish={handlePublish}
                 onArchive={handleArchive}
                 onDelete={handleDelete}
+                onOpenSettings={handleOpenSettings}
                 isSaving={isSaving}
                 canPublish={widgets.length > 0}
             />
@@ -314,8 +401,8 @@ const ReportEditor: React.FC = () => {
                 <ReportCanvas
                     widgets={widgets}
                     design={report.design}
-                    startDate={startDate}
-                    endDate={endDate}
+                    startDate={report.startDate}
+                    endDate={report.endDate}
                     onReorder={handleWidgetReorder}
                     onWidgetUpdate={handleWidgetUpdate}
                     onWidgetDelete={handleWidgetDelete}
@@ -340,6 +427,29 @@ const ReportEditor: React.FC = () => {
                         </div>
                     </div>
                 </div>
+            )}
+
+            {/* Settings Modal */}
+            {showSettingsModal && report && (
+                <ReportConfigModal
+                    onClose={() => setShowSettingsModal(false)}
+                    onSubmit={handleUpdateSettings}
+                    accounts={accounts.map(acc => ({ id: acc.id, name: acc.name }))}
+                    selectedAccountId={settingsAccountId}
+                    onAccountChange={handleSettingsAccountChange}
+                    campaigns={settingsCampaigns}
+                    isEditMode={true}
+                    initialConfig={{
+                        title: report.title,
+                        accountId: report.accountId,
+                        campaignIds: report.campaignIds,
+                        dateRange: {
+                            start: report.startDate?.toISOString().split('T')[0] || new Date().toISOString().split('T')[0],
+                            end: report.endDate?.toISOString().split('T')[0] || new Date().toISOString().split('T')[0],
+                            preset: 'custom',
+                        },
+                    }}
+                />
             )}
         </div>
     );

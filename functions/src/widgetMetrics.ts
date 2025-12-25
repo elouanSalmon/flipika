@@ -70,6 +70,8 @@ export const getWidgetMetrics = onRequest({
         const tokenData = tokenDoc.data()!;
         const refreshToken = tokenData.refresh_token;
 
+        console.log('✅ Retrieved Google Ads token for user:', userId);
+
         // 4. Initialize Google Ads Client
         const { GoogleAdsApi } = await import("google-ads-api");
         const client = new GoogleAdsApi({
@@ -83,12 +85,16 @@ export const getWidgetMetrics = onRequest({
             refresh_token: refreshToken,
         });
 
+        console.log('✅ Initialized Google Ads client for customer:', customerId);
+
         // 5. Build query based on widget type
         let query = '';
 
         if (widgetType === 'performance_overview' || widgetType === 'campaign_chart') {
             // Build campaign ID filter
             const campaignIdFilter = campaignIds.map((id: string) => `campaign.id = ${id}`).join(' OR ');
+            // Wrap in parentheses only if there are multiple campaigns (for proper AND precedence)
+            const whereClause = campaignIds.length > 1 ? `(${campaignIdFilter})` : campaignIdFilter;
 
             query = `
           SELECT 
@@ -103,7 +109,7 @@ export const getWidgetMetrics = onRequest({
             metrics.conversions_value,
             metrics.all_conversions_value
           FROM campaign
-          WHERE (${campaignIdFilter})
+          WHERE ${whereClause}
             AND segments.date BETWEEN '${startDate}' AND '${endDate}'
             AND campaign.status != 'REMOVED'
         `;
@@ -120,7 +126,7 @@ export const getWidgetMetrics = onRequest({
               metrics.cost_micros,
               metrics.conversions
             FROM campaign
-            WHERE (${campaignIdFilter})
+            WHERE ${whereClause}
               AND segments.date BETWEEN '${startDate}' AND '${endDate}'
               AND campaign.status != 'REMOVED'
             ORDER BY segments.date ASC
@@ -129,7 +135,9 @@ export const getWidgetMetrics = onRequest({
         }
 
         // 6. Execute Query
+        console.log('🔍 Executing Google Ads query for widget type:', widgetType);
         const results = await customer.query(query);
+        console.log('✅ Query executed successfully, rows returned:', results.length);
 
         // 7. Format response based on widget type
         if (widgetType === 'performance_overview') {
@@ -227,7 +235,22 @@ export const getWidgetMetrics = onRequest({
         }
 
     } catch (error: any) {
-        console.error("Google Ads Widget Metrics Error:", error);
-        res.status(500).json({ error: `Failed to fetch widget metrics: ${error.message}` });
+        console.error("Google Ads Widget Metrics Error:", {
+            message: error?.message,
+            stack: error?.stack,
+            name: error?.name,
+            code: error?.code,
+            type: typeof error,
+            error: error
+        });
+
+        const errorMessage = error?.message || error?.toString() || 'Unknown error';
+        res.status(500).json({
+            error: `Failed to fetch widget metrics: ${errorMessage}`,
+            details: process.env.NODE_ENV === 'development' ? {
+                stack: error?.stack,
+                type: error?.name
+            } : undefined
+        });
     }
 });

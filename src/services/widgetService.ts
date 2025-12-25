@@ -123,6 +123,7 @@ async function getPerformanceOverviewData(
         formatted: string;
         change?: number;
     }>;
+    isMockData: boolean;
 }> {
     try {
         // TODO: Implement real Google Ads API call with date filtering
@@ -156,7 +157,7 @@ async function getPerformanceOverviewData(
             };
         });
 
-        return { metrics: metricsData };
+        return { metrics: metricsData, isMockData: true };
     } catch (error) {
         console.error('Error getting performance overview data:', error);
         throw error;
@@ -178,10 +179,18 @@ async function getCampaignChartData(
         [key: string]: any;
     }>;
     campaigns: Array<{ id: string; name: string }>;
+    isMockData: boolean;
 }> {
     try {
         // Use real Google Ads API if we have all required parameters
         if (accountId && campaignIds && campaignIds.length > 0 && startDate && endDate) {
+            console.log('📊 Fetching campaign chart data from Google Ads API:', {
+                accountId,
+                campaignIds,
+                startDate: startDate.toISOString(),
+                endDate: endDate.toISOString()
+            });
+
             const { fetchWidgetMetrics } = await import('./googleAds');
             const response = await fetchWidgetMetrics(
                 accountId,
@@ -191,16 +200,34 @@ async function getCampaignChartData(
                 'campaign_chart'
             );
 
+            console.log('📊 Google Ads API response:', {
+                success: response.success,
+                hasChartData: !!response.chartData,
+                hasCampaigns: !!response.campaigns,
+                error: response.error
+            });
+
             if (response.success && response.chartData && response.campaigns) {
+                console.log('✅ Using real Google Ads data');
                 return {
                     chartData: response.chartData,
-                    campaigns: response.campaigns
+                    campaigns: response.campaigns,
+                    isMockData: false
                 };
+            } else {
+                console.warn('⚠️ Google Ads API call succeeded but returned incomplete data:', response);
             }
+        } else {
+            console.warn('⚠️ Missing required parameters for Google Ads API:', {
+                hasAccountId: !!accountId,
+                hasCampaignIds: !!(campaignIds && campaignIds.length > 0),
+                hasStartDate: !!startDate,
+                hasEndDate: !!endDate
+            });
         }
 
         // Fallback to mock data if API call fails or parameters are missing
-        console.log('Using mock data for campaign chart:', { accountId, campaignIds, startDate, endDate });
+        console.log('🔄 Using mock data for campaign chart:', { accountId, campaignIds, startDate, endDate });
 
         const campaigns = campaignIds?.map(id => ({
             id,
@@ -229,7 +256,7 @@ async function getCampaignChartData(
             return dataPoint;
         });
 
-        return { chartData, campaigns };
+        return { chartData, campaigns, isMockData: true };
     } catch (error) {
         console.error('Error getting campaign chart data:', error);
         throw error;

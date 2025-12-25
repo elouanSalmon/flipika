@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, BarChart, Bar, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { AlertTriangle } from 'lucide-react';
 import { getWidgetData } from '../../../services/widgetService';
 import Spinner from '../../common/Spinner';
 import type { WidgetConfig, ReportDesign } from '../../../types/reportTypes';
@@ -33,6 +34,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
     const [campaigns, setCampaigns] = useState<Array<{ id: string; name: string }>>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [isMockData, setIsMockData] = useState(false);
 
     useEffect(() => {
         loadData();
@@ -46,6 +48,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
             const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate);
             setChartData(data.chartData || []);
             setCampaigns(data.campaigns || []);
+            setIsMockData(data.isMockData || false);
         } catch (err) {
             console.error('Error loading chart data:', err);
             setError('Impossible de charger les données du graphique');
@@ -253,6 +256,12 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
         >
             <div className="widget-header">
                 <h3 style={{ color: design.colorScheme.secondary }}>Graphique de campagne</h3>
+                {isMockData && (
+                    <span className="mock-data-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
+                        <AlertTriangle size={14} />
+                        Démo
+                    </span>
+                )}
                 {editable && (
                     <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
                         ⚙️

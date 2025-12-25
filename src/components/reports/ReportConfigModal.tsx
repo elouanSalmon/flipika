@@ -15,6 +15,8 @@ interface ReportConfigModalProps {
     selectedAccountId: string;
     onAccountChange: (accountId: string) => void;
     campaigns: Campaign[];
+    isEditMode?: boolean;
+    initialConfig?: Partial<ReportConfig>;
 }
 
 export interface ReportConfig {
@@ -76,12 +78,16 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     selectedAccountId,
     onAccountChange,
     campaigns,
+    isEditMode = false,
+    initialConfig,
 }) => {
 
-    const [title, setTitle] = useState('Nouveau Rapport');
-    const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>([]);
-    const [datePreset, setDatePreset] = useState<string>('last_30_days');
-    const [customDateRange, setCustomDateRange] = useState(getDateRangeFromPreset('last_30_days'));
+    const [title, setTitle] = useState(initialConfig?.title || 'Nouveau Rapport');
+    const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>(initialConfig?.campaignIds || []);
+    const [datePreset, setDatePreset] = useState<string>(initialConfig?.dateRange?.preset || 'last_30_days');
+    const [customDateRange, setCustomDateRange] = useState(
+        initialConfig?.dateRange ? { start: initialConfig.dateRange.start, end: initialConfig.dateRange.end } : getDateRangeFromPreset('last_30_days')
+    );
     const [selectAll, setSelectAll] = useState(false);
 
     const handlePresetChange = (preset: string) => {
@@ -131,7 +137,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
         <div className="report-config-modal-overlay" onClick={onClose}>
             <div className="report-config-modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>Configuration du Rapport</h2>
+                    <h2>{isEditMode ? 'Paramètres du Rapport' : 'Configuration du Rapport'}</h2>
                     <button className="close-btn" onClick={onClose}>
                         <X size={24} />
                     </button>
@@ -279,7 +285,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                             className="btn btn-primary"
                             disabled={selectedCampaigns.length === 0}
                         >
-                            Créer le rapport
+                            {isEditMode ? 'Mettre à jour' : 'Créer le rapport'}
                         </button>
                     </div>
                 </form>
