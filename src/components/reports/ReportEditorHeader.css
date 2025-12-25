@@ -96,13 +96,13 @@
     color: var(--color-text-primary);
     background: transparent;
     border: none;
-    border-bottom: 2px solid transparent;
+    border-bottom: 2px solid var(--color-border);
     padding: 8px 0;
     transition: all 0.2s;
 }
 
 .report-title-input:hover {
-    border-bottom-color: var(--color-border);
+    border-bottom-color: var(--color-text-secondary);
 }
 
 .report-title-input:focus {
