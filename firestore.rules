@@ -162,8 +162,8 @@ service cloud.firestore {
     // USERNAMES (Uniqueness tracking)
     // ========================================
     match /usernames/{username} {
-      // Only allow creation/update via authenticated users
-      allow read: if isAuthenticated();
+      // Allow public read for username lookups (needed for public reports)
+      allow read: if true;
       allow write: if isAuthenticated();
     }
     
