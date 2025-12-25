@@ -1,5 +1,6 @@
 import React from 'react';
-import { Save, Share2, Archive, Trash2, MoreVertical } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap } from 'lucide-react';
 import AutoSaveIndicator from './AutoSaveIndicator';
 import './ReportEditorHeader.css';
 
@@ -35,10 +36,28 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
     canPublish,
 }) => {
     const [showActions, setShowActions] = React.useState(false);
+    const navigate = useNavigate();
 
     return (
         <div className="report-editor-header">
             <div className="report-editor-header-left">
+                <div className="report-editor-logo">
+                    <div className="logo-icon">
+                        <Zap size={24} />
+                    </div>
+                    <div className="logo-content">
+                        <span className="logo-text gradient-text">Flipika</span>
+                        <span className="logo-subtitle">IA</span>
+                    </div>
+                </div>
+                <button
+                    onClick={() => navigate('/app/reports')}
+                    className="btn-back"
+                    title="Retour aux rapports"
+                    aria-label="Retour aux rapports"
+                >
+                    <ArrowLeft size={20} />
+                </button>
                 <input
                     type="text"
                     value={title}

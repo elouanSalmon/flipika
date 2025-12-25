@@ -115,9 +115,17 @@ const AppRoutes = () => {
         {enableCopilot && <Route path="copilot" element={<Copilot />} />}
         {enableReports && <Route path="reports" element={<ReportsList />} />}
         {enableReports && <Route path="reports/new" element={<NewReport />} />}
-        {enableReports && <Route path="reports/:id" element={<ReportEditor />} />}
         <Route path="settings" element={<Settings />} />
       </Route>
+
+      {/* Report Editor - Full Page (No AppLayout) */}
+      {enableReports && (
+        <Route path="/app/reports/:id" element={
+          <ProtectedRoute>
+            <ReportEditor />
+          </ProtectedRoute>
+        } />
+      )}
 
       {/* 404 Route */}
       <Route path="*" element={<NotFound />} />
