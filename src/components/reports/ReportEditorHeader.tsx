@@ -1,8 +1,6 @@
 import React from 'react';
 import { Save, Share2, Archive, Trash2, MoreVertical } from 'lucide-react';
 import AutoSaveIndicator from './AutoSaveIndicator';
-import ThemeSelector from '../themes/ThemeSelector';
-import type { ReportTheme } from '../../types/reportThemes';
 import './ReportEditorHeader.css';
 
 interface ReportEditorHeaderProps {
@@ -11,13 +9,6 @@ interface ReportEditorHeaderProps {
     autoSaveStatus: 'saved' | 'saving' | 'error';
     lastSaved?: Date;
     status: 'draft' | 'published' | 'archived';
-
-    // Theme
-    userId: string;
-    accountId: string;
-    selectedTheme: ReportTheme | null;
-    onThemeSelect: (theme: ReportTheme | null) => void;
-    onCreateTheme: () => void;
 
     // Actions
     onSave: () => void;
@@ -36,11 +27,6 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
     autoSaveStatus,
     lastSaved,
     status,
-    userId,
-    accountId,
-    selectedTheme,
-    onThemeSelect,
-    onCreateTheme,
     onSave,
     onPublish,
     onArchive,
@@ -69,17 +55,6 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
             </div>
 
             <div className="report-editor-header-right">
-                {/* Theme Selector */}
-                <div className="theme-selector-wrapper">
-                    <ThemeSelector
-                        userId={userId}
-                        accountId={accountId}
-                        selectedTheme={selectedTheme}
-                        onThemeSelect={onThemeSelect}
-                        onCreateTheme={onCreateTheme}
-                    />
-                </div>
-
                 {/* Primary Actions */}
                 <button
                     onClick={onSave}

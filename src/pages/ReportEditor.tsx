@@ -281,6 +281,10 @@ const ReportEditor: React.FC = () => {
         return null;
     }
 
+    // Ensure we have valid dates for widgets (default to last 30 days)
+    const endDate = report.endDate || new Date();
+    const startDate = report.startDate || new Date(endDate.getTime() - 30 * 24 * 60 * 60 * 1000);
+
     return (
         <div className="report-editor">
             <ReportEditorHeader
@@ -289,11 +293,6 @@ const ReportEditor: React.FC = () => {
                 autoSaveStatus={autoSaveStatus}
                 lastSaved={lastSaved}
                 status={report.status}
-                userId={currentUser.uid}
-                accountId={report.accountId}
-                selectedTheme={selectedTheme}
-                onThemeSelect={handleThemeSelect}
-                onCreateTheme={() => setShowThemeManager(true)}
                 onSave={handleSave}
                 onPublish={handlePublish}
                 onArchive={handleArchive}
@@ -303,13 +302,20 @@ const ReportEditor: React.FC = () => {
             />
 
             <div className="report-editor-content">
-                <WidgetLibrary onAddWidget={handleAddWidget} />
+                <WidgetLibrary
+                    onAddWidget={handleAddWidget}
+                    userId={currentUser.uid}
+                    accountId={report.accountId}
+                    selectedTheme={selectedTheme}
+                    onThemeSelect={handleThemeSelect}
+                    onCreateTheme={() => setShowThemeManager(true)}
+                />
 
                 <ReportCanvas
                     widgets={widgets}
                     design={report.design}
-                    startDate={report.startDate}
-                    endDate={report.endDate}
+                    startDate={startDate}
+                    endDate={endDate}
                     onReorder={handleWidgetReorder}
                     onWidgetUpdate={handleWidgetUpdate}
                     onWidgetDelete={handleWidgetDelete}

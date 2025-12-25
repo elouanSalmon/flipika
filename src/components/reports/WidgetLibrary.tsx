@@ -1,6 +1,8 @@
 import React from 'react';
 import { Plus, BarChart3, TrendingUp, FileText, Layout } from 'lucide-react';
 import { WidgetType } from '../../types/reportTypes';
+import ThemeSelector from '../themes/ThemeSelector';
+import type { ReportTheme } from '../../types/reportThemes';
 import './WidgetLibrary.css';
 
 interface WidgetTemplate {
@@ -13,6 +15,12 @@ interface WidgetTemplate {
 
 interface WidgetLibraryProps {
     onAddWidget: (type: WidgetType) => void;
+    // Theme props
+    userId: string;
+    accountId: string;
+    selectedTheme: ReportTheme | null;
+    onThemeSelect: (theme: ReportTheme | null) => void;
+    onCreateTheme: () => void;
 }
 
 const WIDGET_TEMPLATES: WidgetTemplate[] = [
@@ -46,7 +54,14 @@ const WIDGET_TEMPLATES: WidgetTemplate[] = [
     },
 ];
 
-const WidgetLibrary: React.FC<WidgetLibraryProps> = ({ onAddWidget }) => {
+const WidgetLibrary: React.FC<WidgetLibraryProps> = ({
+    onAddWidget,
+    userId,
+    accountId,
+    selectedTheme,
+    onThemeSelect,
+    onCreateTheme,
+}) => {
     const [selectedCategory, setSelectedCategory] = React.useState<'all' | 'analytics' | 'content'>('all');
 
     const filteredTemplates = selectedCategory === 'all'
@@ -55,6 +70,17 @@ const WidgetLibrary: React.FC<WidgetLibraryProps> = ({ onAddWidget }) => {
 
     return (
         <div className="widget-library">
+            {/* Theme Selector Section */}
+            <div className="widget-library-theme-section">
+                <ThemeSelector
+                    userId={userId}
+                    accountId={accountId}
+                    selectedTheme={selectedTheme}
+                    onThemeSelect={onThemeSelect}
+                    onCreateTheme={onCreateTheme}
+                />
+            </div>
+
             <div className="widget-library-header">
                 <h3>Bibliothèque de Widgets</h3>
                 <p>Glissez ou cliquez pour ajouter</p>
