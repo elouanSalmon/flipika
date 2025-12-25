@@ -91,10 +91,8 @@ export const getWidgetMetrics = onRequest({
         let query = '';
 
         if (widgetType === 'performance_overview' || widgetType === 'campaign_chart') {
-            // Build campaign ID filter
+            // Build campaign ID filter - GAQL doesn't support parentheses for grouping
             const campaignIdFilter = campaignIds.map((id: string) => `campaign.id = ${id}`).join(' OR ');
-            // Wrap in parentheses only if there are multiple campaigns (for proper AND precedence)
-            const whereClause = campaignIds.length > 1 ? `(${campaignIdFilter})` : campaignIdFilter;
 
             query = `
           SELECT 
@@ -109,7 +107,7 @@ export const getWidgetMetrics = onRequest({
             metrics.conversions_value,
             metrics.all_conversions_value
           FROM campaign
-          WHERE ${whereClause}
+          WHERE ${campaignIdFilter}
             AND segments.date BETWEEN '${startDate}' AND '${endDate}'
             AND campaign.status != 'REMOVED'
         `;
@@ -126,7 +124,7 @@ export const getWidgetMetrics = onRequest({
               metrics.cost_micros,
               metrics.conversions
             FROM campaign
-            WHERE ${whereClause}
+            WHERE ${campaignIdFilter}
               AND segments.date BETWEEN '${startDate}' AND '${endDate}'
               AND campaign.status != 'REMOVED'
             ORDER BY segments.date ASC
@@ -235,21 +233,25 @@ export const getWidgetMetrics = onRequest({
         }
 
     } catch (error: any) {
-        console.error("Google Ads Widget Metrics Error:", {
-            message: error?.message,
-            stack: error?.stack,
-            name: error?.name,
-            code: error?.code,
-            type: typeof error,
-            error: error
-        });
+        console.error("Google Ads Widget Metrics Error:", error);
 
-        const errorMessage = error?.message || error?.toString() || 'Unknown error';
+        // Extract meaningful error message from Google Ads API errors
+        let errorMessage = 'Unknown error';
+        if (error?.errors && Array.isArray(error.errors) && error.errors.length > 0) {
+            // Google Ads API error format
+            errorMessage = error.errors.map((e: any) => e.message).join('; ');
+        } else if (error?.message) {
+            errorMessage = error.message;
+        } else if (error?.toString) {
+            errorMessage = error.toString();
+        }
+
         res.status(500).json({
             error: `Failed to fetch widget metrics: ${errorMessage}`,
             details: process.env.NODE_ENV === 'development' ? {
                 stack: error?.stack,
-                type: error?.name
+                type: error?.name,
+                code: error?.code
             } : undefined
         });
     }

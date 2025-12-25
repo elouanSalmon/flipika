@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap, Settings, Link, Lock, Unlock, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
 import AutoSaveIndicator from './AutoSaveIndicator';
+import ThemeToggle from '../ThemeToggle';
 import './ReportEditorHeader.css';
 
 interface ReportEditorHeaderProps {
@@ -86,6 +87,9 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
             </div>
 
             <div className="report-editor-header-right">
+                {/* Theme Toggle */}
+                <ThemeToggle />
+
                 {/* Primary Actions */}
                 <button
                     onClick={onOpenSettings}
