@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap, Settings, Link } from 'lucide-react';
+import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap, Settings, Link, Lock, Unlock, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
 import AutoSaveIndicator from './AutoSaveIndicator';
 import './ReportEditorHeader.css';
@@ -12,6 +12,7 @@ interface ReportEditorHeaderProps {
     lastSaved?: Date;
     status: 'draft' | 'published' | 'archived';
     shareUrl?: string; // Public share URL for published reports
+    isPasswordProtected?: boolean; // Whether the report is password protected
 
     // Actions
     onSave: () => void;
@@ -19,6 +20,8 @@ interface ReportEditorHeaderProps {
     onArchive: () => void;
     onDelete: () => void;
     onOpenSettings: () => void;
+    onOpenSecurity?: () => void; // Open security modal
+    onShareByEmail?: () => void; // Share by email
 
     // State
     isSaving: boolean;
@@ -32,15 +35,19 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
     lastSaved,
     status,
     shareUrl,
+    isPasswordProtected = false,
     onSave,
     onPublish,
     onArchive,
     onDelete,
     onOpenSettings,
+    onOpenSecurity,
+    onShareByEmail,
     isSaving,
     canPublish,
 }) => {
     const [showActions, setShowActions] = React.useState(false);
+    const [showShareMenu, setShowShareMenu] = React.useState(false);
     const navigate = useNavigate();
 
     return (
@@ -111,19 +118,69 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                     </button>
                 )}
 
-                {status === 'published' && shareUrl && (
-                    <button
-                        onClick={() => {
-                            const fullUrl = `${window.location.origin}${shareUrl}`;
-                            navigator.clipboard.writeText(fullUrl);
-                            toast.success('Lien copié dans le presse-papier !');
-                        }}
-                        className="btn btn-secondary"
-                        title="Copier le lien public"
-                    >
-                        <Link size={18} />
-                        <span>Copier le lien</span>
-                    </button>
+                {/* Share Dropdown for Published Reports */}
+                {status === 'published' && (
+                    <div className="actions-menu-wrapper">
+                        <button
+                            onClick={() => setShowShareMenu(!showShareMenu)}
+                            className="btn btn-primary"
+                            title="Options de partage"
+                        >
+                            <Share2 size={18} />
+                            <span>Partager</span>
+                        </button>
+
+                        {showShareMenu && (
+                            <>
+                                <div
+                                    className="actions-menu-overlay"
+                                    onClick={() => setShowShareMenu(false)}
+                                />
+                                <div className="actions-menu share-menu">
+                                    {shareUrl && (
+                                        <button
+                                            onClick={() => {
+                                                const fullUrl = `${window.location.origin}${shareUrl}`;
+                                                navigator.clipboard.writeText(fullUrl);
+                                                toast.success('Lien copié dans le presse-papier !');
+                                                setShowShareMenu(false);
+                                            }}
+                                            className="actions-menu-item"
+                                        >
+                                            <Link size={16} />
+                                            <span>Copier le lien</span>
+                                        </button>
+                                    )}
+
+                                    {onOpenSecurity && (
+                                        <button
+                                            onClick={() => {
+                                                onOpenSecurity();
+                                                setShowShareMenu(false);
+                                            }}
+                                            className="actions-menu-item"
+                                        >
+                                            {isPasswordProtected ? <Lock size={16} /> : <Unlock size={16} />}
+                                            <span>{isPasswordProtected ? 'Gérer le mot de passe' : 'Protéger par mot de passe'}</span>
+                                        </button>
+                                    )}
+
+                                    {onShareByEmail && (
+                                        <button
+                                            onClick={() => {
+                                                onShareByEmail();
+                                                setShowShareMenu(false);
+                                            }}
+                                            className="actions-menu-item"
+                                        >
+                                            <Mail size={16} />
+                                            <span>Partager par email</span>
+                                        </button>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    </div>
                 )}
 
                 {/* More Actions Menu */}

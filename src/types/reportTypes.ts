@@ -90,6 +90,8 @@ export interface EditableReport {
     shareUrl?: string; // Public share URL (if published)
     startDate?: Date; // Start date for data filtering
     endDate?: Date; // End date for data filtering
+    isPasswordProtected: boolean; // Whether the report requires a password
+    passwordHash?: string; // SHA-256 hash of the password (if protected)
     createdAt: Date;
     updatedAt: Date;
     version: number;

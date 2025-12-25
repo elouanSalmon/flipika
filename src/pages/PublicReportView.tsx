@@ -3,7 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Zap, AlertCircle } from 'lucide-react';
 import { getPublicReport } from '../services/reportService';
 import { getUserProfileByUsername } from '../services/userProfileService';
+import { verifyPassword, storeReportAccess, hasReportAccess } from '../utils/passwordUtils';
 import ReportCanvas from '../components/reports/ReportCanvas';
+import PasswordPrompt from '../components/reports/PasswordPrompt';
 import Spinner from '../components/common/Spinner';
 import type { EditableReport, WidgetConfig } from '../types/reportTypes';
 import type { UserProfile } from '../types/userProfile';
@@ -17,6 +19,8 @@ const PublicReportView: React.FC = () => {
     const [author, setAuthor] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [needsPassword, setNeedsPassword] = useState(false);
+    const [hasAccess, setHasAccess] = useState(false);
 
     useEffect(() => {
         loadPublicReport();
@@ -51,12 +55,52 @@ const PublicReportView: React.FC = () => {
             }
 
             setReport(result.report);
-            setWidgets(result.widgets);
+
+            // Check if password protected
+            if (result.report.isPasswordProtected) {
+                // Check if user already has access in session
+                if (hasReportAccess(reportId)) {
+                    setHasAccess(true);
+                    setWidgets(result.widgets);
+                } else {
+                    setNeedsPassword(true);
+                }
+            } else {
+                // No password needed
+                setHasAccess(true);
+                setWidgets(result.widgets);
+            }
         } catch (err) {
-            console.error('Error loading public report:', err);
+            console.error('Error loading public report:', error);
             setError('Erreur lors du chargement du rapport');
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handlePasswordSubmit = async (password: string): Promise<boolean> => {
+        if (!report || !reportId) return false;
+
+        try {
+            const isValid = await verifyPassword(password, report.passwordHash || '');
+
+            if (isValid) {
+                // Store access in session
+                storeReportAccess(reportId);
+                setHasAccess(true);
+                setNeedsPassword(false);
+
+                // Load widgets
+                const result = await getPublicReport(reportId);
+                if (result) {
+                    setWidgets(result.widgets);
+                }
+            }
+
+            return isValid;
+        } catch (err) {
+            console.error('Error verifying password:', err);
+            return false;
         }
     };
 
@@ -78,6 +122,26 @@ const PublicReportView: React.FC = () => {
                 <button onClick={() => navigate('/')} className="btn btn-primary">
                     Retour à l'accueil
                 </button>
+            </div>
+        );
+    }
+
+    // Show password prompt if needed
+    if (needsPassword && !hasAccess) {
+        return (
+            <PasswordPrompt
+                onSubmit={handlePasswordSubmit}
+                reportTitle={report.title}
+            />
+        );
+    }
+
+    // Don't show report content until access is granted
+    if (!hasAccess) {
+        return (
+            <div className="public-report-loading">
+                <Spinner />
+                <p>Chargement du rapport...</p>
             </div>
         );
     }

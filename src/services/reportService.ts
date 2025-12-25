@@ -16,6 +16,7 @@ import {
 import { db } from '../firebase/config';
 import type { EditableReport, WidgetConfig } from '../types/reportTypes';
 import { defaultReportDesign } from '../types/reportTypes';
+import { hashPassword } from '../utils/passwordUtils';
 
 const REPORTS_COLLECTION = 'reports';
 const WIDGETS_SUBCOLLECTION = 'widgets';
@@ -52,6 +53,8 @@ export async function createReport(
             publishedAt: null,
             lastAutoSave: serverTimestamp(),
             shareUrl: null,
+            isPasswordProtected: false,
+            passwordHash: null,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
             version: 1,
@@ -321,6 +324,8 @@ export async function listUserReports(
                 publishedAt: data.publishedAt?.toDate() || undefined,
                 lastAutoSave: data.lastAutoSave?.toDate() || undefined,
                 shareUrl: data.shareUrl || undefined,
+                isPasswordProtected: data.isPasswordProtected || false,
+                passwordHash: data.passwordHash || undefined,
                 createdAt: data.createdAt?.toDate() || new Date(),
                 updatedAt: data.updatedAt?.toDate() || new Date(),
                 version: data.version || 1,
@@ -338,15 +343,26 @@ export async function listUserReports(
 /**
  * Publish a report
  */
-export async function publishReport(reportId: string, username: string): Promise<string> {
+export async function publishReport(
+    reportId: string,
+    username: string,
+    password?: string
+): Promise<string> {
     try {
         const shareUrl = `/${username}/reports/${reportId}`;
-
-        await updateReport(reportId, {
+        const updates: any = {
             status: 'published',
             publishedAt: new Date(),
             shareUrl,
-        });
+        };
+
+        // Add password protection if provided
+        if (password) {
+            updates.passwordHash = await hashPassword(password);
+            updates.isPasswordProtected = true;
+        }
+
+        await updateReport(reportId, updates);
 
         return shareUrl;
     } catch (error) {
@@ -599,5 +615,58 @@ export async function getReportCountByStatus(
     } catch (error) {
         console.error('Error getting report count:', error);
         return { draft: 0, published: 0, archived: 0 };
+    }
+}
+
+/**
+ * Update report password
+ * Pass null to remove password protection
+ */
+export async function updateReportPassword(
+    reportId: string,
+    password: string | null
+): Promise<void> {
+    try {
+        const updates: any = {
+            updatedAt: serverTimestamp(),
+        };
+
+        if (password) {
+            // Set or update password
+            updates.passwordHash = await hashPassword(password);
+            updates.isPasswordProtected = true;
+        } else {
+            // Remove password protection
+            updates.passwordHash = null;
+            updates.isPasswordProtected = false;
+        }
+
+        await updateReport(reportId, updates);
+    } catch (error) {
+        console.error('Error updating report password:', error);
+        throw new Error('Failed to update report password');
+    }
+}
+
+/**
+ * Verify report password
+ * Returns true if password is correct
+ */
+export async function verifyReportPassword(
+    reportId: string,
+    password: string
+): Promise<boolean> {
+    try {
+        const report = await getReport(reportId);
+
+        if (!report || !report.isPasswordProtected || !report.passwordHash) {
+            return false;
+        }
+
+        const passwordHash = await hashPassword(password);
+        return passwordHash === report.passwordHash;
+    } catch (error) {
+        console.error('Error verifying report password:', error);
+        return false;
     }
 }

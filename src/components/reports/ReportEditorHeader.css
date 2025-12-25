@@ -200,6 +200,15 @@
     background: rgba(var(--error-rgb), 0.1);
 }
 
+/* Share Menu Specific Styles */
+.share-menu {
+    min-width: 220px;
+}
+
+.share-menu .actions-menu-item {
+    font-size: 0.9375rem;
+}
+
 /* Buttons */
 .btn {
     display: inline-flex;

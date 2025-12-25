@@ -9,6 +9,7 @@ import {
     archiveReport,
     deleteReport,
     updateReportSettings,
+    updateReportPassword,
 } from '../services/reportService';
 import { getUserProfile } from '../services/userProfileService';
 import dataService from '../services/dataService';
@@ -18,6 +19,7 @@ import WidgetLibrary from '../components/reports/WidgetLibrary';
 import ReportCanvas from '../components/reports/ReportCanvas';
 import ThemeManager from '../components/themes/ThemeManager';
 import ReportConfigModal, { type ReportConfig } from '../components/reports/ReportConfigModal';
+import ReportSecurityModal from '../components/reports/ReportSecurityModal';
 import Spinner from '../components/common/Spinner';
 import type { EditableReport, WidgetConfig } from '../types/reportTypes';
 import { WidgetType } from '../types/reportTypes';
@@ -51,6 +53,9 @@ const ReportEditor: React.FC = () => {
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [settingsCampaigns, setSettingsCampaigns] = useState<Campaign[]>([]);
     const [settingsAccountId, setSettingsAccountId] = useState<string>('');
+
+    // Security modal state
+    const [showSecurityModal, setShowSecurityModal] = useState(false);
 
     const autoSaveTimerRef = useRef<number | null>(null);
 
@@ -356,6 +361,88 @@ const ReportEditor: React.FC = () => {
         }
     };
 
+    const handleUpdatePassword = async (password: string | null) => {
+        if (!report) return;
+
+        try {
+            await updateReportPassword(report.id, password);
+            setReport({
+                ...report,
+                isPasswordProtected: password !== null,
+                passwordHash: password ? 'updated' : undefined, // We don't store the actual hash in state
+            });
+            toast.success(
+                password
+                    ? 'Protection par mot de passe activée'
+                    : 'Protection par mot de passe désactivée'
+            );
+        } catch (error) {
+            console.error('Error updating password:', error);
+            toast.error('Erreur lors de la mise à jour du mot de passe');
+            throw error;
+        }
+    };
+
+    const handleShareByEmail = async () => {
+        if (!report || !currentUser) return;
+
+        try {
+            // Get user profile for signature
+            const profile = await getUserProfile(currentUser.uid);
+
+            // Get campaign names - fetch them on demand
+            const campaignNames: string[] = [];
+            try {
+                const response = await fetchCampaigns(report.accountId);
+                if (response.success && response.campaigns) {
+                    const campaigns = Array.isArray(response.campaigns) ? response.campaigns : [];
+                    report.campaignIds.forEach(id => {
+                        const campaign = campaigns.find((c: Campaign) => c.id === id);
+                        if (campaign) {
+                            campaignNames.push(campaign.name);
+                        }
+                    });
+                }
+            } catch (err) {
+                console.warn('Could not load campaign names for email:', err);
+            }
+
+            // Format dates
+            const formatDate = (date?: Date) => {
+                if (!date) return 'N/A';
+                return new Date(date).toLocaleDateString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+            };
+
+            // Build email
+            const subject = `Rapport Google Ads - ${report.title}`;
+            const body = `Bonjour,
+
+Je vous partage le rapport d'analyse Google Ads suivant :
+
+📊 Rapport : ${report.title}
+📅 Période : ${formatDate(report.startDate)} - ${formatDate(report.endDate)}
+${campaignNames.length > 0 ? `🎯 Campagnes analysées : ${campaignNames.join(', ')}` : ''}
+
+🔗 Lien d'accès : ${window.location.origin}${report.shareUrl}
+${report.isPasswordProtected ? `🔒 Mot de passe : [Veuillez définir le mot de passe dans le modal Sécurité]` : ''}
+
+N'hésitez pas si vous avez des questions.
+
+Cordialement,
+${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${profile.company}` : ''}`;
+
+            const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;;
+        } catch (error) {
+            console.error('Error generating email:', error);
+            toast.error('Erreur lors de la génération de l\'email');
+        }
+    };
+
     if (isLoading) {
         return (
             <div className="report-editor loading">
@@ -379,11 +466,14 @@ const ReportEditor: React.FC = () => {
                 lastSaved={lastSaved}
                 status={report.status}
                 shareUrl={report.shareUrl}
+                isPasswordProtected={report.isPasswordProtected}
                 onSave={handleSave}
                 onPublish={handlePublish}
                 onArchive={handleArchive}
                 onDelete={handleDelete}
                 onOpenSettings={handleOpenSettings}
+                onOpenSecurity={() => setShowSecurityModal(true)}
+                onShareByEmail={handleShareByEmail}
                 isSaving={isSaving}
                 canPublish={widgets.length > 0}
             />
@@ -449,6 +539,15 @@ const ReportEditor: React.FC = () => {
                             preset: 'custom',
                         },
                     }}
+                />
+            )}
+
+            {/* Security Modal */}
+            {showSecurityModal && report && (
+                <ReportSecurityModal
+                    isPasswordProtected={report.isPasswordProtected}
+                    onClose={() => setShowSecurityModal(false)}
+                    onUpdate={handleUpdatePassword}
                 />
             )}
         </div>
