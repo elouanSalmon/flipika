@@ -20,6 +20,7 @@ export type SectionType = typeof SectionType[keyof typeof SectionType];
 export const WidgetType = {
     PERFORMANCE_OVERVIEW: 'performance_overview',
     CAMPAIGN_CHART: 'campaign_chart',
+    KEY_METRICS: 'key_metrics',
     TEXT_BLOCK: 'text_block',
     CUSTOM: 'custom',
 } as const;

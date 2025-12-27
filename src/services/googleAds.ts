@@ -139,7 +139,7 @@ export const fetchWidgetMetrics = async (
     campaignIds: string[],
     startDate: Date,
     endDate: Date,
-    widgetType: 'performance_overview' | 'campaign_chart'
+    widgetType: 'performance_overview' | 'campaign_chart' | 'key_metrics'
 ) => {
     try {
         const headers = await getAuthHeaders();

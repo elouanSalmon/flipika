@@ -4,6 +4,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Settings, Trash2 } from 'lucide-react';
 import PerformanceOverviewWidget from './widgets/PerformanceOverviewWidget';
 import CampaignChartWidget from './widgets/CampaignChartWidget';
+import KeyMetricsWidget from './widgets/KeyMetricsWidget';
 import type { WidgetConfig, ReportDesign } from '../../types/reportTypes';
 import { WidgetType } from '../../types/reportTypes';
 import './WidgetItem.css';
@@ -62,6 +63,17 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
             case WidgetType.CAMPAIGN_CHART:
                 return (
                     <CampaignChartWidget
+                        accountId={widget.accountId}
+                        campaignIds={widget.campaignIds}
+                        config={widget}
+                        design={design}
+                        startDate={startDate}
+                        endDate={endDate}
+                    />
+                );
+            case WidgetType.KEY_METRICS:
+                return (
+                    <KeyMetricsWidget
                         accountId={widget.accountId}
                         campaignIds={widget.campaignIds}
                         config={widget}

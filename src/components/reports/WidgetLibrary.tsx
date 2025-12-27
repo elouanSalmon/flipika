@@ -32,6 +32,13 @@ const WIDGET_TEMPLATES: WidgetTemplate[] = [
         category: 'analytics',
     },
     {
+        type: WidgetType.KEY_METRICS,
+        title: 'Métriques Clés',
+        description: 'Dépenses, Revenus, ROAS et CPA avec variations',
+        icon: <BarChart3 size={24} />,
+        category: 'analytics',
+    },
+    {
         type: WidgetType.CAMPAIGN_CHART,
         title: 'Graphique de campagne',
         description: 'Visualisation des données de campagne',

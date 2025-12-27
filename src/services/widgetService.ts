@@ -94,6 +94,7 @@ export async function getWidgetData(
 
         switch (type) {
             case WidgetType.PERFORMANCE_OVERVIEW:
+            case WidgetType.KEY_METRICS:
                 return await getPerformanceOverviewData(accountId, campaignIds, settings, startDate, endDate);
 
             case WidgetType.CAMPAIGN_CHART:

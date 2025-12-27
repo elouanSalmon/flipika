@@ -101,7 +101,7 @@ export const getWidgetMetrics = onRequest({
         // 5. Build query based on widget type
         let query = '';
 
-        if (widgetType === 'performance_overview' || widgetType === 'campaign_chart') {
+        if (widgetType === 'performance_overview' || widgetType === 'key_metrics') {
             // Build campaign ID filter using IN clause (more efficient and avoids parentheses issues)
             const campaignIdList = campaignIds.map((id: string) => id).join(', ');
 
@@ -129,10 +129,19 @@ export const getWidgetMetrics = onRequest({
             AND segments.date BETWEEN '${startDate}' AND '${endDate}'
             AND campaign.status != 'REMOVED'
         `;
+        } else if (widgetType === 'campaign_chart') {
+            // Build campaign ID filter using IN clause
+            const campaignIdList = campaignIds.map((id: string) => id).join(', ');
+
+            console.log('🔧 Building query with campaign IDs:', {
+                campaignIds,
+                campaignIdList,
+                startDate,
+                endDate
+            });
 
             // For chart data, we need daily breakdown
-            if (widgetType === 'campaign_chart') {
-                query = `
+            query = `
             SELECT 
               campaign.id,
               campaign.name,
@@ -147,7 +156,6 @@ export const getWidgetMetrics = onRequest({
               AND campaign.status != 'REMOVED'
             ORDER BY segments.date ASC
           `;
-            }
         }
 
         // 6. Execute Query
@@ -157,7 +165,7 @@ export const getWidgetMetrics = onRequest({
         console.log('✅ Query executed successfully, rows returned:', results.length);
 
         // 7. Format response based on widget type
-        if (widgetType === 'performance_overview') {
+        if (widgetType === 'performance_overview' || widgetType === 'key_metrics') {
             // Aggregate metrics across all campaigns
             interface AggregatedMetrics {
                 impressions: number;
@@ -199,6 +207,7 @@ export const getWidgetMetrics = onRequest({
                 { name: 'cost', value: cost, formatted: new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(cost) },
                 { name: 'cpa', value: cpa, formatted: new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(cpa) },
                 { name: 'roas', value: roas, formatted: `${roas.toFixed(2)}x` },
+                { name: 'conversion_value', value: aggregated.conversions_value, formatted: new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(aggregated.conversions_value) },
             ];
 
             res.status(200).json({
