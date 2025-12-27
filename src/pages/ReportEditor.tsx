@@ -428,7 +428,7 @@ Je vous partage le rapport d'analyse Google Ads suivant :
 ${campaignNames.length > 0 ? `🎯 Campagnes analysées : ${campaignNames.join(', ')}` : ''}
 
 🔗 Lien d'accès : ${window.location.origin}${report.shareUrl}
-${report.isPasswordProtected ? `🔒 Mot de passe : [Veuillez définir le mot de passe dans le modal Sécurité]` : ''}
+${report.isPasswordProtected ? `🔒 Ce rapport est protégé par mot de passe. Pensez à partager le mot de passe séparément pour des raisons de sécurité.` : ''}
 
 N'hésitez pas si vous avez des questions.
 
