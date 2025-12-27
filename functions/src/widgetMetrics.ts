@@ -229,8 +229,10 @@ export const getWidgetMetrics = onRequest({
                 }
 
                 // Add campaign data for this date
+                // Note: Using clicks as the primary metric for the chart
+                // This is displayed on the Y-axis as "Clics" in the frontend
                 const dataPoint = chartDataMap.get(date);
-                dataPoint[campaignId] = row.metrics?.clicks || 0; // Using clicks as the metric
+                dataPoint[campaignId] = row.metrics?.clicks || 0;
             });
 
             // Convert to array and sort by date

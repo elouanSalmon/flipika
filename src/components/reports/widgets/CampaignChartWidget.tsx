@@ -87,6 +87,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                             stroke={design.colorScheme.text}
                         />
                         <YAxis
+                            label={{ value: 'Clics', angle: -90, position: 'insideLeft', style: { fill: design.colorScheme.text, fontSize: 12 } }}
                             tick={{ fontSize: 12, fill: design.colorScheme.text }}
                             stroke={design.colorScheme.text}
                         />
@@ -99,7 +100,10 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                                 color: design.colorScheme.text,
                             }}
                         />
-                        <Legend />
+                        <Legend
+                            formatter={(value) => <span style={{ color: design.colorScheme.text }}>{value}</span>}
+                            iconType="line"
+                        />
                         {campaigns.map((campaign, index) => (
                             <Bar
                                 key={campaign.id}
@@ -122,6 +126,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                             stroke={design.colorScheme.text}
                         />
                         <YAxis
+                            label={{ value: 'Clics', angle: -90, position: 'insideLeft', style: { fill: design.colorScheme.text, fontSize: 12 } }}
                             tick={{ fontSize: 12, fill: design.colorScheme.text }}
                             stroke={design.colorScheme.text}
                         />
@@ -134,7 +139,10 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                                 color: design.colorScheme.text,
                             }}
                         />
-                        <Legend />
+                        <Legend
+                            formatter={(value) => <span style={{ color: design.colorScheme.text }}>{value}</span>}
+                            iconType="line"
+                        />
                         {campaigns.map((campaign, index) => (
                             <Area
                                 key={campaign.id}
@@ -161,6 +169,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                             stroke={design.colorScheme.text}
                         />
                         <YAxis
+                            label={{ value: 'Clics', angle: -90, position: 'insideLeft', style: { fill: design.colorScheme.text, fontSize: 12 } }}
                             tick={{ fontSize: 12, fill: design.colorScheme.text }}
                             stroke={design.colorScheme.text}
                         />
@@ -173,7 +182,10 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
                                 color: design.colorScheme.text,
                             }}
                         />
-                        <Legend />
+                        <Legend
+                            formatter={(value) => <span style={{ color: design.colorScheme.text }}>{value}</span>}
+                            iconType="line"
+                        />
                         {campaigns.map((campaign, index) => (
                             <Line
                                 key={campaign.id}
@@ -195,7 +207,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
         return (
             <div className="campaign-chart-widget loading">
                 <div className="widget-header">
-                    <h3>Graphique de campagne</h3>
+                    <h3>Évolution des Clics par Campagne</h3>
                 </div>
                 <div className="widget-content">
                     <div className="flex justify-center py-8">
@@ -210,7 +222,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
         return (
             <div className="campaign-chart-widget error">
                 <div className="widget-header">
-                    <h3>Graphique de campagne</h3>
+                    <h3>Évolution des Clics par Campagne</h3>
                 </div>
                 <div className="widget-content">
                     <div className="error-message">{error}</div>
@@ -226,7 +238,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
         return (
             <div className="campaign-chart-widget empty">
                 <div className="widget-header">
-                    <h3>Graphique de campagne</h3>
+                    <h3>Évolution des Clics par Campagne</h3>
                     {editable && (
                         <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
                             ⚙️
@@ -255,7 +267,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
             } as React.CSSProperties}
         >
             <div className="widget-header">
-                <h3 style={{ color: design.colorScheme.secondary }}>Graphique de campagne</h3>
+                <h3 style={{ color: design.colorScheme.secondary }}>Évolution des Clics par Campagne</h3>
                 {isMockData && (
                     <span className="mock-data-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
                         <AlertTriangle size={14} />
