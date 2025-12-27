@@ -14,6 +14,7 @@ interface CampaignChartWidgetProps {
     startDate?: Date;
     endDate?: Date;
     editable?: boolean;
+    reportId?: string;
 }
 
 interface ChartDataPoint {
@@ -29,6 +30,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
     startDate,
     endDate,
     editable = false,
+    reportId,
 }) => {
     const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
     const [campaigns, setCampaigns] = useState<Array<{ id: string; name: string }>>([]);
@@ -45,7 +47,7 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
             setLoading(true);
             setError(null);
 
-            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate);
+            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate, reportId);
             setChartData(data.chartData || []);
             setCampaigns(data.campaigns || []);
             setIsMockData(data.isMockData || false);

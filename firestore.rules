@@ -253,6 +253,26 @@ service cloud.firestore {
     }
     
     // ========================================
+    // WIDGET INSTANCES (Cached widget data)
+    // ========================================
+    match /widgetInstances/{instanceId} {
+      // Read: anyone (needed for public report viewing with cached data)
+      // The data is not sensitive - it's just cached Google Ads metrics
+      allow read: if true;
+      
+      // Create/Update: authenticated users only (to cache their widget data)
+      allow create, update: if isAuthenticated()
+        && request.resource.data.widgetConfigId is string
+        && request.resource.data.reportId is string
+        && request.resource.data.data != null;
+      
+      // Delete: only the report owner
+      allow delete: if isAuthenticated()
+        && exists(/databases/$(database)/documents/reports/$(resource.data.reportId))
+        && get(/databases/$(database)/documents/reports/$(resource.data.reportId)).data.userId == request.auth.uid;
+    }
+    
+    // ========================================
     // WIDGET TEMPLATES (Reusable configurations)
     // ========================================
     match /widgetTemplates/{templateId} {

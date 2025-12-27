@@ -13,6 +13,7 @@ interface PerformanceOverviewWidgetProps {
     startDate?: Date;
     endDate?: Date;
     editable?: boolean;
+    reportId?: string;
 }
 
 interface MetricData {
@@ -52,6 +53,7 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
     startDate,
     endDate,
     editable = false,
+    reportId,
 }) => {
     const [metrics, setMetrics] = useState<MetricData[]>([]);
     const [loading, setLoading] = useState(true);
@@ -67,7 +69,7 @@ const PerformanceOverviewWidget: React.FC<PerformanceOverviewWidgetProps> = ({
             setLoading(true);
             setError(null);
 
-            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate);
+            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate, reportId);
             setMetrics(data.metrics || []);
             setIsMockData(data.isMockData || false);
         } catch (err) {

@@ -521,6 +521,7 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                     onWidgetDrop={(type) => handleAddWidget(type as WidgetType)}
                     selectedWidgetId={selectedWidgetId}
                     onWidgetSelect={setSelectedWidgetId}
+                    reportId={report.id}
                 />
             </div>
 

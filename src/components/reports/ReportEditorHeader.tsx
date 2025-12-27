@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap, Settings, Link, Lock, Unlock, Mail } from 'lucide-react';
+import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap, Settings, Link, Lock, Unlock, Mail, ExternalLink } from 'lucide-react';
 import toast from 'react-hot-toast';
 import AutoSaveIndicator from './AutoSaveIndicator';
 import ThemeToggle from '../ThemeToggle';
@@ -151,8 +151,22 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                             }}
                                             className="actions-menu-item"
                                         >
-                                            <Link size={16} />
+                                            <Link size={18} />
                                             <span>Copier le lien</span>
+                                        </button>
+                                    )}
+
+                                    {shareUrl && (
+                                        <button
+                                            onClick={() => {
+                                                const fullUrl = `${window.location.origin}${shareUrl}`;
+                                                window.open(fullUrl, '_blank');
+                                                setShowShareMenu(false);
+                                            }}
+                                            className="actions-menu-item"
+                                        >
+                                            <ExternalLink size={18} />
+                                            <span>Ouvrir dans un nouvel onglet</span>
                                         </button>
                                     )}
 
@@ -164,7 +178,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                             }}
                                             className="actions-menu-item"
                                         >
-                                            {isPasswordProtected ? <Lock size={16} /> : <Unlock size={16} />}
+                                            {isPasswordProtected ? <Lock size={18} /> : <Unlock size={18} />}
                                             <span>{isPasswordProtected ? 'Gérer le mot de passe' : 'Protéger par mot de passe'}</span>
                                         </button>
                                     )}
@@ -178,7 +192,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                             }}
                                             className="actions-menu-item"
                                         >
-                                            <Mail size={16} />
+                                            <Mail size={18} />
                                             <span>Partager par email</span>
                                         </button>
                                     )}
@@ -213,7 +227,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                         }}
                                         className="actions-menu-item"
                                     >
-                                        <Archive size={16} />
+                                        <Archive size={18} />
                                         <span>Archiver</span>
                                     </button>
                                 )}
@@ -226,7 +240,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                     }}
                                     className="actions-menu-item danger"
                                 >
-                                    <Trash2 size={16} />
+                                    <Trash2 size={18} />
                                     <span>Supprimer</span>
                                 </button>
                             </div>

@@ -19,6 +19,7 @@ interface WidgetItemProps {
     onUpdate?: (config: Partial<WidgetConfig>) => void;
     onDelete?: () => void;
     isPublicView?: boolean;
+    reportId?: string;
 }
 
 const WidgetItem: React.FC<WidgetItemProps> = ({
@@ -31,6 +32,7 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
     onUpdate,
     onDelete,
     isPublicView = false,
+    reportId,
 }) => {
     const {
         attributes,
@@ -58,6 +60,7 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                         design={design}
                         startDate={startDate}
                         endDate={endDate}
+                        reportId={reportId}
                     />
                 );
             case WidgetType.CAMPAIGN_CHART:
@@ -69,6 +72,7 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                         design={design}
                         startDate={startDate}
                         endDate={endDate}
+                        reportId={reportId}
                     />
                 );
             case WidgetType.KEY_METRICS:
@@ -80,6 +84,7 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                         design={design}
                         startDate={startDate}
                         endDate={endDate}
+                        reportId={reportId}
                     />
                 );
             case WidgetType.TEXT_BLOCK:

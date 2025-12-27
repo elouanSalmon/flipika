@@ -183,6 +183,7 @@ const PublicReportView: React.FC = () => {
                     startDate={report.startDate}
                     endDate={report.endDate}
                     isPublicView={true}
+                    reportId={report.id}
                 />
             </main>
 

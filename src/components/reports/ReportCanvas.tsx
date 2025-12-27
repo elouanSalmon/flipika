@@ -19,6 +19,7 @@ interface ReportCanvasProps {
     selectedWidgetId?: string | null;
     onWidgetSelect?: (widgetId: string | null) => void;
     isPublicView?: boolean; // Read-only mode for public viewing
+    reportId?: string;
 }
 
 const ReportCanvas: React.FC<ReportCanvasProps> = ({
@@ -33,6 +34,7 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
     selectedWidgetId,
     onWidgetSelect,
     isPublicView = false,
+    reportId,
 }) => {
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -130,6 +132,7 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
                                 onUpdate={onWidgetUpdate ? (config) => onWidgetUpdate(widget.id, config) : undefined}
                                 onDelete={onWidgetDelete ? () => onWidgetDelete(widget.id) : undefined}
                                 isPublicView={isPublicView}
+                                reportId={reportId}
                             />
                         ))}
                     </div>

@@ -13,6 +13,7 @@ interface KeyMetricsWidgetProps {
     startDate?: Date;
     endDate?: Date;
     editable?: boolean;
+    reportId?: string;
 }
 
 interface MetricData {
@@ -32,6 +33,7 @@ const KeyMetricsWidget: React.FC<KeyMetricsWidgetProps> = ({
     startDate,
     endDate,
     editable = false,
+    reportId,
 }) => {
     const [metrics, setMetrics] = useState<MetricData[]>([]);
     const [loading, setLoading] = useState(true);
@@ -47,7 +49,7 @@ const KeyMetricsWidget: React.FC<KeyMetricsWidgetProps> = ({
             setLoading(true);
             setError(null);
 
-            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate);
+            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate, reportId);
 
             // Extract the 4 key metrics from the data
             const rawMetrics = data.metrics || [];

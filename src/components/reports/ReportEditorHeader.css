@@ -188,6 +188,12 @@
     text-align: left;
 }
 
+.actions-menu-item svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
 .actions-menu-item:hover {
     background: var(--glass-bg-hover);
 }

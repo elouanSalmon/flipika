@@ -10,7 +10,7 @@ import {
     orderBy,
     serverTimestamp
 } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { db, auth } from '../firebase/config';
 import { fetchWidgetMetrics } from './googleAds';
 import type { WidgetConfig, WidgetTemplate, WidgetInstance } from '../types/reportTypes';
 import { WidgetType } from '../types/reportTypes';
@@ -80,29 +80,106 @@ export async function deleteWidget(widgetId: string): Promise<void> {
 }
 
 /**
- * Get widget data from Google Ads
+ * Load cached widget data from Firestore
+ */
+export async function loadCachedWidgetData(
+    widgetId: string,
+    reportId: string
+): Promise<any | null> {
+    try {
+        const q = query(
+            collection(db, 'widgetInstances'),
+            where('widgetConfigId', '==', widgetId),
+            where('reportId', '==', reportId)
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+            console.log('📦 No cached data found for widget:', widgetId);
+            return null;
+        }
+
+        const cachedData = querySnapshot.docs[0].data();
+        console.log('✅ Loaded cached widget data:', {
+            widgetId,
+            lastUpdated: cachedData.lastUpdated?.toDate()
+        });
+
+        return cachedData.data;
+    } catch (error) {
+        console.error('❌ Error loading cached widget data:', error);
+        return null;
+    }
+}
+
+/**
+ * Get widget data from Google Ads or cache
  */
 export async function getWidgetData(
     widgetConfig: WidgetConfig,
     accountId: string,
     campaignIds?: string[],
     startDate?: Date,
-    endDate?: Date
+    endDate?: Date,
+    reportId?: string
 ): Promise<any> {
     try {
         const { type, settings } = widgetConfig;
+        const isAuthenticated = !!auth.currentUser;
 
+        // Try to load from cache first if widget ID and report ID are available
+        if (widgetConfig.id && reportId) {
+            const cachedData = await loadCachedWidgetData(widgetConfig.id, reportId);
+
+            // If user is not authenticated, ONLY use cached data
+            if (!isAuthenticated) {
+                if (cachedData) {
+                    console.log('🔓 Public access: using cached data for widget:', widgetConfig.id);
+                    return cachedData;
+                } else {
+                    console.warn('⚠️ No cached data available for public access');
+                    // Fall through to generate mock data
+                }
+            }
+
+            // If user is authenticated, try to fetch fresh data from API
+            // but use cache as fallback if API fails
+        }
+
+        // Fetch fresh data from API (only if authenticated)
+        let freshData;
         switch (type) {
             case WidgetType.PERFORMANCE_OVERVIEW:
             case WidgetType.KEY_METRICS:
-                return await getPerformanceOverviewData(accountId, campaignIds, settings, startDate, endDate);
+                freshData = await getPerformanceOverviewData(
+                    accountId,
+                    campaignIds,
+                    settings,
+                    startDate,
+                    endDate,
+                    widgetConfig.id,
+                    reportId
+                );
+                break;
 
             case WidgetType.CAMPAIGN_CHART:
-                return await getCampaignChartData(accountId, campaignIds, settings, startDate, endDate);
+                freshData = await getCampaignChartData(
+                    accountId,
+                    campaignIds,
+                    settings,
+                    startDate,
+                    endDate,
+                    widgetConfig.id,
+                    reportId
+                );
+                break;
 
             default:
                 throw new Error(`Unknown widget type: ${type}`);
         }
+
+        return freshData;
     } catch (error) {
         console.error('Error getting widget data:', error);
         throw new Error('Failed to get widget data');
@@ -117,7 +194,9 @@ async function getPerformanceOverviewData(
     campaignIds?: string[],
     settings?: WidgetConfig['settings'],
     startDate?: Date,
-    endDate?: Date
+    endDate?: Date,
+    widgetId?: string,
+    reportId?: string
 ): Promise<{
     metrics: Array<{
         name: string;
@@ -159,14 +238,30 @@ async function getPerformanceOverviewData(
             metricsCount: result.metrics.length
         });
 
-        // Retourner les vraies données
-        return {
+        const responseData = {
             metrics: result.metrics,
             isMockData: false
         };
+
+        // Cache the data if widget ID and report ID are available
+        if (widgetId && reportId) {
+            await cacheWidgetData(widgetId, reportId, responseData);
+        }
+
+        return responseData;
     } catch (error) {
         console.error('❌ Error fetching performance data:', error);
-        // Fallback vers mock data en cas d'erreur
+
+        // Try to load from cache as fallback
+        if (widgetId && reportId) {
+            const cachedData = await loadCachedWidgetData(widgetId, reportId);
+            if (cachedData) {
+                console.log('📦 Using cached data as fallback');
+                return cachedData;
+            }
+        }
+
+        // Last resort: use mock data
         return generateMockPerformanceData(settings, startDate, endDate);
     }
 }
@@ -227,7 +322,9 @@ async function getCampaignChartData(
     campaignIds?: string[],
     _settings?: WidgetConfig['settings'],
     startDate?: Date,
-    endDate?: Date
+    endDate?: Date,
+    widgetId?: string,
+    reportId?: string
 ): Promise<{
     chartData: Array<{
         date: string;
@@ -269,15 +366,31 @@ async function getCampaignChartData(
             campaigns: result.campaigns.length
         });
 
-        // Retourner les vraies données
-        return {
+        const responseData = {
             chartData: result.chartData,
             campaigns: result.campaigns,
             isMockData: false
         };
+
+        // Cache the data if widget ID and report ID are available
+        if (widgetId && reportId) {
+            await cacheWidgetData(widgetId, reportId, responseData);
+        }
+
+        return responseData;
     } catch (error) {
         console.error('❌ Error fetching chart data:', error);
-        // Fallback vers mock data en cas d'erreur
+
+        // Try to load from cache as fallback
+        if (widgetId && reportId) {
+            const cachedData = await loadCachedWidgetData(widgetId, reportId);
+            if (cachedData) {
+                console.log('📦 Using cached data as fallback');
+                return cachedData;
+            }
+        }
+
+        // Last resort: use mock data
         return generateMockChartData(campaignIds, startDate, endDate);
     }
 }
