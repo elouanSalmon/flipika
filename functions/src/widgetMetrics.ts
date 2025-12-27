@@ -39,6 +39,17 @@ export const getWidgetMetrics = onRequest({
         // 2. Parse Request Body
         const { customerId, campaignIds, startDate, endDate, widgetType } = req.body;
 
+        console.log('📥 Request received:', {
+            customerId,
+            campaignIds,
+            campaignIdsType: typeof campaignIds,
+            campaignIdsIsArray: Array.isArray(campaignIds),
+            campaignIdsLength: campaignIds?.length,
+            startDate,
+            endDate,
+            widgetType
+        });
+
         if (!customerId) {
             res.status(400).json({ error: "Missing customerId" });
             return;
@@ -91,8 +102,15 @@ export const getWidgetMetrics = onRequest({
         let query = '';
 
         if (widgetType === 'performance_overview' || widgetType === 'campaign_chart') {
-            // Build campaign ID filter - GAQL doesn't support parentheses for grouping
-            const campaignIdFilter = campaignIds.map((id: string) => `campaign.id = ${id}`).join(' OR ');
+            // Build campaign ID filter using IN clause (more efficient and avoids parentheses issues)
+            const campaignIdList = campaignIds.map((id: string) => id).join(', ');
+
+            console.log('🔧 Building query with campaign IDs:', {
+                campaignIds,
+                campaignIdList,
+                startDate,
+                endDate
+            });
 
             query = `
           SELECT 
@@ -107,7 +125,7 @@ export const getWidgetMetrics = onRequest({
             metrics.conversions_value,
             metrics.all_conversions_value
           FROM campaign
-          WHERE ${campaignIdFilter}
+          WHERE campaign.id IN (${campaignIdList})
             AND segments.date BETWEEN '${startDate}' AND '${endDate}'
             AND campaign.status != 'REMOVED'
         `;
@@ -124,7 +142,7 @@ export const getWidgetMetrics = onRequest({
               metrics.cost_micros,
               metrics.conversions
             FROM campaign
-            WHERE ${campaignIdFilter}
+            WHERE campaign.id IN (${campaignIdList})
               AND segments.date BETWEEN '${startDate}' AND '${endDate}'
               AND campaign.status != 'REMOVED'
             ORDER BY segments.date ASC
@@ -134,6 +152,7 @@ export const getWidgetMetrics = onRequest({
 
         // 6. Execute Query
         console.log('🔍 Executing Google Ads query for widget type:', widgetType);
+        console.log('📝 GAQL Query:', query.trim());
         const results = await customer.query(query);
         console.log('✅ Query executed successfully, rows returned:', results.length);
 

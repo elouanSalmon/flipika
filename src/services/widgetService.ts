@@ -11,6 +11,7 @@ import {
     serverTimestamp
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { fetchWidgetMetrics } from './googleAds';
 import type { WidgetConfig, WidgetTemplate, WidgetInstance } from '../types/reportTypes';
 import { WidgetType } from '../types/reportTypes';
 
@@ -126,42 +127,95 @@ async function getPerformanceOverviewData(
     isMockData: boolean;
 }> {
     try {
-        // TODO: Implement real Google Ads API call with date filtering
-        // For now, return mock data with date awareness
-        console.log('Fetching performance data:', { accountId, campaignIds, startDate, endDate });
+        // Vérifier que nous avons les paramètres nécessaires
+        if (!accountId || !campaignIds || campaignIds.length === 0) {
+            console.warn('📊 Missing accountId or campaignIds, using mock data');
+            return generateMockPerformanceData(settings, startDate, endDate);
+        }
 
-        const selectedMetrics = settings?.metrics || [
-            'impressions',
-            'clicks',
-            'ctr',
-            'cpc',
-            'conversions',
-            'roas'
-        ];
-
-        // Calculate days in range for more realistic mock data
-        const days = startDate && endDate
-            ? Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
-            : 30;
-
-        const metricsData = selectedMetrics.map(metricName => {
-            // Mock data scaled by date range - replace with real API call
-            const baseValue = Math.random() * 1000;
-            const metricValue = baseValue * (days / 30); // Scale by date range
-
-            return {
-                name: metricName,
-                value: metricValue,
-                formatted: formatMetric(metricName, metricValue),
-                change: settings?.showComparison ? Math.random() * 20 - 10 : undefined,
-            };
+        console.log('📊 Fetching real performance data:', {
+            accountId,
+            campaignIds,
+            startDate: startDate?.toISOString().split('T')[0],
+            endDate: endDate?.toISOString().split('T')[0]
         });
 
-        return { metrics: metricsData, isMockData: true };
+        // Appeler la vraie API Google Ads
+        const result = await fetchWidgetMetrics(
+            accountId,
+            campaignIds,
+            startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            endDate || new Date(),
+            'performance_overview'
+        );
+
+        if (!result.success || !result.metrics) {
+            console.warn('⚠️ API call failed, using mock data:', result.error);
+            return generateMockPerformanceData(settings, startDate, endDate);
+        }
+
+        console.log('✅ Real Google Ads data loaded successfully:', {
+            metricsCount: result.metrics.length
+        });
+
+        // Retourner les vraies données
+        return {
+            metrics: result.metrics,
+            isMockData: false
+        };
     } catch (error) {
-        console.error('Error getting performance overview data:', error);
-        throw error;
+        console.error('❌ Error fetching performance data:', error);
+        // Fallback vers mock data en cas d'erreur
+        return generateMockPerformanceData(settings, startDate, endDate);
     }
+}
+
+/**
+ * Generate mock performance data as fallback
+ */
+function generateMockPerformanceData(
+    settings?: WidgetConfig['settings'],
+    startDate?: Date,
+    endDate?: Date
+): {
+    metrics: Array<{
+        name: string;
+        value: number;
+        formatted: string;
+        change?: number;
+    }>;
+    isMockData: boolean;
+} {
+    console.log('🔄 Generating mock performance data');
+
+    const selectedMetrics = settings?.metrics || [
+        'impressions',
+        'clicks',
+        'ctr',
+        'cpc',
+        'conversions',
+        'roas'
+    ];
+
+    // Calculate days in range for more realistic mock data
+    const days = startDate && endDate
+        ? Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
+        : 30;
+
+    const metricsData = selectedMetrics.map(metricName => {
+        // Mock data scaled by date range
+        const baseValue = Math.random() * 1000;
+        const metricValue = baseValue * (days / 30); // Scale by date range
+
+        return {
+            name: metricName,
+            value: metricValue,
+            formatted: formatMetric(metricName, metricValue),
+            change: settings?.showComparison ? Math.random() * 20 - 10 : undefined,
+        };
+    });
+
+    return { metrics: metricsData, isMockData: true };
 }
 
 /**
@@ -182,85 +236,96 @@ async function getCampaignChartData(
     isMockData: boolean;
 }> {
     try {
-        // Use real Google Ads API if we have all required parameters
-        if (accountId && campaignIds && campaignIds.length > 0 && startDate && endDate) {
-            console.log('📊 Fetching campaign chart data from Google Ads API:', {
-                accountId,
-                campaignIds,
-                startDate: startDate.toISOString(),
-                endDate: endDate.toISOString()
-            });
-
-            const { fetchWidgetMetrics } = await import('./googleAds');
-            const response = await fetchWidgetMetrics(
-                accountId,
-                campaignIds,
-                startDate,
-                endDate,
-                'campaign_chart'
-            );
-
-            console.log('📊 Google Ads API response:', {
-                success: response.success,
-                hasChartData: !!response.chartData,
-                hasCampaigns: !!response.campaigns,
-                error: response.error
-            });
-
-            if (response.success && response.chartData && response.campaigns) {
-                console.log('✅ Using real Google Ads data');
-                return {
-                    chartData: response.chartData,
-                    campaigns: response.campaigns,
-                    isMockData: false
-                };
-            } else {
-                console.warn('⚠️ Google Ads API call succeeded but returned incomplete data:', response);
-            }
-        } else {
-            console.warn('⚠️ Missing required parameters for Google Ads API:', {
-                hasAccountId: !!accountId,
-                hasCampaignIds: !!(campaignIds && campaignIds.length > 0),
-                hasStartDate: !!startDate,
-                hasEndDate: !!endDate
-            });
+        // Vérifier que nous avons les paramètres nécessaires
+        if (!accountId || !campaignIds || campaignIds.length === 0) {
+            console.warn('📈 Missing accountId or campaignIds, using mock data');
+            return generateMockChartData(campaignIds, startDate, endDate);
         }
 
-        // Fallback to mock data if API call fails or parameters are missing
-        console.log('🔄 Using mock data for campaign chart:', { accountId, campaignIds, startDate, endDate });
-
-        const campaigns = campaignIds?.map(id => ({
-            id,
-            name: `Campaign ${id.slice(0, 8)}`,
-        })) || [];
-
-        // Use actual date range or default to last 30 days
-        const end = endDate || new Date();
-        const start = startDate || new Date(end.getTime() - 30 * 24 * 60 * 60 * 1000);
-        const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-
-        // Generate mock time series data for the actual date range
-        const chartData = Array.from({ length: days }, (_, i) => {
-            const date = new Date(start);
-            date.setDate(start.getDate() + i);
-
-            const dataPoint: any = {
-                date: date.toISOString().split('T')[0],
-            };
-
-            // Add metrics for each campaign
-            campaigns.forEach(campaign => {
-                dataPoint[campaign.id] = Math.random() * 1000 + 500;
-            });
-
-            return dataPoint;
+        console.log('📈 Fetching real campaign chart data:', {
+            accountId,
+            campaignIds,
+            startDate: startDate?.toISOString().split('T')[0],
+            endDate: endDate?.toISOString().split('T')[0]
         });
 
-        return { chartData, campaigns, isMockData: true };
+        // Appeler la vraie API Google Ads
+        const result = await fetchWidgetMetrics(
+            accountId,
+            campaignIds,
+            startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            endDate || new Date(),
+            'campaign_chart'
+        );
+
+        if (!result.success || !result.chartData || !result.campaigns) {
+            console.warn('⚠️ API call failed, using mock data:', result.error);
+            return generateMockChartData(campaignIds, startDate, endDate);
+        }
+
+        console.log('✅ Real campaign chart data loaded successfully:', {
+            dataPoints: result.chartData.length,
+            campaigns: result.campaigns.length
+        });
+
+        // Retourner les vraies données
+        return {
+            chartData: result.chartData,
+            campaigns: result.campaigns,
+            isMockData: false
+        };
     } catch (error) {
-        console.error('Error getting campaign chart data:', error);
-        throw error;
+        console.error('❌ Error fetching chart data:', error);
+        // Fallback vers mock data en cas d'erreur
+        return generateMockChartData(campaignIds, startDate, endDate);
     }
+}
+
+/**
+ * Generate mock chart data as fallback
+ */
+function generateMockChartData(
+    campaignIds?: string[],
+    startDate?: Date,
+    endDate?: Date
+): {
+    chartData: Array<{
+        date: string;
+        [key: string]: any;
+    }>;
+    campaigns: Array<{ id: string; name: string }>;
+    isMockData: boolean;
+} {
+    console.log('🔄 Generating mock chart data');
+
+    const campaigns = campaignIds?.map(id => ({
+        id,
+        name: `Campaign ${id.slice(0, 8)}`,
+    })) || [];
+
+    // Use actual date range or default to last 30 days
+    const end = endDate || new Date();
+    const start = startDate || new Date(end.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+
+    // Generate mock time series data for the actual date range
+    const chartData = Array.from({ length: days }, (_, i) => {
+        const date = new Date(start);
+        date.setDate(start.getDate() + i);
+
+        const dataPoint: any = {
+            date: date.toISOString().split('T')[0],
+        };
+
+        // Add metrics for each campaign
+        campaigns.forEach(campaign => {
+            dataPoint[campaign.id] = Math.random() * 1000 + 500;
+        });
+
+        return dataPoint;
+    });
+
+    return { chartData, campaigns, isMockData: true };
 }
 
 /**
