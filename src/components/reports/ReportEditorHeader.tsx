@@ -172,6 +172,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                     {onShareByEmail && (
                                         <button
                                             onClick={() => {
+                                                console.log('📧 Email share button clicked');
                                                 onShareByEmail();
                                                 setShowShareMenu(false);
                                             }}

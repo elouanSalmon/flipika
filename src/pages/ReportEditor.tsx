@@ -389,7 +389,14 @@ const ReportEditor: React.FC = () => {
     };
 
     const handleShareByEmail = async () => {
-        if (!report || !currentUser) return;
+        console.log('🔵 handleShareByEmail called');
+        console.log('Report:', report);
+        console.log('Current User:', currentUser);
+
+        if (!report || !currentUser) {
+            console.error('❌ Missing report or currentUser');
+            return;
+        }
 
         try {
             // Get user profile for signature
@@ -428,12 +435,12 @@ const ReportEditor: React.FC = () => {
 
 Je vous partage le rapport d'analyse Google Ads suivant :
 
-📊 Rapport : ${report.title}
-📅 Période : ${formatDate(report.startDate)} - ${formatDate(report.endDate)}
-${campaignNames.length > 0 ? `🎯 Campagnes analysées : ${campaignNames.join(', ')}` : ''}
+Rapport : ${report.title}
+Période : ${formatDate(report.startDate)} - ${formatDate(report.endDate)}
+${campaignNames.length > 0 ? `Campagnes analysées : ${campaignNames.join(', ')}` : ''}
 
-🔗 Lien d'accès : ${window.location.origin}${report.shareUrl}
-${report.isPasswordProtected && tempPassword ? `🔒 Mot de passe : ${tempPassword}` : report.isPasswordProtected ? `🔒 Ce rapport est protégé par mot de passe (mot de passe non disponible - veuillez le partager séparément)` : ''}
+Lien d'accès : ${window.location.origin}${report.shareUrl}
+${report.isPasswordProtected && tempPassword ? `Mot de passe : ${tempPassword}` : report.isPasswordProtected ? `Ce rapport est protégé par mot de passe (mot de passe non disponible - veuillez le partager séparément)` : ''}
 
 N'hésitez pas si vous avez des questions.
 
@@ -441,7 +448,17 @@ Cordialement,
 ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${profile.company}` : ''}`;
 
             const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.open(mailtoLink, '_self');
+            console.log('📬 Opening mailto link:', mailtoLink.substring(0, 100) + '...');
+
+            // Create a temporary link and click it (bypasses popup blockers)
+            const link = document.createElement('a');
+            link.href = mailtoLink;
+            link.target = '_self';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            toast.success('Email pré-rempli ouvert !');
         } catch (error) {
             console.error('Error generating email:', error);
             toast.error('Erreur lors de la génération de l\'email');
