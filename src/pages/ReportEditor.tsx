@@ -56,6 +56,7 @@ const ReportEditor: React.FC = () => {
 
     // Security modal state
     const [showSecurityModal, setShowSecurityModal] = useState(false);
+    const [tempPassword, setTempPassword] = useState<string>(''); // Temporary password storage for email sharing
 
     const autoSaveTimerRef = useRef<number | null>(null);
 
@@ -366,6 +367,10 @@ const ReportEditor: React.FC = () => {
 
         try {
             await updateReportPassword(report.id, password);
+
+            // Store password temporarily for email sharing
+            setTempPassword(password || '');
+
             setReport({
                 ...report,
                 isPasswordProtected: password !== null,
@@ -428,7 +433,7 @@ Je vous partage le rapport d'analyse Google Ads suivant :
 ${campaignNames.length > 0 ? `🎯 Campagnes analysées : ${campaignNames.join(', ')}` : ''}
 
 🔗 Lien d'accès : ${window.location.origin}${report.shareUrl}
-${report.isPasswordProtected ? `🔒 Ce rapport est protégé par mot de passe. Pensez à partager le mot de passe séparément pour des raisons de sécurité.` : ''}
+${report.isPasswordProtected && tempPassword ? `🔒 Mot de passe : ${tempPassword}` : report.isPasswordProtected ? `🔒 Ce rapport est protégé par mot de passe (mot de passe non disponible - veuillez le partager séparément)` : ''}
 
 N'hésitez pas si vous avez des questions.
 
@@ -436,7 +441,7 @@ Cordialement,
 ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${profile.company}` : ''}`;
 
             const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;;
+            window.open(mailtoLink, '_self');
         } catch (error) {
             console.error('Error generating email:', error);
             toast.error('Erreur lors de la génération de l\'email');
