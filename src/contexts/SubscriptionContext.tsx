@@ -68,8 +68,8 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
         const result = await createCheckoutFn({
             priceId,
-            successUrl: `${window.location.origin}/billing?session=success`,
-            cancelUrl: `${window.location.origin}/billing?session=canceled`,
+            successUrl: `${window.location.origin}/app/billing?session=success`,
+            cancelUrl: `${window.location.origin}/app/billing?session=canceled`,
             trialPeriodDays: 14,
         });
 
@@ -82,7 +82,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         const createPortalFn = httpsCallable(functions, 'createStripePortal');
 
         const result = await createPortalFn({
-            returnUrl: `${window.location.origin}/billing`,
+            returnUrl: `${window.location.origin}/app/billing`,
         });
 
         const data = result.data as { url: string };
