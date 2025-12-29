@@ -364,16 +364,16 @@ exports.syncBillingManual = (0, https_2.onCall)({ memory: '512MiB' }, async (req
     }
     const subscriptionData = subscriptionDoc.data();
     const stripeSubscriptionId = subscriptionData.stripeSubscriptionId;
-    // Get Google Ads customer ID
-    const userDoc = await admin.firestore()
+    // Count Google Ads accounts from Firestore subcollection
+    const accountsSnapshot = await admin.firestore()
         .collection('users')
         .doc(userId)
+        .collection('google_ads_accounts')
         .get();
-    const googleAdsCustomerId = userDoc.data()?.googleAds?.customerId;
-    if (!googleAdsCustomerId) {
-        throw new Error('No Google Ads account connected');
-    }
-    const result = await (0, stripe_1.syncUserBilling)(userId, googleAdsCustomerId, stripeSubscriptionId);
+    const accountCount = accountsSnapshot.size;
+    console.log(`Found ${accountCount} Google Ads accounts for user ${userId}`);
+    // Use the simplified sync function that accepts account count
+    const result = await (0, stripe_1.syncUserBillingByCount)(userId, accountCount, stripeSubscriptionId);
     return result;
 });
 /**

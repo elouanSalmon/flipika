@@ -37,17 +37,17 @@ const Settings = () => {
                 {/* Google Ads Connection */}
                 <ConnectionsCard />
 
-                {/* Report Themes */}
-                <ThemesCard />
-
                 {/* Preferences Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Demo Mode */}
-                    <DemoModeCard />
-
                     {/* Appearance */}
                     <AppearanceCard />
+
+                    {/* Demo Mode */}
+                    <DemoModeCard />
                 </div>
+
+                {/* Report Themes */}
+                <ThemesCard />
             </div>
         </div>
     );

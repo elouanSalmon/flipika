@@ -147,7 +147,7 @@ const ProfileCard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300"
+            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
         >
             <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                 <div className="p-2 bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 rounded-lg border border-blue-500/20">
@@ -170,10 +170,10 @@ const ProfileCard = () => {
                             onChange={(e) => handleUsernameChange(e.target.value)}
                             disabled={!isEditing}
                             className={`w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 ${errors.username
-                                    ? 'border-red-500'
-                                    : usernameAvailable === true && isEditing
-                                        ? 'border-green-500'
-                                        : 'border-blue-500/30 dark:border-blue-500/40'
+                                ? 'border-red-500'
+                                : usernameAvailable === true && isEditing
+                                    ? 'border-green-500'
+                                    : 'border-blue-500/30 dark:border-blue-500/40'
                                 } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50 disabled:opacity-60 disabled:cursor-not-allowed`}
                         />
                         {usernameChecking && (

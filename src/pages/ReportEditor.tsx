@@ -53,6 +53,7 @@ const ReportEditor: React.FC = () => {
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [settingsCampaigns, setSettingsCampaigns] = useState<Campaign[]>([]);
     const [settingsAccountId, setSettingsAccountId] = useState<string>('');
+    const [isLoadingSettings, setIsLoadingSettings] = useState(false);
 
     // Security modal state
     const [showSecurityModal, setShowSecurityModal] = useState(false);
@@ -285,6 +286,7 @@ const ReportEditor: React.FC = () => {
         if (!report) return;
 
         try {
+            setIsLoadingSettings(true);
             // Set the account ID for the modal
             setSettingsAccountId(report.accountId);
 
@@ -300,6 +302,8 @@ const ReportEditor: React.FC = () => {
         } catch (error) {
             console.error('Error loading campaigns for settings:', error);
             toast.error('Erreur lors du chargement des campagnes');
+        } finally {
+            setIsLoadingSettings(false);
         }
     };
 
@@ -497,6 +501,7 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                 onOpenSecurity={() => setShowSecurityModal(true)}
                 onShareByEmail={handleShareByEmail}
                 isSaving={isSaving}
+                isLoadingSettings={isLoadingSettings}
                 canPublish={widgets.length > 0}
             />
 
@@ -552,6 +557,7 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                     onAccountChange={handleSettingsAccountChange}
                     campaigns={settingsCampaigns}
                     isEditMode={true}
+                    isSubmitting={isSaving}
                     initialConfig={{
                         title: report.title,
                         accountId: report.accountId,

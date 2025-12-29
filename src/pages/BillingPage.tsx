@@ -16,6 +16,8 @@ export default function BillingPage() {
     const [billingHistory, setBillingHistory] = useState<BillingEvent[]>([]);
     const [loadingHistory, setLoadingHistory] = useState(true);
     const [syncing, setSyncing] = useState(false);
+    const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
+    const [isOpeningPortal, setIsOpeningPortal] = useState(false);
 
     // Default price ID from environment or hardcoded
     const STRIPE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID || 'price_1234567890';
@@ -80,20 +82,24 @@ export default function BillingPage() {
 
     const handleSubscribe = async () => {
         try {
+            setIsCreatingCheckout(true);
             const url = await createCheckout(STRIPE_PRICE_ID);
             window.location.href = url;
         } catch (error: any) {
             console.error('Error creating checkout:', error);
             toast.error('Erreur lors de la création du paiement');
+            setIsCreatingCheckout(false);
         }
     };
 
     const handleManageSubscription = async () => {
         try {
+            setIsOpeningPortal(true);
             await openCustomerPortal();
         } catch (error: any) {
             console.error('Error opening portal:', error);
             toast.error('Erreur lors de l\'ouverture du portail');
+            setIsOpeningPortal(false);
         }
     };
 
@@ -121,25 +127,25 @@ export default function BillingPage() {
     const totalMonthly = subscription ? subscription.currentSeats * PRICE_PER_SEAT : PRICE_PER_SEAT;
 
     return (
-        <div className="min-h-screen bg-[var(--color-bg-primary)] py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-[var(--color-text-primary)]">Facturation & Abonnement</h1>
-                    <p className="mt-2 text-[var(--color-text-secondary)]">
+                    <p className="mt-2 text-gray-600 dark:text-gray-400">
                         Gérez votre abonnement et consultez votre historique de facturation
                     </p>
                 </div>
 
                 {/* Subscription Status Card */}
-                <div className="bg-[var(--color-bg-secondary)] rounded-lg shadow-sm border border-[var(--color-border)] p-6 mb-6">
+                <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 mb-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <h2 className="text-xl font-semibold text-[var(--color-text-primary)]">
+                            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                                 {subscription ? 'Abonnement Actif' : 'Aucun Abonnement'}
                             </h2>
                             {subscription && (
-                                <p className="text-sm text-[var(--color-text-secondary)] mt-1">
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                                     {subscription.status === 'trialing' && subscription.trialEndsAt
                                         ? `Période d'essai jusqu'au ${new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR')}`
                                         : subscription.status === 'active'
@@ -149,8 +155,8 @@ export default function BillingPage() {
                             )}
                         </div>
                         <div className={`px-4 py-2 rounded-full text-sm font-medium ${isActive
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-gray-100 text-gray-800'
+                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                            : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
                             }`}>
                             {isActive ? 'Actif' : 'Inactif'}
                         </div>
@@ -161,25 +167,25 @@ export default function BillingPage() {
                             <div className="flex items-start space-x-3">
                                 <Users className="w-5 h-5 text-blue-600 mt-0.5" />
                                 <div>
-                                    <p className="text-sm text-[var(--color-text-secondary)]">Comptes Google Ads</p>
-                                    <p className="text-2xl font-bold text-[var(--color-text-primary)]">{subscription.currentSeats}</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">Comptes Google Ads</p>
+                                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{subscription.currentSeats}</p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-3">
                                 <CreditCard className="w-5 h-5 text-blue-600 mt-0.5" />
                                 <div>
-                                    <p className="text-sm text-[var(--color-text-secondary)]">Montant mensuel</p>
-                                    <p className="text-2xl font-bold text-[var(--color-text-primary)]">{totalMonthly} €</p>
-                                    <p className="text-xs text-[var(--color-text-secondary)]">{PRICE_PER_SEAT}€ × {subscription.currentSeats} compte{subscription.currentSeats > 1 ? 's' : ''}</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">Montant mensuel</p>
+                                    <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{totalMonthly} €</p>
+                                    <p className="text-xs text-gray-600 dark:text-gray-400">{PRICE_PER_SEAT}€ × {subscription.currentSeats} compte{subscription.currentSeats > 1 ? 's' : ''}</p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-3">
                                 <Calendar className="w-5 h-5 text-blue-600 mt-0.5" />
                                 <div>
-                                    <p className="text-sm text-[var(--color-text-secondary)]">Prochain paiement</p>
-                                    <p className="text-lg font-semibold text-[var(--color-text-primary)]">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">Prochain paiement</p>
+                                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                                         {subscription.currentPeriodEnd
                                             ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR')
                                             : '-'}
@@ -188,12 +194,12 @@ export default function BillingPage() {
                             </div>
                         </div>
                     ) : (
-                        <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                            <h3 className="font-semibold text-blue-900 mb-2">Commencez votre essai gratuit</h3>
-                            <p className="text-sm text-blue-700 mb-4">
+                        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                            <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Commencez votre essai gratuit</h3>
+                            <p className="text-sm text-blue-700 dark:text-blue-400 mb-4">
                                 14 jours d'essai gratuit, puis {PRICE_PER_SEAT}€ par compte Google Ads géré par mois.
                             </p>
-                            <ul className="text-sm text-blue-700 space-y-1 mb-4">
+                            <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-1 mb-4">
                                 <li>✓ Rapports illimités</li>
                                 <li>✓ Synchronisation automatique des données</li>
                                 <li>✓ Widgets personnalisables</li>
@@ -207,15 +213,20 @@ export default function BillingPage() {
                             <>
                                 <button
                                     onClick={handleManageSubscription}
-                                    className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                    disabled={isOpeningPortal}
+                                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
                                 >
-                                    <ExternalLink className="w-4 h-4" />
-                                    <span>Gérer l'abonnement</span>
+                                    {isOpeningPortal ? (
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                    ) : (
+                                        <ExternalLink className="w-4 h-4" />
+                                    )}
+                                    <span>{isOpeningPortal ? 'Redirection...' : 'Gérer l\'abonnement'}</span>
                                 </button>
                                 <button
                                     onClick={handleSyncBilling}
                                     disabled={syncing}
-                                    className="flex items-center space-x-2 px-4 py-2 border border-[var(--color-border)] text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-tertiary)] transition-colors disabled:opacity-50"
+                                    className="flex items-center space-x-2 px-4 py-2 border-2 border-blue-500/30 dark:border-blue-500/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-200 disabled:opacity-50"
                                 >
                                     {syncing ? (
                                         <Loader2 className="w-4 h-4 animate-spin" />
@@ -228,33 +239,35 @@ export default function BillingPage() {
                         ) : (
                             <button
                                 onClick={handleSubscribe}
-                                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                                disabled={isCreatingCheckout}
+                                className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
                             >
-                                Commencer l'essai gratuit
+                                {isCreatingCheckout && <Loader2 className="w-4 h-4 animate-spin" />}
+                                <span>{isCreatingCheckout ? 'Redirection vers Stripe...' : 'Commencer l\'essai gratuit'}</span>
                             </button>
                         )}
                     </div>
                 </div>
 
                 {/* Billing History */}
-                <div className="bg-[var(--color-bg-secondary)] rounded-lg shadow-sm border border-[var(--color-border)] p-6">
-                    <h2 className="text-xl font-semibold text-[var(--color-text-primary)] mb-4">Historique de facturation</h2>
+                <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Historique de facturation</h2>
 
                     {loadingHistory ? (
                         <div className="flex justify-center py-8">
                             <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
                         </div>
                     ) : billingHistory.length === 0 ? (
-                        <p className="text-[var(--color-text-secondary)] text-center py-8">Aucun événement de facturation</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-center py-8">Aucun événement de facturation</p>
                     ) : (
                         <div className="space-y-3">
                             {billingHistory.map((event, index) => (
                                 <div
                                     key={index}
-                                    className="flex items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-bg-tertiary)] transition-colors"
+                                    className="flex items-center justify-between p-4 border border-blue-500/20 dark:border-blue-500/30 rounded-xl bg-white/30 dark:bg-gray-700/30 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-500/40 transition-all duration-200"
                                 >
                                     <div>
-                                        <p className="font-medium text-[var(--color-text-primary)]">
+                                        <p className="font-medium text-gray-900 dark:text-gray-100">
                                             {event.eventType === 'sync' && 'Synchronisation de facturation'}
                                             {event.eventType === 'payment_succeeded' && 'Paiement réussi'}
                                             {event.eventType === 'payment_failed' && 'Échec du paiement'}
@@ -262,18 +275,18 @@ export default function BillingPage() {
                                             {event.eventType === 'subscription_created' && 'Abonnement créé'}
                                             {event.eventType === 'subscription_canceled' && 'Abonnement annulé'}
                                         </p>
-                                        <p className="text-sm text-[var(--color-text-secondary)]">
+                                        <p className="text-sm text-gray-600 dark:text-gray-400">
                                             {event.timestamp ? new Date(event.timestamp).toLocaleString('fr-FR') : '-'}
                                         </p>
                                         {event.previousSeats !== undefined && event.newSeats !== undefined && (
-                                            <p className="text-xs text-[var(--color-text-secondary)] mt-1">
+                                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                                                 {event.previousSeats} → {event.newSeats} compte{event.newSeats > 1 ? 's' : ''}
                                             </p>
                                         )}
                                     </div>
                                     {event.amount !== undefined && (
                                         <div className="text-right">
-                                            <p className="font-semibold text-[var(--color-text-primary)]">
+                                            <p className="font-semibold text-gray-900 dark:text-gray-100">
                                                 {event.amount.toFixed(2)} {event.currency?.toUpperCase() || 'EUR'}
                                             </p>
                                         </div>

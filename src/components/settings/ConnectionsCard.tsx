@@ -3,6 +3,7 @@ import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { initiateGoogleAdsOAuth } from '../../services/googleAds';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
 
 const ConnectionsCard = () => {
     const { isConnected, refreshConnectionStatus, disconnect, customerId, setLinkedCustomerId } = useGoogleAds();
@@ -47,14 +48,26 @@ const ConnectionsCard = () => {
     };
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-bold mb-6">Connexions</h2>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
+        >
+            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <div className="p-2 bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 rounded-lg border border-blue-500/20">
+                    <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                </div>
+                Connexions
+            </h2>
 
             <div className="space-y-6">
                 {/* Google Account */}
-                <div className="flex items-center justify-between p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/30">
+                <div className="flex items-center justify-between p-4 rounded-xl border-2 border-blue-500/20 dark:border-blue-500/30 bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-500/40 transition-all duration-300 shadow-lg shadow-blue-500/5">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center border-2 border-gray-200 dark:border-gray-600">
+                        <div className="w-12 h-12 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center border-2 border-blue-500/20">
                             <svg className="w-6 h-6" viewBox="0 0 24 24">
                                 <path
                                     fill="#4285F4"
@@ -76,7 +89,7 @@ const ConnectionsCard = () => {
                         </div>
                         <div className="flex-1">
                             <h3 className="font-semibold text-gray-900 dark:text-gray-100">Compte Google</h3>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
                                 {currentUser ? currentUser.email : 'Non connecté'}
                             </p>
                             {currentUser && (
@@ -98,7 +111,7 @@ const ConnectionsCard = () => {
                                 </span>
                                 <button
                                     onClick={handleConnectGoogle}
-                                    className="btn btn-primary btn-sm"
+                                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all duration-200 text-sm font-semibold shadow-lg shadow-blue-500/30"
                                 >
                                     Connecter
                                 </button>
@@ -107,15 +120,15 @@ const ConnectionsCard = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-4 p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/30">
+                <div className="flex flex-col gap-4 p-4 rounded-xl border-2 border-blue-500/20 dark:border-blue-500/30 bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-500/40 transition-all duration-300 shadow-lg shadow-blue-500/5">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center border-2 border-gray-200 dark:border-gray-600">
+                            <div className="w-12 h-12 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center border-2 border-blue-500/20">
                                 <img src="/google-ads.svg" alt="Google Ads" className="w-7 h-7" />
                             </div>
                             <div>
                                 <h3 className="font-semibold text-gray-900 dark:text-gray-100">Google Ads</h3>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
                                     Connectez votre compte publicitaire
                                 </p>
                             </div>
@@ -140,14 +153,14 @@ const ConnectionsCard = () => {
                                             }
                                         }
                                     }}
-                                    className="btn btn-ghost btn-sm"
+                                    className="px-4 py-2 rounded-xl border-2 border-blue-500/30 dark:border-blue-500/40 text-gray-900 dark:text-gray-100 hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-200 text-sm font-semibold"
                                 >
                                     Déconnecter
                                 </button>
                             ) : (
                                 <button
                                     onClick={handleConnectGoogleAds}
-                                    className="btn btn-primary btn-sm"
+                                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all duration-200 text-sm font-semibold shadow-lg shadow-blue-500/30"
                                 >
                                     Connecter
                                 </button>
@@ -156,7 +169,7 @@ const ConnectionsCard = () => {
                     </div>
 
                     {isConnected && (
-                        <div className="mt-4 border-t border-gray-200 dark:border-gray-600 pt-4">
+                        <div className="mt-4 border-t border-blue-500/20 dark:border-blue-500/30 pt-4">
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Compte par défaut
                             </label>
@@ -170,7 +183,7 @@ const ConnectionsCard = () => {
                                             toast.success('Compte par défaut mis à jour');
                                         }
                                     }}
-                                    className="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer"
+                                    className="w-full px-4 py-2.5 border-2 border-blue-500/30 dark:border-blue-500/40 rounded-xl bg-white/10 dark:bg-white/5 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer hover:border-blue-500/40 dark:hover:border-blue-500/50"
                                 >
                                     <option value="">-- Sélectionner un compte --</option>
                                     {accounts.map((account) => (
@@ -192,7 +205,7 @@ const ConnectionsCard = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

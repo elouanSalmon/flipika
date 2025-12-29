@@ -25,7 +25,8 @@ export default function SubscriptionCard() {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-[var(--color-bg-secondary)] rounded-xl p-6 border border-[var(--color-border)] shadow-sm"
+                transition={{ duration: 0.3, delay: 0.2 }}
+                className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
             >
                 <div className="flex items-center justify-center py-8">
                     <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
@@ -40,21 +41,24 @@ export default function SubscriptionCard() {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[var(--color-bg-secondary)] rounded-xl p-6 border border-[var(--color-border)] shadow-sm"
+            transition={{ duration: 0.3, delay: 0.2 }}
+            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
         >
             <div className="flex items-center justify-between mb-6">
                 <div>
-                    <h2 className="text-xl font-semibold text-[var(--color-text-primary)] flex items-center gap-2">
-                        <CreditCard className="w-5 h-5 text-blue-600" />
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                        <div className="p-2 bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 rounded-lg border border-blue-500/20">
+                            <CreditCard size={20} className="text-blue-600 dark:text-blue-400" />
+                        </div>
                         Abonnement
                     </h2>
-                    <p className="text-sm text-[var(--color-text-secondary)] mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                         Gérez votre plan et votre facturation
                     </p>
                 </div>
                 <div className={`px-3 py-1 rounded-full text-xs font-medium ${isActive
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                        : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
+                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                    : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
                     }`}>
                     {isActive ? 'Actif' : 'Inactif'}
                 </div>
@@ -67,27 +71,27 @@ export default function SubscriptionCard() {
                         <div className="flex items-start space-x-3">
                             <Users className="w-5 h-5 text-blue-600 mt-0.5" />
                             <div>
-                                <p className="text-xs text-[var(--color-text-secondary)]">Comptes Google Ads</p>
-                                <p className="text-lg font-bold text-[var(--color-text-primary)]">{subscription.currentSeats}</p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400">Comptes Google Ads</p>
+                                <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{subscription.currentSeats}</p>
                             </div>
                         </div>
 
                         <div className="flex items-start space-x-3">
                             <CreditCard className="w-5 h-5 text-blue-600 mt-0.5" />
                             <div>
-                                <p className="text-xs text-[var(--color-text-secondary)]">Montant mensuel</p>
-                                <p className="text-lg font-bold text-[var(--color-text-primary)]">{totalMonthly} €</p>
-                                <p className="text-xs text-[var(--color-text-secondary)]">{PRICE_PER_SEAT}€ × {subscription.currentSeats}</p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400">Montant mensuel</p>
+                                <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{totalMonthly} €</p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400">{PRICE_PER_SEAT}€ × {subscription.currentSeats}</p>
                             </div>
                         </div>
 
                         <div className="flex items-start space-x-3">
                             <Calendar className="w-5 h-5 text-blue-600 mt-0.5" />
                             <div>
-                                <p className="text-xs text-[var(--color-text-secondary)]">
+                                <p className="text-xs text-gray-600 dark:text-gray-400">
                                     {subscription.status === 'trialing' ? 'Fin de l\'essai' : 'Prochain paiement'}
                                 </p>
-                                <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                                     {subscription.status === 'trialing' && subscription.trialEndsAt
                                         ? new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR')
                                         : subscription.currentPeriodEnd
@@ -119,14 +123,14 @@ export default function SubscriptionCard() {
                     <div className="flex flex-wrap gap-3">
                         <button
                             onClick={handleManageSubscription}
-                            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                            className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 text-sm font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
                         >
                             <ExternalLink className="w-4 h-4" />
                             <span>Gérer l'abonnement</span>
                         </button>
                         <button
                             onClick={handleViewBilling}
-                            className="flex items-center space-x-2 px-4 py-2 border border-[var(--color-border)] text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-tertiary)] transition-colors text-sm font-medium"
+                            className="flex items-center space-x-2 px-4 py-2 border-2 border-blue-500/30 dark:border-blue-500/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-200 text-sm font-semibold"
                         >
                             <span>Voir la facturation</span>
                         </button>
@@ -149,7 +153,7 @@ export default function SubscriptionCard() {
 
                     <button
                         onClick={handleViewBilling}
-                        className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                        className="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
                     >
                         Commencer l'essai gratuit
                     </button>

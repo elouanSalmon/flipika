@@ -177,6 +177,118 @@ export async function syncUserBilling(
 }
 
 /**
+ * Simplified billing sync that uses account count from Firestore
+ * This version doesn't query Google Ads API, it just counts accounts in Firestore
+ */
+export async function syncUserBillingByCount(
+    userId: string,
+    accountCount: number,
+    stripeSubscriptionId: string
+): Promise<{
+    success: boolean;
+    previousSeats: number;
+    newSeats: number;
+    updated: boolean;
+    error?: string;
+}> {
+    try {
+        console.log(`Starting billing sync for user ${userId} with ${accountCount} accounts`);
+
+        // Step 1: Get current Stripe subscription
+        let subscription: Stripe.Subscription;
+        try {
+            subscription = await stripe.subscriptions.retrieve(stripeSubscriptionId);
+        } catch (error: any) {
+            console.error('Error retrieving Stripe subscription:', error);
+            throw new Error(`Failed to retrieve subscription: ${error.message}`);
+        }
+
+        // Step 2: Find the subscription item (should be only one for per-seat pricing)
+        const subscriptionItem = subscription.items.data[0];
+        if (!subscriptionItem) {
+            throw new Error('No subscription item found');
+        }
+
+        const currentQuantity = subscriptionItem.quantity || 1;
+        console.log(`Current Stripe quantity: ${currentQuantity}, Account count: ${accountCount}`);
+
+        // Step 3: Handle edge case - minimum 1 seat even if 0 accounts
+        const newQuantity = Math.max(1, accountCount);
+
+        // Step 4: Update Stripe subscription if quantity changed
+        let updated = false;
+        if (currentQuantity !== newQuantity) {
+            try {
+                await stripe.subscriptionItems.update(subscriptionItem.id, {
+                    quantity: newQuantity,
+                    proration_behavior: 'create_prorations', // Pro-rate the difference
+                });
+                console.log(`Updated subscription quantity from ${currentQuantity} to ${newQuantity}`);
+                updated = true;
+
+                // Update Firestore subscription record
+                await db.collection('subscriptions').doc(userId).update({
+                    currentSeats: newQuantity,
+                    updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+                });
+
+                // Log billing event
+                await db.collection('billingHistory').add({
+                    userId,
+                    subscriptionId: stripeSubscriptionId,
+                    eventType: 'sync',
+                    previousSeats: currentQuantity,
+                    newSeats: newQuantity,
+                    timestamp: admin.firestore.FieldValue.serverTimestamp(),
+                    metadata: {
+                        accountCount,
+                        source: 'firestore',
+                    },
+                });
+            } catch (error: any) {
+                console.error('Error updating Stripe subscription:', error);
+                throw new Error(`Failed to update subscription: ${error.message}`);
+            }
+        } else {
+            console.log('No update needed - quantity unchanged');
+        }
+
+        return {
+            success: true,
+            previousSeats: currentQuantity,
+            newSeats: newQuantity,
+            updated,
+        };
+    } catch (error: any) {
+        console.error('Error in syncUserBillingByCount:', error);
+
+        // Log error to billing history
+        try {
+            await db.collection('billingHistory').add({
+                userId,
+                subscriptionId: stripeSubscriptionId,
+                eventType: 'sync',
+                timestamp: admin.firestore.FieldValue.serverTimestamp(),
+                metadata: {
+                    error: error.message,
+                    accountCount,
+                },
+            });
+        } catch (logError) {
+            console.error('Failed to log error to billing history:', logError);
+        }
+
+        return {
+            success: false,
+            previousSeats: 0,
+            newSeats: 0,
+            updated: false,
+            error: error.message,
+        };
+    }
+}
+
+/**
  * Creates a Stripe Checkout session for new subscriptions
  */
 export async function createCheckoutSession(

@@ -276,7 +276,8 @@
 }
 
 .dark .reports-config-modal {
-    background: #1e293b;
+    background: rgba(30, 41, 55, 0.95);
+    backdrop-filter: blur(16px);
 }
 
 .reports-config-header {
