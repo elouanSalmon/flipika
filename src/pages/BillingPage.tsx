@@ -8,6 +8,7 @@ import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle,
 import toast from 'react-hot-toast';
 import type { BillingEvent } from '../types/subscriptionTypes';
 import { formatSubscriptionEndDate } from '../types/subscriptionTypes';
+import PricingInfoModal from '../components/billing/PricingInfoModal';
 
 export default function BillingPage() {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function BillingPage() {
     const [syncing, setSyncing] = useState(false);
     const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
     const [isOpeningPortal, setIsOpeningPortal] = useState(false);
-    const [showPricingTooltip, setShowPricingTooltip] = useState(false);
+    const [showPricingModal, setShowPricingModal] = useState(false);
 
     // Default price ID from environment or hardcoded
     const STRIPE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID || 'price_1234567890';
@@ -176,27 +177,13 @@ export default function BillingPage() {
                                 )}
                             </div>
                             {subscription && isActive && (
-                                <div className="relative">
-                                    <button
-                                        onMouseEnter={() => setShowPricingTooltip(true)}
-                                        onMouseLeave={() => setShowPricingTooltip(false)}
-                                        className="p-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-                                        aria-label="Information sur la tarification"
-                                    >
-                                        <Info className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                                    </button>
-                                    {showPricingTooltip && (
-                                        <div className="absolute right-0 top-full mt-2 w-72 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-blue-200 dark:border-blue-800 z-50">
-                                            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">Tarification</p>
-                                            <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-                                                <span className="font-bold text-blue-600 dark:text-blue-400">{PRICE_PER_SEAT}€/mois</span> par compte Google Ads connecté
-                                            </p>
-                                            <p className="text-xs text-gray-600 dark:text-gray-400">
-                                                Exemple : 2 comptes = {PRICE_PER_SEAT * 2}€/mois • 5 comptes = {PRICE_PER_SEAT * 5}€/mois
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
+                                <button
+                                    onClick={() => setShowPricingModal(true)}
+                                    className="p-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                                    aria-label="Information sur la tarification"
+                                >
+                                    <Info className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                                </button>
                             )}
                         </div>
                     </div>
@@ -415,6 +402,13 @@ export default function BillingPage() {
                     )}
                 </div>
             </div>
+
+            {/* Pricing Info Modal */}
+            <PricingInfoModal
+                isOpen={showPricingModal}
+                onClose={() => setShowPricingModal(false)}
+                pricePerSeat={PRICE_PER_SEAT}
+            />
         </div>
     );
 }
