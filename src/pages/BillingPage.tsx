@@ -133,7 +133,7 @@ export default function BillingPage() {
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-[var(--color-text-primary)]">Facturation & Abonnement</h1>
                     <p className="mt-2 text-gray-600 dark:text-gray-400">
-                        Gérez votre abonnement et consultez votre historique de facturation
+                        Gérez votre abonnement, modifiez vos moyens de paiement et consultez l'historique de vos factures via le portail Stripe
                     </p>
                 </div>
 

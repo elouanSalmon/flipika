@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSubscription } from '../../contexts/SubscriptionContext';
 import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -6,13 +7,16 @@ import { useNavigate } from 'react-router-dom';
 export default function SubscriptionCard() {
     const { subscription, loading, isActive, openCustomerPortal } = useSubscription();
     const navigate = useNavigate();
+    const [isOpeningPortal, setIsOpeningPortal] = useState(false);
     const PRICE_PER_SEAT = 10;
 
     const handleManageSubscription = async () => {
         try {
+            setIsOpeningPortal(true);
             await openCustomerPortal();
         } catch (error) {
             console.error('Error opening portal:', error);
+            setIsOpeningPortal(false);
         }
     };
 
@@ -53,7 +57,7 @@ export default function SubscriptionCard() {
                         Abonnement
                     </h2>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        Gérez votre plan et votre facturation
+                        Modifiez votre abonnement ou consultez vos factures via le portail Stripe
                     </p>
                 </div>
                 <div className={`px-3 py-1 rounded-full text-xs font-medium ${isActive
@@ -126,10 +130,15 @@ export default function SubscriptionCard() {
                     <div className="flex flex-wrap gap-3">
                         <button
                             onClick={handleManageSubscription}
-                            className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 text-sm font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
+                            disabled={isOpeningPortal}
+                            className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 text-sm font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <ExternalLink className="w-4 h-4" />
-                            <span>Gérer l'abonnement</span>
+                            {isOpeningPortal ? (
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                                <ExternalLink className="w-4 h-4" />
+                            )}
+                            <span>{isOpeningPortal ? 'Redirection...' : 'Gérer l\'abonnement'}</span>
                         </button>
                         <button
                             onClick={handleViewBilling}
