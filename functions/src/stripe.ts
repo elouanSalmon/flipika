@@ -225,6 +225,9 @@ export async function createCheckoutSession(
                     userId,
                 },
             },
+            metadata: {
+                userId, // Also add to session metadata for checkout.session.completed event
+            },
             success_url: successUrl,
             cancel_url: cancelUrl,
             allow_promotion_codes: true,
