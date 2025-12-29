@@ -352,6 +352,10 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
         return;
     }
 
+    // Convert Stripe Unix timestamps (seconds) to milliseconds as integers
+    const currentPeriodStartMs = Math.floor((subscription as any).current_period_start * 1000);
+    const currentPeriodEndMs = Math.floor((subscription as any).current_period_end * 1000);
+
     const subscriptionData = {
         userId,
         stripeCustomerId: subscription.customer as string,
@@ -359,17 +363,16 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
         stripePriceId: subscription.items.data[0]?.price.id || '',
         status: subscription.status,
         currentSeats: subscription.items.data[0]?.quantity || 1,
-        currentPeriodStart: admin.firestore.Timestamp.fromDate(new Date(Math.floor((subscription as any).current_period_start) * 1000)),
-        currentPeriodEnd: admin.firestore.Timestamp.fromDate(new Date(Math.floor((subscription as any).current_period_end) * 1000)),
+        currentPeriodStart: admin.firestore.Timestamp.fromMillis(currentPeriodStartMs),
+        currentPeriodEnd: admin.firestore.Timestamp.fromMillis(currentPeriodEndMs),
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
     // Add trial end date if in trial
     if (subscription.trial_end) {
-        (subscriptionData as any).trialEndsAt = admin.firestore.Timestamp.fromDate(
-            new Date(Math.floor(subscription.trial_end) * 1000)
-        );
+        const trialEndMs = Math.floor(subscription.trial_end * 1000);
+        (subscriptionData as any).trialEndsAt = admin.firestore.Timestamp.fromMillis(trialEndMs);
     }
 
     // Create or update subscription document
