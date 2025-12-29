@@ -53,23 +53,26 @@ export default function PricingInfoModal({ isOpen, onClose, pricePerSeat }: Pric
                             <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-3">
                                 Exemples de tarification :
                             </p>
-                            <div className="space-y-2">
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 dark:text-gray-400">1 compte</span>
-                                    <span className="font-semibold text-gray-900 dark:text-gray-100">{pricePerSeat}€/mois</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 dark:text-gray-400">2 comptes</span>
-                                    <span className="font-semibold text-gray-900 dark:text-gray-100">{pricePerSeat * 2}€/mois</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 dark:text-gray-400">5 comptes</span>
-                                    <span className="font-semibold text-gray-900 dark:text-gray-100">{pricePerSeat * 5}€/mois</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600 dark:text-gray-400">10 comptes</span>
-                                    <span className="font-semibold text-gray-900 dark:text-gray-100">{pricePerSeat * 10}€/mois</span>
-                                </div>
+                            <div className="max-h-64 overflow-y-auto pr-2 space-y-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+                                {[1, 2, 3, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100].map((seats) => (
+                                    <div
+                                        key={seats}
+                                        className="flex items-center justify-between text-sm p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                                    >
+                                        <span className="text-gray-600 dark:text-gray-400">{seats} compte{seats > 1 ? 's' : ''}</span>
+                                        <span className="font-semibold text-gray-900 dark:text-gray-100">{pricePerSeat * seats}€/mois</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Security Badge */}
+                        <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                <span>Paiement sécurisé par <span className="font-semibold text-[#635BFF]">Stripe</span></span>
                             </div>
                         </div>
                     </div>

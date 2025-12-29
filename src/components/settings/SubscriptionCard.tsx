@@ -65,12 +65,12 @@ export default function SubscriptionCard() {
                 </div>
                 <div className="flex items-center gap-2">
                     <div className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 ${subscription?.cancelAtPeriodEnd
-                            ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
-                            : subscription?.status === 'trialing'
-                                ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
-                                : isActive
-                                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
+                        ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
+                        : subscription?.status === 'trialing'
+                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                            : isActive
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
                         }`}>
                         {subscription?.cancelAtPeriodEnd ? (
                             <>
@@ -200,30 +200,40 @@ export default function SubscriptionCard() {
             ) : (
                 <>
                     {/* No Subscription */}
-                    <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                        <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Aucun abonnement actif</h3>
-                        <p className="text-sm text-blue-700 dark:text-blue-400 mb-3">
-                            Profitez de 14 jours d'essai gratuit pour tester toutes les fonctionnalités. Aucune carte bancaire requise pour démarrer.
-                        </p>
-                        <div className="mb-3 p-3 bg-white/50 dark:bg-blue-800/30 rounded-lg">
-                            <p className="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-1">Tarification simple</p>
-                            <p className="text-lg font-bold text-blue-900 dark:text-blue-100">{PRICE_PER_SEAT}€ / mois</p>
-                            <p className="text-xs text-blue-700 dark:text-blue-400">par compte Google Ads connecté</p>
+                    <div className="mb-6 space-y-3">
+                        <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-lg border border-gray-200 dark:border-gray-600 p-4">
+                            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Aucun abonnement actif</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                14 jours d'essai gratuit, puis facturation automatique selon vos besoins
+                            </p>
+                            <div className="mb-3 p-3 bg-gradient-to-br from-white to-gray-50 dark:from-gray-600 dark:to-gray-700 rounded-lg border border-gray-200 dark:border-gray-500">
+                                <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Tarification simple</p>
+                                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{PRICE_PER_SEAT}€<span className="text-sm text-gray-600 dark:text-gray-400">/mois</span></p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400">par compte Google Ads connecté</p>
+                            </div>
+                            <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+                                <li className="flex items-center gap-2">
+                                    <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
+                                    <span>Rapports illimités</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
+                                    <span>Synchronisation automatique</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
+                                    <span>Widgets personnalisables</span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-2">
-                            <li className="flex items-center gap-2">
-                                <Check className="w-4 h-4 flex-shrink-0" />
-                                <span>Rapports illimités</span>
-                            </li>
-                            <li className="flex items-center gap-2">
-                                <Check className="w-4 h-4 flex-shrink-0" />
-                                <span>Synchronisation automatique</span>
-                            </li>
-                            <li className="flex items-center gap-2">
-                                <Check className="w-4 h-4 flex-shrink-0" />
-                                <span>Widgets personnalisables</span>
-                            </li>
-                        </ul>
+
+                        {/* Security Badge */}
+                        <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            <span>Paiement sécurisé par <span className="font-semibold text-[#635BFF]">Stripe</span></span>
+                        </div>
                     </div>
 
                     <button

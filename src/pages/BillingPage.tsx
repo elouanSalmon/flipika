@@ -159,12 +159,12 @@ export default function BillingPage() {
                         </div>
                         <div className="flex items-center gap-2">
                             <div className={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 ${subscription?.cancelAtPeriodEnd
-                                    ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
-                                    : subscription?.status === 'trialing'
-                                        ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
-                                        : isActive
-                                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                                            : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
+                                ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
+                                : subscription?.status === 'trialing'
+                                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                                    : isActive
+                                        ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                        : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
                                 }`}>
                                 {subscription?.cancelAtPeriodEnd ? (
                                     <>
@@ -243,37 +243,75 @@ export default function BillingPage() {
                             </div>
                         </div>
                     ) : (
-                        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                            <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Commencez votre essai gratuit</h3>
-                            <p className="text-sm text-blue-700 dark:text-blue-400 mb-4">
-                                Profitez de 14 jours d'essai gratuit pour tester toutes les fonctionnalités. Aucune carte bancaire requise pour démarrer.
-                            </p>
-                            <div className="mb-4 p-3 bg-white/50 dark:bg-blue-800/30 rounded-lg">
-                                <p className="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-2">Tarification simple et transparente</p>
-                                <p className="text-lg font-bold text-blue-900 dark:text-blue-100">{PRICE_PER_SEAT}€ / mois</p>
-                                <p className="text-xs text-blue-700 dark:text-blue-400 mt-1">par compte Google Ads connecté</p>
-                                <p className="text-xs text-blue-600 dark:text-blue-400 mt-2">
-                                    Exemple : 2 comptes = {PRICE_PER_SEAT * 2}€/mois • 5 comptes = {PRICE_PER_SEAT * 5}€/mois
+                        <div className="mb-6 space-y-4">
+                            {/* Header */}
+                            <div className="text-center">
+                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Commencez votre essai gratuit</h3>
+                                <p className="text-gray-600 dark:text-gray-400">
+                                    14 jours d'essai gratuit, puis facturation automatique selon vos besoins
                                 </p>
                             </div>
-                            <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-2 mb-4">
-                                <li className="flex items-center gap-2">
-                                    <Check className="w-4 h-4 flex-shrink-0" />
-                                    <span>Rapports illimités</span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <Check className="w-4 h-4 flex-shrink-0" />
-                                    <span>Synchronisation automatique des données</span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <Check className="w-4 h-4 flex-shrink-0" />
-                                    <span>Widgets personnalisables</span>
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <Check className="w-4 h-4 flex-shrink-0" />
-                                    <span>Support prioritaire</span>
-                                </li>
-                            </ul>
+
+                            {/* Pricing Grid */}
+                            <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-600 p-6">
+                                <div className="text-center mb-4">
+                                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Tarification simple et transparente</p>
+                                    <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{PRICE_PER_SEAT}€<span className="text-lg text-gray-600 dark:text-gray-400">/mois</span></p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">par compte Google Ads connecté</p>
+                                </div>
+
+                                {/* Pricing Examples Grid */}
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                                    {[1, 2, 5, 10].map((seats) => (
+                                        <div
+                                            key={seats}
+                                            className="p-3 bg-gradient-to-br from-white to-gray-50 dark:from-gray-600 dark:to-gray-700 rounded-lg border border-gray-200 dark:border-gray-500 text-center hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md transition-all duration-200"
+                                        >
+                                            <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">{seats} compte{seats > 1 ? 's' : ''}</p>
+                                            <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{PRICE_PER_SEAT * seats}€</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">/mois</p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <button
+                                    onClick={() => setShowPricingModal(true)}
+                                    className="w-full text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
+                                >
+                                    Voir tous les niveaux de tarification →
+                                </button>
+                            </div>
+
+                            {/* Features */}
+                            <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-600 p-6">
+                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Fonctionnalités incluses</p>
+                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                    <li className="flex items-center gap-2">
+                                        <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
+                                        <span>Rapports illimités</span>
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
+                                        <span>Synchronisation automatique</span>
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
+                                        <span>Widgets personnalisables</span>
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
+                                        <span>Support prioritaire</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            {/* Security Badge */}
+                            <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                <span>Paiement sécurisé par <span className="font-semibold text-[#635BFF]">Stripe</span></span>
+                            </div>
                         </div>
                     )}
 
