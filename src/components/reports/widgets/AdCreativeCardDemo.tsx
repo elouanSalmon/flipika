@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AdCreativeCard, { AdCreativeData, AdMetrics } from './AdCreativeCard';
+import AdCreativeCard, { type AdCreativeData, type AdMetrics } from './AdCreativeCard';
 import { defaultReportDesign } from '../../../types/reportTypes';
 import type { ReportDesign } from '../../../types/reportTypes';
 
