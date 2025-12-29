@@ -352,9 +352,22 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
         return;
     }
 
-    // Convert Stripe Unix timestamps (seconds) to milliseconds as integers
-    const currentPeriodStartMs = Math.floor((subscription as any).current_period_start * 1000);
-    const currentPeriodEndMs = Math.floor((subscription as any).current_period_end * 1000);
+    // Validate and convert Stripe Unix timestamps (seconds) to milliseconds as integers
+    // Stripe timestamps should always be present, but we guard against undefined/null
+    const currentPeriodStart = (subscription as any).current_period_start;
+    const currentPeriodEnd = (subscription as any).current_period_end;
+
+    if (!currentPeriodStart || !currentPeriodEnd) {
+        console.error('Missing required timestamp fields in subscription:', {
+            subscriptionId: subscription.id,
+            current_period_start: currentPeriodStart,
+            current_period_end: currentPeriodEnd,
+        });
+        throw new Error('Missing required timestamp fields in subscription');
+    }
+
+    const currentPeriodStartMs = Math.floor(currentPeriodStart * 1000);
+    const currentPeriodEndMs = Math.floor(currentPeriodEnd * 1000);
 
     const subscriptionData = {
         userId,
