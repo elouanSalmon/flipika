@@ -1,5 +1,5 @@
 import { useSubscription } from '../../contexts/SubscriptionContext';
-import { CreditCard, Calendar, Users, ExternalLink, Loader2 } from 'lucide-react';
+import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -105,17 +105,20 @@ export default function SubscriptionCard() {
                     {/* Status Message */}
                     {subscription.status === 'trialing' && subscription.trialEndsAt && (
                         <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                            <p className="text-sm text-blue-900 dark:text-blue-300">
-                                🎉 Vous êtes en période d'essai gratuit jusqu'au {new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR')}
+                            <p className="text-sm text-blue-900 dark:text-blue-300 font-medium">
+                                Vous êtes en période d'essai gratuit jusqu'au {new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR')}
                             </p>
                         </div>
                     )}
 
                     {subscription.status === 'past_due' && (
                         <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
-                            <p className="text-sm text-yellow-900 dark:text-yellow-300">
-                                ⚠️ Votre paiement a échoué. Veuillez mettre à jour votre moyen de paiement.
-                            </p>
+                            <div className="flex items-start gap-2">
+                                <AlertCircle className="w-4 h-4 text-yellow-900 dark:text-yellow-300 mt-0.5 flex-shrink-0" />
+                                <p className="text-sm text-yellow-900 dark:text-yellow-300">
+                                    Votre paiement a échoué. Veuillez mettre à jour votre moyen de paiement.
+                                </p>
+                            </div>
                         </div>
                     )}
 
@@ -144,10 +147,19 @@ export default function SubscriptionCard() {
                         <p className="text-sm text-blue-700 dark:text-blue-400 mb-3">
                             Commencez votre essai gratuit de 14 jours, puis {PRICE_PER_SEAT}€ par compte Google Ads géré par mois.
                         </p>
-                        <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-1">
-                            <li>✓ Rapports illimités</li>
-                            <li>✓ Synchronisation automatique</li>
-                            <li>✓ Widgets personnalisables</li>
+                        <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-2">
+                            <li className="flex items-center gap-2">
+                                <Check className="w-4 h-4 flex-shrink-0" />
+                                <span>Rapports illimités</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <Check className="w-4 h-4 flex-shrink-0" />
+                                <span>Synchronisation automatique</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <Check className="w-4 h-4 flex-shrink-0" />
+                                <span>Widgets personnalisables</span>
+                            </li>
                         </ul>
                     </div>
 

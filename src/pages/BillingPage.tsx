@@ -4,7 +4,7 @@ import { useSubscription } from '../contexts/SubscriptionContext';
 import { useAuth } from '../contexts/AuthContext';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import { CreditCard, Calendar, Users, TrendingUp, ExternalLink, Loader2 } from 'lucide-react';
+import { CreditCard, Calendar, Users, TrendingUp, ExternalLink, Loader2, Check, AlertCircle, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { BillingEvent } from '../types/subscriptionTypes';
 
@@ -32,7 +32,7 @@ export default function BillingPage() {
         // Check for checkout session status
         const session = searchParams.get('session');
         if (session === 'success') {
-            toast.success('Subscription créé avec succès ! Bienvenue à bord 🎉');
+            toast.success('Abonnement créé avec succès ! Bienvenue à bord');
             // Remove query param
             searchParams.delete('session');
             navigate({ search: searchParams.toString() }, { replace: true });
@@ -199,11 +199,23 @@ export default function BillingPage() {
                             <p className="text-sm text-blue-700 dark:text-blue-400 mb-4">
                                 14 jours d'essai gratuit, puis {PRICE_PER_SEAT}€ par compte Google Ads géré par mois.
                             </p>
-                            <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-1 mb-4">
-                                <li>✓ Rapports illimités</li>
-                                <li>✓ Synchronisation automatique des données</li>
-                                <li>✓ Widgets personnalisables</li>
-                                <li>✓ Support prioritaire</li>
+                            <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-2 mb-4">
+                                <li className="flex items-center gap-2">
+                                    <Check className="w-4 h-4 flex-shrink-0" />
+                                    <span>Rapports illimités</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <Check className="w-4 h-4 flex-shrink-0" />
+                                    <span>Synchronisation automatique des données</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <Check className="w-4 h-4 flex-shrink-0" />
+                                    <span>Widgets personnalisables</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <Check className="w-4 h-4 flex-shrink-0" />
+                                    <span>Support prioritaire</span>
+                                </li>
                             </ul>
                         </div>
                     )}
@@ -261,38 +273,78 @@ export default function BillingPage() {
                         <p className="text-gray-600 dark:text-gray-400 text-center py-8">Aucun événement de facturation</p>
                     ) : (
                         <div className="space-y-3">
-                            {billingHistory.map((event, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center justify-between p-4 border border-blue-500/20 dark:border-blue-500/30 rounded-xl bg-white/30 dark:bg-gray-700/30 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-500/40 transition-all duration-200"
-                                >
-                                    <div>
-                                        <p className="font-medium text-gray-900 dark:text-gray-100">
-                                            {event.eventType === 'sync' && 'Synchronisation de facturation'}
-                                            {event.eventType === 'payment_succeeded' && 'Paiement réussi'}
-                                            {event.eventType === 'payment_failed' && 'Échec du paiement'}
-                                            {event.eventType === 'subscription_updated' && 'Abonnement mis à jour'}
-                                            {event.eventType === 'subscription_created' && 'Abonnement créé'}
-                                            {event.eventType === 'subscription_canceled' && 'Abonnement annulé'}
-                                        </p>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                                            {event.timestamp ? new Date(event.timestamp).toLocaleString('fr-FR') : '-'}
-                                        </p>
-                                        {event.previousSeats !== undefined && event.newSeats !== undefined && (
-                                            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                                                {event.previousSeats} → {event.newSeats} compte{event.newSeats > 1 ? 's' : ''}
-                                            </p>
+                            {billingHistory.map((event, index) => {
+                                const getEventIcon = () => {
+                                    switch (event.eventType) {
+                                        case 'payment_succeeded':
+                                            return <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />;
+                                        case 'payment_failed':
+                                            return <XCircle className="w-5 h-5 text-red-600 dark:text-red-400" />;
+                                        case 'subscription_created':
+                                            return <CheckCircle className="w-5 h-5 text-blue-600 dark:text-blue-400" />;
+                                        case 'subscription_updated':
+                                            return <RefreshCw className="w-5 h-5 text-blue-600 dark:text-blue-400" />;
+                                        case 'subscription_canceled':
+                                            return <XCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />;
+                                        case 'sync':
+                                            return <RefreshCw className="w-5 h-5 text-gray-600 dark:text-gray-400" />;
+                                        default:
+                                            return <AlertCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />;
+                                    }
+                                };
+
+                                const getEventLabel = () => {
+                                    switch (event.eventType) {
+                                        case 'sync':
+                                            return 'Synchronisation de facturation';
+                                        case 'payment_succeeded':
+                                            return 'Paiement réussi';
+                                        case 'payment_failed':
+                                            return 'Échec du paiement';
+                                        case 'subscription_updated':
+                                            return 'Abonnement mis à jour';
+                                        case 'subscription_created':
+                                            return 'Abonnement créé';
+                                        case 'subscription_canceled':
+                                            return 'Abonnement annulé';
+                                        default:
+                                            return event.eventType;
+                                    }
+                                };
+
+                                return (
+                                    <div
+                                        key={index}
+                                        className="flex items-center justify-between p-4 border border-blue-500/20 dark:border-blue-500/30 rounded-xl bg-white/30 dark:bg-gray-700/30 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-500/40 transition-all duration-200"
+                                    >
+                                        <div className="flex items-start gap-3 flex-1">
+                                            <div className="mt-0.5">
+                                                {getEventIcon()}
+                                            </div>
+                                            <div className="flex-1">
+                                                <p className="font-medium text-gray-900 dark:text-gray-100">
+                                                    {getEventLabel()}
+                                                </p>
+                                                <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">
+                                                    {event.timestamp ? new Date(event.timestamp).toLocaleString('fr-FR') : '-'}
+                                                </p>
+                                                {event.previousSeats !== undefined && event.newSeats !== undefined && (
+                                                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                                                        {event.previousSeats} → {event.newSeats} compte{event.newSeats > 1 ? 's' : ''}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+                                        {event.amount !== undefined && (
+                                            <div className="text-right ml-4">
+                                                <p className="font-semibold text-gray-900 dark:text-gray-100">
+                                                    {event.amount.toFixed(2)} {event.currency?.toUpperCase() || 'EUR'}
+                                                </p>
+                                            </div>
                                         )}
                                     </div>
-                                    {event.amount !== undefined && (
-                                        <div className="text-right">
-                                            <p className="font-semibold text-gray-900 dark:text-gray-100">
-                                                {event.amount.toFixed(2)} {event.currency?.toUpperCase() || 'EUR'}
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     )}
                 </div>
