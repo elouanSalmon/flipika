@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DemoModeProvider } from './contexts/DemoModeContext';
 import { GoogleAdsProvider } from './contexts/GoogleAdsContext';
 import { FeatureFlagsProvider, useFeatureFlags } from './contexts/FeatureFlagsContext';
+import { SubscriptionProvider } from './contexts/SubscriptionContext';
 import { usePageTracking } from './hooks/usePageTracking';
 import { useUserTracking } from './hooks/useUserTracking';
 import HubSpotChat from './components/HubSpotChat';
@@ -25,6 +26,7 @@ import NewReport from './pages/NewReport';
 import ReportsList from './pages/ReportsList';
 import PublicReportView from './pages/PublicReportView';
 import Settings from './pages/Settings';
+import BillingPage from './pages/BillingPage';
 import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -116,6 +118,7 @@ const AppRoutes = () => {
         {enableCopilot && <Route path="copilot" element={<Copilot />} />}
         {enableReports && <Route path="reports" element={<ReportsList />} />}
         {enableReports && <Route path="reports/new" element={<NewReport />} />}
+        <Route path="billing" element={<BillingPage />} />
         <Route path="settings" element={<Settings />} />
       </Route>
 
@@ -142,42 +145,44 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <AnalyticsTracker />
-        <GoogleAdsProvider>
-          <DemoModeProvider>
-            <FeatureFlagsProvider>
-              <Toaster
-                position="top-right"
-                toastOptions={{
-                  duration: 4000,
-                  style: {
-                    background: 'var(--color-bg-primary)',
-                    color: 'var(--color-text-primary)',
-                    border: '1px solid var(--color-border)',
-                  },
-                  success: {
-                    iconTheme: {
-                      primary: '#10b981',
-                      secondary: '#fff',
+        <SubscriptionProvider>
+          <GoogleAdsProvider>
+            <DemoModeProvider>
+              <FeatureFlagsProvider>
+                <Toaster
+                  position="top-right"
+                  toastOptions={{
+                    duration: 4000,
+                    style: {
+                      background: 'var(--color-bg-primary)',
+                      color: 'var(--color-text-primary)',
+                      border: '1px solid var(--color-border)',
                     },
-                  },
-                  error: {
-                    iconTheme: {
-                      primary: '#ef4444',
-                      secondary: '#fff',
+                    success: {
+                      iconTheme: {
+                        primary: '#10b981',
+                        secondary: '#fff',
+                      },
                     },
-                  },
-                }}
-              />
-              <HubSpotChat />
-              <CookieConsent />
-              <InstallPWA />
-              <AnalyticsTracker />
-              <div className="App">
-                <AppRoutes />
-              </div>
-            </FeatureFlagsProvider>
-          </DemoModeProvider>
-        </GoogleAdsProvider>
+                    error: {
+                      iconTheme: {
+                        primary: '#ef4444',
+                        secondary: '#fff',
+                      },
+                    },
+                  }}
+                />
+                <HubSpotChat />
+                <CookieConsent />
+                <InstallPWA />
+                <AnalyticsTracker />
+                <div className="App">
+                  <AppRoutes />
+                </div>
+              </FeatureFlagsProvider>
+            </DemoModeProvider>
+          </GoogleAdsProvider>
+        </SubscriptionProvider>
       </AuthProvider>
     </ThemeProvider>
   );

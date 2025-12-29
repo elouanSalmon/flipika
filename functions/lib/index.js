@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -29,6 +29,10 @@ Object.defineProperty(exports, "getWidgetMetrics", { enumerable: true, get: func
 // Re-export Ad Creatives function
 var adCreatives_1 = require("./adCreatives");
 Object.defineProperty(exports, "getAdCreatives", { enumerable: true, get: function () { return adCreatives_1.getAdCreatives; } });
+// Import Stripe functions
+const stripe_1 = require("./stripe");
+const scheduler_1 = require("firebase-functions/v2/scheduler");
+const https_2 = require("firebase-functions/v2/https");
 // Define the secret
 const googleAdsDeveloperToken = (0, params_1.defineSecret)("GOOGLE_ADS_DEVELOPER_TOKEN");
 /**
@@ -281,5 +285,146 @@ exports.revokeOAuth = (0, https_1.onRequest)({ memory: '512MiB' }, async (req, r
             res.status(500).json({ error: `Failed to revoke OAuth: ${error.message}` });
         }
     });
+});
+// ============================================================================
+// STRIPE SUBSCRIPTION FUNCTIONS
+// ============================================================================
+/**
+ * Creates a Stripe Checkout session for new subscriptions
+ * Callable function from frontend
+ */
+exports.createStripeCheckout = (0, https_2.onCall)({ memory: '512MiB' }, async (request) => {
+    const userId = request.auth?.uid;
+    if (!userId) {
+        throw new Error('Unauthorized');
+    }
+    const { priceId, successUrl, cancelUrl, trialPeriodDays } = request.data;
+    if (!priceId || !successUrl || !cancelUrl) {
+        throw new Error('Missing required parameters');
+    }
+    // Get user email
+    const userRecord = await admin.auth().getUser(userId);
+    const email = userRecord.email || '';
+    const result = await (0, stripe_1.createCheckoutSession)(userId, email, priceId, successUrl, cancelUrl, trialPeriodDays || 14);
+    return result;
+});
+/**
+ * Creates a Stripe Customer Portal session
+ * Callable function from frontend
+ */
+exports.createStripePortal = (0, https_2.onCall)({ memory: '512MiB' }, async (request) => {
+    const userId = request.auth?.uid;
+    if (!userId) {
+        throw new Error('Unauthorized');
+    }
+    const { returnUrl } = request.data;
+    if (!returnUrl) {
+        throw new Error('Missing returnUrl parameter');
+    }
+    const result = await (0, stripe_1.createCustomerPortalSession)(userId, returnUrl);
+    return result;
+});
+/**
+ * Handles Stripe webhook events
+ * HTTP endpoint for Stripe webhooks
+ */
+exports.stripeWebhook = (0, https_1.onRequest)({ memory: '512MiB' }, async (req, res) => {
+    const signature = req.headers['stripe-signature'];
+    if (!signature) {
+        res.status(400).send('Missing stripe-signature header');
+        return;
+    }
+    try {
+        // Get raw body for signature verification
+        const rawBody = req.rawBody;
+        const result = await (0, stripe_1.handleStripeWebhook)(rawBody, signature);
+        res.status(200).json(result);
+    }
+    catch (error) {
+        console.error('Webhook error:', error);
+        res.status(400).send(`Webhook Error: ${error.message}`);
+    }
+});
+/**
+ * Manually trigger billing sync for a user
+ * Callable function from frontend (admin/debug use)
+ */
+exports.syncBillingManual = (0, https_2.onCall)({ memory: '512MiB' }, async (request) => {
+    const userId = request.auth?.uid;
+    if (!userId) {
+        throw new Error('Unauthorized');
+    }
+    // Get user's subscription
+    const subscriptionDoc = await admin.firestore()
+        .collection('subscriptions')
+        .doc(userId)
+        .get();
+    if (!subscriptionDoc.exists) {
+        throw new Error('No active subscription found');
+    }
+    const subscriptionData = subscriptionDoc.data();
+    const stripeSubscriptionId = subscriptionData.stripeSubscriptionId;
+    // Get Google Ads customer ID
+    const userDoc = await admin.firestore()
+        .collection('users')
+        .doc(userId)
+        .get();
+    const googleAdsCustomerId = userDoc.data()?.googleAds?.customerId;
+    if (!googleAdsCustomerId) {
+        throw new Error('No Google Ads account connected');
+    }
+    const result = await (0, stripe_1.syncUserBilling)(userId, googleAdsCustomerId, stripeSubscriptionId);
+    return result;
+});
+/**
+ * Scheduled function to sync billing for all active subscriptions
+ * Runs daily at 2 AM UTC
+ */
+exports.syncBillingScheduled = (0, scheduler_1.onSchedule)({
+    schedule: 'every day 02:00',
+    timeZone: 'UTC',
+    memory: '1GiB',
+}, async () => {
+    console.log('Starting scheduled billing sync...');
+    try {
+        // Get all active subscriptions
+        const subscriptionsSnapshot = await admin.firestore()
+            .collection('subscriptions')
+            .where('status', 'in', ['active', 'trialing'])
+            .get();
+        console.log(`Found ${subscriptionsSnapshot.size} active subscriptions to sync`);
+        const syncPromises = subscriptionsSnapshot.docs.map(async (doc) => {
+            const subscriptionData = doc.data();
+            const userId = subscriptionData.userId;
+            const stripeSubscriptionId = subscriptionData.stripeSubscriptionId;
+            try {
+                // Get Google Ads customer ID
+                const userDoc = await admin.firestore()
+                    .collection('users')
+                    .doc(userId)
+                    .get();
+                const googleAdsCustomerId = userDoc.data()?.googleAds?.customerId;
+                if (!googleAdsCustomerId) {
+                    console.warn(`User ${userId} has no Google Ads account connected, skipping sync`);
+                    return;
+                }
+                const result = await (0, stripe_1.syncUserBilling)(userId, googleAdsCustomerId, stripeSubscriptionId);
+                if (result.success) {
+                    console.log(`✓ Synced billing for user ${userId}: ${result.previousSeats} → ${result.newSeats} seats`);
+                }
+                else {
+                    console.error(`✗ Failed to sync billing for user ${userId}: ${result.error}`);
+                }
+            }
+            catch (error) {
+                console.error(`Error syncing billing for user ${userId}:`, error);
+            }
+        });
+        await Promise.all(syncPromises);
+        console.log('Scheduled billing sync completed');
+    }
+    catch (error) {
+        console.error('Error in scheduled billing sync:', error);
+    }
 });
 //# sourceMappingURL=index.js.map

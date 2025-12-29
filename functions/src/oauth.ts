@@ -219,6 +219,23 @@ export const handleOAuthCallback = onRequest({ memory: '512MiB' }, async (req, r
 
             console.log("Token stored successfully for userId:", userId);
 
+            // Trigger billing sync if user has an active subscription
+            try {
+                const subscriptionDoc = await admin.firestore()
+                    .collection('subscriptions')
+                    .doc(userId)
+                    .get();
+
+                if (subscriptionDoc.exists) {
+                    // Get the first accessible customer ID (MCC or single account)
+                    // We'll sync after the user selects their account on the frontend
+                    console.log("User has active subscription, billing will sync when account is selected");
+                }
+            } catch (syncError) {
+                // Don't fail the OAuth flow if sync fails
+                console.error("Error checking subscription for billing sync:", syncError);
+            }
+
             // Clean up state
             await stateDoc.ref.delete();
             console.log("State cleaned up, redirecting...");

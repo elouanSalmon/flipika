@@ -294,6 +294,42 @@ service cloud.firestore {
     }
     
     // ========================================
+    // STRIPE SUBSCRIPTIONS
+    // ========================================
+    match /subscriptions/{userId} {
+      // Read: only the owner can read their subscription
+      allow read: if isOwner(userId);
+      
+      // Write: only Cloud Functions can write subscription data
+      // This prevents users from tampering with their subscription status
+      allow write: if false;
+    }
+    
+    // ========================================
+    // BILLING HISTORY
+    // ========================================
+    match /billingHistory/{eventId} {
+      // Read: users can read their own billing history
+      allow read: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid;
+      
+      // List: users can query their own billing history
+      allow list: if isAuthenticated()
+        && request.query.limit <= 100
+        && (
+          !('where' in request.query)
+          || (
+            request.query.where.size() > 0
+            && request.query.where[0][0] == 'userId'
+            && request.query.where[0][2] == request.auth.uid
+          )
+        );
+      
+      // Write: only Cloud Functions can write billing events
+      allow write: if false;
+    }
+    
+    // ========================================
     // RATE LIMITS (pour Cloud Functions)
     // ========================================
     match /rate_limits/{limitId} {
