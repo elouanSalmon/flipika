@@ -65,16 +65,25 @@ export default function SubscriptionCard() {
                 </div>
                 <div className="flex items-center gap-2">
                     <div className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 ${subscription?.cancelAtPeriodEnd
-                        ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
-                        : isActive
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                            : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
+                            ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
+                            : subscription?.status === 'trialing'
+                                ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                                : isActive
+                                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
                         }`}>
                         {subscription?.cancelAtPeriodEnd ? (
                             <>
                                 <AlertCircle className="w-3.5 h-3.5" />
                                 <span>
                                     {subscription.status === 'trialing' ? 'Essai annulé' : 'Annulé'} - Actif jusqu'au {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}
+                                </span>
+                            </>
+                        ) : subscription?.status === 'trialing' && subscription.trialEndsAt ? (
+                            <>
+                                <CheckCircle className="w-3.5 h-3.5" />
+                                <span>
+                                    Essai - {Math.max(0, Math.ceil((new Date(subscription.trialEndsAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))}j restants
                                 </span>
                             </>
                         ) : (
