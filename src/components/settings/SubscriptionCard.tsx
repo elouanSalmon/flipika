@@ -57,7 +57,7 @@ export default function SubscriptionCard() {
                         Abonnement
                     </h2>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        Modifiez votre abonnement ou consultez vos factures via le portail Stripe
+                        Consultez votre plan actuel et gérez vos options de facturation
                     </p>
                 </div>
                 <div className={`px-3 py-1 rounded-full text-xs font-medium ${isActive
@@ -154,8 +154,13 @@ export default function SubscriptionCard() {
                     <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                         <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Aucun abonnement actif</h3>
                         <p className="text-sm text-blue-700 dark:text-blue-400 mb-3">
-                            Commencez votre essai gratuit de 14 jours, puis {PRICE_PER_SEAT}€ par compte Google Ads géré par mois.
+                            Profitez de 14 jours d'essai gratuit pour tester toutes les fonctionnalités. Aucune carte bancaire requise pour démarrer.
                         </p>
+                        <div className="mb-3 p-3 bg-white/50 dark:bg-blue-800/30 rounded-lg">
+                            <p className="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-1">Tarification simple</p>
+                            <p className="text-lg font-bold text-blue-900 dark:text-blue-100">{PRICE_PER_SEAT}€ / mois</p>
+                            <p className="text-xs text-blue-700 dark:text-blue-400">par compte Google Ads connecté</p>
+                        </div>
                         <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-2">
                             <li className="flex items-center gap-2">
                                 <Check className="w-4 h-4 flex-shrink-0" />

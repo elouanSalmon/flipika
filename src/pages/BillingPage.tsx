@@ -4,7 +4,7 @@ import { useSubscription } from '../contexts/SubscriptionContext';
 import { useAuth } from '../contexts/AuthContext';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import { CreditCard, Calendar, Users, TrendingUp, ExternalLink, Loader2, Check, AlertCircle, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
+import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { BillingEvent } from '../types/subscriptionTypes';
 
@@ -133,7 +133,7 @@ export default function BillingPage() {
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-[var(--color-text-primary)]">Facturation & Abonnement</h1>
                     <p className="mt-2 text-gray-600 dark:text-gray-400">
-                        Gérez votre abonnement, modifiez vos moyens de paiement et consultez l'historique de vos factures via le portail Stripe
+                        Gérez votre abonnement, modifiez vos moyens de paiement et consultez l'historique de vos factures
                     </p>
                 </div>
 
@@ -197,8 +197,16 @@ export default function BillingPage() {
                         <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
                             <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">Commencez votre essai gratuit</h3>
                             <p className="text-sm text-blue-700 dark:text-blue-400 mb-4">
-                                14 jours d'essai gratuit, puis {PRICE_PER_SEAT}€ par compte Google Ads géré par mois.
+                                Profitez de 14 jours d'essai gratuit pour tester toutes les fonctionnalités. Aucune carte bancaire requise pour démarrer.
                             </p>
+                            <div className="mb-4 p-3 bg-white/50 dark:bg-blue-800/30 rounded-lg">
+                                <p className="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-2">Tarification simple et transparente</p>
+                                <p className="text-lg font-bold text-blue-900 dark:text-blue-100">{PRICE_PER_SEAT}€ / mois</p>
+                                <p className="text-xs text-blue-700 dark:text-blue-400 mt-1">par compte Google Ads connecté</p>
+                                <p className="text-xs text-blue-600 dark:text-blue-400 mt-2">
+                                    Exemple : 2 comptes = {PRICE_PER_SEAT * 2}€/mois • 5 comptes = {PRICE_PER_SEAT * 5}€/mois
+                                </p>
+                            </div>
                             <ul className="text-sm text-blue-700 dark:text-blue-400 space-y-2 mb-4">
                                 <li className="flex items-center gap-2">
                                     <Check className="w-4 h-4 flex-shrink-0" />
@@ -239,13 +247,14 @@ export default function BillingPage() {
                                     onClick={handleSyncBilling}
                                     disabled={syncing}
                                     className="flex items-center space-x-2 px-4 py-2 border-2 border-blue-500/30 dark:border-blue-500/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-200 disabled:opacity-50"
+                                    title="Actualise les informations de facturation depuis votre compte de paiement"
                                 >
                                     {syncing ? (
                                         <Loader2 className="w-4 h-4 animate-spin" />
                                     ) : (
-                                        <TrendingUp className="w-4 h-4" />
+                                        <RefreshCw className="w-4 h-4" />
                                     )}
-                                    <span>Synchroniser</span>
+                                    <span>Actualiser la facturation</span>
                                 </button>
                             </>
                         ) : (
