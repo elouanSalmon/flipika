@@ -356,16 +356,16 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
         stripePriceId: subscription.items.data[0]?.price.id || '',
         status: subscription.status,
         currentSeats: subscription.items.data[0]?.quantity || 1,
-        currentPeriodStart: admin.firestore.Timestamp.fromDate(new Date((subscription as any).current_period_start * 1000)),
-        currentPeriodEnd: admin.firestore.Timestamp.fromDate(new Date((subscription as any).current_period_end * 1000)),
+        currentPeriodStart: admin.firestore.Timestamp.fromMillis(Math.floor((subscription as any).current_period_start * 1000)),
+        currentPeriodEnd: admin.firestore.Timestamp.fromMillis(Math.floor((subscription as any).current_period_end * 1000)),
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
     // Add trial end date if in trial
     if (subscription.trial_end) {
-        (subscriptionData as any).trialEndsAt = admin.firestore.Timestamp.fromDate(
-            new Date(subscription.trial_end * 1000)
+        (subscriptionData as any).trialEndsAt = admin.firestore.Timestamp.fromMillis(
+            Math.floor(subscription.trial_end * 1000)
         );
     }
 
