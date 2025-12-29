@@ -74,3 +74,11 @@ export const canAccessPaidFeatures = (subscription: Subscription | null): boolea
     if (!subscription) return false;
     return isSubscriptionActive(subscription) && subscription.status !== 'past_due';
 };
+
+export const formatSubscriptionEndDate = (date: Date): string => {
+    return new Intl.DateTimeFormat('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    }).format(new Date(date));
+};

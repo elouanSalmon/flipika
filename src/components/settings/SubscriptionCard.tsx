@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useSubscription } from '../../contexts/SubscriptionContext';
-import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle } from 'lucide-react';
+import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle, Info, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { formatSubscriptionEndDate } from '../../types/subscriptionTypes';
 
 export default function SubscriptionCard() {
     const { subscription, loading, isActive, openCustomerPortal } = useSubscription();
     const navigate = useNavigate();
     const [isOpeningPortal, setIsOpeningPortal] = useState(false);
+    const [showPricingTooltip, setShowPricingTooltip] = useState(false);
     const PRICE_PER_SEAT = 10;
 
     const handleManageSubscription = async () => {
@@ -60,13 +62,65 @@ export default function SubscriptionCard() {
                         Consultez votre plan actuel et gérez vos options de facturation
                     </p>
                 </div>
-                <div className={`px-3 py-1 rounded-full text-xs font-medium ${isActive
-                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                    : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
-                    }`}>
-                    {isActive ? 'Actif' : 'Inactif'}
+                <div className="flex items-center gap-2">
+                    <div className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 ${subscription?.cancelAtPeriodEnd
+                            ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
+                            : isActive
+                                ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
+                        }`}>
+                        {subscription?.cancelAtPeriodEnd ? (
+                            <>
+                                <AlertCircle className="w-3.5 h-3.5" />
+                                <span>Expire le {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}</span>
+                            </>
+                        ) : (
+                            <>
+                                {isActive && <CheckCircle className="w-3.5 h-3.5" />}
+                                <span>{isActive ? 'Actif' : 'Inactif'}</span>
+                            </>
+                        )}
+                    </div>
+                    {subscription && isActive && (
+                        <div className="relative">
+                            <button
+                                onMouseEnter={() => setShowPricingTooltip(true)}
+                                onMouseLeave={() => setShowPricingTooltip(false)}
+                                className="p-1.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                                aria-label="Information sur la tarification"
+                            >
+                                <Info className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                            </button>
+                            {showPricingTooltip && (
+                                <div className="absolute right-0 top-full mt-2 w-64 p-3 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-blue-200 dark:border-blue-800 z-50">
+                                    <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 mb-1.5">Tarification</p>
+                                    <p className="text-xs text-gray-700 dark:text-gray-300 mb-1.5">
+                                        <span className="font-bold text-blue-600 dark:text-blue-400">{PRICE_PER_SEAT}€/mois</span> par compte Google Ads connecté
+                                    </p>
+                                    <p className="text-[10px] text-gray-600 dark:text-gray-400">
+                                        Exemple : 2 comptes = {PRICE_PER_SEAT * 2}€/mois
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
+
+            {/* Cancellation Warning */}
+            {subscription?.cancelAtPeriodEnd && subscription.currentPeriodEnd && (
+                <div className="mb-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                    <div className="flex items-start gap-2">
+                        <AlertCircle className="w-4 h-4 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" />
+                        <div>
+                            <p className="text-xs font-semibold text-orange-900 dark:text-orange-300 mb-0.5">Abonnement annulé</p>
+                            <p className="text-xs text-orange-700 dark:text-orange-400">
+                                Votre abonnement prendra fin le <strong>{formatSubscriptionEndDate(subscription.currentPeriodEnd)}</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {subscription ? (
                 <>

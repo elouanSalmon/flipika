@@ -4,9 +4,10 @@ import { useSubscription } from '../contexts/SubscriptionContext';
 import { useAuth } from '../contexts/AuthContext';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
+import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle, CheckCircle, XCircle, RefreshCw, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { BillingEvent } from '../types/subscriptionTypes';
+import { formatSubscriptionEndDate } from '../types/subscriptionTypes';
 
 export default function BillingPage() {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function BillingPage() {
     const [syncing, setSyncing] = useState(false);
     const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
     const [isOpeningPortal, setIsOpeningPortal] = useState(false);
+    const [showPricingTooltip, setShowPricingTooltip] = useState(false);
 
     // Default price ID from environment or hardcoded
     const STRIPE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID || 'price_1234567890';
@@ -154,13 +156,68 @@ export default function BillingPage() {
                                 </p>
                             )}
                         </div>
-                        <div className={`px-4 py-2 rounded-full text-sm font-medium ${isActive
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                            : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
-                            }`}>
-                            {isActive ? 'Actif' : 'Inactif'}
+                        <div className="flex items-center gap-2">
+                            <div className={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 ${subscription?.cancelAtPeriodEnd
+                                ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
+                                : isActive
+                                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
+                                }`}>
+                                {subscription?.cancelAtPeriodEnd ? (
+                                    <>
+                                        <AlertCircle className="w-4 h-4" />
+                                        <span>Expire le {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        {isActive && <CheckCircle className="w-4 h-4" />}
+                                        <span>{isActive ? 'Actif' : 'Inactif'}</span>
+                                    </>
+                                )}
+                            </div>
+                            {subscription && isActive && (
+                                <div className="relative">
+                                    <button
+                                        onMouseEnter={() => setShowPricingTooltip(true)}
+                                        onMouseLeave={() => setShowPricingTooltip(false)}
+                                        className="p-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                                        aria-label="Information sur la tarification"
+                                    >
+                                        <Info className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                                    </button>
+                                    {showPricingTooltip && (
+                                        <div className="absolute right-0 top-full mt-2 w-72 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-blue-200 dark:border-blue-800 z-50">
+                                            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2">Tarification</p>
+                                            <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+                                                <span className="font-bold text-blue-600 dark:text-blue-400">{PRICE_PER_SEAT}€/mois</span> par compte Google Ads connecté
+                                            </p>
+                                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                                                Exemple : 2 comptes = {PRICE_PER_SEAT * 2}€/mois • 5 comptes = {PRICE_PER_SEAT * 5}€/mois
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
+
+                    {/* Cancellation Warning Banner */}
+                    {subscription?.cancelAtPeriodEnd && subscription.currentPeriodEnd && (
+                        <div className="mb-6 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-200 dark:border-orange-800">
+                            <div className="flex items-start gap-3">
+                                <AlertCircle className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-semibold text-orange-900 dark:text-orange-300 mb-1">Abonnement annulé</h3>
+                                    <p className="text-sm text-orange-700 dark:text-orange-400 mb-2">
+                                        Votre abonnement a été annulé et prendra fin le <strong>{formatSubscriptionEndDate(subscription.currentPeriodEnd)}</strong>. Vous conservez l'accès à toutes les fonctionnalités jusqu'à cette date.
+                                    </p>
+                                    <p className="text-xs text-orange-600 dark:text-orange-500">
+                                        Vous pouvez réactiver votre abonnement à tout moment via le bouton "Gérer l'abonnement" ci-dessous.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {subscription ? (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
