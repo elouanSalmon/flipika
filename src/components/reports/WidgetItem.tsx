@@ -5,6 +5,7 @@ import { GripVertical, Settings, Trash2 } from 'lucide-react';
 import PerformanceOverviewWidget from './widgets/PerformanceOverviewWidget';
 import CampaignChartWidget from './widgets/CampaignChartWidget';
 import KeyMetricsWidget from './widgets/KeyMetricsWidget';
+import AdCreativeWidget from './widgets/AdCreativeWidget';
 import type { WidgetConfig, ReportDesign } from '../../types/reportTypes';
 import { WidgetType } from '../../types/reportTypes';
 import './WidgetItem.css';
@@ -78,6 +79,18 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
             case WidgetType.KEY_METRICS:
                 return (
                     <KeyMetricsWidget
+                        accountId={widget.accountId}
+                        campaignIds={widget.campaignIds}
+                        config={widget}
+                        design={design}
+                        startDate={startDate}
+                        endDate={endDate}
+                        reportId={reportId}
+                    />
+                );
+            case WidgetType.AD_CREATIVE:
+                return (
+                    <AdCreativeWidget
                         accountId={widget.accountId}
                         campaignIds={widget.campaignIds}
                         config={widget}

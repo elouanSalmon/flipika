@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -26,6 +26,9 @@ Object.defineProperty(exports, "backupFirestore", { enumerable: true, get: funct
 // Re-export Widget Metrics function
 var widgetMetrics_1 = require("./widgetMetrics");
 Object.defineProperty(exports, "getWidgetMetrics", { enumerable: true, get: function () { return widgetMetrics_1.getWidgetMetrics; } });
+// Re-export Ad Creatives function
+var adCreatives_1 = require("./adCreatives");
+Object.defineProperty(exports, "getAdCreatives", { enumerable: true, get: function () { return adCreatives_1.getAdCreatives; } });
 // Define the secret
 const googleAdsDeveloperToken = (0, params_1.defineSecret)("GOOGLE_ADS_DEVELOPER_TOKEN");
 /**

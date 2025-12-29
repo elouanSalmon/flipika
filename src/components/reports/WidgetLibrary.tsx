@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, BarChart3, TrendingUp, FileText, Layout } from 'lucide-react';
+import { Plus, BarChart3, TrendingUp, FileText, Layout, Image } from 'lucide-react';
 import { WidgetType } from '../../types/reportTypes';
 import ThemeSelector from '../themes/ThemeSelector';
 import type { ReportTheme } from '../../types/reportThemes';
@@ -43,6 +43,13 @@ const WIDGET_TEMPLATES: WidgetTemplate[] = [
         title: 'Graphique de campagne',
         description: 'Visualisation des données de campagne',
         icon: <BarChart3 size={24} />,
+        category: 'analytics',
+    },
+    {
+        type: WidgetType.AD_CREATIVE,
+        title: 'Aperçu d\'annonce',
+        description: 'Mockup d\'annonce Google Ads avec performances',
+        icon: <Image size={24} />,
         category: 'analytics',
     },
     {

@@ -21,6 +21,7 @@ export const WidgetType = {
     PERFORMANCE_OVERVIEW: 'performance_overview',
     CAMPAIGN_CHART: 'campaign_chart',
     KEY_METRICS: 'key_metrics',
+    AD_CREATIVE: 'ad_creative',
     TEXT_BLOCK: 'text_block',
     CUSTOM: 'custom',
 } as const;

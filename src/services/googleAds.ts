@@ -175,3 +175,35 @@ export const fetchWidgetMetrics = async (
         return { success: false, error: 'Failed to fetch widget metrics' };
     }
 };
+
+/**
+ * Fetch ad creatives (headlines, descriptions, images) for campaigns
+ */
+export const fetchAdCreatives = async (
+    customerId: string,
+    campaignIds: string[]
+) => {
+    try {
+        const headers = await getAuthHeaders();
+
+        const response = await fetch(`${FUNCTIONS_BASE_URL}/getAdCreatives`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                customerId,
+                campaignIds
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${await response.text()}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Failed to fetch ad creatives:", error);
+        return { success: false, error: 'Failed to fetch ad creatives' };
+    }
+};
+

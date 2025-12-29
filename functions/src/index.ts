@@ -24,6 +24,9 @@ export { backupFirestore } from "./backupFirestore";
 // Re-export Widget Metrics function
 export { getWidgetMetrics } from "./widgetMetrics";
 
+// Re-export Ad Creatives function
+export { getAdCreatives } from "./adCreatives";
+
 
 // Define the secret
 const googleAdsDeveloperToken = defineSecret("GOOGLE_ADS_DEVELOPER_TOKEN");
