@@ -3,8 +3,8 @@ import { useSubscription } from '../../contexts/SubscriptionContext';
 import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle, Info, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { formatSubscriptionEndDate } from '../../types/subscriptionTypes';
 import PricingInfoModal from '../billing/PricingInfoModal';
+import CanceledSubscriptionNotice from '../billing/CanceledSubscriptionNotice';
 
 export default function SubscriptionCard() {
     const { subscription, loading, isActive, openCustomerPortal } = useSubscription();
@@ -73,7 +73,9 @@ export default function SubscriptionCard() {
                         {subscription?.cancelAtPeriodEnd ? (
                             <>
                                 <AlertCircle className="w-3.5 h-3.5" />
-                                <span>Expire le {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}</span>
+                                <span>
+                                    {subscription.status === 'trialing' ? 'Essai annulé' : 'Annulé'} - Actif jusqu'au {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}
+                                </span>
                             </>
                         ) : (
                             <>
@@ -96,16 +98,13 @@ export default function SubscriptionCard() {
 
             {/* Cancellation Warning */}
             {subscription?.cancelAtPeriodEnd && subscription.currentPeriodEnd && (
-                <div className="mb-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
-                    <div className="flex items-start gap-2">
-                        <AlertCircle className="w-4 h-4 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" />
-                        <div>
-                            <p className="text-xs font-semibold text-orange-900 dark:text-orange-300 mb-0.5">Abonnement annulé</p>
-                            <p className="text-xs text-orange-700 dark:text-orange-400">
-                                Votre abonnement prendra fin le <strong>{formatSubscriptionEndDate(subscription.currentPeriodEnd)}</strong>.
-                            </p>
-                        </div>
-                    </div>
+                <div className="mb-4">
+                    <CanceledSubscriptionNotice
+                        isTrialing={subscription.status === 'trialing'}
+                        endDate={subscription.currentPeriodEnd}
+                        onReactivate={handleManageSubscription}
+                        isReactivating={isOpeningPortal}
+                    />
                 </div>
             )}
 

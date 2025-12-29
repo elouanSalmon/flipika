@@ -6,9 +6,8 @@ import { collection, query, where, orderBy, limit, getDocs } from 'firebase/fire
 import { db } from '../firebase/config';
 import { CreditCard, Calendar, Users, ExternalLink, Loader2, Check, AlertCircle, CheckCircle, XCircle, RefreshCw, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
-import type { BillingEvent } from '../types/subscriptionTypes';
-import { formatSubscriptionEndDate } from '../types/subscriptionTypes';
 import PricingInfoModal from '../components/billing/PricingInfoModal';
+import CanceledSubscriptionNotice from '../components/billing/CanceledSubscriptionNotice';
 
 export default function BillingPage() {
     const navigate = useNavigate();
@@ -167,7 +166,9 @@ export default function BillingPage() {
                                 {subscription?.cancelAtPeriodEnd ? (
                                     <>
                                         <AlertCircle className="w-4 h-4" />
-                                        <span>Expire le {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}</span>
+                                        <span>
+                                            {subscription.status === 'trialing' ? 'Essai annulé' : 'Annulé'} - Actif jusqu'au {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}
+                                        </span>
                                     </>
                                 ) : (
                                     <>
@@ -188,21 +189,15 @@ export default function BillingPage() {
                         </div>
                     </div>
 
-                    {/* Cancellation Warning Banner */}
+                    {/* Cancellation Warning */}
                     {subscription?.cancelAtPeriodEnd && subscription.currentPeriodEnd && (
-                        <div className="mb-6 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-200 dark:border-orange-800">
-                            <div className="flex items-start gap-3">
-                                <AlertCircle className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" />
-                                <div>
-                                    <h3 className="font-semibold text-orange-900 dark:text-orange-300 mb-1">Abonnement annulé</h3>
-                                    <p className="text-sm text-orange-700 dark:text-orange-400 mb-2">
-                                        Votre abonnement a été annulé et prendra fin le <strong>{formatSubscriptionEndDate(subscription.currentPeriodEnd)}</strong>. Vous conservez l'accès à toutes les fonctionnalités jusqu'à cette date.
-                                    </p>
-                                    <p className="text-xs text-orange-600 dark:text-orange-500">
-                                        Vous pouvez réactiver votre abonnement à tout moment via le bouton "Gérer l'abonnement" ci-dessous.
-                                    </p>
-                                </div>
-                            </div>
+                        <div className="mb-6">
+                            <CanceledSubscriptionNotice
+                                isTrialing={subscription.status === 'trialing'}
+                                endDate={subscription.currentPeriodEnd}
+                                onReactivate={handleManageSubscription}
+                                isReactivating={isOpeningPortal}
+                            />
                         </div>
                     )}
 

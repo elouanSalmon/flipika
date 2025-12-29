@@ -511,6 +511,12 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
+    // Add canceled_at timestamp if subscription was canceled
+    if (subscription.canceled_at) {
+        const canceledAtMs = Math.floor(subscription.canceled_at * 1000);
+        (subscriptionData as any).canceledAt = admin.firestore.Timestamp.fromMillis(canceledAtMs);
+    }
+
     // Add trial end date if in trial
     if (subscription.trial_end) {
         const trialEndMs = Math.floor(subscription.trial_end * 1000);

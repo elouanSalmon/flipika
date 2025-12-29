@@ -18,6 +18,7 @@ export interface Subscription {
     currentPeriodStart: Date;
     currentPeriodEnd: Date;
     cancelAtPeriodEnd: boolean;
+    canceledAt?: Date;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -81,4 +82,9 @@ export const formatSubscriptionEndDate = (date: Date): string => {
         month: 'long',
         year: 'numeric'
     }).format(new Date(date));
+};
+
+export const isCanceledButActive = (subscription: Subscription | null): boolean => {
+    if (!subscription) return false;
+    return subscription.cancelAtPeriodEnd && isSubscriptionActive(subscription);
 };
