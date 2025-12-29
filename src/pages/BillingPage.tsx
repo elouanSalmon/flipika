@@ -19,7 +19,7 @@ export default function BillingPage() {
 
     // Default price ID from environment or hardcoded
     const STRIPE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID || 'price_1234567890';
-    const PRICE_PER_SEAT = 49; // €49 per seat per month
+    const PRICE_PER_SEAT = 10; // €10 per seat per month
 
     useEffect(() => {
         if (!currentUser) {
@@ -112,7 +112,7 @@ export default function BillingPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-[var(--color-bg-primary)] flex items-center justify-center">
                 <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
             </div>
         );
@@ -121,25 +121,25 @@ export default function BillingPage() {
     const totalMonthly = subscription ? subscription.currentSeats * PRICE_PER_SEAT : PRICE_PER_SEAT;
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-[var(--color-bg-primary)] py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">Facturation & Abonnement</h1>
-                    <p className="mt-2 text-gray-600">
+                    <h1 className="text-3xl font-bold text-[var(--color-text-primary)]">Facturation & Abonnement</h1>
+                    <p className="mt-2 text-[var(--color-text-secondary)]">
                         Gérez votre abonnement et consultez votre historique de facturation
                     </p>
                 </div>
 
                 {/* Subscription Status Card */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                <div className="bg-[var(--color-bg-secondary)] rounded-lg shadow-sm border border-[var(--color-border)] p-6 mb-6">
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <h2 className="text-xl font-semibold text-gray-900">
+                            <h2 className="text-xl font-semibold text-[var(--color-text-primary)]">
                                 {subscription ? 'Abonnement Actif' : 'Aucun Abonnement'}
                             </h2>
                             {subscription && (
-                                <p className="text-sm text-gray-500 mt-1">
+                                <p className="text-sm text-[var(--color-text-secondary)] mt-1">
                                     {subscription.status === 'trialing' && subscription.trialEndsAt
                                         ? `Période d'essai jusqu'au ${new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR')}`
                                         : subscription.status === 'active'
@@ -161,25 +161,25 @@ export default function BillingPage() {
                             <div className="flex items-start space-x-3">
                                 <Users className="w-5 h-5 text-blue-600 mt-0.5" />
                                 <div>
-                                    <p className="text-sm text-gray-500">Comptes Google Ads</p>
-                                    <p className="text-2xl font-bold text-gray-900">{subscription.currentSeats}</p>
+                                    <p className="text-sm text-[var(--color-text-secondary)]">Comptes Google Ads</p>
+                                    <p className="text-2xl font-bold text-[var(--color-text-primary)]">{subscription.currentSeats}</p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-3">
                                 <CreditCard className="w-5 h-5 text-blue-600 mt-0.5" />
                                 <div>
-                                    <p className="text-sm text-gray-500">Montant mensuel</p>
-                                    <p className="text-2xl font-bold text-gray-900">{totalMonthly} €</p>
-                                    <p className="text-xs text-gray-500">{PRICE_PER_SEAT}€ × {subscription.currentSeats} compte{subscription.currentSeats > 1 ? 's' : ''}</p>
+                                    <p className="text-sm text-[var(--color-text-secondary)]">Montant mensuel</p>
+                                    <p className="text-2xl font-bold text-[var(--color-text-primary)]">{totalMonthly} €</p>
+                                    <p className="text-xs text-[var(--color-text-secondary)]">{PRICE_PER_SEAT}€ × {subscription.currentSeats} compte{subscription.currentSeats > 1 ? 's' : ''}</p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-3">
                                 <Calendar className="w-5 h-5 text-blue-600 mt-0.5" />
                                 <div>
-                                    <p className="text-sm text-gray-500">Prochain paiement</p>
-                                    <p className="text-lg font-semibold text-gray-900">
+                                    <p className="text-sm text-[var(--color-text-secondary)]">Prochain paiement</p>
+                                    <p className="text-lg font-semibold text-[var(--color-text-primary)]">
                                         {subscription.currentPeriodEnd
                                             ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR')
                                             : '-'}
@@ -215,7 +215,7 @@ export default function BillingPage() {
                                 <button
                                     onClick={handleSyncBilling}
                                     disabled={syncing}
-                                    className="flex items-center space-x-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+                                    className="flex items-center space-x-2 px-4 py-2 border border-[var(--color-border)] text-[var(--color-text-primary)] rounded-lg hover:bg-[var(--color-bg-tertiary)] transition-colors disabled:opacity-50"
                                 >
                                     {syncing ? (
                                         <Loader2 className="w-4 h-4 animate-spin" />
@@ -237,24 +237,24 @@ export default function BillingPage() {
                 </div>
 
                 {/* Billing History */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Historique de facturation</h2>
+                <div className="bg-[var(--color-bg-secondary)] rounded-lg shadow-sm border border-[var(--color-border)] p-6">
+                    <h2 className="text-xl font-semibold text-[var(--color-text-primary)] mb-4">Historique de facturation</h2>
 
                     {loadingHistory ? (
                         <div className="flex justify-center py-8">
                             <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
                         </div>
                     ) : billingHistory.length === 0 ? (
-                        <p className="text-gray-500 text-center py-8">Aucun événement de facturation</p>
+                        <p className="text-[var(--color-text-secondary)] text-center py-8">Aucun événement de facturation</p>
                     ) : (
                         <div className="space-y-3">
                             {billingHistory.map((event, index) => (
                                 <div
                                     key={index}
-                                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                                    className="flex items-center justify-between p-4 border border-[var(--color-border)] rounded-lg hover:bg-[var(--color-bg-tertiary)] transition-colors"
                                 >
                                     <div>
-                                        <p className="font-medium text-gray-900">
+                                        <p className="font-medium text-[var(--color-text-primary)]">
                                             {event.eventType === 'sync' && 'Synchronisation de facturation'}
                                             {event.eventType === 'payment_succeeded' && 'Paiement réussi'}
                                             {event.eventType === 'payment_failed' && 'Échec du paiement'}
@@ -262,18 +262,18 @@ export default function BillingPage() {
                                             {event.eventType === 'subscription_created' && 'Abonnement créé'}
                                             {event.eventType === 'subscription_canceled' && 'Abonnement annulé'}
                                         </p>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-sm text-[var(--color-text-secondary)]">
                                             {event.timestamp ? new Date(event.timestamp).toLocaleString('fr-FR') : '-'}
                                         </p>
                                         {event.previousSeats !== undefined && event.newSeats !== undefined && (
-                                            <p className="text-xs text-gray-600 mt-1">
+                                            <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                                                 {event.previousSeats} → {event.newSeats} compte{event.newSeats > 1 ? 's' : ''}
                                             </p>
                                         )}
                                     </div>
                                     {event.amount !== undefined && (
                                         <div className="text-right">
-                                            <p className="font-semibold text-gray-900">
+                                            <p className="font-semibold text-[var(--color-text-primary)]">
                                                 {event.amount.toFixed(2)} {event.currency?.toUpperCase() || 'EUR'}
                                             </p>
                                         </div>
