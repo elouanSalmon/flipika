@@ -1,6 +1,7 @@
 import ProfileCard from '../components/settings/ProfileCard';
 import SecurityCard from '../components/settings/SecurityCard';
 import ConnectionsCard from '../components/settings/ConnectionsCard';
+import SubscriptionCard from '../components/settings/SubscriptionCard';
 import DemoModeCard from '../components/settings/DemoModeCard';
 import AppearanceCard from '../components/settings/AppearanceCard';
 import ThemesCard from '../components/settings/ThemesCard';
@@ -29,6 +30,9 @@ const Settings = () => {
 
                 {/* Security Section */}
                 <SecurityCard />
+
+                {/* Subscription & Billing */}
+                <SubscriptionCard />
 
                 {/* Google Ads Connection */}
                 <ConnectionsCard />
