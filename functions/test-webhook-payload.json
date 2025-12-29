@@ -1,0 +1,27 @@
+{
+    "id": "sub_test123",
+    "object": "subscription",
+    "customer": "cus_test123",
+    "status": "trialing",
+    "current_period_start": 1735483458,
+    "current_period_end": 1738075458,
+    "trial_end": 1736693058,
+    "cancel_at_period_end": false,
+    "metadata": {
+        "userId": "ZQt6gfWwS8YHiXdDAUnSATDkOuE2"
+    },
+    "items": {
+        "object": "list",
+        "data": [
+            {
+                "id": "si_test123",
+                "object": "subscription_item",
+                "price": {
+                    "id": "price_1SjfWiPEX7xfiH6rtest",
+                    "object": "price"
+                },
+                "quantity": 1
+            }
+        ]
+    }
+}

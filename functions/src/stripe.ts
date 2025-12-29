@@ -352,13 +352,29 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
         return;
     }
 
-    // Validate and convert Stripe Unix timestamps (seconds) to milliseconds as integers
-    // Stripe timestamps should always be present, but we guard against undefined/null
-    const currentPeriodStart = (subscription as any).current_period_start;
-    const currentPeriodEnd = (subscription as any).current_period_end;
+    // Log the entire subscription object to understand what Stripe is sending
+    console.log('Processing subscription:', subscription.id);
+
+    // In Stripe's Subscription object, current_period_start and current_period_end
+    // are located in the subscription_item, not the subscription root
+    const subscriptionItem = subscription.items.data[0];
+    if (!subscriptionItem) {
+        console.error('No subscription item found');
+        throw new Error('No subscription item found');
+    }
+
+    const sub = subscriptionItem as any;
+    const currentPeriodStart = sub.current_period_start;
+    const currentPeriodEnd = sub.current_period_end;
+
+    console.log('Subscription item timestamps:', {
+        current_period_start: currentPeriodStart,
+        current_period_end: currentPeriodEnd,
+        trial_end: subscription.trial_end,
+    });
 
     if (!currentPeriodStart || !currentPeriodEnd) {
-        console.error('Missing required timestamp fields in subscription:', {
+        console.error('Missing required timestamp fields:', {
             subscriptionId: subscription.id,
             current_period_start: currentPeriodStart,
             current_period_end: currentPeriodEnd,
@@ -366,6 +382,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
         throw new Error('Missing required timestamp fields in subscription');
     }
 
+    // Stripe timestamps are in seconds (Unix timestamp)
     const currentPeriodStartMs = Math.floor(currentPeriodStart * 1000);
     const currentPeriodEndMs = Math.floor(currentPeriodEnd * 1000);
 
