@@ -193,28 +193,27 @@ const ScheduledReports: React.FC = () => {
         <div className="scheduled-reports-page">
             <div className="page-header">
                 <div className="header-content">
-                    <div className="header-title-container">
-                        <div className="header-title-row">
-                            <Clock size={32} className="header-icon" />
-                            <h1>Rapports programmés</h1>
-                        </div>
-                        <p className="header-subtitle">
-                            Automatisez la génération de vos rapports sur une base régulière
-                        </p>
+                    <div className="header-title-row">
+                        <Clock size={32} className="header-icon" />
+                        <h1>Rapports programmés</h1>
+                        <button
+                            className="btn-create"
+                            onClick={handleCreateSchedule}
+                            disabled={templates.length === 0 || !isGoogleAdsConnected}
+                            style={{
+                                opacity: (templates.length === 0 || !isGoogleAdsConnected) ? 0.5 : 1,
+                                cursor: (templates.length === 0 || !isGoogleAdsConnected) ? 'not-allowed' : 'pointer',
+                                marginLeft: 'auto'
+                            }}
+                            title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des schedules' : templates.length === 0 ? 'Créez d\'abord un template' : ''}
+                        >
+                            <Plus size={20} />
+                            <span>Nouveau schedule</span>
+                        </button>
                     </div>
-                    <button
-                        className="btn-create"
-                        onClick={handleCreateSchedule}
-                        disabled={templates.length === 0 || !isGoogleAdsConnected}
-                        style={{
-                            opacity: (templates.length === 0 || !isGoogleAdsConnected) ? 0.5 : 1,
-                            cursor: (templates.length === 0 || !isGoogleAdsConnected) ? 'not-allowed' : 'pointer'
-                        }}
-                        title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des schedules' : templates.length === 0 ? 'Créez d\'abord un template' : ''}
-                    >
-                        <Plus size={20} />
-                        <span>Nouveau schedule</span>
-                    </button>
+                    <p className="header-subtitle">
+                        Automatisez la génération de vos rapports sur une base régulière
+                    </p>
                 </div>
             </div>
 

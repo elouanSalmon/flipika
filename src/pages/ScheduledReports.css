@@ -12,20 +12,22 @@
 }
 
 .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 32px;
 }
 
 .header-content {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 24px;
+    flex-direction: column;
 }
 
 .header-title-row {
     display: flex;
     align-items: center;
     gap: 16px;
+    width: 100%;
 }
 
 .header-icon {
@@ -48,7 +50,7 @@
 }
 
 .btn-create {
-    padding: 12px 24px;
+    padding: 10px 20px;
     border: none;
     border-radius: 10px;
     background: var(--gradient-primary);
@@ -56,11 +58,14 @@
     font-size: 0.9375rem;
     font-weight: 500;
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     transition: all 0.2s;
     box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+    line-height: 1;
+    /* Fix vertical alignment */
 }
 
 .btn-create:hover {

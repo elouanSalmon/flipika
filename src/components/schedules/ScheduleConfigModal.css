@@ -25,6 +25,14 @@
     overflow: hidden;
 }
 
+.schedule-config-modal form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+}
+
 .modal-header {
     display: flex;
     justify-content: space-between;
