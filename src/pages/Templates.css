@@ -21,11 +21,17 @@
 
 .templates-header .header-content {
     display: flex;
+    flex-direction: column;
+}
+
+.templates-header .header-title-row {
+    display: flex;
     align-items: center;
     gap: 16px;
 }
 
 .templates-header .header-icon {
+    flex-shrink: 0;
     color: var(--color-primary);
 }
 
@@ -37,7 +43,7 @@
 }
 
 .templates-header p {
-    margin: 4px 0 0 0;
+    margin: 8px 0 0 48px;
     font-size: 1rem;
     color: var(--color-text-secondary);
 }

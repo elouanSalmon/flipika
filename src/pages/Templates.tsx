@@ -206,11 +206,11 @@ const Templates: React.FC = () => {
         <div className="templates-page">
             <div className="templates-header">
                 <div className="header-content">
-                    <FileStack size={32} className="header-icon" />
-                    <div>
+                    <div className="header-title-row">
+                        <FileStack size={32} className="header-icon" />
                         <h1>Templates de Rapports</h1>
-                        <p>Créez des templates réutilisables pour générer des rapports en un clic</p>
                     </div>
+                    <p>Créez des templates réutilisables pour générer des rapports en un clic</p>
                 </div>
                 <button className="btn-primary" onClick={() => setShowCreateModal(true)}>
                     <Plus size={20} />
