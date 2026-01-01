@@ -5,6 +5,7 @@ import { deleteReport, duplicateReport, archiveReport } from '../../../services/
 import { useAuth } from '../../../contexts/AuthContext';
 import type { EditableReport } from '../../../types/reportTypes';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../../common/ConfirmationModal';
 import './ReportCard.css';
 
 interface ReportCardProps {
@@ -19,6 +20,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
     const { currentUser } = useAuth();
     const [showMenu, setShowMenu] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const formatDate = (date: Date) => {
         return new Intl.DateTimeFormat('fr-FR', {
@@ -61,13 +63,13 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
         setShowMenu(false);
     };
 
-    const handleDelete = async (e: React.MouseEvent) => {
+    const handleDelete = (e: React.MouseEvent) => {
         e.stopPropagation();
+        setIsDeleteModalOpen(true);
+        setShowMenu(false);
+    };
 
-        if (!confirm('Êtes-vous sûr de vouloir supprimer ce rapport ?')) {
-            return;
-        }
-
+    const confirmDelete = async () => {
         try {
             setIsDeleting(true);
             await deleteReport(report.id);
@@ -77,7 +79,6 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
             toast.error('Erreur lors de la suppression');
         } finally {
             setIsDeleting(false);
-            setShowMenu(false);
         }
     };
 
@@ -183,7 +184,17 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
                     </div>
                 </div>
             </div>
-        </div>
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onConfirm={confirmDelete}
+                title="Supprimer le rapport"
+                message={`Êtes-vous sûr de vouloir supprimer le rapport "${report.title}" ?`}
+                confirmLabel="Supprimer"
+                isDestructive={true}
+            />
+        </div >
     );
 };
 

@@ -8,6 +8,7 @@ import type { ReportTheme } from '../../types/reportThemes';
 import type { Account } from '../../types/business';
 import ThemePreview from './ThemePreview';
 import ThemeEditor from './ThemeEditor';
+import ConfirmationModal from '../common/ConfirmationModal';
 import './ThemeManager.css';
 
 interface ThemeManagerProps {
@@ -21,6 +22,8 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
     const [loading, setLoading] = useState(true);
     const [showEditor, setShowEditor] = useState(false);
     const [editingTheme, setEditingTheme] = useState<ReportTheme | null>(null);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [themeToDelete, setThemeToDelete] = useState<ReportTheme | null>(null);
 
     useEffect(() => {
         if (currentUser) {
@@ -65,15 +68,19 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
         }
     };
 
-    const handleDeleteTheme = async (theme: ReportTheme) => {
-        if (!confirm(`Êtes-vous sûr de vouloir supprimer le thème "${theme.name}" ?`)) {
-            return;
-        }
+    const handleDeleteTheme = (theme: ReportTheme) => {
+        setThemeToDelete(theme);
+        setDeleteModalOpen(true);
+    };
+
+    const confirmDeleteTheme = async () => {
+        if (!themeToDelete) return;
 
         try {
-            await themeService.deleteTheme(theme.id);
+            await themeService.deleteTheme(themeToDelete.id);
             await loadThemes();
             toast.success('Thème supprimé');
+            setThemeToDelete(null);
         } catch (error) {
             console.error('Error deleting theme:', error);
             toast.error('Erreur lors de la suppression');
@@ -254,6 +261,19 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                     />
                 )
             }
+
+            <ConfirmationModal
+                isOpen={deleteModalOpen}
+                onClose={() => {
+                    setDeleteModalOpen(false);
+                    setThemeToDelete(null);
+                }}
+                onConfirm={confirmDeleteTheme}
+                title="Supprimer le thème"
+                message={`Êtes-vous sûr de vouloir supprimer le thème "${themeToDelete?.name}" ?`}
+                confirmLabel="Supprimer"
+                isDestructive={true}
+            />
         </div >
     );
 };

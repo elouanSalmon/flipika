@@ -2,6 +2,7 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Settings, Trash2 } from 'lucide-react';
+import ConfirmationModal from '../common/ConfirmationModal';
 import PerformanceOverviewWidget from './widgets/PerformanceOverviewWidget';
 import CampaignChartWidget from './widgets/CampaignChartWidget';
 import KeyMetricsWidget from './widgets/KeyMetricsWidget';
@@ -35,6 +36,8 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
     isPublicView = false,
     reportId,
 }) => {
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
+
     const {
         attributes,
         listeners,
@@ -169,9 +172,7 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                         className="widget-action-btn danger"
                         onClick={(e) => {
                             e.stopPropagation();
-                            if (confirm('Supprimer ce widget ?')) {
-                                onDelete();
-                            }
+                            setIsDeleteModalOpen(true);
                         }}
                         title="Supprimer"
                     >
@@ -179,6 +180,18 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                     </button>
                 </div>
             )}
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onConfirm={() => {
+                    if (onDelete) onDelete();
+                }}
+                title="Supprimer le widget"
+                message="Êtes-vous sûr de vouloir supprimer ce widget ?"
+                confirmLabel="Supprimer"
+                isDestructive={true}
+            />
         </div>
     );
 };

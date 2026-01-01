@@ -16,6 +16,7 @@ import ScheduleCard from '../components/schedules/ScheduleCard';
 import ScheduleConfigModal, { type ScheduleFormData } from '../components/schedules/ScheduleConfigModal';
 import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../components/common/ConfirmationModal';
 import './ScheduledReports.css';
 
 interface GoogleAdsAccount {
@@ -32,6 +33,8 @@ const ScheduledReports: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingSchedule, setEditingSchedule] = useState<ScheduledReport | undefined>();
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [scheduleToDelete, setScheduleToDelete] = useState<ScheduledReport | null>(null);
 
     useEffect(() => {
         if (currentUser) {
@@ -130,14 +133,18 @@ const ScheduledReports: React.FC = () => {
         }
     };
 
-    const handleDeleteSchedule = async (schedule: ScheduledReport) => {
-        if (!confirm(`Êtes-vous sûr de vouloir supprimer le schedule "${schedule.name}" ?`)) {
-            return;
-        }
+    const handleDeleteSchedule = (schedule: ScheduledReport) => {
+        setScheduleToDelete(schedule);
+        setDeleteModalOpen(true);
+    };
+
+    const confirmDeleteSchedule = async () => {
+        if (!scheduleToDelete) return;
 
         try {
-            await deleteScheduledReport(schedule.id);
+            await deleteScheduledReport(scheduleToDelete.id);
             toast.success('Schedule supprimé avec succès');
+            setScheduleToDelete(null);
             await loadData();
         } catch (error: any) {
             console.error('Error deleting schedule:', error);
@@ -299,6 +306,19 @@ const ScheduledReports: React.FC = () => {
                 templates={templates}
                 accounts={accounts}
                 editingSchedule={editingSchedule}
+            />
+
+            <ConfirmationModal
+                isOpen={deleteModalOpen}
+                onClose={() => {
+                    setDeleteModalOpen(false);
+                    setScheduleToDelete(null);
+                }}
+                onConfirm={confirmDeleteSchedule}
+                title="Supprimer le schedule"
+                message={`Êtes-vous sûr de vouloir supprimer le schedule "${scheduleToDelete?.name}" ? Cette action est irréversible.`}
+                confirmLabel="Supprimer"
+                isDestructive={true}
             />
         </div>
     );

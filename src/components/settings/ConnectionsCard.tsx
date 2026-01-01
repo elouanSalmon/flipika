@@ -4,11 +4,13 @@ import { initiateGoogleAdsOAuth } from '../../services/googleAds';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
+import ConfirmationModal from '../common/ConfirmationModal';
 
 const ConnectionsCard = () => {
     const { isConnected, refreshConnectionStatus, disconnect, customerId, setLinkedCustomerId } = useGoogleAds();
     const { currentUser, loginWithGoogle } = useAuth();
     const [accounts, setAccounts] = useState<any[]>([]);
+    const [showDisconnectModal, setShowDisconnectModal] = useState(false);
 
     useEffect(() => {
         const loadAccounts = async () => {
@@ -142,17 +144,7 @@ const ConnectionsCard = () => {
                             </span>
                             {isConnected ? (
                                 <button
-                                    onClick={async () => {
-                                        if (confirm('Voulez-vous vraiment déconnecter votre compte Google Ads ?')) {
-                                            try {
-                                                await disconnect();
-                                                toast.success('Compte Google Ads déconnecté');
-                                            } catch (error) {
-                                                console.error('Error disconnecting:', error);
-                                                toast.error('Erreur lors de la déconnexion');
-                                            }
-                                        }
-                                    }}
+                                    onClick={() => setShowDisconnectModal(true)}
                                     className="px-4 py-2 rounded-xl border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200 text-sm font-semibold"
                                 >
                                     Déconnecter
@@ -205,7 +197,25 @@ const ConnectionsCard = () => {
                     )}
                 </div>
             </div>
-        </motion.div>
+
+            <ConfirmationModal
+                isOpen={showDisconnectModal}
+                onClose={() => setShowDisconnectModal(false)}
+                onConfirm={async () => {
+                    try {
+                        await disconnect();
+                        toast.success('Compte Google Ads déconnecté');
+                    } catch (error) {
+                        console.error('Error disconnecting:', error);
+                        toast.error('Erreur lors de la déconnexion');
+                    }
+                }}
+                title="Déconnecter Google Ads"
+                message="Voulez-vous vraiment déconnecter votre compte Google Ads ? Vous ne pourrez plus générer de rapports."
+                confirmLabel="Déconnecter"
+                isDestructive={true}
+            />
+        </motion.div >
     );
 };
 

@@ -18,6 +18,7 @@ import TemplateCard from '../components/templates/TemplateCard';
 import TemplateConfigModal, { type TemplateConfig } from '../components/templates/TemplateConfigModal';
 import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../components/common/ConfirmationModal';
 import './Templates.css';
 
 interface GoogleAdsAccount {
@@ -39,6 +40,8 @@ const Templates: React.FC = () => {
     const [selectedAccountId, setSelectedAccountId] = useState('');
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [googleAuthError, setGoogleAuthError] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [templateToDelete, setTemplateToDelete] = useState<ReportTemplate | null>(null);
 
     useEffect(() => {
         if (currentUser) {
@@ -138,15 +141,19 @@ const Templates: React.FC = () => {
         }
     };
 
-    const handleDeleteTemplate = async (template: ReportTemplate) => {
-        if (!confirm(`Êtes-vous sûr de vouloir supprimer le template "${template.name}" ?`)) {
-            return;
-        }
+    const handleDeleteTemplate = (template: ReportTemplate) => {
+        setTemplateToDelete(template);
+        setIsDeleteModalOpen(true);
+    };
+
+    const confirmDeleteTemplate = async () => {
+        if (!templateToDelete) return;
 
         try {
-            console.log('Attempting to delete template:', template.id);
-            await deleteTemplate(template.id);
+            console.log('Attempting to delete template:', templateToDelete.id);
+            await deleteTemplate(templateToDelete.id);
             toast.success('Template supprimé');
+            setTemplateToDelete(null);
             loadTemplates();
         } catch (error: any) {
             console.error('Error deleting template:', error);
@@ -299,6 +306,19 @@ const Templates: React.FC = () => {
                     initialConfig={editingTemplate || undefined}
                 />
             )}
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => {
+                    setIsDeleteModalOpen(false);
+                    setTemplateToDelete(null);
+                }}
+                onConfirm={confirmDeleteTemplate}
+                title="Supprimer le template"
+                message={`Êtes-vous sûr de vouloir supprimer le template "${templateToDelete?.name}" ? Cette action est irréversible.`}
+                confirmLabel="Supprimer"
+                isDestructive={true}
+            />
         </div>
     );
 };

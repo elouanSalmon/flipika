@@ -4,6 +4,7 @@ import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap, Settings, 
 import toast from 'react-hot-toast';
 import AutoSaveIndicator from './AutoSaveIndicator';
 import ThemeToggle from '../ThemeToggle';
+import ConfirmationModal from '../common/ConfirmationModal';
 import './ReportEditorHeader.css';
 
 interface ReportEditorHeaderProps {
@@ -51,6 +52,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
 }) => {
     const [showActions, setShowActions] = React.useState(false);
     const [showShareMenu, setShowShareMenu] = React.useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
     const navigate = useNavigate();
 
     return (
@@ -248,9 +250,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                 )}
                                 <button
                                     onClick={() => {
-                                        if (confirm('Êtes-vous sûr de vouloir supprimer ce rapport ?')) {
-                                            onDelete();
-                                        }
+                                        setIsDeleteModalOpen(true);
                                         setShowActions(false);
                                     }}
                                     className="actions-menu-item danger"
@@ -263,6 +263,16 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                     )}
                 </div>
             </div>
+
+            <ConfirmationModal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                onConfirm={onDelete}
+                title="Supprimer le rapport"
+                message="Êtes-vous sûr de vouloir supprimer ce rapport ?"
+                confirmLabel="Supprimer"
+                isDestructive={true}
+            />
         </div>
     );
 };
