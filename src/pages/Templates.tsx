@@ -23,6 +23,7 @@ import TemplateConfigModal, { type TemplateConfig } from '../components/template
 import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
 import ConfirmationModal from '../components/common/ConfirmationModal';
+import AccountSelectionModal from '../components/templates/AccountSelectionModal';
 import './Templates.css';
 
 interface GoogleAdsAccount {
@@ -48,6 +49,10 @@ const Templates: React.FC = () => {
     const [templateToDelete, setTemplateToDelete] = useState<ReportTemplate | null>(null);
     const [deleteMessage, setDeleteMessage] = useState('');
     const [schedulesToDelete, setSchedulesToDelete] = useState<ScheduledReport[]>([]);
+
+    // State for account selection modal (for legacy templates or overrides)
+    const [showAccountModal, setShowAccountModal] = useState(false);
+    const [pendingTemplateForUse, setPendingTemplateForUse] = useState<ReportTemplate | null>(null);
 
     useEffect(() => {
         if (currentUser) {
@@ -231,23 +236,37 @@ const Templates: React.FC = () => {
         if (!currentUser) return;
 
         try {
-            // If template has no account, prompt user to select one
-            if (!template.accountId && accounts.length > 0) {
-                const accountId = prompt('Sélectionnez un compte Google Ads (ID):');
-                if (!accountId) return;
-
-                const reportId = await createReportFromTemplate(template.id, currentUser.uid, {
-                    accountId,
-                });
-                toast.success('Rapport créé depuis le template !');
-                navigate(`/app/reports/${reportId}`);
-            } else {
+            // New logic: Check if template has account and campaigns
+            if (template.accountId && template.campaignIds && template.campaignIds.length > 0) {
+                // Have everything, create report directly
                 const reportId = await createReportFromTemplate(template.id, currentUser.uid);
                 toast.success('Rapport créé depuis le template !');
                 navigate(`/app/reports/${reportId}`);
+            } else {
+                // Missing info (legacy template?), prompt for account
+                setPendingTemplateForUse(template);
+                if (accounts.length > 0) {
+                    // Auto-select first if available or keep empty logic in modal
+                }
+                setShowAccountModal(true);
             }
         } catch (error) {
             console.error('Error using template:', error);
+            toast.error('Erreur lors de la création du rapport');
+        }
+    };
+
+    const handleAccountSelectionParams = async (accountId: string) => {
+        if (!currentUser || !pendingTemplateForUse) return;
+
+        try {
+            const reportId = await createReportFromTemplate(pendingTemplateForUse.id, currentUser.uid, {
+                accountId,
+            });
+            toast.success('Rapport créé depuis le template !');
+            navigate(`/app/reports/${reportId}`);
+        } catch (error) {
+            console.error('Error creating report from selection:', error);
             toast.error('Erreur lors de la création du rapport');
         }
     };
@@ -387,6 +406,19 @@ const Templates: React.FC = () => {
                 message={deleteMessage}
                 confirmLabel="Supprimer"
                 isDestructive={true}
+            />
+
+            <AccountSelectionModal
+                isOpen={showAccountModal}
+                onClose={() => {
+                    setShowAccountModal(false);
+                    setPendingTemplateForUse(null);
+                }}
+                onConfirm={handleAccountSelectionParams}
+                accounts={accounts}
+                title="Sélectionner un compte"
+                message={`Ce template ne spécifie pas de compte Google Ads.\nVeuillez en sélectionner un pour générer le rapport.`}
+                confirmLabel="Générer le rapport"
             />
         </div>
     );

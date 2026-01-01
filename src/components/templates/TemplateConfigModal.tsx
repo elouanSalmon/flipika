@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Calendar, FileText, FileStack, Loader2 } from 'lucide-react';
+import toast from 'react-hot-toast';
 import type { Campaign } from '../../types/business';
 import type { PeriodPreset, TemplateWidgetConfig } from '../../types/templateTypes';
 import { PERIOD_PRESETS } from '../../types/templateTypes';
@@ -97,12 +98,22 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
         e.preventDefault();
 
         if (!name.trim()) {
-            alert('Veuillez donner un nom au template');
+            toast.error('Veuillez donner un nom au template');
+            return;
+        }
+
+        if (!accountId) {
+            toast.error('Veuillez sélectionner un compte Google Ads');
+            return;
+        }
+
+        if (selectedCampaigns.length === 0) {
+            toast.error('Veuillez sélectionner au moins une campagne');
             return;
         }
 
         if (widgetConfigs.length === 0) {
-            alert('Veuillez sélectionner au moins un widget');
+            toast.error('Veuillez sélectionner au moins un widget');
             return;
         }
 
@@ -222,11 +233,18 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                             </div>
                         </div>
 
-                        {/* Account & Campaigns (Optional) */}
-                        <div className="form-section optional-section">
-                            <h3>Compte et Campagnes (optionnel)</h3>
+                        {/* Account & Campaigns (Mandatory) */}
+                        <div className="form-section">
+                            <h3>
+                                <span className="flex items-center gap-2">
+                                    Compte et Campagnes
+                                    {(!accountId || selectedCampaigns.length === 0) && (
+                                        <span className="text-xs font-medium text-red-500 bg-red-50 px-2 py-0.5 rounded-full dark:bg-red-900/30 dark:text-red-400">Requis</span>
+                                    )}
+                                </span>
+                            </h3>
                             <p className="section-description">
-                                Vous pouvez pré-sélectionner un compte et des campagnes, ou les définir lors de l'utilisation du template.
+                                Sélectionnez le compte et les campagnes à analyser pour ce template.
                             </p>
 
                             {accounts.length > 0 && (

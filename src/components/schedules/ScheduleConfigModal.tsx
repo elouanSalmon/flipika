@@ -133,6 +133,10 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
         onClose();
     };
 
+    const handleScheduleConfigChange = React.useCallback((config: ScheduleConfig) => {
+        setFormData(prev => ({ ...prev, scheduleConfig: config }));
+    }, []);
+
     if (!isOpen) return null;
 
     const selectedTemplate = templates.find(t => t.id === formData.templateId);
@@ -247,7 +251,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                 <h3>Fréquence de génération</h3>
                                 <FrequencySelector
                                     value={formData.scheduleConfig}
-                                    onChange={(config) => setFormData({ ...formData, scheduleConfig: config })}
+                                    onChange={handleScheduleConfigChange}
                                 />
                             </div>
                         </div>
