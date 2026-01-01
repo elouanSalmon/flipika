@@ -17,6 +17,7 @@ import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
 import Login from './pages/Login';
 import AppLayout from './layouts/AppLayout';
+import OAuthCallback from './pages/OAuthCallback';
 import Dashboard from './pages/Dashboard';
 import DashboardNew from './pages/DashboardNew';
 import AuditPage from './pages/AuditPage';
@@ -136,6 +137,13 @@ const AppRoutes = () => {
           </ProtectedRoute>
         } />
       )}
+
+      {/* OAuth Callback - Protected */}
+      <Route path="/oauth/callback" element={
+        <ProtectedRoute>
+          <OAuthCallback />
+        </ProtectedRoute>
+      } />
 
       {/* Public Report View - No authentication required */}
       <Route path="/:username/reports/:reportId" element={<PublicReportView />} />

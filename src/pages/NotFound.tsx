@@ -3,15 +3,19 @@ import { motion } from 'framer-motion';
 import { Home, ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import SimpleHeader from '../components/SimpleHeader';
+import ConnectedHeader from '../components/app/ConnectedHeader';
 import Footer from '../components/Footer';
+import { useAuth } from '../contexts/AuthContext';
 
 const NotFound = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { currentUser } = useAuth();
+    const isConnected = !!currentUser;
 
     return (
         <div className="min-h-screen bg-[var(--color-bg-primary)] overflow-hidden flex flex-col">
-            <SimpleHeader />
+            {isConnected ? <ConnectedHeader /> : <SimpleHeader />}
 
             {/* Spacer for fixed header */}
             <div className="h-20"></div>
