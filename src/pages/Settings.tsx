@@ -6,6 +6,7 @@ import DemoModeCard from '../components/settings/DemoModeCard';
 import AppearanceCard from '../components/settings/AppearanceCard';
 import ThemesCard from '../components/settings/ThemesCard';
 import { motion } from 'framer-motion';
+import { Settings as SettingsIcon } from 'lucide-react';
 
 const Settings = () => {
     return (
@@ -15,10 +16,13 @@ const Settings = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="mb-6 md:mb-8">
-                <h1 className="text-3xl md:text-4xl font-bold mb-2 gradient-text">
-                    Paramètres
-                </h1>
+                className="mb-8">
+                <div className="flex items-center gap-4 mb-2">
+                    <SettingsIcon className="w-8 h-8 text-[var(--color-primary)]" />
+                    <h1 className="text-[2rem] font-bold text-primary">
+                        Paramètres
+                    </h1>
+                </div>
                 <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg">
                     Gérez votre compte et vos préférences
                 </p>

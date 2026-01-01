@@ -134,8 +134,11 @@ export default function BillingPage() {
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-[var(--color-text-primary)]">Facturation & Abonnement</h1>
-                    <p className="mt-2 text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center gap-4 mb-2">
+                        <CreditCard className="w-8 h-8 text-[var(--color-primary)]" />
+                        <h1 className="text-[2rem] font-bold text-[var(--color-text-primary)]">Facturation & Abonnement</h1>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg">
                         Gérez votre abonnement, modifiez vos moyens de paiement et consultez l'historique de vos factures
                     </p>
                 </div>
