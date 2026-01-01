@@ -33,10 +33,10 @@ export default function SubscriptionCard() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
-                className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
+                className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
             >
                 <div className="flex items-center justify-center py-8">
-                    <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+                    <Loader2 className="w-6 h-6 animate-spin text-primary" />
                 </div>
             </motion.div>
         );
@@ -49,13 +49,13 @@ export default function SubscriptionCard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.2 }}
-            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
+            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
         >
             <div className="flex items-center justify-between mb-6">
                 <div>
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                        <div className="p-2 bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 rounded-lg border border-blue-500/20">
-                            <CreditCard size={20} className="text-blue-600 dark:text-blue-400" />
+                        <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
+                            <CreditCard size={20} className="text-primary dark:text-primary-light" />
                         </div>
                         Abonnement
                     </h2>
@@ -67,7 +67,7 @@ export default function SubscriptionCard() {
                     <div className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 ${subscription?.cancelAtPeriodEnd
                         ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
                         : subscription?.status === 'trialing'
-                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                            ? 'bg-blue-100 text-primary-dark dark:bg-blue-900/30 dark:text-primary-light'
                             : isActive
                                 ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
                                 : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
@@ -99,7 +99,7 @@ export default function SubscriptionCard() {
                             className="p-1.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
                             aria-label="Information sur la tarification"
                         >
-                            <Info className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                            <Info className="w-4 h-4 text-primary dark:text-primary-light" />
                         </button>
                     )}
                 </div>
@@ -122,7 +122,7 @@ export default function SubscriptionCard() {
                     {/* Subscription Info */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                         <div className="flex items-start space-x-3">
-                            <Users className="w-5 h-5 text-blue-600 mt-0.5" />
+                            <Users className="w-5 h-5 text-primary mt-0.5" />
                             <div>
                                 <p className="text-xs text-gray-600 dark:text-gray-400">Comptes Google Ads</p>
                                 <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{subscription.currentSeats}</p>
@@ -130,7 +130,7 @@ export default function SubscriptionCard() {
                         </div>
 
                         <div className="flex items-start space-x-3">
-                            <CreditCard className="w-5 h-5 text-blue-600 mt-0.5" />
+                            <CreditCard className="w-5 h-5 text-primary mt-0.5" />
                             <div>
                                 <p className="text-xs text-gray-600 dark:text-gray-400">Montant mensuel</p>
                                 <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{totalMonthly} €</p>
@@ -139,7 +139,7 @@ export default function SubscriptionCard() {
                         </div>
 
                         <div className="flex items-start space-x-3">
-                            <Calendar className="w-5 h-5 text-blue-600 mt-0.5" />
+                            <Calendar className="w-5 h-5 text-primary mt-0.5" />
                             <div>
                                 <p className="text-xs text-gray-600 dark:text-gray-400">
                                     {subscription.status === 'trialing' ? 'Fin de l\'essai' : 'Prochain paiement'}
@@ -157,7 +157,7 @@ export default function SubscriptionCard() {
 
                     {/* Status Message */}
                     {subscription.status === 'trialing' && subscription.trialEndsAt && (
-                        <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-primary-dark">
                             <p className="text-sm text-blue-900 dark:text-blue-300 font-medium">
                                 Vous êtes en période d'essai gratuit jusqu'au {new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR')}
                             </p>
@@ -180,7 +180,7 @@ export default function SubscriptionCard() {
                         <button
                             onClick={handleManageSubscription}
                             disabled={isOpeningPortal}
-                            className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 text-sm font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 text-sm font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {isOpeningPortal ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -191,7 +191,7 @@ export default function SubscriptionCard() {
                         </button>
                         <button
                             onClick={handleViewBilling}
-                            className="flex items-center space-x-2 px-4 py-2 border-2 border-blue-500/30 dark:border-blue-500/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-200 text-sm font-semibold"
+                            className="flex items-center space-x-2 px-4 py-2 border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-200 text-sm font-semibold"
                         >
                             <span>Voir la facturation</span>
                         </button>
@@ -208,7 +208,7 @@ export default function SubscriptionCard() {
                             </p>
                             <div className="mb-3 p-3 bg-gradient-to-br from-white to-gray-50 dark:from-gray-600 dark:to-gray-700 rounded-lg border border-gray-200 dark:border-gray-500">
                                 <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Tarification simple</p>
-                                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{PRICE_PER_SEAT}€<span className="text-sm text-gray-600 dark:text-gray-400">/mois</span></p>
+                                <p className="text-2xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}€<span className="text-sm text-gray-600 dark:text-gray-400">/mois</span></p>
                                 <p className="text-xs text-gray-600 dark:text-gray-400">par compte Google Ads connecté</p>
                             </div>
                             <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
@@ -238,7 +238,7 @@ export default function SubscriptionCard() {
 
                     <button
                         onClick={handleViewBilling}
-                        className="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
+                        className="w-full px-4 py-3 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
                     >
                         Commencer l'essai gratuit
                     </button>

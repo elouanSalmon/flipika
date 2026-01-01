@@ -122,7 +122,7 @@ export default function BillingPage() {
     if (loading) {
         return (
             <div className="min-h-screen bg-[var(--color-bg-primary)] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
         );
     }
@@ -141,7 +141,7 @@ export default function BillingPage() {
                 </div>
 
                 {/* Subscription Status Card */}
-                <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 mb-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 mb-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                     <div className="flex items-center justify-between mb-6">
                         <div>
                             <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
@@ -161,7 +161,7 @@ export default function BillingPage() {
                             <div className={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 ${subscription?.cancelAtPeriodEnd
                                 ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
                                 : subscription?.status === 'trialing'
-                                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                                    ? 'bg-blue-100 text-primary-dark dark:bg-blue-900/30 dark:text-primary-light'
                                     : isActive
                                         ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
                                         : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
@@ -193,7 +193,7 @@ export default function BillingPage() {
                                     className="p-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
                                     aria-label="Information sur la tarification"
                                 >
-                                    <Info className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                                    <Info className="w-5 h-5 text-primary dark:text-primary-light" />
                                 </button>
                             )}
                         </div>
@@ -214,7 +214,7 @@ export default function BillingPage() {
                     {subscription ? (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                             <div className="flex items-start space-x-3">
-                                <Users className="w-5 h-5 text-blue-600 mt-0.5" />
+                                <Users className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
                                     <p className="text-sm text-gray-600 dark:text-gray-400">Comptes Google Ads</p>
                                     <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{subscription.currentSeats}</p>
@@ -222,7 +222,7 @@ export default function BillingPage() {
                             </div>
 
                             <div className="flex items-start space-x-3">
-                                <CreditCard className="w-5 h-5 text-blue-600 mt-0.5" />
+                                <CreditCard className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
                                     <p className="text-sm text-gray-600 dark:text-gray-400">Montant mensuel</p>
                                     <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{totalMonthly} €</p>
@@ -231,7 +231,7 @@ export default function BillingPage() {
                             </div>
 
                             <div className="flex items-start space-x-3">
-                                <Calendar className="w-5 h-5 text-blue-600 mt-0.5" />
+                                <Calendar className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
                                     <p className="text-sm text-gray-600 dark:text-gray-400">Prochain paiement</p>
                                     <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -256,7 +256,7 @@ export default function BillingPage() {
                             <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-600 p-6">
                                 <div className="text-center mb-4">
                                     <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Tarification simple et transparente</p>
-                                    <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{PRICE_PER_SEAT}€<span className="text-lg text-gray-600 dark:text-gray-400">/mois</span></p>
+                                    <p className="text-3xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}€<span className="text-lg text-gray-600 dark:text-gray-400">/mois</span></p>
                                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">par compte Google Ads connecté</p>
                                 </div>
 
@@ -265,7 +265,7 @@ export default function BillingPage() {
                                     {[1, 2, 5, 10].map((seats) => (
                                         <div
                                             key={seats}
-                                            className="p-3 bg-gradient-to-br from-white to-gray-50 dark:from-gray-600 dark:to-gray-700 rounded-lg border border-gray-200 dark:border-gray-500 text-center hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md transition-all duration-200"
+                                            className="p-3 bg-gradient-to-br from-white to-gray-50 dark:from-gray-600 dark:to-gray-700 rounded-lg border border-gray-200 dark:border-gray-500 text-center hover:border-primary-light dark:hover:border-primary hover:shadow-md transition-all duration-200"
                                         >
                                             <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">{seats} compte{seats > 1 ? 's' : ''}</p>
                                             <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{PRICE_PER_SEAT * seats}€</p>
@@ -276,7 +276,7 @@ export default function BillingPage() {
 
                                 <button
                                     onClick={() => setShowPricingModal(true)}
-                                    className="w-full text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
+                                    className="w-full text-sm text-primary dark:text-primary-light hover:text-primary-dark dark:hover:text-primary-light font-medium transition-colors"
                                 >
                                     Voir tous les niveaux de tarification →
                                 </button>
@@ -321,7 +321,7 @@ export default function BillingPage() {
                                 <button
                                     onClick={handleManageSubscription}
                                     disabled={isOpeningPortal}
-                                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
+                                    className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
                                 >
                                     {isOpeningPortal ? (
                                         <Loader2 className="w-4 h-4 animate-spin" />
@@ -333,7 +333,7 @@ export default function BillingPage() {
                                 <button
                                     onClick={handleSyncBilling}
                                     disabled={syncing}
-                                    className="flex items-center space-x-2 px-4 py-2 border-2 border-blue-500/30 dark:border-blue-500/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-200 disabled:opacity-50"
+                                    className="flex items-center space-x-2 px-4 py-2 border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200 disabled:opacity-50 font-medium"
                                     title="Actualise les informations de facturation depuis votre compte de paiement"
                                 >
                                     {syncing ? (
@@ -348,7 +348,7 @@ export default function BillingPage() {
                             <button
                                 onClick={handleSubscribe}
                                 disabled={isCreatingCheckout}
-                                className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
+                                className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
                             >
                                 {isCreatingCheckout && <Loader2 className="w-4 h-4 animate-spin" />}
                                 <span>{isCreatingCheckout ? 'Redirection vers Stripe...' : 'Commencer l\'essai gratuit'}</span>
@@ -358,7 +358,7 @@ export default function BillingPage() {
                 </div>
 
                 {/* Billing History */}
-                <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Historique de facturation</h2>
 
                     {loadingHistory ? (
@@ -377,9 +377,9 @@ export default function BillingPage() {
                                         case 'payment_failed':
                                             return <XCircle className="w-5 h-5 text-red-600 dark:text-red-400" />;
                                         case 'subscription_created':
-                                            return <CheckCircle className="w-5 h-5 text-blue-600 dark:text-blue-400" />;
+                                            return <CheckCircle className="w-5 h-5 text-primary dark:text-primary-light" />;
                                         case 'subscription_updated':
-                                            return <RefreshCw className="w-5 h-5 text-blue-600 dark:text-blue-400" />;
+                                            return <RefreshCw className="w-5 h-5 text-primary dark:text-primary-light" />;
                                         case 'subscription_canceled':
                                             return <XCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />;
                                         case 'sync':
@@ -411,7 +411,7 @@ export default function BillingPage() {
                                 return (
                                     <div
                                         key={index}
-                                        className="flex items-center justify-between p-4 border border-blue-500/20 dark:border-blue-500/30 rounded-xl bg-white/30 dark:bg-gray-700/30 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-500/40 transition-all duration-200"
+                                        className="flex items-center justify-between p-4 border border-primary/20 dark:border-primary/30 rounded-xl bg-white/30 dark:bg-gray-700/30 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-200"
                                     >
                                         <div className="flex items-start gap-3 flex-1">
                                             <div className="mt-0.5">

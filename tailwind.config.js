@@ -9,19 +9,19 @@ export default {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: '#0066ff',
-                    light: '#3385ff',
-                    dark: '#0052cc',
+                    DEFAULT: '#3385ff',
+                    light: '#66a3ff',
+                    dark: '#0066ff',
                 },
                 secondary: {
-                    DEFAULT: '#0066ff',
-                    light: '#3385ff',
-                    dark: '#0052cc',
+                    DEFAULT: '#3385ff',
+                    light: '#66a3ff',
+                    dark: '#0066ff',
                 },
                 accent: {
-                    DEFAULT: '#0066ff',
-                    light: '#3385ff',
-                    dark: '#0052cc',
+                    DEFAULT: '#3385ff',
+                    light: '#66a3ff',
+                    dark: '#0066ff',
                 },
             },
             backdropBlur: {

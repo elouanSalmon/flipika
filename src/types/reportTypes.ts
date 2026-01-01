@@ -92,6 +92,8 @@ export interface EditableReport {
     shareUrl?: string; // Public share URL (if published)
     startDate?: Date; // Start date for data filtering
     endDate?: Date; // End date for data filtering
+    dateRangePreset?: string; // Period preset used (if created from template)
+    templateId?: string; // ID of template used to create this report (if any)
     isPasswordProtected: boolean; // Whether the report requires a password
     passwordHash?: string; // SHA-256 hash of the password (if protected)
     createdAt: Date;

@@ -27,6 +27,10 @@ export { getWidgetMetrics } from "./widgetMetrics";
 // Re-export Ad Creatives function
 export { getAdCreatives } from "./adCreatives";
 
+// Re-export Scheduled Reports function
+export { generateScheduledReports } from "./generateScheduledReports";
+
+
 // Import Stripe functions
 import {
   createCheckoutSession,

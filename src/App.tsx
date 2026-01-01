@@ -24,9 +24,12 @@ import Copilot from './pages/Copilot';
 import ReportEditor from './pages/ReportEditor';
 import NewReport from './pages/NewReport';
 import ReportsList from './pages/ReportsList';
+import Templates from './pages/Templates';
+import ScheduledReports from './pages/ScheduledReports';
 import PublicReportView from './pages/PublicReportView';
 import Settings from './pages/Settings';
 import BillingPage from './pages/BillingPage';
+import ThemesPage from './pages/ThemesPage';
 import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -118,6 +121,9 @@ const AppRoutes = () => {
         {enableCopilot && <Route path="copilot" element={<Copilot />} />}
         {enableReports && <Route path="reports" element={<ReportsList />} />}
         {enableReports && <Route path="reports/new" element={<NewReport />} />}
+        {enableReports && <Route path="templates" element={<Templates />} />}
+        {enableReports && <Route path="schedules" element={<ScheduledReports />} />}
+        <Route path="themes" element={<ThemesPage />} />
         <Route path="billing" element={<BillingPage />} />
         <Route path="settings" element={<Settings />} />
       </Route>

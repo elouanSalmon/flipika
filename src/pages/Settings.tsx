@@ -16,7 +16,7 @@ const Settings = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
                 className="mb-6 md:mb-8">
-                <h1 className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+                <h1 className="text-3xl md:text-4xl font-bold mb-2 gradient-text">
                     Paramètres
                 </h1>
                 <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg">

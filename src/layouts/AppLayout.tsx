@@ -12,6 +12,9 @@ import {
   TrendingUp,
   TestTube,
   Menu,
+  Palette,
+  FileStack,
+  Clock,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useDemoMode } from "../contexts/DemoModeContext";
@@ -57,6 +60,9 @@ const AppLayout = () => {
     enableDashboard && { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
     enableAudit && { path: "/app/audit", label: "Audit", icon: TrendingUp },
     enableReports && { path: "/app/reports", label: "Rapports", icon: FileText },
+    enableReports && { path: "/app/templates", label: "Templates", icon: FileStack },
+    enableReports && { path: "/app/schedules", label: "Programmés", icon: Clock },
+    { path: "/app/themes", label: "Thèmes", icon: Palette },
   ].filter(Boolean) as Array<{ path: string; label: string; icon: typeof LayoutDashboard }>;
 
 

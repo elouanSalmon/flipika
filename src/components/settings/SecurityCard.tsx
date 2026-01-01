@@ -87,11 +87,11 @@ const SecurityCard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
-                className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
+                className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
             >
                 <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-900 dark:text-gray-100">
-                    <div className="p-2 bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 rounded-lg border border-blue-500/20">
-                        <Shield size={20} className="text-blue-600 dark:text-blue-400" />
+                    <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
+                        <Shield size={20} className="text-primary dark:text-primary-light" />
                     </div>
                     Sécurité
                 </h2>
@@ -99,11 +99,11 @@ const SecurityCard = () => {
                 <div className="space-y-3">
                     <button
                         onClick={() => setShowPasswordModal(true)}
-                        className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-blue-500/20 dark:border-blue-500/30 bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-500/40 transition-all duration-300 shadow-lg shadow-blue-500/5 group"
+                        className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5 group"
                     >
                         <div className="flex items-center gap-3">
-                            <div className="p-2.5 bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 rounded-lg group-hover:from-blue-500/20 group-hover:to-blue-600/20 dark:group-hover:from-blue-500/30 dark:group-hover:to-blue-600/30 transition-all duration-300 border border-blue-500/20">
-                                <Lock size={18} className="text-blue-600 dark:text-blue-400" />
+                            <div className="p-2.5 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg group-hover:from-primary/20 group-hover:to-primary/20 dark:group-hover:from-primary/30 dark:group-hover:to-primary/30 transition-all duration-300 border border-primary/20">
+                                <Lock size={18} className="text-primary dark:text-primary-light" />
                             </div>
                             <div className="text-left">
                                 <p className="font-semibold text-gray-900 dark:text-gray-100">
@@ -114,7 +114,7 @@ const SecurityCard = () => {
                                 </p>
                             </div>
                         </div>
-                        <ChevronRight size={20} className="text-blue-500/50 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300" />
+                        <ChevronRight size={20} className="text-primary/50 group-hover:text-primary dark:group-hover:text-primary-light transition-colors duration-300" />
                     </button>
 
                     <button
@@ -150,7 +150,7 @@ const SecurityCard = () => {
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.95, opacity: 0, y: 20 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full shadow-2xl border border-blue-500/20 dark:border-blue-500/30"
+                            className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full shadow-2xl border border-primary/20 dark:border-primary/30"
                         >
                             <div className="flex items-center justify-between mb-6">
                                 <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
@@ -173,12 +173,12 @@ const SecurityCard = () => {
                                                 type={showPassword.current ? "text" : "password"}
                                                 value={passwordForm.current}
                                                 onChange={(e) => setPasswordForm({ ...passwordForm, current: e.target.value })}
-                                                className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-blue-500/30 dark:border-blue-500/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50"
+                                                className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50"
                                             />
                                             <button
                                                 type="button"
                                                 onClick={() => setShowPassword({ ...showPassword, current: !showPassword.current })}
-                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500/70 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-primary/70 hover:text-primary dark:hover:text-primary-light transition-colors duration-200"
                                             >
                                                 {showPassword.current ? <EyeOff size={18} /> : <Eye size={18} />}
                                             </button>
@@ -193,12 +193,12 @@ const SecurityCard = () => {
                                             type={showPassword.new ? "text" : "password"}
                                             value={passwordForm.new}
                                             onChange={(e) => setPasswordForm({ ...passwordForm, new: e.target.value })}
-                                            className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-blue-500/30 dark:border-blue-500/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50"
+                                            className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50"
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setShowPassword({ ...showPassword, new: !showPassword.new })}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500/70 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-primary/70 hover:text-primary dark:hover:text-primary-light transition-colors duration-200"
                                         >
                                             {showPassword.new ? <EyeOff size={18} /> : <Eye size={18} />}
                                         </button>
@@ -228,12 +228,12 @@ const SecurityCard = () => {
                                             type={showPassword.confirm ? "text" : "password"}
                                             value={passwordForm.confirm}
                                             onChange={(e) => setPasswordForm({ ...passwordForm, confirm: e.target.value })}
-                                            className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-blue-500/30 dark:border-blue-500/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50"
+                                            className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50"
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setShowPassword({ ...showPassword, confirm: !showPassword.confirm })}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500/70 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-primary/70 hover:text-primary dark:hover:text-primary-light transition-colors duration-200"
                                         >
                                             {showPassword.confirm ? <EyeOff size={18} /> : <Eye size={18} />}
                                         </button>
@@ -245,22 +245,18 @@ const SecurityCard = () => {
                             </div>
 
                             <div className="flex gap-3 mt-6">
-                                <motion.button
+                                <button
                                     onClick={() => setShowPasswordModal(false)}
-                                    className="flex-1 px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 active:scale-95 transition-all duration-200 font-semibold text-gray-700 dark:text-gray-300"
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.98 }}
+                                    className="flex-1 px-4 py-3 rounded-xl border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200 font-semibold"
                                 >
                                     Annuler
-                                </motion.button>
-                                <motion.button
+                                </button>
+                                <button
                                     onClick={handlePasswordSubmit}
-                                    className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 active:scale-95 transition-all duration-200 font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.98 }}
+                                    className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
                                 >
                                     {hasPassword ? 'Changer' : 'Créer'}
-                                </motion.button>
+                                </button>
                             </div>
                         </motion.div>
                     </motion.div>

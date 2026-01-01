@@ -30,7 +30,7 @@
     align-items: center;
     gap: 8px;
     padding: 12px 24px;
-    background: linear-gradient(to right, #2563eb, #1d4ed8);
+    background: var(--gradient-primary);
     color: white;
     border: none;
     border-radius: 12px;
@@ -38,13 +38,12 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3), 0 8px 10px -6px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 10px 25px -5px rgba(var(--primary-rgb), 0.3), 0 8px 10px -6px rgba(var(--primary-rgb), 0.3);
 }
 
 .create-report-btn:hover {
-    background: linear-gradient(to right, #1d4ed8, #1e40af);
     transform: translateY(-2px);
-    box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4), 0 10px 10px -5px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 20px 25px -5px rgba(var(--primary-rgb), 0.4), 0 10px 10px -5px rgba(var(--primary-rgb), 0.4);
 }
 
 /* Status Filters */
@@ -77,10 +76,10 @@
 }
 
 .status-filter-btn.active {
-    background: linear-gradient(to right, #2563eb, #1d4ed8);
+    background: var(--gradient-primary);
     color: white;
     border-color: transparent;
-    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3), 0 8px 10px -6px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 10px 25px -5px rgba(var(--primary-rgb), 0.3), 0 8px 10px -6px rgba(var(--primary-rgb), 0.3);
 }
 
 .status-badge {
@@ -128,8 +127,8 @@
 }
 
 .search-box:focus-within {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
 }
 
 .search-box svg {
@@ -171,10 +170,10 @@
 }
 
 .view-btn.active {
-    background: linear-gradient(to right, #2563eb, #1d4ed8);
+    background: var(--gradient-primary);
     border-color: transparent;
     color: white;
-    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(var(--primary-rgb), 0.3);
 }
 
 /* Reports Grid */
@@ -237,9 +236,9 @@
 }
 
 .create-report-btn-secondary:hover {
-    background: linear-gradient(to right, #2563eb, #1d4ed8);
+    background: var(--gradient-primary);
     color: white;
-    box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 10px 25px -5px rgba(var(--primary-rgb), 0.3);
 }
 
 /* Loading */

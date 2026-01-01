@@ -134,9 +134,9 @@ const ProfileCard = () => {
 
     if (profileLoading) {
         return (
-            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg">
+            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg">
                 <div className="flex items-center justify-center py-8">
-                    <Loader2 size={32} className="text-blue-600 animate-spin" />
+                    <Loader2 size={32} className="text-primary animate-spin" />
                 </div>
             </div>
         );
@@ -147,11 +147,11 @@ const ProfileCard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-blue-500/10 dark:border-blue-500/20 p-6 shadow-lg shadow-blue-500/5 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300"
+            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
         >
             <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-900 dark:text-gray-100">
-                <div className="p-2 bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20 rounded-lg border border-blue-500/20">
-                    <User size={20} className="text-blue-600 dark:text-blue-400" />
+                <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
+                    <User size={20} className="text-primary dark:text-primary-light" />
                 </div>
                 Profil
             </h2>
@@ -163,7 +163,7 @@ const ProfileCard = () => {
                         Identifiant unique <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
-                        <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-500/70 dark:text-blue-400/70 pointer-events-none transition-all duration-300" />
+                        <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70 dark:text-primary-light/70 pointer-events-none transition-all duration-300" />
                         <input
                             type="text"
                             value={formData.username}
@@ -173,11 +173,11 @@ const ProfileCard = () => {
                                 ? 'border-red-500'
                                 : usernameAvailable === true && isEditing
                                     ? 'border-green-500'
-                                    : 'border-blue-500/30 dark:border-blue-500/40'
-                                } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50 disabled:opacity-60 disabled:cursor-not-allowed`}
+                                    : 'border-primary/30 dark:border-primary/40'
+                                } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed`}
                         />
                         {usernameChecking && (
-                            <Loader2 size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-500 animate-spin" />
+                            <Loader2 size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-primary animate-spin" />
                         )}
                         {!usernameChecking && usernameAvailable === true && isEditing && (
                             <Check size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-green-500" />
@@ -203,8 +203,8 @@ const ProfileCard = () => {
                         value={formData.firstName}
                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                         disabled={!isEditing}
-                        className={`w-full px-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 ${errors.firstName ? 'border-red-500' : 'border-blue-500/30 dark:border-blue-500/40'
-                            } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50 disabled:opacity-60 disabled:cursor-not-allowed`}
+                        className={`w-full px-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 ${errors.firstName ? 'border-red-500' : 'border-primary/30 dark:border-primary/40'
+                            } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed`}
                     />
                     {errors.firstName && (
                         <p className="mt-2 text-sm text-red-500">{errors.firstName}</p>
@@ -221,8 +221,8 @@ const ProfileCard = () => {
                         value={formData.lastName}
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                         disabled={!isEditing}
-                        className={`w-full px-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 ${errors.lastName ? 'border-red-500' : 'border-blue-500/30 dark:border-blue-500/40'
-                            } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50 disabled:opacity-60 disabled:cursor-not-allowed`}
+                        className={`w-full px-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 ${errors.lastName ? 'border-red-500' : 'border-primary/30 dark:border-primary/40'
+                            } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed`}
                     />
                     {errors.lastName && (
                         <p className="mt-2 text-sm text-red-500">{errors.lastName}</p>
@@ -235,12 +235,12 @@ const ProfileCard = () => {
                         Email
                     </label>
                     <div className="relative">
-                        <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-500/70 dark:text-blue-400/70 pointer-events-none transition-all duration-300" />
+                        <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70 dark:text-primary-light/70 pointer-events-none transition-all duration-300" />
                         <input
                             type="email"
                             value={formData.email}
                             disabled
-                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-blue-500/30 dark:border-blue-500/40 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 opacity-60 cursor-not-allowed"
+                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 opacity-60 cursor-not-allowed"
                         />
                     </div>
                 </div>
@@ -251,13 +251,13 @@ const ProfileCard = () => {
                         Entreprise <span className="text-gray-400 text-xs">(optionnel)</span>
                     </label>
                     <div className="relative">
-                        <Building size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-blue-500/70 dark:text-blue-400/70 pointer-events-none transition-all duration-300" />
+                        <Building size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70 dark:text-primary-light/70 pointer-events-none transition-all duration-300" />
                         <input
                             type="text"
                             value={formData.company}
                             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                             disabled={!isEditing}
-                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-blue-500/30 dark:border-blue-500/40 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50 disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed"
                         />
                     </div>
                 </div>
@@ -268,14 +268,14 @@ const ProfileCard = () => {
                         Description <span className="text-gray-400 text-xs">(optionnel)</span>
                     </label>
                     <div className="relative">
-                        <FileText size={18} className="absolute left-4 top-4 text-blue-500/70 dark:text-blue-400/70 pointer-events-none transition-all duration-300" />
+                        <FileText size={18} className="absolute left-4 top-4 text-primary/70 dark:text-primary-light/70 pointer-events-none transition-all duration-300" />
                         <textarea
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             disabled={!isEditing}
                             rows={3}
                             maxLength={500}
-                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-blue-500/30 dark:border-blue-500/40 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-lg shadow-blue-500/10 transition-all duration-300 hover:border-blue-500/40 dark:hover:border-blue-500/50 disabled:opacity-60 disabled:cursor-not-allowed resize-none"
+                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed resize-none"
                         />
                     </div>
                     {isEditing && (
@@ -290,7 +290,7 @@ const ProfileCard = () => {
                     {!isEditing ? (
                         <motion.button
                             onClick={() => setIsEditing(true)}
-                            className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold hover:from-blue-700 hover:to-blue-800 active:scale-[0.98] transition-all duration-200 shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
+                            className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold hover:from-primary-dark hover:to-primary-dark active:scale-[0.98] transition-all duration-200 shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
                             whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.98 }}
                         >
@@ -315,14 +315,14 @@ const ProfileCard = () => {
                                     }
                                 }}
                                 disabled={loading}
-                                className="flex-1 px-6 py-3 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 transition-all duration-200"
+                                className="flex-1 px-6 py-3 rounded-xl border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 font-semibold hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-50 transition-all duration-200"
                             >
                                 Annuler
                             </button>
                             <motion.button
                                 onClick={handleSave}
                                 disabled={loading || usernameChecking || usernameAvailable === false}
-                                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 flex items-center justify-center gap-2"
+                                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold hover:from-primary-dark hover:to-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 flex items-center justify-center gap-2"
                                 whileHover={{ scale: loading ? 1 : 1.01 }}
                                 whileTap={{ scale: loading ? 1 : 0.98 }}
                             >
