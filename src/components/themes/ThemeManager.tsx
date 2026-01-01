@@ -106,7 +106,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                 <div className="theme-manager-compact-header">
                     <h3>Mes thèmes</h3>
                     <button
-                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-medium text-sm shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
+                        className="btn btn-primary btn-sm"
                         onClick={handleCreateTheme}
                     >
                         <Plus size={16} />
@@ -117,7 +117,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                 {themes.length === 0 ? (
                     <div className="theme-manager-empty-compact">
                         <p>Aucun thème personnalisé</p>
-                        <button className="px-4 py-2 border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200 font-medium text-sm" onClick={handleCreateTheme}>
+                        <button className="btn btn-secondary btn-sm" onClick={handleCreateTheme}>
                             Créer mon premier thème
                         </button>
                     </div>
@@ -129,7 +129,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                                 <div className="theme-card-compact-info">
                                     <div className="theme-card-compact-name">{theme.name}</div>
                                     <button
-                                        className="px-3 py-1 border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 rounded-lg hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200 font-medium text-xs"
+                                        className="btn btn-secondary btn-sm"
                                         onClick={() => handleEditTheme(theme)}
                                     >
                                         Modifier
@@ -164,7 +164,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                     <p className="header-subtitle">Créez et gérez vos thèmes personnalisés pour vos rapports Google Ads</p>
                 </div>
                 <button
-                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
+                    className="btn btn-primary"
                     onClick={handleCreateTheme}
                 >
                     <Plus size={18} />
@@ -184,7 +184,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                             et l'appliquer automatiquement à vos comptes Google Ads.
                         </p>
                         <button
-                            className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-semibold text-lg shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
+                            className="btn btn-primary btn-lg"
                             onClick={handleCreateTheme}
                         >
                             <Plus size={20} />
@@ -221,7 +221,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
 
                                     <div className="theme-card-actions">
                                         <button
-                                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-medium text-sm shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
+                                            className="btn btn-primary btn-sm flex-1"
                                             onClick={() => handleEditTheme(theme)}
                                             title="Modifier"
                                         >
@@ -229,14 +229,14 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                                             Modifier
                                         </button>
                                         <button
-                                            className="flex items-center justify-center p-2 border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200"
+                                            className="btn btn-secondary btn-sm"
                                             onClick={() => handleDuplicateTheme(theme)}
                                             title="Dupliquer"
                                         >
                                             <Copy size={14} />
                                         </button>
                                         <button
-                                            className="flex items-center justify-center p-2 border-2 border-red-500/30 dark:border-red-500/40 text-red-600 dark:text-red-400 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 transition-all duration-200"
+                                            className="btn btn-outline-danger btn-sm"
                                             onClick={() => handleDeleteTheme(theme)}
                                             title="Supprimer"
                                         >

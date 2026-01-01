@@ -89,9 +89,20 @@ const Dashboard = () => {
             console.error("Check status error:", err);
             if (isCheck) {
                 setStep('CONNECT');
-                setError(`Erreur de vérification: ${err.message || 'Inconnue'}`);
+                if (err?.message?.includes('invalid_grant') || err?.message?.includes('UNAUTHENTICATED')) {
+                    setError("Votre session Google Ads a expiré. Veuillez vous reconnecter.");
+                } else {
+                    setError(`Erreur de vérification: ${err.message || 'Inconnue'}`);
+                }
             }
-            else setError("Impossible de charger les comptes.");
+            else {
+                if (err?.message?.includes('invalid_grant') || err?.message?.includes('UNAUTHENTICATED')) {
+                    setStep('CONNECT');
+                    setError("Votre session Google Ads a expiré. Veuillez vous reconnecter.");
+                } else {
+                    setError("Impossible de charger les comptes.");
+                }
+            }
         } finally {
             setLoading(false);
         }
@@ -109,7 +120,12 @@ const Dashboard = () => {
             }
         } catch (err: any) {
             console.error(err);
-            setError("Erreur lors du chargement des campagnes.");
+            if (err?.message?.includes('invalid_grant') || err?.message?.includes('UNAUTHENTICATED')) {
+                setStep('CONNECT');
+                setError("Votre session Google Ads a expiré. Veuillez vous reconnecter.");
+            } else {
+                setError("Erreur lors du chargement des campagnes.");
+            }
         } finally {
             setLoading(false);
         }

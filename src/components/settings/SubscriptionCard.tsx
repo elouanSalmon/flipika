@@ -180,7 +180,7 @@ export default function SubscriptionCard() {
                         <button
                             onClick={handleManageSubscription}
                             disabled={isOpeningPortal}
-                            className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 text-sm font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="btn btn-primary btn-sm"
                         >
                             {isOpeningPortal ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -191,7 +191,7 @@ export default function SubscriptionCard() {
                         </button>
                         <button
                             onClick={handleViewBilling}
-                            className="flex items-center space-x-2 px-4 py-2 border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 transition-all duration-200 text-sm font-semibold"
+                            className="btn btn-secondary btn-sm"
                         >
                             <span>Voir la facturation</span>
                         </button>
@@ -238,7 +238,7 @@ export default function SubscriptionCard() {
 
                     <button
                         onClick={handleViewBilling}
-                        className="w-full px-4 py-3 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
+                        className="btn btn-primary w-full"
                     >
                         Commencer l'essai gratuit
                     </button>

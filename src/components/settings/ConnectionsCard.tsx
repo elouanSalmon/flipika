@@ -113,7 +113,7 @@ const ConnectionsCard = () => {
                                 </span>
                                 <button
                                     onClick={handleConnectGoogle}
-                                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white hover:from-primary-dark hover:to-primary-dark transition-all duration-200 text-sm font-semibold shadow-lg shadow-primary/30"
+                                    className="btn btn-primary btn-sm"
                                 >
                                     Connecter
                                 </button>
@@ -145,14 +145,14 @@ const ConnectionsCard = () => {
                             {isConnected ? (
                                 <button
                                     onClick={() => setShowDisconnectModal(true)}
-                                    className="px-4 py-2 rounded-xl border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200 text-sm font-semibold"
+                                    className="btn btn-secondary btn-sm"
                                 >
                                     Déconnecter
                                 </button>
                             ) : (
                                 <button
                                     onClick={handleConnectGoogleAds}
-                                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white hover:from-primary-dark hover:to-primary-dark transition-all duration-200 text-sm font-semibold shadow-lg shadow-primary/30"
+                                    className="btn btn-primary btn-sm"
                                 >
                                     Connecter
                                 </button>

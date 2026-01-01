@@ -1,0 +1,232 @@
+/* Google Ads Guard - Empty State (Block Mode) */
+.google-ads-guard-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 2rem;
+}
+
+.google-ads-empty-state {
+    max-width: 600px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.empty-state-icon {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color, #3385ff);
+    opacity: 0.9;
+}
+
+.google-ads-empty-state h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--primary-color, #3385ff), #6b9fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.google-ads-empty-state>p {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.empty-state-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.btn-connect-google-ads {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: var(--gradient-primary, linear-gradient(135deg, #3385ff, #6b9fff));
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(51, 133, 255, 0.3);
+}
+
+.btn-connect-google-ads:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(51, 133, 255, 0.4);
+}
+
+.btn-connect-google-ads:active {
+    transform: translateY(0);
+}
+
+.btn-secondary-link {
+    color: var(--primary-color, #3385ff);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+}
+
+.btn-secondary-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.empty-state-info {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    text-align: left;
+}
+
+.info-text strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Google Ads Guard - Warning Banner (Partial Mode) */
+.google-ads-warning-banner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    animation: slideDown 0.3s ease-out;
+}
+
+.warning-icon {
+    flex-shrink: 0;
+    color: #ffc107;
+}
+
+.warning-content {
+    flex: 1;
+}
+
+.warning-content h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    color: var(--text-primary);
+}
+
+.warning-content p {
+    font-size: 0.875rem;
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.btn-connect-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    background: var(--gradient-primary, linear-gradient(135deg, #3385ff, #6b9fff));
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-connect-inline:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(51, 133, 255, 0.3);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark Mode Adjustments */
+.dark .google-ads-empty-state {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark .google-ads-warning-banner {
+    background: rgba(255, 193, 7, 0.15);
+    border-color: rgba(255, 193, 7, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .google-ads-empty-state {
+        padding: 2rem 1.5rem;
+    }
+
+    .google-ads-empty-state h2 {
+        font-size: 1.5rem;
+    }
+
+    .google-ads-warning-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .btn-connect-inline {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .empty-state-actions {
+        width: 100%;
+    }
+
+    .btn-connect-google-ads {
+        width: 100%;
+        justify-content: center;
+    }
+}

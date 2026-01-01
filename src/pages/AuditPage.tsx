@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import HealthScore from '../components/audit/HealthScore';
 import AuditCategory from '../components/audit/AuditCategory';
 import dataService from '../services/dataService';
-import { Download, RefreshCw, Lock } from 'lucide-react';
+import { Download, RefreshCw } from 'lucide-react';
 import type { Account, Campaign, AuditResult } from '../types/business';
-import { useDemoMode } from '../contexts/DemoModeContext';
-import { useGoogleAds } from '../contexts/GoogleAdsContext';
+import GoogleAdsGuard from '../components/common/GoogleAdsGuard';
 
 const AuditPage = () => {
     const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
-    const { isDemoMode } = useDemoMode();
-    const { isConnected } = useGoogleAds();
+
+    // navigate removed if unused, but check if used in other places.
+    // In original code, navigate was used in restricted view buttons.
+    // If not used elsewhere, remove it.
+
     const [loading, setLoading] = useState(false);
     const [accounts, setAccounts] = useState<Account[]>([]);
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -20,9 +21,6 @@ const AuditPage = () => {
     const [selectedCampaignId, setSelectedCampaignId] = useState<string>('all');
     const [auditResult, setAuditResult] = useState<AuditResult | null>(null);
     const [period, setPeriod] = useState<'30' | '60' | '90'>('30');
-
-    // Check if user has access (connected account or demo mode)
-    const hasAccess = isConnected || isDemoMode;
 
     useEffect(() => {
         loadAccounts();
@@ -117,198 +115,170 @@ const AuditPage = () => {
                 <p className="text-gray-500 mt-1 text-sm md:text-base">Analyse approfondie et recommandations d'optimisation</p>
             </div>
 
-            {/* Restricted Access Message */}
-            {!hasAccess && (
-                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-12 text-center">
-                    <div className="flex justify-center mb-6">
-                        <div className="w-20 h-20 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                            <Lock size={40} className="text-blue-600 dark:text-blue-400" />
-                        </div>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3">Accès restreint</h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
-                        Pour accéder à la fonctionnalité d'audit, vous devez connecter un compte Google Ads ou activer le mode démo.
-                    </p>
-                    <div className="flex gap-4 justify-center">
-                        <button
-                            onClick={() => navigate('/app/settings')}
-                            className="btn btn-primary"
-                        >
-                            Connecter Google Ads
-                        </button>
-                        <button
-                            onClick={() => navigate('/app/dashboard')}
-                            className="btn btn-secondary"
-                        >
-                            Activer le mode démo
-                        </button>
-                    </div>
-                </div>
-            )}
+            {/* Main Content */}
+            <GoogleAdsGuard mode="block" feature="l'audit de campagne">
 
-            {/* Main Content - Only show if has access */}
-            {hasAccess && (
-                <>
-                    {/* Configuration */}
-                    <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-4 md:p-6">
-                        <h3 className="text-base md:text-lg font-bold mb-4">Configuration de l'audit</h3>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">{/* Account selection */}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Compte Google Ads
-                                </label>
-                                <select
-                                    value={selectedAccountId}
-                                    onChange={(e) => {
-                                        setSelectedAccountId(e.target.value);
-                                        loadCampaigns(e.target.value);
-                                        setAuditResult(null);
-                                    }}
-                                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
-                                >
-                                    {accounts.map(account => (
-                                        <option key={account.id} value={account.id}>
-                                            {account.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                {/* Configuration */}
+                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-4 md:p-6">
+                    <h3 className="text-base md:text-lg font-bold mb-4">Configuration de l'audit</h3>
 
-                            {/* Campaign selection */}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Campagne
-                                </label>
-                                <select
-                                    value={selectedCampaignId}
-                                    onChange={(e) => {
-                                        setSelectedCampaignId(e.target.value);
-                                        setAuditResult(null);
-                                    }}
-                                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
-                                >
-                                    <option value="all">Toutes les campagnes</option>
-                                    {campaigns.map(campaign => (
-                                        <option key={campaign.id} value={campaign.id}>
-                                            {campaign.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            {/* Period selection */}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Période d'analyse
-                                </label>
-                                <select
-                                    value={period}
-                                    onChange={(e) => setPeriod(e.target.value as '30' | '60' | '90')}
-                                    className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
-                                >
-                                    <option value="30">30 derniers jours</option>
-                                    <option value="60">60 derniers jours</option>
-                                    <option value="90">90 derniers jours</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <button
-                            onClick={handleRunAudit}
-                            disabled={loading || !selectedAccountId}
-                            className="btn btn-primary flex items-center gap-2"
-                        >
-                            {loading ? (
-                                <>
-                                    <span className="loading loading-spinner loading-sm"></span>
-                                    Analyse en cours...
-                                </>
-                            ) : (
-                                <>
-                                    <RefreshCw size={18} />
-                                    Lancer l'audit
-                                </>
-                            )}
-                        </button>
-                    </div>
-
-                    {/* Audit Results */}
-                    {auditResult && (
-                        <>
-                            {/* Health Score - Full Width */}
-                            <HealthScore
-                                score={auditResult.overallScore}
-                                breakdown={{
-                                    structure: auditResult.categories.structure.score,
-                                    targeting: auditResult.categories.targeting.score,
-                                    keywords: auditResult.categories.keywords.score,
-                                    ads: auditResult.categories.ads.score,
-                                    budget: auditResult.categories.budget.score,
-                                    extensions: auditResult.categories.extensions.score,
-                                    landingPages: auditResult.categories.landingPages.score,
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">{/* Account selection */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Compte Google Ads
+                            </label>
+                            <select
+                                value={selectedAccountId}
+                                onChange={(e) => {
+                                    setSelectedAccountId(e.target.value);
+                                    loadCampaigns(e.target.value);
+                                    setAuditResult(null);
                                 }}
-                            />
-
-                            {/* Quick stats */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Recommandations totales</p>
-                                    <p className="text-3xl font-bold">{auditResult.recommendations.length}</p>
-                                </div>
-                                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Priorité urgente</p>
-                                    <p className="text-3xl font-bold text-red-600 dark:text-red-400">
-                                        {auditResult.recommendations.filter(r => r.priority === 'URGENT').length}
-                                    </p>
-                                </div>
-                                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Impact élevé</p>
-                                    <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
-                                        {auditResult.recommendations.filter(r => r.impact === 'HIGH').length}
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Export button */}
-                            <div className="flex justify-end">
-                                <button onClick={handleExportPDF} className="btn btn-ghost flex items-center gap-2">
-                                    <Download size={18} />
-                                    Exporter en PDF
-                                </button>
-                            </div>
-
-                            {/* Categories */}
-                            <div className="space-y-4">
-                                <h2 className="text-2xl font-bold">Recommandations par catégorie</h2>
-
-                                {Object.entries(auditResult.categories).map(([key, categoryData]) => (
-                                    <AuditCategory
-                                        key={key}
-                                        name={key}
-                                        score={categoryData.score}
-                                        categoryData={categoryData}
-                                        onMarkAsCompleted={handleMarkAsCompleted}
-                                        onAddNote={handleAddNote}
-                                    />
+                                className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
+                            >
+                                {accounts.map(account => (
+                                    <option key={account.id} value={account.id}>
+                                        {account.name}
+                                    </option>
                                 ))}
-                            </div>
-                        </>
-                    )}
-
-                    {/* Empty state */}
-                    {!auditResult && !loading && (
-                        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-12 text-center">
-                            <RefreshCw size={48} className="mx-auto mb-4 text-gray-400" />
-                            <h3 className="text-lg font-semibold mb-2">Aucun audit en cours</h3>
-                            <p className="text-gray-500">
-                                Sélectionnez un compte et une campagne, puis cliquez sur "Lancer l'audit" pour commencer l'analyse.
-                            </p>
+                            </select>
                         </div>
-                    )}
-                </>
-            )}
-        </div>
+
+                        {/* Campaign selection */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Campagne
+                            </label>
+                            <select
+                                value={selectedCampaignId}
+                                onChange={(e) => {
+                                    setSelectedCampaignId(e.target.value);
+                                    setAuditResult(null);
+                                }}
+                                className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
+                            >
+                                <option value="all">Toutes les campagnes</option>
+                                {campaigns.map(campaign => (
+                                    <option key={campaign.id} value={campaign.id}>
+                                        {campaign.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        {/* Period selection */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Période d'analyse
+                            </label>
+                            <select
+                                value={period}
+                                onChange={(e) => setPeriod(e.target.value as '30' | '60' | '90')}
+                                className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
+                            >
+                                <option value="30">30 derniers jours</option>
+                                <option value="60">60 derniers jours</option>
+                                <option value="90">90 derniers jours</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={handleRunAudit}
+                        disabled={loading || !selectedAccountId}
+                        className="btn btn-primary flex items-center gap-2"
+                    >
+                        {loading ? (
+                            <>
+                                <span className="loading loading-spinner loading-sm"></span>
+                                Analyse en cours...
+                            </>
+                        ) : (
+                            <>
+                                <RefreshCw size={18} />
+                                Lancer l'audit
+                            </>
+                        )}
+                    </button>
+                </div>
+
+                {/* Audit Results */}
+                {auditResult && (
+                    <>
+                        {/* Health Score - Full Width */}
+                        <HealthScore
+                            score={auditResult.overallScore}
+                            breakdown={{
+                                structure: auditResult.categories.structure.score,
+                                targeting: auditResult.categories.targeting.score,
+                                keywords: auditResult.categories.keywords.score,
+                                ads: auditResult.categories.ads.score,
+                                budget: auditResult.categories.budget.score,
+                                extensions: auditResult.categories.extensions.score,
+                                landingPages: auditResult.categories.landingPages.score,
+                            }}
+                        />
+
+                        {/* Quick stats */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Recommandations totales</p>
+                                <p className="text-3xl font-bold">{auditResult.recommendations.length}</p>
+                            </div>
+                            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Priorité urgente</p>
+                                <p className="text-3xl font-bold text-red-600 dark:text-red-400">
+                                    {auditResult.recommendations.filter(r => r.priority === 'URGENT').length}
+                                </p>
+                            </div>
+                            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Impact élevé</p>
+                                <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
+                                    {auditResult.recommendations.filter(r => r.impact === 'HIGH').length}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Export button */}
+                        <div className="flex justify-end">
+                            <button onClick={handleExportPDF} className="btn btn-ghost flex items-center gap-2">
+                                <Download size={18} />
+                                Exporter en PDF
+                            </button>
+                        </div>
+
+                        {/* Categories */}
+                        <div className="space-y-4">
+                            <h2 className="text-2xl font-bold">Recommandations par catégorie</h2>
+
+                            {Object.entries(auditResult.categories).map(([key, categoryData]) => (
+                                <AuditCategory
+                                    key={key}
+                                    name={key}
+                                    score={categoryData.score}
+                                    categoryData={categoryData}
+                                    onMarkAsCompleted={handleMarkAsCompleted}
+                                    onAddNote={handleAddNote}
+                                />
+                            ))}
+                        </div>
+                    </>
+                )}
+
+                {/* Empty state */}
+                {!auditResult && !loading && (
+                    <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-12 text-center">
+                        <RefreshCw size={48} className="mx-auto mb-4 text-gray-400" />
+                        <h3 className="text-lg font-semibold mb-2">Aucun audit en cours</h3>
+                        <p className="text-gray-500">
+                            Sélectionnez un compte et une campagne, puis cliquez sur "Lancer l'audit" pour commencer l'analyse.
+                        </p>
+                    </div>
+                )}
+
+            </GoogleAdsGuard>
+        </div >
     );
 };
 

@@ -314,18 +314,6 @@
 }
 
 /* Button Styles - Harmonized with Billing Page */
-.btn-danger {
-    color: #dc2626;
-}
-
-.btn-danger:hover {
-    background: rgba(220, 38, 38, 0.1);
-    color: #991b1b;
-}
-
-.dark .btn-danger:hover {
-    background: rgba(220, 38, 38, 0.2);
-}
 
 /* Responsive */
 @media (max-width: 768px) {

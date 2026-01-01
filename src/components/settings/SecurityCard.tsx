@@ -247,13 +247,13 @@ const SecurityCard = () => {
                             <div className="flex gap-3 mt-6">
                                 <button
                                     onClick={() => setShowPasswordModal(false)}
-                                    className="flex-1 px-4 py-3 rounded-xl border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200 font-semibold"
+                                    className="btn btn-secondary flex-1"
                                 >
                                     Annuler
                                 </button>
                                 <button
                                     onClick={handlePasswordSubmit}
-                                    className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
+                                    className="btn btn-primary flex-1"
                                 >
                                     {hasPassword ? 'Changer' : 'Créer'}
                                 </button>

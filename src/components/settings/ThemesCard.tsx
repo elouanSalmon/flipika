@@ -62,7 +62,7 @@ const ThemesCard = () => {
 
                     <button
                         onClick={() => setShowThemeManager(true)}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl font-semibold hover:from-primary-dark hover:to-primary-dark transition-all duration-200 shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
+                        className="btn btn-primary w-full justify-center"
                     >
                         <Plus className="w-5 h-5" />
                         Gérer mes thèmes
@@ -78,7 +78,7 @@ const ThemesCard = () => {
                             <ThemeManager accounts={accounts} />
                             <button
                                 onClick={() => setShowThemeManager(false)}
-                                className="mt-6 w-full px-4 py-3 border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 rounded-xl font-semibold hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200"
+                                className="btn btn-secondary w-full"
                             >
                                 Fermer
                             </button>

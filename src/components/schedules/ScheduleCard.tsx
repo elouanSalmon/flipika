@@ -12,6 +12,7 @@ interface ScheduleCardProps {
     onEdit: (schedule: ScheduledReport) => void;
     onDelete: (schedule: ScheduledReport) => void;
     onToggleStatus: (schedule: ScheduledReport, isActive: boolean) => void;
+    isGoogleAdsConnected?: boolean;
 }
 
 const ScheduleCard: React.FC<ScheduleCardProps> = ({
@@ -21,6 +22,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     onEdit,
     onDelete,
     onToggleStatus,
+    isGoogleAdsConnected = true,
 }) => {
     const [showMenu, setShowMenu] = React.useState(false);
     const navigate = useNavigate();
@@ -78,7 +80,15 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                             <>
                                 <div className="menu-overlay" onClick={() => setShowMenu(false)} />
                                 <div className="action-menu">
-                                    <button onClick={() => handleAction(() => onEdit(schedule))}>
+                                    <button
+                                        onClick={() => handleAction(() => onEdit(schedule))}
+                                        disabled={!isGoogleAdsConnected}
+                                        style={{
+                                            opacity: !isGoogleAdsConnected ? 0.5 : 1,
+                                            cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
+                                        }}
+                                        title={!isGoogleAdsConnected ? 'Connectez Google Ads pour modifier' : ''}
+                                    >
                                         <Edit2 size={16} />
                                         <span>Modifier</span>
                                     </button>

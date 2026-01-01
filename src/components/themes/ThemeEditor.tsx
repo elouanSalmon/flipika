@@ -410,11 +410,11 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
 
                 {/* Footer */}
                 <div className="theme-editor-footer">
-                    <button className="px-6 py-3 border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 transition-all duration-200 font-semibold" onClick={onClose}>
+                    <button className="btn btn-secondary" onClick={onClose}>
                         Annuler
                     </button>
                     <button
-                        className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary-dark text-white rounded-xl hover:from-primary-dark hover:to-primary-dark transition-all duration-200 font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="btn btn-primary"
                         onClick={handleSave}
                         disabled={saving || !name.trim()}
                     >

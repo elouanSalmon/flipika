@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import toast from 'react-hot-toast';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import type { DragEndEvent } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { Download, FileText, Lock, Eye, EyeOff, Settings, Layout, Palette } from 'lucide-react';
+import { Download, FileText, Eye, EyeOff, Settings, Layout, Palette } from 'lucide-react';
 import { useDemoMode } from '../contexts/DemoModeContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -23,10 +23,10 @@ import type { Account, Campaign, CampaignMetrics } from '../types/business';
 import type { ReportSection, ReportDesign, SectionTemplate, WidgetConfig } from '../types/reportTypes';
 import { SectionType, defaultReportDesign } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
+import GoogleAdsGuard from '../components/common/GoogleAdsGuard';
 import './Reports.css';
 
 const ReportsPage = () => {
-    const navigate = useNavigate();
     const { id: reportId } = useParams<{ id: string }>();
     const { isDemoMode } = useDemoMode();
     const { isConnected } = useGoogleAds();
@@ -94,10 +94,10 @@ const ReportsPage = () => {
 
     // Load existing report if editing
     useEffect(() => {
-        if (reportId && currentUser) {
+        if (reportId && currentUser && (hasAccess || isEditorMode)) {
             loadExistingReport(reportId);
         }
-    }, [reportId, currentUser]);
+    }, [reportId, currentUser, hasAccess]);
 
     // Auto-save effect
     useEffect(() => {
@@ -202,9 +202,13 @@ const ReportsPage = () => {
             } else {
                 toast.success(`${data.length} campagnes chargées`);
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error loading campaigns:', error);
-            toast.error('Erreur lors du chargement des campagnes');
+            if (error?.message?.includes('invalid_grant') || error?.message?.includes('UNAUTHENTICATED')) {
+                toast.error('Session Google Ads expirée. Veuillez vous reconnecter.');
+            } else {
+                toast.error('Erreur lors du chargement des campagnes');
+            }
         }
     };
 
@@ -498,373 +502,355 @@ const ReportsPage = () => {
         }
     };
 
-    if (!hasAccess) {
-        return (
-            <div className="reports-page">
-                <div className="reports-restricted">
-                    <div className="reports-restricted-icon">
-                        <Lock size={48} />
-                    </div>
-                    <h2 className="reports-restricted-title">Accès restreint</h2>
-                    <p className="reports-restricted-text">
-                        Pour accéder à l'éditeur de rapports, vous devez connecter un compte Google Ads ou activer le mode démo.
-                    </p>
-                    <div className="reports-restricted-actions">
-                        <button onClick={() => navigate('/app/settings')} className="btn btn-primary">
-                            Connecter Google Ads
-                        </button>
-                        <button onClick={() => navigate('/app/dashboard')} className="btn btn-secondary">
-                            Activer le mode démo
-                        </button>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    // if (!hasAccess) check removed, handled by GoogleAdsGuard
+
 
     return (
-        <div className="reports-page">
-            {/* Configuration Modal */}
-            {showConfigModal && createPortal(
-                <div className="reports-config-modal-overlay">
-                    <div className="reports-config-modal">
-                        <div className="reports-config-header">
-                            <h2>Configuration du rapport</h2>
-                            <p>Personnalisez votre rapport de performance</p>
-                            <button
-                                className="reports-config-close"
-                                onClick={() => setShowConfigModal(false)}
-                                aria-label="Fermer"
-                            >
-                                ✕
-                            </button>
-                        </div>
+        <GoogleAdsGuard mode="block" feature="l'éditeur de rapports">
+            <div className="reports-page">
+                {/* Configuration Modal */}
+                {showConfigModal && createPortal(
+                    <div className="reports-config-modal-overlay">
+                        <div className="reports-config-modal">
+                            <div className="reports-config-header">
+                                <h2>Configuration du rapport</h2>
+                                <p>Personnalisez votre rapport de performance</p>
+                                <button
+                                    className="reports-config-close"
+                                    onClick={() => setShowConfigModal(false)}
+                                    aria-label="Fermer"
+                                >
+                                    ✕
+                                </button>
+                            </div>
 
-                        <div className="reports-config-content">
-                            {/* Account Selection */}
-                            <div className="reports-config-section">
-                                <h3>Compte Google Ads</h3>
+                            <div className="reports-config-content">
+                                {/* Account Selection */}
+                                <div className="reports-config-section">
+                                    <h3>Compte Google Ads</h3>
+                                    <select
+                                        value={selectedAccountId}
+                                        onChange={(e) => {
+                                            setSelectedAccountId(e.target.value);
+                                            setSelectedCampaignIds([]);
+                                        }}
+                                        className="reports-config-select"
+                                    >
+                                        {accounts.map(account => (
+                                            <option key={account.id} value={account.id}>{account.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                {/* Campaign Selection */}
+                                <div className="reports-config-section">
+                                    <h3>Campagnes à inclure</h3>
+                                    <div className="reports-config-checkbox-group">
+                                        <label className="reports-config-checkbox">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedCampaignIds.length === campaigns.length}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setSelectedCampaignIds(campaigns.map(c => c.id));
+                                                    } else {
+                                                        setSelectedCampaignIds([]);
+                                                    }
+                                                }}
+                                            />
+                                            <span className="checkbox-label-bold">Toutes les campagnes</span>
+                                        </label>
+                                        {campaigns.map(campaign => (
+                                            <label key={campaign.id} className="reports-config-checkbox">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedCampaignIds.includes(campaign.id)}
+                                                    onChange={() => toggleCampaign(campaign.id)}
+                                                />
+                                                <span>{campaign.name}</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Module Selection */}
+                                <div className="reports-config-section">
+                                    <h3>Modules à inclure</h3>
+                                    <p className="reports-config-description">
+                                        Sélectionnez les sections à inclure dans le rapport
+                                    </p>
+                                    <div className="reports-config-modules">
+                                        <label className="reports-config-checkbox">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedModules.executiveSummary}
+                                                onChange={() => toggleModule('executiveSummary')}
+                                            />
+                                            <span>Résumé exécutif</span>
+                                        </label>
+                                        <label className="reports-config-checkbox">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedModules.metrics}
+                                                onChange={() => toggleModule('metrics')}
+                                            />
+                                            <span>Métriques globales</span>
+                                        </label>
+                                        <label className="reports-config-checkbox">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedModules.campaignAnalysis}
+                                                onChange={() => toggleModule('campaignAnalysis')}
+                                            />
+                                            <span>Analyse par campagne</span>
+                                        </label>
+                                        <label className="reports-config-checkbox">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedModules.recommendations}
+                                                onChange={() => toggleModule('recommendations')}
+                                            />
+                                            <span>Recommandations</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {/* Customization */}
+                                <div className="reports-config-section">
+                                    <h3>Personnalisation</h3>
+                                    <p className="reports-config-description">
+                                        Personnalisez l'apparence de votre rapport
+                                    </p>
+                                    <div className="reports-config-input-group">
+                                        <label>Nom du rapport</label>
+                                        <input
+                                            type="text"
+                                            value={reportTitle}
+                                            onChange={(e) => setReportTitle(e.target.value)}
+                                            className="reports-config-input"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Theme Selection */}
+                                {currentUser && (
+                                    <div className="reports-config-section">
+                                        <ThemeSelector
+                                            userId={currentUser.uid}
+                                            accountId={selectedAccountId}
+                                            selectedTheme={selectedTheme}
+                                            onThemeSelect={(theme) => {
+                                                setSelectedTheme(theme);
+                                                if (theme) {
+                                                    setDesign(theme.design);
+                                                    if (theme.defaultModules) {
+                                                        setSelectedModules(theme.defaultModules);
+                                                    }
+                                                } else {
+                                                    setDesign(defaultReportDesign);
+                                                }
+                                            }}
+                                            onCreateTheme={() => {
+                                                setShowConfigModal(false);
+                                                setShowThemeManager(true);
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="reports-config-footer">
+                                <button
+                                    className="btn btn-secondary"
+                                    onClick={() => setShowConfigModal(false)}
+                                >
+                                    Annuler
+                                </button>
+                                <button
+                                    className="btn btn-primary"
+                                    onClick={handleGenerateInitialReport}
+                                    disabled={selectedCampaignIds.length === 0}
+                                >
+                                    Générer le rapport
+                                </button>
+                            </div>
+                        </div>
+                    </div>,
+                    document.body
+                )}
+
+                {/* Header */}
+                <div className="reports-header">
+                    <div className="reports-header-left">
+                        <FileText size={24} />
+                        {isEditorMode ? (
+                            <>
+                                <input
+                                    type="text"
+                                    value={reportTitle}
+                                    onChange={(e) => {
+                                        setReportTitle(e.target.value);
+                                        setIsDirty(true);
+                                    }}
+                                    className="reports-title-input"
+                                />
+                                <AutoSaveIndicator
+                                    status={autoSaveStatus}
+                                    lastSaved={lastSaved}
+                                />
+                            </>
+                        ) : (
+                            <h1 className="reports-page-title">Rapports</h1>
+                        )}
+                    </div>
+                    <div className="reports-header-right">
+                        {!isEditorMode && (
+                            <button
+                                onClick={() => setShowConfigModal(true)}
+                                className="btn btn-primary"
+                            >
+                                Nouveau rapport
+                            </button>
+                        )}
+                        {isEditorMode && (
+                            <>
                                 <select
                                     value={selectedAccountId}
                                     onChange={(e) => {
                                         setSelectedAccountId(e.target.value);
                                         setSelectedCampaignIds([]);
                                     }}
-                                    className="reports-config-select"
+                                    className="reports-select"
                                 >
                                     {accounts.map(account => (
                                         <option key={account.id} value={account.id}>{account.name}</option>
                                     ))}
                                 </select>
-                            </div>
+                                <button
+                                    onClick={() => setShowThemeManager(true)}
+                                    className="btn btn-icon"
+                                    title="Gérer les thèmes"
+                                >
+                                    <Palette size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setShowDesignPanel(!showDesignPanel)}
+                                    className={`btn btn-icon ${showDesignPanel ? 'btn-active' : ''}`}
+                                    title="Design"
+                                >
+                                    <Settings size={18} />
+                                </button>
+                                <button
+                                    onClick={() => setViewMode(viewMode === 'editor' ? 'preview' : 'editor')}
+                                    className="btn btn-icon"
+                                    title={viewMode === 'editor' ? 'Aperçu' : 'Éditeur'}
+                                >
+                                    {viewMode === 'editor' ? <Eye size={18} /> : <EyeOff size={18} />}
+                                </button>
+                                <button
+                                    onClick={handleGeneratePDF}
+                                    disabled={generating || sections.length === 0}
+                                    className="btn btn-primary"
+                                >
+                                    {generating ? (
+                                        <>
+                                            <span className="loading loading-spinner loading-sm"></span>
+                                            Génération...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Download size={18} />
+                                            Exporter PDF
+                                        </>
+                                    )}
+                                </button>
+                            </>
+                        )}
+                    </div>
+                </div>
 
-                            {/* Campaign Selection */}
-                            <div className="reports-config-section">
-                                <h3>Campagnes à inclure</h3>
-                                <div className="reports-config-checkbox-group">
-                                    <label className="reports-config-checkbox">
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedCampaignIds.length === campaigns.length}
-                                            onChange={(e) => {
-                                                if (e.target.checked) {
-                                                    setSelectedCampaignIds(campaigns.map(c => c.id));
-                                                } else {
-                                                    setSelectedCampaignIds([]);
-                                                }
-                                            }}
-                                        />
-                                        <span className="checkbox-label-bold">Toutes les campagnes</span>
-                                    </label>
-                                    {campaigns.map(campaign => (
-                                        <label key={campaign.id} className="reports-config-checkbox">
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedCampaignIds.includes(campaign.id)}
-                                                onChange={() => toggleCampaign(campaign.id)}
+                {/* Main Editor */}
+                {isEditorMode ? (
+                    <div className="reports-editor">
+                        <SectionLibrary onAddSection={handleAddSection} />
+
+                        <div className="reports-canvas">
+                            {sections.length === 0 ? (
+                                <div className="reports-empty-state">
+                                    <Layout size={64} />
+                                    <h3>Commencez votre rapport</h3>
+                                    <p>Glissez des sections depuis la bibliothèque ou cliquez pour les ajouter</p>
+                                </div>
+                            ) : (
+                                <DndContext
+                                    sensors={sensors}
+                                    collisionDetection={closestCenter}
+                                    onDragEnd={handleDragEnd}
+                                >
+                                    <SortableContext
+                                        items={sections.map(s => s.id)}
+                                        strategy={verticalListSortingStrategy}
+                                    >
+                                        {sections.map((section) => (
+                                            <SectionItem
+                                                key={section.id}
+                                                section={section}
+                                                isActive={activeSectionId === section.id}
+                                                onUpdate={handleUpdateSection}
+                                                onDelete={handleDeleteSection}
+                                                onActivate={setActiveSectionId}
                                             />
-                                            <span>{campaign.name}</span>
-                                        </label>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Module Selection */}
-                            <div className="reports-config-section">
-                                <h3>Modules à inclure</h3>
-                                <p className="reports-config-description">
-                                    Sélectionnez les sections à inclure dans le rapport
-                                </p>
-                                <div className="reports-config-modules">
-                                    <label className="reports-config-checkbox">
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedModules.executiveSummary}
-                                            onChange={() => toggleModule('executiveSummary')}
-                                        />
-                                        <span>Résumé exécutif</span>
-                                    </label>
-                                    <label className="reports-config-checkbox">
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedModules.metrics}
-                                            onChange={() => toggleModule('metrics')}
-                                        />
-                                        <span>Métriques globales</span>
-                                    </label>
-                                    <label className="reports-config-checkbox">
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedModules.campaignAnalysis}
-                                            onChange={() => toggleModule('campaignAnalysis')}
-                                        />
-                                        <span>Analyse par campagne</span>
-                                    </label>
-                                    <label className="reports-config-checkbox">
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedModules.recommendations}
-                                            onChange={() => toggleModule('recommendations')}
-                                        />
-                                        <span>Recommandations</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            {/* Customization */}
-                            <div className="reports-config-section">
-                                <h3>Personnalisation</h3>
-                                <p className="reports-config-description">
-                                    Personnalisez l'apparence de votre rapport
-                                </p>
-                                <div className="reports-config-input-group">
-                                    <label>Nom du rapport</label>
-                                    <input
-                                        type="text"
-                                        value={reportTitle}
-                                        onChange={(e) => setReportTitle(e.target.value)}
-                                        className="reports-config-input"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Theme Selection */}
-                            {currentUser && (
-                                <div className="reports-config-section">
-                                    <ThemeSelector
-                                        userId={currentUser.uid}
-                                        accountId={selectedAccountId}
-                                        selectedTheme={selectedTheme}
-                                        onThemeSelect={(theme) => {
-                                            setSelectedTheme(theme);
-                                            if (theme) {
-                                                setDesign(theme.design);
-                                                if (theme.defaultModules) {
-                                                    setSelectedModules(theme.defaultModules);
-                                                }
-                                            } else {
-                                                setDesign(defaultReportDesign);
-                                            }
-                                        }}
-                                        onCreateTheme={() => {
-                                            setShowConfigModal(false);
-                                            setShowThemeManager(true);
-                                        }}
-                                    />
-                                </div>
+                                        ))}
+                                    </SortableContext>
+                                </DndContext>
                             )}
                         </div>
 
-                        <div className="reports-config-footer">
+                        {showDesignPanel && (
+                            <DesignPanel
+                                design={design}
+                                onChange={(newDesign) => {
+                                    setDesign(newDesign);
+                                    setIsDirty(true);
+                                }}
+                                onClose={() => setShowDesignPanel(false)}
+                            />
+                        )}
+                    </div>
+                ) : (
+                    <div className="reports-welcome">
+                        <div className="reports-welcome-content">
+                            <FileText size={80} />
+                            <h2>Créez votre premier rapport</h2>
+                            <p>Générez des rapports professionnels personnalisés pour vos campagnes Google Ads</p>
                             <button
-                                className="btn btn-secondary"
-                                onClick={() => setShowConfigModal(false)}
+                                onClick={() => setShowConfigModal(true)}
+                                className="btn btn-primary btn-large"
                             >
-                                Annuler
-                            </button>
-                            <button
-                                className="btn btn-primary"
-                                onClick={handleGenerateInitialReport}
-                                disabled={selectedCampaignIds.length === 0}
-                            >
-                                Générer le rapport
+                                Commencer
                             </button>
                         </div>
                     </div>
-                </div>,
-                document.body
-            )}
+                )}
 
-            {/* Header */}
-            <div className="reports-header">
-                <div className="reports-header-left">
-                    <FileText size={24} />
-                    {isEditorMode ? (
-                        <>
-                            <input
-                                type="text"
-                                value={reportTitle}
-                                onChange={(e) => {
-                                    setReportTitle(e.target.value);
-                                    setIsDirty(true);
-                                }}
-                                className="reports-title-input"
-                            />
-                            <AutoSaveIndicator
-                                status={autoSaveStatus}
-                                lastSaved={lastSaved}
-                            />
-                        </>
-                    ) : (
-                        <h1 className="reports-page-title">Rapports</h1>
-                    )}
-                </div>
-                <div className="reports-header-right">
-                    {!isEditorMode && (
-                        <button
-                            onClick={() => setShowConfigModal(true)}
-                            className="btn btn-primary"
-                        >
-                            Nouveau rapport
-                        </button>
-                    )}
-                    {isEditorMode && (
-                        <>
-                            <select
-                                value={selectedAccountId}
-                                onChange={(e) => {
-                                    setSelectedAccountId(e.target.value);
-                                    setSelectedCampaignIds([]);
-                                }}
-                                className="reports-select"
-                            >
-                                {accounts.map(account => (
-                                    <option key={account.id} value={account.id}>{account.name}</option>
-                                ))}
-                            </select>
+                {/* Theme Manager Modal */}
+                {showThemeManager && currentUser && (
+                    <div className="reports-theme-manager-modal">
+                        <div className="reports-theme-manager-overlay" onClick={() => setShowThemeManager(false)} />
+                        <div className="reports-theme-manager-content">
+                            <ThemeManager accounts={accounts} />
                             <button
-                                onClick={() => setShowThemeManager(true)}
-                                className="btn btn-icon"
-                                title="Gérer les thèmes"
+                                className="btn btn-secondary reports-theme-manager-close"
+                                onClick={() => setShowThemeManager(false)}
                             >
-                                <Palette size={18} />
+                                Fermer
                             </button>
-                            <button
-                                onClick={() => setShowDesignPanel(!showDesignPanel)}
-                                className={`btn btn-icon ${showDesignPanel ? 'btn-active' : ''}`}
-                                title="Design"
-                            >
-                                <Settings size={18} />
-                            </button>
-                            <button
-                                onClick={() => setViewMode(viewMode === 'editor' ? 'preview' : 'editor')}
-                                className="btn btn-icon"
-                                title={viewMode === 'editor' ? 'Aperçu' : 'Éditeur'}
-                            >
-                                {viewMode === 'editor' ? <Eye size={18} /> : <EyeOff size={18} />}
-                            </button>
-                            <button
-                                onClick={handleGeneratePDF}
-                                disabled={generating || sections.length === 0}
-                                className="btn btn-primary"
-                            >
-                                {generating ? (
-                                    <>
-                                        <span className="loading loading-spinner loading-sm"></span>
-                                        Génération...
-                                    </>
-                                ) : (
-                                    <>
-                                        <Download size={18} />
-                                        Exporter PDF
-                                    </>
-                                )}
-                            </button>
-                        </>
-                    )}
-                </div>
+                        </div>
+                    </div>
+                )}
             </div>
-
-            {/* Main Editor */}
-            {isEditorMode ? (
-                <div className="reports-editor">
-                    <SectionLibrary onAddSection={handleAddSection} />
-
-                    <div className="reports-canvas">
-                        {sections.length === 0 ? (
-                            <div className="reports-empty-state">
-                                <Layout size={64} />
-                                <h3>Commencez votre rapport</h3>
-                                <p>Glissez des sections depuis la bibliothèque ou cliquez pour les ajouter</p>
-                            </div>
-                        ) : (
-                            <DndContext
-                                sensors={sensors}
-                                collisionDetection={closestCenter}
-                                onDragEnd={handleDragEnd}
-                            >
-                                <SortableContext
-                                    items={sections.map(s => s.id)}
-                                    strategy={verticalListSortingStrategy}
-                                >
-                                    {sections.map((section) => (
-                                        <SectionItem
-                                            key={section.id}
-                                            section={section}
-                                            isActive={activeSectionId === section.id}
-                                            onUpdate={handleUpdateSection}
-                                            onDelete={handleDeleteSection}
-                                            onActivate={setActiveSectionId}
-                                        />
-                                    ))}
-                                </SortableContext>
-                            </DndContext>
-                        )}
-                    </div>
-
-                    {showDesignPanel && (
-                        <DesignPanel
-                            design={design}
-                            onChange={(newDesign) => {
-                                setDesign(newDesign);
-                                setIsDirty(true);
-                            }}
-                            onClose={() => setShowDesignPanel(false)}
-                        />
-                    )}
-                </div>
-            ) : (
-                <div className="reports-welcome">
-                    <div className="reports-welcome-content">
-                        <FileText size={80} />
-                        <h2>Créez votre premier rapport</h2>
-                        <p>Générez des rapports professionnels personnalisés pour vos campagnes Google Ads</p>
-                        <button
-                            onClick={() => setShowConfigModal(true)}
-                            className="btn btn-primary btn-large"
-                        >
-                            Commencer
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            {/* Theme Manager Modal */}
-            {showThemeManager && currentUser && (
-                <div className="reports-theme-manager-modal">
-                    <div className="reports-theme-manager-overlay" onClick={() => setShowThemeManager(false)} />
-                    <div className="reports-theme-manager-content">
-                        <ThemeManager accounts={accounts} />
-                        <button
-                            className="btn btn-secondary reports-theme-manager-close"
-                            onClick={() => setShowThemeManager(false)}
-                        >
-                            Fermer
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
+            );
+        </GoogleAdsGuard>
     );
 };
 

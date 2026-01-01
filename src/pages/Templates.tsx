@@ -4,16 +4,20 @@ import { Plus, FileStack, Search, AlertCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
+import GoogleAdsGuard from '../components/common/GoogleAdsGuard';
 import {
     listUserTemplates,
     createTemplate,
     updateTemplate,
     deleteTemplate,
     duplicateTemplate,
+
     createReportFromTemplate,
 } from '../services/templateService';
+import { getSchedulesByTemplateId, deleteScheduledReport } from '../services/scheduledReportService';
 import type { ReportTemplate } from '../types/templateTypes';
 import type { Campaign } from '../types/business';
+import type { ScheduledReport } from '../types/scheduledReportTypes';
 import TemplateCard from '../components/templates/TemplateCard';
 import TemplateConfigModal, { type TemplateConfig } from '../components/templates/TemplateConfigModal';
 import Spinner from '../components/common/Spinner';
@@ -42,6 +46,8 @@ const Templates: React.FC = () => {
     const [googleAuthError, setGoogleAuthError] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [templateToDelete, setTemplateToDelete] = useState<ReportTemplate | null>(null);
+    const [deleteMessage, setDeleteMessage] = useState('');
+    const [schedulesToDelete, setSchedulesToDelete] = useState<ScheduledReport[]>([]);
 
     useEffect(() => {
         if (currentUser) {
@@ -141,19 +147,61 @@ const Templates: React.FC = () => {
         }
     };
 
-    const handleDeleteTemplate = (template: ReportTemplate) => {
-        setTemplateToDelete(template);
-        setIsDeleteModalOpen(true);
+    const handleDeleteTemplate = async (template: ReportTemplate) => {
+        const loadingToast = toast.loading('Vérification...', { id: 'check-usage' });
+        try {
+            const schedules = await getSchedulesByTemplateId(template.id);
+            toast.dismiss(loadingToast);
+
+            setSchedulesToDelete(schedules);
+
+            if (schedules.length > 0) {
+                const activeCount = schedules.filter(s => s.isActive).length;
+                const limit = 3;
+                const scheduleNames = schedules.slice(0, limit).map(s => s.name).join(', ');
+                const remaining = schedules.length - limit;
+                const suffix = remaining > 0 ? ` et ${remaining} autres` : '';
+
+                setDeleteMessage(
+                    `Ce template est utilisé par ${schedules.length} programmation(s)${activeCount > 0 ? ` (dont ${activeCount} actives)` : ''} : ${scheduleNames}${suffix}.\n\n` +
+                    `Si vous supprimez ce template, CES PROGRAMMATIONS SERONT ÉGALEMENT SUPPRIMÉES.\n\n` +
+                    `Êtes-vous sûr de vouloir continuer ?`
+                );
+            } else {
+                setDeleteMessage(`Êtes-vous sûr de vouloir supprimer le template "${template.name}" ? Cette action est irréversible.`);
+            }
+
+            setTemplateToDelete(template);
+            setIsDeleteModalOpen(true);
+        } catch (error) {
+            toast.dismiss(loadingToast);
+            console.error('Error checking template usage:', error);
+            toast.error('Erreur lors de la vérification des dépendances');
+        }
     };
 
     const confirmDeleteTemplate = async () => {
         if (!templateToDelete) return;
 
         try {
+            // Delete associated schedules first
+            if (schedulesToDelete.length > 0) {
+                const deletePromises = schedulesToDelete.map(schedule =>
+                    deleteScheduledReport(schedule.id)
+                );
+                await Promise.all(deletePromises);
+            }
+
             console.log('Attempting to delete template:', templateToDelete.id);
             await deleteTemplate(templateToDelete.id);
-            toast.success('Template supprimé');
+
+            const successMessage = schedulesToDelete.length > 0
+                ? 'Template et programmations associées supprimés'
+                : 'Template supprimé';
+            toast.success(successMessage);
+
             setTemplateToDelete(null);
+            setSchedulesToDelete([]);
             loadTemplates();
         } catch (error: any) {
             console.error('Error deleting template:', error);
@@ -162,7 +210,7 @@ const Templates: React.FC = () => {
                 code: error?.code,
                 stack: error?.stack
             });
-            toast.error(`Erreur lors de la suppression du template: ${error?.message || 'Erreur inconnue'}`);
+            toast.error(`Erreur lors de la suppression: ${error?.message || 'Erreur inconnue'}`);
         }
     };
 
@@ -227,7 +275,16 @@ const Templates: React.FC = () => {
                     </div>
                     <p>Créez des templates réutilisables pour générer des rapports en un clic</p>
                 </div>
-                <button className="btn-primary" onClick={() => setShowCreateModal(true)}>
+                <button
+                    className="btn-primary"
+                    onClick={() => setShowCreateModal(true)}
+                    disabled={!isConnected}
+                    style={{
+                        opacity: !isConnected ? 0.5 : 1,
+                        cursor: !isConnected ? 'not-allowed' : 'pointer'
+                    }}
+                    title={!isConnected ? 'Connectez Google Ads pour créer des templates' : ''}
+                >
                     <Plus size={20} />
                     <span>Nouveau Template</span>
                 </button>
@@ -260,36 +317,48 @@ const Templates: React.FC = () => {
                 </div>
             )}
 
-            {filteredTemplates.length > 0 ? (
-                <div className="templates-grid">
-                    {filteredTemplates.map(template => (
-                        <TemplateCard
-                            key={template.id}
-                            template={template}
-                            onUse={handleUseTemplate}
-                            onEdit={setEditingTemplate}
-                            onDuplicate={handleDuplicateTemplate}
-                            onDelete={handleDeleteTemplate}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <div className="empty-state">
-                    <FileStack size={64} className="empty-icon" />
-                    <h2>Aucun template</h2>
-                    <p>
-                        {searchQuery
-                            ? 'Aucun template ne correspond à votre recherche'
-                            : 'Créez votre premier template pour générer des rapports rapidement'}
-                    </p>
-                    {!searchQuery && (
-                        <button className="btn-primary" onClick={() => setShowCreateModal(true)}>
-                            <Plus size={20} />
-                            <span>Créer un template</span>
-                        </button>
-                    )}
-                </div>
-            )}
+
+            <GoogleAdsGuard mode="partial" feature="créer des templates">
+                {filteredTemplates.length > 0 ? (
+                    <div className="templates-grid">
+                        {filteredTemplates.map(template => (
+                            <TemplateCard
+                                key={template.id}
+                                template={template}
+                                onUse={handleUseTemplate}
+                                onEdit={setEditingTemplate}
+                                onDuplicate={handleDuplicateTemplate}
+                                onDelete={handleDeleteTemplate}
+                                isGoogleAdsConnected={isConnected}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="empty-state">
+                        <FileStack size={64} className="empty-icon" />
+                        <h2>Aucun template</h2>
+                        <p>
+                            {searchQuery
+                                ? 'Aucun template ne correspond à votre recherche'
+                                : 'Créez votre premier template pour générer des rapports rapidement'}
+                        </p>
+                        {!searchQuery && (
+                            <button
+                                className="btn-primary"
+                                onClick={() => setShowCreateModal(true)}
+                                disabled={!isConnected}
+                                style={{
+                                    opacity: !isConnected ? 0.5 : 1,
+                                    cursor: !isConnected ? 'not-allowed' : 'pointer'
+                                }}
+                            >
+                                <Plus size={20} />
+                                <span>Créer un template</span>
+                            </button>
+                        )}
+                    </div>
+                )}
+            </GoogleAdsGuard>
 
             {(showCreateModal || editingTemplate) && (
                 <TemplateConfigModal
@@ -315,7 +384,7 @@ const Templates: React.FC = () => {
                 }}
                 onConfirm={confirmDeleteTemplate}
                 title="Supprimer le template"
-                message={`Êtes-vous sûr de vouloir supprimer le template "${templateToDelete?.name}" ? Cette action est irréversible.`}
+                message={deleteMessage}
                 confirmLabel="Supprimer"
                 isDestructive={true}
             />

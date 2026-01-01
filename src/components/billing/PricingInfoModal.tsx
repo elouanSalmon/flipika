@@ -80,7 +80,7 @@ export default function PricingInfoModal({ isOpen, onClose, pricePerSeat }: Pric
                     {/* Close Button */}
                     <button
                         onClick={onClose}
-                        className="mt-6 w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40"
+                        className="btn btn-primary w-full mt-6"
                     >
                         Compris !
                     </button>

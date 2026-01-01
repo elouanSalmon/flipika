@@ -122,6 +122,34 @@ export async function listUserScheduledReports(userId: string): Promise<Schedule
 }
 
 /**
+ * Get schedules using a specific template
+ */
+export async function getSchedulesByTemplateId(templateId: string): Promise<ScheduledReport[]> {
+    const q = query(
+        collection(db, SCHEDULED_REPORTS_COLLECTION),
+        where('templateId', '==', templateId),
+        limit(100)
+    );
+
+    const querySnapshot = await getDocs(q);
+    const schedules: ScheduledReport[] = [];
+
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        schedules.push({
+            id: doc.id,
+            ...data,
+            nextRun: data.nextRun?.toDate(),
+            lastRun: data.lastRun?.toDate(),
+            createdAt: data.createdAt?.toDate(),
+            updatedAt: data.updatedAt?.toDate()
+        } as ScheduledReport);
+    });
+
+    return schedules;
+}
+
+/**
  * Update a scheduled report
  */
 export async function updateScheduledReport(

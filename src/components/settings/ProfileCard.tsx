@@ -290,7 +290,7 @@ const ProfileCard = () => {
                     {!isEditing ? (
                         <motion.button
                             onClick={() => setIsEditing(true)}
-                            className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold hover:from-primary-dark hover:to-primary-dark active:scale-[0.98] transition-all duration-200 shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
+                            className="btn btn-primary w-full"
                             whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.98 }}
                         >
@@ -315,14 +315,14 @@ const ProfileCard = () => {
                                     }
                                 }}
                                 disabled={loading}
-                                className="flex-1 px-6 py-3 rounded-xl border-2 border-primary/30 dark:border-primary/40 text-gray-900 dark:text-gray-100 font-semibold hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-50 transition-all duration-200"
+                                className="btn btn-secondary flex-1"
                             >
                                 Annuler
                             </button>
                             <motion.button
                                 onClick={handleSave}
                                 disabled={loading || usernameChecking || usernameAvailable === false}
-                                className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold hover:from-primary-dark hover:to-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 flex items-center justify-center gap-2"
+                                className="btn btn-primary flex-1"
                                 whileHover={{ scale: loading ? 1 : 1.01 }}
                                 whileTap={{ scale: loading ? 1 : 0.98 }}
                             >

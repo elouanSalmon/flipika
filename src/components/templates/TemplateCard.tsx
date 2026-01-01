@@ -10,6 +10,7 @@ interface TemplateCardProps {
     onEdit: (template: ReportTemplate) => void;
     onDuplicate: (template: ReportTemplate) => void;
     onDelete: (template: ReportTemplate) => void;
+    isGoogleAdsConnected?: boolean;
 }
 
 const TemplateCard: React.FC<TemplateCardProps> = ({
@@ -18,6 +19,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
     onEdit,
     onDuplicate,
     onDelete,
+    isGoogleAdsConnected = true,
 }) => {
     const [showMenu, setShowMenu] = React.useState(false);
 
@@ -41,7 +43,12 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                     <button
                         className="action-btn primary-action"
                         onClick={() => onUse(template)}
-                        title="Utiliser ce template"
+                        disabled={!isGoogleAdsConnected}
+                        title={!isGoogleAdsConnected ? 'Connectez Google Ads pour utiliser ce template' : 'Utiliser ce template'}
+                        style={{
+                            opacity: !isGoogleAdsConnected ? 0.5 : 1,
+                            cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
+                        }}
                     >
                         <Play size={18} />
                         <span>Utiliser</span>
@@ -58,7 +65,15 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                             <>
                                 <div className="menu-overlay" onClick={() => setShowMenu(false)} />
                                 <div className="action-menu">
-                                    <button onClick={() => handleAction(() => onEdit(template))}>
+                                    <button
+                                        onClick={() => handleAction(() => onEdit(template))}
+                                        disabled={!isGoogleAdsConnected}
+                                        style={{
+                                            opacity: !isGoogleAdsConnected ? 0.5 : 1,
+                                            cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
+                                        }}
+                                        title={!isGoogleAdsConnected ? 'Connectez Google Ads pour modifier' : ''}
+                                    >
                                         <Edit2 size={16} />
                                         <span>Modifier</span>
                                     </button>

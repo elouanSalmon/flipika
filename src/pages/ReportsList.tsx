@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Search, Grid, List as ListIcon, FileText } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useGoogleAds } from '../contexts/GoogleAdsContext';
+import GoogleAdsGuard from '../components/common/GoogleAdsGuard';
 import { listUserReports, getReportCountByStatus } from '../services/reportService';
 import type { EditableReport } from '../types/reportTypes';
 import ReportCard from '../components/reports/ReportCard/ReportCard';
@@ -14,6 +16,7 @@ type StatusFilter = 'all' | 'draft' | 'published' | 'archived';
 const ReportsList: React.FC = () => {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
+    const { isConnected: isGoogleAdsConnected } = useGoogleAds();
     const [reports, setReports] = useState<EditableReport[]>([]);
     const [filteredReports, setFilteredReports] = useState<EditableReport[]>([]);
     const [loading, setLoading] = useState(true);
@@ -112,105 +115,127 @@ const ReportsList: React.FC = () => {
                     </div>
                     <p className="subtitle">Gérez et organisez vos rapports Google Ads</p>
                 </div>
-                <button className="create-report-btn" onClick={handleCreateReport}>
+                <button
+                    className="create-report-btn"
+                    onClick={handleCreateReport}
+                    disabled={!isGoogleAdsConnected}
+                    style={{
+                        opacity: !isGoogleAdsConnected ? 0.5 : 1,
+                        cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
+                    }}
+                    title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des rapports' : ''}
+                >
                     <Plus size={20} />
                     <span>Nouveau Rapport</span>
                 </button>
             </div>
 
             {/* Status Filters */}
-            <div className="status-filters">
-                <button
-                    className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
-                    onClick={() => setStatusFilter('all')}
-                >
-                    Tous ({reports.length})
-                </button>
-                <button
-                    className={`status-filter-btn ${statusFilter === 'draft' ? 'active' : ''}`}
-                    onClick={() => setStatusFilter('draft')}
-                >
-                    <span className="status-badge draft">●</span>
-                    Brouillons ({statusCounts.draft})
-                </button>
-                <button
-                    className={`status-filter-btn ${statusFilter === 'published' ? 'active' : ''}`}
-                    onClick={() => setStatusFilter('published')}
-                >
-                    <span className="status-badge published">●</span>
-                    Publiés ({statusCounts.published})
-                </button>
-                <button
-                    className={`status-filter-btn ${statusFilter === 'archived' ? 'active' : ''}`}
-                    onClick={() => setStatusFilter('archived')}
-                >
-                    <span className="status-badge archived">●</span>
-                    Archivés ({statusCounts.archived})
-                </button>
-            </div>
-
-            {/* Search and View Controls */}
-            <div className="controls-bar">
-                <div className="search-box">
-                    <Search size={18} />
-                    <input
-                        type="text"
-                        placeholder="Rechercher un rapport..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                </div>
-
-                <div className="view-controls">
+            <GoogleAdsGuard mode="partial" feature="créer des rapports">
+                <div className="status-filters">
                     <button
-                        className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                        onClick={() => setViewMode('grid')}
-                        title="Vue grille"
+                        className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
+                        onClick={() => setStatusFilter('all')}
                     >
-                        <Grid size={18} />
+                        Tous ({reports.length})
                     </button>
                     <button
-                        className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
-                        onClick={() => setViewMode('list')}
-                        title="Vue liste"
+                        className={`status-filter-btn ${statusFilter === 'draft' ? 'active' : ''}`}
+                        onClick={() => setStatusFilter('draft')}
                     >
-                        <ListIcon size={18} />
+                        <span className="status-badge draft">●</span>
+                        Brouillons ({statusCounts.draft})
+                    </button>
+                    <button
+                        className={`status-filter-btn ${statusFilter === 'published' ? 'active' : ''}`}
+                        onClick={() => setStatusFilter('published')}
+                    >
+                        <span className="status-badge published">●</span>
+                        Publiés ({statusCounts.published})
+                    </button>
+                    <button
+                        className={`status-filter-btn ${statusFilter === 'archived' ? 'active' : ''}`}
+                        onClick={() => setStatusFilter('archived')}
+                    >
+                        <span className="status-badge archived">●</span>
+                        Archivés ({statusCounts.archived})
                     </button>
                 </div>
-            </div>
 
-            {/* Reports Grid/List */}
-            {filteredReports.length === 0 ? (
-                <div className="empty-state">
-                    <div className="empty-icon">
-                        <FileText size={64} strokeWidth={1.5} />
-                    </div>
-                    <h3>Aucun rapport trouvé</h3>
-                    <p>
-                        {searchQuery
-                            ? 'Essayez de modifier votre recherche'
-                            : 'Créez votre premier rapport pour commencer'}
-                    </p>
-                    {!searchQuery && (
-                        <button className="create-report-btn-secondary" onClick={handleCreateReport}>
-                            <Plus size={20} />
-                            <span>Créer un rapport</span>
-                        </button>
-                    )}
-                </div>
-            ) : (
-                <div className={`reports-${viewMode}`}>
-                    {filteredReports.map((report) => (
-                        <ReportCard
-                            key={report.id}
-                            report={report}
-                            viewMode={viewMode}
-                            onClick={() => handleReportClick(report.id)}
-                            onDeleted={handleReportDeleted}
+                {/* Search and View Controls */}
+                <div className="controls-bar">
+                    <div className="search-box">
+                        <Search size={18} />
+                        <input
+                            type="text"
+                            placeholder="Rechercher un rapport..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                    ))}
+                    </div>
+
+                    <div className="view-controls">
+                        <button
+                            className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                            onClick={() => setViewMode('grid')}
+                            title="Vue grille"
+                        >
+                            <Grid size={18} />
+                        </button>
+                        <button
+                            className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                            onClick={() => setViewMode('list')}
+                            title="Vue liste"
+                        >
+                            <ListIcon size={18} />
+                        </button>
+                    </div>
                 </div>
-            )}
+
+                {/* Reports Grid/List */}
+                {
+                    filteredReports.length === 0 ? (
+                        <div className="empty-state">
+                            <div className="empty-icon">
+                                <FileText size={64} strokeWidth={1.5} />
+                            </div>
+                            <h3>Aucun rapport trouvé</h3>
+                            <p>
+                                {searchQuery
+                                    ? 'Essayez de modifier votre recherche'
+                                    : 'Créez votre premier rapport pour commencer'}
+                            </p>
+                            {!searchQuery && (
+                                <button
+                                    className="create-report-btn-secondary"
+                                    onClick={handleCreateReport}
+                                    disabled={!isGoogleAdsConnected}
+                                    style={{
+                                        opacity: !isGoogleAdsConnected ? 0.5 : 1,
+                                        cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
+                                    }}
+                                    title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des rapports' : ''}
+                                >
+                                    <Plus size={20} />
+                                    <span>Créer un rapport</span>
+                                </button>
+                            )}
+                        </div>
+                    ) : (
+                        <div className={`reports-${viewMode}`}>
+                            {filteredReports.map((report) => (
+                                <ReportCard
+                                    key={report.id}
+                                    report={report}
+                                    viewMode={viewMode}
+                                    onClick={() => handleReportClick(report.id)}
+                                    onDeleted={handleReportDeleted}
+                                />
+                            ))}
+                        </div>
+                    )
+                }
+            </GoogleAdsGuard>
         </div>
     );
 };

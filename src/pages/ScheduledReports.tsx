@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Clock, AlertCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import type { ScheduledReport } from '../types/scheduledReportTypes';
 import type { ReportTemplate } from '../types/templateTypes';
 import {
@@ -13,6 +14,7 @@ import {
 import { listUserTemplates } from '../services/templateService';
 import { fetchAccessibleCustomers } from '../services/googleAds';
 import ScheduleCard from '../components/schedules/ScheduleCard';
+import GoogleAdsGuard from '../components/common/GoogleAdsGuard';
 import ScheduleConfigModal, { type ScheduleFormData } from '../components/schedules/ScheduleConfigModal';
 import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
@@ -26,6 +28,7 @@ interface GoogleAdsAccount {
 
 const ScheduledReports: React.FC = () => {
     const { currentUser } = useAuth();
+    const { isConnected: isGoogleAdsConnected } = useGoogleAds();
     const [schedules, setSchedules] = useState<ScheduledReport[]>([]);
     const [templates, setTemplates] = useState<ReportTemplate[]>([]);
     const [googleAuthError, setGoogleAuthError] = useState(false);
@@ -58,26 +61,30 @@ const ScheduledReports: React.FC = () => {
             setTemplates(templatesData);
 
             // Load Google Ads accounts separately
-            try {
-                const accountsResponse = await fetchAccessibleCustomers();
-                if (accountsResponse.success && accountsResponse.customers) {
-                    const accountsList = accountsResponse.customers.map((customer: any) => ({
-                        id: customer.id,
-                        name: customer.descriptiveName || customer.id,
-                    }));
-                    setAccounts(accountsList);
-                } else {
-                    setAccounts([]);
-                    if (accountsResponse.error && (
-                        accountsResponse.error.includes('invalid_grant') ||
-                        accountsResponse.error.includes('UNAUTHENTICATED')
-                    )) {
-                        setGoogleAuthError(true);
-                        toast.error('Session Google Ads expirée. Veuillez vous reconnecter dans les paramètres.');
+            if (isGoogleAdsConnected) {
+                try {
+                    const accountsResponse = await fetchAccessibleCustomers();
+                    if (accountsResponse.success && accountsResponse.customers) {
+                        const accountsList = accountsResponse.customers.map((customer: any) => ({
+                            id: customer.id,
+                            name: customer.descriptiveName || customer.id,
+                        }));
+                        setAccounts(accountsList);
+                    } else {
+                        setAccounts([]);
+                        if (accountsResponse.error && (
+                            accountsResponse.error.includes('invalid_grant') ||
+                            accountsResponse.error.includes('UNAUTHENTICATED')
+                        )) {
+                            setGoogleAuthError(true);
+                            toast.error('Session Google Ads expirée. Veuillez vous reconnecter dans les paramètres.');
+                        }
                     }
+                } catch (err) {
+                    console.error('Error fetching Google Ads accounts:', err);
                 }
-            } catch (err) {
-                console.error('Error fetching Google Ads accounts:', err);
+            } else {
+                setAccounts([]);
             }
 
         } catch (error: any) {
@@ -198,8 +205,12 @@ const ScheduledReports: React.FC = () => {
                     <button
                         className="btn-create"
                         onClick={handleCreateSchedule}
-                        disabled={templates.length === 0}
-                        style={{ opacity: templates.length === 0 ? 0.5 : 1, cursor: templates.length === 0 ? 'not-allowed' : 'pointer' }}
+                        disabled={templates.length === 0 || !isGoogleAdsConnected}
+                        style={{
+                            opacity: (templates.length === 0 || !isGoogleAdsConnected) ? 0.5 : 1,
+                            cursor: (templates.length === 0 || !isGoogleAdsConnected) ? 'not-allowed' : 'pointer'
+                        }}
+                        title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des schedules' : templates.length === 0 ? 'Créez d\'abord un template' : ''}
                     >
                         <Plus size={20} />
                         <span>Nouveau schedule</span>
@@ -207,119 +218,132 @@ const ScheduledReports: React.FC = () => {
                 </div>
             </div>
 
-            {googleAuthError && (
-                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                        <h3 className="text-sm font-medium text-red-800 dark:text-red-300">Connexion Google Ads requise</h3>
-                        <p className="text-sm text-red-700 dark:text-red-400 mt-1">
-                            Impossible de récupérer vos comptes Google Ads. La session a probablement expiré.
-                            <a href="/app/settings" className="underline ml-1 font-medium hover:text-red-900 dark:hover:text-red-200">
-                                Reconnecter le compte
-                            </a>
-                        </p>
+            <GoogleAdsGuard mode="partial" feature="créer des schedules">
+
+                {googleAuthError && isGoogleAdsConnected && (
+                    <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
+                        <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                        <div>
+                            <h3 className="text-sm font-medium text-red-800 dark:text-red-300">Connexion Google Ads requise</h3>
+                            <p className="text-sm text-red-700 dark:text-red-400 mt-1">
+                                Impossible de récupérer vos comptes Google Ads. La session a probablement expiré.
+                                <a href="/app/settings" className="underline ml-1 font-medium hover:text-red-900 dark:hover:text-red-200">
+                                    Reconnecter le compte
+                                </a>
+                            </p>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {templates.length === 0 && (
-                <div className="empty-state warning">
-                    <AlertCircle size={48} />
-                    <h3>Aucun template disponible</h3>
-                    <p>
-                        La programmation nécessite un <strong>modèle (template)</strong> pour générer les rapports.
-                        Vos rapports existants (page Rapports) ne sont pas des templates.
-                    </p>
-                    <a href="/app/templates" className="btn-link">
-                        Créer un template →
-                    </a>
-                </div>
-            )}
+                {templates.length === 0 && (
+                    <div className="empty-state warning">
+                        <AlertCircle size={48} />
+                        <h3>Aucun template disponible</h3>
+                        <p>
+                            La programmation nécessite un <strong>modèle (template)</strong> pour générer les rapports.
+                            Vos rapports existants (page Rapports) ne sont pas des templates.
+                        </p>
+                        <a href="/app/templates" className="btn-link">
+                            Créer un template →
+                        </a>
+                    </div>
+                )}
 
-            {templates.length > 0 && schedules.length === 0 && (
-                <div className="empty-state">
-                    <Clock size={64} />
-                    <h3>Aucun rapport programmé</h3>
-                    <p>Créez votre premier schedule pour automatiser la génération de rapports.</p>
-                    <button className="btn-primary" onClick={handleCreateSchedule}>
-                        <Plus size={20} />
-                        <span>Créer un schedule</span>
-                    </button>
-                </div>
-            )}
+                {templates.length > 0 && schedules.length === 0 && (
+                    <div className="empty-state">
+                        <Clock size={64} />
+                        <h3>Aucun rapport programmé</h3>
+                        <p>Créez votre premier schedule pour automatiser la génération de rapports.</p>
+                        <button
+                            className="btn-primary"
+                            onClick={handleCreateSchedule}
+                            disabled={!isGoogleAdsConnected}
+                            style={{
+                                opacity: !isGoogleAdsConnected ? 0.5 : 1,
+                                cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
+                            }}
+                        >
+                            <Plus size={20} />
+                            <span>Créer un schedule</span>
+                        </button>
+                    </div>
+                )}
 
-            {schedules.length > 0 && (
-                <>
-                    {activeSchedules.length > 0 && (
-                        <div className="schedules-section">
-                            <h2 className="section-title">
-                                Schedules actifs
-                                <span className="count-badge">{activeSchedules.length}</span>
-                            </h2>
-                            <div className="schedules-grid">
-                                {activeSchedules.map((schedule) => (
-                                    <ScheduleCard
-                                        key={schedule.id}
-                                        schedule={schedule}
-                                        templateName={getTemplateName(schedule.templateId)}
-                                        accountName={getAccountName(schedule.accountId)}
-                                        onEdit={handleEditSchedule}
-                                        onDelete={handleDeleteSchedule}
-                                        onToggleStatus={handleToggleStatus}
-                                    />
-                                ))}
+                {schedules.length > 0 && (
+                    <>
+                        {activeSchedules.length > 0 && (
+                            <div className="schedules-section">
+                                <h2 className="section-title">
+                                    Schedules actifs
+                                    <span className="count-badge">{activeSchedules.length}</span>
+                                </h2>
+                                <div className="schedules-grid">
+                                    {activeSchedules.map((schedule) => (
+                                        <ScheduleCard
+                                            key={schedule.id}
+                                            schedule={schedule}
+                                            templateName={getTemplateName(schedule.templateId)}
+                                            accountName={getAccountName(schedule.accountId)}
+                                            onEdit={handleEditSchedule}
+                                            onDelete={handleDeleteSchedule}
+                                            onToggleStatus={handleToggleStatus}
+                                            isGoogleAdsConnected={isGoogleAdsConnected}
+                                        />
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                    {pausedSchedules.length > 0 && (
-                        <div className="schedules-section">
-                            <h2 className="section-title">
-                                Schedules en pause
-                                <span className="count-badge secondary">{pausedSchedules.length}</span>
-                            </h2>
-                            <div className="schedules-grid">
-                                {pausedSchedules.map((schedule) => (
-                                    <ScheduleCard
-                                        key={schedule.id}
-                                        schedule={schedule}
-                                        templateName={getTemplateName(schedule.templateId)}
-                                        accountName={getAccountName(schedule.accountId)}
-                                        onEdit={handleEditSchedule}
-                                        onDelete={handleDeleteSchedule}
-                                        onToggleStatus={handleToggleStatus}
-                                    />
-                                ))}
+                        {pausedSchedules.length > 0 && (
+                            <div className="schedules-section">
+                                <h2 className="section-title">
+                                    Schedules en pause
+                                    <span className="count-badge secondary">{pausedSchedules.length}</span>
+                                </h2>
+                                <div className="schedules-grid">
+                                    {pausedSchedules.map((schedule) => (
+                                        <ScheduleCard
+                                            key={schedule.id}
+                                            schedule={schedule}
+                                            templateName={getTemplateName(schedule.templateId)}
+                                            accountName={getAccountName(schedule.accountId)}
+                                            onEdit={handleEditSchedule}
+                                            onDelete={handleDeleteSchedule}
+                                            onToggleStatus={handleToggleStatus}
+                                            isGoogleAdsConnected={isGoogleAdsConnected}
+                                        />
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    )}
-                </>
-            )}
+                        )}
+                    </>
+                )}
 
-            <ScheduleConfigModal
-                isOpen={isModalOpen}
-                onClose={() => {
-                    setIsModalOpen(false);
-                    setEditingSchedule(undefined);
-                }}
-                onSave={handleSaveSchedule}
-                templates={templates}
-                accounts={accounts}
-                editingSchedule={editingSchedule}
-            />
+                <ScheduleConfigModal
+                    isOpen={isModalOpen}
+                    onClose={() => {
+                        setIsModalOpen(false);
+                        setEditingSchedule(undefined);
+                    }}
+                    onSave={handleSaveSchedule}
+                    templates={templates}
+                    accounts={accounts}
+                    editingSchedule={editingSchedule}
+                />
 
-            <ConfirmationModal
-                isOpen={deleteModalOpen}
-                onClose={() => {
-                    setDeleteModalOpen(false);
-                    setScheduleToDelete(null);
-                }}
-                onConfirm={confirmDeleteSchedule}
-                title="Supprimer le schedule"
-                message={`Êtes-vous sûr de vouloir supprimer le schedule "${scheduleToDelete?.name}" ? Cette action est irréversible.`}
-                confirmLabel="Supprimer"
-                isDestructive={true}
-            />
+                <ConfirmationModal
+                    isOpen={deleteModalOpen}
+                    onClose={() => {
+                        setDeleteModalOpen(false);
+                        setScheduleToDelete(null);
+                    }}
+                    onConfirm={confirmDeleteSchedule}
+                    title="Supprimer le schedule"
+                    message={`Êtes-vous sûr de vouloir supprimer le schedule "${scheduleToDelete?.name}" ? Cette action est irréversible.`}
+                    confirmLabel="Supprimer"
+                    isDestructive={true}
+                />
+            </GoogleAdsGuard>
         </div>
     );
 };
