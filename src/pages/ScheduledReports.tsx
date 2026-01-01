@@ -200,6 +200,21 @@ const ScheduledReports: React.FC = () => {
                 </div>
             </div>
 
+            {googleAuthError && (
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                        <h3 className="text-sm font-medium text-red-800 dark:text-red-300">Connexion Google Ads requise</h3>
+                        <p className="text-sm text-red-700 dark:text-red-400 mt-1">
+                            Impossible de récupérer vos comptes Google Ads. La session a probablement expiré.
+                            <a href="/app/settings" className="underline ml-1 font-medium hover:text-red-900 dark:hover:text-red-200">
+                                Reconnecter le compte
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            )}
+
             {templates.length === 0 && (
                 <div className="empty-state warning">
                     <AlertCircle size={48} />
