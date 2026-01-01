@@ -23,6 +23,7 @@ const NewReport: React.FC = () => {
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
     const [loading, setLoading] = useState(true);
     const [contextReady, setContextReady] = useState(false);
+    const [googleAuthError, setGoogleAuthError] = useState(false);
 
     // Wait for GoogleAdsContext to initialize
     useEffect(() => {
@@ -52,6 +53,7 @@ const NewReport: React.FC = () => {
     const loadAccounts = async () => {
         try {
             setLoading(true);
+            setGoogleAuthError(false);
             const response = await fetchAccessibleCustomers();
 
             if (response.success && response.customers) {
@@ -68,8 +70,16 @@ const NewReport: React.FC = () => {
                     setSelectedAccountId(accountsList[0].id);
                 }
             } else {
-                toast.error('Erreur lors du chargement des comptes');
                 setAccounts([]);
+                if (response.error && (
+                    response.error.includes('invalid_grant') ||
+                    response.error.includes('UNAUTHENTICATED')
+                )) {
+                    setGoogleAuthError(true);
+                    toast.error('Session Google Ads expirée');
+                } else {
+                    toast.error('Erreur lors du chargement des comptes');
+                }
             }
         } catch (error) {
             console.error('Error loading accounts:', error);
@@ -135,6 +145,40 @@ const NewReport: React.FC = () => {
                 height: '100vh'
             }}>
                 <Spinner size={48} />
+            </div>
+        );
+    }
+
+    // Google Ads Auth Error
+    if (googleAuthError) {
+        return (
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100vh',
+                padding: '24px'
+            }}>
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6 max-w-md w-full">
+                    <h3 className="text-lg font-medium text-red-800 dark:text-red-300 mb-2">Session Google Ads expirée</h3>
+                    <p className="text-sm text-red-700 dark:text-red-400 mb-4">
+                        Votre session Google Ads a expiré. Veuillez reconnecter votre compte pour continuer.
+                    </p>
+                    <div className="flex gap-3">
+                        <button
+                            onClick={() => navigate('/app/settings')}
+                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors"
+                        >
+                            Reconnecter le compte
+                        </button>
+                        <button
+                            onClick={handleClose}
+                            className="px-4 py-2 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-lg text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+                        >
+                            Annuler
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }

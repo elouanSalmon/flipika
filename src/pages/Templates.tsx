@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, FileStack, Search } from 'lucide-react';
+import { Plus, FileStack, Search, AlertCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
@@ -38,6 +38,7 @@ const Templates: React.FC = () => {
     const [accounts, setAccounts] = useState<GoogleAdsAccount[]>([]);
     const [selectedAccountId, setSelectedAccountId] = useState('');
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+    const [googleAuthError, setGoogleAuthError] = useState(false);
 
     useEffect(() => {
         if (currentUser) {
@@ -74,6 +75,7 @@ const Templates: React.FC = () => {
 
     const loadAccounts = async () => {
         try {
+            setGoogleAuthError(false);
             const response = await fetchAccessibleCustomers();
             if (response.success && response.customers) {
                 const accountsList = response.customers.map((customer: any) => ({
@@ -84,6 +86,12 @@ const Templates: React.FC = () => {
                 if (accountsList.length > 0) {
                     setSelectedAccountId(accountsList[0].id);
                 }
+            } else if (response.error && (
+                response.error.includes('invalid_grant') ||
+                response.error.includes('UNAUTHENTICATED')
+            )) {
+                setGoogleAuthError(true);
+                toast.error('Session Google Ads expirée');
             }
         } catch (error) {
             console.error('Error loading accounts:', error);
@@ -217,6 +225,21 @@ const Templates: React.FC = () => {
                     <span>Nouveau Template</span>
                 </button>
             </div>
+
+            {googleAuthError && (
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                        <h3 className="text-sm font-medium text-red-800 dark:text-red-300">Connexion Google Ads requise</h3>
+                        <p className="text-sm text-red-700 dark:text-red-400 mt-1">
+                            Impossible de récupérer vos comptes Google Ads. La session a probablement expiré.
+                            <a href="/app/settings" className="underline ml-1 font-medium hover:text-red-900 dark:hover:text-red-200">
+                                Reconnecter le compte
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            )}
 
             {templates.length > 0 && (
                 <div className="search-bar">
