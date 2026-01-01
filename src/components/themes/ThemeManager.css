@@ -24,17 +24,33 @@
     gap: 24px;
 }
 
+.theme-manager-header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.theme-manager-header-left .header-icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+}
+
 .theme-manager-header-left h2 {
     font-size: 28px;
     font-weight: 700;
     color: var(--color-text-primary);
-    margin: 0 0 8px 0;
+    margin: 0;
 }
 
-.theme-manager-header-left p {
+.theme-manager-header-left .header-subtitle {
+    margin: 8px 0 0 48px;
     font-size: 15px;
     color: var(--color-text-secondary);
-    margin: 0;
 }
 
 .theme-manager-empty {

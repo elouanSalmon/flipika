@@ -22,10 +22,10 @@
     gap: 24px;
 }
 
-.header-title {
+.header-title-row {
     display: flex;
+    align-items: center;
     gap: 16px;
-    align-items: flex-start;
 }
 
 .header-icon {
@@ -38,10 +38,11 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--color-text-primary);
+    line-height: 1.2;
 }
 
 .header-subtitle {
-    margin: 8px 0 0 0;
+    margin: 8px 0 0 48px;
     color: var(--color-text-secondary);
     font-size: 1rem;
 }

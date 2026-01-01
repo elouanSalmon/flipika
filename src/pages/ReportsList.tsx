@@ -106,7 +106,10 @@ const ReportsList: React.FC = () => {
         <div className="reports-list-page">
             <div className="page-header">
                 <div className="header-content">
-                    <h1>Mes Rapports</h1>
+                    <div className="header-title-row">
+                        <FileText size={32} className="header-icon" />
+                        <h1>Mes Rapports</h1>
+                    </div>
                     <p className="subtitle">Gérez et organisez vos rapports Google Ads</p>
                 </div>
                 <button className="create-report-btn" onClick={handleCreateReport}>

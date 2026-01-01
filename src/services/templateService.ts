@@ -11,6 +11,7 @@ import {
     orderBy,
     serverTimestamp,
     increment,
+    limit,
     writeBatch
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
@@ -101,7 +102,8 @@ export async function listUserTemplates(userId: string): Promise<ReportTemplate[
         const q = query(
             collection(db, TEMPLATES_COLLECTION),
             where('userId', '==', userId),
-            orderBy('updatedAt', 'desc')
+            orderBy('updatedAt', 'desc'),
+            limit(100)
         );
 
         const querySnapshot = await getDocs(q);

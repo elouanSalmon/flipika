@@ -27,6 +27,7 @@ const ScheduledReports: React.FC = () => {
     const { currentUser } = useAuth();
     const [schedules, setSchedules] = useState<ScheduledReport[]>([]);
     const [templates, setTemplates] = useState<ReportTemplate[]>([]);
+    const [googleAuthError, setGoogleAuthError] = useState(false);
     const [accounts, setAccounts] = useState<GoogleAdsAccount[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,29 +43,43 @@ const ScheduledReports: React.FC = () => {
         if (!currentUser) return;
 
         setLoading(true);
+        setGoogleAuthError(false);
         try {
-            const [schedulesData, templatesData, accountsResponse] = await Promise.all([
+            // Load essential data first
+            const [schedulesData, templatesData] = await Promise.all([
                 listUserScheduledReports(currentUser.uid),
                 listUserTemplates(currentUser.uid),
-                fetchAccessibleCustomers(),
             ]);
 
             setSchedules(schedulesData);
             setTemplates(templatesData);
 
-            // Handle the response from fetchAccessibleCustomers
-            if (accountsResponse.success && accountsResponse.customers) {
-                const accountsList = accountsResponse.customers.map((customer: any) => ({
-                    id: customer.id,
-                    name: customer.descriptiveName || customer.id,
-                }));
-                setAccounts(accountsList);
-            } else {
-                setAccounts([]);
+            // Load Google Ads accounts separately
+            try {
+                const accountsResponse = await fetchAccessibleCustomers();
+                if (accountsResponse.success && accountsResponse.customers) {
+                    const accountsList = accountsResponse.customers.map((customer: any) => ({
+                        id: customer.id,
+                        name: customer.descriptiveName || customer.id,
+                    }));
+                    setAccounts(accountsList);
+                } else {
+                    setAccounts([]);
+                    if (accountsResponse.error && (
+                        accountsResponse.error.includes('invalid_grant') ||
+                        accountsResponse.error.includes('UNAUTHENTICATED')
+                    )) {
+                        setGoogleAuthError(true);
+                        toast.error('Session Google Ads expirée. Veuillez vous reconnecter dans les paramètres.');
+                    }
+                }
+            } catch (err) {
+                console.error('Error fetching Google Ads accounts:', err);
             }
+
         } catch (error: any) {
             console.error('Error loading data:', error);
-            toast.error('Erreur lors du chargement des données');
+            toast.error('Erreur lors du chargement des données. Veuillez rafraîchir la page.');
         } finally {
             setLoading(false);
         }
@@ -164,16 +179,21 @@ const ScheduledReports: React.FC = () => {
         <div className="scheduled-reports-page">
             <div className="page-header">
                 <div className="header-content">
-                    <div className="header-title">
-                        <Clock size={32} className="header-icon" />
-                        <div>
+                    <div className="header-title-container">
+                        <div className="header-title-row">
+                            <Clock size={32} className="header-icon" />
                             <h1>Rapports programmés</h1>
-                            <p className="header-subtitle">
-                                Automatisez la génération de vos rapports sur une base régulière
-                            </p>
                         </div>
+                        <p className="header-subtitle">
+                            Automatisez la génération de vos rapports sur une base régulière
+                        </p>
                     </div>
-                    <button className="btn-create" onClick={handleCreateSchedule}>
+                    <button
+                        className="btn-create"
+                        onClick={handleCreateSchedule}
+                        disabled={templates.length === 0}
+                        style={{ opacity: templates.length === 0 ? 0.5 : 1, cursor: templates.length === 0 ? 'not-allowed' : 'pointer' }}
+                    >
                         <Plus size={20} />
                         <span>Nouveau schedule</span>
                     </button>
@@ -184,7 +204,10 @@ const ScheduledReports: React.FC = () => {
                 <div className="empty-state warning">
                     <AlertCircle size={48} />
                     <h3>Aucun template disponible</h3>
-                    <p>Vous devez d'abord créer un template de rapport avant de pouvoir programmer des rapports automatiques.</p>
+                    <p>
+                        La programmation nécessite un <strong>modèle (template)</strong> pour générer les rapports.
+                        Vos rapports existants (page Rapports) ne sont pas des templates.
+                    </p>
                     <a href="/app/templates" className="btn-link">
                         Créer un template →
                     </a>

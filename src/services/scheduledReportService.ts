@@ -11,6 +11,7 @@ import {
     orderBy,
     serverTimestamp,
     increment,
+    limit,
     Timestamp
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
@@ -98,7 +99,8 @@ export async function listUserScheduledReports(userId: string): Promise<Schedule
     const q = query(
         collection(db, SCHEDULED_REPORTS_COLLECTION),
         where('userId', '==', userId),
-        orderBy('createdAt', 'desc')
+        orderBy('createdAt', 'desc'),
+        limit(100)
     );
 
     const querySnapshot = await getDocs(q);

@@ -141,15 +141,7 @@ service cloud.firestore {
       // Users can query/list their own themes
       allow list: if request.auth != null 
         && request.query.limit <= 100
-        && (
-          // Allow queries filtered by userId
-          !('where' in request.query) 
-          || (
-            request.query.where.size() > 0 
-            && request.query.where[0][0] == 'userId' 
-            && request.query.where[0][2] == request.auth.uid
-          )
-        );
+        && resource.data.userId == request.auth.uid;
       
       // Users can create themes with their own userId
       allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
@@ -303,14 +295,7 @@ service cloud.firestore {
       // List: users can query their own templates
       allow list: if isAuthenticated()
         && request.query.limit <= 100
-        && (
-          !('where' in request.query)
-          || (
-            request.query.where.size() > 0
-            && request.query.where[0][0] == 'userId'
-            && request.query.where[0][2] == request.auth.uid
-          )
-        );
+        && resource.data.userId == request.auth.uid;
       
       // Create: authenticated user with valid data
       allow create: if isAuthenticated() 
@@ -342,14 +327,7 @@ service cloud.firestore {
       // List: users can query their own schedules
       allow list: if isAuthenticated()
         && request.query.limit <= 100
-        && (
-          !('where' in request.query)
-          || (
-            request.query.where.size() > 0
-            && request.query.where[0][0] == 'userId'
-            && request.query.where[0][2] == request.auth.uid
-          )
-        );
+        && resource.data.userId == request.auth.uid;
       
       // Create: authenticated user with valid data
       allow create: if isAuthenticated() 
@@ -396,14 +374,7 @@ service cloud.firestore {
       // List: users can query their own billing history
       allow list: if isAuthenticated()
         && request.query.limit <= 100
-        && (
-          !('where' in request.query)
-          || (
-            request.query.where.size() > 0
-            && request.query.where[0][0] == 'userId'
-            && request.query.where[0][2] == request.auth.uid
-          )
-        );
+        && resource.data.userId == request.auth.uid;
       
       // Write: only Cloud Functions can write billing events
       allow write: if false;
