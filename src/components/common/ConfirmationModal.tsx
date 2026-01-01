@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, X } from 'lucide-react';
+import { AlertCircle, X, Loader2 } from 'lucide-react';
 
 interface ConfirmationModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onConfirm: () => void;
+    onConfirm: () => void | Promise<void>;
     title: string;
     message: string;
     confirmLabel?: string;
@@ -24,7 +24,25 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     cancelLabel = 'Annuler',
     isDestructive = false,
 }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
     if (typeof document === 'undefined') return null;
+
+    const handleConfirm = async () => {
+        try {
+            const result = onConfirm();
+            if (result instanceof Promise) {
+                setIsLoading(true);
+                await result;
+            }
+            onClose();
+        } catch (error) {
+            console.error('Error in confirmation modal:', error);
+            // Optionally could clear loading here if we wanted to keep modal open on error
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return ReactDOM.createPortal(
         <AnimatePresence>
@@ -35,7 +53,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={onClose}
+                        onClick={!isLoading ? onClose : undefined}
                         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                     />
 
@@ -62,14 +80,15 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                                     <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                                         {title}
                                     </h3>
-                                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 whitespace-pre-line">
                                         {message}
                                     </p>
                                 </div>
 
                                 <button
                                     onClick={onClose}
-                                    className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors"
+                                    disabled={isLoading}
+                                    className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <X size={20} />
                                 </button>
@@ -78,20 +97,20 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                             <div className="mt-8 flex justify-end gap-3">
                                 <button
                                     onClick={onClose}
-                                    className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl transition-colors"
+                                    disabled={isLoading}
+                                    className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {cancelLabel}
                                 </button>
                                 <button
-                                    onClick={() => {
-                                        onConfirm();
-                                        onClose();
-                                    }}
-                                    className={`px-4 py-2 text-sm font-medium text-white rounded-xl transition-colors shadow-lg ${isDestructive
-                                            ? 'bg-red-600 hover:bg-red-700 shadow-red-500/20'
-                                            : 'bg-blue-600 hover:bg-blue-700 shadow-blue-500/20'
-                                        }`}
+                                    onClick={handleConfirm}
+                                    disabled={isLoading}
+                                    className={`px-4 py-2 text-sm font-medium text-white rounded-xl transition-colors shadow-lg flex items-center gap-2 ${isDestructive
+                                        ? 'bg-red-600 hover:bg-red-700 shadow-red-500/20'
+                                        : 'bg-blue-600 hover:bg-blue-700 shadow-blue-500/20'
+                                        } disabled:opacity-70 disabled:cursor-not-allowed`}
                                 >
+                                    {isLoading && <Loader2 size={16} className="animate-spin" />}
                                     {confirmLabel}
                                 </button>
                             </div>

@@ -6,6 +6,7 @@ import { useAuth } from './AuthContext';
 interface GoogleAdsContextType {
     isConnected: boolean;
     customerId: string | null;
+    authError: string | null;
     setLinkedCustomerId: (id: string | null) => void;
     refreshConnectionStatus: () => void;
     disconnect: () => Promise<void>;
@@ -17,6 +18,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
     const { currentUser } = useAuth();
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [customerId, setCustomerId] = useState<string | null>(null);
+    const [authError, setAuthError] = useState<string | null>(null);
 
     // Manual refresh function (kept for compatibility)
     const refreshConnectionStatus = () => {
@@ -61,6 +63,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
             console.log('[GoogleAdsContext] No current user, setting isConnected to false');
             setIsConnected(false);
             setCustomerId(null);
+            setAuthError(null);
             // Clear localStorage when user logs out or changes
             localStorage.removeItem('google_ads_customer_id');
             localStorage.removeItem('google_ads_connected');
@@ -80,6 +83,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
 
                 if (exists) {
                     console.log('[GoogleAdsContext] Token data:', docSnapshot.data());
+                    setAuthError(null); // Clear error if document exists and is readable
                 }
 
                 setIsConnected(exists);
@@ -96,8 +100,15 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
             },
             (error) => {
                 console.error('[GoogleAdsContext] Error listening to Google Ads token:', error);
-                console.error('[GoogleAdsContext] Error code:', error.code);
-                console.error('[GoogleAdsContext] Error message:', error.message);
+
+                if (error.code === 'permission-denied') {
+                    setAuthError('permission-denied');
+                } else if (error.message.includes('invalid_grant') || error.message.includes('UNAUTHENTICATED')) {
+                    setAuthError('invalid_grant');
+                } else {
+                    setAuthError(error.message);
+                }
+
                 setIsConnected(false);
                 setCustomerId(null);
             }
@@ -123,6 +134,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
             value={{
                 isConnected,
                 customerId,
+                authError,
                 setLinkedCustomerId,
                 refreshConnectionStatus,
                 disconnect,

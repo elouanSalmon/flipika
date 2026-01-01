@@ -16,7 +16,7 @@ import type { Account, Campaign, DateRange, Alert, TimeSeriesMetrics } from '../
 
 const DashboardNew = () => {
     const navigate = useNavigate();
-    const { isConnected } = useGoogleAds();
+    const { isConnected, authError } = useGoogleAds();
     const { isDemoMode } = useDemoMode();
 
     const [loading, setLoading] = useState(true);
@@ -186,6 +186,32 @@ const DashboardNew = () => {
     // Show empty state if not connected and not in demo mode
     if (!shouldShowDashboard) {
         return <EmptyDashboardState />;
+    }
+
+    if (authError && !isDemoMode) {
+        return (
+            <div className="flex flex-col items-center justify-center p-12 bg-white dark:bg-gray-800 rounded-2xl border border-red-200 dark:border-red-900 shadow-sm">
+                <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-full mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                <h3 className="text-lg font-bold text-red-700 dark:text-red-400 mb-2">Problème de connexion</h3>
+                <p className="text-gray-500 text-center max-w-md mb-6">
+                    {authError === 'permission-denied' && "Vous n'avez pas la permission d'accéder à ce compte."}
+                    {authError === 'invalid_grant' && "Votre session Google Ads a expiré. Veuillez vous reconnecter."}
+                    {authError === 'UNAUTHENTICATED' && "Authentification requise. Veuillez reconnecter votre compte."}
+                    {!['permission-denied', 'invalid_grant', 'UNAUTHENTICATED'].includes(authError) &&
+                        `Erreur lors de la connexion à Google Ads (${authError})`}
+                </p>
+                <button
+                    onClick={() => navigate('/app/settings')}
+                    className="btn btn-primary"
+                >
+                    Reconnecter le compte
+                </button>
+            </div>
+        );
     }
 
     return (

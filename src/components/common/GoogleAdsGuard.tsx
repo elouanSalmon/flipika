@@ -29,7 +29,7 @@ const GoogleAdsGuard: React.FC<GoogleAdsGuardProps> = ({
     showEmptyState = true,
     allowDemo = true,
 }) => {
-    const { isConnected } = useGoogleAds();
+    const { isConnected, authError } = useGoogleAds();
     const { isDemoMode } = useDemoMode();
     const navigate = useNavigate();
 
@@ -46,6 +46,16 @@ const GoogleAdsGuard: React.FC<GoogleAdsGuardProps> = ({
         }
     };
 
+    const getErrorMessage = () => {
+        if (authError === 'invalid_grant' || authError === 'UNAUTHENTICATED') {
+            return "Session Google Ads expirée. Veuillez vous reconnecter.";
+        }
+        if (authError === 'permission-denied') {
+            return "Accès refusé. Veuillez vérifier vos permissions.";
+        }
+        return `Connectez votre compte Google Ads pour débloquer ${feature} et accéder à vos données publicitaires.`;
+    };
+
     // If connected or in demo mode, render children normally
     if (authorized) {
         return <>{children}</>;
@@ -60,8 +70,8 @@ const GoogleAdsGuard: React.FC<GoogleAdsGuardProps> = ({
                         <AlertCircle size={64} />
                     </div>
                     <h2>Connexion Google Ads requise</h2>
-                    <p>
-                        Connectez votre compte Google Ads pour débloquer {feature} et accéder à vos données publicitaires.
+                    <p className={authError ? "text-red-500" : ""}>
+                        {getErrorMessage()}
                     </p>
                     <div className="empty-state-actions">
                         <button className="btn-connect-google-ads" onClick={handleConnectClick}>
@@ -77,12 +87,14 @@ const GoogleAdsGuard: React.FC<GoogleAdsGuardProps> = ({
                             Aller aux paramètres
                         </a>
                     </div>
-                    <div className="empty-state-info">
-                        <p className="info-text">
-                            <strong>Pourquoi cette connexion ?</strong><br />
-                            Flipika a besoin d'accéder à vos données Google Ads pour générer des rapports personnalisés et automatiser vos analyses.
-                        </p>
-                    </div>
+                    {!authError && (
+                        <div className="empty-state-info">
+                            <p className="info-text">
+                                <strong>Pourquoi cette connexion ?</strong><br />
+                                Flipika a besoin d'accéder à vos données Google Ads pour générer des rapports personnalisés et automatiser vos analyses.
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         );
@@ -93,12 +105,12 @@ const GoogleAdsGuard: React.FC<GoogleAdsGuardProps> = ({
         return (
             <>
                 {showEmptyState && (
-                    <div className="google-ads-warning-banner">
+                    <div className={`google-ads-warning-banner ${authError ? 'error-banner' : ''}`}>
                         <AlertCircle className="warning-icon" size={20} />
                         <div className="warning-content">
                             <h3>Connexion Google Ads requise</h3>
                             <p>
-                                Connectez votre compte Google Ads pour débloquer {feature}.
+                                {authError ? getErrorMessage() : `Connectez votre compte Google Ads pour débloquer ${feature}.`}
                             </p>
                         </div>
                         <button className="btn-connect-inline" onClick={handleConnectClick}>
