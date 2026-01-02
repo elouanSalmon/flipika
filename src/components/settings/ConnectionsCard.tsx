@@ -7,26 +7,12 @@ import { motion } from 'framer-motion';
 import ConfirmationModal from '../common/ConfirmationModal';
 
 const ConnectionsCard = () => {
-    const { isConnected, refreshConnectionStatus, disconnect, customerId, setLinkedCustomerId } = useGoogleAds();
+    // accounts is now provided by useGoogleAds
+    const { isConnected, refreshConnectionStatus, disconnect, customerId, setLinkedCustomerId, accounts } = useGoogleAds();
     const { currentUser, loginWithGoogle } = useAuth();
-    const [accounts, setAccounts] = useState<any[]>([]);
     const [showDisconnectModal, setShowDisconnectModal] = useState(false);
 
-    useEffect(() => {
-        const loadAccounts = async () => {
-            if (isConnected) {
-                try {
-                    const module = await import('../../services/dataService');
-                    const dataService = module.default;
-                    const fetchedAccounts = await dataService.getAccounts();
-                    setAccounts(fetchedAccounts);
-                } catch (error) {
-                    console.error('Failed to load accounts:', error);
-                }
-            }
-        };
-        loadAccounts();
-    }, [isConnected]);
+    // Removed local useEffect for loading accounts as context handles it
 
     const handleConnectGoogleAds = async () => {
         try {

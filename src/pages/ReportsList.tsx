@@ -24,7 +24,7 @@ const ITEMS_PER_PAGE = 9;
 const ReportsList: React.FC = () => {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
-    const { isConnected: isGoogleAdsConnected } = useGoogleAds();
+    const { isConnected: isGoogleAdsConnected, accounts } = useGoogleAds(); // Use accounts from context
     const [reports, setReports] = useState<EditableReport[]>([]);
     const [filteredReports, setFilteredReports] = useState<EditableReport[]>([]);
     const [loading, setLoading] = useState(true);
@@ -36,15 +36,11 @@ const ReportsList: React.FC = () => {
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
 
-    const [accounts, setAccounts] = useState<{ id: string; name: string }[]>([]);
-
     // Filters
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
     const [selectedCampaignId, setSelectedCampaignId] = useState<string>('');
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [loadingCampaigns, setLoadingCampaigns] = useState(false);
-
-
 
     const loadReports = async () => {
         if (!currentUser) return;
@@ -71,21 +67,7 @@ const ReportsList: React.FC = () => {
         }
     };
 
-    const loadAccounts = async () => {
-        try {
-            const response = await fetchAccessibleCustomers();
-            if (response.success && response.customers) {
-                const accountsList = response.customers.map((customer: any) => ({
-                    id: customer.id,
-                    name: customer.descriptiveName || customer.id,
-                }));
-                setAccounts(accountsList);
-            }
-        } catch (error) {
-            console.error('Error loading accounts:', error);
-        }
-    };
-
+    // loadAccounts removed - managed by GoogleAdsContext
 
     const loadCampaigns = async (accountId: string) => {
         try {
@@ -134,11 +116,7 @@ const ReportsList: React.FC = () => {
         setFilteredReports(filtered);
     };
 
-    useEffect(() => {
-        if (isGoogleAdsConnected) {
-            loadAccounts();
-        }
-    }, [isGoogleAdsConnected]);
+    // UseEffect for loading accounts removed
 
     useEffect(() => {
         if (currentUser) {
@@ -232,24 +210,24 @@ const ReportsList: React.FC = () => {
                         Tous ({reports.length})
                     </button>
                     <button
-                        className={`status-filter-btn ${statusFilter === 'draft' ? 'active' : ''}`}
+                        className={`status-filter-btn filter-draft ${statusFilter === 'draft' ? 'active' : ''}`}
                         onClick={() => setStatusFilter('draft')}
                     >
-                        <span className="status-badge draft">●</span>
+                        <div className="status-dot" />
                         Brouillons ({statusCounts.draft})
                     </button>
                     <button
-                        className={`status-filter-btn ${statusFilter === 'published' ? 'active' : ''}`}
+                        className={`status-filter-btn filter-published ${statusFilter === 'published' ? 'active' : ''}`}
                         onClick={() => setStatusFilter('published')}
                     >
-                        <span className="status-badge published">●</span>
+                        <div className="status-dot" />
                         Publiés ({statusCounts.published})
                     </button>
                     <button
-                        className={`status-filter-btn ${statusFilter === 'archived' ? 'active' : ''}`}
+                        className={`status-filter-btn filter-archived ${statusFilter === 'archived' ? 'active' : ''}`}
                         onClick={() => setStatusFilter('archived')}
                     >
-                        <span className="status-badge archived">●</span>
+                        <div className="status-dot" />
                         Archivés ({statusCounts.archived})
                     </button>
                 </div>

@@ -38,7 +38,7 @@ interface GoogleAdsAccount {
 const Templates: React.FC = () => {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
-    const { isConnected } = useGoogleAds();
+    const { isConnected, accounts } = useGoogleAds(); // Use accounts from context
 
     const [templates, setTemplates] = useState<ReportTemplate[]>([]);
     const [loading, setLoading] = useState(true);
@@ -46,9 +46,11 @@ const Templates: React.FC = () => {
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [editingTemplate, setEditingTemplate] = useState<ReportTemplate | null>(null);
-    const [accounts, setAccounts] = useState<GoogleAdsAccount[]>([]);
+    // Removed local accounts state
     const [selectedAccountId, setSelectedAccountId] = useState('');
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+    // Removed googleAuthError state, as context handles connection status conceptually.
+    // If we want to show specific auth errors, we might need error state in context.
     const [googleAuthError, setGoogleAuthError] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [templateToDelete, setTemplateToDelete] = useState<ReportTemplate | null>(null);
@@ -85,30 +87,14 @@ const Templates: React.FC = () => {
         }
     };
 
-    const loadAccounts = async () => {
-        try {
-            setGoogleAuthError(false);
-            const response = await fetchAccessibleCustomers();
-            if (response.success && response.customers) {
-                const accountsList = response.customers.map((customer: any) => ({
-                    id: customer.id,
-                    name: customer.descriptiveName || customer.id,
-                }));
-                setAccounts(accountsList);
-                if (accountsList.length > 0) {
-                    setSelectedAccountId(accountsList[0].id);
-                }
-            } else if (response.error && (
-                response.error.includes('invalid_grant') ||
-                response.error.includes('UNAUTHENTICATED')
-            )) {
-                setGoogleAuthError(true);
-                toast.error('Session Google Ads expirée');
-            }
-        } catch (error) {
-            console.error('Error loading accounts:', error);
+    // Removed loadAccounts()
+
+    // Default selection effect
+    useEffect(() => {
+        if (accounts.length > 0 && !selectedAccountId) {
+            setSelectedAccountId(accounts[0].id);
         }
-    };
+    }, [accounts, selectedAccountId]);
 
     const loadCampaigns = async (accountId: string) => {
         try {
@@ -170,11 +156,7 @@ const Templates: React.FC = () => {
         }
     }, [currentUser]);
 
-    useEffect(() => {
-        if (isConnected) {
-            loadAccounts();
-        }
-    }, [isConnected]);
+    // UseEffect for loadAccounts removed
 
     useEffect(() => {
         if (selectedAccountId) {

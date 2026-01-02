@@ -310,17 +310,17 @@ const ScheduledReports: React.FC = () => {
                             Tous ({schedules.length})
                         </button>
                         <button
-                            className={`status-filter-btn ${statusFilter === 'active' ? 'active' : ''}`}
+                            className={`status-filter-btn filter-active ${statusFilter === 'active' ? 'active' : ''}`}
                             onClick={() => setStatusFilter('active')}
                         >
-                            <span className="status-badge active-dot">●</span>
+                            <div className="status-dot" />
                             Actifs ({activeCount})
                         </button>
                         <button
-                            className={`status-filter-btn ${statusFilter === 'paused' ? 'active' : ''}`}
+                            className={`status-filter-btn filter-paused ${statusFilter === 'paused' ? 'active' : ''}`}
                             onClick={() => setStatusFilter('paused')}
                         >
-                            <span className="status-badge paused-dot">●</span>
+                            <div className="status-dot" />
                             En pause ({pausedCount})
                         </button>
                     </div>

@@ -9,10 +9,10 @@ import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds'
 
 const Dashboard = () => {
     const { linkGoogleAds } = useAuth();
-    const { customerId, isConnected, setLinkedCustomerId } = useGoogleAds();
+    const { customerId, isConnected, setLinkedCustomerId, accounts, loading: contextLoading } = useGoogleAds(); // Use context accounts
     const [searchParams] = useSearchParams();
     const [step, setStep] = useState<'LOADING' | 'CONNECT' | 'SELECT_ACCOUNT' | 'DASHBOARD'>('LOADING');
-    const [customers, setCustomers] = useState<string[]>([]);
+    // const [customers, setCustomers] = useState<string[]>([]); // Removed local customers state
     const [campaigns, setCampaigns] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -34,81 +34,38 @@ const Dashboard = () => {
         } else {
             checkStatus();
         }
-    }, [searchParams]);
+    }, [searchParams, isConnected, customerId, accounts]);
 
     const checkStatus = async (forceRefresh = false) => {
-        // Use context values first
+        // If connected and has default account, go to dashboard
         if (isConnected && customerId && !forceRefresh) {
             setStep('DASHBOARD');
             loadCampaigns(customerId);
             return;
         }
 
-        // If no local CID or not connected according to context, check if we can fetch customers
-        // This handles cases where context might be hydrating or out of sync initially
-        await loadCustomers(true);
-    };
-
-    const loadCustomers = async (isCheck = false) => {
-        setLoading(true);
-        try {
-            // @ts-ignore
-            const result = await fetchAccessibleCustomers();
-            const response = result as any;
-
-            if (response.customers && response.customers.length > 0) {
-                setCustomers(response.customers);
-
-                // If we have a customerId from context, try to use it
-                if (customerId && response.customers.some((c: string) => c.includes(customerId))) {
-                    setStep('DASHBOARD');
-                    loadCampaigns(customerId);
-                } else {
-                    setStep('SELECT_ACCOUNT');
-                }
-                setError(null);
-            } else if (response.customers && response.customers.length === 0) {
-                setError("Aucun compte Google Ads trouvé associé à ce compte Google.");
+        // If connected but no default account, show selection if accounts managed by context are present
+        if (isConnected && !customerId) {
+            if (accounts.length > 0) {
                 setStep('SELECT_ACCOUNT');
             } else {
-                console.warn("Check status: Connected but no customers found or not connected", response);
-                // Not connected
-                if (isCheck) {
-                    setStep('CONNECT');
-                    // Optional: set a temporary error to see if something went wrong
-                    if (response.error) {
-                        // Simplify the 412 error for the user
-                        if (response.error.includes("412") || response.error.includes("No Google Ads account")) {
-                            setError("Compte non connecté. Veuillez relancer la connexion.");
-                        } else {
-                            setError(`Erreur connexion: ${response.error}`);
-                        }
-                    }
-                }
-                else setError("Aucun compte trouvé.");
-            }
-        } catch (err: any) {
-            console.error("Check status error:", err);
-            if (isCheck) {
-                setStep('CONNECT');
-                if (err?.message?.includes('invalid_grant') || err?.message?.includes('UNAUTHENTICATED')) {
-                    setError("Votre session Google Ads a expiré. Veuillez vous reconnecter.");
-                } else {
-                    setError(`Erreur de vérification: ${err.message || 'Inconnue'}`);
+                // Still loading accounts or none found...
+                // Context loading should handle brief wait, but if accounts empty after load:
+                if (!contextLoading && accounts.length === 0) {
+                    setError("Aucun compte Google Ads trouvé.");
+                    setStep('SELECT_ACCOUNT');
                 }
             }
-            else {
-                if (err?.message?.includes('invalid_grant') || err?.message?.includes('UNAUTHENTICATED')) {
-                    setStep('CONNECT');
-                    setError("Votre session Google Ads a expiré. Veuillez vous reconnecter.");
-                } else {
-                    setError("Impossible de charger les comptes.");
-                }
-            }
-        } finally {
-            setLoading(false);
+            return;
+        }
+
+        if (!isConnected && !contextLoading) {
+            setStep('CONNECT');
         }
     };
+
+    // loadCustomers is mostly redundant now as context handles fetching. 
+    // However, Dashboard logic for "SELECT_ACCOUNT" step needs to map accounts from context.
 
     const loadCampaigns = async (cid?: string) => {
         const idToUse = cid || customerId;
@@ -153,8 +110,7 @@ const Dashboard = () => {
         }
     };
 
-    const selectCustomer = (resourceName: string) => {
-        const id = resourceName.split('/')[1];
+    const selectCustomer = (id: string) => {
         setLinkedCustomerId(id);
         setStep('DASHBOARD');
         loadCampaigns(id);
@@ -164,8 +120,11 @@ const Dashboard = () => {
         localStorage.removeItem('google_ads_token');
         localStorage.removeItem('google_ads_customer_id');
         setStep('CONNECT');
+        localStorage.removeItem('google_ads_token');
+        localStorage.removeItem('google_ads_customer_id');
+        setStep('CONNECT');
         setCampaigns([]);
-        setCustomers([]);
+        // setCustomers([]); // Removed local customers state
         setError(null);
     };
 
@@ -211,12 +170,14 @@ const Dashboard = () => {
                     </div>
                 ) : (
                     <div className="grid gap-3">
-                        {customers.map((cust, idx) => (
-                            <button key={idx} onClick={() => selectCustomer(cust)} className="card p-5 hover:border-blue-500 hover:shadow-md transition-all flex items-center justify-between group text-left">
-                                <span className="font-medium text-lg">Compte {cust.split('/')[1]}</span>
-                                <ArrowRight className="opacity-0 group-hover:opacity-100 text-blue-500 transition-opacity" />
-                            </button>
-                        ))}
+                        <div className="grid gap-3">
+                            {accounts.map((cust, idx) => (
+                                <button key={cust.id} onClick={() => selectCustomer(cust.id)} className="card p-5 hover:border-blue-500 hover:shadow-md transition-all flex items-center justify-between group text-left">
+                                    <span className="font-medium text-lg">{cust.name} ({cust.id})</span>
+                                    <ArrowRight className="opacity-0 group-hover:opacity-100 text-blue-500 transition-opacity" />
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 )}
                 <button onClick={handleLogoutAds} className="btn btn-ghost w-full mt-4">Annuler</button>
@@ -230,7 +191,7 @@ const Dashboard = () => {
             <div className="flex justify-between items-center bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
                 <div className="space-y-1">
                     <h1 className="text-2xl font-bold">Vos Campagnes</h1>
-                    <p className="text-gray-500 text-sm">Compte: {customerId}</p>
+                    <p className="text-gray-500 text-sm">Compte: {accounts.find(a => a.id === customerId)?.name || customerId}</p>
                 </div>
                 <div className="flex gap-3">
                     <button onClick={() => loadCampaigns()} className="btn btn-ghost" title="Actualiser">

@@ -124,6 +124,13 @@ service cloud.firestore {
     }
     
     // ========================================
+    // USER INTEGRATIONS (Google Ads, etc.)
+    // ========================================
+    match /users/{userId}/integrations/{integrationId} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // ========================================
     // GOOGLE ADS ACCOUNTS
     // ========================================
     match /googleAdsAccounts/{accountId} {

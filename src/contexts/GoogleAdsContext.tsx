@@ -2,14 +2,23 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from '
 import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { useAuth } from './AuthContext';
+import { fetchAccessibleCustomers } from '../services/googleAds';
+import toast from 'react-hot-toast';
+
+// Define the shape of an account object
+export interface GoogleAdsAccount {
+    id: string;
+    name: string;
+}
 
 interface GoogleAdsContextType {
     isConnected: boolean;
     customerId: string | null;
     authError: string | null;
     loading: boolean;
+    accounts: GoogleAdsAccount[];
     setLinkedCustomerId: (id: string | null) => void;
-    refreshConnectionStatus: () => void;
+    refreshConnectionStatus: () => Promise<void>;
     disconnect: () => Promise<void>;
 }
 
@@ -21,21 +30,110 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
     const [customerId, setCustomerId] = useState<string | null>(null);
     const [authError, setAuthError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [accounts, setAccounts] = useState<GoogleAdsAccount[]>([]);
 
-    // Manual refresh function (kept for compatibility)
-    const refreshConnectionStatus = () => {
-        // This will be triggered automatically by the Firestore listener
-        // but we keep the function for backward compatibility
-    };
+    // Reset state when user logs out
+    useEffect(() => {
+        if (!currentUser) {
+            setIsConnected(false);
+            setCustomerId(null);
+            setAuthError(null);
+            setAccounts([]);
+            setLoading(false);
+        }
+    }, [currentUser]);
 
-    // Disconnect function
-    const disconnect = async () => {
+    // Main Listener Effect
+    useEffect(() => {
         if (!currentUser) return;
 
+        setLoading(true);
+        const tokenDocRef = doc(db, 'users', currentUser.uid, 'tokens', 'google_ads');
+        const userDocRef = doc(db, 'users', currentUser.uid);
+        const accountsDocRef = doc(db, 'users', currentUser.uid, 'integrations', 'google_ads');
+
+        const unsubscribeToken = onSnapshot(tokenDocRef, (docSnapshot) => {
+            setIsConnected(docSnapshot.exists());
+        }, (error) => {
+            console.error('[GoogleAdsContext] Error listening to token:', error);
+            setIsConnected(false);
+        });
+
+        const unsubscribeUser = onSnapshot(userDocRef, (docSnapshot) => {
+            if (docSnapshot.exists()) {
+                const data = docSnapshot.data();
+                const defaultId = data.googleAdsDefaultAccountId || null;
+                setCustomerId(defaultId);
+            }
+        });
+
+        const unsubscribeAccounts = onSnapshot(accountsDocRef, (docSnapshot) => {
+            if (docSnapshot.exists()) {
+                const data = docSnapshot.data();
+                if (data.accounts && Array.isArray(data.accounts)) {
+                    setAccounts(data.accounts);
+                }
+            }
+            // Once we've checked everything (or at least attached listeners), we can stop loading
+            setLoading(false);
+        }, (error) => {
+            console.error('[GoogleAdsContext] Error listening to accounts:', error);
+            setLoading(false);
+        });
+
+        return () => {
+            unsubscribeToken();
+            unsubscribeUser();
+            unsubscribeAccounts();
+        };
+    }, [currentUser]);
+
+    // Auto-sync accounts if connected but list is empty
+    useEffect(() => {
+        if (isConnected && currentUser && accounts.length === 0 && !loading) {
+            // Ideally we don't want to loop if sync fails/returns empty, so maybe check a "last attempted" flag?
+            // For now, let's just trigger it once.
+            syncAccounts();
+        }
+    }, [isConnected, currentUser, loading]); // Remove 'accounts' from dep to avoid loop if it stays empty, but 'accounts.length === 0' condition is safer if sync adds them.
+
+    const syncAccounts = async () => {
+        if (!currentUser) return;
         try {
-            // Call the revokeOAuth Cloud Function
+            console.log('[GoogleAdsContext] Syncing accounts...');
+            const response = await fetchAccessibleCustomers();
+
+            if (response.success && response.customers) {
+                const fetchedAccounts: GoogleAdsAccount[] = response.customers.map((c: any) => ({
+                    id: c.id,
+                    name: c.descriptiveName || c.id
+                }));
+
+                const accountsDocRef = doc(db, 'users', currentUser.uid, 'integrations', 'google_ads');
+                await setDoc(accountsDocRef, {
+                    accounts: fetchedAccounts,
+                    lastSyncedAt: new Date()
+                }, { merge: true });
+
+                toast.success('Comptes Google Ads synchronisés');
+            }
+        } catch (error) {
+            console.error('[GoogleAdsContext] Error syncing accounts:', error);
+        }
+    };
+
+    const refreshConnectionStatus = async () => {
+        if (currentUser) {
+            await syncAccounts();
+        }
+    };
+
+    const disconnect = async () => {
+        if (!currentUser) return;
+        try {
+            // Revoke OAuth
             const token = await currentUser.getIdToken();
-            const response = await fetch('https://us-central1-flipika.cloudfunctions.net/revokeOAuth', {
+            await fetch('https://us-central1-flipika.cloudfunctions.net/revokeOAuth', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -43,137 +141,24 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
                 }
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to revoke OAuth');
-            }
-
-            // Clear localStorage
-            localStorage.removeItem('google_ads_customer_id');
-            localStorage.removeItem('google_ads_connected');
-            localStorage.removeItem('googleAdsConnected');
-            localStorage.removeItem('linkedCustomerId');
-
-            console.log('[GoogleAdsContext] Successfully disconnected Google Ads');
+            // Clean up strictly local things if needed, but Firestore listener handles most.
+            // We might want to clear the token doc manually if the cloud function doesn't?
+            // Assuming cloud function deletes the token doc.
         } catch (error) {
-            console.error('[GoogleAdsContext] Error disconnecting:', error);
-            throw error;
+            console.error('Disconnect failed:', error);
+            toast.error('Erreur lors de la déconnexion');
         }
     };
 
-    useEffect(() => {
-        if (!currentUser) {
-            console.log('[GoogleAdsContext] No current user, setting isConnected to false');
-            setIsConnected(false);
-            setCustomerId(null);
-            setAuthError(null);
-            setLoading(false);
-            // Clear localStorage when user logs out or changes
-            localStorage.removeItem('google_ads_customer_id');
-            localStorage.removeItem('google_ads_connected');
-            return;
-        }
-
-        console.log('[GoogleAdsContext] Setting up Firestore listener for user:', currentUser.uid);
-        setLoading(true);
-
-        // Listen to the Google Ads token document in Firestore
-        const tokenDocRef = doc(db, 'users', currentUser.uid, 'tokens', 'google_ads');
-        // Also listen to the user profile for default account setting
-        const userDocRef = doc(db, 'users', currentUser.uid);
-
-        // We combine the listeners or just fetch user doc once? 
-        // For now, let's keep the token listener as primary for connection status.
-        // And use a separate listener or fetch for the default account ID.
-        // Since we want it to be reactive (if user changes it in settings), a listener is better.
-
-        let defaultAccountId: string | null = null;
-
-        const unsubscribeToken = onSnapshot(
-            tokenDocRef,
-            (docSnapshot) => {
-                const exists = docSnapshot.exists();
-                console.log('[GoogleAdsContext] Token document exists:', exists);
-
-                if (exists) {
-                    console.log('[GoogleAdsContext] Token data:', docSnapshot.data());
-                    setAuthError(null); // Clear error if document exists and is readable
-                }
-
-                setIsConnected(exists);
-
-                // If not connected, clear customer ID
-                if (!exists) {
-                    setCustomerId(null);
-                } else if (defaultAccountId) {
-                    // If connected and we already have the default ID from the other listener/fetch
-                    setCustomerId(defaultAccountId);
-                }
-
-                // If we haven't loaded the user doc yet, we wait. 
-                // But we need to handle the loading state carefully.
-            },
-            (error) => {
-                console.error('[GoogleAdsContext] Error listening to Google Ads token:', error);
-
-                if (error.code === 'permission-denied') {
-                    setAuthError('permission-denied');
-                } else if (error.message.includes('invalid_grant') || error.message.includes('UNAUTHENTICATED')) {
-                    setAuthError('invalid_grant');
-                } else {
-                    setAuthError(error.message);
-                }
-
-                setIsConnected(false);
-                setCustomerId(null);
-                setLoading(false);
-            }
-        );
-
-        const unsubscribeUser = onSnapshot(
-            userDocRef,
-            (docSnapshot) => {
-                if (docSnapshot.exists()) {
-                    const data = docSnapshot.data();
-                    defaultAccountId = data.googleAdsDefaultAccountId || null;
-                    console.log('[GoogleAdsContext] Default Account ID from Firestore:', defaultAccountId);
-                    if (isConnected) {
-                        setCustomerId(defaultAccountId);
-                    }
-                }
-                setLoading(false); // Enable UI once we have at least tried to fetch user data
-            },
-            (error) => {
-                console.error('[GoogleAdsContext] Error listening to user profile:', error);
-                setLoading(false);
-            }
-        );
-
-        return () => {
-            console.log('[GoogleAdsContext] Cleaning up Firestore listeners');
-            unsubscribeToken();
-            unsubscribeUser();
-        };
-    }, [currentUser, isConnected]); // Added isConnected dependency to retry setting customerId if connection status changes
-
     const setLinkedCustomerId = async (id: string | null) => {
         if (!currentUser) return;
-
         try {
             const userDocRef = doc(db, 'users', currentUser.uid);
             await setDoc(userDocRef, { googleAdsDefaultAccountId: id }, { merge: true });
-
-            setCustomerId(id);
-            // Also update localStorage for backward compatibility if needed, but we wanted to move away.
-            // Let's keep it for now as a fallback for non-migrated parts but rely on Firestore.
-            if (id) {
-                localStorage.setItem('google_ads_customer_id', id);
-            } else {
-                localStorage.removeItem('google_ads_customer_id');
-            }
+            setCustomerId(id); // Optimistic update
         } catch (error) {
-            console.error('[GoogleAdsContext] Error setting default account:', error);
-            // Fallback to local state update so UI is responsive
-            setCustomerId(id);
+            console.error('Error setting default account:', error);
+            toast.error('Erreur lors de la mise à jour du compte par défaut');
         }
     };
 
@@ -184,6 +169,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
                 customerId,
                 authError,
                 loading,
+                accounts,
                 setLinkedCustomerId,
                 refreshConnectionStatus,
                 disconnect,
