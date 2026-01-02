@@ -9,7 +9,7 @@ import type { Account } from '../../types/business';
 import ThemePreview from './ThemePreview';
 import ThemeEditor from './ThemeEditor';
 import ConfirmationModal from '../common/ConfirmationModal';
-import './ThemeManager.css';
+import './ThemeManager.css'; // Keeping for potential specific tweaks
 
 interface ThemeManagerProps {
     accounts?: Account[];
@@ -93,20 +93,20 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
 
     if (loading) {
         return (
-            <div className="theme-manager-loading">
+            <div className="flex flex-col items-center justify-center p-12 gap-4">
                 <Spinner size={48} />
-                <p>Chargement des thèmes...</p>
+                <p className="text-gray-500">Chargement des thèmes...</p>
             </div>
         );
     }
 
     if (compact) {
         return (
-            <div className="theme-manager-compact">
-                <div className="theme-manager-compact-header">
-                    <h3>Mes thèmes</h3>
+            <div className="w-full">
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Mes thèmes</h3>
                     <button
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-primary btn-sm flex items-center gap-2"
                         onClick={handleCreateTheme}
                     >
                         <Plus size={16} />
@@ -115,21 +115,23 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                 </div>
 
                 {themes.length === 0 ? (
-                    <div className="theme-manager-empty-compact">
-                        <p>Aucun thème personnalisé</p>
+                    <div className="text-center p-8 bg-white/50 dark:bg-gray-800/50 backdrop-blur rounded-xl border border-gray-100 dark:border-gray-700">
+                        <p className="text-sm text-gray-500 mb-3">Aucun thème personnalisé</p>
                         <button className="btn btn-secondary btn-sm" onClick={handleCreateTheme}>
                             Créer mon premier thème
                         </button>
                     </div>
                 ) : (
-                    <div className="theme-manager-grid-compact">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                         {themes.slice(0, 3).map(theme => (
-                            <div key={theme.id} className="theme-card-compact">
-                                <ThemePreview theme={theme} size="small" />
-                                <div className="theme-card-compact-info">
-                                    <div className="theme-card-compact-name">{theme.name}</div>
+                            <div key={theme.id} className="listing-card p-3 group">
+                                <div className="rounded-lg overflow-hidden mb-3 border border-gray-100 dark:border-gray-700">
+                                    <ThemePreview theme={theme} size="small" />
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <div className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate pr-2">{theme.name}</div>
                                     <button
-                                        className="btn btn-secondary btn-sm"
+                                        className="btn btn-secondary btn-xs"
                                         onClick={() => handleEditTheme(theme)}
                                     >
                                         Modifier
@@ -154,17 +156,17 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
     }
 
     return (
-        <div className="theme-manager">
-            <div className="theme-manager-header">
-                <div className="theme-manager-header-left">
-                    <div className="header-title-row">
-                        <Palette size={32} className="header-icon" />
-                        <h2>Mes thèmes de rapport</h2>
+        <div className="w-full">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
+                <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-4">
+                        <Palette size={32} className="text-primary" />
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Mes thèmes de rapport</h2>
                     </div>
-                    <p className="header-subtitle">Créez et gérez vos thèmes personnalisés pour vos rapports Google Ads</p>
+                    <p className="text-gray-500 dark:text-gray-400 pl-12">Créez et gérez vos thèmes personnalisés pour vos rapports Google Ads</p>
                 </div>
                 <button
-                    className="btn btn-primary"
+                    className="btn btn-primary flex items-center gap-2"
                     onClick={handleCreateTheme}
                 >
                     <Plus size={18} />
@@ -174,75 +176,83 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
 
             {
                 themes.length === 0 ? (
-                    <div className="theme-manager-empty">
-                        <div className="theme-manager-empty-icon">
-                            <Palette />
+                    <div className="flex flex-col items-center justify-center p-20 text-center bg-white/50 dark:bg-gray-800/50 backdrop-blur rounded-2xl border border-gray-100 dark:border-gray-700">
+                        <div className="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-4">
+                            <Palette className="w-8 h-8 text-primary" />
                         </div>
-                        <h3>Aucun thème personnalisé</h3>
-                        <p>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Aucun thème personnalisé</h3>
+                        <p className="text-gray-500 mb-6 max-w-md">
                             Créez votre premier thème pour personnaliser l'apparence de vos rapports
                             et l'appliquer automatiquement à vos comptes Google Ads.
                         </p>
                         <button
-                            className="btn btn-primary btn-lg"
+                            className="btn btn-primary"
                             onClick={handleCreateTheme}
                         >
-                            <Plus size={20} />
+                            <Plus size={20} className="mr-2" />
                             Créer mon premier thème
                         </button>
                     </div>
                 ) : (
-                    <div className="theme-manager-grid">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {themes.map(theme => (
-                            <div key={theme.id} className="theme-card">
-                                <div className="theme-card-preview">
+                            <div key={theme.id} className="listing-card p-0 group">
+                                {/* Preview Area */}
+                                <div className="relative bg-gray-50 dark:bg-gray-900/50 p-4 border-b border-gray-100 dark:border-gray-700">
                                     <ThemePreview theme={theme} size="medium" />
                                     {theme.isDefault && (
-                                        <div className="theme-card-badge">Thème par défaut</div>
+                                        <div className="absolute top-3 right-3 px-2 py-1 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
+                                            Défaut
+                                        </div>
                                     )}
                                 </div>
 
-                                <div className="theme-card-content">
-                                    <div className="theme-card-header">
-                                        <h3 className="theme-card-title">{theme.name}</h3>
+                                <div className="p-5">
+                                    <div className="mb-4">
+                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 truncate">{theme.name}</h3>
                                         {theme.description && (
-                                            <p className="theme-card-description">{theme.description}</p>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 h-10">{theme.description}</p>
                                         )}
                                     </div>
 
-                                    {theme.linkedAccountIds.length > 0 && (
-                                        <div className="theme-card-linked">
-                                            <LinkIcon size={14} />
-                                            <span>
-                                                {theme.linkedAccountIds.length} compte{theme.linkedAccountIds.length > 1 ? 's' : ''} lié{theme.linkedAccountIds.length > 1 ? 's' : ''}
-                                            </span>
-                                        </div>
-                                    )}
-
-                                    <div className="theme-card-actions">
-                                        <button
-                                            className="btn btn-primary btn-sm flex-1"
-                                            onClick={() => handleEditTheme(theme)}
-                                            title="Modifier"
-                                        >
-                                            <Edit2 size={14} />
-                                            Modifier
-                                        </button>
-                                        <button
-                                            className="btn btn-secondary btn-sm"
-                                            onClick={() => handleDuplicateTheme(theme)}
-                                            title="Dupliquer"
-                                        >
-                                            <Copy size={14} />
-                                        </button>
-                                        <button
-                                            className="btn btn-outline-danger btn-sm"
-                                            onClick={() => handleDeleteTheme(theme)}
-                                            title="Supprimer"
-                                        >
-                                            <Trash2 size={14} />
-                                        </button>
+                                    {/* Footer / Stats */}
+                                    <div className="flex items-center justify-between mt-4">
+                                        {theme.linkedAccountIds.length > 0 ? (
+                                            <div className="flex items-center gap-1.5 text-xs text-primary bg-primary/5 px-2 py-1 rounded-md border border-primary/10">
+                                                <LinkIcon size={12} />
+                                                <span>
+                                                    {theme.linkedAccountIds.length} compte{theme.linkedAccountIds.length > 1 ? 's' : ''} lié{theme.linkedAccountIds.length > 1 ? 's' : ''}
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <span className="text-xs text-gray-400">Aucun compte lié</span>
+                                        )}
                                     </div>
+                                </div>
+
+                                {/* Hover Actions */}
+                                <div className="listing-card-actions">
+                                    <button
+                                        onClick={() => handleDuplicateTheme(theme)}
+                                        className="action-btn-icon"
+                                        title="Dupliquer"
+                                    >
+                                        <Copy size={16} />
+                                    </button>
+                                    <button
+                                        onClick={() => handleEditTheme(theme)}
+                                        className="action-btn-icon text-primary hover:bg-primary/10"
+                                        title="Modifier"
+                                    >
+                                        <Edit2 size={16} />
+                                    </button>
+                                    <button
+                                        onClick={() => handleDeleteTheme(theme)}
+                                        className="action-btn-icon destructive"
+                                        title="Supprimer"
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
                                 </div>
                             </div>
                         ))}

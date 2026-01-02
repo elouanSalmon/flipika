@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone } from 'lucide-react';
+import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { deleteReport, duplicateReport, archiveReport } from '../../../services/reportService';
 import { useAuth } from '../../../contexts/AuthContext';
 import type { EditableReport } from '../../../types/reportTypes';
 import toast from 'react-hot-toast';
 import ConfirmationModal from '../../common/ConfirmationModal';
-import './ReportCard.css';
+import './ReportCard.css'; // Keeping for potential specific overrides, but content will be minimized
 
 interface ReportCardProps {
     report: EditableReport;
@@ -16,7 +16,7 @@ interface ReportCardProps {
     accounts?: { id: string; name: string }[];
 }
 
-const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDeleted, accounts = [] }) => {
+const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, accounts = [] }) => {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const [showMenu, setShowMenu] = useState(false);
@@ -92,13 +92,12 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
     };
 
     const getStatusBadge = () => {
-        const statusConfig = {
+        const config = {
             draft: { label: 'Brouillon', className: 'draft' },
             published: { label: 'Publié', className: 'published' },
             archived: { label: 'Archivé', className: 'archived' },
-        };
+        }[report.status] || { label: report.status, className: 'neutral' };
 
-        const config = statusConfig[report.status];
         return <span className={`status-badge ${config.className}`}>{config.label}</span>;
     };
 
@@ -114,98 +113,92 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
             ? `${report.campaignIds.length} Campagne${report.campaignIds.length > 1 ? 's' : ''}`
             : 'Aucune campagne');
 
-    // Tooltip for campaigns
-    const campaignsTooltip = report.campaignNames?.join(', ') || '';
-
     return (
-        <div className={`report-card ${viewMode} ${isDeleting ? 'deleting' : ''}`} onClick={onClick}>
-            <div className="report-card-content">
-                <div className="report-header">
-                    <div className="report-title-section">
-                        <h3 className="report-title">{report.title}</h3>
-                        {getStatusBadge()}
-                    </div>
-
-                    <div className="report-actions">
-                        <button
-                            className="menu-btn"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setShowMenu(!showMenu);
-                            }}
-                        >
-                            <MoreVertical size={18} />
-                        </button>
-
-                        {showMenu && (
-                            <div className="actions-menu">
-                                <button onClick={handleEdit}>
-                                    <Edit size={16} />
-                                    <span>Éditer</span>
-                                </button>
-                                <button onClick={handleDuplicate}>
-                                    <Copy size={16} />
-                                    <span>Dupliquer</span>
-                                </button>
-                                {report.status === 'published' && report.shareUrl && (
-                                    <button onClick={handleViewPublic}>
-                                        <ExternalLink size={16} />
-                                        <span>Voir public</span>
-                                    </button>
-                                )}
-                                {report.status !== 'archived' && (
-                                    <button onClick={handleArchive}>
-                                        <Archive size={16} />
-                                        <span>Archiver</span>
-                                    </button>
-                                )}
-                                <button onClick={handleDelete} className="delete-btn">
-                                    <Trash2 size={16} />
-                                    <span>Supprimer</span>
-                                </button>
-                            </div>
-                        )}
+        <div
+            className={`listing-card group ${isDeleting ? 'opacity-50 pointer-events-none' : ''} ${showMenu ? 'z-50' : ''}`}
+            onClick={onClick}
+        >
+            <div className="listing-card-header">
+                <div className="listing-card-title-group">
+                    <h3 className="listing-card-title">{report.title}</h3>
+                    <div className="listing-card-subtitle">
+                        <Calendar size={12} />
+                        Modifié le {formatDate(report.updatedAt)}
                     </div>
                 </div>
+                {getStatusBadge()}
+            </div>
 
-                <div className="report-context-info">
-                    <div className="context-item" title={accountName}>
+            <div className="listing-card-body">
+                <div className="listing-card-row mb-2">
+                    <div className="listing-card-info-item" title={accountName}>
                         <Building size={14} />
-                        <span className="truncate">{accountName}</span>
-                    </div>
-                    <div className="context-item" title={campaignsTooltip}>
-                        <Megaphone size={14} />
-                        <span className="truncate">{campaignsText}</span>
+                        <span>{accountName}</span>
                     </div>
                 </div>
+                <div className="listing-card-row">
+                    <div className="listing-card-info-item" title={report.campaignNames?.join(', ')}>
+                        <Megaphone size={14} />
+                        <span>{campaignsText}</span>
+                    </div>
+                </div>
+            </div>
 
-                <div className="report-meta">
-                    <div className="meta-item">
-                        <span className="meta-label">Créé le:</span>
-                        <span className="meta-value">{formatDate(report.createdAt)}</span>
+            <div className="listing-card-footer">
+                <div className="listing-card-stats">
+                    <div className="listing-card-stat">
+                        <span className="listing-card-stat-value">{report.sections.length}</span>
+                        <span className="listing-card-stat-label">Sections</span>
                     </div>
-                    <div className="meta-item">
-                        <span className="meta-label">Modifié le:</span>
-                        <span className="meta-value">{formatDate(report.updatedAt)}</span>
+                    <div className="listing-card-stat border-l border-gray-200 dark:border-gray-700 pl-4">
+                        <span className="listing-card-stat-value">{report.widgetIds?.length || 0}</span>
+                        <span className="listing-card-stat-label">Widgets</span>
                     </div>
-                    {report.publishedAt && (
-                        <div className="meta-item">
-                            <span className="meta-label">Publié le:</span>
-                            <span className="meta-value">{formatDate(report.publishedAt)}</span>
+                </div>
+            </div>
+
+            {/* Actions Menu (Hover) */}
+            <div className="listing-card-actions">
+                {report.status === 'published' && report.shareUrl && (
+                    <button onClick={handleViewPublic} className="action-btn-icon" title="Voir public">
+                        <ExternalLink size={16} />
+                    </button>
+                )}
+                <button onClick={handleEdit} className="action-btn-icon" title="Éditer">
+                    <Edit size={16} />
+                </button>
+                <div className="relative">
+                    <button
+                        onClick={(e) => { e.stopPropagation(); setShowMenu(!showMenu); }}
+                        className="action-btn-icon"
+                    >
+                        <MoreVertical size={16} />
+                    </button>
+
+                    {showMenu && (
+                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] w-auto whitespace-nowrap bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 py-1">
+                            <button
+                                onClick={handleDuplicate}
+                                className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
+                            >
+                                <Copy size={14} /> Dupliquer
+                            </button>
+                            {report.status !== 'archived' && (
+                                <button
+                                    onClick={handleArchive}
+                                    className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
+                                >
+                                    <Archive size={14} /> Archiver
+                                </button>
+                            )}
+                            <button
+                                onClick={handleDelete}
+                                className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2 border-t border-gray-100 dark:border-gray-700 mt-1"
+                            >
+                                <Trash2 size={14} /> Supprimer
+                            </button>
                         </div>
                     )}
-                </div>
-
-                <div className="report-stats">
-                    <div className="stat">
-                        <span className="stat-value">{report.sections.length}</span>
-                        <span className="stat-label">Sections</span>
-                    </div>
-                    <div className="stat">
-                        <span className="stat-value">{report.widgetIds?.length || 0}</span>
-                        <span className="stat-label">Widgets</span>
-                    </div>
-
                 </div>
             </div>
 
@@ -218,7 +211,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
                 confirmLabel="Supprimer"
                 isDestructive={true}
             />
-        </div >
+        </div>
     );
 };
 

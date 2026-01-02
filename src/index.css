@@ -4,6 +4,119 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  /* Unified Card System */
+
+  .listing-card {
+    @apply bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-5 shadow-sm hover:shadow-md transition-all duration-300 relative cursor-pointer flex flex-col h-full;
+    overflow: visible !important;
+  }
+
+  .listing-card:hover {
+    @apply border-primary/20 dark:border-primary/30 -translate-y-1;
+  }
+
+  /* Header Section */
+  .listing-card-header {
+    @apply flex items-start justify-between mb-4 gap-3;
+  }
+
+  .listing-card-title-group {
+    @apply flex-1 min-w-0;
+  }
+
+  .listing-card-title {
+    @apply text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 truncate leading-tight group-hover:text-primary dark:group-hover:text-primary-light transition-colors;
+  }
+
+  .listing-card-subtitle {
+    @apply text-sm text-gray-500 dark:text-gray-400 truncate flex items-center gap-2;
+  }
+
+  /* Status Badges */
+  .status-badge {
+    @apply px-2.5 py-1 rounded-full text-xs font-medium inline-flex items-center gap-1.5 border;
+  }
+
+  .status-badge.success,
+  .status-badge.active,
+  .status-badge.published {
+    @apply bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800;
+  }
+
+  .status-badge.warning,
+  .status-badge.paused,
+  .status-badge.draft {
+    @apply bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/20 dark:text-amber-300 dark:border-amber-800;
+  }
+
+  .status-badge.error {
+    @apply bg-red-50 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800;
+  }
+
+  .status-badge.neutral,
+  .status-badge.archived {
+    @apply bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700;
+  }
+
+  /* Content/Body */
+  .listing-card-body {
+    @apply py-2 space-y-3 min-h-[3rem] flex-1;
+  }
+
+  .listing-card-row {
+    @apply flex items-center justify-between text-sm text-gray-600 dark:text-gray-400;
+  }
+
+  .listing-card-info-item {
+    @apply flex items-center gap-2 max-w-full;
+  }
+
+  .listing-card-info-item svg {
+    @apply w-4 h-4 text-gray-400 dark:text-gray-500 flex-shrink-0;
+  }
+
+  .listing-card-info-item span {
+    @apply truncate;
+  }
+
+  /* Footer & Stats */
+  .listing-card-footer {
+    @apply mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between;
+  }
+
+  .listing-card-stats {
+    @apply flex items-center gap-4;
+  }
+
+  .listing-card-stat {
+    @apply flex flex-col;
+  }
+
+  .listing-card-stat-value {
+    @apply text-sm font-semibold text-gray-900 dark:text-gray-200;
+  }
+
+  .listing-card-stat-label {
+    @apply text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wide;
+  }
+
+  /* Actions */
+  .listing-card-actions {
+    @apply flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-1 shadow-sm border border-gray-100 dark:border-gray-700 z-10;
+    overflow: visible !important;
+  }
+
+  /* Persistent actions (always visible or different style) can be handled separately */
+  .action-btn-icon {
+    @apply p-2 rounded-md text-gray-500 hover:text-primary hover:bg-primary/5 dark:text-gray-400 dark:hover:text-primary-light dark:hover:bg-primary/10 transition-colors;
+  }
+
+  .action-btn-icon.destructive {
+    @apply hover:text-red-600 hover:bg-red-50 dark:hover:text-red-400 dark:hover:bg-red-900/20;
+  }
+}
+
 :root {
   /* Harmonized Color Palette - Light Mode */
   --color-primary: #0066ff;
