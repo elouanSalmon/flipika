@@ -82,50 +82,63 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             )}
             {!schedule.description && <div className="h-10 mb-4" />} {/* Spacer for alignment */}
 
-            {/* Hero Section: Next Execution */}
-            <div className="bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 rounded-xl p-4 mb-4 border border-primary/10 dark:border-primary/20 relative overflow-hidden">
-                <div className="relative z-10">
-                    <div className="flex items-center gap-1.5 text-primary text-xs font-semibold uppercase tracking-wider mb-2">
-                        <Clock size={12} />
-                        Prochaine exécution
-                    </div>
-
-                    <div className="flex items-end justify-between">
-                        <div>
-                            <div className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1">
-                                {nextRun ? nextRun.toLocaleString('fr-FR', {
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    day: 'numeric',
-                                    month: 'short'
-                                }) : '-'}
+            {/* Hero Section: Next Execution or Paused State */}
+            <div className={`rounded-xl p-4 mb-4 border relative overflow-hidden ${schedule.isActive
+                    ? 'bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary/10 dark:border-primary/20'
+                    : 'bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700'
+                }`}>
+                {schedule.isActive ? (
+                    <>
+                        <div className="relative z-10">
+                            <div className="flex items-center gap-1.5 text-primary text-xs font-semibold uppercase tracking-wider mb-2">
+                                <Clock size={12} />
+                                Prochaine exécution
                             </div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                                Votre heure
-                            </div>
-                        </div>
 
-                        <div className="text-right">
-                            {timeUntil && (
-                                <div className="text-sm font-bold text-primary mb-1">
-                                    {timeUntil}
+                            <div className="flex items-end justify-between">
+                                <div>
+                                    <div className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1">
+                                        {nextRun ? nextRun.toLocaleString('fr-FR', {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            day: 'numeric',
+                                            month: 'short'
+                                        }) : '-'}
+                                    </div>
+                                    <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                                        Votre heure
+                                    </div>
                                 </div>
-                            )}
-                            <div className="text-[10px] text-gray-400 dark:text-gray-500 flex items-center justify-end gap-1">
-                                <span>UTC:</span>
-                                {nextRun ? nextRun.toLocaleString('fr-FR', {
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    timeZone: 'UTC'
-                                }) : '-'}
+
+                                <div className="text-right">
+                                    {timeUntil && (
+                                        <div className="text-sm font-bold text-primary mb-1">
+                                            {timeUntil}
+                                        </div>
+                                    )}
+                                    <div className="text-[10px] text-gray-400 dark:text-gray-500 flex items-center justify-end gap-1">
+                                        <span>UTC:</span>
+                                        {nextRun ? nextRun.toLocaleString('fr-FR', {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            timeZone: 'UTC'
+                                        }) : '-'}
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        {/* Decorative background element */}
+                        <div className="absolute -right-4 -bottom-8 text-primary/5 dark:text-primary/10">
+                            <Clock size={100} />
+                        </div>
+                    </>
+                ) : (
+                    <div className="flex flex-col items-center justify-center py-2 text-gray-500 dark:text-gray-400">
+                        <PowerOff size={24} className="mb-2 opacity-50" />
+                        <span className="text-sm font-medium">Programmation en pause</span>
+                        <span className="text-xs opacity-75">Activez pour reprendre</span>
                     </div>
-                </div>
-                {/* Decorative background element */}
-                <div className="absolute -right-4 -bottom-8 text-primary/5 dark:text-primary/10">
-                    <Clock size={100} />
-                </div>
+                )}
             </div>
 
             {/* Context Chips */}
