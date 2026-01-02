@@ -1,2 +1,17 @@
 /* ScheduleCard.css */
 /* Styles are now handled by reusable card system (src/components/common/CardSystem.css) */
+
+/* Overrides for Status Badge Colors to match Reports page */
+.status-badge.active {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    /* Green-500 matching 'Published' */
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.status-badge.paused {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+    /* Amber-500 matching 'Draft' */
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
