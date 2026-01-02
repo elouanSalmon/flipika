@@ -4,10 +4,12 @@ import { BarChart3, ArrowRight, RefreshCw, LogOut } from 'lucide-react';
 import ErrorCard from '../components/ErrorCard';
 import Spinner from '../components/common/Spinner';
 import { useAuth } from '../contexts/AuthContext';
-import { getLinkedCustomerId, fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
+import { useGoogleAds } from '../contexts/GoogleAdsContext';
+import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
 
 const Dashboard = () => {
-    const { linkGoogleAds, currentUser } = useAuth();
+    const { linkGoogleAds } = useAuth();
+    const { customerId, isConnected, setLinkedCustomerId } = useGoogleAds();
     const [searchParams] = useSearchParams();
     const [step, setStep] = useState<'LOADING' | 'CONNECT' | 'SELECT_ACCOUNT' | 'DASHBOARD'>('LOADING');
     const [customers, setCustomers] = useState<string[]>([]);
@@ -35,22 +37,15 @@ const Dashboard = () => {
     }, [searchParams]);
 
     const checkStatus = async (forceRefresh = false) => {
-        const storedCid = getLinkedCustomerId();
-        console.log("Checking status for User ID:", currentUser?.uid);
-        // Debugging: Log current user ID
-        // @ts-ignore
-        // const currentUser = window.auth?.currentUser || { uid: 'unknown' }; // Hacky access or use hook if available properly in scope, but useAuth is cleaner
-        // Better: use the auth from context if possible, but it's not in scope of checkStatus easily without refactoring.
-        // Actually, checkStatus is inside the component, so we can access `useAuth` values if we destructured them.
-        // We destructured `linkGoogleAds`. Let's destructure `currentUser` too.
-
-        if (storedCid && !forceRefresh) {
+        // Use context values first
+        if (isConnected && customerId && !forceRefresh) {
             setStep('DASHBOARD');
-            loadCampaigns();
+            loadCampaigns(customerId);
             return;
         }
 
-        // If no local CID, check if we are connected on backend
+        // If no local CID or not connected according to context, check if we can fetch customers
+        // This handles cases where context might be hydrating or out of sync initially
         await loadCustomers(true);
     };
 
@@ -63,7 +58,14 @@ const Dashboard = () => {
 
             if (response.customers && response.customers.length > 0) {
                 setCustomers(response.customers);
-                setStep('SELECT_ACCOUNT');
+
+                // If we have a customerId from context, try to use it
+                if (customerId && response.customers.some((c: string) => c.includes(customerId))) {
+                    setStep('DASHBOARD');
+                    loadCampaigns(customerId);
+                } else {
+                    setStep('SELECT_ACCOUNT');
+                }
                 setError(null);
             } else if (response.customers && response.customers.length === 0) {
                 setError("Aucun compte Google Ads trouvé associé à ce compte Google.");
@@ -108,12 +110,15 @@ const Dashboard = () => {
         }
     };
 
-    const loadCampaigns = async () => {
+    const loadCampaigns = async (cid?: string) => {
+        const idToUse = cid || customerId;
+        if (!idToUse) return;
+
         setLoading(true);
         setError(null);
         try {
             // @ts-ignore
-            const result = await fetchCampaigns();
+            const result = await fetchCampaigns(idToUse);
             const response = result as any;
             if (response.campaigns) {
                 setCampaigns(response.campaigns);
@@ -150,9 +155,9 @@ const Dashboard = () => {
 
     const selectCustomer = (resourceName: string) => {
         const id = resourceName.split('/')[1];
-        localStorage.setItem('google_ads_customer_id', id);
+        setLinkedCustomerId(id);
         setStep('DASHBOARD');
-        loadCampaigns();
+        loadCampaigns(id);
     };
 
     const handleLogoutAds = () => {
@@ -225,7 +230,7 @@ const Dashboard = () => {
             <div className="flex justify-between items-center bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
                 <div className="space-y-1">
                     <h1 className="text-2xl font-bold">Vos Campagnes</h1>
-                    <p className="text-gray-500 text-sm">Compte: {getLinkedCustomerId()}</p>
+                    <p className="text-gray-500 text-sm">Compte: {customerId}</p>
                 </div>
                 <div className="flex gap-3">
                     <button onClick={() => loadCampaigns()} className="btn btn-ghost" title="Actualiser">

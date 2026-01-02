@@ -1,10 +1,10 @@
 import React from 'react';
-import { 
-  Brain, 
-  Target, 
-  Database, 
-  TrendingUp, 
-  Zap, 
+import {
+  Brain,
+  Target,
+  Database,
+  TrendingUp,
+  Zap,
   Shield,
   CheckCircle,
   X
@@ -14,7 +14,7 @@ import './Differentiation.css';
 
 const Differentiation: React.FC = () => {
   const { t } = useTranslation();
-  
+
   const scrollToEmailForm = () => {
     const emailSection = document.getElementById('email-capture');
     if (emailSection) {
@@ -95,7 +95,7 @@ const Differentiation: React.FC = () => {
         <div className="differentiation-gradient"></div>
         <div className="differentiation-grid"></div>
       </div>
-      
+
       <div className="differentiation-container">
         <div className="differentiation-content">
           {/* Header */}
@@ -137,7 +137,7 @@ const Differentiation: React.FC = () => {
               <h3>{t('common:differentiation.comparison.title')}</h3>
               <p>{t('common:differentiation.comparison.subtitle')}</p>
             </div>
-            
+
             <div className="comparison-table">
               <div className="comparison-headers">
                 <div className="feature-header">{t('common:differentiation.comparison.featureHeader')}</div>
@@ -147,7 +147,7 @@ const Differentiation: React.FC = () => {
                 </div>
                 <div className="others-header">{t('common:differentiation.comparison.othersHeader')}</div>
               </div>
-              
+
               <div className="comparison-rows">
                 {comparison.map((item) => (
                   <div

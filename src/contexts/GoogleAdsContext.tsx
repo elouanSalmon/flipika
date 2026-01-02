@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { useAuth } from './AuthContext';
 
@@ -78,8 +78,17 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
 
         // Listen to the Google Ads token document in Firestore
         const tokenDocRef = doc(db, 'users', currentUser.uid, 'tokens', 'google_ads');
+        // Also listen to the user profile for default account setting
+        const userDocRef = doc(db, 'users', currentUser.uid);
 
-        const unsubscribe = onSnapshot(
+        // We combine the listeners or just fetch user doc once? 
+        // For now, let's keep the token listener as primary for connection status.
+        // And use a separate listener or fetch for the default account ID.
+        // Since we want it to be reactive (if user changes it in settings), a listener is better.
+
+        let defaultAccountId: string | null = null;
+
+        const unsubscribeToken = onSnapshot(
             tokenDocRef,
             (docSnapshot) => {
                 const exists = docSnapshot.exists();
@@ -92,16 +101,16 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
 
                 setIsConnected(exists);
 
-                // Get customer ID from localStorage if available
-                // (This is set when user selects a specific account)
-                if (exists) {
-                    const storedCustomerId = localStorage.getItem('google_ads_customer_id');
-                    console.log('[GoogleAdsContext] Customer ID from localStorage:', storedCustomerId);
-                    setCustomerId(storedCustomerId);
-                } else {
+                // If not connected, clear customer ID
+                if (!exists) {
                     setCustomerId(null);
+                } else if (defaultAccountId) {
+                    // If connected and we already have the default ID from the other listener/fetch
+                    setCustomerId(defaultAccountId);
                 }
-                setLoading(false);
+
+                // If we haven't loaded the user doc yet, we wait. 
+                // But we need to handle the loading state carefully.
             },
             (error) => {
                 console.error('[GoogleAdsContext] Error listening to Google Ads token:', error);
@@ -120,19 +129,52 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
             }
         );
 
-        return () => {
-            console.log('[GoogleAdsContext] Cleaning up Firestore listener');
-            unsubscribe();
-        };
-    }, [currentUser]);
+        const unsubscribeUser = onSnapshot(
+            userDocRef,
+            (docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    const data = docSnapshot.data();
+                    defaultAccountId = data.googleAdsDefaultAccountId || null;
+                    console.log('[GoogleAdsContext] Default Account ID from Firestore:', defaultAccountId);
+                    if (isConnected) {
+                        setCustomerId(defaultAccountId);
+                    }
+                }
+                setLoading(false); // Enable UI once we have at least tried to fetch user data
+            },
+            (error) => {
+                console.error('[GoogleAdsContext] Error listening to user profile:', error);
+                setLoading(false);
+            }
+        );
 
-    const setLinkedCustomerId = (id: string | null) => {
-        if (id) {
-            localStorage.setItem('google_ads_customer_id', id);
-        } else {
-            localStorage.removeItem('google_ads_customer_id');
+        return () => {
+            console.log('[GoogleAdsContext] Cleaning up Firestore listeners');
+            unsubscribeToken();
+            unsubscribeUser();
+        };
+    }, [currentUser, isConnected]); // Added isConnected dependency to retry setting customerId if connection status changes
+
+    const setLinkedCustomerId = async (id: string | null) => {
+        if (!currentUser) return;
+
+        try {
+            const userDocRef = doc(db, 'users', currentUser.uid);
+            await setDoc(userDocRef, { googleAdsDefaultAccountId: id }, { merge: true });
+
+            setCustomerId(id);
+            // Also update localStorage for backward compatibility if needed, but we wanted to move away.
+            // Let's keep it for now as a fallback for non-migrated parts but rely on Firestore.
+            if (id) {
+                localStorage.setItem('google_ads_customer_id', id);
+            } else {
+                localStorage.removeItem('google_ads_customer_id');
+            }
+        } catch (error) {
+            console.error('[GoogleAdsContext] Error setting default account:', error);
+            // Fallback to local state update so UI is responsive
+            setCustomerId(id);
         }
-        setCustomerId(id);
     };
 
     return (
