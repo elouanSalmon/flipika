@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Save, Sparkles } from 'lucide-react';
+import { X, Save } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { HexColorPicker } from 'react-colorful';
 import themeService from '../../services/themeService';
@@ -173,7 +173,6 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                 {/* Header */}
                 <div className="theme-editor-header">
                     <div className="theme-editor-header-left">
-                        <Sparkles size={24} />
                         <h2>{theme ? 'Modifier le thème' : 'Créer un thème'}</h2>
                     </div>
                     <button className="theme-editor-close" onClick={onClose} aria-label="Fermer">
@@ -408,13 +407,12 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                     </div>
                 </div>
 
-                {/* Footer */}
                 <div className="theme-editor-footer">
-                    <button className="btn btn-secondary" onClick={onClose}>
+                    <button className="btn-secondary" onClick={onClose}>
                         Annuler
                     </button>
                     <button
-                        className="btn btn-primary"
+                        className="btn-primary"
                         onClick={handleSave}
                         disabled={saving || !name.trim()}
                     >

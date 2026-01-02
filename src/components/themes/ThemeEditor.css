@@ -478,10 +478,50 @@
     background: rgba(15, 23, 42, 0.5);
 }
 
-.theme-editor-footer .btn {
-    display: flex;
+/* Buttons - Standardized with other modals */
+.theme-editor-footer .btn-secondary,
+.theme-editor-footer .btn-primary {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 100px;
+}
+
+.theme-editor-footer .btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    /* Match height of secondary button */
+}
+
+.theme-editor-footer .btn-secondary {
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-border);
+}
+
+.theme-editor-footer .btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.theme-editor-footer .btn-secondary:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    background: var(--glass-bg-hover);
+}
+
+.theme-editor-footer .btn-primary:disabled,
+.theme-editor-footer .btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Scrollbar */
