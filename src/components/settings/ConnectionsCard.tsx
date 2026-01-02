@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { initiateGoogleAdsOAuth } from '../../services/googleAds';
 import { useAuth } from '../../contexts/AuthContext';

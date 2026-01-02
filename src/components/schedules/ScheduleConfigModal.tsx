@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Loader2 } from 'lucide-react';
 import type { ScheduledReport, ScheduleConfig } from '../../types/scheduledReportTypes';
 import type { ReportTemplate } from '../../types/templateTypes';
@@ -135,7 +136,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
 
     const selectedTemplate = templates.find(t => t.id === formData.templateId);
 
-    return (
+    return createPortal(
         <>
             <div className="modal-overlay" onClick={handleCloseAttempt}>
                 <div className="schedule-config-modal" onClick={(e) => e.stopPropagation()}>
@@ -210,11 +211,11 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                     <div className="template-preview">
                                         <div className="preview-item">
                                             <span className="preview-label">Période:</span>
-                                            <span className="preview-value">{selectedTemplate.periodPreset}</span>
+                                            <span className="preview-value">{selectedTemplate?.periodPreset}</span>
                                         </div>
                                         <div className="preview-item">
                                             <span className="preview-label">Widgets:</span>
-                                            <span className="preview-value">{selectedTemplate.widgetConfigs.length}</span>
+                                            <span className="preview-value">{selectedTemplate?.widgetConfigs?.length}</span>
                                         </div>
                                     </div>
                                 )}
@@ -257,7 +258,8 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                 confirmLabel="Fermer sans enregistrer"
                 isDestructive={true}
             />
-        </>
+        </>,
+        document.body
     );
 };
 

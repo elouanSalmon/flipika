@@ -15,12 +15,14 @@ interface WidgetTemplate {
 
 interface WidgetLibraryProps {
     onAddWidget: (type: WidgetType) => void;
-    // Theme props
-    userId: string;
-    accountId: string;
-    selectedTheme: ReportTheme | null;
-    onThemeSelect: (theme: ReportTheme | null) => void;
-    onCreateTheme: () => void;
+    // Theme props (optional for Template context)
+    userId?: string;
+    accountId?: string;
+    selectedTheme?: ReportTheme | null;
+    onThemeSelect?: (theme: ReportTheme | null) => void;
+    onCreateTheme?: () => void;
+    // Additional props for modal behavior
+    onClose?: () => void;
 }
 
 const WIDGET_TEMPLATES: WidgetTemplate[] = [
@@ -84,20 +86,27 @@ const WidgetLibrary: React.FC<WidgetLibraryProps> = ({
 
     return (
         <div className="widget-library">
-            {/* Theme Selector Section */}
-            <div className="widget-library-theme-section">
-                <ThemeSelector
-                    userId={userId}
-                    accountId={accountId}
-                    selectedTheme={selectedTheme}
-                    onThemeSelect={onThemeSelect}
-                    onCreateTheme={onCreateTheme}
-                />
-            </div>
+            {/* Theme Selector Section - Only show if props are provided */}
+            {userId && accountId && onThemeSelect && onCreateTheme && (
+                <div className="widget-library-theme-section">
+                    <ThemeSelector
+                        userId={userId}
+                        accountId={accountId}
+                        selectedTheme={selectedTheme || null}
+                        onThemeSelect={onThemeSelect}
+                        onCreateTheme={onCreateTheme}
+                    />
+                </div>
+            )}
 
-            <div className="widget-library-header">
-                <h3>Bibliothèque de Widgets</h3>
-                <p>Glissez ou cliquez pour ajouter</p>
+            <div className="widget-library-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                    <h3>Bibliothèque de Widgets</h3>
+                    <p>Glissez ou cliquez pour ajouter</p>
+                </div>
+                {/* Close button for when used in modal */}
+                {/* onClose is handled by parent modal usually, but we can add it here if needed, 
+                    currently the parent handles the close button in the header */}
             </div>
 
             {/* Category Filter */}

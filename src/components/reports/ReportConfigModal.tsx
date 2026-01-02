@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Calendar, Target } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { X, Loader2 } from 'lucide-react';
 import type { Campaign } from '../../types/business';
 import './ReportConfigModal.css';
 
@@ -135,7 +136,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
         });
     };
 
-    return (
+    return createPortal(
         <div className="report-config-modal-overlay" onClick={onClose}>
             <div className="report-config-modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
@@ -189,8 +190,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                     {/* Période */}
                     <div className="form-group">
                         <label>
-                            <Calendar size={18} />
-                            <span>Période d'analyse</span>
+                            Période d'analyse
                         </label>
                         <div className="date-presets">
                             {DATE_PRESETS.map(preset => (
@@ -238,8 +238,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                     {/* Campagnes */}
                     <div className="form-group">
                         <label>
-                            <Target size={18} />
-                            <span>Campagnes ({selectedCampaigns.length} sélectionnée{selectedCampaigns.length > 1 ? 's' : ''})</span>
+                            Campagnes ({selectedCampaigns.length} sélectionnée{selectedCampaigns.length > 1 ? 's' : ''})
                         </label>
 
                         <div className="campaigns-header">
@@ -278,21 +277,18 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                     </div>
 
                     {/* Actions */}
-                    <div className="modal-actions">
-                        <button type="button" className="btn btn-secondary" onClick={onClose} disabled={isSubmitting}>
+                    <div className="modal-footer">
+                        <button type="button" className="btn-secondary" onClick={onClose} disabled={isSubmitting}>
                             Annuler
                         </button>
                         <button
                             type="submit"
-                            className="btn btn-primary"
+                            className="btn-primary"
                             disabled={selectedCampaigns.length === 0 || isSubmitting}
                         >
                             {isSubmitting ? (
                                 <>
-                                    <svg className="animate-spin h-[18px] w-[18px] mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
+                                    <Loader2 className="animate-spin h-[18px] w-[18px] mr-2" />
                                     Mise à jour...
                                 </>
                             ) : (
@@ -301,8 +297,9 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                         </button>
                     </div>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >,
+        document.body
     );
 };
 

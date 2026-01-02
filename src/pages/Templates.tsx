@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, FileStack, Search, AlertCircle, Grid, List as ListIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
-import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
+import { fetchCampaigns } from '../services/googleAds';
 import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import {
     listUserTemplates,
@@ -30,10 +30,6 @@ import './Templates.css';
 
 const ITEMS_PER_PAGE = 9;
 
-interface GoogleAdsAccount {
-    id: string;
-    name: string;
-}
 
 const Templates: React.FC = () => {
     const navigate = useNavigate();
@@ -51,7 +47,7 @@ const Templates: React.FC = () => {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     // Removed googleAuthError state, as context handles connection status conceptually.
     // If we want to show specific auth errors, we might need error state in context.
-    const [googleAuthError, setGoogleAuthError] = useState(false);
+    const [googleAuthError] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [templateToDelete, setTemplateToDelete] = useState<ReportTemplate | null>(null);
 

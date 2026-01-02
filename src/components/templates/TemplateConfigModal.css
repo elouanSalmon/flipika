@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 11000;
     padding: 24px;
 }
 
@@ -33,15 +33,7 @@
     border-bottom: 2px solid var(--color-border);
 }
 
-.template-config-modal .header-content {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
 
-.template-config-modal .header-icon {
-    color: var(--color-primary);
-}
 
 .template-config-modal .modal-header h2 {
     margin: 0;
@@ -244,7 +236,7 @@
     color: #fbbf24;
 }
 
-.template-config-modal .modal-actions {
+.template-config-modal .modal-footer {
     display: flex;
     gap: 12px;
     justify-content: flex-end;

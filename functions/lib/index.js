@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.processScheduledReports = exports.generateScheduledReports = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -33,6 +33,9 @@ Object.defineProperty(exports, "getAdCreatives", { enumerable: true, get: functi
 const generateScheduledReports_1 = require("./generateScheduledReports");
 Object.defineProperty(exports, "generateScheduledReports", { enumerable: true, get: function () { return generateScheduledReports_1.generateScheduledReports; } });
 Object.defineProperty(exports, "processScheduledReports", { enumerable: true, get: function () { return generateScheduledReports_1.processScheduledReports; } });
+// Re-export Migration functions
+var migrateReports_1 = require("./migrateReports");
+Object.defineProperty(exports, "migrateReportsWithAccountNames", { enumerable: true, get: function () { return migrateReports_1.migrateReportsWithAccountNames; } });
 // Import Stripe functions
 const stripe_1 = require("./stripe");
 const scheduler_1 = require("firebase-functions/v2/scheduler");
@@ -190,22 +193,51 @@ exports.getAccessibleCustomers = (0, https_1.onRequest)({
                         customer_id: customerId,
                         refresh_token: refreshToken,
                     });
-                    // Query details
+                    // Query details - using manager and descriptive_name fields
                     const query = `
-            SELECT 
-              customer.id, 
-              customer.descriptive_name, 
-              customer.currency_code, 
-              customer.time_zone 
-            FROM customer 
+            SELECT
+              customer.id,
+              customer.resource_name,
+              customer.descriptive_name,
+              customer.manager,
+              customer.currency_code,
+              customer.time_zone
+            FROM customer
+            WHERE customer.id = '${customerId}'
             LIMIT 1
           `;
                     const rows = await customerClient.query(query);
                     if (rows.length > 0 && rows[0].customer) {
                         const info = rows[0].customer;
+                        // Debug: Log what Google Ads returns
+                        console.log(`[getAccessibleCustomers] Customer ${info.id}:`, {
+                            id: info.id,
+                            resource_name: info.resource_name,
+                            descriptive_name: info.descriptive_name,
+                            manager: info.manager,
+                            has_descriptive_name: !!info.descriptive_name,
+                            descriptive_name_type: typeof info.descriptive_name,
+                            descriptive_name_length: info.descriptive_name?.length
+                        });
+                        // Get the name, handling cases where descriptive_name is empty, null, or equals ID
+                        const descriptiveName = info.descriptive_name;
+                        const customerId = info.id.toString();
+                        let accountName;
+                        // Check if descriptive_name is valid and not just the ID
+                        if (descriptiveName &&
+                            descriptiveName !== customerId &&
+                            descriptiveName !== `customers/${customerId}` &&
+                            descriptiveName.trim() !== '') {
+                            accountName = descriptiveName.trim();
+                        }
+                        else {
+                            // Fallback to a readable format
+                            accountName = `Compte Google Ads ${customerId}`;
+                            console.warn(`[getAccessibleCustomers] No valid descriptive_name for ${customerId}, using fallback name`);
+                        }
                         const accountData = {
-                            id: info.id.toString(),
-                            name: info.descriptive_name || `Account ${info.id}`,
+                            id: customerId,
+                            name: accountName,
                             currency: info.currency_code,
                             timezone: info.time_zone,
                             status: 'active',

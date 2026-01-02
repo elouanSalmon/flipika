@@ -5,7 +5,7 @@ import ErrorCard from '../components/ErrorCard';
 import Spinner from '../components/common/Spinner';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
-import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
+import { fetchCampaigns } from '../services/googleAds';
 
 const Dashboard = () => {
     const { linkGoogleAds } = useAuth();
@@ -171,7 +171,7 @@ const Dashboard = () => {
                 ) : (
                     <div className="grid gap-3">
                         <div className="grid gap-3">
-                            {accounts.map((cust, idx) => (
+                            {accounts.map((cust) => (
                                 <button key={cust.id} onClick={() => selectCustomer(cust.id)} className="card p-5 hover:border-blue-500 hover:shadow-md transition-all flex items-center justify-between group text-left">
                                     <span className="font-medium text-lg">{cust.name} ({cust.id})</span>
                                     <ArrowRight className="opacity-0 group-hover:opacity-100 text-blue-500 transition-opacity" />

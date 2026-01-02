@@ -17,7 +17,7 @@ const NewReport: React.FC = () => {
     // const [accounts, setAccounts] = useState<GoogleAdsAccount[]>([]); // Removed local state
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
-    const [loading, setLoading] = useState(false); // Changed default to false, or rely on context loading? context loading is better but let's keep local for campaign loading
+    const [loading] = useState(false); // Changed default to false, or rely on context loading? context loading is better but let's keep local for campaign loading
 
     useEffect(() => {
         // Auto-select default account if available and not set

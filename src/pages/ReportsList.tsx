@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import { listUserReports, getReportCountByStatus } from '../services/reportService';
-import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
+import { fetchCampaigns } from '../services/googleAds';
 
 import type { EditableReport } from '../types/reportTypes';
 import type { Campaign } from '../types/business';

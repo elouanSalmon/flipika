@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 11000;
     padding: 24px;
 }
 
@@ -79,6 +79,9 @@
     font-size: 0.9375rem;
     font-weight: 500;
     color: var(--color-text-primary);
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
 }
 
 .form-group input[type="text"] {
@@ -168,7 +171,7 @@
     border-radius: 10px;
     font-size: 0.9375rem;
     color: var(--color-text-secondary);
-    text-align: center;
+    text-align: left;
 }
 
 /* Campaigns */
@@ -205,13 +208,16 @@
 }
 
 .campaign-item {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
     gap: 12px;
     padding: 12px;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
+    width: 100%;
 }
 
 .campaign-item:hover {
@@ -221,6 +227,11 @@
 .campaign-item input[type="checkbox"] {
     width: 18px;
     height: 18px;
+    min-width: 18px;
+    /* Prevent shrinking */
+    cursor: pointer;
+    margin: 0;
+    /* Remove default margins */
     cursor: pointer;
 }
 
@@ -256,7 +267,7 @@
 }
 
 /* Modal Actions */
-.modal-actions {
+.modal-footer {
     display: flex;
     gap: 12px;
     justify-content: flex-end;
@@ -264,9 +275,12 @@
     border-top: 1px solid var(--color-border);
 }
 
-.btn {
+/* Buttons - Standardized with other modals */
+.btn-secondary,
+.btn-primary {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     padding: 12px 24px;
     border-radius: 10px;
@@ -274,23 +288,14 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
-    border: none;
+    min-width: 100px;
 }
 
 .btn-primary {
     background: var(--gradient-primary);
     color: white;
     box-shadow: var(--shadow-md);
-}
-
-.btn-primary:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
-}
-
-.btn-primary:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    border: none;
 }
 
 .btn-secondary {
@@ -299,9 +304,20 @@
     border: 2px solid var(--color-border);
 }
 
-.btn-secondary:hover {
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary:hover:not(:disabled) {
     border-color: var(--color-primary);
     background: var(--glass-bg-hover);
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Scrollbar */
