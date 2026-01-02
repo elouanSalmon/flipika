@@ -106,7 +106,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
             if (response.success && response.customers) {
                 const fetchedAccounts: GoogleAdsAccount[] = response.customers.map((c: any) => ({
                     id: c.id,
-                    name: c.descriptiveName || c.id
+                    name: c.name || c.id
                 }));
 
                 const accountsDocRef = doc(db, 'users', currentUser.uid, 'integrations', 'google_ads');

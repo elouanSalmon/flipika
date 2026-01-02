@@ -109,6 +109,43 @@ async function generateReportFromSchedule(
 
     const templateData = templateDoc.data()!;
 
+    // Get account name from cached accounts
+    let accountName = accountId;
+    try {
+        const accountDoc = await admin.firestore()
+            .collection('users')
+            .doc(userId)
+            .collection('google_ads_accounts')
+            .doc(accountId)
+            .get();
+
+        if (accountDoc.exists) {
+            accountName = accountDoc.data()?.name || accountId;
+        } else {
+            // Try from integrations/google_ads document
+            const integrationsDoc = await admin.firestore()
+                .collection('users')
+                .doc(userId)
+                .collection('integrations')
+                .doc('google_ads')
+                .get();
+
+            if (integrationsDoc.exists) {
+                const accounts = integrationsDoc.data()?.accounts || [];
+                const account = accounts.find((a: any) => a.id === accountId);
+                if (account) {
+                    accountName = account.name;
+                }
+            }
+        }
+    } catch (error) {
+        console.warn(`Could not fetch account name for ${accountId}:`, error);
+    }
+
+    // Get campaign names (we'll need to implement this if we want real names)
+    // For now, we'll use empty array since we don't have campaign names in the template
+    const campaignNames: string[] = [];
+
     // Generate a title for the report
     const now = new Date();
     const dateStr = now.toLocaleDateString("fr-FR", {
@@ -119,13 +156,14 @@ async function generateReportFromSchedule(
     const reportTitle = `${scheduleName} - ${dateStr}`;
 
     // Create the report using the template service
-    // Note: We need to implement this in the Cloud Functions context
     const reportId = await createReportFromTemplateInFunction(
         userId,
         templateId,
         templateData,
         accountId,
-        reportTitle
+        reportTitle,
+        accountName,
+        campaignNames
     );
 
     return reportId;
@@ -140,7 +178,9 @@ async function createReportFromTemplateInFunction(
     templateId: string,
     templateData: any,
     accountId: string,
-    title: string
+    title: string,
+    accountName?: string,
+    campaignNames?: string[]
 ): Promise<string> {
     const db = admin.firestore();
 
@@ -152,7 +192,9 @@ async function createReportFromTemplateInFunction(
         userId,
         title,
         accountId,
+        accountName: accountName || null,
         campaignIds: templateData.campaignIds || [],
+        campaignNames: campaignNames || [],
         status: "draft",
         sections: [],
         widgetIds: [],

@@ -31,6 +31,9 @@ export { getAdCreatives } from "./adCreatives";
 import { generateScheduledReports, processScheduledReports } from "./generateScheduledReports";
 export { generateScheduledReports, processScheduledReports };
 
+// Re-export Migration functions
+export { migrateReportsWithAccountNames } from "./migrateReports";
+
 
 // Import Stripe functions
 import {
@@ -219,14 +222,17 @@ export const getAccessibleCustomers = onRequest({
             refresh_token: refreshToken,
           });
 
-          // Query details
+          // Query details - using manager and descriptive_name fields
           const query = `
-            SELECT 
-              customer.id, 
-              customer.descriptive_name, 
-              customer.currency_code, 
-              customer.time_zone 
-            FROM customer 
+            SELECT
+              customer.id,
+              customer.resource_name,
+              customer.descriptive_name,
+              customer.manager,
+              customer.currency_code,
+              customer.time_zone
+            FROM customer
+            WHERE customer.id = '${customerId}'
             LIMIT 1
           `;
 
@@ -234,9 +240,39 @@ export const getAccessibleCustomers = onRequest({
 
           if (rows.length > 0 && rows[0].customer) {
             const info = rows[0].customer;
+
+            // Debug: Log what Google Ads returns
+            console.log(`[getAccessibleCustomers] Customer ${info.id}:`, {
+              id: info.id,
+              resource_name: info.resource_name,
+              descriptive_name: info.descriptive_name,
+              manager: info.manager,
+              has_descriptive_name: !!info.descriptive_name,
+              descriptive_name_type: typeof info.descriptive_name,
+              descriptive_name_length: info.descriptive_name?.length
+            });
+
+            // Get the name, handling cases where descriptive_name is empty, null, or equals ID
+            const descriptiveName = info.descriptive_name;
+            const customerId = info.id!.toString();
+
+            let accountName: string;
+
+            // Check if descriptive_name is valid and not just the ID
+            if (descriptiveName &&
+                descriptiveName !== customerId &&
+                descriptiveName !== `customers/${customerId}` &&
+                descriptiveName.trim() !== '') {
+              accountName = descriptiveName.trim();
+            } else {
+              // Fallback to a readable format
+              accountName = `Compte Google Ads ${customerId}`;
+              console.warn(`[getAccessibleCustomers] No valid descriptive_name for ${customerId}, using fallback name`);
+            }
+
             const accountData = {
-              id: info.id!.toString(),
-              name: info.descriptive_name || `Account ${info.id}`,
+              id: customerId,
+              name: accountName,
               currency: info.currency_code,
               timezone: info.time_zone,
               status: 'active',

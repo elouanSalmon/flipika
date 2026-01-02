@@ -27,10 +27,8 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
 
     const periodPresetLabel = PERIOD_PRESETS.find(p => p.value === template.periodPreset)?.label || template.periodPreset;
 
-    // Resolve account name
-    const accountName = template.accountName ||
-        accounts.find(a => a.id === template.accountId)?.name ||
-        (template.accountId ? 'Compte inconnu' : 'Non défini');
+    // Resolve account name - same logic as ReportConfigModal
+    const accountName = accounts.find(a => a.id === template.accountId)?.name || template.accountId || 'Non défini';
 
     // Resolve campaigns text
     const campaignsText = template.campaignNames?.length

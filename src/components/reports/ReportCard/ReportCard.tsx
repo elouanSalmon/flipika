@@ -101,10 +101,8 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
         return <span className={`status-badge ${config.className}`}>{config.label}</span>;
     };
 
-    // Resolve account name
-    const accountName = report.accountName ||
-        accounts.find(a => a.id === report.accountId)?.name ||
-        (report.accountId ? 'Compte inconnu' : 'Non défini');
+    // Resolve account name - same logic as ReportConfigModal
+    const accountName = accounts.find(a => a.id === report.accountId)?.name || report.accountId || 'Non défini';
 
     // Resolve campaigns text
     const campaignsText = report.campaignNames?.length
