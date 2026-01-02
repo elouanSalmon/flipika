@@ -16,10 +16,7 @@
   /* viewport - header - footer approx */
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  /* Center content vertically when it doesn't fill the space */
-  align-items: center;
-  /* Center content horizontally */
+  /* Removed vertical/horizontal centering to ensure top alignment */
   padding-top: var(--spacing-2xl);
   /* Gap between header and content */
   padding-bottom: var(--spacing-2xl);

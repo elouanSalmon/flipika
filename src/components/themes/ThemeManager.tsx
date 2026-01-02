@@ -157,19 +157,19 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
 
     return (
         <div className="w-full">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
-                <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-4">
-                        <Palette size={32} className="text-primary" />
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Mes thèmes de rapport</h2>
+            <div className="page-header">
+                <div className="header-content">
+                    <div className="header-title-row">
+                        <Palette size={32} className="header-icon" />
+                        <h1>Mes thèmes de rapport</h1>
                     </div>
-                    <p className="text-gray-500 dark:text-gray-400 pl-12">Créez et gérez vos thèmes personnalisés pour vos rapports Google Ads</p>
+                    <p className="header-subtitle">Créez et gérez vos thèmes personnalisés pour vos rapports Google Ads</p>
                 </div>
                 <button
-                    className="btn btn-primary flex items-center gap-2"
+                    className="create-btn"
                     onClick={handleCreateTheme}
                 >
-                    <Plus size={18} />
+                    <Plus size={20} />
                     Créer un thème
                 </button>
             </div>
@@ -194,7 +194,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                         </button>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="themes-grid">
                         {themes.map(theme => (
                             <div key={theme.id} className="listing-card p-0 group">
                                 {/* Preview Area */}
