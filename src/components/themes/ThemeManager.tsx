@@ -9,6 +9,7 @@ import type { Account } from '../../types/business';
 import ThemePreview from './ThemePreview';
 import ThemeEditor from './ThemeEditor';
 import ConfirmationModal from '../common/ConfirmationModal';
+import FilterBar from '../common/FilterBar';
 import './ThemeManager.css'; // Keeping for potential specific tweaks
 
 interface ThemeManagerProps {
@@ -24,6 +25,13 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
     const [editingTheme, setEditingTheme] = useState<ReportTheme | null>(null);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [themeToDelete, setThemeToDelete] = useState<ReportTheme | null>(null);
+
+    // Filters
+    const [selectedAccountId, setSelectedAccountId] = useState<string>('');
+
+    const filteredThemes = selectedAccountId
+        ? themes.filter(theme => theme.linkedAccountIds.includes(selectedAccountId))
+        : themes;
 
     useEffect(() => {
         if (currentUser) {
@@ -175,7 +183,31 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
             </div>
 
             {
-                themes.length === 0 ? (
+                accounts.length > 0 && (
+                    <div className="mb-6">
+                        <FilterBar
+                            accounts={accounts.map(a => ({ id: a.id, name: a.name }))}
+                            selectedAccountId={selectedAccountId}
+                            onAccountChange={setSelectedAccountId}
+                        />
+                    </div>
+                )
+            }
+
+            {
+                filteredThemes.length === 0 && themes.length > 0 ? (
+                    <div className="empty-state">
+                        <Palette size={64} className="empty-icon" />
+                        <h2>Aucun thème trouvé</h2>
+                        <p>Aucun thème n'est associé à ce compte.</p>
+                        <button
+                            className="btn-secondary"
+                            onClick={() => setSelectedAccountId('')}
+                        >
+                            Voir tous les thèmes
+                        </button>
+                    </div>
+                ) : themes.length === 0 ? (
                     <div className="flex flex-col items-center justify-center p-20 text-center bg-white/50 dark:bg-gray-800/50 backdrop-blur rounded-2xl border border-gray-100 dark:border-gray-700">
                         <div className="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-4">
                             <Palette className="w-8 h-8 text-primary" />
@@ -195,10 +227,10 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                     </div>
                 ) : (
                     <div className="themes-grid">
-                        {themes.map(theme => (
+                        {filteredThemes.map(theme => (
                             <div key={theme.id} className="listing-card p-0 group">
                                 {/* Preview Area */}
-                                <div className="relative bg-gray-50 dark:bg-gray-900/50 p-4 border-b border-gray-100 dark:border-gray-700">
+                                <div className="relative bg-gray-5 dark:bg-gray-900/50 p-4 border-b border-gray-100 dark:border-gray-700">
                                     <ThemePreview theme={theme} size="medium" />
                                     {theme.isDefault && (
                                         <div className="absolute top-3 right-3 px-2 py-1 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">

@@ -5,9 +5,12 @@ import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import { listUserReports, getReportCountByStatus } from '../services/reportService';
-import { fetchAccessibleCustomers } from '../services/googleAds';
+import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
+
 import type { EditableReport } from '../types/reportTypes';
+import type { Campaign } from '../types/business';
 import ReportCard from '../components/reports/ReportCard/ReportCard';
+import FilterBar from '../components/common/FilterBar';
 import Spinner from '../components/common/Spinner';
 import './ReportsList.css';
 
@@ -25,24 +28,16 @@ const ReportsList: React.FC = () => {
     const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [statusCounts, setStatusCounts] = useState({ draft: 0, published: 0, archived: 0 });
+
     const [accounts, setAccounts] = useState<{ id: string; name: string }[]>([]);
 
-    useEffect(() => {
-        if (isGoogleAdsConnected) {
-            loadAccounts();
-        }
-    }, [isGoogleAdsConnected]);
+    // Filters
+    const [selectedAccountId, setSelectedAccountId] = useState<string>('');
+    const [selectedCampaignId, setSelectedCampaignId] = useState<string>('');
+    const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+    const [loadingCampaigns, setLoadingCampaigns] = useState(false);
 
-    useEffect(() => {
-        if (currentUser) {
-            loadReports();
-            loadStatusCounts();
-        }
-    }, [currentUser]);
 
-    useEffect(() => {
-        filterReports();
-    }, [reports, statusFilter, searchQuery]);
 
     const loadReports = async () => {
         if (!currentUser) return;
@@ -84,6 +79,22 @@ const ReportsList: React.FC = () => {
         }
     };
 
+
+    const loadCampaigns = async (accountId: string) => {
+        try {
+            setLoadingCampaigns(true);
+            const response = await fetchCampaigns(accountId);
+            if (response.success && response.campaigns) {
+                setCampaigns(Array.isArray(response.campaigns) ? response.campaigns : []);
+            }
+        } catch (error) {
+            console.error('Error loading campaigns:', error);
+            setCampaigns([]);
+        } finally {
+            setLoadingCampaigns(false);
+        }
+    };
+
     const filterReports = () => {
         let filtered = [...reports];
 
@@ -101,8 +112,46 @@ const ReportsList: React.FC = () => {
             );
         }
 
+        // Filter by Account
+        if (selectedAccountId) {
+            filtered = filtered.filter(r => r.accountId === selectedAccountId);
+        }
+
+        // Filter by Campaign
+        if (selectedCampaignId) {
+            filtered = filtered.filter(r =>
+                r.campaignIds && r.campaignIds.includes(selectedCampaignId)
+            );
+        }
+
         setFilteredReports(filtered);
     };
+
+    useEffect(() => {
+        if (isGoogleAdsConnected) {
+            loadAccounts();
+        }
+    }, [isGoogleAdsConnected]);
+
+    useEffect(() => {
+        if (currentUser) {
+            loadReports();
+            loadStatusCounts();
+        }
+    }, [currentUser]);
+
+    useEffect(() => {
+        if (selectedAccountId) {
+            loadCampaigns(selectedAccountId);
+        } else {
+            setCampaigns([]);
+            setSelectedCampaignId('');
+        }
+    }, [selectedAccountId]);
+
+    useEffect(() => {
+        filterReports();
+    }, [reports, statusFilter, searchQuery, selectedAccountId, selectedCampaignId]);
 
     const handleCreateReport = () => {
         navigate('/app/reports/new');
@@ -184,6 +233,19 @@ const ReportsList: React.FC = () => {
                         Archivés ({statusCounts.archived})
                     </button>
                 </div>
+
+                {/* Filters - Always show if connected */}
+                {isGoogleAdsConnected && (
+                    <FilterBar
+                        accounts={accounts}
+                        campaigns={campaigns}
+                        selectedAccountId={selectedAccountId}
+                        selectedCampaignId={selectedCampaignId}
+                        onAccountChange={setSelectedAccountId}
+                        onCampaignChange={setSelectedCampaignId}
+                        loadingCampaigns={loadingCampaigns}
+                    />
+                )}
 
                 {/* Search and View Controls */}
                 <div className="controls-bar">

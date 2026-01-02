@@ -24,6 +24,7 @@ import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import AccountSelectionModal from '../components/templates/AccountSelectionModal';
+import FilterBar from '../components/common/FilterBar';
 import './Templates.css';
 
 interface GoogleAdsAccount {
@@ -47,30 +48,20 @@ const Templates: React.FC = () => {
     const [googleAuthError, setGoogleAuthError] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [templateToDelete, setTemplateToDelete] = useState<ReportTemplate | null>(null);
-    const [deleteMessage, setDeleteMessage] = useState('');
+
     const [schedulesToDelete, setSchedulesToDelete] = useState<ScheduledReport[]>([]);
+    const [deleteMessage, setDeleteMessage] = useState('');
+
+    // Filters
+    const [selectedFilterAccountId, setSelectedFilterAccountId] = useState<string>('');
+    const [selectedFilterCampaignId, setSelectedFilterCampaignId] = useState<string>('');
+    const [filterCampaigns, setFilterCampaigns] = useState<Campaign[]>([]);
+    const [loadingFilterCampaigns, setLoadingFilterCampaigns] = useState(false);
+    const [filteredTemplatesList, setFilteredTemplatesList] = useState<ReportTemplate[]>([]);
 
     // State for account selection modal (for legacy templates or overrides)
     const [showAccountModal, setShowAccountModal] = useState(false);
     const [pendingTemplateForUse, setPendingTemplateForUse] = useState<ReportTemplate | null>(null);
-
-    useEffect(() => {
-        if (currentUser) {
-            loadTemplates();
-        }
-    }, [currentUser]);
-
-    useEffect(() => {
-        if (isConnected) {
-            loadAccounts();
-        }
-    }, [isConnected]);
-
-    useEffect(() => {
-        if (selectedAccountId) {
-            loadCampaigns(selectedAccountId);
-        }
-    }, [selectedAccountId]);
 
     const loadTemplates = async () => {
         if (!currentUser) return;
@@ -123,6 +114,81 @@ const Templates: React.FC = () => {
             setCampaigns([]);
         }
     };
+
+    const loadFilterCampaigns = async (accountId: string) => {
+        try {
+            setLoadingFilterCampaigns(true);
+            const response = await fetchCampaigns(accountId);
+            if (response.success && response.campaigns) {
+                setFilterCampaigns(Array.isArray(response.campaigns) ? response.campaigns : []);
+            }
+        } catch (error) {
+            console.error('Error loading filter campaigns:', error);
+            setFilterCampaigns([]);
+        } finally {
+            setLoadingFilterCampaigns(false);
+        }
+    };
+
+    const filterTemplates = () => {
+        let filtered = [...templates];
+
+        // Filter by search query
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+            filtered = filtered.filter(t =>
+                t.name.toLowerCase().includes(query) ||
+                (t.description && t.description.toLowerCase().includes(query))
+            );
+        }
+
+        // Filter by Account
+        if (selectedFilterAccountId) {
+            filtered = filtered.filter(t => t.accountId === selectedFilterAccountId);
+        }
+
+        // Filter by Campaign
+        if (selectedFilterCampaignId) {
+            filtered = filtered.filter(t =>
+                t.campaignIds && t.campaignIds.includes(selectedFilterCampaignId)
+            );
+        }
+
+        setFilteredTemplatesList(filtered);
+    };
+
+    useEffect(() => {
+        if (currentUser) {
+            loadTemplates();
+        }
+    }, [currentUser]);
+
+    useEffect(() => {
+        if (isConnected) {
+            loadAccounts();
+        }
+    }, [isConnected]);
+
+    useEffect(() => {
+        if (selectedAccountId) {
+            loadCampaigns(selectedAccountId);
+        }
+    }, [selectedAccountId]);
+
+    useEffect(() => {
+        if (selectedFilterAccountId) {
+            loadFilterCampaigns(selectedFilterAccountId);
+        } else {
+            setFilterCampaigns([]);
+            setSelectedFilterCampaignId('');
+        }
+    }, [selectedFilterAccountId]);
+
+    useEffect(() => {
+        filterTemplates();
+    }, [templates, searchQuery, selectedFilterAccountId, selectedFilterCampaignId]);
+
+
 
     const handleCreateTemplate = async (config: TemplateConfig) => {
         if (!currentUser) return;
@@ -272,10 +338,7 @@ const Templates: React.FC = () => {
         }
     };
 
-    const filteredTemplates = templates.filter(template =>
-        template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        template.description?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredTemplates = filteredTemplatesList;
 
     if (loading) {
         return (
@@ -337,7 +400,33 @@ const Templates: React.FC = () => {
                 </div>
             )}
 
+            {isConnected && (
+                <div className="mb-6">
+                    <FilterBar
+                        accounts={accounts}
+                        campaigns={filterCampaigns}
+                        selectedAccountId={selectedFilterAccountId}
+                        selectedCampaignId={selectedFilterCampaignId}
+                        onAccountChange={setSelectedFilterAccountId}
+                        onCampaignChange={setSelectedFilterCampaignId}
+                        loadingCampaigns={loadingFilterCampaigns}
+                    />
+                </div>
+            )}
 
+            {templates.length > 0 && (
+                <div className="mb-6">
+                    <div className="search-bar">
+                        <Search size={20} />
+                        <input
+                            type="text"
+                            placeholder="Rechercher un template..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                </div>
+            )}
             <FeatureAccessGuard featureName="les templates">
                 {filteredTemplates.length > 0 ? (
                     <div className="templates-grid">
