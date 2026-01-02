@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Clock, AlertCircle } from 'lucide-react';
+import { Plus, Clock, AlertCircle, Search, Grid, List as ListIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import type { ScheduledReport } from '../types/scheduledReportTypes';
@@ -45,8 +45,11 @@ const ScheduledReports: React.FC = () => {
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
     const [selectedCampaignId, setSelectedCampaignId] = useState<string>('');
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+
     const [loadingCampaigns, setLoadingCampaigns] = useState(false);
     const [filteredSchedules, setFilteredSchedules] = useState<ScheduledReport[]>([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
     useEffect(() => {
         if (currentUser) {
@@ -65,7 +68,7 @@ const ScheduledReports: React.FC = () => {
 
     useEffect(() => {
         filterSchedules();
-    }, [schedules, selectedAccountId, selectedCampaignId]);
+    }, [schedules, selectedAccountId, selectedCampaignId, searchQuery]);
 
     const loadData = async () => {
         if (!currentUser) return;
@@ -157,6 +160,14 @@ const ScheduledReports: React.FC = () => {
             // Update: FilterBar shows campaign selector only if onCampaignChange provided.
             // Providing onCampaignChange enables it.
             // If I don't provide it, it won't show.
+        }
+
+        // Filter by search query
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+            filtered = filtered.filter(s =>
+                s.name.toLowerCase().includes(query)
+            );
         }
 
         setFilteredSchedules(filtered);
@@ -300,6 +311,40 @@ const ScheduledReports: React.FC = () => {
                 </div>
             )}
 
+            {
+                /* Controls Bar - Always visible if there are schedules */
+                (schedules.length > 0 || searchQuery) && (
+                    <div className="controls-bar">
+                        <div className="search-box">
+                            <Search size={18} />
+                            <input
+                                type="text"
+                                placeholder="Rechercher un schedule..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="view-controls">
+                            <button
+                                className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                                onClick={() => setViewMode('grid')}
+                                title="Vue grille"
+                            >
+                                <Grid size={18} />
+                            </button>
+                            <button
+                                className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                                onClick={() => setViewMode('list')}
+                                title="Vue liste"
+                            >
+                                <ListIcon size={18} />
+                            </button>
+                        </div>
+                    </div>
+                )
+            }
+
             <FeatureAccessGuard featureName="les rapports programmés">
 
                 {googleAuthError && isGoogleAdsConnected && (
@@ -359,7 +404,7 @@ const ScheduledReports: React.FC = () => {
                                     Schedules actifs
                                     <span className="count-badge">{activeSchedules.length}</span>
                                 </h2>
-                                <div className="schedules-grid">
+                                <div className={viewMode === 'grid' ? 'schedules-grid' : 'schedules-list'}>
                                     {activeSchedules.map((schedule) => (
                                         <ScheduleCard
                                             key={schedule.id}
@@ -382,7 +427,7 @@ const ScheduledReports: React.FC = () => {
                                     Schedules en pause
                                     <span className="count-badge secondary">{pausedSchedules.length}</span>
                                 </h2>
-                                <div className="schedules-grid">
+                                <div className={viewMode === 'grid' ? 'schedules-grid' : 'schedules-list'}>
                                     {pausedSchedules.map((schedule) => (
                                         <ScheduleCard
                                             key={schedule.id}

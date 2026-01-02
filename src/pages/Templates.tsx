@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, FileStack, Search, AlertCircle } from 'lucide-react';
+import { Plus, FileStack, Search, AlertCircle, Grid, List as ListIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
@@ -40,6 +40,7 @@ const Templates: React.FC = () => {
     const [templates, setTemplates] = useState<ReportTemplate[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [editingTemplate, setEditingTemplate] = useState<ReportTemplate | null>(null);
     const [accounts, setAccounts] = useState<GoogleAdsAccount[]>([]);
@@ -388,17 +389,37 @@ const Templates: React.FC = () => {
                 </div>
             )}
 
-            {templates.length > 0 && (
-                <div className="search-bar">
-                    <Search size={20} />
-                    <input
-                        type="text"
-                        placeholder="Rechercher un template..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                </div>
-            )}
+            {/* Controls Bar - Always visible if there are templates */
+                templates.length > 0 && (
+                    <div className="controls-bar">
+                        <div className="search-box">
+                            <Search size={18} />
+                            <input
+                                type="text"
+                                placeholder="Rechercher un template..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="view-controls">
+                            <button
+                                className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                                onClick={() => setViewMode('grid')}
+                                title="Vue grille"
+                            >
+                                <Grid size={18} />
+                            </button>
+                            <button
+                                className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                                onClick={() => setViewMode('list')}
+                                title="Vue liste"
+                            >
+                                <ListIcon size={18} />
+                            </button>
+                        </div>
+                    </div>
+                )}
 
             {isConnected && (
                 <div className="mb-6">
@@ -414,22 +435,11 @@ const Templates: React.FC = () => {
                 </div>
             )}
 
-            {templates.length > 0 && (
-                <div className="mb-6">
-                    <div className="search-bar">
-                        <Search size={20} />
-                        <input
-                            type="text"
-                            placeholder="Rechercher un template..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                    </div>
-                </div>
-            )}
+
+            {/* Redundant search bar removed here - using controls bar above */}
             <FeatureAccessGuard featureName="les templates">
                 {filteredTemplates.length > 0 ? (
-                    <div className="templates-grid">
+                    <div className={viewMode === 'grid' ? 'templates-grid' : 'templates-list'}>
                         {filteredTemplates.map(template => (
                             <TemplateCard
                                 key={template.id}
