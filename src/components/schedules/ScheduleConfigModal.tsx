@@ -15,7 +15,6 @@ export interface ScheduleFormData {
     name: string;
     description: string;
     templateId: string;
-    accountId: string;
     scheduleConfig: ScheduleConfig;
 }
 
@@ -40,7 +39,6 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
         name: '',
         description: '',
         templateId: '',
-        accountId: '',
         scheduleConfig: {
             frequency: 'daily',
             hour: 9,
@@ -59,7 +57,6 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                 name: editingSchedule.name,
                 description: editingSchedule.description || '',
                 templateId: editingSchedule.templateId,
-                accountId: editingSchedule.accountId,
                 scheduleConfig: editingSchedule.scheduleConfig,
             };
         } else {
@@ -67,7 +64,6 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                 name: '',
                 description: '',
                 templateId: templates[0]?.id || '',
-                accountId: accounts[0]?.id || '',
                 scheduleConfig: {
                     frequency: 'daily',
                     hour: 9,
@@ -93,9 +89,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
             newErrors.templateId = 'Veuillez sélectionner un template';
         }
 
-        if (!formData.accountId) {
-            newErrors.accountId = 'Veuillez sélectionner un compte';
-        }
+
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -225,26 +219,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                     </div>
                                 )}
 
-                                <div className="form-group">
-                                    <label htmlFor="account">
-                                        <span className="label-text">Compte Google Ads *</span>
-                                        <select
-                                            id="account"
-                                            value={formData.accountId}
-                                            onChange={(e) => setFormData({ ...formData, accountId: e.target.value })}
-                                            className={errors.accountId ? 'error' : ''}
-                                            disabled={isSubmitting}
-                                        >
-                                            <option value="">Sélectionner un compte</option>
-                                            {accounts.map((account) => (
-                                                <option key={account.id} value={account.id}>
-                                                    {account.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        {errors.accountId && <span className="error-message">{errors.accountId}</span>}
-                                    </label>
-                                </div>
+
                             </div>
 
                             <div className="form-section">

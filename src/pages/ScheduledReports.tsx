@@ -184,13 +184,20 @@ const ScheduledReports: React.FC = () => {
         if (!currentUser) return;
 
         try {
+            // Find the selected template to get its account ID
+            const selectedTemplate = templates.find(t => t.id === data.templateId);
+            if (!selectedTemplate?.accountId) {
+                toast.error('Le template sélectionné n\'est lié à aucun compte Google Ads.');
+                return;
+            }
+
             if (editingSchedule) {
                 // Update existing schedule
                 await updateScheduledReport(editingSchedule.id, {
                     name: data.name,
                     description: data.description,
                     templateId: data.templateId,
-                    accountId: data.accountId,
+                    accountId: selectedTemplate.accountId, // Use template's account ID
                     scheduleConfig: data.scheduleConfig,
                 });
                 toast.success('Schedule mis à jour avec succès');
@@ -200,7 +207,7 @@ const ScheduledReports: React.FC = () => {
                     name: data.name,
                     description: data.description,
                     templateId: data.templateId,
-                    accountId: data.accountId,
+                    accountId: selectedTemplate.accountId, // Use template's account ID
                     scheduleConfig: data.scheduleConfig,
                 });
                 toast.success('Schedule créé avec succès');
