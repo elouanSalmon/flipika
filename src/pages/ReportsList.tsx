@@ -14,8 +14,12 @@ import FilterBar from '../components/common/FilterBar';
 import Spinner from '../components/common/Spinner';
 import './ReportsList.css';
 
+import Pagination from '../components/common/Pagination';
+
 type ViewMode = 'grid' | 'list';
 type StatusFilter = 'all' | 'draft' | 'published' | 'archived';
+
+const ITEMS_PER_PAGE = 9;
 
 const ReportsList: React.FC = () => {
     const navigate = useNavigate();
@@ -28,6 +32,9 @@ const ReportsList: React.FC = () => {
     const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [statusCounts, setStatusCounts] = useState({ draft: 0, published: 0, archived: 0 });
+
+    // Pagination
+    const [currentPage, setCurrentPage] = useState(1);
 
     const [accounts, setAccounts] = useState<{ id: string; name: string }[]>([]);
 
@@ -151,7 +158,12 @@ const ReportsList: React.FC = () => {
 
     useEffect(() => {
         filterReports();
+        setCurrentPage(1); // Reset to first page when filtering
     }, [reports, statusFilter, searchQuery, selectedAccountId, selectedCampaignId]);
+
+    const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+    const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+    const currentReports = filteredReports.slice(indexOfFirstItem, indexOfLastItem);
 
     const handleCreateReport = () => {
         navigate('/app/reports/new');
@@ -315,18 +327,27 @@ const ReportsList: React.FC = () => {
                             )}
                         </div>
                     ) : (
-                        <div className={`reports-${viewMode}`}>
-                            {filteredReports.map((report) => (
-                                <ReportCard
-                                    key={report.id}
-                                    report={report}
-                                    viewMode={viewMode}
-                                    onClick={() => handleReportClick(report.id)}
-                                    onDeleted={handleReportDeleted}
-                                    accounts={accounts}
-                                />
-                            ))}
-                        </div>
+                        <>
+                            <div className={`reports-${viewMode}`}>
+                                {currentReports.map((report) => (
+                                    <ReportCard
+                                        key={report.id}
+                                        report={report}
+                                        viewMode={viewMode}
+                                        onClick={() => handleReportClick(report.id)}
+                                        onDeleted={handleReportDeleted}
+                                        accounts={accounts}
+                                    />
+                                ))}
+                            </div>
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={Math.ceil(filteredReports.length / ITEMS_PER_PAGE)}
+                                onPageChange={setCurrentPage}
+                                totalItems={filteredReports.length}
+                                itemsPerPage={ITEMS_PER_PAGE}
+                            />
+                        </>
                     )
                 }
             </FeatureAccessGuard>

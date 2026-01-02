@@ -25,7 +25,10 @@ import toast from 'react-hot-toast';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import AccountSelectionModal from '../components/templates/AccountSelectionModal';
 import FilterBar from '../components/common/FilterBar';
+import Pagination from '../components/common/Pagination';
 import './Templates.css';
+
+const ITEMS_PER_PAGE = 9;
 
 interface GoogleAdsAccount {
     id: string;
@@ -59,6 +62,9 @@ const Templates: React.FC = () => {
     const [filterCampaigns, setFilterCampaigns] = useState<Campaign[]>([]);
     const [loadingFilterCampaigns, setLoadingFilterCampaigns] = useState(false);
     const [filteredTemplatesList, setFilteredTemplatesList] = useState<ReportTemplate[]>([]);
+
+    // Pagination
+    const [currentPage, setCurrentPage] = useState(1);
 
     // State for account selection modal (for legacy templates or overrides)
     const [showAccountModal, setShowAccountModal] = useState(false);
@@ -187,6 +193,7 @@ const Templates: React.FC = () => {
 
     useEffect(() => {
         filterTemplates();
+        setCurrentPage(1); // Reset page on filter change
     }, [templates, searchQuery, selectedFilterAccountId, selectedFilterCampaignId]);
 
 
@@ -452,20 +459,29 @@ const Templates: React.FC = () => {
             {/* Redundant search bar removed here - using controls bar above */}
             <FeatureAccessGuard featureName="les templates">
                 {filteredTemplates.length > 0 ? (
-                    <div className={viewMode === 'grid' ? 'templates-grid' : 'templates-list'}>
-                        {filteredTemplates.map(template => (
-                            <TemplateCard
-                                key={template.id}
-                                template={template}
-                                onUse={handleUseTemplate}
-                                onEdit={setEditingTemplate}
-                                onDuplicate={handleDuplicateTemplate}
-                                onDelete={handleDeleteTemplate}
-                                isGoogleAdsConnected={isConnected}
-                                accounts={accounts}
-                            />
-                        ))}
-                    </div>
+                    <>
+                        <div className={viewMode === 'grid' ? 'templates-grid' : 'templates-list'}>
+                            {filteredTemplates.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE).map(template => (
+                                <TemplateCard
+                                    key={template.id}
+                                    template={template}
+                                    onUse={handleUseTemplate}
+                                    onEdit={setEditingTemplate}
+                                    onDuplicate={handleDuplicateTemplate}
+                                    onDelete={handleDeleteTemplate}
+                                    isGoogleAdsConnected={isConnected}
+                                    accounts={accounts}
+                                />
+                            ))}
+                        </div>
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={Math.ceil(filteredTemplates.length / ITEMS_PER_PAGE)}
+                            onPageChange={setCurrentPage}
+                            totalItems={filteredTemplates.length}
+                            itemsPerPage={ITEMS_PER_PAGE}
+                        />
+                    </>
                 ) : (
                     <div className="empty-state">
                         <FileStack size={64} className="empty-icon" />

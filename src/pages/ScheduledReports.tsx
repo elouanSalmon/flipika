@@ -21,7 +21,10 @@ import type { Campaign } from '../types/business';
 import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
 import ConfirmationModal from '../components/common/ConfirmationModal';
+import Pagination from '../components/common/Pagination';
 import './ScheduledReports.css';
+
+const ITEMS_PER_PAGE = 9;
 
 interface GoogleAdsAccount {
     id: string;
@@ -54,6 +57,9 @@ const ScheduledReports: React.FC = () => {
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
 
+    // Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+
     useEffect(() => {
         if (currentUser) {
             loadData();
@@ -71,6 +77,7 @@ const ScheduledReports: React.FC = () => {
 
     useEffect(() => {
         filterSchedules();
+        setCurrentPage(1); // Reset page on filter change
     }, [schedules, selectedAccountId, selectedCampaignId, searchQuery, statusFilter]);
 
     const loadData = async () => {
@@ -422,7 +429,7 @@ const ScheduledReports: React.FC = () => {
                     <>
                         {/* Only show section titles if showing ALL, otherwise the filter effectively selects one group */}
                         <div className={viewMode === 'grid' ? 'schedules-grid' : 'schedules-list'}>
-                            {filteredSchedules.map((schedule) => (
+                            {filteredSchedules.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE).map((schedule) => (
                                 <ScheduleCard
                                     key={schedule.id}
                                     schedule={schedule}
@@ -435,6 +442,13 @@ const ScheduledReports: React.FC = () => {
                                 />
                             ))}
                         </div>
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={Math.ceil(filteredSchedules.length / ITEMS_PER_PAGE)}
+                            onPageChange={setCurrentPage}
+                            totalItems={filteredSchedules.length}
+                            itemsPerPage={ITEMS_PER_PAGE}
+                        />
                     </>
                 )}
 
