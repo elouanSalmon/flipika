@@ -78,7 +78,9 @@ export interface EditableReport {
     id: string;
     userId: string;
     accountId: string;
+    accountName?: string; // For display
     campaignIds: string[];
+    campaignNames?: string[]; // For display
     title: string;
     content: JSONContent;
     sections: ReportSection[];

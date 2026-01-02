@@ -105,7 +105,9 @@ const NewReport: React.FC = () => {
                 config.accountId,
                 config.title,
                 config.campaignIds,
-                config.dateRange
+                config.dateRange,
+                accounts.find(a => a.id === config.accountId)?.name,
+                campaigns.filter(c => config.campaignIds.includes(c.id)).map(c => c.name)
             );
 
             toast.success('Rapport créé !');

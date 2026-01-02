@@ -28,7 +28,8 @@ export { getWidgetMetrics } from "./widgetMetrics";
 export { getAdCreatives } from "./adCreatives";
 
 // Re-export Scheduled Reports function
-export { generateScheduledReports } from "./generateScheduledReports";
+import { generateScheduledReports, processScheduledReports } from "./generateScheduledReports";
+export { generateScheduledReports, processScheduledReports };
 
 
 // Import Stripe functions
@@ -511,4 +512,25 @@ export const syncBillingScheduled = onSchedule({
   } catch (error: any) {
     console.error('Error in scheduled billing sync:', error);
   }
+});
+
+/**
+ * Debug function to manually trigger schedule generation
+ * Only for development/testing purposes
+ */
+export const debugTriggerSchedule = onRequest({ memory: '1GiB' }, async (req, res) => {
+  return corsHandler(req, res, async () => {
+    // 1. Verify Authentication - DISABLED FOR TESTING
+    try {
+      // Import the function dynamically or use the exported one if available
+      // Since we are in the same package, we can just call it
+      // Call the imported functions directly
+      await processScheduledReports();
+
+      res.status(200).json({ success: true, message: "Schedule generation triggered manually" });
+    } catch (error: any) {
+      console.error("Debug trigger error:", error);
+      res.status(500).json({ error: `Failed to trigger schedule: ${error.message}` });
+    }
+  });
 });

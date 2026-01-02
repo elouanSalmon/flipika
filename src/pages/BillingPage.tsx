@@ -148,15 +148,22 @@ export default function BillingPage() {
                     <div className="flex items-center justify-between mb-6">
                         <div>
                             <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-                                {subscription ? 'Abonnement Actif' : 'Aucun Abonnement'}
+                                {subscription
+                                    ? (subscription.cancelAtPeriodEnd
+                                        ? (subscription.status === 'trialing' ? 'Essai Gratuit Annulé' : 'Abonnement Résilié')
+                                        : (subscription.status === 'trialing' ? 'Essai Gratuit Actif' : 'Abonnement Actif'))
+                                    : 'Aucun Abonnement'}
                             </h2>
                             {subscription && (
                                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                    {subscription.status === 'trialing' && subscription.trialEndsAt
-                                        ? `Période d'essai jusqu'au ${new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR')}`
-                                        : subscription.status === 'active'
-                                            ? 'Abonnement actif'
-                                            : `Statut: ${subscription.status}`}
+                                    {subscription.status === 'trialing'
+                                        ? (subscription.cancelAtPeriodEnd
+                                            ? `Accès conservé jusqu'au ${subscription.trialEndsAt ? new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR') : 'fin de la période'}`
+                                            : `Période d'essai jusqu'au ${subscription.trialEndsAt ? new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR') : ''}`)
+                                        : (subscription.cancelAtPeriodEnd
+                                            ? `Accès conservé jusqu'au ${subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR') : 'fin de la période'}`
+                                            : 'Abonnement actif et renouvellement automatique activé')
+                                    }
                                 </p>
                             )}
                         </div>
@@ -203,11 +210,11 @@ export default function BillingPage() {
                     </div>
 
                     {/* Cancellation Warning */}
-                    {subscription?.cancelAtPeriodEnd && subscription.currentPeriodEnd && (
+                    {subscription?.cancelAtPeriodEnd && (
                         <div className="mb-6">
                             <CanceledSubscriptionNotice
                                 isTrialing={subscription.status === 'trialing'}
-                                endDate={subscription.currentPeriodEnd}
+                                endDate={subscription.currentPeriodEnd || new Date()}
                                 onReactivate={handleManageSubscription}
                                 isReactivating={isOpeningPortal}
                             />

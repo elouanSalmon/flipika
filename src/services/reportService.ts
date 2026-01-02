@@ -36,13 +36,17 @@ export async function createReport(
     accountId: string,
     title: string,
     campaignIds: string[] = [],
-    dateRange?: { start: string; end: string; preset?: string }
+    dateRange?: { start: string; end: string; preset?: string },
+    accountName?: string,
+    campaignNames?: string[]
 ): Promise<string> {
     try {
         const newReport: any = {
             userId,
             accountId,
+            accountName: accountName || null,
             campaignIds,
+            campaignNames: campaignNames || [],
             title,
             content: { type: 'doc', content: [] },
             sections: [],
@@ -313,7 +317,9 @@ export async function listUserReports(
                 id: doc.id,
                 userId: data.userId,
                 accountId: data.accountId,
+                accountName: data.accountName,
                 campaignIds: data.campaignIds || [],
+                campaignNames: data.campaignNames || [],
                 title: data.title,
                 content: data.content,
                 sections: data.sections || [],
@@ -538,6 +544,8 @@ export async function updateReportSettings(
         startDate?: Date;
         endDate?: Date;
         dateRangePreset?: string;
+        accountName?: string;
+        campaignNames?: string[];
     }
 ): Promise<void> {
     try {
@@ -555,6 +563,12 @@ export async function updateReportSettings(
         }
         if (settings.campaignIds !== undefined) {
             reportUpdates.campaignIds = settings.campaignIds;
+        }
+        if (settings.accountName !== undefined) {
+            reportUpdates.accountName = settings.accountName;
+        }
+        if (settings.campaignNames !== undefined) {
+            reportUpdates.campaignNames = settings.campaignNames;
         }
         if (settings.startDate !== undefined) {
             reportUpdates.startDate = settings.startDate;

@@ -7,6 +7,7 @@ interface GoogleAdsContextType {
     isConnected: boolean;
     customerId: string | null;
     authError: string | null;
+    loading: boolean;
     setLinkedCustomerId: (id: string | null) => void;
     refreshConnectionStatus: () => void;
     disconnect: () => Promise<void>;
@@ -19,6 +20,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [customerId, setCustomerId] = useState<string | null>(null);
     const [authError, setAuthError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     // Manual refresh function (kept for compatibility)
     const refreshConnectionStatus = () => {
@@ -64,6 +66,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
             setIsConnected(false);
             setCustomerId(null);
             setAuthError(null);
+            setLoading(false);
             // Clear localStorage when user logs out or changes
             localStorage.removeItem('google_ads_customer_id');
             localStorage.removeItem('google_ads_connected');
@@ -71,6 +74,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
         }
 
         console.log('[GoogleAdsContext] Setting up Firestore listener for user:', currentUser.uid);
+        setLoading(true);
 
         // Listen to the Google Ads token document in Firestore
         const tokenDocRef = doc(db, 'users', currentUser.uid, 'tokens', 'google_ads');
@@ -97,6 +101,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
                 } else {
                     setCustomerId(null);
                 }
+                setLoading(false);
             },
             (error) => {
                 console.error('[GoogleAdsContext] Error listening to Google Ads token:', error);
@@ -111,6 +116,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
 
                 setIsConnected(false);
                 setCustomerId(null);
+                setLoading(false);
             }
         );
 
@@ -135,6 +141,7 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
                 isConnected,
                 customerId,
                 authError,
+                loading,
                 setLinkedCustomerId,
                 refreshConnectionStatus,
                 disconnect,

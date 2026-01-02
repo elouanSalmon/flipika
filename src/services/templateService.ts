@@ -30,7 +30,9 @@ export async function createTemplate(
         name: string;
         description?: string;
         accountId?: string;
+        accountName?: string;
         campaignIds?: string[];
+        campaignNames?: string[];
         periodPreset: PeriodPreset;
         widgetConfigs: TemplateWidgetConfig[];
         design?: any;
@@ -42,7 +44,9 @@ export async function createTemplate(
             name: config.name,
             description: config.description || '',
             accountId: config.accountId || null,
+            accountName: config.accountName || null,
             campaignIds: config.campaignIds || [],
+            campaignNames: config.campaignNames || [],
             periodPreset: config.periodPreset,
             widgetConfigs: config.widgetConfigs,
             design: config.design || null,
@@ -79,7 +83,9 @@ export async function getTemplate(templateId: string): Promise<ReportTemplate | 
             name: data.name,
             description: data.description,
             accountId: data.accountId,
+            accountName: data.accountName,
             campaignIds: data.campaignIds || [],
+            campaignNames: data.campaignNames || [],
             periodPreset: data.periodPreset,
             widgetConfigs: data.widgetConfigs || [],
             design: data.design,
@@ -117,7 +123,9 @@ export async function listUserTemplates(userId: string): Promise<ReportTemplate[
                 name: data.name,
                 description: data.description,
                 accountId: data.accountId,
+                accountName: data.accountName,
                 campaignIds: data.campaignIds || [],
+                campaignNames: data.campaignNames || [],
                 periodPreset: data.periodPreset,
                 widgetConfigs: data.widgetConfigs || [],
                 design: data.design,
@@ -189,7 +197,9 @@ export async function duplicateTemplate(
             name: newName,
             description: template.description,
             accountId: template.accountId,
+            accountName: template.accountName,
             campaignIds: template.campaignIds,
+            campaignNames: template.campaignNames,
             periodPreset: template.periodPreset,
             widgetConfigs: template.widgetConfigs,
             design: template.design,
@@ -225,7 +235,9 @@ export async function createReportFromTemplate(
     overrides?: {
         title?: string;
         accountId?: string;
+        accountName?: string;
         campaignIds?: string[];
+        campaignNames?: string[];
     }
 ): Promise<string> {
     try {
@@ -240,7 +252,9 @@ export async function createReportFromTemplate(
 
         // Use overrides or template values
         const accountId = overrides?.accountId || template.accountId;
+        const accountName = overrides?.accountName || template.accountName;
         const campaignIds = overrides?.campaignIds || template.campaignIds;
+        const campaignNames = overrides?.campaignNames || template.campaignNames;
         const title = overrides?.title || `${template.name} - ${new Date().toLocaleDateString('fr-FR')}`;
 
         if (!accountId) {
@@ -257,7 +271,9 @@ export async function createReportFromTemplate(
                 start: start.toISOString().split('T')[0],
                 end: end.toISOString().split('T')[0],
                 preset: template.periodPreset,
-            }
+            },
+            accountName,
+            campaignNames
         );
 
         // Add widgets from template

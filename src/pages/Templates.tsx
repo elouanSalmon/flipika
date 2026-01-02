@@ -4,7 +4,7 @@ import { Plus, FileStack, Search, AlertCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
-import GoogleAdsGuard from '../components/common/GoogleAdsGuard';
+import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import {
     listUserTemplates,
     createTemplate,
@@ -262,6 +262,7 @@ const Templates: React.FC = () => {
         try {
             const reportId = await createReportFromTemplate(pendingTemplateForUse.id, currentUser.uid, {
                 accountId,
+                accountName: accounts.find(a => a.id === accountId)?.name,
             });
             toast.success('Rapport créé depuis le template !');
             navigate(`/app/reports/${reportId}`);
@@ -337,7 +338,7 @@ const Templates: React.FC = () => {
             )}
 
 
-            <GoogleAdsGuard mode="partial" feature="créer des templates">
+            <FeatureAccessGuard featureName="les templates">
                 {filteredTemplates.length > 0 ? (
                     <div className="templates-grid">
                         {filteredTemplates.map(template => (
@@ -349,6 +350,7 @@ const Templates: React.FC = () => {
                                 onDuplicate={handleDuplicateTemplate}
                                 onDelete={handleDeleteTemplate}
                                 isGoogleAdsConnected={isConnected}
+                                accounts={accounts}
                             />
                         ))}
                     </div>
@@ -377,7 +379,7 @@ const Templates: React.FC = () => {
                         )}
                     </div>
                 )}
-            </GoogleAdsGuard>
+            </FeatureAccessGuard>
 
             {(showCreateModal || editingTemplate) && (
                 <TemplateConfigModal

@@ -128,18 +128,18 @@ exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async
         // Handle OAuth errors
         if (error) {
             console.error("OAuth error:", error);
-            res.redirect(`${process.env.APP_URL || 'https://flipika.com'}/app/reports?error=oauth_failed`);
+            res.status(400).json({ error: 'OAuth failed', details: error });
             return;
         }
         // Validate inputs
         if (!(0, validators_1.isValidState)(state)) {
             console.error("Invalid state parameter:", state);
-            res.status(400).send("Invalid state parameter");
+            res.status(400).json({ error: "Invalid state parameter" });
             return;
         }
         if (!(0, validators_1.isValidOAuthCode)(code)) {
             console.error("Invalid code parameter");
-            res.status(400).send("Invalid code parameter");
+            res.status(400).json({ error: "Invalid code parameter" });
             return;
         }
         let userId = 'unknown';
@@ -203,14 +203,18 @@ exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async
             }
             // Clean up state
             await stateDoc.ref.delete();
-            console.log("State cleaned up, redirecting...");
-            // Redirect back to app with UID for debugging
-            res.redirect(`${process.env.APP_URL || 'https://flipika.com'}/app/reports?oauth=success&uid=${userId}`);
+            console.log("State cleaned up, returning success...");
+            // Return success JSON
+            res.status(200).json({
+                success: true,
+                userId
+            });
         }
         catch (error) {
             console.error("OAuth callback error for userId:", userId, "error:", error);
-            // Don't expose error details in URL
-            res.redirect(`${process.env.APP_URL || 'https://flipika.com'}/app/reports?error=oauth_failed`);
+            res.status(500).json({
+                error: error.message || 'An error occurred during authentication.'
+            });
         }
     });
 });

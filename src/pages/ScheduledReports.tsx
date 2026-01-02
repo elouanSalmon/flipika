@@ -14,7 +14,7 @@ import {
 import { listUserTemplates } from '../services/templateService';
 import { fetchAccessibleCustomers } from '../services/googleAds';
 import ScheduleCard from '../components/schedules/ScheduleCard';
-import GoogleAdsGuard from '../components/common/GoogleAdsGuard';
+import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import ScheduleConfigModal, { type ScheduleFormData } from '../components/schedules/ScheduleConfigModal';
 import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
@@ -43,7 +43,7 @@ const ScheduledReports: React.FC = () => {
         if (currentUser) {
             loadData();
         }
-    }, [currentUser]);
+    }, [currentUser, isGoogleAdsConnected]);
 
     const loadData = async () => {
         if (!currentUser) return;
@@ -217,7 +217,7 @@ const ScheduledReports: React.FC = () => {
                 </div>
             </div>
 
-            <GoogleAdsGuard mode="partial" feature="créer des schedules">
+            <FeatureAccessGuard featureName="les rapports programmés">
 
                 {googleAuthError && isGoogleAdsConnected && (
                     <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
@@ -342,7 +342,7 @@ const ScheduledReports: React.FC = () => {
                     confirmLabel="Supprimer"
                     isDestructive={true}
                 />
-            </GoogleAdsGuard>
+            </FeatureAccessGuard>
         </div>
     );
 };

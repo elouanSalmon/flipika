@@ -29,7 +29,9 @@ export interface TemplateConfig {
     name: string;
     description?: string;
     accountId?: string;
+    accountName?: string;
     campaignIds: string[];
+    campaignNames?: string[];
     periodPreset: PeriodPreset;
     widgetConfigs: TemplateWidgetConfig[];
 }
@@ -123,7 +125,11 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                 name: name.trim(),
                 description: description.trim() || undefined,
                 accountId: accountId || undefined,
+                accountName: accounts.find(a => a.id === accountId)?.name,
                 campaignIds: selectedCampaigns,
+                campaignNames: campaigns
+                    .filter(c => selectedCampaigns.includes(c.id))
+                    .map(c => c.name),
                 periodPreset,
                 widgetConfigs,
             });

@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import { onSchedule } from "firebase-functions/v2/scheduler";
-import { createReportFromTemplate } from "./templateService";
+import { Timestamp } from "firebase-admin/firestore";
+
 
 /**
  * Cloud Function that runs every hour to generate scheduled reports
@@ -11,10 +12,18 @@ export const generateScheduledReports = onSchedule({
     timeZone: "UTC",
     memory: "1GiB",
 }, async () => {
+    await processScheduledReports();
+});
+
+/**
+ * Process scheduled reports
+ * Checks for schedules that are due and generates reports from templates
+ */
+export async function processScheduledReports() {
     console.log("Starting scheduled report generation...");
 
     try {
-        const now = admin.firestore.Timestamp.now();
+        const now = Timestamp.now();
 
         // Query for active schedules that are due
         const schedulesSnapshot = await admin.firestore()
@@ -76,7 +85,7 @@ export const generateScheduledReports = onSchedule({
         console.error("Error in scheduled report generation:", error);
         throw error;
     }
-});
+}
 
 /**
  * Generate a report from a schedule using the template service
@@ -298,7 +307,7 @@ async function updateScheduleAfterExecution(
     const updateData: any = {
         lastRun: admin.firestore.FieldValue.serverTimestamp(),
         lastRunStatus: success ? "success" : "error",
-        nextRun: admin.firestore.Timestamp.fromDate(nextRun),
+        nextRun: Timestamp.fromDate(nextRun),
         totalRuns: admin.firestore.FieldValue.increment(1),
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     };

@@ -46,6 +46,9 @@
 /* List View */
 .report-card.list {
     padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
 }
 
 .report-card.list .report-card-content {
@@ -56,6 +59,17 @@
 
 .report-card.list .report-header {
     flex: 1;
+}
+
+.report-card.list .report-context-info {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    border: none;
+    min-width: 200px;
+    max-width: 300px;
+    gap: 16px;
 }
 
 .report-card.list .report-meta {
@@ -175,6 +189,36 @@
 
 .actions-menu button.delete-btn:hover {
     background: rgba(239, 68, 68, 0.05);
+}
+
+/* Context Info */
+.report-context-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.context-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary, #64748b);
+    overflow: hidden;
+}
+
+.context-item svg {
+    color: #3b82f6;
+    flex-shrink: 0;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Meta */

@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, Search, Grid, List as ListIcon, FileText } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
-import GoogleAdsGuard from '../components/common/GoogleAdsGuard';
+import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import { listUserReports, getReportCountByStatus } from '../services/reportService';
+import { fetchAccessibleCustomers } from '../services/googleAds';
 import type { EditableReport } from '../types/reportTypes';
 import ReportCard from '../components/reports/ReportCard/ReportCard';
 import Spinner from '../components/common/Spinner';
@@ -24,6 +25,13 @@ const ReportsList: React.FC = () => {
     const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [statusCounts, setStatusCounts] = useState({ draft: 0, published: 0, archived: 0 });
+    const [accounts, setAccounts] = useState<{ id: string; name: string }[]>([]);
+
+    useEffect(() => {
+        if (isGoogleAdsConnected) {
+            loadAccounts();
+        }
+    }, [isGoogleAdsConnected]);
 
     useEffect(() => {
         if (currentUser) {
@@ -58,6 +66,21 @@ const ReportsList: React.FC = () => {
             setStatusCounts(counts);
         } catch (error) {
             console.error('Error loading status counts:', error);
+        }
+    };
+
+    const loadAccounts = async () => {
+        try {
+            const response = await fetchAccessibleCustomers();
+            if (response.success && response.customers) {
+                const accountsList = response.customers.map((customer: any) => ({
+                    id: customer.id,
+                    name: customer.descriptiveName || customer.id,
+                }));
+                setAccounts(accountsList);
+            }
+        } catch (error) {
+            console.error('Error loading accounts:', error);
         }
     };
 
@@ -131,7 +154,7 @@ const ReportsList: React.FC = () => {
             </div>
 
             {/* Status Filters */}
-            <GoogleAdsGuard mode="partial" feature="créer des rapports">
+            <FeatureAccessGuard featureName="les rapports">
                 <div className="status-filters">
                     <button
                         className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
@@ -230,12 +253,13 @@ const ReportsList: React.FC = () => {
                                     viewMode={viewMode}
                                     onClick={() => handleReportClick(report.id)}
                                     onDeleted={handleReportDeleted}
+                                    accounts={accounts}
                                 />
                             ))}
                         </div>
                     )
                 }
-            </GoogleAdsGuard>
+            </FeatureAccessGuard>
         </div>
     );
 };

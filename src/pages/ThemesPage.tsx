@@ -3,6 +3,7 @@ import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import ThemeManager from '../components/themes/ThemeManager';
 import dataService from '../services/dataService';
 import type { Account } from '../types/business';
+import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 
 const ThemesPage: React.FC = () => {
     const { isConnected } = useGoogleAds();
@@ -24,18 +25,20 @@ const ThemesPage: React.FC = () => {
     };
 
     return (
-        <div className="themes-page" style={{
-            minHeight: 'calc(100vh - 80px)',
-            padding: '2rem 1rem',
-        }}>
-            <div style={{
-                maxWidth: '1400px',
-                margin: '0 auto',
+        <FeatureAccessGuard featureName="les thèmes">
+            <div className="themes-page" style={{
+                minHeight: 'calc(100vh - 80px)',
+                padding: '2rem 1rem',
             }}>
-                {/* Theme Manager Component */}
-                <ThemeManager accounts={accounts} />
+                <div style={{
+                    maxWidth: '1400px',
+                    margin: '0 auto',
+                }}>
+                    {/* Theme Manager Component */}
+                    <ThemeManager accounts={accounts} />
+                </div>
             </div>
-        </div>
+        </FeatureAccessGuard>
     );
 };
 

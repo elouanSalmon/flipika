@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Layers, MoreVertical, Copy, Edit2, Trash2, Play } from 'lucide-react';
+import { Calendar, Layers, MoreVertical, Copy, Edit2, Trash2, Play, Building, Megaphone } from 'lucide-react';
 import type { ReportTemplate } from '../../types/templateTypes';
 import { PERIOD_PRESETS } from '../../types/templateTypes';
 import './TemplateCard.css';
@@ -11,6 +11,7 @@ interface TemplateCardProps {
     onDuplicate: (template: ReportTemplate) => void;
     onDelete: (template: ReportTemplate) => void;
     isGoogleAdsConnected?: boolean;
+    accounts?: { id: string; name: string }[];
 }
 
 const TemplateCard: React.FC<TemplateCardProps> = ({
@@ -20,10 +21,26 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
     onDuplicate,
     onDelete,
     isGoogleAdsConnected = true,
+    accounts = [],
 }) => {
     const [showMenu, setShowMenu] = React.useState(false);
 
     const periodPresetLabel = PERIOD_PRESETS.find(p => p.value === template.periodPreset)?.label || template.periodPreset;
+
+    // Resolve account name
+    const accountName = template.accountName ||
+        accounts.find(a => a.id === template.accountId)?.name ||
+        (template.accountId ? 'Compte inconnu' : 'Non défini');
+
+    // Resolve campaigns text
+    const campaignsText = template.campaignNames?.length
+        ? `${template.campaignNames.length} Campagne${template.campaignNames.length > 1 ? 's' : ''}`
+        : (template.campaignIds?.length
+            ? `${template.campaignIds.length} Campagne${template.campaignIds.length > 1 ? 's' : ''}`
+            : 'Aucune campagne');
+
+    // Tooltip for campaigns if names available
+    const campaignsTooltip = template.campaignNames?.join(', ') || '';
 
     const handleMenuClick = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -100,6 +117,14 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
             )}
 
             <div className="template-meta">
+                <div className="meta-item">
+                    <Building size={16} />
+                    <span className="truncate" title={accountName}>{accountName}</span>
+                </div>
+                <div className="meta-item">
+                    <Megaphone size={16} />
+                    <span title={campaignsTooltip}>{campaignsText}</span>
+                </div>
                 <div className="meta-item">
                     <Calendar size={16} />
                     <span>{periodPresetLabel}</span>

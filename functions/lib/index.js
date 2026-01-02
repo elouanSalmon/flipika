@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.processScheduledReports = exports.generateScheduledReports = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -29,6 +29,10 @@ Object.defineProperty(exports, "getWidgetMetrics", { enumerable: true, get: func
 // Re-export Ad Creatives function
 var adCreatives_1 = require("./adCreatives");
 Object.defineProperty(exports, "getAdCreatives", { enumerable: true, get: function () { return adCreatives_1.getAdCreatives; } });
+// Re-export Scheduled Reports function
+const generateScheduledReports_1 = require("./generateScheduledReports");
+Object.defineProperty(exports, "generateScheduledReports", { enumerable: true, get: function () { return generateScheduledReports_1.generateScheduledReports; } });
+Object.defineProperty(exports, "processScheduledReports", { enumerable: true, get: function () { return generateScheduledReports_1.processScheduledReports; } });
 // Import Stripe functions
 const stripe_1 = require("./stripe");
 const scheduler_1 = require("firebase-functions/v2/scheduler");
@@ -426,5 +430,25 @@ exports.syncBillingScheduled = (0, scheduler_1.onSchedule)({
     catch (error) {
         console.error('Error in scheduled billing sync:', error);
     }
+});
+/**
+ * Debug function to manually trigger schedule generation
+ * Only for development/testing purposes
+ */
+exports.debugTriggerSchedule = (0, https_1.onRequest)({ memory: '1GiB' }, async (req, res) => {
+    return corsHandler(req, res, async () => {
+        // 1. Verify Authentication - DISABLED FOR TESTING
+        try {
+            // Import the function dynamically or use the exported one if available
+            // Since we are in the same package, we can just call it
+            // Call the imported functions directly
+            await (0, generateScheduledReports_1.processScheduledReports)();
+            res.status(200).json({ success: true, message: "Schedule generation triggered manually" });
+        }
+        catch (error) {
+            console.error("Debug trigger error:", error);
+            res.status(500).json({ error: `Failed to trigger schedule: ${error.message}` });
+        }
+    });
 });
 //# sourceMappingURL=index.js.map

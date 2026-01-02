@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink } from 'lucide-react';
+import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { deleteReport, duplicateReport, archiveReport } from '../../../services/reportService';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -13,9 +13,10 @@ interface ReportCardProps {
     viewMode: 'grid' | 'list';
     onClick: () => void;
     onDeleted: () => void;
+    accounts?: { id: string; name: string }[];
 }
 
-const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDeleted }) => {
+const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDeleted, accounts = [] }) => {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const [showMenu, setShowMenu] = useState(false);
@@ -101,6 +102,21 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
         return <span className={`status-badge ${config.className}`}>{config.label}</span>;
     };
 
+    // Resolve account name
+    const accountName = report.accountName ||
+        accounts.find(a => a.id === report.accountId)?.name ||
+        (report.accountId ? 'Compte inconnu' : 'Non défini');
+
+    // Resolve campaigns text
+    const campaignsText = report.campaignNames?.length
+        ? `${report.campaignNames.length} Campagne${report.campaignNames.length > 1 ? 's' : ''}`
+        : (report.campaignIds?.length
+            ? `${report.campaignIds.length} Campagne${report.campaignIds.length > 1 ? 's' : ''}`
+            : 'Aucune campagne');
+
+    // Tooltip for campaigns
+    const campaignsTooltip = report.campaignNames?.join(', ') || '';
+
     return (
         <div className={`report-card ${viewMode} ${isDeleting ? 'deleting' : ''}`} onClick={onClick}>
             <div className="report-card-content">
@@ -152,6 +168,17 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
                     </div>
                 </div>
 
+                <div className="report-context-info">
+                    <div className="context-item" title={accountName}>
+                        <Building size={14} />
+                        <span className="truncate">{accountName}</span>
+                    </div>
+                    <div className="context-item" title={campaignsTooltip}>
+                        <Megaphone size={14} />
+                        <span className="truncate">{campaignsText}</span>
+                    </div>
+                </div>
+
                 <div className="report-meta">
                     <div className="meta-item">
                         <span className="meta-label">Créé le:</span>
@@ -178,10 +205,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, viewMode, onClick, onDe
                         <span className="stat-value">{report.widgetIds?.length || 0}</span>
                         <span className="stat-label">Widgets</span>
                     </div>
-                    <div className="stat">
-                        <span className="stat-value">{report.campaignIds.length}</span>
-                        <span className="stat-label">Campagnes</span>
-                    </div>
+
                 </div>
             </div>
 

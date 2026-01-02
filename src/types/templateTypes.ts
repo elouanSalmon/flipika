@@ -54,7 +54,9 @@ export interface ReportTemplate {
 
     // Configuration - optional fields can be set when using the template
     accountId?: string; // Optional - can be set when using template
+    accountName?: string; // Optional - for display
     campaignIds: string[]; // Can be empty - set when using template
+    campaignNames?: string[]; // Optional - for display
 
     // Period preset (no fixed dates)
     periodPreset: PeriodPreset;

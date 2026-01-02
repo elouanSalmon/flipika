@@ -19,10 +19,10 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }
     useEffect(() => {
         const config: ScheduleConfig = {
             frequency,
-            hour: frequency !== 'custom' ? hour : undefined,
-            dayOfWeek: frequency === 'weekly' ? dayOfWeek : undefined,
-            dayOfMonth: frequency === 'monthly' ? dayOfMonth : undefined,
-            cronExpression: frequency === 'custom' ? cronExpression : undefined,
+            ...(frequency !== 'custom' ? { hour } : {}),
+            ...(frequency === 'weekly' ? { dayOfWeek: dayOfWeek || 'monday' } : {}),
+            ...(frequency === 'monthly' ? { dayOfMonth: dayOfMonth || 1 } : {}),
+            ...(frequency === 'custom' ? { cronExpression } : {}),
         };
 
         const validation = validateScheduleConfig(config);
@@ -38,10 +38,10 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }
         try {
             const config: ScheduleConfig = {
                 frequency,
-                hour: frequency !== 'custom' ? hour : undefined,
-                dayOfWeek: frequency === 'weekly' ? dayOfWeek : undefined,
-                dayOfMonth: frequency === 'monthly' ? dayOfMonth : undefined,
-                cronExpression: frequency === 'custom' ? cronExpression : undefined,
+                ...(frequency !== 'custom' ? { hour } : {}),
+                ...(frequency === 'weekly' ? { dayOfWeek: dayOfWeek || 'monday' } : {}),
+                ...(frequency === 'monthly' ? { dayOfMonth: dayOfMonth || 1 } : {}),
+                ...(frequency === 'custom' ? { cronExpression } : {}),
             };
 
             const validation = validateScheduleConfig(config);
