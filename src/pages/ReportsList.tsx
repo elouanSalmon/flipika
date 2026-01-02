@@ -187,19 +187,27 @@ const ReportsList: React.FC = () => {
                     </div>
                     <p className="subtitle">Gérez et organisez vos rapports Google Ads</p>
                 </div>
-                <button
-                    className="create-report-btn"
-                    onClick={handleCreateReport}
-                    disabled={!isGoogleAdsConnected}
-                    style={{
-                        opacity: !isGoogleAdsConnected ? 0.5 : 1,
-                        cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
-                    }}
-                    title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des rapports' : ''}
-                >
-                    <Plus size={20} />
-                    <span>Nouveau Rapport</span>
-                </button>
+                <div className="flex gap-3">
+                    <button
+                        className="create-report-btn-secondary bg-white dark:bg-slate-800 text-primary border-primary/20 hover:border-primary hover:bg-primary/5 shadow-sm"
+                        onClick={() => navigate('/app/templates')}
+                    >
+                        Créer à partir d'un template
+                    </button>
+                    <button
+                        className="create-report-btn"
+                        onClick={handleCreateReport}
+                        disabled={!isGoogleAdsConnected}
+                        style={{
+                            opacity: !isGoogleAdsConnected ? 0.5 : 1,
+                            cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
+                        }}
+                        title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des rapports' : ''}
+                    >
+                        <Plus size={20} />
+                        <span>Nouveau Rapport</span>
+                    </button>
+                </div>
             </div>
 
             {/* Status Filters */}

@@ -147,6 +147,17 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
 
                 <div className="relative">
                     <button
+                        onClick={() => handleAction(() => onUse(template))}
+                        disabled={!isGoogleAdsConnected}
+                        className={`action-btn-icon text-primary hover:text-primary-dark ${!isGoogleAdsConnected ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        title="Créer un rapport"
+                    >
+                        <Play size={16} fill="currentColor" />
+                    </button>
+                </div>
+
+                <div className="relative">
+                    <button
                         onClick={handleMenuClick}
                         className="action-btn-icon"
                     >

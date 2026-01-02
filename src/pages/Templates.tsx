@@ -303,20 +303,33 @@ const Templates: React.FC = () => {
         if (!currentUser) return;
 
         try {
-            // New logic: Check if template has account and campaigns
-            if (template.accountId && template.campaignIds && template.campaignIds.length > 0) {
-                // Have everything, create report directly
+            // Priority 1: Template has explicit account
+            if (template.accountId) {
                 const reportId = await createReportFromTemplate(template.id, currentUser.uid);
                 toast.success('Rapport créé depuis le template !');
                 navigate(`/app/reports/${reportId}`);
-            } else {
-                // Missing info (legacy template?), prompt for account
-                setPendingTemplateForUse(template);
-                if (accounts.length > 0) {
-                    // Auto-select first if available or keep empty logic in modal
-                }
-                setShowAccountModal(true);
+                return;
             }
+
+            // Priority 2: Account selected in filter bar
+            if (selectedFilterAccountId) {
+                const accountName = accounts.find(a => a.id === selectedFilterAccountId)?.name;
+                const reportId = await createReportFromTemplate(template.id, currentUser.uid, {
+                    accountId: selectedFilterAccountId,
+                    accountName: accountName,
+                    // If template had no account, it likely has no valid campaigns for this new account
+                    // so we don't pass campaigns unless we want to try to keep ids (risky across accounts)
+                    campaignIds: [],
+                    campaignNames: []
+                });
+                toast.success('Rapport créé depuis le template !');
+                navigate(`/app/reports/${reportId}`);
+                return;
+            }
+
+            // Priority 3: Prompt user
+            setPendingTemplateForUse(template);
+            setShowAccountModal(true);
         } catch (error) {
             console.error('Error using template:', error);
             toast.error('Erreur lors de la création du rapport');
