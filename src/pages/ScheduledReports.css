@@ -161,6 +161,61 @@
     text-decoration: underline;
 }
 
+/* Status Filters */
+.status-filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.status-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+}
+
+.status-filter-btn:hover {
+    border-color: var(--color-primary);
+    background: var(--glass-bg-hover);
+}
+
+.status-filter-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 10px 25px -5px rgba(var(--primary-rgb), 0.3), 0 8px 10px -6px rgba(var(--primary-rgb), 0.3);
+}
+
+.status-badge {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.status-badge.active-dot {
+    color: #10b981;
+    /* Matches 'published' from ReportsList.css */
+}
+
+.status-badge.paused-dot {
+    color: #f59e0b;
+    /* Matches 'draft' from ReportsList.css */
+}
+
+.status-filter-btn.active .status-badge {
+    color: white;
+}
+
 /* Controls Bar */
 .controls-bar {
     display: flex;

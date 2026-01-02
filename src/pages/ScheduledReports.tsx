@@ -28,6 +28,8 @@ interface GoogleAdsAccount {
     name: string;
 }
 
+type StatusFilter = 'all' | 'active' | 'paused';
+
 const ScheduledReports: React.FC = () => {
     const { currentUser } = useAuth();
     const { isConnected: isGoogleAdsConnected } = useGoogleAds();
@@ -50,6 +52,7 @@ const ScheduledReports: React.FC = () => {
     const [filteredSchedules, setFilteredSchedules] = useState<ScheduledReport[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
 
     useEffect(() => {
         if (currentUser) {
@@ -68,7 +71,7 @@ const ScheduledReports: React.FC = () => {
 
     useEffect(() => {
         filterSchedules();
-    }, [schedules, selectedAccountId, selectedCampaignId, searchQuery]);
+    }, [schedules, selectedAccountId, selectedCampaignId, searchQuery, statusFilter]);
 
     const loadData = async () => {
         if (!currentUser) return;
@@ -143,31 +146,18 @@ const ScheduledReports: React.FC = () => {
             filtered = filtered.filter(s => s.accountId === selectedAccountId);
         }
 
-        // Filter by Campaign
-        if (selectedCampaignId) {
-            // Schedules don't typically have direct campaign IDs on the root object unless added
-            // Assuming for now we filter by Account mainly, or if scheduleConfig has it?
-            // Checking types... scheduleConfig doesn't seem to have campaignIds.
-            // But if we want to filter by campaign, we might need to check if the template 
-            // or the report associated involves it. For now, let's keep it simple:
-            // If the schedule is linked to an account that owns the campaign?
-            // Actually, if we selected a campaign, we probably only want schedules for that account.
-            // Since we don't have direct campaign link on schedule, this filter might be effective only if we adding a property.
-            // For now, let's ignore campaign filter for schedules unless we find a link.
-            // Wait, implementation plan said "Filter by schedule.accountId (if available)".
-            // I will only filter by Account for now in logic, even if UI shows campaign selector (disabled or hidden?).
-            // Or I can show it but it won't filter anything specific beyond account.
-            // Update: FilterBar shows campaign selector only if onCampaignChange provided.
-            // Providing onCampaignChange enables it.
-            // If I don't provide it, it won't show.
-        }
-
         // Filter by search query
         if (searchQuery.trim()) {
             const query = searchQuery.toLowerCase();
             filtered = filtered.filter(s =>
                 s.name.toLowerCase().includes(query)
             );
+        }
+
+        // Filter by Status
+        if (statusFilter !== 'all') {
+            const isActive = statusFilter === 'active';
+            filtered = filtered.filter(s => s.isActive === isActive);
         }
 
         setFilteredSchedules(filtered);
@@ -256,8 +246,13 @@ const ScheduledReports: React.FC = () => {
         return accounts.find(a => a.id === accountId)?.name || 'Compte inconnu';
     };
 
-    const activeSchedules = filteredSchedules.filter(s => s.isActive);
-    const pausedSchedules = filteredSchedules.filter(s => !s.isActive);
+    const activeCount = schedules.filter(s => s.isActive).length;
+    const pausedCount = schedules.filter(s => !s.isActive).length;
+
+    // We don't need activeSchedules/pausedSchedules split like before, as we use filteredSchedules directly.
+    // However, keeping them if needed for other logic, but based on line 447 usage, we iterate filteredSchedules.
+    // The previous implementation used them to show separate sections. 
+    // Now we show a unified list. So I will remove them to clean up.
 
     if (loading) {
         return (
@@ -296,6 +291,33 @@ const ScheduledReports: React.FC = () => {
             </div>
 
 
+
+
+            {/* Status Filters - Only show if there are schedules */
+                schedules.length > 0 && (
+                    <div className="status-filters">
+                        <button
+                            className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
+                            onClick={() => setStatusFilter('all')}
+                        >
+                            Tous ({schedules.length})
+                        </button>
+                        <button
+                            className={`status-filter-btn ${statusFilter === 'active' ? 'active' : ''}`}
+                            onClick={() => setStatusFilter('active')}
+                        >
+                            <span className="status-badge active-dot">●</span>
+                            Actifs ({activeCount})
+                        </button>
+                        <button
+                            className={`status-filter-btn ${statusFilter === 'paused' ? 'active' : ''}`}
+                            onClick={() => setStatusFilter('paused')}
+                        >
+                            <span className="status-badge paused-dot">●</span>
+                            En pause ({pausedCount})
+                        </button>
+                    </div>
+                )}
 
             {isGoogleAdsConnected && (
                 <div className="mb-6">
@@ -398,51 +420,21 @@ const ScheduledReports: React.FC = () => {
 
                 {schedules.length > 0 && (
                     <>
-                        {activeSchedules.length > 0 && (
-                            <div className="schedules-section">
-                                <h2 className="section-title">
-                                    Schedules actifs
-                                    <span className="count-badge">{activeSchedules.length}</span>
-                                </h2>
-                                <div className={viewMode === 'grid' ? 'schedules-grid' : 'schedules-list'}>
-                                    {activeSchedules.map((schedule) => (
-                                        <ScheduleCard
-                                            key={schedule.id}
-                                            schedule={schedule}
-                                            templateName={getTemplateName(schedule.templateId)}
-                                            accountName={getAccountName(schedule.accountId)}
-                                            onEdit={handleEditSchedule}
-                                            onDelete={handleDeleteSchedule}
-                                            onToggleStatus={handleToggleStatus}
-                                            isGoogleAdsConnected={isGoogleAdsConnected}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {pausedSchedules.length > 0 && (
-                            <div className="schedules-section">
-                                <h2 className="section-title">
-                                    Schedules en pause
-                                    <span className="count-badge secondary">{pausedSchedules.length}</span>
-                                </h2>
-                                <div className={viewMode === 'grid' ? 'schedules-grid' : 'schedules-list'}>
-                                    {pausedSchedules.map((schedule) => (
-                                        <ScheduleCard
-                                            key={schedule.id}
-                                            schedule={schedule}
-                                            templateName={getTemplateName(schedule.templateId)}
-                                            accountName={getAccountName(schedule.accountId)}
-                                            onEdit={handleEditSchedule}
-                                            onDelete={handleDeleteSchedule}
-                                            onToggleStatus={handleToggleStatus}
-                                            isGoogleAdsConnected={isGoogleAdsConnected}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+                        {/* Only show section titles if showing ALL, otherwise the filter effectively selects one group */}
+                        <div className={viewMode === 'grid' ? 'schedules-grid' : 'schedules-list'}>
+                            {filteredSchedules.map((schedule) => (
+                                <ScheduleCard
+                                    key={schedule.id}
+                                    schedule={schedule}
+                                    templateName={getTemplateName(schedule.templateId)}
+                                    accountName={getAccountName(schedule.accountId)}
+                                    onEdit={handleEditSchedule}
+                                    onDelete={handleDeleteSchedule}
+                                    onToggleStatus={handleToggleStatus}
+                                    isGoogleAdsConnected={isGoogleAdsConnected}
+                                />
+                            ))}
+                        </div>
                     </>
                 )}
 
