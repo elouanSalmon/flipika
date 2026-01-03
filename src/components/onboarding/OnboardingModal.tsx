@@ -104,7 +104,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                 photoURL: currentUser.photoURL || undefined,
             });
 
-            await refreshProfile();
+            await refreshProfile(true);
             setCurrentStep('complete');
 
             setTimeout(() => {

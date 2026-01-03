@@ -26,7 +26,7 @@ interface AuthContextType {
     createPassword: (password: string) => Promise<void>;
     changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
     updateProfile: (updates: UpdateUserProfileData) => Promise<void>;
-    refreshProfile: () => Promise<void>;
+    refreshProfile: (silent?: boolean) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -162,21 +162,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         await updateUserProfileService(currentUser.uid, updates);
 
-        // Refresh profile after update
-        await refreshProfile();
+        // Refresh profile after update, silently to avoid UI flicker
+        await refreshProfile(true);
     };
 
-    const refreshProfile = async (): Promise<void> => {
+    const refreshProfile = async (silent: boolean = false): Promise<void> => {
         if (!currentUser) return;
 
-        setProfileLoading(true);
+        if (!silent) {
+            setProfileLoading(true);
+        }
         try {
             const profile = await getUserProfile(currentUser.uid);
             setUserProfile(profile);
         } catch (error) {
             console.error('Error refreshing user profile:', error);
         } finally {
-            setProfileLoading(false);
+            if (!silent) {
+                setProfileLoading(false);
+            }
         }
     };
 

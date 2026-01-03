@@ -57,6 +57,9 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
       // Show onboarding if profile exists but onboarding not completed
       if (!userProfile.hasCompletedOnboarding) {
         setShowOnboarding(true);
+      } else {
+        // Ensure onboarding is hidden if checks pass
+        setShowOnboarding(false);
       }
     } else if (!loading && !profileLoading && currentUser && !userProfile) {
       // Show onboarding if no profile exists
