@@ -292,6 +292,7 @@ const ReportEditor: React.FC = () => {
 
             // Load campaigns for the current account
             const response = await fetchCampaigns(report.accountId);
+
             if (response.success && response.campaigns) {
                 setSettingsCampaigns(Array.isArray(response.campaigns) ? response.campaigns : []);
             } else {
