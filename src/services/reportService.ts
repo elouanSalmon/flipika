@@ -11,7 +11,8 @@ import {
     orderBy,
     serverTimestamp,
     increment,
-    writeBatch
+    writeBatch,
+    arrayUnion
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import type { EditableReport, WidgetConfig } from '../types/reportTypes';
@@ -228,7 +229,7 @@ export async function addWidget(
         // Update report's widgetIds array
         const reportRef = doc(db, REPORTS_COLLECTION, reportId);
         await updateDoc(reportRef, {
-            widgetIds: increment(1) as any, // Just increment count
+            widgetIds: arrayUnion(docRef.id),
             updatedAt: serverTimestamp(),
         });
 

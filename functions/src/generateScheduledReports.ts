@@ -199,11 +199,9 @@ async function createReportFromTemplateInFunction(
         sections: [],
         widgetIds: [],
         design: templateData.design || {},
-        dateRange: {
-            start: dateRange.start.toISOString(),
-            end: dateRange.end.toISOString(),
-            preset: templateData.periodPreset,
-        },
+        startDate: dateRange.start.toISOString(),
+        endDate: dateRange.end.toISOString(),
+        dateRangePreset: templateData.periodPreset,
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     };
