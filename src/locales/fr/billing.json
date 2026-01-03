@@ -1,0 +1,72 @@
+{
+  "title": "Facturation & Abonnement",
+  "description": "Gérez votre abonnement, modifiez vos moyens de paiement et consultez l'historique de vos factures",
+  "status": {
+    "trialCanceled": "Essai Gratuit Annulé",
+    "subscriptionCanceled": "Abonnement Résilié",
+    "trialActive": "Essai Gratuit Actif",
+    "subscriptionActive": "Abonnement Actif",
+    "noSubscription": "Aucun Abonnement",
+    "accessUntil": "Accès conservé jusqu'au {date}",
+    "trialUntil": "Période d'essai jusqu'au {date}",
+    "activeRenewing": "Abonnement actif et renouvellement automatique activé",
+    "trialCanceledBadge": "Essai annulé",
+    "canceledBadge": "Annulé",
+    "activeUntil": "Actif jusqu'au {date}",
+    "trialDaysLeft": "Essai gratuit - {days} jours restants",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "pricingInfo": "Information sur la tarification"
+  },
+  "pricing": {
+    "title": "Commencez votre essai gratuit",
+    "subtitle": "14 jours d'essai gratuit, puis facturation automatique selon vos besoins",
+    "simpleTransparent": "Tarification simple et transparente",
+    "perMonth": "€/mois",
+    "perAccount": "par compte Google Ads connecté",
+    "accountsCount": "{seats} compte{s}",
+    "monthly": "/mois",
+    "seeAllPricing": "Voir tous les niveaux de tarification →",
+    "features": {
+      "title": "Fonctionnalités incluses",
+      "unlimitedReports": "Rapports illimités",
+      "autoSync": "Synchronisation automatique",
+      "customWidgets": "Widgets personnalisables",
+      "prioritySupport": "Support prioritaire"
+    },
+    "securePayment": "Paiement sécurisé par Stripe"
+  },
+  "subscription": {
+    "googleAdsAccounts": "Comptes Google Ads",
+    "monthlyAmount": "Montant mensuel",
+    "priceFormula": "€ × {seats} compte{s}",
+    "nextPayment": "Prochain paiement",
+    "manage": "Gérer l'abonnement",
+    "redirecting": "Redirection...",
+    "refreshBilling": "Actualiser la facturation",
+    "refreshDescription": "Actualise les informations de facturation depuis votre compte de paiement",
+    "startFreeTrial": "Commencer l'essai gratuit",
+    "redirectingStripe": "Redirection vers Stripe..."
+  },
+  "history": {
+    "title": "Historique de facturation",
+    "noEvents": "Aucun événement de facturation",
+    "events": {
+      "sync": "Synchronisation de facturation",
+      "paymentSuccess": "Paiement réussi",
+      "paymentFailed": "Échec du paiement",
+      "subscriptionUpdated": "Abonnement mis à jour",
+      "subscriptionCreated": "Abonnement créé",
+      "subscriptionCanceled": "Abonnement annulé"
+    },
+    "seatsChange": "{count} → {count} compte{s}"
+  },
+  "toast": {
+    "subscriptionCreated": "Abonnement créé avec succès ! Bienvenue à bord",
+    "paymentCanceled": "Paiement annulé",
+    "checkoutError": "Erreur lors de la création du paiement",
+    "portalError": "Erreur lors de l'ouverture du portail",
+    "syncSuccess": "Facturation synchronisée avec succès",
+    "syncError": "Erreur lors de la synchronisation"
+  }
+}

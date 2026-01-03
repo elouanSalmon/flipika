@@ -1,0 +1,32 @@
+{
+  "title": "Audit de campagne",
+  "description": "Analyse approfondie et recommandations d'optimisation",
+  "config": {
+    "title": "Configuration de l'audit",
+    "googleAdsAccount": "Compte Google Ads",
+    "campaign": "Campagne",
+    "analysisPeriod": "Période d'analyse",
+    "allCampaigns": "Toutes les campagnes",
+    "periods": {
+      "last30Days": "30 derniers jours",
+      "last60Days": "60 derniers jours",
+      "last90Days": "90 derniers jours"
+    },
+    "launch": "Lancer l'audit",
+    "analyzing": "Analyse en cours..."
+  },
+  "export": {
+    "pdf": "Exporter en PDF",
+    "pdfInDevelopment": "Export PDF en cours de développement"
+  },
+  "stats": {
+    "totalRecommendations": "Recommandations totales",
+    "urgentPriority": "Priorité urgente",
+    "highImpact": "Impact élevé",
+    "recommendationsByCategory": "Recommandations par catégorie"
+  },
+  "empty": {
+    "title": "Aucun audit en cours",
+    "description": "Sélectionnez un compte et une campagne, puis cliquez sur \"Lancer l'audit\" pour commencer l'analyse."
+  }
+}

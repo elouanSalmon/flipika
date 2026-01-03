@@ -133,7 +133,8 @@ export const GoogleAdsProvider = ({ children }: { children: ReactNode }) => {
         try {
             // Revoke OAuth
             const token = await currentUser.getIdToken();
-            await fetch('https://us-central1-flipika.cloudfunctions.net/revokeOAuth', {
+            const functionsBaseUrl = import.meta.env.VITE_FUNCTIONS_BASE_URL || 'https://us-central1-flipika.cloudfunctions.net';
+            await fetch(`${functionsBaseUrl}/revokeOAuth`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

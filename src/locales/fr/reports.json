@@ -1,0 +1,118 @@
+{
+  "list": {
+    "title": "Mes Rapports",
+    "description": "Gérez et organisez vos rapports Google Ads",
+    "createFromTemplate": "Créer à partir d'un template",
+    "newReport": "Nouveau Rapport",
+    "connectRequired": "Connectez Google Ads pour créer des rapports",
+    "searchPlaceholder": "Rechercher un rapport...",
+    "viewGrid": "Vue grille",
+    "viewList": "Vue liste",
+    "loading": "Chargement des rapports...",
+    "tabs": {
+      "all": "Tous ({count})",
+      "drafts": "Brouillons ({count})",
+      "published": "Publiés ({count})",
+      "archived": "Archivés ({count})"
+    },
+    "empty": {
+      "notFound": "Aucun rapport trouvé",
+      "modifySearch": "Essayez de modifier votre recherche",
+      "noReports": "Créez votre premier rapport pour commencer",
+      "createButton": "Créer un rapport"
+    }
+  },
+  "config": {
+    "title": "Configuration du Rapport",
+    "settings": "Paramètres du Rapport",
+    "reportTitle": "Titre du rapport",
+    "titlePlaceholder": "Ex: Rapport Mensuel Décembre 2024",
+    "googleAdsAccount": "Compte Google Ads",
+    "analysisPeriod": "Période d'analyse",
+    "periods": {
+      "last7Days": "Derniers 7 jours",
+      "last30Days": "Derniers 30 jours",
+      "last90Days": "Derniers 90 jours",
+      "thisMonth": "Ce mois",
+      "lastMonth": "Mois dernier",
+      "custom": "Personnalisé"
+    },
+    "dateRange": {
+      "from": "Du",
+      "to": "Au"
+    },
+    "campaigns": {
+      "title": "Campagnes ({count} sélectionnée{s})",
+      "selectAll": "Tout sélectionner",
+      "deselectAll": "Tout désélectionner",
+      "noCampaigns": "Aucune campagne disponible",
+      "atLeastOne": "Veuillez sélectionner au moins une campagne"
+    },
+    "actions": {
+      "cancel": "Annuler",
+      "create": "Créer le rapport",
+      "update": "Mettre à jour",
+      "updating": "Mise à jour..."
+    }
+  },
+  "editor": {
+    "notFound": "Rapport introuvable",
+    "unauthorized": "Accès non autorisé",
+    "loadError": "Erreur lors du chargement du rapport",
+    "close": "Fermer",
+    "messages": {
+      "saved": "Rapport sauvegardé",
+      "saveError": "Erreur lors de la sauvegarde",
+      "published": "Rapport publié !",
+      "publishError": "Erreur lors de la publication",
+      "archived": "Rapport archivé",
+      "archiveError": "Erreur lors de l'archivage",
+      "deleted": "Rapport supprimé",
+      "deleteError": "Erreur lors de la suppression",
+      "usernameRequired": "Veuillez configurer votre nom d'utilisateur dans les paramètres",
+      "passwordEnabled": "Protection par mot de passe activée",
+      "passwordDisabled": "Protection par mot de passe désactivée",
+      "passwordError": "Erreur lors de la mise à jour du mot de passe",
+      "emailOpened": "Email pré-rempli ouvert !",
+      "emailError": "Erreur lors de la génération de l'email"
+    },
+    "email": {
+      "subject": "Rapport Google Ads - {title}",
+      "greeting": "Bonjour,",
+      "intro": "Je vous partage le rapport d'analyse Google Ads suivant...",
+      "reportTitle": "Rapport : {title}",
+      "period": "Période : {date} - {date}",
+      "campaigns": "Campagnes analysées : {names}",
+      "accessLink": "Lien d'accès : {url}",
+      "password": "Mot de passe : {password}",
+      "passwordProtected": "Ce rapport est protégé par mot de passe (mot de passe non disponible - veuillez le partager séparément)",
+      "questions": "N'hésitez pas si vous avez des questions.",
+      "signature": "Cordialement,",
+      "signatureName": "{name}",
+      "signatureCompany": "{company}"
+    }
+  },
+  "security": {
+    "title": "Sécurité du rapport",
+    "description": "Protégez votre rapport avec un mot de passe",
+    "passwordProtection": "Protection par mot de passe",
+    "enabledDescription": "Les visiteurs devront entrer un mot de passe pour accéder au rapport",
+    "disabledDescription": "Le rapport est accessible publiquement sans mot de passe",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Minimum 6 caractères",
+    "passwordHelp": "Ce mot de passe sera demandé aux visiteurs pour accéder au rapport. Partagez-le de manière sécurisée.",
+    "passwordMinLength": "Le mot de passe doit contenir au moins 6 caractères",
+    "passwordCopied": "Mot de passe copié !",
+    "actions": {
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "show": "Afficher",
+      "hide": "Masquer",
+      "copy": "Copier le mot de passe"
+    }
+  },
+  "toast": {
+    "created": "Rapport créé !",
+    "createError": "Erreur lors de la création du rapport"
+  }
+}

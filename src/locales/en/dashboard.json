@@ -1,0 +1,51 @@
+{
+  "title": "Dashboard",
+  "connect": {
+    "title": "Connect Google Ads",
+    "description": "Access your campaigns to start optimization.",
+    "button": "Connect an account",
+    "connecting": "Connecting...",
+    "cancel": "Cancel"
+  },
+  "accountSelector": {
+    "title": "Choose an account",
+    "description": "Select the Google Ads account to use",
+    "noAccounts": "No Google Ads accounts found.",
+    "accountLabel": "Account: {name}"
+  },
+  "campaigns": {
+    "title": "Your Campaigns",
+    "overview": "Overview of your Google Ads campaigns",
+    "overviewDemo": "Demo Mode - Overview of your Google Ads campaigns",
+    "noCampaigns": "No active campaigns found.",
+    "createReport": "Create a report",
+    "refresh": "Refresh"
+  },
+  "table": {
+    "headers": {
+      "name": "Name",
+      "status": "Status",
+      "type": "Type",
+      "spend": "Spend",
+      "impressions": "Impr.",
+      "clicks": "Clicks",
+      "ctr": "CTR",
+      "averageCpc": "Avg. CPC"
+    }
+  },
+  "errors": {
+    "connection": "Connection error",
+    "auth": "OAuth authentication error",
+    "sessionExpired": "Your Google Ads session has expired. Please reconnect.",
+    "loadingCampaigns": "Error loading campaigns.",
+    "connectionFailed": "Connection failed.",
+    "problemTitle": "Connection problem",
+    "noPermission": "You don't have permission to access this account.",
+    "authRequired": "Authentication required. Please reconnect your account.",
+    "connectionError": "Error connecting to Google Ads ({error})",
+    "reconnect": "Reconnect account"
+  },
+  "actions": {
+    "disconnect": "Disconnect"
+  }
+}

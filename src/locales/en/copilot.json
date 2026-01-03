@@ -1,0 +1,30 @@
+{
+  "dataSource": {
+    "missing": "Data source missing",
+    "description": "AI needs access to your Google Ads account to generate the audit.",
+    "connect": "Connect Google Ads"
+  },
+  "audit": {
+    "title": "Performance Audit",
+    "description": "Your account has been analyzed. Here are the optimization opportunities detected to improve your ROAS.",
+    "accountHealth": "Account Health",
+    "priorityRecommendations": "Priority Recommendations"
+  },
+  "recommendations": {
+    "lowQualityScore": {
+      "title": "Low quality scores",
+      "description": "3 campaigns have a quality score below 5/10.",
+      "action": "Optimize ads"
+    },
+    "budgetLimited": {
+      "title": "Limited budget",
+      "description": "The \"Search - Paris\" campaign is limited by budget.",
+      "action": "Adjust budget"
+    },
+    "duplicateKeywords": {
+      "title": "Duplicate keywords",
+      "description": "Similar keywords detected in different ad groups.",
+      "action": "Clean up"
+    }
+  }
+}

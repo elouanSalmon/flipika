@@ -1,0 +1,30 @@
+{
+  "dataSource": {
+    "missing": "Source de données manquante",
+    "description": "L'IA a besoin d'accéder à votre compte Google Ads pour générer l'audit.",
+    "connect": "Connecter Google Ads"
+  },
+  "audit": {
+    "title": "Audit de Performance",
+    "description": "Votre compte a été analysé. Voici les opportunités d'optimisation détectées pour améliorer votre ROAS.",
+    "accountHealth": "Santé du Compte",
+    "priorityRecommendations": "Recommandations Prioritaires"
+  },
+  "recommendations": {
+    "lowQualityScore": {
+      "title": "Scores de qualité faibles",
+      "description": "3 campagnes ont un score de qualité inférieur à 5/10.",
+      "action": "Optimiser les annonces"
+    },
+    "budgetLimited": {
+      "title": "Budget limité",
+      "description": "La campagne \"Search - Paris\" est limitée par le budget.",
+      "action": "Ajuster le budget"
+    },
+    "duplicateKeywords": {
+      "title": "Mots-clés en doublon",
+      "description": "Détection de mots-clés similaires dans différents groupes.",
+      "action": "Nettoyer"
+    }
+  }
+}

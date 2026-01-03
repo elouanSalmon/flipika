@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "flipika"
+    "default": "flipika-dev",
+    "dev": "flipika-dev",
+    "production": "flipika"
   }
 }

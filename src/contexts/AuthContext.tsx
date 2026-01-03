@@ -87,7 +87,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             const idToken = await user.getIdToken();
 
             // Call backend HTTP endpoint directly with auth header
-            const response = await fetch('https://us-central1-flipika.cloudfunctions.net/initiateOAuth', {
+            const functionsBaseUrl = import.meta.env.VITE_FUNCTIONS_BASE_URL || 'https://us-central1-flipika.cloudfunctions.net';
+            const response = await fetch(`${functionsBaseUrl}/initiateOAuth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

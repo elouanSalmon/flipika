@@ -1,7 +1,7 @@
 {
   "indexes": [
     {
-      "collectionGroup": "reports",
+      "collectionGroup": "billingHistory",
       "queryScope": "COLLECTION",
       "fields": [
         {
@@ -9,25 +9,21 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "updatedAt",
+          "fieldPath": "timestamp",
           "order": "DESCENDING"
         }
       ]
     },
     {
-      "collectionGroup": "reports",
+      "collectionGroup": "email_subscriptions",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "userId",
+          "fieldPath": "email",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "status",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "updatedAt",
+          "fieldPath": "timestamp",
           "order": "DESCENDING"
         }
       ]
@@ -47,7 +43,7 @@
       ]
     },
     {
-      "collectionGroup": "billingHistory",
+      "collectionGroup": "reports",
       "queryScope": "COLLECTION",
       "fields": [
         {
@@ -55,7 +51,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "timestamp",
+          "fieldPath": "updatedAt",
           "order": "DESCENDING"
         }
       ]
@@ -71,20 +67,6 @@
         {
           "fieldPath": "createdAt",
           "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "scheduledReports",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "isActive",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "nextRun",
-          "order": "ASCENDING"
         }
       ]
     }

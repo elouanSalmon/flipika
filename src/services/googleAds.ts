@@ -1,6 +1,6 @@
 import { auth } from '../firebase/config';
 
-const FUNCTIONS_BASE_URL = 'https://us-central1-flipika.cloudfunctions.net';
+const FUNCTIONS_BASE_URL = import.meta.env.VITE_FUNCTIONS_BASE_URL || 'https://us-central1-flipika.cloudfunctions.net';
 
 // Helper to get authenticated headers
 const getAuthHeaders = async () => {

@@ -1,0 +1,87 @@
+{
+  "title": "Settings",
+  "description": "Manage your account and preferences",
+  "profile": {
+    "title": "Profile",
+    "username": "Unique username",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "company": "Company (optional)",
+    "description": "Description (optional)",
+    "shareUrl": "Share link: flipika.com/report/{username}/...",
+    "edit": "Edit profile",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Failed to update profile"
+  },
+  "security": {
+    "title": "Security",
+    "changePassword": "Change password",
+    "createPassword": "Create a password",
+    "lastModified": "Modified 30 days ago",
+    "addAuth": "Add an alternative authentication method",
+    "logout": "Sign out",
+    "logoutDescription": "Sign out of your account",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm",
+    "passwordRules": "Min 8 characters, 1 uppercase, 1 number, 1 special",
+    "passwordMismatch": "Passwords do not match",
+    "passwordStrength": {
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong"
+    },
+    "passwordMinLength": "Password must be at least 8 characters",
+    "currentPasswordRequired": "Please enter your current password",
+    "actions": {
+      "change": "Change",
+      "create": "Create"
+    },
+    "toast": {
+      "passwordChanged": "Password changed successfully",
+      "passwordCreated": "Password created successfully",
+      "logoutError": "Error signing out",
+      "wrongPassword": "Incorrect current password",
+      "weakPassword": "Password is too weak",
+      "changeError": "Error changing password",
+      "createError": "Error creating password"
+    }
+  },
+  "connections": {
+    "title": "Connections",
+    "google": {
+      "title": "Google Account",
+      "notConnected": "Not connected",
+      "description": "Primary authentication method",
+      "connected": "Connected",
+      "connect": "Connect"
+    },
+    "googleAds": {
+      "title": "Google Ads",
+      "description": "Connect your advertising account",
+      "connected": "Connected",
+      "notConnected": "Not connected",
+      "disconnect": "Disconnect",
+      "connect": "Connect",
+      "defaultAccount": "Default account",
+      "selectAccount": "-- Select an account --",
+      "defaultDescription": "This account will be used by default in the dashboard."
+    },
+    "toast": {
+      "adsInitiated": "Google Ads connection initiated",
+      "adsError": "Error connecting to Google Ads",
+      "googleConnected": "Google account connected successfully",
+      "googleError": "Error connecting Google",
+      "adsDisconnected": "Google Ads account disconnected"
+    },
+    "confirmDisconnect": {
+      "title": "Disconnect Google Ads",
+      "message": "Are you sure you want to disconnect your Google Ads account? You won't be able to generate reports anymore.",
+      "disconnect": "Disconnect"
+    }
+  }
+}

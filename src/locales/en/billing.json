@@ -1,0 +1,72 @@
+{
+  "title": "Billing & Subscription",
+  "description": "Manage your subscription, update payment methods, and view invoice history",
+  "status": {
+    "trialCanceled": "Free Trial Canceled",
+    "subscriptionCanceled": "Subscription Canceled",
+    "trialActive": "Free Trial Active",
+    "subscriptionActive": "Subscription Active",
+    "noSubscription": "No Subscription",
+    "accessUntil": "Access retained until {date}",
+    "trialUntil": "Trial period until {date}",
+    "activeRenewing": "Subscription active with automatic renewal enabled",
+    "trialCanceledBadge": "Trial canceled",
+    "canceledBadge": "Canceled",
+    "activeUntil": "Active until {date}",
+    "trialDaysLeft": "Free trial - {days} days remaining",
+    "active": "Active",
+    "inactive": "Inactive",
+    "pricingInfo": "Pricing information"
+  },
+  "pricing": {
+    "title": "Start your free trial",
+    "subtitle": "14-day free trial, then automatic billing based on your needs",
+    "simpleTransparent": "Simple and transparent pricing",
+    "perMonth": "€/month",
+    "perAccount": "per connected Google Ads account",
+    "accountsCount": "{seats} account{s}",
+    "monthly": "/month",
+    "seeAllPricing": "See all pricing tiers →",
+    "features": {
+      "title": "Included features",
+      "unlimitedReports": "Unlimited reports",
+      "autoSync": "Automatic synchronization",
+      "customWidgets": "Customizable widgets",
+      "prioritySupport": "Priority support"
+    },
+    "securePayment": "Secure payment via Stripe"
+  },
+  "subscription": {
+    "googleAdsAccounts": "Google Ads Accounts",
+    "monthlyAmount": "Monthly amount",
+    "priceFormula": "€ × {seats} account{s}",
+    "nextPayment": "Next payment",
+    "manage": "Manage subscription",
+    "redirecting": "Redirecting...",
+    "refreshBilling": "Refresh billing",
+    "refreshDescription": "Updates billing information from your payment account",
+    "startFreeTrial": "Start free trial",
+    "redirectingStripe": "Redirecting to Stripe..."
+  },
+  "history": {
+    "title": "Billing history",
+    "noEvents": "No billing events",
+    "events": {
+      "sync": "Billing sync",
+      "paymentSuccess": "Payment successful",
+      "paymentFailed": "Payment failed",
+      "subscriptionUpdated": "Subscription updated",
+      "subscriptionCreated": "Subscription created",
+      "subscriptionCanceled": "Subscription canceled"
+    },
+    "seatsChange": "{count} → {count} account{s}"
+  },
+  "toast": {
+    "subscriptionCreated": "Subscription created successfully! Welcome aboard",
+    "paymentCanceled": "Payment canceled",
+    "checkoutError": "Error creating payment",
+    "portalError": "Error opening portal",
+    "syncSuccess": "Billing synchronized successfully",
+    "syncError": "Error synchronizing"
+  }
+}

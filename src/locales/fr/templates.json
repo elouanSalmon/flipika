@@ -1,0 +1,44 @@
+{
+  "title": "Templates de Rapports",
+  "description": "Créez des templates réutilisables pour générer des rapports en un clic",
+  "newTemplate": "Nouveau Template",
+  "connectRequired": "Connectez Google Ads pour créer des templates",
+  "searchPlaceholder": "Rechercher un template...",
+  "viewGrid": "Vue grille",
+  "viewList": "Vue liste",
+  "sessionExpired": "Connexion Google Ads requise",
+  "sessionExpiredDescription": "Impossible de récupérer vos comptes Google Ads. La session a probablement expiré. Reconnecter le compte",
+  "empty": {
+    "title": "Aucun template",
+    "notFound": "Aucun template ne correspond à votre recherche",
+    "noTemplates": "Créez votre premier template pour générer des rapports rapidement",
+    "createButton": "Créer un template"
+  },
+  "accountSelector": {
+    "title": "Sélectionner un compte",
+    "description": "Ce template ne spécifie pas de compte Google Ads. Veuillez en sélectionner un pour générer le rapport.",
+    "generate": "Générer le rapport"
+  },
+  "delete": {
+    "title": "Supprimer le template",
+    "confirmSimple": "Êtes-vous sûr de vouloir supprimer le template \"{name}\" ? Cette action est irréversible.",
+    "confirmWithSchedules": "Ce template est utilisé par {count} programmation(s) (dont {activeCount} actives) : {names} et {remaining} autres.",
+    "warning": "Si vous supprimez ce template, CES PROGRAMMATIONS SERONT ÉGALEMENT SUPPRIMÉES.",
+    "confirmQuestion": "Êtes-vous sûr de vouloir continuer ?",
+    "deleteButton": "Supprimer"
+  },
+  "toast": {
+    "created": "Template créé avec succès !",
+    "createError": "Erreur lors de la création du template",
+    "updated": "Template mis à jour !",
+    "updateError": "Erreur lors de la mise à jour du template",
+    "checking": "Vérification...",
+    "deletedWithSchedules": "Template et programmations associées supprimés",
+    "deleted": "Template supprimé",
+    "deleteError": "Erreur lors de la suppression: {error}",
+    "duplicated": "Template dupliqué !",
+    "duplicateError": "Erreur lors de la duplication du template",
+    "reportCreated": "Rapport créé depuis le template !",
+    "reportError": "Erreur lors de la création du rapport"
+  }
+}

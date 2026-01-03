@@ -1,0 +1,44 @@
+{
+  "title": "Scheduled Reports",
+  "description": "Automate report generation on a regular basis",
+  "newSchedule": "New schedule",
+  "searchPlaceholder": "Search for a schedule...",
+  "viewGrid": "Grid view",
+  "viewList": "List view",
+  "sessionExpired": "Google Ads connection required",
+  "sessionExpiredDescription": "Unable to retrieve your Google Ads accounts. The session has likely expired. Reconnect account",
+  "tabs": {
+    "all": "All ({count})",
+    "active": "Active ({count})",
+    "paused": "Paused ({count})"
+  },
+  "empty": {
+    "noTemplates": {
+      "title": "No templates available",
+      "description": "Scheduling requires a template to generate reports. Your existing reports (Reports page) are not templates.",
+      "createButton": "Create a template →"
+    },
+    "noSchedules": {
+      "title": "No scheduled reports",
+      "description": "Create your first schedule to automate report generation.",
+      "createButton": "Create a schedule"
+    }
+  },
+  "delete": {
+    "title": "Delete schedule",
+    "confirm": "Are you sure you want to delete the schedule \"{name}\"? This action is irreversible.",
+    "deleteButton": "Delete"
+  },
+  "toast": {
+    "sessionExpired": "Google Ads session expired. Please reconnect in settings.",
+    "loadError": "Error loading data.",
+    "noAccountLinked": "The selected template is not linked to any Google Ads account.",
+    "updated": "Schedule updated successfully",
+    "created": "Schedule created successfully",
+    "activated": "Schedule activated",
+    "paused": "Schedule paused",
+    "statusError": "Error changing status",
+    "deleted": "Schedule deleted successfully",
+    "deleteError": "Error deleting schedule"
+  }
+}

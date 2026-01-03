@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { auth } from '../firebase/config';
 
-const FUNCTIONS_BASE_URL = 'https://us-central1-flipika.cloudfunctions.net';
+const FUNCTIONS_BASE_URL = import.meta.env.VITE_FUNCTIONS_BASE_URL || 'https://us-central1-flipika.cloudfunctions.net';
 
 /**
  * OAuth Callback page

@@ -1,0 +1,118 @@
+{
+  "list": {
+    "title": "My Reports",
+    "description": "Manage and organize your Google Ads reports",
+    "createFromTemplate": "Create from template",
+    "newReport": "New Report",
+    "connectRequired": "Connect Google Ads to create reports",
+    "searchPlaceholder": "Search for a report...",
+    "viewGrid": "Grid view",
+    "viewList": "List view",
+    "loading": "Loading reports...",
+    "tabs": {
+      "all": "All ({count})",
+      "drafts": "Drafts ({count})",
+      "published": "Published ({count})",
+      "archived": "Archived ({count})"
+    },
+    "empty": {
+      "notFound": "No reports found",
+      "modifySearch": "Try modifying your search",
+      "noReports": "Create your first report to get started",
+      "createButton": "Create a report"
+    }
+  },
+  "config": {
+    "title": "Report Configuration",
+    "settings": "Report Settings",
+    "reportTitle": "Report title",
+    "titlePlaceholder": "E.g.: Monthly Report December 2024",
+    "googleAdsAccount": "Google Ads Account",
+    "analysisPeriod": "Analysis period",
+    "periods": {
+      "last7Days": "Last 7 days",
+      "last30Days": "Last 30 days",
+      "last90Days": "Last 90 days",
+      "thisMonth": "This month",
+      "lastMonth": "Last month",
+      "custom": "Custom"
+    },
+    "dateRange": {
+      "from": "From",
+      "to": "To"
+    },
+    "campaigns": {
+      "title": "Campaigns ({count} selected)",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all",
+      "noCampaigns": "No campaigns available",
+      "atLeastOne": "Please select at least one campaign"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "create": "Create report",
+      "update": "Update",
+      "updating": "Updating..."
+    }
+  },
+  "editor": {
+    "notFound": "Report not found",
+    "unauthorized": "Unauthorized access",
+    "loadError": "Error loading report",
+    "close": "Close",
+    "messages": {
+      "saved": "Report saved",
+      "saveError": "Error saving",
+      "published": "Report published!",
+      "publishError": "Error publishing",
+      "archived": "Report archived",
+      "archiveError": "Error archiving",
+      "deleted": "Report deleted",
+      "deleteError": "Error deleting",
+      "usernameRequired": "Please configure your username in settings",
+      "passwordEnabled": "Password protection enabled",
+      "passwordDisabled": "Password protection disabled",
+      "passwordError": "Error updating password",
+      "emailOpened": "Pre-filled email opened!",
+      "emailError": "Error generating email"
+    },
+    "email": {
+      "subject": "Google Ads Report - {title}",
+      "greeting": "Hello,",
+      "intro": "I'm sharing the following Google Ads analysis report with you...",
+      "reportTitle": "Report: {title}",
+      "period": "Period: {date} - {date}",
+      "campaigns": "Campaigns analyzed: {names}",
+      "accessLink": "Access link: {url}",
+      "password": "Password: {password}",
+      "passwordProtected": "This report is password protected (password not available - please share separately)",
+      "questions": "Feel free to reach out if you have any questions.",
+      "signature": "Best regards,",
+      "signatureName": "{name}",
+      "signatureCompany": "{company}"
+    }
+  },
+  "security": {
+    "title": "Report Security",
+    "description": "Protect your report with a password",
+    "passwordProtection": "Password protection",
+    "enabledDescription": "Visitors will need to enter a password to access the report",
+    "disabledDescription": "The report is publicly accessible without a password",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Minimum 6 characters",
+    "passwordHelp": "This password will be required for visitors to access the report. Share it securely.",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "passwordCopied": "Password copied!",
+    "actions": {
+      "save": "Save",
+      "saving": "Saving...",
+      "show": "Show",
+      "hide": "Hide",
+      "copy": "Copy password"
+    }
+  },
+  "toast": {
+    "created": "Report created!",
+    "createError": "Error creating report"
+  }
+}

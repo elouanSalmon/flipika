@@ -1,0 +1,32 @@
+{
+  "title": "Campaign Audit",
+  "description": "In-depth analysis and optimization recommendations",
+  "config": {
+    "title": "Audit configuration",
+    "googleAdsAccount": "Google Ads Account",
+    "campaign": "Campaign",
+    "analysisPeriod": "Analysis period",
+    "allCampaigns": "All campaigns",
+    "periods": {
+      "last30Days": "Last 30 days",
+      "last60Days": "Last 60 days",
+      "last90Days": "Last 90 days"
+    },
+    "launch": "Launch audit",
+    "analyzing": "Analyzing..."
+  },
+  "export": {
+    "pdf": "Export as PDF",
+    "pdfInDevelopment": "PDF export in development"
+  },
+  "stats": {
+    "totalRecommendations": "Total recommendations",
+    "urgentPriority": "Urgent priority",
+    "highImpact": "High impact",
+    "recommendationsByCategory": "Recommendations by category"
+  },
+  "empty": {
+    "title": "No audit in progress",
+    "description": "Select an account and a campaign, then click \"Launch audit\" to start the analysis."
+  }
+}

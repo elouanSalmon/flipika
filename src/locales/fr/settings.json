@@ -1,0 +1,87 @@
+{
+  "title": "Paramètres",
+  "description": "Gérez votre compte et vos préférences",
+  "profile": {
+    "title": "Profil",
+    "username": "Identifiant unique",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "company": "Entreprise (optionnel)",
+    "description": "Description (optionnel)",
+    "shareUrl": "Lien de partage : flipika.com/report/{username}/...",
+    "edit": "Modifier le profil",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Failed to update profile"
+  },
+  "security": {
+    "title": "Sécurité",
+    "changePassword": "Changer le mot de passe",
+    "createPassword": "Créer un mot de passe",
+    "lastModified": "Modifié il y a 30 jours",
+    "addAuth": "Ajoutez une méthode d'authentification alternative",
+    "logout": "Se déconnecter",
+    "logoutDescription": "Déconnexion de votre compte",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer",
+    "passwordRules": "Min 8 caractères, 1 majuscule, 1 chiffre, 1 spécial",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "passwordStrength": {
+      "weak": "Faible",
+      "medium": "Moyen",
+      "strong": "Fort"
+    },
+    "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
+    "currentPasswordRequired": "Veuillez entrer votre mot de passe actuel",
+    "actions": {
+      "change": "Changer",
+      "create": "Créer"
+    },
+    "toast": {
+      "passwordChanged": "Mot de passe modifié avec succès",
+      "passwordCreated": "Mot de passe créé avec succès",
+      "logoutError": "Erreur lors de la déconnexion",
+      "wrongPassword": "Mot de passe actuel incorrect",
+      "weakPassword": "Le mot de passe est trop faible",
+      "changeError": "Erreur lors du changement de mot de passe",
+      "createError": "Erreur lors de la création du mot de passe"
+    }
+  },
+  "connections": {
+    "title": "Connexions",
+    "google": {
+      "title": "Compte Google",
+      "notConnected": "Non connecté",
+      "description": "Méthode d'authentification principale",
+      "connected": "Connecté",
+      "connect": "Connecter"
+    },
+    "googleAds": {
+      "title": "Google Ads",
+      "description": "Connectez votre compte publicitaire",
+      "connected": "Connecté",
+      "notConnected": "Non connecté",
+      "disconnect": "Déconnecter",
+      "connect": "Connecter",
+      "defaultAccount": "Compte par défaut",
+      "selectAccount": "-- Sélectionner un compte --",
+      "defaultDescription": "Ce compte sera utilisé par défaut dans le tableau de bord."
+    },
+    "toast": {
+      "adsInitiated": "Connexion à Google Ads initiée",
+      "adsError": "Erreur lors de la connexion à Google Ads",
+      "googleConnected": "Compte Google connecté avec succès",
+      "googleError": "Erreur lors de la connexion Google",
+      "adsDisconnected": "Compte Google Ads déconnecté"
+    },
+    "confirmDisconnect": {
+      "title": "Déconnecter Google Ads",
+      "message": "Voulez-vous vraiment déconnecter votre compte Google Ads ? Vous ne pourrez plus générer de rapports.",
+      "disconnect": "Déconnecter"
+    }
+  }
+}

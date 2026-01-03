@@ -434,6 +434,18 @@ export async function handleStripeWebhook(
                 break;
             }
 
+            case 'customer.subscription.trial_will_end': {
+                const subscription = event.data.object as Stripe.Subscription;
+                await handleTrialWillEnd(subscription);
+                break;
+            }
+
+            case 'customer.updated': {
+                const customer = event.data.object as Stripe.Customer;
+                await handleCustomerUpdated(customer);
+                break;
+            }
+
             default:
                 console.log(`Unhandled event type: ${event.type}`);
         }
@@ -627,4 +639,63 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
     });
 
     console.log(`Payment failed for user ${userId}`);
+}
+
+async function handleTrialWillEnd(subscription: Stripe.Subscription) {
+    const userId = subscription.metadata.userId;
+    if (!userId) {
+        console.error('No userId in subscription metadata');
+        return;
+    }
+
+    // Log trial ending soon (useful for sending reminder emails in the future)
+    await db.collection('billingHistory').add({
+        userId,
+        subscriptionId: subscription.id,
+        eventType: 'trial_will_end',
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+        metadata: {
+            trialEnd: subscription.trial_end,
+        },
+    });
+
+    console.log(`Trial will end soon for user ${userId}`);
+}
+
+async function handleCustomerUpdated(customer: Stripe.Customer) {
+    const userId = customer.metadata.userId;
+    if (!userId) {
+        // Try to find user by customer ID
+        const userDocs = await db
+            .collection('users')
+            .where('stripeCustomerId', '==', customer.id)
+            .limit(1)
+            .get();
+
+        if (userDocs.empty) {
+            console.log('No user found for customer update');
+            return;
+        }
+
+        // Update email if changed
+        const userDocRef = userDocs.docs[0].ref;
+        if (customer.email) {
+            await userDocRef.update({
+                email: customer.email,
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            });
+        }
+
+        console.log(`Customer updated: ${customer.id}`);
+    } else {
+        // Direct update by userId
+        if (customer.email) {
+            await db.collection('users').doc(userId).update({
+                email: customer.email,
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            });
+        }
+
+        console.log(`Customer updated for user ${userId}`);
+    }
 }

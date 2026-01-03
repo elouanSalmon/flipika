@@ -1,0 +1,44 @@
+{
+  "title": "Rapports programmés",
+  "description": "Automatisez la génération de vos rapports sur une base régulière",
+  "newSchedule": "Nouveau schedule",
+  "searchPlaceholder": "Rechercher un schedule...",
+  "viewGrid": "Vue grille",
+  "viewList": "Vue liste",
+  "sessionExpired": "Connexion Google Ads requise",
+  "sessionExpiredDescription": "Impossible de récupérer vos comptes Google Ads. La session a probablement expiré. Reconnecter le compte",
+  "tabs": {
+    "all": "Tous ({count})",
+    "active": "Actifs ({count})",
+    "paused": "En pause ({count})"
+  },
+  "empty": {
+    "noTemplates": {
+      "title": "Aucun template disponible",
+      "description": "La programmation nécessite un modèle (template) pour générer les rapports. Vos rapports existants (page Rapports) ne sont pas des templates.",
+      "createButton": "Créer un template →"
+    },
+    "noSchedules": {
+      "title": "Aucun rapport programmé",
+      "description": "Créez votre premier schedule pour automatiser la génération de rapports.",
+      "createButton": "Créer un schedule"
+    }
+  },
+  "delete": {
+    "title": "Supprimer le schedule",
+    "confirm": "Êtes-vous sûr de vouloir supprimer le schedule \"{name}\" ? Cette action est irréversible.",
+    "deleteButton": "Supprimer"
+  },
+  "toast": {
+    "sessionExpired": "Session Google Ads expirée. Veuillez vous reconnecter dans les paramètres.",
+    "loadError": "Erreur lors du chargement des données.",
+    "noAccountLinked": "Le template sélectionné n'est lié à aucun compte Google Ads.",
+    "updated": "Schedule mis à jour avec succès",
+    "created": "Schedule créé avec succès",
+    "activated": "Schedule activé",
+    "paused": "Schedule mis en pause",
+    "statusError": "Erreur lors de la modification du statut",
+    "deleted": "Schedule supprimé avec succès",
+    "deleteError": "Erreur lors de la suppression du schedule"
+  }
+}
