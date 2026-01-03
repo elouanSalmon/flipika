@@ -5,6 +5,7 @@ import SubscriptionCard from '../components/settings/SubscriptionCard';
 import DemoModeCard from '../components/settings/DemoModeCard';
 import AppearanceCard from '../components/settings/AppearanceCard';
 import ThemesCard from '../components/settings/ThemesCard';
+import LanguageCard from '../components/settings/LanguageCard';
 import { motion } from 'framer-motion';
 import { Settings as SettingsIcon } from 'lucide-react';
 
@@ -41,10 +42,12 @@ const Settings = () => {
                 {/* Google Ads Connection */}
                 <ConnectionsCard />
 
-                {/* Preferences Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Appearance */}
                     <AppearanceCard />
+
+                    {/* Language */}
+                    <LanguageCard />
 
                     {/* Demo Mode */}
                     <DemoModeCard />

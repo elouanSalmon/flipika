@@ -13,6 +13,8 @@ import HubSpotChat from './components/HubSpotChat';
 import CookieConsent from './components/CookieConsent';
 import InstallPWA from './components/InstallPWA';
 import OnboardingModal from './components/onboarding/OnboardingModal';
+import OfflineAlert from './components/common/OfflineAlert';
+import { useNetworkStatus } from './hooks/useNetworkStatus';
 import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
 import Login from './pages/Login';
@@ -42,8 +44,15 @@ import './App.css';
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { currentUser, userProfile, loading, profileLoading } = useAuth();
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const isOnline = useNetworkStatus();
 
   useEffect(() => {
+    // Only trigger onboarding check if we are online
+    // If we are offline, we can't be sure if the user has a profile or not
+    if (!isOnline) {
+      return;
+    }
+
     if (!loading && !profileLoading && currentUser && userProfile) {
       // Show onboarding if profile exists but onboarding not completed
       if (!userProfile.hasCompletedOnboarding) {
@@ -53,7 +62,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
       // Show onboarding if no profile exists
       setShowOnboarding(true);
     }
-  }, [currentUser, userProfile, loading, profileLoading]);
+  }, [currentUser, userProfile, loading, profileLoading, isOnline]);
 
   if (loading || profileLoading) {
     return <div className="h-screen flex items-center justify-center text-blue-600">Loading...</div>;
@@ -154,6 +163,17 @@ const AppRoutes = () => {
   );
 };
 
+const AppContent = () => {
+  const isOnline = useNetworkStatus();
+
+  return (
+    <>
+      <OfflineAlert isOnline={isOnline} />
+      <AppRoutes />
+    </>
+  );
+};
+
 function App() {
   return (
     <ThemeProvider>
@@ -191,7 +211,7 @@ function App() {
                 <InstallPWA />
                 <AnalyticsTracker />
                 <div className="App">
-                  <AppRoutes />
+                  <AppContent />
                 </div>
               </FeatureFlagsProvider>
             </DemoModeProvider>
