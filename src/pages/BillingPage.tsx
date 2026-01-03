@@ -87,7 +87,9 @@ export default function BillingPage() {
         try {
             setIsCreatingCheckout(true);
             const url = await createCheckout(STRIPE_PRICE_ID);
-            window.location.href = url;
+            window.open(url, '_blank');
+            setIsCreatingCheckout(false);
+            setIsCreatingCheckout(false);
         } catch (error: any) {
             console.error('Error creating checkout:', error);
             toast.error('Erreur lors de la création du paiement');
@@ -98,7 +100,9 @@ export default function BillingPage() {
     const handleManageSubscription = async () => {
         try {
             setIsOpeningPortal(true);
-            await openCustomerPortal();
+            const url = await openCustomerPortal();
+            window.open(url, '_blank');
+            setIsOpeningPortal(false);
         } catch (error: any) {
             console.error('Error opening portal:', error);
             toast.error('Erreur lors de l\'ouverture du portail');

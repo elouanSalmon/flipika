@@ -147,8 +147,9 @@ const Dashboard = () => {
 
                 {error && <ErrorCard title="Erreur de connexion" message={error} />}
 
-                <button onClick={handleConnect} disabled={loading} className="btn btn-primary btn-wide mt-2">
-                    {loading ? 'Connexion...' : 'Connecter un compte'}
+                <button onClick={handleConnect} disabled={loading} className="btn btn-primary btn-wide mt-2 flex items-center justify-center gap-2">
+                    {loading && <Spinner size={20} className="text-white" />}
+                    <span>{loading ? 'Connexion en cours...' : 'Connecter un compte'}</span>
                 </button>
             </div>
         );

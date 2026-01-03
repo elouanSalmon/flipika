@@ -5,16 +5,19 @@ import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import ConfirmationModal from '../common/ConfirmationModal';
+import Spinner from '../common/Spinner';
 
 const ConnectionsCard = () => {
     // accounts is now provided by useGoogleAds
     const { isConnected, refreshConnectionStatus, disconnect, customerId, setLinkedCustomerId, accounts } = useGoogleAds();
     const { currentUser, loginWithGoogle } = useAuth();
     const [showDisconnectModal, setShowDisconnectModal] = useState(false);
+    const [isConnecting, setIsConnecting] = useState(false);
 
     // Removed local useEffect for loading accounts as context handles it
 
     const handleConnectGoogleAds = async () => {
+        setIsConnecting(true);
         try {
             await initiateGoogleAdsOAuth();
             toast.success('Connexion à Google Ads initiée');
@@ -22,6 +25,7 @@ const ConnectionsCard = () => {
         } catch (error) {
             console.error('Error connecting Google Ads:', error);
             toast.error('Erreur lors de la connexion à Google Ads');
+            setIsConnecting(false);
         }
     };
 
@@ -138,9 +142,11 @@ const ConnectionsCard = () => {
                             ) : (
                                 <button
                                     onClick={handleConnectGoogleAds}
-                                    className="btn btn-primary btn-sm"
+                                    disabled={isConnecting}
+                                    className="btn btn-primary btn-sm flex items-center gap-2"
                                 >
-                                    Connecter
+                                    {isConnecting && <Spinner size={16} className="text-white" />}
+                                    <span>{isConnecting ? 'Connexion...' : 'Connecter'}</span>
                                 </button>
                             )}
                         </div>

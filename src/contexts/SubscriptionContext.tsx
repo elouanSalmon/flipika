@@ -11,7 +11,7 @@ interface SubscriptionContextType {
     isActive: boolean;
     canAccess: boolean;
     createCheckout: (priceId: string) => Promise<string>;
-    openCustomerPortal: () => Promise<void>;
+    openCustomerPortal: () => Promise<string>;
     syncBilling: () => Promise<void>;
 }
 
@@ -77,7 +77,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         return data.url;
     };
 
-    const openCustomerPortal = async (): Promise<void> => {
+    const openCustomerPortal = async (): Promise<string> => {
         const functions = getFunctions();
         const createPortalFn = httpsCallable(functions, 'createStripePortal');
 
@@ -86,7 +86,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         });
 
         const data = result.data as { url: string };
-        window.location.href = data.url;
+        return data.url;
     };
 
     const syncBilling = async (): Promise<void> => {

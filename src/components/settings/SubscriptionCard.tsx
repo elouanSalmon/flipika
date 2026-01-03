@@ -16,7 +16,9 @@ export default function SubscriptionCard() {
     const handleManageSubscription = async () => {
         try {
             setIsOpeningPortal(true);
-            await openCustomerPortal();
+            const url = await openCustomerPortal();
+            window.open(url, '_blank');
+            setIsOpeningPortal(false);
         } catch (error) {
             console.error('Error opening portal:', error);
             setIsOpeningPortal(false);
