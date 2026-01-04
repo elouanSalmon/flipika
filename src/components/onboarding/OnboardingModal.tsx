@@ -170,21 +170,50 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
         }
     };
 
+    const [retryAvailable, setRetryAvailable] = useState(false);
+    const pollingInterval = React.useRef<ReturnType<typeof setInterval> | null>(null);
+
+    // Watch for connection success
+    useEffect(() => {
+        if (loading && isConnected) {
+            if (pollingInterval.current) clearInterval(pollingInterval.current);
+            setLoading(false);
+            toast.dismiss();
+            toast.success('Google Ads connected successfully!');
+            setCurrentStep('subscription');
+        }
+    }, [isConnected, loading]);
+
+    // Cleanup polling on unmount
+    useEffect(() => {
+        return () => {
+            if (pollingInterval.current) clearInterval(pollingInterval.current);
+        };
+    }, []);
+
+    const startPolling = () => {
+        if (pollingInterval.current) clearInterval(pollingInterval.current);
+
+        pollingInterval.current = setInterval(async () => {
+            await refreshConnectionStatus();
+        }, 3000);
+    };
+
     const handleGoogleAdsConnect = async () => {
         setLoading(true);
+        setRetryAvailable(false);
+
+        // Enable retry after 5 seconds
+        setTimeout(() => setRetryAvailable(true), 5000);
+
         try {
             await initiateGoogleAdsOAuth();
-            // OAuth flow triggers a redirect, so we might not reach here immediately, 
-            // but upon return, the app reloads and the useEffect at the top will verify connection.
-            // If it's a popup (as per service implementation), we interpret success:
-            toast.success('Google Ads connected successfully!');
-            await refreshConnectionStatus();
-            setCurrentStep('subscription');
+            startPolling();
         } catch (error) {
             console.error('Google Ads connection failed:', error);
-            toast.error('Failed to connect Google Ads');
-        } finally {
+            toast.error('Failed to initiate connection');
             setLoading(false);
+            if (pollingInterval.current) clearInterval(pollingInterval.current);
         }
     };
 
@@ -468,31 +497,40 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             {t('common:onboarding.googleAds.description')}
                         </p>
 
-                        <div className="flex gap-3 max-w-lg mx-auto w-full">
-                            <button
-                                onClick={() => setCurrentStep('details')}
-                                className="px-6 py-3 h-14 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 flex items-center gap-2"
-                            >
-                                <ChevronLeft size={20} />
-                                {t('common:onboarding.back')}
-                            </button>
-                            <button
-                                onClick={handleGoogleAdsConnect}
-                                disabled={isConnected || loading}
-                                className="btn btn-primary flex-1 h-14 shadow-lg shadow-primary/30 flex items-center justify-center gap-3"
-                            >
-                                {loading ? (
-                                    <Loader2 className="animate-spin text-white" size={20} />
-                                ) : (
-                                    <>
-                                        <div className="bg-white p-1 rounded-full flex items-center justify-center shadow-sm">
-                                            <img src="/google-ads.svg" alt="Google Ads" className="w-4 h-4" />
-                                        </div>
-                                        {t('common:onboarding.googleAds.cta')}
-                                        <ChevronRight size={20} />
-                                    </>
-                                )}
-                            </button>
+                        <div className="flex flex-col gap-3 max-w-lg mx-auto w-full">
+                            <div className="flex gap-3 w-full">
+                                <button
+                                    onClick={() => setCurrentStep('details')}
+                                    className="px-6 py-3 h-14 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 flex items-center gap-2"
+                                >
+                                    <ChevronLeft size={20} />
+                                    {t('common:onboarding.back')}
+                                </button>
+                                <button
+                                    onClick={handleGoogleAdsConnect}
+                                    disabled={isConnected || (loading && !retryAvailable)}
+                                    className="btn btn-primary flex-1 h-14 shadow-lg shadow-primary/30 flex items-center justify-center gap-3 relative"
+                                >
+                                    {loading ? (
+                                        <>
+                                            <Loader2 className="animate-spin text-white" size={20} />
+                                            {retryAvailable && (
+                                                <span className="ml-2 text-sm font-medium">
+                                                    (Cliquer pour réessayer)
+                                                </span>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="bg-white p-1 rounded-full flex items-center justify-center shadow-sm">
+                                                <img src="/google-ads.svg" alt="Google Ads" className="w-4 h-4" />
+                                            </div>
+                                            {t('common:onboarding.googleAds.cta')}
+                                            <ChevronRight size={20} />
+                                        </>
+                                    )}
+                                </button>
+                            </div>
                         </div>
 
                         <div className="mt-6 flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 py-2 px-4 rounded-full max-w-fit mx-auto border border-gray-100 dark:border-gray-700/50">
