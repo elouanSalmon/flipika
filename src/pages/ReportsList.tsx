@@ -292,7 +292,7 @@ const ReportsList: React.FC = () => {
                             </p>
                             {!searchQuery && (
                                 <button
-                                    className="create-report-btn-secondary"
+                                    className="create-report-btn"
                                     onClick={handleCreateReport}
                                     disabled={!isGoogleAdsConnected}
                                     style={{
