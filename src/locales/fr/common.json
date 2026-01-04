@@ -569,6 +569,21 @@
     "complete": {
       "title": "Profil créé avec succès !",
       "description": "Vous allez être redirigé vers l'application..."
+    },
+    "back": "Retour",
+    "subscription": {
+      "title": "Activez votre essai gratuit",
+      "description": "Profitez de <1>14 jours d'essai gratuit</1>, puis une licence de 10€ par compte Google Ads connecté. Sans engagement.",
+      "cta": "Commencer l'essai gratuit",
+      "details": "Voir les détails de l'offre",
+      "skip": "Passer et découvrir en mode démo",
+      "skipping": "Finalisation..."
+    },
+    "googleAds": {
+      "title": "Connectez vos comptes",
+      "description": "Connectez votre compte pour permettre à Flipika de récupérer vos statistiques et générer vos rapports en un clic.",
+      "cta": "Connecter Google Ads",
+      "secure": "Connexion chiffrée et sécurisée via l'API Google"
     }
   },
   "validation": {

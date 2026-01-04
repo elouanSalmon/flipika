@@ -56,7 +56,7 @@ export const createUserProfile = async (
             username: normalizedUsername,
             firstName: data.firstName,
             lastName: data.lastName,
-            hasCompletedOnboarding: true,
+            hasCompletedOnboarding: false,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
         };
