@@ -484,8 +484,7 @@ const Templates: React.FC = () => {
                                     cursor: !isConnected ? 'not-allowed' : 'pointer'
                                 }}
                             >
-                                <Plus size={20} />
-                                <span>{t('emptyState.createButton')}</span>
+                                {t('emptyState.createButton')}
                             </button>
                         )}
                     </div>

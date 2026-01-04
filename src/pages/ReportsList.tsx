@@ -301,8 +301,7 @@ const ReportsList: React.FC = () => {
                                     }}
                                     title={!isGoogleAdsConnected ? t('list.connectToCreate') : ''}
                                 >
-                                    <Plus size={20} />
-                                    <span>{t('list.emptyState.createButton')}</span>
+                                    {t('list.emptyState.createButton')}
                                 </button>
                             )}
                         </div>

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Edit2, Copy, Trash2, Link as LinkIcon, Palette } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
+import { useGoogleAds } from '../../contexts/GoogleAdsContext';
+import { useSubscription } from '../../contexts/SubscriptionContext';
 import themeService from '../../services/themeService';
 import Spinner from '../common/Spinner';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +22,8 @@ interface ThemeManagerProps {
 
 const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = false }) => {
     const { currentUser } = useAuth();
+    const { isConnected } = useGoogleAds();
+    const { canAccess } = useSubscription();
     const { t } = useTranslation('themes');
     const [themes, setThemes] = useState<ReportTheme[]>([]);
     const [loading, setLoading] = useState(true);
@@ -30,6 +34,8 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
 
     // Filters
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
+
+    const canCreateTheme = isConnected && canAccess;
 
     const filteredThemes = selectedAccountId
         ? themes.filter(theme => theme.linkedAccountIds.includes(selectedAccountId))
@@ -121,6 +127,11 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                     <button
                         className="btn btn-primary btn-sm flex items-center gap-2"
                         onClick={handleCreateTheme}
+                        disabled={!canCreateTheme}
+                        style={{
+                            opacity: !canCreateTheme ? 0.5 : 1,
+                            cursor: !canCreateTheme ? 'not-allowed' : 'pointer'
+                        }}
                     >
                         <Plus size={16} />
                         {t('list.newButton')}
@@ -130,7 +141,15 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                 {themes.length === 0 ? (
                     <div className="text-center p-8 bg-white/50 dark:bg-gray-800/50 backdrop-blur rounded-xl border border-gray-100 dark:border-gray-700">
                         <p className="text-sm text-gray-500 mb-3">{t('emptyState.noCustomThemes')}</p>
-                        <button className="btn btn-secondary btn-sm" onClick={handleCreateTheme}>
+                        <button
+                            className="btn btn-secondary btn-sm"
+                            onClick={handleCreateTheme}
+                            disabled={!canCreateTheme}
+                            style={{
+                                opacity: !canCreateTheme ? 0.5 : 1,
+                                cursor: !canCreateTheme ? 'not-allowed' : 'pointer'
+                            }}
+                        >
                             {t('emptyState.createFirstButton')}
                         </button>
                     </div>
@@ -181,6 +200,11 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                 <button
                     className="create-btn"
                     onClick={handleCreateTheme}
+                    disabled={!canCreateTheme}
+                    style={{
+                        opacity: !canCreateTheme ? 0.5 : 1,
+                        cursor: !canCreateTheme ? 'not-allowed' : 'pointer'
+                    }}
                 >
                     <Plus size={20} />
                     {t('list.createButton')}
@@ -224,6 +248,11 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                         <button
                             className="btn btn-primary"
                             onClick={handleCreateTheme}
+                            disabled={!canCreateTheme}
+                            style={{
+                                opacity: !canCreateTheme ? 0.5 : 1,
+                                cursor: !canCreateTheme ? 'not-allowed' : 'pointer'
+                            }}
                         >
                             <Plus size={20} className="mr-2" />
                             {t('emptyState.createFirstButton')}
