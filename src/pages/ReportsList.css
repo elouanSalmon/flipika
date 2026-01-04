@@ -65,8 +65,7 @@
 }
 
 .create-report-btn svg {
-    margin-top: 1px;
-    /* Optical alignment */
+    flex-shrink: 0;
 }
 
 /* Status Filters */
@@ -269,14 +268,12 @@
 }
 
 .empty-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
+    display: block;
+    width: 64px;
+    height: 64px;
     margin: 0 auto 24px;
     color: var(--color-text-muted);
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 .empty-state h3 {
@@ -315,8 +312,7 @@
 }
 
 .create-report-btn-secondary svg {
-    margin-top: 1px;
-    /* Optical alignment */
+    flex-shrink: 0;
 }
 
 /* Loading */
