@@ -9,8 +9,8 @@
  */
 export function isValidState(state: unknown): state is string {
     return typeof state === 'string'
-        && state.length >= 20
-        && state.length <= 50
+        && state.length >= 8
+        && state.length <= 128
         && /^[a-z0-9]+$/.test(state);
 }
 
@@ -22,7 +22,7 @@ export function isValidState(state: unknown): state is string {
 export function isValidOAuthCode(code: unknown): code is string {
     return typeof code === 'string'
         && code.length > 10
-        && code.length < 500;
+        && code.length < 4096;
 }
 
 /**
@@ -32,7 +32,7 @@ export function isValidOAuthCode(code: unknown): code is string {
  */
 export function isValidUserId(uid: unknown): uid is string {
     return typeof uid === 'string'
-        && uid.length >= 10
-        && uid.length <= 128
+        && uid.length >= 5
+        && uid.length <= 256
         && /^[a-zA-Z0-9]+$/.test(uid);
 }

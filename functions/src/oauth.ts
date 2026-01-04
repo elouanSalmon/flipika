@@ -63,7 +63,8 @@ const getOAuth2Client = async (origin: string) => {
 
 // Generate a random state for CSRF protection
 const generateState = () => {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    // Generate a sufficiently long random string (approx 40-50 chars)
+    return Array(4).fill(0).map(() => Math.random().toString(36).substring(2)).join('');
 };
 
 /**

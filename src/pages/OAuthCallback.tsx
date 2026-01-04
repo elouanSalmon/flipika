@@ -55,7 +55,9 @@ const OAuthCallback = () => {
                 });
 
                 if (!response.ok) {
-                    throw new Error(`Failed to exchange OAuth code: ${response.status}`);
+                    const errorText = await response.text();
+                    console.error('OAuth Code Exchange Error Body:', errorText);
+                    throw new Error(`Failed to exchange OAuth code: ${response.status} - ${errorText}`);
                 }
 
                 // Success!

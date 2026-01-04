@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Plus, Search, Grid, List as ListIcon, FileText } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
+import { useSubscription } from '../contexts/SubscriptionContext';
+import { useDemoMode } from '../contexts/DemoModeContext';
 import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import { listUserReports, getReportCountByStatus } from '../services/reportService';
 import { fetchCampaigns } from '../services/googleAds';
@@ -26,7 +28,12 @@ const ReportsList: React.FC = () => {
     const { t } = useTranslation('reports');
     const navigate = useNavigate();
     const { currentUser } = useAuth();
-    const { isConnected: isGoogleAdsConnected, accounts } = useGoogleAds(); // Use accounts from context
+    const { isConnected: isGoogleAdsConnected, accounts } = useGoogleAds();
+    const { canAccess } = useSubscription();
+    const { isDemoMode } = useDemoMode();
+
+    const hasAccess = (canAccess && isGoogleAdsConnected) || isDemoMode;
+
     const [reports, setReports] = useState<EditableReport[]>([]);
     const [filteredReports, setFilteredReports] = useState<EditableReport[]>([]);
     const [loading, setLoading] = useState(true);
@@ -183,18 +190,23 @@ const ReportsList: React.FC = () => {
                     <button
                         className="create-report-btn-secondary bg-white dark:bg-slate-800 text-primary border-primary/20 hover:border-primary hover:bg-primary/5 shadow-sm"
                         onClick={() => navigate('/app/templates')}
+                        disabled={!hasAccess}
+                        style={{
+                            opacity: !hasAccess ? 0.5 : 1,
+                            cursor: !hasAccess ? 'not-allowed' : 'pointer'
+                        }}
                     >
                         {t('list.createFromTemplate')}
                     </button>
                     <button
                         className="create-report-btn"
                         onClick={handleCreateReport}
-                        disabled={!isGoogleAdsConnected}
+                        disabled={!hasAccess}
                         style={{
-                            opacity: !isGoogleAdsConnected ? 0.5 : 1,
-                            cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
+                            opacity: !hasAccess ? 0.5 : 1,
+                            cursor: !hasAccess ? 'not-allowed' : 'pointer'
                         }}
-                        title={!isGoogleAdsConnected ? t('list.connectToCreate') : ''}
+                        title={!hasAccess ? t('list.connectToCreate') : ''}
                     >
                         <Plus size={20} />
                         <span>{t('list.newReport')}</span>

@@ -4,7 +4,9 @@ import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { useSubscription } from '../../contexts/SubscriptionContext';
+import { useDemoMode } from '../../contexts/DemoModeContext';
 import themeService from '../../services/themeService';
+import FeatureAccessGuard from '../common/FeatureAccessGuard';
 import Spinner from '../common/Spinner';
 import { useTranslation } from 'react-i18next';
 import type { ReportTheme } from '../../types/reportThemes';
@@ -24,6 +26,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
     const { currentUser } = useAuth();
     const { isConnected } = useGoogleAds();
     const { canAccess } = useSubscription();
+    const { isDemoMode } = useDemoMode();
     const { t } = useTranslation('themes');
     const [themes, setThemes] = useState<ReportTheme[]>([]);
     const [loading, setLoading] = useState(true);
@@ -35,7 +38,8 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
     // Filters
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
 
-    const canCreateTheme = isConnected && canAccess;
+    const hasAccess = (canAccess && isConnected) || isDemoMode;
+    const canCreateTheme = hasAccess; // Harmonized naming
 
     const filteredThemes = selectedAccountId
         ? themes.filter(theme => theme.linkedAccountIds.includes(selectedAccountId))
@@ -211,119 +215,121 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                 </button>
             </div>
 
-            {
-                accounts.length > 0 && (
-                    <div className="mb-6">
-                        <FilterBar
-                            accounts={accounts.map(a => ({ id: a.id, name: a.name }))}
-                            selectedAccountId={selectedAccountId}
-                            onAccountChange={setSelectedAccountId}
-                        />
-                    </div>
-                )
-            }
-
-            {
-                filteredThemes.length === 0 && themes.length > 0 ? (
-                    <div className="empty-state">
-                        <Palette size={64} className="empty-icon" />
-                        <h2>{t('emptyState.notFoundTitle')}</h2>
-                        <p>{t('emptyState.notFoundDescription')}</p>
-                        <button
-                            className="btn-secondary"
-                            onClick={() => setSelectedAccountId('')}
-                        >
-                            {t('emptyState.viewAllButton')}
-                        </button>
-                    </div>
-                ) : themes.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center p-20 text-center bg-white/50 dark:bg-gray-800/50 backdrop-blur rounded-2xl border border-gray-100 dark:border-gray-700">
-                        <div className="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-4">
-                            <Palette className="w-8 h-8 text-primary" />
+            <FeatureAccessGuard featureName="les thèmes">
+                {
+                    accounts.length > 0 && (
+                        <div className="mb-6">
+                            <FilterBar
+                                accounts={accounts.map(a => ({ id: a.id, name: a.name }))}
+                                selectedAccountId={selectedAccountId}
+                                onAccountChange={setSelectedAccountId}
+                            />
                         </div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('emptyState.noCustomThemes')}</h3>
-                        <p className="text-gray-500 mb-6 max-w-md">
-                            {t('emptyState.createFirstDescription')}
-                        </p>
-                        <button
-                            className="btn btn-primary"
-                            onClick={handleCreateTheme}
-                            disabled={!canCreateTheme}
-                            style={{
-                                opacity: !canCreateTheme ? 0.5 : 1,
-                                cursor: !canCreateTheme ? 'not-allowed' : 'pointer'
-                            }}
-                        >
-                            <Plus size={20} className="mr-2" />
-                            {t('emptyState.createFirstButton')}
-                        </button>
-                    </div>
-                ) : (
-                    <div className="themes-grid">
-                        {filteredThemes.map(theme => (
-                            <div key={theme.id} className="listing-card p-0 group">
-                                {/* Preview Area */}
-                                <div className="relative bg-gray-5 dark:bg-gray-900/50 p-4 border-b border-gray-100 dark:border-gray-700">
-                                    <ThemePreview theme={theme} size="medium" />
-                                    {theme.isDefault && (
-                                        <div className="absolute top-3 right-3 px-2 py-1 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
-                                            {t('card.defaultBadge')}
-                                        </div>
-                                    )}
-                                </div>
+                    )
+                }
 
-                                <div className="p-5">
-                                    <div className="mb-4">
-                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 truncate">{theme.name}</h3>
-                                        {theme.description && (
-                                            <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 h-10">{theme.description}</p>
-                                        )}
-                                    </div>
-
-                                    {/* Footer / Stats */}
-                                    <div className="flex items-center justify-between mt-4">
-                                        {theme.linkedAccountIds.length > 0 ? (
-                                            <div className="flex items-center gap-1.5 text-xs text-primary bg-primary/5 px-2 py-1 rounded-md border border-primary/10">
-                                                <LinkIcon size={12} />
-                                                <span>
-                                                    {t('card.linkedAccounts_plural', { count: theme.linkedAccountIds.length })}
-                                                </span>
-                                            </div>
-                                        ) : (
-                                            <span className="text-xs text-gray-400">{t('card.noLinkedAccounts')}</span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* Hover Actions */}
-                                <div className="listing-card-actions">
-                                    <button
-                                        onClick={() => handleDuplicateTheme(theme)}
-                                        className="action-btn-icon"
-                                        title={t('card.actions.duplicate')}
-                                    >
-                                        <Copy size={16} />
-                                    </button>
-                                    <button
-                                        onClick={() => handleEditTheme(theme)}
-                                        className="action-btn-icon text-primary hover:bg-primary/10"
-                                        title={t('card.actions.edit')}
-                                    >
-                                        <Edit2 size={16} />
-                                    </button>
-                                    <button
-                                        onClick={() => handleDeleteTheme(theme)}
-                                        className="action-btn-icon destructive"
-                                        title={t('card.actions.delete')}
-                                    >
-                                        <Trash2 size={16} />
-                                    </button>
-                                </div>
+                {
+                    filteredThemes.length === 0 && themes.length > 0 ? (
+                        <div className="empty-state">
+                            <Palette size={64} className="empty-icon" />
+                            <h2>{t('emptyState.notFoundTitle')}</h2>
+                            <p>{t('emptyState.notFoundDescription')}</p>
+                            <button
+                                className="btn-secondary"
+                                onClick={() => setSelectedAccountId('')}
+                            >
+                                {t('emptyState.viewAllButton')}
+                            </button>
+                        </div>
+                    ) : themes.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center p-20 text-center bg-white/50 dark:bg-gray-800/50 backdrop-blur rounded-2xl border border-gray-100 dark:border-gray-700">
+                            <div className="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-4">
+                                <Palette className="w-8 h-8 text-primary" />
                             </div>
-                        ))}
-                    </div>
-                )
-            }
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('emptyState.noCustomThemes')}</h3>
+                            <p className="text-gray-500 mb-6 max-w-md">
+                                {t('emptyState.createFirstDescription')}
+                            </p>
+                            <button
+                                className="btn btn-primary"
+                                onClick={handleCreateTheme}
+                                disabled={!canCreateTheme}
+                                style={{
+                                    opacity: !canCreateTheme ? 0.5 : 1,
+                                    cursor: !canCreateTheme ? 'not-allowed' : 'pointer'
+                                }}
+                            >
+                                <Plus size={20} className="mr-2" />
+                                {t('emptyState.createFirstButton')}
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="themes-grid">
+                            {filteredThemes.map(theme => (
+                                <div key={theme.id} className="listing-card p-0 group">
+                                    {/* Preview Area */}
+                                    <div className="relative bg-gray-5 dark:bg-gray-900/50 p-4 border-b border-gray-100 dark:border-gray-700">
+                                        <ThemePreview theme={theme} size="medium" />
+                                        {theme.isDefault && (
+                                            <div className="absolute top-3 right-3 px-2 py-1 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
+                                                {t('card.defaultBadge')}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="p-5">
+                                        <div className="mb-4">
+                                            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 truncate">{theme.name}</h3>
+                                            {theme.description && (
+                                                <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 h-10">{theme.description}</p>
+                                            )}
+                                        </div>
+
+                                        {/* Footer / Stats */}
+                                        <div className="flex items-center justify-between mt-4">
+                                            {theme.linkedAccountIds.length > 0 ? (
+                                                <div className="flex items-center gap-1.5 text-xs text-primary bg-primary/5 px-2 py-1 rounded-md border border-primary/10">
+                                                    <LinkIcon size={12} />
+                                                    <span>
+                                                        {t('card.linkedAccounts_plural', { count: theme.linkedAccountIds.length })}
+                                                    </span>
+                                                </div>
+                                            ) : (
+                                                <span className="text-xs text-gray-400">{t('card.noLinkedAccounts')}</span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Hover Actions */}
+                                    <div className="listing-card-actions">
+                                        <button
+                                            onClick={() => handleDuplicateTheme(theme)}
+                                            className="action-btn-icon"
+                                            title={t('card.actions.duplicate')}
+                                        >
+                                            <Copy size={16} />
+                                        </button>
+                                        <button
+                                            onClick={() => handleEditTheme(theme)}
+                                            className="action-btn-icon text-primary hover:bg-primary/10"
+                                            title={t('card.actions.edit')}
+                                        >
+                                            <Edit2 size={16} />
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteTheme(theme)}
+                                            className="action-btn-icon destructive"
+                                            title={t('card.actions.delete')}
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )
+                }
+            </FeatureAccessGuard>
 
             {
                 showEditor && currentUser && (

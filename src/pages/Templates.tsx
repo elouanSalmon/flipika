@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Plus, FileStack, Search, AlertCircle, Grid, List as ListIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
+import { useSubscription } from '../contexts/SubscriptionContext';
+import { useDemoMode } from '../contexts/DemoModeContext';
 import { fetchCampaigns } from '../services/googleAds';
 import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import {
@@ -36,7 +38,11 @@ const Templates: React.FC = () => {
     const { t } = useTranslation('templates');
     const navigate = useNavigate();
     const { currentUser } = useAuth();
-    const { isConnected, accounts } = useGoogleAds(); // Use accounts from context
+    const { isConnected, accounts } = useGoogleAds();
+    const { canAccess } = useSubscription();
+    const { isDemoMode } = useDemoMode();
+
+    const hasAccess = (canAccess && isConnected) || isDemoMode;
 
     const [templates, setTemplates] = useState<ReportTemplate[]>([]);
     const [loading, setLoading] = useState(true);
@@ -365,82 +371,82 @@ const Templates: React.FC = () => {
                 <button
                     className="btn-primary"
                     onClick={() => setShowCreateModal(true)}
-                    disabled={!isConnected}
+                    disabled={!hasAccess}
                     style={{
-                        opacity: !isConnected ? 0.5 : 1,
-                        cursor: !isConnected ? 'not-allowed' : 'pointer'
+                        opacity: !hasAccess ? 0.5 : 1,
+                        cursor: !hasAccess ? 'not-allowed' : 'pointer'
                     }}
-                    title={!isConnected ? t('connectToCreate') : ''}
+                    title={!hasAccess ? t('connectToCreate') : ''}
                 >
                     <Plus size={20} />
                     <span>{t('newTemplate')}</span>
                 </button>
             </div>
 
-            {googleAuthError && (
-                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
-                    <div>
-                        <h3 className="text-sm font-medium text-red-800 dark:text-red-300">{t('errors.connectionRequired')}</h3>
-                        <p className="text-sm text-red-700 dark:text-red-400 mt-1">
-                            {t('errors.sessionExpired')}
-                            <a href="/app/settings" className="underline ml-1 font-medium hover:text-red-900 dark:hover:text-red-200">
-                                {t('errors.reconnect')}
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            )}
-
-            {/* Controls Bar - Always visible if there are templates */
-                templates.length > 0 && (
-                    <div className="controls-bar">
-                        <div className="search-box">
-                            <Search size={18} />
-                            <input
-                                type="text"
-                                placeholder={t('searchPlaceholder')}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="view-controls">
-                            <button
-                                className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                                onClick={() => setViewMode('grid')}
-                                title={t('gridView')}
-                            >
-                                <Grid size={18} />
-                            </button>
-                            <button
-                                className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
-                                onClick={() => setViewMode('list')}
-                                title={t('listView')}
-                            >
-                                <ListIcon size={18} />
-                            </button>
+            <FeatureAccessGuard featureName="les templates">
+                {googleAuthError && (
+                    <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
+                        <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                        <div>
+                            <h3 className="text-sm font-medium text-red-800 dark:text-red-300">{t('errors.connectionRequired')}</h3>
+                            <p className="text-sm text-red-700 dark:text-red-400 mt-1">
+                                {t('errors.sessionExpired')}
+                                <a href="/app/settings" className="underline ml-1 font-medium hover:text-red-900 dark:hover:text-red-200">
+                                    {t('errors.reconnect')}
+                                </a>
+                            </p>
                         </div>
                     </div>
                 )}
 
-            {isConnected && (
-                <div className="mb-6">
-                    <FilterBar
-                        accounts={accounts}
-                        campaigns={filterCampaigns}
-                        selectedAccountId={selectedFilterAccountId}
-                        selectedCampaignId={selectedFilterCampaignId}
-                        onAccountChange={setSelectedFilterAccountId}
-                        onCampaignChange={setSelectedFilterCampaignId}
-                        loadingCampaigns={loadingFilterCampaigns}
-                    />
-                </div>
-            )}
+                {/* Controls Bar - Always visible if there are templates */
+                    templates.length > 0 && (
+                        <div className="controls-bar">
+                            <div className="search-box">
+                                <Search size={18} />
+                                <input
+                                    type="text"
+                                    placeholder={t('searchPlaceholder')}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="view-controls">
+                                <button
+                                    className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                                    onClick={() => setViewMode('grid')}
+                                    title={t('gridView')}
+                                >
+                                    <Grid size={18} />
+                                </button>
+                                <button
+                                    className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                                    onClick={() => setViewMode('list')}
+                                    title={t('listView')}
+                                >
+                                    <ListIcon size={18} />
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                {isConnected && (
+                    <div className="mb-6">
+                        <FilterBar
+                            accounts={accounts}
+                            campaigns={filterCampaigns}
+                            selectedAccountId={selectedFilterAccountId}
+                            selectedCampaignId={selectedFilterCampaignId}
+                            onAccountChange={setSelectedFilterAccountId}
+                            onCampaignChange={setSelectedFilterCampaignId}
+                            loadingCampaigns={loadingFilterCampaigns}
+                        />
+                    </div>
+                )}
 
 
-            {/* Redundant search bar removed here - using controls bar above */}
-            <FeatureAccessGuard featureName="les templates">
+                {/* Redundant search bar removed here - using controls bar above */}
                 {filteredTemplates.length > 0 ? (
                     <>
                         <div className={viewMode === 'grid' ? 'templates-grid' : 'templates-list'}>
@@ -478,10 +484,10 @@ const Templates: React.FC = () => {
                             <button
                                 className="btn-primary"
                                 onClick={() => setShowCreateModal(true)}
-                                disabled={!isConnected}
+                                disabled={!hasAccess}
                                 style={{
-                                    opacity: !isConnected ? 0.5 : 1,
-                                    cursor: !isConnected ? 'not-allowed' : 'pointer'
+                                    opacity: !hasAccess ? 0.5 : 1,
+                                    cursor: !hasAccess ? 'not-allowed' : 'pointer'
                                 }}
                             >
                                 {t('emptyState.createButton')}

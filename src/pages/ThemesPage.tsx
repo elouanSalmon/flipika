@@ -3,7 +3,6 @@ import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import ThemeManager from '../components/themes/ThemeManager';
 import dataService from '../services/dataService';
 import type { Account } from '../types/business';
-import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import './ThemesPage.css';
 
 const ThemesPage: React.FC = () => {
@@ -26,11 +25,9 @@ const ThemesPage: React.FC = () => {
     };
 
     return (
-        <FeatureAccessGuard featureName="les thèmes">
-            <div className="themes-page">
-                <ThemeManager accounts={accounts} />
-            </div>
-        </FeatureAccessGuard>
+        <div className="themes-page">
+            <ThemeManager accounts={accounts} />
+        </div>
     );
 };
 

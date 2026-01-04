@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Plus, Clock, AlertCircle, Search, Grid, List as ListIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
+import { useSubscription } from '../contexts/SubscriptionContext';
+import { useDemoMode } from '../contexts/DemoModeContext';
 import type { ScheduledReport } from '../types/scheduledReportTypes';
 import type { ReportTemplate } from '../types/templateTypes';
 import {
@@ -38,6 +40,11 @@ const ScheduledReports: React.FC = () => {
     const { t } = useTranslation('schedules');
     const { currentUser } = useAuth();
     const { isConnected: isGoogleAdsConnected } = useGoogleAds();
+    const { canAccess } = useSubscription();
+    const { isDemoMode } = useDemoMode();
+
+    const hasAccess = (canAccess && isGoogleAdsConnected) || isDemoMode;
+
     const [schedules, setSchedules] = useState<ScheduledReport[]>([]);
     const [templates, setTemplates] = useState<ReportTemplate[]>([]);
     const [googleAuthError, setGoogleAuthError] = useState(false);
@@ -288,13 +295,13 @@ const ScheduledReports: React.FC = () => {
                         <button
                             className="btn-create"
                             onClick={handleCreateSchedule}
-                            disabled={templates.length === 0 || !isGoogleAdsConnected}
+                            disabled={!hasAccess || templates.length === 0}
                             style={{
-                                opacity: (templates.length === 0 || !isGoogleAdsConnected) ? 0.5 : 1,
-                                cursor: (templates.length === 0 || !isGoogleAdsConnected) ? 'not-allowed' : 'pointer',
+                                opacity: (!hasAccess || templates.length === 0) ? 0.5 : 1,
+                                cursor: (!hasAccess || templates.length === 0) ? 'not-allowed' : 'pointer',
                                 marginLeft: 'auto'
                             }}
-                            title={!isGoogleAdsConnected ? t('connectToCreate') : templates.length === 0 ? t('createTemplateFirst') : ''}
+                            title={!hasAccess ? t('connectToCreate') : templates.length === 0 ? t('createTemplateFirst') : ''}
                         >
                             <Plus size={20} />
                             <span>{t('newSchedule')}</span>
@@ -309,81 +316,80 @@ const ScheduledReports: React.FC = () => {
 
 
 
-            {/* Status Filters - Only show if there are schedules */
-                schedules.length > 0 && (
-                    <div className="status-filters">
-                        <button
-                            className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
-                            onClick={() => setStatusFilter('all')}
-                        >
-                            {t('tabs.all', { count: schedules.length })}
-                        </button>
-                        <button
-                            className={`status-filter-btn filter-active ${statusFilter === 'active' ? 'active' : ''}`}
-                            onClick={() => setStatusFilter('active')}
-                        >
-                            <div className="status-dot" />
-                            {t('tabs.active', { count: activeCount })}
-                        </button>
-                        <button
-                            className={`status-filter-btn filter-paused ${statusFilter === 'paused' ? 'active' : ''}`}
-                            onClick={() => setStatusFilter('paused')}
-                        >
-                            <div className="status-dot" />
-                            {t('tabs.paused', { count: pausedCount })}
-                        </button>
+            <FeatureAccessGuard featureName="les rapports programmés">
+                {/* Status Filters - Only show if there are schedules */
+                    schedules.length > 0 && (
+                        <div className="status-filters">
+                            <button
+                                className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
+                                onClick={() => setStatusFilter('all')}
+                            >
+                                {t('tabs.all', { count: schedules.length })}
+                            </button>
+                            <button
+                                className={`status-filter-btn filter-active ${statusFilter === 'active' ? 'active' : ''}`}
+                                onClick={() => setStatusFilter('active')}
+                            >
+                                <div className="status-dot" />
+                                {t('tabs.active', { count: activeCount })}
+                            </button>
+                            <button
+                                className={`status-filter-btn filter-paused ${statusFilter === 'paused' ? 'active' : ''}`}
+                                onClick={() => setStatusFilter('paused')}
+                            >
+                                <div className="status-dot" />
+                                {t('tabs.paused', { count: pausedCount })}
+                            </button>
+                        </div>
+                    )}
+
+                {isGoogleAdsConnected && (
+                    <div className="mb-6">
+                        <FilterBar
+                            accounts={accounts}
+                            selectedAccountId={selectedAccountId}
+                            onAccountChange={setSelectedAccountId}
+                            campaigns={campaigns}
+                            selectedCampaignId={selectedCampaignId}
+                            onCampaignChange={setSelectedCampaignId}
+                            loadingCampaigns={loadingCampaigns}
+                        />
                     </div>
                 )}
 
-            {isGoogleAdsConnected && (
-                <div className="mb-6">
-                    <FilterBar
-                        accounts={accounts}
-                        selectedAccountId={selectedAccountId}
-                        onAccountChange={setSelectedAccountId}
-                        campaigns={campaigns}
-                        selectedCampaignId={selectedCampaignId}
-                        onCampaignChange={setSelectedCampaignId}
-                        loadingCampaigns={loadingCampaigns}
-                    />
-                </div>
-            )}
+                {
+                    /* Controls Bar - Always visible if there are schedules */
+                    (schedules.length > 0 || searchQuery) && (
+                        <div className="controls-bar">
+                            <div className="search-box">
+                                <Search size={18} />
+                                <input
+                                    type="text"
+                                    placeholder={t('searchPlaceholder')}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
 
-            {
-                /* Controls Bar - Always visible if there are schedules */
-                (schedules.length > 0 || searchQuery) && (
-                    <div className="controls-bar">
-                        <div className="search-box">
-                            <Search size={18} />
-                            <input
-                                type="text"
-                                placeholder={t('searchPlaceholder')}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
+                            <div className="view-controls">
+                                <button
+                                    className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                                    onClick={() => setViewMode('grid')}
+                                    title={t('gridView')}
+                                >
+                                    <Grid size={18} />
+                                </button>
+                                <button
+                                    className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                                    onClick={() => setViewMode('list')}
+                                    title={t('listView')}
+                                >
+                                    <ListIcon size={18} />
+                                </button>
+                            </div>
                         </div>
-
-                        <div className="view-controls">
-                            <button
-                                className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                                onClick={() => setViewMode('grid')}
-                                title={t('gridView')}
-                            >
-                                <Grid size={18} />
-                            </button>
-                            <button
-                                className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
-                                onClick={() => setViewMode('list')}
-                                title={t('listView')}
-                            >
-                                <ListIcon size={18} />
-                            </button>
-                        </div>
-                    </div>
-                )
-            }
-
-            <FeatureAccessGuard featureName="les rapports programmés">
+                    )
+                }
 
                 {googleAuthError && isGoogleAdsConnected && (
                     <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
@@ -421,10 +427,10 @@ const ScheduledReports: React.FC = () => {
                         <button
                             className="btn-primary"
                             onClick={handleCreateSchedule}
-                            disabled={!isGoogleAdsConnected}
+                            disabled={!hasAccess}
                             style={{
-                                opacity: !isGoogleAdsConnected ? 0.5 : 1,
-                                cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
+                                opacity: !hasAccess ? 0.5 : 1,
+                                cursor: !hasAccess ? 'not-allowed' : 'pointer'
                             }}
                         >
                             <Plus size={20} />
