@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { BarChart3, ArrowRight, RefreshCw, LogOut } from 'lucide-react';
 import ErrorCard from '../components/ErrorCard';
 import Spinner from '../components/common/Spinner';
@@ -8,6 +9,7 @@ import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { fetchCampaigns } from '../services/googleAds';
 
 const Dashboard = () => {
+    const { t } = useTranslation('dashboard');
     const { linkGoogleAds } = useAuth();
     const { customerId, isConnected, setLinkedCustomerId, accounts, loading: contextLoading } = useGoogleAds(); // Use context accounts
     const [searchParams] = useSearchParams();
@@ -24,7 +26,7 @@ const Dashboard = () => {
         const oauthSuccess = searchParams.get('oauth');
 
         if (oauthError) {
-            setError(oauthMessage || "Erreur d'authentification OAuth");
+            setError(oauthMessage || t('errors.auth'));
             setStep('CONNECT');
         } else if (oauthSuccess === 'success') {
             // Give Firebase a moment to propagate the write if needed, then check
@@ -52,7 +54,7 @@ const Dashboard = () => {
                 // Still loading accounts or none found...
                 // Context loading should handle brief wait, but if accounts empty after load:
                 if (!contextLoading && accounts.length === 0) {
-                    setError("Aucun compte Google Ads trouvé.");
+                    setError(t('accountSelector.noAccounts'));
                     setStep('SELECT_ACCOUNT');
                 }
             }
@@ -84,9 +86,9 @@ const Dashboard = () => {
             console.error(err);
             if (err?.message?.includes('invalid_grant') || err?.message?.includes('UNAUTHENTICATED')) {
                 setStep('CONNECT');
-                setError("Votre session Google Ads a expiré. Veuillez vous reconnecter.");
+                setError(t('errors.sessionExpired'));
             } else {
-                setError("Erreur lors du chargement des campagnes.");
+                setError(t('errors.loadingCampaigns'));
             }
         } finally {
             setLoading(false);
@@ -104,7 +106,7 @@ const Dashboard = () => {
             }
         } catch (error) {
             console.error("Connection failed", error);
-            setError("Échec de la connexion.");
+            setError(t('errors.connectionFailed'));
         } finally {
             setLoading(false);
         }
@@ -141,15 +143,15 @@ const Dashboard = () => {
                     <BarChart3 size={48} className="text-blue-600" />
                 </div>
                 <div className="max-w-md space-y-3">
-                    <h2 className="text-2xl font-bold">Connectez Google Ads</h2>
-                    <p className="text-gray-500">Accédez à vos campagnes pour commencer l'optimisation.</p>
+                    <h2 className="text-2xl font-bold">{t('connect.title')}</h2>
+                    <p className="text-gray-500">{t('connect.description')}</p>
                 </div>
 
-                {error && <ErrorCard title="Erreur de connexion" message={error} />}
+                {error && <ErrorCard title={t('errors.connection')} message={error} />}
 
                 <button onClick={handleConnect} disabled={loading} className="btn btn-primary btn-wide mt-2 flex items-center justify-center gap-2">
                     {loading && <Spinner size={20} className="text-white" />}
-                    <span>{loading ? 'Connexion en cours...' : 'Connecter un compte'}</span>
+                    <span>{loading ? t('connect.connecting') : t('connect.button')}</span>
                 </button>
             </div>
         );
@@ -159,8 +161,8 @@ const Dashboard = () => {
         return (
             <div className="max-w-md mx-auto space-y-8">
                 <div className="space-y-3">
-                    <h2 className="text-2xl font-bold text-center">Choisissez un compte</h2>
-                    <p className="text-gray-500 text-center text-sm">Sélectionnez le compte Google Ads à utiliser</p>
+                    <h2 className="text-2xl font-bold text-center">{t('accountSelector.title')}</h2>
+                    <p className="text-gray-500 text-center text-sm">{t('accountSelector.description')}</p>
                 </div>
 
                 {error && <ErrorCard message={error} />}
@@ -181,7 +183,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 )}
-                <button onClick={handleLogoutAds} className="btn btn-ghost w-full mt-4">Annuler</button>
+                <button onClick={handleLogoutAds} className="btn btn-ghost w-full mt-4">{t('connect.cancel')}</button>
             </div>
         );
     }
@@ -191,14 +193,14 @@ const Dashboard = () => {
         <div className="space-y-6">
             <div className="flex justify-between items-center bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
                 <div className="space-y-1">
-                    <h1 className="text-2xl font-bold">Vos Campagnes</h1>
-                    <p className="text-gray-500 text-sm">Compte: {accounts.find(a => a.id === customerId)?.name || customerId}</p>
+                    <h1 className="text-2xl font-bold">{t('campaigns.title')}</h1>
+                    <p className="text-gray-500 text-sm">{t('accountSelector.accountLabel', { name: accounts.find(a => a.id === customerId)?.name || customerId })}</p>
                 </div>
                 <div className="flex gap-3">
-                    <button onClick={() => loadCampaigns()} className="btn btn-ghost" title="Actualiser">
+                    <button onClick={() => loadCampaigns()} className="btn btn-ghost" title={t('campaigns.refresh')}>
                         <RefreshCw size={18} className={loading ? 'animate-spin' : ''} />
                     </button>
-                    <button onClick={handleLogoutAds} className="btn btn-ghost text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" title="Déconnecter">
+                    <button onClick={handleLogoutAds} className="btn btn-ghost text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" title={t('actions.disconnect')}>
                         <LogOut size={18} />
                     </button>
                 </div>
@@ -211,14 +213,14 @@ const Dashboard = () => {
                     <table className="w-full">
                         <thead className="bg-gray-50 dark:bg-gray-700/50 text-left text-xs uppercase tracking-wider text-gray-500">
                             <tr>
-                                <th className="p-4">Nom</th>
-                                <th className="p-4">Statut</th>
-                                <th className="p-4">Type</th>
-                                <th className="p-4 text-right">Dépenses</th>
-                                <th className="p-4 text-right">Impr.</th>
-                                <th className="p-4 text-right">Clics</th>
-                                <th className="p-4 text-right">CTR</th>
-                                <th className="p-4 text-right">CPC Moy.</th>
+                                <th className="p-4">{t('table.headers.name')}</th>
+                                <th className="p-4">{t('table.headers.status')}</th>
+                                <th className="p-4">{t('table.headers.type')}</th>
+                                <th className="p-4 text-right">{t('table.headers.spend')}</th>
+                                <th className="p-4 text-right">{t('table.headers.impressions')}</th>
+                                <th className="p-4 text-right">{t('table.headers.clicks')}</th>
+                                <th className="p-4 text-right">{t('table.headers.ctr')}</th>
+                                <th className="p-4 text-right">{t('table.headers.averageCpc')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
@@ -226,7 +228,7 @@ const Dashboard = () => {
                                 <tr key={c.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
                                     <td className="p-4 font-medium">{c.name}</td>
                                     <td className="p-4"><span className={`badge badge-sm ${c.status === 'ENABLED' ? 'badge-success' : 'badge-ghost'}`}>{c.status}</span></td>
-                                    <td className="p-4 text-xs text-gray-500">{c.type || 'Inconnu'}</td>
+                                    <td className="p-4 text-xs text-gray-500">{c.type || t('table.unknown')}</td>
                                     <td className="p-4 text-right font-medium">{c.cost ? c.cost.toFixed(2) + ' €' : '-'}</td>
                                     <td className="p-4 text-right">{c.impressions?.toLocaleString() || '-'}</td>
                                     <td className="p-4 text-right">{c.clicks?.toLocaleString() || '-'}</td>
@@ -234,7 +236,7 @@ const Dashboard = () => {
                                     <td className="p-4 text-right">{c.averageCpc ? c.averageCpc.toFixed(2) + ' €' : '-'}</td>
                                 </tr>
                             )) : (
-                                <tr><td colSpan={8} className="p-8 text-center text-gray-500">Aucune campagne active trouvée.</td></tr>
+                                <tr><td colSpan={8} className="p-8 text-center text-gray-500">{t('campaigns.noCampaigns')}</td></tr>
                             )}
                         </tbody>
                     </table>

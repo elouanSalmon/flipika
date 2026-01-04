@@ -76,7 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         await signInWithPopup(auth, provider);
     };
 
-    const linkGoogleAds = async () => {
+    const linkGoogleAds = async (): Promise<boolean> => {
         try {
             // Get current user's ID token
             const user = auth.currentUser;
@@ -93,7 +93,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${idToken}`
-                }
+                },
+                body: JSON.stringify({
+                    origin: window.location.origin
+                })
             });
 
             if (!response.ok) {

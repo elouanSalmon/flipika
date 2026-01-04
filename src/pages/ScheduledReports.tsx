@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus, Clock, AlertCircle, Search, Grid, List as ListIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
@@ -34,6 +35,7 @@ interface GoogleAdsAccount {
 type StatusFilter = 'all' | 'active' | 'paused';
 
 const ScheduledReports: React.FC = () => {
+    const { t } = useTranslation('schedules');
     const { currentUser } = useAuth();
     const { isConnected: isGoogleAdsConnected } = useGoogleAds();
     const [schedules, setSchedules] = useState<ScheduledReport[]>([]);
@@ -112,7 +114,7 @@ const ScheduledReports: React.FC = () => {
                             accountsResponse.error.includes('UNAUTHENTICATED')
                         )) {
                             setGoogleAuthError(true);
-                            toast.error('Session Google Ads expirée. Veuillez vous reconnecter dans les paramètres.');
+                            toast.error(t('errors.sessionExpired'));
                         }
                     }
                 } catch (err) {
@@ -124,7 +126,7 @@ const ScheduledReports: React.FC = () => {
 
         } catch (error: any) {
             console.error('Error loading data:', error);
-            toast.error('Erreur lors du chargement des données.');
+            toast.error(t('errors.loadingData'));
         } finally {
             setLoading(false);
         }
@@ -187,7 +189,7 @@ const ScheduledReports: React.FC = () => {
             // Find the selected template to get its account ID
             const selectedTemplate = templates.find(t => t.id === data.templateId);
             if (!selectedTemplate?.accountId) {
-                toast.error('Le template sélectionné n\'est lié à aucun compte Google Ads.');
+                toast.error(t('errors.noAccount'));
                 return;
             }
 
@@ -200,7 +202,7 @@ const ScheduledReports: React.FC = () => {
                     accountId: selectedTemplate.accountId, // Use template's account ID
                     scheduleConfig: data.scheduleConfig,
                 });
-                toast.success('Schedule mis à jour avec succès');
+                toast.success(t('toast.updated'));
             } else {
                 // Create new schedule
                 await createScheduledReport(currentUser.uid, {
@@ -210,7 +212,7 @@ const ScheduledReports: React.FC = () => {
                     accountId: selectedTemplate.accountId, // Use template's account ID
                     scheduleConfig: data.scheduleConfig,
                 });
-                toast.success('Schedule créé avec succès');
+                toast.success(t('toast.created'));
             }
 
             setIsModalOpen(false);
@@ -218,7 +220,7 @@ const ScheduledReports: React.FC = () => {
             await loadData();
         } catch (error: any) {
             console.error('Error saving schedule:', error);
-            toast.error(error.message || 'Erreur lors de la sauvegarde du schedule');
+            toast.error(error.message || t('errors.saving'));
         }
     };
 
@@ -232,32 +234,32 @@ const ScheduledReports: React.FC = () => {
 
         try {
             await deleteScheduledReport(scheduleToDelete.id);
-            toast.success('Schedule supprimé avec succès');
+            toast.success(t('toast.deleted'));
             setScheduleToDelete(null);
             await loadData();
         } catch (error: any) {
             console.error('Error deleting schedule:', error);
-            toast.error('Erreur lors de la suppression du schedule');
+            toast.error(t('errors.deleting'));
         }
     };
 
     const handleToggleStatus = async (schedule: ScheduledReport, isActive: boolean) => {
         try {
             await toggleScheduleStatus(schedule.id, isActive);
-            toast.success(isActive ? 'Schedule activé' : 'Schedule mis en pause');
+            toast.success(isActive ? t('toast.activated') : t('toast.paused'));
             await loadData();
         } catch (error: any) {
             console.error('Error toggling schedule status:', error);
-            toast.error('Erreur lors de la modification du statut');
+            toast.error(t('errors.toggleStatus'));
         }
     };
 
     const getTemplateName = (templateId: string): string => {
-        return templates.find(t => t.id === templateId)?.name || 'Template inconnu';
+        return templates.find(t => t.id === templateId)?.name || t('unknownTemplate');
     };
 
     const getAccountName = (accountId: string): string => {
-        return accounts.find(a => a.id === accountId)?.name || 'Compte inconnu';
+        return accounts.find(a => a.id === accountId)?.name || t('unknownAccount');
     };
 
     const activeCount = schedules.filter(s => s.isActive).length;
@@ -282,7 +284,7 @@ const ScheduledReports: React.FC = () => {
                 <div className="header-content">
                     <div className="header-title-row">
                         <Clock size={32} className="header-icon" />
-                        <h1>Rapports programmés</h1>
+                        <h1>{t('title')}</h1>
                         <button
                             className="btn-create"
                             onClick={handleCreateSchedule}
@@ -292,14 +294,14 @@ const ScheduledReports: React.FC = () => {
                                 cursor: (templates.length === 0 || !isGoogleAdsConnected) ? 'not-allowed' : 'pointer',
                                 marginLeft: 'auto'
                             }}
-                            title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des schedules' : templates.length === 0 ? 'Créez d\'abord un template' : ''}
+                            title={!isGoogleAdsConnected ? t('connectToCreate') : templates.length === 0 ? t('createTemplateFirst') : ''}
                         >
                             <Plus size={20} />
-                            <span>Nouveau schedule</span>
+                            <span>{t('newSchedule')}</span>
                         </button>
                     </div>
                     <p className="header-subtitle">
-                        Automatisez la génération de vos rapports sur une base régulière
+                        {t('description')}
                     </p>
                 </div>
             </div>
@@ -314,21 +316,21 @@ const ScheduledReports: React.FC = () => {
                             className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
                             onClick={() => setStatusFilter('all')}
                         >
-                            Tous ({schedules.length})
+                            {t('tabs.all', { count: schedules.length })}
                         </button>
                         <button
                             className={`status-filter-btn filter-active ${statusFilter === 'active' ? 'active' : ''}`}
                             onClick={() => setStatusFilter('active')}
                         >
                             <div className="status-dot" />
-                            Actifs ({activeCount})
+                            {t('tabs.active', { count: activeCount })}
                         </button>
                         <button
                             className={`status-filter-btn filter-paused ${statusFilter === 'paused' ? 'active' : ''}`}
                             onClick={() => setStatusFilter('paused')}
                         >
                             <div className="status-dot" />
-                            En pause ({pausedCount})
+                            {t('tabs.paused', { count: pausedCount })}
                         </button>
                     </div>
                 )}
@@ -355,7 +357,7 @@ const ScheduledReports: React.FC = () => {
                             <Search size={18} />
                             <input
                                 type="text"
-                                placeholder="Rechercher un schedule..."
+                                placeholder={t('searchPlaceholder')}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
@@ -365,14 +367,14 @@ const ScheduledReports: React.FC = () => {
                             <button
                                 className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
                                 onClick={() => setViewMode('grid')}
-                                title="Vue grille"
+                                title={t('gridView')}
                             >
                                 <Grid size={18} />
                             </button>
                             <button
                                 className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
                                 onClick={() => setViewMode('list')}
-                                title="Vue liste"
+                                title={t('listView')}
                             >
                                 <ListIcon size={18} />
                             </button>
@@ -387,11 +389,11 @@ const ScheduledReports: React.FC = () => {
                     <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
                         <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
                         <div>
-                            <h3 className="text-sm font-medium text-red-800 dark:text-red-300">Connexion Google Ads requise</h3>
+                            <h3 className="text-sm font-medium text-red-800 dark:text-red-300">{t('errors.connectionRequired')}</h3>
                             <p className="text-sm text-red-700 dark:text-red-400 mt-1">
-                                Impossible de récupérer vos comptes Google Ads. La session a probablement expiré.
+                                {t('errors.sessionExpiredText')}
                                 <a href="/app/settings" className="underline ml-1 font-medium hover:text-red-900 dark:hover:text-red-200">
-                                    Reconnecter le compte
+                                    {t('errors.reconnect')}
                                 </a>
                             </p>
                         </div>
@@ -401,13 +403,12 @@ const ScheduledReports: React.FC = () => {
                 {templates.length === 0 && (
                     <div className="empty-state warning">
                         <AlertCircle size={48} />
-                        <h3>Aucun template disponible</h3>
+                        <h3>{t('emptyState.noTemplates.title')}</h3>
                         <p>
-                            La programmation nécessite un <strong>modèle (template)</strong> pour générer les rapports.
-                            Vos rapports existants (page Rapports) ne sont pas des templates.
+                            {t('emptyState.noTemplates.description')}
                         </p>
                         <a href="/app/templates" className="btn-link">
-                            Créer un template →
+                            {t('emptyState.noTemplates.action')}
                         </a>
                     </div>
                 )}
@@ -415,8 +416,8 @@ const ScheduledReports: React.FC = () => {
                 {templates.length > 0 && schedules.length === 0 && (
                     <div className="empty-state">
                         <Clock size={64} />
-                        <h3>Aucun rapport programmé</h3>
-                        <p>Créez votre premier schedule pour automatiser la génération de rapports.</p>
+                        <h3>{t('emptyState.noSchedules.title')}</h3>
+                        <p>{t('emptyState.noSchedules.description')}</p>
                         <button
                             className="btn-primary"
                             onClick={handleCreateSchedule}
@@ -427,7 +428,7 @@ const ScheduledReports: React.FC = () => {
                             }}
                         >
                             <Plus size={20} />
-                            <span>Créer un schedule</span>
+                            <span>{t('emptyState.noSchedules.action')}</span>
                         </button>
                     </div>
                 )}
@@ -478,9 +479,9 @@ const ScheduledReports: React.FC = () => {
                         setScheduleToDelete(null);
                     }}
                     onConfirm={confirmDeleteSchedule}
-                    title="Supprimer le schedule"
-                    message={`Êtes-vous sûr de vouloir supprimer le schedule "${scheduleToDelete?.name}" ? Cette action est irréversible.`}
-                    confirmLabel="Supprimer"
+                    title={t('deleteConfirm.title')}
+                    message={t('deleteConfirm.message', { name: scheduleToDelete?.name })}
+                    confirmLabel={t('deleteConfirm.confirm')}
                     isDestructive={true}
                 />
             </FeatureAccessGuard>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { deleteReport, duplicateReport, archiveReport } from '../../../services/reportService';
@@ -17,6 +18,7 @@ interface ReportCardProps {
 }
 
 const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, accounts = [] }) => {
+    const { t } = useTranslation('reports');
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const [showMenu, setShowMenu] = useState(false);
@@ -43,10 +45,10 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
 
         try {
             const newReportId = await duplicateReport(report.id, currentUser.uid);
-            toast.success('Rapport dupliqué avec succès');
+            toast.success(t('card.toast.duplicated'));
             navigate(`/app/reports/${newReportId}`);
         } catch (error) {
-            toast.error('Erreur lors de la duplication');
+            toast.error(t('card.toast.duplicateError'));
         }
         setShowMenu(false);
     };
@@ -56,10 +58,10 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
 
         try {
             await archiveReport(report.id);
-            toast.success('Rapport archivé');
+            toast.success(t('card.toast.archived'));
             onDeleted();
         } catch (error) {
-            toast.error('Erreur lors de l\'archivage');
+            toast.error(t('card.toast.archiveError'));
         }
         setShowMenu(false);
     };
@@ -74,10 +76,10 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
         try {
             setIsDeleting(true);
             await deleteReport(report.id);
-            toast.success('Rapport supprimé');
+            toast.success(t('card.toast.deleted'));
             onDeleted();
         } catch (error) {
-            toast.error('Erreur lors de la suppression');
+            toast.error(t('card.toast.deleteError'));
         } finally {
             setIsDeleting(false);
         }
@@ -93,23 +95,23 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
 
     const getStatusBadge = () => {
         const config = {
-            draft: { label: 'Brouillon', className: 'draft' },
-            published: { label: 'Publié', className: 'published' },
-            archived: { label: 'Archivé', className: 'archived' },
+            draft: { label: t('card.status.draft'), className: 'draft' },
+            published: { label: t('card.status.published'), className: 'published' },
+            archived: { label: t('card.status.archived'), className: 'archived' },
         }[report.status] || { label: report.status, className: 'neutral' };
 
         return <span className={`status-badge ${config.className}`}>{config.label}</span>;
     };
 
     // Resolve account name - same logic as ReportConfigModal
-    const accountName = accounts.find(a => a.id === report.accountId)?.name || report.accountId || 'Non défini';
+    const accountName = accounts.find(a => a.id === report.accountId)?.name || report.accountId || t('card.noAccount');
 
     // Resolve campaigns text
     const campaignsText = report.campaignNames?.length
-        ? `${report.campaignNames.length} Campagne${report.campaignNames.length > 1 ? 's' : ''}`
+        ? t('card.campaigns', { count: report.campaignNames.length })
         : (report.campaignIds?.length
-            ? `${report.campaignIds.length} Campagne${report.campaignIds.length > 1 ? 's' : ''}`
-            : 'Aucune campagne');
+            ? t('card.campaigns', { count: report.campaignIds.length })
+            : t('card.noCampaigns'));
 
     return (
         <div
@@ -121,7 +123,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
                     <h3 className="listing-card-title">{report.title}</h3>
                     <div className="listing-card-subtitle">
                         <Calendar size={12} />
-                        Modifié le {formatDate(report.updatedAt)}
+                        {t('card.modifiedOn', { date: formatDate(report.updatedAt) })}
                     </div>
                 </div>
                 {getStatusBadge()}
@@ -146,11 +148,11 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
                 <div className="listing-card-stats">
                     <div className="listing-card-stat">
                         <span className="listing-card-stat-value">{report.sections.length}</span>
-                        <span className="listing-card-stat-label">Sections</span>
+                        <span className="listing-card-stat-label">{t('card.sections')}</span>
                     </div>
                     <div className="listing-card-stat border-l border-gray-200 dark:border-gray-700 pl-4">
                         <span className="listing-card-stat-value">{report.widgetIds?.length || 0}</span>
-                        <span className="listing-card-stat-label">Widgets</span>
+                        <span className="listing-card-stat-label">{t('card.widgets')}</span>
                     </div>
                 </div>
             </div>
@@ -158,11 +160,11 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
             {/* Actions Menu (Hover) */}
             <div className="listing-card-actions">
                 {report.status === 'published' && report.shareUrl && (
-                    <button onClick={handleViewPublic} className="action-btn-icon" title="Voir public">
+                    <button onClick={handleViewPublic} className="action-btn-icon" title={t('card.actions.viewPublic')}>
                         <ExternalLink size={16} />
                     </button>
                 )}
-                <button onClick={handleEdit} className="action-btn-icon" title="Éditer">
+                <button onClick={handleEdit} className="action-btn-icon" title={t('card.actions.edit')}>
                     <Edit size={16} />
                 </button>
                 <div className="relative">
@@ -179,21 +181,21 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
                                 onClick={handleDuplicate}
                                 className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
                             >
-                                <Copy size={14} /> Dupliquer
+                                <Copy size={14} /> {t('card.actions.duplicate')}
                             </button>
                             {report.status !== 'archived' && (
                                 <button
                                     onClick={handleArchive}
                                     className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
                                 >
-                                    <Archive size={14} /> Archiver
+                                    <Archive size={14} /> {t('card.actions.archive')}
                                 </button>
                             )}
                             <button
                                 onClick={handleDelete}
                                 className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2 border-t border-gray-100 dark:border-gray-700 mt-1"
                             >
-                                <Trash2 size={14} /> Supprimer
+                                <Trash2 size={14} /> {t('card.actions.delete')}
                             </button>
                         </div>
                     )}
@@ -204,9 +206,9 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
                 onConfirm={confirmDelete}
-                title="Supprimer le rapport"
-                message={`Êtes-vous sûr de vouloir supprimer le rapport "${report.title}" ?`}
-                confirmLabel="Supprimer"
+                title={t('card.deleteConfirm.title')}
+                message={t('card.deleteConfirm.message', { title: report.title })}
+                confirmLabel={t('card.deleteConfirm.confirm')}
                 isDestructive={true}
             />
         </div>

@@ -127,7 +127,7 @@ const PrivacyPolicy: React.FC = () => {
                   <li><strong>Droit de limitation :</strong> restreindre le traitement de vos données</li>
                 </ul>
                 <p>
-                  Pour exercer ces droits, contactez-nous à : <strong>privacy@flipika.com</strong>
+                  Pour exercer ces droits, contactez-nous à : <strong>helloflipika@gmail.com</strong>
                   ou par courrier à l'adresse indiquée ci-dessus.
                 </p>
               </section>

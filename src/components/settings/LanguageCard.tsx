@@ -1,8 +1,10 @@
 import { Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import LanguageSwitcher from '../LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const LanguageCard = () => {
+    const { t } = useTranslation('settings');
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -14,12 +16,12 @@ const LanguageCard = () => {
                 <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                     <Globe size={20} className="text-primary dark:text-primary-light" />
                 </div>
-                Langue
+                {t('language.title')}
             </h2>
 
             <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm transition-all duration-300 shadow-lg shadow-primary/5">
-                    <span className="text-gray-700 dark:text-gray-300 font-medium">Langue de l'interface</span>
+                    <span className="text-gray-700 dark:text-gray-300 font-medium">{t('language.interfaceLanguage')}</span>
                     <LanguageSwitcher />
                 </div>
             </div>

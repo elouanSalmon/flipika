@@ -47,7 +47,7 @@ const OAuthCallback = () => {
                 const idToken = await user.getIdToken();
 
                 // Call the Cloud Function to exchange the code for tokens
-                const response = await fetch(`${FUNCTIONS_BASE_URL}/handleOAuthCallback?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`, {
+                const response = await fetch(`${FUNCTIONS_BASE_URL}/handleOAuthCallback?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}&origin=${encodeURIComponent(window.location.origin)}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${idToken}`

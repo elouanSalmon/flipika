@@ -7,8 +7,10 @@ import ThemeManager from '../themes/ThemeManager';
 import dataService from '../../services/dataService';
 import type { Account } from '../../types/business';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ThemesCard = () => {
+    const { t } = useTranslation('settings');
     const { currentUser } = useAuth();
     const { isConnected } = useGoogleAds();
     const [showThemeManager, setShowThemeManager] = useState(false);
@@ -46,10 +48,10 @@ const ThemesCard = () => {
                         </div>
                         <div>
                             <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-                                Thèmes de rapport
+                                {t('themes.title')}
                             </h2>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
-                                Personnalisez l'apparence de vos rapports
+                                {t('themes.subtitle')}
                             </p>
                         </div>
                     </div>
@@ -57,7 +59,7 @@ const ThemesCard = () => {
 
                 <div className="space-y-4">
                     <p className="text-gray-600 dark:text-gray-400 text-sm">
-                        Créez des thèmes personnalisés pour vos rapports Google Ads et liez-les à vos comptes pour une application automatique.
+                        {t('themes.description')}
                     </p>
 
                     <button
@@ -65,7 +67,7 @@ const ThemesCard = () => {
                         className="btn btn-primary w-full justify-center"
                     >
                         <Plus className="w-5 h-5" />
-                        Gérer mes thèmes
+                        {t('themes.manageButton')}
                     </button>
                 </div>
             </motion.div>
@@ -80,7 +82,7 @@ const ThemesCard = () => {
                                 onClick={() => setShowThemeManager(false)}
                                 className="btn btn-secondary w-full"
                             >
-                                Fermer
+                                {t('themes.closeButton')}
                             </button>
                         </div>
                     </div>

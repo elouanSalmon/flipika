@@ -40,5 +40,29 @@
     "duplicateError": "Error duplicating template",
     "reportCreated": "Report created from template!",
     "reportError": "Error creating report"
+  },
+  "card": {
+    "noAccount": "Not defined",
+    "campaigns": "{{count}} Campaign{{count, plural, one {} other {s}}}",
+    "noCampaigns": "No campaigns",
+    "usedOn": "Used on {{date}}",
+    "createdOn": "Created on {{date}}",
+    "connectToUse": "Connect Google Ads",
+    "useTemplate": "Use this template",
+    "uses": "Uses",
+    "widgets": "Widgets",
+    "actions": {
+      "edit": "Edit",
+      "createReport": "Create report",
+      "duplicate": "Duplicate",
+      "delete": "Delete"
+    },
+    "widgetTypes": {
+      "performance": "Perf.",
+      "chart": "Chart",
+      "metrics": "Metrics",
+      "creatives": "Creatives",
+      "text": "Text"
+    }
   }
 }

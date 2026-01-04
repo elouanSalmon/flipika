@@ -40,5 +40,29 @@
     "duplicateError": "Erreur lors de la duplication du template",
     "reportCreated": "Rapport créé depuis le template !",
     "reportError": "Erreur lors de la création du rapport"
+  },
+  "card": {
+    "noAccount": "Non défini",
+    "campaigns": "{{count}} Campagne{{count, plural, one {} other {s}}}",
+    "noCampaigns": "Aucune campagne",
+    "usedOn": "Utilisé le {{date}}",
+    "createdOn": "Créé le {{date}}",
+    "connectToUse": "Connectez Google Ads",
+    "useTemplate": "Utiliser ce template",
+    "uses": "Utilisations",
+    "widgets": "Widgets",
+    "actions": {
+      "edit": "Modifier",
+      "createReport": "Créer un rapport",
+      "duplicate": "Dupliquer",
+      "delete": "Supprimer"
+    },
+    "widgetTypes": {
+      "performance": "Perf.",
+      "chart": "Graph.",
+      "metrics": "Métriques",
+      "creatives": "Créatives",
+      "text": "Texte"
+    }
   }
 }

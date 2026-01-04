@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Plus, Search, Grid, List as ListIcon, FileText } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
@@ -22,6 +23,7 @@ type StatusFilter = 'all' | 'draft' | 'published' | 'archived';
 const ITEMS_PER_PAGE = 9;
 
 const ReportsList: React.FC = () => {
+    const { t } = useTranslation('reports');
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const { isConnected: isGoogleAdsConnected, accounts } = useGoogleAds(); // Use accounts from context
@@ -161,7 +163,7 @@ const ReportsList: React.FC = () => {
             <div className="reports-list-page">
                 <div className="loading-container">
                     <Spinner size={48} />
-                    <div className="loading-text">Chargement des rapports...</div>
+                    <div className="loading-text">{t('list.loading')}</div>
                 </div>
             </div>
         );
@@ -173,16 +175,16 @@ const ReportsList: React.FC = () => {
                 <div className="header-content">
                     <div className="header-title-row">
                         <FileText size={32} className="header-icon" />
-                        <h1>Mes Rapports</h1>
+                        <h1>{t('list.title')}</h1>
                     </div>
-                    <p className="subtitle">Gérez et organisez vos rapports Google Ads</p>
+                    <p className="subtitle">{t('list.description')}</p>
                 </div>
                 <div className="flex gap-3">
                     <button
                         className="create-report-btn-secondary bg-white dark:bg-slate-800 text-primary border-primary/20 hover:border-primary hover:bg-primary/5 shadow-sm"
                         onClick={() => navigate('/app/templates')}
                     >
-                        Créer à partir d'un template
+                        {t('list.createFromTemplate')}
                     </button>
                     <button
                         className="create-report-btn"
@@ -192,10 +194,10 @@ const ReportsList: React.FC = () => {
                             opacity: !isGoogleAdsConnected ? 0.5 : 1,
                             cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
                         }}
-                        title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des rapports' : ''}
+                        title={!isGoogleAdsConnected ? t('list.connectToCreate') : ''}
                     >
                         <Plus size={20} />
-                        <span>Nouveau Rapport</span>
+                        <span>{t('list.newReport')}</span>
                     </button>
                 </div>
             </div>
@@ -207,28 +209,28 @@ const ReportsList: React.FC = () => {
                         className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
                         onClick={() => setStatusFilter('all')}
                     >
-                        Tous ({reports.length})
+                        {t('list.tabs.all', { count: reports.length })}
                     </button>
                     <button
                         className={`status-filter-btn filter-draft ${statusFilter === 'draft' ? 'active' : ''}`}
                         onClick={() => setStatusFilter('draft')}
                     >
                         <div className="status-dot" />
-                        Brouillons ({statusCounts.draft})
+                        {t('list.tabs.drafts', { count: statusCounts.draft })}
                     </button>
                     <button
                         className={`status-filter-btn filter-published ${statusFilter === 'published' ? 'active' : ''}`}
                         onClick={() => setStatusFilter('published')}
                     >
                         <div className="status-dot" />
-                        Publiés ({statusCounts.published})
+                        {t('list.tabs.published', { count: statusCounts.published })}
                     </button>
                     <button
                         className={`status-filter-btn filter-archived ${statusFilter === 'archived' ? 'active' : ''}`}
                         onClick={() => setStatusFilter('archived')}
                     >
                         <div className="status-dot" />
-                        Archivés ({statusCounts.archived})
+                        {t('list.tabs.archived', { count: statusCounts.archived })}
                     </button>
                 </div>
 
@@ -251,7 +253,7 @@ const ReportsList: React.FC = () => {
                         <Search size={18} />
                         <input
                             type="text"
-                            placeholder="Rechercher un rapport..."
+                            placeholder={t('list.searchPlaceholder')}
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -261,14 +263,14 @@ const ReportsList: React.FC = () => {
                         <button
                             className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
                             onClick={() => setViewMode('grid')}
-                            title="Vue grille"
+                            title={t('list.gridView')}
                         >
                             <Grid size={18} />
                         </button>
                         <button
                             className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
                             onClick={() => setViewMode('list')}
-                            title="Vue liste"
+                            title={t('list.listView')}
                         >
                             <ListIcon size={18} />
                         </button>
@@ -282,11 +284,11 @@ const ReportsList: React.FC = () => {
                             <div className="empty-icon">
                                 <FileText size={64} strokeWidth={1.5} />
                             </div>
-                            <h3>Aucun rapport trouvé</h3>
+                            <h3>{t('list.emptyState.noReports')}</h3>
                             <p>
                                 {searchQuery
-                                    ? 'Essayez de modifier votre recherche'
-                                    : 'Créez votre premier rapport pour commencer'}
+                                    ? t('list.emptyState.trySearch')
+                                    : t('list.emptyState.createFirst')}
                             </p>
                             {!searchQuery && (
                                 <button
@@ -297,10 +299,10 @@ const ReportsList: React.FC = () => {
                                         opacity: !isGoogleAdsConnected ? 0.5 : 1,
                                         cursor: !isGoogleAdsConnected ? 'not-allowed' : 'pointer'
                                     }}
-                                    title={!isGoogleAdsConnected ? 'Connectez Google Ads pour créer des rapports' : ''}
+                                    title={!isGoogleAdsConnected ? t('list.connectToCreate') : ''}
                                 >
                                     <Plus size={20} />
-                                    <span>Créer un rapport</span>
+                                    <span>{t('list.emptyState.createButton')}</span>
                                 </button>
                             )}
                         </div>

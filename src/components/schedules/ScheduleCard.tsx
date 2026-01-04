@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Clock, Calendar, MoreVertical, Edit2, Trash2, Power, PowerOff, ExternalLink, RefreshCw, BarChart2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import type { ScheduledReport } from '../../types/scheduledReportTypes';
@@ -24,6 +25,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     onToggleStatus,
     isGoogleAdsConnected = true,
 }) => {
+    const { t } = useTranslation('schedules');
     const [showMenu, setShowMenu] = React.useState(false);
     const navigate = useNavigate();
 
@@ -45,12 +47,12 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
     const getStatusBadge = () => {
         if (!schedule.isActive) {
-            return <span className="status-badge paused"><PowerOff size={10} /> En pause</span>;
+            return <span className="status-badge paused"><PowerOff size={10} /> {t('card.status.paused')}</span>;
         }
         if (schedule.status === 'error') {
-            return <span className="status-badge error">Erreur</span>;
+            return <span className="status-badge error">{t('card.status.error')}</span>;
         }
-        return <span className="status-badge active"><Power size={10} /> Actif</span>;
+        return <span className="status-badge active"><Power size={10} /> {t('card.status.active')}</span>;
     };
 
     const nextRun = schedule.nextRun ? new Date(schedule.nextRun) : null;
@@ -92,7 +94,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                         <div className="relative z-10">
                             <div className="flex items-center gap-1.5 text-primary text-xs font-semibold uppercase tracking-wider mb-2">
                                 <Clock size={12} />
-                                Prochaine exécution
+                                {t('card.nextRun.title')}
                             </div>
 
                             <div className="flex items-end justify-between">
@@ -106,7 +108,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                                         }) : '-'}
                                     </div>
                                     <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                                        Votre heure
+                                        {t('card.nextRun.localTime')}
                                     </div>
                                 </div>
 
@@ -135,8 +137,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 ) : (
                     <div className="flex flex-col items-center justify-center py-2 text-gray-500 dark:text-gray-400">
                         <PowerOff size={24} className="mb-2 opacity-50" />
-                        <span className="text-sm font-medium">Programmation en pause</span>
-                        <span className="text-xs opacity-75">Activez pour reprendre</span>
+                        <span className="text-sm font-medium">{t('card.paused.title')}</span>
+                        <span className="text-xs opacity-75">{t('card.paused.description')}</span>
                     </div>
                 )}
             </div>
@@ -159,16 +161,16 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                         <div className="flex flex-col">
-                            <span className="text-[10px] uppercase text-gray-400 font-semibold">Total</span>
+                            <span className="text-[10px] uppercase text-gray-400 font-semibold">{t('card.stats.total')}</span>
                             <span className="text-sm font-bold text-gray-700 dark:text-gray-200">{schedule.totalRuns}</span>
                         </div>
                         <div className="w-px h-6 bg-gray-200 dark:bg-gray-700"></div>
                         <div className="flex flex-col text-green-600 dark:text-green-400">
-                            <span className="text-[10px] uppercase font-semibold">Succès</span>
+                            <span className="text-[10px] uppercase font-semibold">{t('card.stats.success')}</span>
                             <span className="text-sm font-bold">{schedule.successfulRuns}</span>
                         </div>
                         <div className="flex flex-col text-red-500 dark:text-red-400">
-                            <span className="text-[10px] uppercase font-semibold">Échecs</span>
+                            <span className="text-[10px] uppercase font-semibold">{t('card.stats.failed')}</span>
                             <span className="text-sm font-bold">{schedule.failedRuns}</span>
                         </div>
                     </div>
@@ -178,18 +180,18 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                     <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded px-2 py-1.5">
                         <div className="flex items-center gap-1.5">
                             <Calendar size={12} />
-                            <span>Dernière: {lastRun.toLocaleDateString()}</span>
+                            <span>{t('card.lastRun', { date: lastRun.toLocaleDateString() })}</span>
                         </div>
                         {schedule.lastRunStatus === 'success' && schedule.lastGeneratedReportId && (
                             <button
                                 onClick={handleViewLastReport}
                                 className="flex items-center gap-1 text-primary hover:underline"
                             >
-                                Voir <ExternalLink size={10} />
+                                {t('card.viewReport')} <ExternalLink size={10} />
                             </button>
                         )}
                         {schedule.lastRunStatus === 'error' && (
-                            <span className="text-red-500 font-medium">Échec</span>
+                            <span className="text-red-500 font-medium">{t('card.failed')}</span>
                         )}
                     </div>
                 )}
@@ -200,7 +202,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 <button
                     className={`action-btn-icon ${schedule.isActive ? 'text-green-600 hover:bg-green-50' : 'text-gray-400'}`}
                     onClick={() => onToggleStatus(schedule, !schedule.isActive)}
-                    title={schedule.isActive ? 'Mettre en pause' : 'Activer'}
+                    title={schedule.isActive ? t('card.actions.pause') : t('card.actions.activate')}
                 >
                     {schedule.isActive ? <Power size={16} /> : <PowerOff size={16} />}
                 </button>
@@ -208,7 +210,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                     onClick={() => handleAction(() => onEdit(schedule))}
                     disabled={!isGoogleAdsConnected}
                     className={`action-btn-icon ${!isGoogleAdsConnected ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    title="Modifier"
+                    title={t('card.actions.edit')}
                 >
                     <Edit2 size={16} />
                 </button>
@@ -227,7 +229,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                                 onClick={() => handleAction(() => onDelete(schedule))}
                                 className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"
                             >
-                                <Trash2 size={14} /> Supprimer
+                                <Trash2 size={14} /> {t('card.actions.delete')}
                             </button>
                         </div>
                     )}

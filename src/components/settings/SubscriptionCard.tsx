@@ -5,8 +5,10 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import PricingInfoModal from '../billing/PricingInfoModal';
 import CanceledSubscriptionNotice from '../billing/CanceledSubscriptionNotice';
+import { useTranslation } from 'react-i18next';
 
 export default function SubscriptionCard() {
+    const { t } = useTranslation('settings');
     const { subscription, loading, isActive, openCustomerPortal } = useSubscription();
     const navigate = useNavigate();
     const [isOpeningPortal, setIsOpeningPortal] = useState(false);
@@ -59,10 +61,10 @@ export default function SubscriptionCard() {
                         <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                             <CreditCard size={20} className="text-primary dark:text-primary-light" />
                         </div>
-                        Abonnement
+                        {t('subscription.title')}
                     </h2>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        Consultez votre plan actuel et gérez vos options de facturation
+                        {t('subscription.description')}
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -78,20 +80,20 @@ export default function SubscriptionCard() {
                             <>
                                 <AlertCircle className="w-3.5 h-3.5" />
                                 <span>
-                                    {subscription.status === 'trialing' ? 'Essai annulé' : 'Annulé'} - Actif jusqu'au {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}
+                                    {subscription.status === 'trialing' ? t('subscription.status.trialCanceled') : t('subscription.status.canceled')} - {t('subscription.status.activeUntil')} {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}
                                 </span>
                             </>
                         ) : subscription?.status === 'trialing' && subscription.trialEndsAt ? (
                             <>
                                 <CheckCircle className="w-3.5 h-3.5" />
                                 <span>
-                                    Essai - {Math.max(0, Math.ceil((new Date(subscription.trialEndsAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))}j restants
+                                    {t('subscription.status.trial')} - {t('subscription.status.daysRemaining', { count: Math.max(0, Math.ceil((new Date(subscription.trialEndsAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24))) })}
                                 </span>
                             </>
                         ) : (
                             <>
                                 {isActive && <CheckCircle className="w-3.5 h-3.5" />}
-                                <span>{isActive ? 'Actif' : 'Inactif'}</span>
+                                <span>{isActive ? t('subscription.status.active') : t('subscription.status.inactive')}</span>
                             </>
                         )}
                     </div>
@@ -99,7 +101,7 @@ export default function SubscriptionCard() {
                         <button
                             onClick={() => setShowPricingModal(true)}
                             className="p-1.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-                            aria-label="Information sur la tarification"
+                            aria-label={t('subscription.pricingInfoLabel')}
                         >
                             <Info className="w-4 h-4 text-primary dark:text-primary-light" />
                         </button>
@@ -126,7 +128,7 @@ export default function SubscriptionCard() {
                         <div className="flex items-start space-x-3">
                             <Users className="w-5 h-5 text-primary mt-0.5" />
                             <div>
-                                <p className="text-xs text-gray-600 dark:text-gray-400">Comptes Google Ads</p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400">{t('subscription.info.seats')}</p>
                                 <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{subscription.currentSeats}</p>
                             </div>
                         </div>
@@ -134,7 +136,7 @@ export default function SubscriptionCard() {
                         <div className="flex items-start space-x-3">
                             <CreditCard className="w-5 h-5 text-primary mt-0.5" />
                             <div>
-                                <p className="text-xs text-gray-600 dark:text-gray-400">Montant mensuel</p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400">{t('subscription.info.monthlyAmount')}</p>
                                 <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{totalMonthly} €</p>
                                 <p className="text-xs text-gray-600 dark:text-gray-400">{PRICE_PER_SEAT}€ × {subscription.currentSeats}</p>
                             </div>
@@ -144,7 +146,7 @@ export default function SubscriptionCard() {
                             <Calendar className="w-5 h-5 text-primary mt-0.5" />
                             <div>
                                 <p className="text-xs text-gray-600 dark:text-gray-400">
-                                    {subscription.status === 'trialing' ? 'Fin de l\'essai' : 'Prochain paiement'}
+                                    {subscription.status === 'trialing' ? t('subscription.info.trialEnd') : t('subscription.info.nextPayment')}
                                 </p>
                                 <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                                     {subscription.status === 'trialing' && subscription.trialEndsAt
@@ -161,7 +163,7 @@ export default function SubscriptionCard() {
                     {subscription.status === 'trialing' && subscription.trialEndsAt && (
                         <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-primary-dark">
                             <p className="text-sm text-blue-900 dark:text-blue-300 font-medium">
-                                Vous êtes en période d'essai gratuit jusqu'au {new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR')}
+                                {t('subscription.messages.trialPeriod', { date: new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR') })}
                             </p>
                         </div>
                     )}
@@ -171,7 +173,7 @@ export default function SubscriptionCard() {
                             <div className="flex items-start gap-2">
                                 <AlertCircle className="w-4 h-4 text-yellow-900 dark:text-yellow-300 mt-0.5 flex-shrink-0" />
                                 <p className="text-sm text-yellow-900 dark:text-yellow-300">
-                                    Votre paiement a échoué. Veuillez mettre à jour votre moyen de paiement.
+                                    {t('subscription.messages.paymentFailed')}
                                 </p>
                             </div>
                         </div>
@@ -189,13 +191,13 @@ export default function SubscriptionCard() {
                             ) : (
                                 <ExternalLink className="w-4 h-4" />
                             )}
-                            <span>{isOpeningPortal ? 'Redirection...' : 'Gérer l\'abonnement'}</span>
+                            <span>{isOpeningPortal ? t('subscription.buttons.redirecting') : t('subscription.buttons.manage')}</span>
                         </button>
                         <button
                             onClick={handleViewBilling}
                             className="btn btn-secondary btn-sm"
                         >
-                            <span>Voir la facturation</span>
+                            <span>{t('subscription.buttons.viewBilling')}</span>
                         </button>
                     </div>
                 </>
@@ -204,27 +206,27 @@ export default function SubscriptionCard() {
                     {/* No Subscription */}
                     <div className="mb-6 space-y-3">
                         <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-lg border border-gray-200 dark:border-gray-600 p-4">
-                            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Aucun abonnement actif</h3>
+                            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('subscription.noSubscription.title')}</h3>
                             <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                                14 jours d'essai gratuit, puis facturation automatique selon vos besoins
+                                {t('subscription.noSubscription.description')}
                             </p>
                             <div className="mb-3 p-3 bg-gradient-to-br from-white to-gray-50 dark:from-gray-600 dark:to-gray-700 rounded-lg border border-gray-200 dark:border-gray-500">
-                                <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Tarification simple</p>
-                                <p className="text-2xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}€<span className="text-sm text-gray-600 dark:text-gray-400">/mois</span></p>
-                                <p className="text-xs text-gray-600 dark:text-gray-400">par compte Google Ads connecté</p>
+                                <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">{t('subscription.noSubscription.pricing')}</p>
+                                <p className="text-2xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}€<span className="text-sm text-gray-600 dark:text-gray-400">{t('subscription.noSubscription.perMonth')}</span></p>
+                                <p className="text-xs text-gray-600 dark:text-gray-400">{t('subscription.noSubscription.perAccount')}</p>
                             </div>
                             <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
                                 <li className="flex items-center gap-2">
                                     <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
-                                    <span>Rapports illimités</span>
+                                    <span>{t('subscription.noSubscription.features.unlimitedReports')}</span>
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
-                                    <span>Synchronisation automatique</span>
+                                    <span>{t('subscription.noSubscription.features.autoSync')}</span>
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
-                                    <span>Widgets personnalisables</span>
+                                    <span>{t('subscription.noSubscription.features.customWidgets')}</span>
                                 </li>
                             </ul>
                         </div>
@@ -234,7 +236,7 @@ export default function SubscriptionCard() {
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                             </svg>
-                            <span>Paiement sécurisé par <span className="font-semibold text-[#635BFF]">Stripe</span></span>
+                            <span>{t('subscription.noSubscription.securePayment')} <span className="font-semibold text-[#635BFF]">Stripe</span></span>
                         </div>
                     </div>
 
@@ -242,7 +244,7 @@ export default function SubscriptionCard() {
                         onClick={handleViewBilling}
                         className="btn btn-primary w-full"
                     >
-                        Commencer l'essai gratuit
+                        {t('subscription.noSubscription.startTrial')}
                     </button>
                 </>
             )}

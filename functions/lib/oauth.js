@@ -10,18 +10,12 @@ const validators_1 = require("./validators");
 const allowedOrigins = [
     'https://flipika.com',
     'https://flipika.web.app',
+    'https://flipika-dev.web.app',
     'https://flipika.firebaseapp.com',
     'http://localhost:5173', // Dev only
 ];
 const corsHandler = cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        }
-        else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: true,
     credentials: true,
 });
 // Helper to safely get env vars
@@ -35,19 +29,25 @@ const getEnvVar = (name) => {
     return value;
 };
 // OAuth2 client configuration - initialized inside functions to avoid startup errors
-const getOAuth2Client = async () => {
+const getOAuth2Client = async (origin) => {
     // Lazy load googleapis to avoid startup issues
     const { google } = await Promise.resolve().then(() => require("googleapis"));
+    // Validate origin against allowed list
+    // Remove trailing slash if present for comparison
+    const cleanOrigin = origin.endsWith('/') ? origin.slice(0, -1) : origin;
+    if (!allowedOrigins.includes(cleanOrigin)) {
+        console.error(`Invalid origin: ${origin}`);
+        throw new Error("Invalid origin");
+    }
     // Get env vars at runtime
     const clientId = getEnvVar('GOOGLE_ADS_CLIENT_ID');
     const clientSecret = getEnvVar('GOOGLE_ADS_CLIENT_SECRET');
     if (!clientId || !clientSecret) {
         throw new Error("Missing Google Ads credentials");
     }
-    // Temporarily using flipika.com URL while Google propagates the Cloud Function URL
-    // TODO: Switch back to direct Cloud Function URL once Google OAuth propagates:
-    // const callbackUrl = 'https://handleoauthcallback-o3qo2yyzia-uc.a.run.app';
-    const callbackUrl = 'https://flipika.com/oauth/callback';
+    // Construct dynamic callback URL based on origin
+    const callbackUrl = `${cleanOrigin}/oauth/callback`;
+    console.log(`Using callback URL: ${callbackUrl}`);
     return new google.auth.OAuth2(clientId, clientSecret, callbackUrl);
 };
 // Generate a random state for CSRF protection
@@ -59,9 +59,10 @@ const generateState = () => {
  * Using onRequest with cors package for proper CORS handling
  */
 exports.initiateOAuth = (0, https_1.onRequest)({ memory: '512MiB' }, async (req, res) => {
+    console.log(`initiateOAuth request: ${req.method} from ${req.headers.origin}`);
     // Wrap with CORS middleware
     return corsHandler(req, res, async () => {
-        console.log("initiateOAuth called");
+        console.log("initiateOAuth called (inside CORS middleware)");
         try {
             // Get user ID from Authorization header (Firebase ID token)
             const authHeader = req.headers.authorization;
@@ -72,6 +73,12 @@ exports.initiateOAuth = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
             const idToken = authHeader.split('Bearer ')[1];
             const decodedToken = await admin.auth().verifyIdToken(idToken);
             const userId = decodedToken.uid;
+            // Get origin from request body (preferred) or Referer header
+            const requestOrigin = req.body.origin || req.headers.origin || req.headers.referer;
+            if (!requestOrigin) {
+                res.status(400).json({ error: 'Missing origin' });
+                return;
+            }
             // Rate limiting: 5 requests per minute
             const allowed = await (0, rateLimiter_1.checkRateLimit)(userId, 'oauth_initiate', {
                 maxRequests: 5,
@@ -93,7 +100,7 @@ exports.initiateOAuth = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
                 createdAt: admin.firestore.FieldValue.serverTimestamp(),
                 expiresAt: admin.firestore.Timestamp.fromMillis(Date.now() + 10 * 60 * 1000) // 10 minutes
             });
-            const oauth2Client = await getOAuth2Client();
+            const oauth2Client = await getOAuth2Client(requestOrigin);
             const authUrl = oauth2Client.generateAuthUrl({
                 access_type: 'offline',
                 scope: [
@@ -124,7 +131,7 @@ exports.initiateOAuth = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
 exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async (req, res) => {
     // Wrap with CORS middleware
     return corsHandler(req, res, async () => {
-        const { code, state, error } = req.query;
+        const { code, state, error, origin } = req.query;
         // Handle OAuth errors
         if (error) {
             console.error("OAuth error:", error);
@@ -142,9 +149,14 @@ exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async
             res.status(400).json({ error: "Invalid code parameter" });
             return;
         }
+        if (!origin) {
+            console.error("Missing origin parameter");
+            res.status(400).json({ error: "Missing origin parameter" });
+            return;
+        }
         let userId = 'unknown';
         try {
-            console.log("OAuth callback started, code:", !!code, "state:", !!state);
+            console.log("OAuth callback started, code:", !!code, "state:", !!state, "origin:", origin);
             // Verify state to prevent CSRF
             const stateDoc = await admin.firestore()
                 .collection('oauth_states')
@@ -163,7 +175,7 @@ exports.handleOAuthCallback = (0, https_1.onRequest)({ memory: '512MiB' }, async
                 throw new Error("State has expired");
             }
             // Exchange code for tokens
-            const oauth2Client = await getOAuth2Client();
+            const oauth2Client = await getOAuth2Client(origin);
             console.log("Exchanging code for tokens...");
             const { tokens } = await oauth2Client.getToken(code);
             console.log("Received tokens, has refresh_token:", !!tokens.refresh_token);

@@ -114,5 +114,38 @@
   "toast": {
     "created": "Rapport créé !",
     "createError": "Erreur lors de la création du rapport"
+  },
+  "card": {
+    "status": {
+      "draft": "Brouillon",
+      "published": "Publié",
+      "archived": "Archivé"
+    },
+    "noAccount": "Non défini",
+    "campaigns": "{{count}} Campagne{{count, plural, one {} other {s}}}",
+    "noCampaigns": "Aucune campagne",
+    "modifiedOn": "Modifié le {{date}}",
+    "sections": "Sections",
+    "widgets": "Widgets",
+    "actions": {
+      "viewPublic": "Voir public",
+      "edit": "Éditer",
+      "duplicate": "Dupliquer",
+      "archive": "Archiver",
+      "delete": "Supprimer"
+    },
+    "toast": {
+      "duplicated": "Rapport dupliqué avec succès",
+      "duplicateError": "Erreur lors de la duplication",
+      "archived": "Rapport archivé",
+      "archiveError": "Erreur lors de l'archivage",
+      "deleted": "Rapport supprimé",
+      "deleteError": "Erreur lors de la suppression"
+    },
+    "deleteConfirm": {
+      "title": "Supprimer le rapport",
+      "message": "Êtes-vous sûr de vouloir supprimer le rapport \"{{title}}\" ?",
+      "confirm": "Supprimer"
+    }
   }
 }

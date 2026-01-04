@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -11,6 +12,7 @@ import PricingInfoModal from '../components/billing/PricingInfoModal';
 import CanceledSubscriptionNotice from '../components/billing/CanceledSubscriptionNotice';
 
 export default function BillingPage() {
+    const { t } = useTranslation('billing');
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const { currentUser } = useAuth();
@@ -35,12 +37,12 @@ export default function BillingPage() {
         // Check for checkout session status
         const session = searchParams.get('session');
         if (session === 'success') {
-            toast.success('Abonnement créé avec succès ! Bienvenue à bord');
+            toast.success(t('toast.subscriptionCreated'));
             // Remove query param
             searchParams.delete('session');
             navigate({ search: searchParams.toString() }, { replace: true });
         } else if (session === 'canceled') {
-            toast.error('Paiement annulé');
+            toast.error(t('toast.paymentCanceled'));
             searchParams.delete('session');
             navigate({ search: searchParams.toString() }, { replace: true });
         }
@@ -92,7 +94,7 @@ export default function BillingPage() {
             setIsCreatingCheckout(false);
         } catch (error: any) {
             console.error('Error creating checkout:', error);
-            toast.error('Erreur lors de la création du paiement');
+            toast.error(t('errors.creatingCheckout'));
             setIsCreatingCheckout(false);
         }
     };
@@ -105,7 +107,7 @@ export default function BillingPage() {
             setIsOpeningPortal(false);
         } catch (error: any) {
             console.error('Error opening portal:', error);
-            toast.error('Erreur lors de l\'ouverture du portail');
+            toast.error(t('errors.openingPortal'));
             setIsOpeningPortal(false);
         }
     };
@@ -114,10 +116,10 @@ export default function BillingPage() {
         setSyncing(true);
         try {
             await syncBilling();
-            toast.success('Facturation synchronisée avec succès');
+            toast.success(t('toast.billingSynced'));
         } catch (error: any) {
             console.error('Error syncing billing:', error);
-            toast.error('Erreur lors de la synchronisation');
+            toast.error(t('errors.syncing'));
         } finally {
             setSyncing(false);
         }
@@ -140,10 +142,10 @@ export default function BillingPage() {
                 <div className="mb-8">
                     <div className="flex items-center gap-4 mb-2">
                         <CreditCard className="w-8 h-8 text-[var(--color-primary)]" />
-                        <h1 className="text-[2rem] font-bold text-[var(--color-text-primary)]">Facturation & Abonnement</h1>
+                        <h1 className="text-[2rem] font-bold text-[var(--color-text-primary)]">{t('title')}</h1>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg">
-                        Gérez votre abonnement, modifiez vos moyens de paiement et consultez l'historique de vos factures
+                        {t('description')}
                     </p>
                 </div>
 

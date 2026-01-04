@@ -6,8 +6,10 @@ import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import ConfirmationModal from '../common/ConfirmationModal';
 import Spinner from '../common/Spinner';
+import { useTranslation } from 'react-i18next';
 
 const ConnectionsCard = () => {
+    const { t } = useTranslation('settings');
     // accounts is now provided by useGoogleAds
     const { isConnected, refreshConnectionStatus, disconnect, customerId, setLinkedCustomerId, accounts } = useGoogleAds();
     const { currentUser, loginWithGoogle } = useAuth();
@@ -20,11 +22,11 @@ const ConnectionsCard = () => {
         setIsConnecting(true);
         try {
             await initiateGoogleAdsOAuth();
-            toast.success('Connexion à Google Ads initiée');
+            toast.success(t('connections.toast.googleAdsInitiated'));
             refreshConnectionStatus();
         } catch (error) {
             console.error('Error connecting Google Ads:', error);
-            toast.error('Erreur lors de la connexion à Google Ads');
+            toast.error(t('connections.toast.googleAdsError'));
             setIsConnecting(false);
         }
     };
@@ -32,10 +34,10 @@ const ConnectionsCard = () => {
     const handleConnectGoogle = async () => {
         try {
             await loginWithGoogle();
-            toast.success('Compte Google connecté avec succès');
+            toast.success(t('connections.toast.googleConnected'));
         } catch (error) {
             console.error('Error connecting Google:', error);
-            toast.error('Erreur lors de la connexion Google');
+            toast.error(t('connections.toast.googleError'));
         }
     };
 
@@ -52,7 +54,7 @@ const ConnectionsCard = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                     </svg>
                 </div>
-                Connexions
+                {t('connections.title')}
             </h2>
 
             <div className="space-y-6">
@@ -80,13 +82,13 @@ const ConnectionsCard = () => {
                             </svg>
                         </div>
                         <div className="flex-1">
-                            <h3 className="font-semibold text-gray-900 dark:text-gray-100">Compte Google</h3>
+                            <h3 className="font-semibold text-gray-900 dark:text-gray-100">{t('connections.google.title')}</h3>
                             <p className="text-sm text-gray-600 dark:text-gray-400">
-                                {currentUser ? currentUser.email : 'Non connecté'}
+                                {currentUser ? currentUser.email : t('connections.google.notConnected')}
                             </p>
                             {currentUser && (
                                 <p className="text-xs text-primary dark:text-primary-light mt-1">
-                                    Méthode d'authentification principale
+                                    {t('connections.google.primaryAuth')}
                                 </p>
                             )}
                         </div>
@@ -94,18 +96,18 @@ const ConnectionsCard = () => {
                     <div className="flex items-center gap-3">
                         {currentUser ? (
                             <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
-                                Connecté
+                                {t('connections.status.connected')}
                             </span>
                         ) : (
                             <>
                                 <span className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
-                                    Non connecté
+                                    {t('connections.status.notConnected')}
                                 </span>
                                 <button
                                     onClick={handleConnectGoogle}
                                     className="btn btn-primary btn-sm"
                                 >
-                                    Connecter
+                                    {t('connections.actions.connect')}
                                 </button>
                             </>
                         )}
@@ -119,9 +121,9 @@ const ConnectionsCard = () => {
                                 <img src="/google-ads.svg" alt="Google Ads" className="w-7 h-7" />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-gray-900 dark:text-gray-100">Google Ads</h3>
+                                <h3 className="font-semibold text-gray-900 dark:text-gray-100">{t('connections.googleAds.title')}</h3>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Connectez votre compte publicitaire
+                                    {t('connections.googleAds.description')}
                                 </p>
                             </div>
                         </div>
@@ -130,14 +132,14 @@ const ConnectionsCard = () => {
                                 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
                                 : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                                 }`}>
-                                {isConnected ? 'Connecté' : 'Non connecté'}
+                                {isConnected ? t('connections.status.connected') : t('connections.status.notConnected')}
                             </span>
                             {isConnected ? (
                                 <button
                                     onClick={() => setShowDisconnectModal(true)}
                                     className="btn btn-secondary btn-sm"
                                 >
-                                    Déconnecter
+                                    {t('connections.actions.disconnect')}
                                 </button>
                             ) : (
                                 <button
@@ -146,7 +148,7 @@ const ConnectionsCard = () => {
                                     className="btn btn-primary btn-sm flex items-center gap-2"
                                 >
                                     {isConnecting && <Spinner size={16} className="text-white" />}
-                                    <span>{isConnecting ? 'Connexion...' : 'Connecter'}</span>
+                                    <span>{isConnecting ? t('connections.actions.connecting') : t('connections.actions.connect')}</span>
                                 </button>
                             )}
                         </div>
@@ -155,7 +157,7 @@ const ConnectionsCard = () => {
                     {isConnected && (
                         <div className="mt-4 border-t border-primary/20 dark:border-primary/30 pt-4">
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Compte par défaut
+                                {t('connections.googleAds.defaultAccount')}
                             </label>
                             <div className="relative">
                                 <select
@@ -164,12 +166,12 @@ const ConnectionsCard = () => {
                                         const newValue = e.target.value;
                                         setLinkedCustomerId(newValue || null);
                                         if (newValue) {
-                                            toast.success('Compte par défaut mis à jour');
+                                            toast.success(t('connections.toast.defaultAccountUpdated'));
                                         }
                                     }}
                                     className="w-full px-4 py-2.5 border-2 border-primary/30 dark:border-primary/40 rounded-xl bg-white/10 dark:bg-white/5 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 dark:hover:border-primary/50"
                                 >
-                                    <option value="">-- Sélectionner un compte --</option>
+                                    <option value="">{t('connections.googleAds.selectAccount')}</option>
                                     {accounts.map((account) => (
                                         <option key={account.id} value={account.id}>
                                             {account.name} ({account.id})
@@ -183,7 +185,7 @@ const ConnectionsCard = () => {
                                 </div>
                             </div>
                             <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                                Ce compte sera utilisé par défaut dans le tableau de bord.
+                                {t('connections.googleAds.defaultAccountHelp')}
                             </p>
                         </div>
                     )}
@@ -196,15 +198,15 @@ const ConnectionsCard = () => {
                 onConfirm={async () => {
                     try {
                         await disconnect();
-                        toast.success('Compte Google Ads déconnecté');
+                        toast.success(t('connections.toast.googleAdsDisconnected'));
                     } catch (error) {
                         console.error('Error disconnecting:', error);
-                        toast.error('Erreur lors de la déconnexion');
+                        toast.error(t('connections.toast.disconnectError'));
                     }
                 }}
-                title="Déconnecter Google Ads"
-                message="Voulez-vous vraiment déconnecter votre compte Google Ads ? Vous ne pourrez plus générer de rapports."
-                confirmLabel="Déconnecter"
+                title={t('connections.modal.disconnectTitle')}
+                message={t('connections.modal.disconnectMessage')}
+                confirmLabel={t('connections.modal.disconnectConfirm')}
                 isDestructive={true}
             />
         </motion.div >

@@ -1,8 +1,10 @@
 import { TestTube } from 'lucide-react';
 import { useDemoMode } from '../../contexts/DemoModeContext';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const DemoModeCard = () => {
+    const { t } = useTranslation('settings');
     const { isDemoMode, demoSettings, toggleDemoMode, updateDemoSettings, resetDemoData } = useDemoMode();
 
     return (
@@ -16,14 +18,14 @@ const DemoModeCard = () => {
                 <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                     <TestTube size={20} className="text-primary dark:text-primary-light" />
                 </div>
-                Mode Démo
+                {t('demoMode.title')}
             </h2>
 
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">Activer</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Données fictives</p>
+                        <p className="font-medium text-gray-900 dark:text-gray-100">{t('demoMode.enable')}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{t('demoMode.fakeData')}</p>
                     </div>
                     <button
                         onClick={toggleDemoMode}
@@ -46,7 +48,7 @@ const DemoModeCard = () => {
                     >
                         <div>
                             <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                                Comptes ({demoSettings.accountCount})
+                                {t('demoMode.accounts', { count: demoSettings.accountCount })}
                             </label>
                             <input
                                 type="range"
@@ -62,7 +64,7 @@ const DemoModeCard = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Complexité</label>
+                            <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('demoMode.complexity.label')}</label>
                             <div className="grid grid-cols-3 gap-2">
                                 {(['simple', 'medium', 'advanced'] as const).map((level) => (
                                     <button
@@ -73,24 +75,24 @@ const DemoModeCard = () => {
                                             : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300'
                                             }`}
                                     >
-                                        {level === 'simple' ? 'Simple' : level === 'medium' ? 'Moyen' : 'Avancé'}
+                                        {t(`demoMode.complexity.${level}`)}
                                     </button>
                                 ))}
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Secteur</label>
+                            <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('demoMode.industry.label')}</label>
                             <select
                                 value={demoSettings.industry}
                                 onChange={(e) => updateDemoSettings({ industry: e.target.value as any })}
                                 className="w-full px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-500 cursor-pointer"
                             >
-                                <option value="ecommerce">E-commerce</option>
-                                <option value="services">Services</option>
-                                <option value="saas">SaaS</option>
-                                <option value="local">Local</option>
-                                <option value="b2b">B2B</option>
+                                <option value="ecommerce">{t('demoMode.industry.ecommerce')}</option>
+                                <option value="services">{t('demoMode.industry.services')}</option>
+                                <option value="saas">{t('demoMode.industry.saas')}</option>
+                                <option value="local">{t('demoMode.industry.local')}</option>
+                                <option value="b2b">{t('demoMode.industry.b2b')}</option>
                             </select>
                         </div>
 
@@ -98,7 +100,7 @@ const DemoModeCard = () => {
                             onClick={resetDemoData}
                             className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 active:scale-95 transition-all duration-200 text-sm font-semibold text-gray-700 dark:text-gray-300"
                         >
-                            Réinitialiser
+                            {t('demoMode.reset')}
                         </button>
                     </motion.div>
                 )}

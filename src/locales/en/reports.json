@@ -114,5 +114,38 @@
   "toast": {
     "created": "Report created!",
     "createError": "Error creating report"
+  },
+  "card": {
+    "status": {
+      "draft": "Draft",
+      "published": "Published",
+      "archived": "Archived"
+    },
+    "noAccount": "Not defined",
+    "campaigns": "{{count}} Campaign{{count, plural, one {} other {s}}}",
+    "noCampaigns": "No campaigns",
+    "modifiedOn": "Modified on {{date}}",
+    "sections": "Sections",
+    "widgets": "Widgets",
+    "actions": {
+      "viewPublic": "View public",
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "archive": "Archive",
+      "delete": "Delete"
+    },
+    "toast": {
+      "duplicated": "Report duplicated successfully",
+      "duplicateError": "Error duplicating report",
+      "archived": "Report archived",
+      "archiveError": "Error archiving report",
+      "deleted": "Report deleted",
+      "deleteError": "Error deleting report"
+    },
+    "deleteConfirm": {
+      "title": "Delete report",
+      "message": "Are you sure you want to delete the report \"{{title}}\"?",
+      "confirm": "Delete"
+    }
   }
 }

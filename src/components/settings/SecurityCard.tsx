@@ -4,8 +4,10 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const SecurityCard = () => {
+    const { t } = useTranslation('settings');
     const { logout, hasPasswordProvider, createPassword, changePassword } = useAuth();
     const navigate = useNavigate();
     const hasPassword = hasPasswordProvider();
@@ -23,50 +25,50 @@ const SecurityCard = () => {
             navigate('/login');
         } catch (error) {
             console.error('Logout error:', error);
-            toast.error('Erreur lors de la déconnexion');
+            toast.error(t('security.errors.logout'));
         }
     };
 
     const handlePasswordSubmit = async () => {
         if (passwordForm.new !== passwordForm.confirm) {
-            toast.error('Les mots de passe ne correspondent pas');
+            toast.error(t('security.errors.passwordMismatch'));
             return;
         }
         if (passwordForm.new.length < 8) {
-            toast.error('Le mot de passe doit contenir au moins 8 caractères');
+            toast.error(t('security.errors.passwordTooShort'));
             return;
         }
         try {
             if (hasPassword) {
                 // Change existing password
                 if (!passwordForm.current) {
-                    toast.error('Veuillez entrer votre mot de passe actuel');
+                    toast.error(t('security.errors.currentPasswordRequired'));
                     return;
                 }
                 await changePassword(passwordForm.current, passwordForm.new);
-                toast.success('Mot de passe modifié avec succès');
+                toast.success(t('security.toast.passwordChanged'));
             } else {
                 // Create new password
                 await createPassword(passwordForm.new);
-                toast.success('Mot de passe créé avec succès');
+                toast.success(t('security.toast.passwordCreated'));
             }
             setShowPasswordModal(false);
             setPasswordForm({ current: '', new: '', confirm: '' });
         } catch (error: any) {
             console.error('Password operation error:', error);
             if (error.code === 'auth/wrong-password') {
-                toast.error('Mot de passe actuel incorrect');
+                toast.error(t('security.errors.wrongPassword'));
             } else if (error.code === 'auth/weak-password') {
-                toast.error('Le mot de passe est trop faible');
+                toast.error(t('security.errors.weakPassword'));
             } else {
-                toast.error(hasPassword ? 'Erreur lors du changement de mot de passe' : 'Erreur lors de la création du mot de passe');
+                toast.error(hasPassword ? t('security.errors.changePasswordError') : t('security.errors.createPasswordError'));
             }
         }
     };
 
     const getPasswordStrength = (password: string): { label: string; color: string; score: number } => {
         if (password.length === 0) return { label: '', color: '', score: 0 };
-        if (password.length < 8) return { label: 'Faible', color: 'bg-red-500', score: 25 };
+        if (password.length < 8) return { label: t('security.passwordStrength.weak'), color: 'bg-red-500', score: 25 };
 
         const hasUpper = /[A-Z]/.test(password);
         const hasNumber = /[0-9]/.test(password);
@@ -74,9 +76,9 @@ const SecurityCard = () => {
 
         const score = [hasUpper, hasNumber, hasSpecial].filter(Boolean).length;
 
-        if (score === 3) return { label: 'Fort', color: 'bg-green-500', score: 100 };
-        if (score >= 1) return { label: 'Moyen', color: 'bg-orange-500', score: 60 };
-        return { label: 'Faible', color: 'bg-red-500', score: 25 };
+        if (score === 3) return { label: t('security.passwordStrength.strong'), color: 'bg-green-500', score: 100 };
+        if (score >= 1) return { label: t('security.passwordStrength.medium'), color: 'bg-orange-500', score: 60 };
+        return { label: t('security.passwordStrength.weak'), color: 'bg-red-500', score: 25 };
     };
 
     const passwordStrength = getPasswordStrength(passwordForm.new);
@@ -93,7 +95,7 @@ const SecurityCard = () => {
                     <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                         <Shield size={20} className="text-primary dark:text-primary-light" />
                     </div>
-                    Sécurité
+                    {t('security.title')}
                 </h2>
 
                 <div className="space-y-3">
@@ -107,10 +109,10 @@ const SecurityCard = () => {
                             </div>
                             <div className="text-left">
                                 <p className="font-semibold text-gray-900 dark:text-gray-100">
-                                    {hasPassword ? 'Changer le mot de passe' : 'Créer un mot de passe'}
+                                    {hasPassword ? t('security.password.change') : t('security.password.create')}
                                 </p>
                                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    {hasPassword ? 'Modifié il y a 30 jours' : 'Ajoutez une méthode d\'authentification alternative'}
+                                    {hasPassword ? t('security.password.lastModified') : t('security.password.addAlternative')}
                                 </p>
                             </div>
                         </div>
@@ -126,8 +128,8 @@ const SecurityCard = () => {
                                 <LogOut size={18} className="text-red-600 dark:text-red-400" />
                             </div>
                             <div className="text-left">
-                                <p className="font-semibold text-red-700 dark:text-red-400">Se déconnecter</p>
-                                <p className="text-sm text-red-600 dark:text-red-500">Déconnexion de votre compte</p>
+                                <p className="font-semibold text-red-700 dark:text-red-400">{t('security.logout.title')}</p>
+                                <p className="text-sm text-red-600 dark:text-red-500">{t('security.logout.description')}</p>
                             </div>
                         </div>
                         <ChevronRight size={20} className="text-red-500/50 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors duration-300" />
@@ -154,7 +156,7 @@ const SecurityCard = () => {
                         >
                             <div className="flex items-center justify-between mb-6">
                                 <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                                    {hasPassword ? 'Changer le mot de passe' : 'Créer un mot de passe'}
+                                    {hasPassword ? t('security.modal.changePassword') : t('security.modal.createPassword')}
                                 </h3>
                                 <button
                                     onClick={() => setShowPasswordModal(false)}
@@ -167,7 +169,7 @@ const SecurityCard = () => {
                             <div className="space-y-4">
                                 {hasPassword && (
                                     <div>
-                                        <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Mot de passe actuel</label>
+                                        <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('security.modal.currentPassword')}</label>
                                         <div className="relative">
                                             <input
                                                 type={showPassword.current ? "text" : "password"}
@@ -187,7 +189,7 @@ const SecurityCard = () => {
                                 )}
 
                                 <div>
-                                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Nouveau mot de passe</label>
+                                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('security.modal.newPassword')}</label>
                                     <div className="relative">
                                         <input
                                             type={showPassword.new ? "text" : "password"}
@@ -215,14 +217,14 @@ const SecurityCard = () => {
                                                 <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">{passwordStrength.label}</span>
                                             </div>
                                             <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                Min 8 caractères, 1 majuscule, 1 chiffre, 1 spécial
+                                                {t('security.modal.passwordRequirements')}
                                             </p>
                                         </div>
                                     )}
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Confirmer</label>
+                                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('security.modal.confirmPassword')}</label>
                                     <div className="relative">
                                         <input
                                             type={showPassword.confirm ? "text" : "password"}
@@ -239,7 +241,7 @@ const SecurityCard = () => {
                                         </button>
                                     </div>
                                     {passwordForm.confirm && passwordForm.new !== passwordForm.confirm && (
-                                        <p className="text-sm text-red-600 dark:text-red-400 mt-1">Les mots de passe ne correspondent pas</p>
+                                        <p className="text-sm text-red-600 dark:text-red-400 mt-1">{t('security.modal.passwordMismatchError')}</p>
                                     )}
                                 </div>
                             </div>
@@ -249,13 +251,13 @@ const SecurityCard = () => {
                                     onClick={() => setShowPasswordModal(false)}
                                     className="btn btn-secondary flex-1"
                                 >
-                                    Annuler
+                                    {t('security.modal.cancel')}
                                 </button>
                                 <button
                                     onClick={handlePasswordSubmit}
                                     className="btn btn-primary flex-1"
                                 >
-                                    {hasPassword ? 'Changer' : 'Créer'}
+                                    {hasPassword ? t('security.modal.change') : t('security.modal.create')}
                                 </button>
                             </div>
                         </motion.div>

@@ -40,7 +40,10 @@ export const initiateGoogleAdsOAuth = async () => {
         const headers = await getAuthHeaders();
         const response = await fetch(`${FUNCTIONS_BASE_URL}/initiateOAuth`, {
             method: 'POST',
-            headers
+            headers,
+            body: JSON.stringify({
+                origin: window.location.origin
+            })
         });
 
         if (!response.ok) {

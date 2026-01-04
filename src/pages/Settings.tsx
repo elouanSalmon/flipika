@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import ProfileCard from '../components/settings/ProfileCard';
 import SecurityCard from '../components/settings/SecurityCard';
 import ConnectionsCard from '../components/settings/ConnectionsCard';
@@ -10,6 +11,7 @@ import { motion } from 'framer-motion';
 import { Settings as SettingsIcon } from 'lucide-react';
 
 const Settings = () => {
+    const { t } = useTranslation('settings');
     return (
         <div className="p-4 md:p-8 max-w-6xl mx-auto">
             {/* Header */}
@@ -21,11 +23,11 @@ const Settings = () => {
                 <div className="flex items-center gap-4 mb-2">
                     <SettingsIcon className="w-8 h-8 text-[var(--color-primary)]" />
                     <h1 className="text-[2rem] font-bold text-primary">
-                        Paramètres
+                        {t('title')}
                     </h1>
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg">
-                    Gérez votre compte et vos préférences
+                    {t('description')}
                 </p>
             </motion.div>
 

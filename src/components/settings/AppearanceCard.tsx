@@ -1,8 +1,10 @@
 import { Palette } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ThemeToggle from '../ThemeToggle';
+import { useTranslation } from 'react-i18next';
 
 const AppearanceCard = () => {
+    const { t } = useTranslation('settings');
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -14,7 +16,7 @@ const AppearanceCard = () => {
                 <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                     <Palette size={20} className="text-primary dark:text-primary-light" />
                 </div>
-                Apparence
+                {t('appearance.title')}
             </h2>
 
             <div className="space-y-4">

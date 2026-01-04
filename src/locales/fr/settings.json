@@ -3,52 +3,78 @@
   "description": "Gérez votre compte et vos préférences",
   "profile": {
     "title": "Profil",
-    "username": "Identifiant unique",
-    "firstName": "Prénom",
-    "lastName": "Nom",
-    "email": "Email",
-    "company": "Entreprise (optionnel)",
-    "description": "Description (optionnel)",
-    "shareUrl": "Lien de partage : flipika.com/report/{username}/...",
-    "edit": "Modifier le profil",
-    "cancel": "Annuler",
-    "save": "Enregistrer",
-    "saving": "Enregistrement...",
-    "updateSuccess": "Profile updated successfully",
-    "updateError": "Failed to update profile"
+    "labels": {
+      "username": "Identifiant unique",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Email",
+      "company": "Entreprise",
+      "description": "Description"
+    },
+    "optional": "optionnel",
+    "shareLink": "Lien de partage : flipika.com/report/{{username}}/...",
+    "characterCount": "{{count}}/{{max}}",
+    "buttons": {
+      "edit": "Modifier le profil",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
+    },
+    "errors": {
+      "invalidUsername": "Identifiant invalide",
+      "usernameTaken": "Cet identifiant est déjà pris",
+      "firstNameRequired": "Le prénom est requis",
+      "lastNameRequired": "Le nom est requis",
+      "usernameRequired": "L'identifiant est requis",
+      "usernameNotAvailable": "Cet identifiant n'est pas disponible"
+    },
+    "toast": {
+      "updated": "Profil mis à jour avec succès",
+      "updateError": "Erreur lors de la mise à jour du profil"
+    }
   },
   "security": {
     "title": "Sécurité",
-    "changePassword": "Changer le mot de passe",
-    "createPassword": "Créer un mot de passe",
-    "lastModified": "Modifié il y a 30 jours",
-    "addAuth": "Ajoutez une méthode d'authentification alternative",
-    "logout": "Se déconnecter",
-    "logoutDescription": "Déconnexion de votre compte",
-    "currentPassword": "Mot de passe actuel",
-    "newPassword": "Nouveau mot de passe",
-    "confirmPassword": "Confirmer",
-    "passwordRules": "Min 8 caractères, 1 majuscule, 1 chiffre, 1 spécial",
-    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "password": {
+      "change": "Changer le mot de passe",
+      "create": "Créer un mot de passe",
+      "lastModified": "Modifié il y a 30 jours",
+      "addAlternative": "Ajoutez une méthode d'authentification alternative"
+    },
+    "logout": {
+      "title": "Se déconnecter",
+      "description": "Déconnexion de votre compte"
+    },
+    "modal": {
+      "changePassword": "Changer le mot de passe",
+      "createPassword": "Créer un mot de passe",
+      "currentPassword": "Mot de passe actuel",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer",
+      "passwordRequirements": "Min 8 caractères, 1 majuscule, 1 chiffre, 1 spécial",
+      "passwordMismatchError": "Les mots de passe ne correspondent pas",
+      "cancel": "Annuler",
+      "change": "Changer",
+      "create": "Créer"
+    },
     "passwordStrength": {
       "weak": "Faible",
       "medium": "Moyen",
       "strong": "Fort"
     },
-    "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
-    "currentPasswordRequired": "Veuillez entrer votre mot de passe actuel",
-    "actions": {
-      "change": "Changer",
-      "create": "Créer"
+    "errors": {
+      "logout": "Erreur lors de la déconnexion",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+      "currentPasswordRequired": "Veuillez entrer votre mot de passe actuel",
+      "wrongPassword": "Mot de passe actuel incorrect",
+      "weakPassword": "Le mot de passe est trop faible",
+      "changePasswordError": "Erreur lors du changement de mot de passe",
+      "createPasswordError": "Erreur lors de la création du mot de passe"
     },
     "toast": {
       "passwordChanged": "Mot de passe modifié avec succès",
-      "passwordCreated": "Mot de passe créé avec succès",
-      "logoutError": "Erreur lors de la déconnexion",
-      "wrongPassword": "Mot de passe actuel incorrect",
-      "weakPassword": "Le mot de passe est trop faible",
-      "changeError": "Erreur lors du changement de mot de passe",
-      "createError": "Erreur lors de la création du mot de passe"
+      "passwordCreated": "Mot de passe créé avec succès"
     }
   },
   "connections": {
@@ -56,32 +82,115 @@
     "google": {
       "title": "Compte Google",
       "notConnected": "Non connecté",
-      "description": "Méthode d'authentification principale",
-      "connected": "Connecté",
-      "connect": "Connecter"
+      "primaryAuth": "Méthode d'authentification principale"
     },
     "googleAds": {
       "title": "Google Ads",
       "description": "Connectez votre compte publicitaire",
-      "connected": "Connecté",
-      "notConnected": "Non connecté",
-      "disconnect": "Déconnecter",
-      "connect": "Connecter",
       "defaultAccount": "Compte par défaut",
       "selectAccount": "-- Sélectionner un compte --",
-      "defaultDescription": "Ce compte sera utilisé par défaut dans le tableau de bord."
+      "defaultAccountHelp": "Ce compte sera utilisé par défaut dans le tableau de bord."
+    },
+    "status": {
+      "connected": "Connecté",
+      "notConnected": "Non connecté"
+    },
+    "actions": {
+      "connect": "Connecter",
+      "disconnect": "Déconnecter",
+      "connecting": "Connexion..."
+    },
+    "modal": {
+      "disconnectTitle": "Déconnecter Google Ads",
+      "disconnectMessage": "Voulez-vous vraiment déconnecter votre compte Google Ads ? Vous ne pourrez plus générer de rapports.",
+      "disconnectConfirm": "Déconnecter"
     },
     "toast": {
-      "adsInitiated": "Connexion à Google Ads initiée",
-      "adsError": "Erreur lors de la connexion à Google Ads",
+      "googleAdsInitiated": "Connexion à Google Ads initiée",
+      "googleAdsError": "Erreur lors de la connexion à Google Ads",
       "googleConnected": "Compte Google connecté avec succès",
       "googleError": "Erreur lors de la connexion Google",
-      "adsDisconnected": "Compte Google Ads déconnecté"
-    },
-    "confirmDisconnect": {
-      "title": "Déconnecter Google Ads",
-      "message": "Voulez-vous vraiment déconnecter votre compte Google Ads ? Vous ne pourrez plus générer de rapports.",
-      "disconnect": "Déconnecter"
+      "googleAdsDisconnected": "Compte Google Ads déconnecté",
+      "disconnectError": "Erreur lors de la déconnexion",
+      "defaultAccountUpdated": "Compte par défaut mis à jour"
     }
+  },
+  "subscription": {
+    "title": "Abonnement",
+    "description": "Consultez votre plan actuel et gérez vos options de facturation",
+    "pricingInfoLabel": "Information sur la tarification",
+    "status": {
+      "trialCanceled": "Essai annulé",
+      "canceled": "Annulé",
+      "activeUntil": "Actif jusqu'au",
+      "trial": "Essai",
+      "daysRemaining": "{{count}}j restants",
+      "active": "Actif",
+      "inactive": "Inactif"
+    },
+    "messages": {
+      "trialPeriod": "Vous êtes en période d'essai gratuit jusqu'au {{date}}",
+      "paymentFailed": "Votre paiement a échoué. Veuillez mettre à jour votre moyen de paiement."
+    },
+    "info": {
+      "seats": "Comptes Google Ads",
+      "monthlyAmount": "Montant mensuel",
+      "trialEnd": "Fin de l'essai",
+      "nextPayment": "Prochain paiement"
+    },
+    "buttons": {
+      "manage": "Gérer l'abonnement",
+      "viewBilling": "Voir la facturation",
+      "redirecting": "Redirection..."
+    },
+    "noSubscription": {
+      "title": "Aucun abonnement actif",
+      "description": "14 jours d'essai gratuit, puis facturation automatique selon vos besoins",
+      "pricing": "Tarification simple",
+      "perMonth": "/mois",
+      "perAccount": "par compte Google Ads connecté",
+      "features": {
+        "unlimitedReports": "Rapports illimités",
+        "autoSync": "Synchronisation automatique",
+        "customWidgets": "Widgets personnalisables"
+      },
+      "securePayment": "Paiement sécurisé par",
+      "startTrial": "Commencer l'essai gratuit"
+    }
+  },
+  "appearance": {
+    "title": "Apparence"
+  },
+  "themes": {
+    "title": "Thèmes de rapport",
+    "subtitle": "Personnalisez l'apparence de vos rapports",
+    "description": "Créez des thèmes personnalisés pour vos rapports Google Ads et liez-les à vos comptes pour une application automatique.",
+    "manageButton": "Gérer mes thèmes",
+    "closeButton": "Fermer"
+  },
+  "language": {
+    "title": "Langue",
+    "interfaceLanguage": "Langue de l'interface"
+  },
+  "demoMode": {
+    "title": "Mode Démo",
+    "enable": "Activer",
+    "fakeData": "Données fictives",
+    "accounts": "Comptes ({{count}})",
+    "complexity": {
+      "label": "Complexité",
+      "simple": "Simple",
+      "medium": "Moyen",
+      "advanced": "Avancé"
+    },
+    "industry": {
+      "label": "Secteur",
+      "ecommerce": "E-commerce",
+      "services": "Services",
+      "saas": "SaaS",
+      "local": "Local",
+      "b2b": "B2B"
+    },
+    "reset": "Réinitialiser"
   }
 }

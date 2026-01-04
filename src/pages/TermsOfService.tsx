@@ -139,7 +139,7 @@ const TermsOfService: React.FC = () => {
                 <h2>15. Contact</h2>
                 <p>
                   Pour toute question concernant ces Conditions d'Utilisation, vous pouvez nous contacter à :
-                  <strong>legal@flipika.com</strong>
+                  <strong>helloflipika@gmail.com</strong>
                 </p>
               </section>
 

@@ -31,7 +31,8 @@
       "clicks": "Clics",
       "ctr": "CTR",
       "averageCpc": "CPC Moy."
-    }
+    },
+    "unknown": "Inconnu"
   },
   "errors": {
     "connection": "Erreur de connexion",

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Plus, FileStack, Search, AlertCircle, Grid, List as ListIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
@@ -32,6 +33,7 @@ const ITEMS_PER_PAGE = 9;
 
 
 const Templates: React.FC = () => {
+    const { t } = useTranslation('templates');
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const { isConnected, accounts } = useGoogleAds(); // Use accounts from context
@@ -77,7 +79,7 @@ const Templates: React.FC = () => {
             setTemplates(userTemplates);
         } catch (error) {
             console.error('Error loading templates:', error);
-            toast.error('Erreur lors du chargement des templates');
+            toast.error(t('errors.loadingTemplates'));
         } finally {
             setLoading(false);
         }
@@ -181,12 +183,12 @@ const Templates: React.FC = () => {
 
         try {
             await createTemplate(currentUser.uid, config);
-            toast.success('Template créé avec succès !');
+            toast.success(t('toast.created'));
             setShowCreateModal(false);
             loadTemplates();
         } catch (error) {
             console.error('Error creating template:', error);
-            toast.error('Erreur lors de la création du template');
+            toast.error(t('toast.createError'));
         }
     };
 
@@ -195,17 +197,17 @@ const Templates: React.FC = () => {
 
         try {
             await updateTemplate(editingTemplate.id, config);
-            toast.success('Template mis à jour !');
+            toast.success(t('toast.updated'));
             setEditingTemplate(null);
             loadTemplates();
         } catch (error) {
             console.error('Error updating template:', error);
-            toast.error('Erreur lors de la mise à jour du template');
+            toast.error(t('toast.updateError'));
         }
     };
 
     const handleDeleteTemplate = async (template: ReportTemplate) => {
-        const loadingToast = toast.loading('Vérification...', { id: 'check-usage' });
+        const loadingToast = toast.loading(t('deleteConfirm.checking'), { id: 'check-usage' });
         try {
             const schedules = await getSchedulesByTemplateId(template.id);
             toast.dismiss(loadingToast);
@@ -217,15 +219,18 @@ const Templates: React.FC = () => {
                 const limit = 3;
                 const scheduleNames = schedules.slice(0, limit).map(s => s.name).join(', ');
                 const remaining = schedules.length - limit;
-                const suffix = remaining > 0 ? ` et ${remaining} autres` : '';
+                const suffix = remaining > 0 ? t('deleteConfirm.andOthers', { count: remaining }) : '';
 
                 setDeleteMessage(
-                    `Ce template est utilisé par ${schedules.length} programmation(s)${activeCount > 0 ? ` (dont ${activeCount} actives)` : ''} : ${scheduleNames}${suffix}.\n\n` +
-                    `Si vous supprimez ce template, CES PROGRAMMATIONS SERONT ÉGALEMENT SUPPRIMÉES.\n\n` +
-                    `Êtes-vous sûr de vouloir continuer ?`
+                    t('deleteConfirm.withSchedules', {
+                        count: schedules.length,
+                        activeInfo: activeCount > 0 ? t('deleteConfirm.activeCount', { count: activeCount }) : '',
+                        scheduleNames,
+                        suffix
+                    })
                 );
             } else {
-                setDeleteMessage(`Êtes-vous sûr de vouloir supprimer le template "${template.name}" ? Cette action est irréversible.`);
+                setDeleteMessage(t('deleteConfirm.message', { name: template.name }));
             }
 
             setTemplateToDelete(template);
@@ -233,7 +238,7 @@ const Templates: React.FC = () => {
         } catch (error) {
             toast.dismiss(loadingToast);
             console.error('Error checking template usage:', error);
-            toast.error('Erreur lors de la vérification des dépendances');
+            toast.error(t('errors.checkingUsage'));
         }
     };
 
@@ -253,8 +258,8 @@ const Templates: React.FC = () => {
             await deleteTemplate(templateToDelete.id);
 
             const successMessage = schedulesToDelete.length > 0
-                ? 'Template et programmations associées supprimés'
-                : 'Template supprimé';
+                ? t('toast.deletedWithSchedules')
+                : t('toast.deleted');
             toast.success(successMessage);
 
             setTemplateToDelete(null);
@@ -267,7 +272,7 @@ const Templates: React.FC = () => {
                 code: error?.code,
                 stack: error?.stack
             });
-            toast.error(`Erreur lors de la suppression: ${error?.message || 'Erreur inconnue'}`);
+            toast.error(t('errors.deleting', { message: error?.message || t('errors.unknown') }));
         }
     };
 
@@ -276,11 +281,11 @@ const Templates: React.FC = () => {
 
         try {
             await duplicateTemplate(template.id, currentUser.uid);
-            toast.success('Template dupliqué !');
+            toast.success(t('toast.duplicated'));
             loadTemplates();
         } catch (error) {
             console.error('Error duplicating template:', error);
-            toast.error('Erreur lors de la duplication du template');
+            toast.error(t('toast.duplicateError'));
         }
     };
 
@@ -291,7 +296,7 @@ const Templates: React.FC = () => {
             // Priority 1: Template has explicit account
             if (template.accountId) {
                 const reportId = await createReportFromTemplate(template.id, currentUser.uid);
-                toast.success('Rapport créé depuis le template !');
+                toast.success(t('toast.reportCreated'));
                 navigate(`/app/reports/${reportId}`);
                 return;
             }
@@ -307,7 +312,7 @@ const Templates: React.FC = () => {
                     campaignIds: [],
                     campaignNames: []
                 });
-                toast.success('Rapport créé depuis le template !');
+                toast.success(t('toast.reportCreated'));
                 navigate(`/app/reports/${reportId}`);
                 return;
             }
@@ -317,7 +322,7 @@ const Templates: React.FC = () => {
             setShowAccountModal(true);
         } catch (error) {
             console.error('Error using template:', error);
-            toast.error('Erreur lors de la création du rapport');
+            toast.error(t('errors.creatingReport'));
         }
     };
 
@@ -329,11 +334,11 @@ const Templates: React.FC = () => {
                 accountId,
                 accountName: accounts.find(a => a.id === accountId)?.name,
             });
-            toast.success('Rapport créé depuis le template !');
+            toast.success(t('toast.reportCreated'));
             navigate(`/app/reports/${reportId}`);
         } catch (error) {
             console.error('Error creating report from selection:', error);
-            toast.error('Erreur lors de la création du rapport');
+            toast.error(t('errors.creatingReport'));
         }
     };
 
@@ -353,9 +358,9 @@ const Templates: React.FC = () => {
                 <div className="header-content">
                     <div className="header-title-row">
                         <FileStack size={32} className="header-icon" />
-                        <h1>Templates de Rapports</h1>
+                        <h1>{t('title')}</h1>
                     </div>
-                    <p>Créez des templates réutilisables pour générer des rapports en un clic</p>
+                    <p>{t('description')}</p>
                 </div>
                 <button
                     className="btn-primary"
@@ -365,10 +370,10 @@ const Templates: React.FC = () => {
                         opacity: !isConnected ? 0.5 : 1,
                         cursor: !isConnected ? 'not-allowed' : 'pointer'
                     }}
-                    title={!isConnected ? 'Connectez Google Ads pour créer des templates' : ''}
+                    title={!isConnected ? t('connectToCreate') : ''}
                 >
                     <Plus size={20} />
-                    <span>Nouveau Template</span>
+                    <span>{t('newTemplate')}</span>
                 </button>
             </div>
 
@@ -376,11 +381,11 @@ const Templates: React.FC = () => {
                 <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6 flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
                     <div>
-                        <h3 className="text-sm font-medium text-red-800 dark:text-red-300">Connexion Google Ads requise</h3>
+                        <h3 className="text-sm font-medium text-red-800 dark:text-red-300">{t('errors.connectionRequired')}</h3>
                         <p className="text-sm text-red-700 dark:text-red-400 mt-1">
-                            Impossible de récupérer vos comptes Google Ads. La session a probablement expiré.
+                            {t('errors.sessionExpired')}
                             <a href="/app/settings" className="underline ml-1 font-medium hover:text-red-900 dark:hover:text-red-200">
-                                Reconnecter le compte
+                                {t('errors.reconnect')}
                             </a>
                         </p>
                     </div>
@@ -394,7 +399,7 @@ const Templates: React.FC = () => {
                             <Search size={18} />
                             <input
                                 type="text"
-                                placeholder="Rechercher un template..."
+                                placeholder={t('searchPlaceholder')}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
@@ -404,14 +409,14 @@ const Templates: React.FC = () => {
                             <button
                                 className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
                                 onClick={() => setViewMode('grid')}
-                                title="Vue grille"
+                                title={t('gridView')}
                             >
                                 <Grid size={18} />
                             </button>
                             <button
                                 className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
                                 onClick={() => setViewMode('list')}
-                                title="Vue liste"
+                                title={t('listView')}
                             >
                                 <ListIcon size={18} />
                             </button>
@@ -463,11 +468,11 @@ const Templates: React.FC = () => {
                 ) : (
                     <div className="empty-state">
                         <FileStack size={64} className="empty-icon" />
-                        <h2>Aucun template</h2>
+                        <h2>{t('emptyState.noTemplates')}</h2>
                         <p>
                             {searchQuery
-                                ? 'Aucun template ne correspond à votre recherche'
-                                : 'Créez votre premier template pour générer des rapports rapidement'}
+                                ? t('emptyState.noResults')
+                                : t('emptyState.createFirst')}
                         </p>
                         {!searchQuery && (
                             <button
@@ -480,7 +485,7 @@ const Templates: React.FC = () => {
                                 }}
                             >
                                 <Plus size={20} />
-                                <span>Créer un template</span>
+                                <span>{t('emptyState.createButton')}</span>
                             </button>
                         )}
                     </div>
@@ -510,9 +515,9 @@ const Templates: React.FC = () => {
                     setTemplateToDelete(null);
                 }}
                 onConfirm={confirmDeleteTemplate}
-                title="Supprimer le template"
+                title={t('deleteConfirm.title')}
                 message={deleteMessage}
-                confirmLabel="Supprimer"
+                confirmLabel={t('deleteConfirm.confirm')}
                 isDestructive={true}
             />
 
@@ -524,9 +529,9 @@ const Templates: React.FC = () => {
                 }}
                 onConfirm={handleAccountSelectionParams}
                 accounts={accounts}
-                title="Sélectionner un compte"
-                message={`Ce template ne spécifie pas de compte Google Ads.\nVeuillez en sélectionner un pour générer le rapport.`}
-                confirmLabel="Générer le rapport"
+                title={t('accountSelector.title')}
+                message={t('accountSelector.message')}
+                confirmLabel={t('accountSelector.confirm')}
             />
         </div>
     );

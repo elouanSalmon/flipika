@@ -40,5 +40,34 @@
     "statusError": "Error changing status",
     "deleted": "Schedule deleted successfully",
     "deleteError": "Error deleting schedule"
+  },
+  "card": {
+    "status": {
+      "active": "Active",
+      "paused": "Paused",
+      "error": "Error"
+    },
+    "nextRun": {
+      "title": "Next execution",
+      "localTime": "Your time"
+    },
+    "paused": {
+      "title": "Schedule paused",
+      "description": "Activate to resume"
+    },
+    "stats": {
+      "total": "Total",
+      "success": "Success",
+      "failed": "Failed"
+    },
+    "lastRun": "Last: {{date}}",
+    "viewReport": "View",
+    "failed": "Failed",
+    "actions": {
+      "pause": "Pause",
+      "activate": "Activate",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
   }
 }

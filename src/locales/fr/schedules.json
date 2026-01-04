@@ -40,5 +40,34 @@
     "statusError": "Erreur lors de la modification du statut",
     "deleted": "Schedule supprimé avec succès",
     "deleteError": "Erreur lors de la suppression du schedule"
+  },
+  "card": {
+    "status": {
+      "active": "Actif",
+      "paused": "En pause",
+      "error": "Erreur"
+    },
+    "nextRun": {
+      "title": "Prochaine exécution",
+      "localTime": "Votre heure"
+    },
+    "paused": {
+      "title": "Programmation en pause",
+      "description": "Activez pour reprendre"
+    },
+    "stats": {
+      "total": "Total",
+      "success": "Succès",
+      "failed": "Échecs"
+    },
+    "lastRun": "Dernière: {{date}}",
+    "viewReport": "Voir",
+    "failed": "Échec",
+    "actions": {
+      "pause": "Mettre en pause",
+      "activate": "Activer",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    }
   }
 }

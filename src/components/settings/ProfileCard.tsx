@@ -1,12 +1,14 @@
 import { User, Mail, Building, FileText, Loader2, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import { checkUsernameAvailability } from '../../services/userProfileService';
 import { validateUsername, normalizeUsername } from '../../types/userProfile';
 import toast from 'react-hot-toast';
 
 const ProfileCard = () => {
+    const { t } = useTranslation('settings');
     const { currentUser, userProfile, updateProfile, profileLoading } = useAuth();
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -52,7 +54,7 @@ const ProfileCard = () => {
 
         if (!validation.valid) {
             setUsernameAvailable(false);
-            setErrors({ ...errors, username: validation.error || 'Invalid username' });
+            setErrors({ ...errors, username: validation.error || t('profile.errors.invalidUsername') });
             return;
         }
 
@@ -63,7 +65,7 @@ const ProfileCard = () => {
             const available = await checkUsernameAvailability(normalized);
             setUsernameAvailable(available);
             if (!available) {
-                setErrors({ ...errors, username: 'Username is already taken' });
+                setErrors({ ...errors, username: t('profile.errors.usernameTaken') });
             }
         } catch (error) {
             console.error('Error checking username:', error);
@@ -91,15 +93,15 @@ const ProfileCard = () => {
         const newErrors: Record<string, string> = {};
 
         if (!formData.firstName.trim()) {
-            newErrors.firstName = 'First name is required';
+            newErrors.firstName = t('profile.errors.firstNameRequired');
         }
         if (!formData.lastName.trim()) {
-            newErrors.lastName = 'Last name is required';
+            newErrors.lastName = t('profile.errors.lastNameRequired');
         }
         if (!formData.username.trim()) {
-            newErrors.username = 'Username is required';
+            newErrors.username = t('profile.errors.usernameRequired');
         } else if (usernameAvailable === false) {
-            newErrors.username = 'Username is not available';
+            newErrors.username = t('profile.errors.usernameNotAvailable');
         }
 
         setErrors(newErrors);
@@ -122,11 +124,11 @@ const ProfileCard = () => {
                 description: formData.description.trim() || undefined,
             });
 
-            toast.success('Profile updated successfully');
+            toast.success(t('profile.toast.updated'));
             setIsEditing(false);
         } catch (error: any) {
             console.error('Error updating profile:', error);
-            toast.error(error.message || 'Failed to update profile');
+            toast.error(error.message || t('profile.toast.updateError'));
         } finally {
             setLoading(false);
         }
@@ -153,14 +155,14 @@ const ProfileCard = () => {
                 <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                     <User size={20} className="text-primary dark:text-primary-light" />
                 </div>
-                Profil
+                {t('profile.title')}
             </h2>
 
             <div className="space-y-4">
                 {/* Username */}
                 <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Identifiant unique <span className="text-red-500">*</span>
+                        {t('profile.labels.username')} <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                         <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70 dark:text-primary-light/70 pointer-events-none transition-all duration-300" />
@@ -188,7 +190,7 @@ const ProfileCard = () => {
                     )}
                     {!errors.username && formData.username && (
                         <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                            Lien de partage : flipika.com/report/{formData.username}/...
+                            {t('profile.shareLink', { username: formData.username })}
                         </p>
                     )}
                 </div>
@@ -196,7 +198,7 @@ const ProfileCard = () => {
                 {/* First Name */}
                 <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Prénom <span className="text-red-500">*</span>
+                        {t('profile.labels.firstName')} <span className="text-red-500">*</span>
                     </label>
                     <input
                         type="text"
@@ -214,7 +216,7 @@ const ProfileCard = () => {
                 {/* Last Name */}
                 <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Nom <span className="text-red-500">*</span>
+                        {t('profile.labels.lastName')} <span className="text-red-500">*</span>
                     </label>
                     <input
                         type="text"
@@ -232,7 +234,7 @@ const ProfileCard = () => {
                 {/* Email (read-only) */}
                 <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Email
+                        {t('profile.labels.email')}
                     </label>
                     <div className="relative">
                         <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70 dark:text-primary-light/70 pointer-events-none transition-all duration-300" />
@@ -248,7 +250,7 @@ const ProfileCard = () => {
                 {/* Company (optional) */}
                 <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Entreprise <span className="text-gray-400 text-xs">(optionnel)</span>
+                        {t('profile.labels.company')} <span className="text-gray-400 text-xs">({t('profile.optional')})</span>
                     </label>
                     <div className="relative">
                         <Building size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70 dark:text-primary-light/70 pointer-events-none transition-all duration-300" />
@@ -265,7 +267,7 @@ const ProfileCard = () => {
                 {/* Description (optional) */}
                 <div>
                     <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Description <span className="text-gray-400 text-xs">(optionnel)</span>
+                        {t('profile.labels.description')} <span className="text-gray-400 text-xs">({t('profile.optional')})</span>
                     </label>
                     <div className="relative">
                         <FileText size={18} className="absolute left-4 top-4 text-primary/70 dark:text-primary-light/70 pointer-events-none transition-all duration-300" />
@@ -280,7 +282,7 @@ const ProfileCard = () => {
                     </div>
                     {isEditing && (
                         <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 text-right">
-                            {formData.description.length}/500
+                            {t('profile.characterCount', { count: formData.description.length, max: 500 })}
                         </p>
                     )}
                 </div>
@@ -294,7 +296,7 @@ const ProfileCard = () => {
                             whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.98 }}
                         >
-                            Modifier le profil
+                            {t('profile.buttons.edit')}
                         </motion.button>
                     ) : (
                         <>
@@ -317,7 +319,7 @@ const ProfileCard = () => {
                                 disabled={loading}
                                 className="btn btn-secondary flex-1"
                             >
-                                Annuler
+                                {t('profile.buttons.cancel')}
                             </button>
                             <motion.button
                                 onClick={handleSave}
@@ -329,10 +331,10 @@ const ProfileCard = () => {
                                 {loading ? (
                                     <>
                                         <Loader2 size={18} className="animate-spin" />
-                                        Enregistrement...
+                                        {t('profile.buttons.saving')}
                                     </>
                                 ) : (
-                                    'Enregistrer'
+                                    t('profile.buttons.save')
                                 )}
                             </motion.button>
                         </>
