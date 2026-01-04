@@ -581,5 +581,54 @@
     "lastNameRequired": "Le nom est requis",
     "emailRequired": "L'email est requis",
     "emailInvalid": "L'email n'est pas valide"
+  },
+  "appNavigation": {
+    "dashboard": "Dashboard",
+    "audit": "Audit",
+    "reports": "Rapports",
+    "schedules": "Programmés",
+    "templates": "Templates",
+    "themes": "Thèmes",
+    "settings": "Paramètres",
+    "logout": "Déconnexion",
+    "demoMode": "Mode Démo",
+    "menu": "Menu",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "mainNavigation": "Navigation principale",
+    "theme": "Thème",
+    "toggleTheme": "Changer vers le thème {{theme}}",
+    "light": "clair",
+    "dark": "sombre"
+  },
+  "accessDenied": {
+    "subscription": {
+      "title": "Abonnement requis",
+      "description": "Pour utiliser {{featureName}}, vous avez besoin d'un abonnement actif. Profitez de toutes les fonctionnalités de Flipika en mettant à niveau votre plan.",
+      "action": "Voir les plans"
+    },
+    "googleAds": {
+      "title": "Compte Google Ads requis",
+      "description": "Pour utiliser {{featureName}}, vous devez connecter un compte Google Ads. C'est nécessaire pour récupérer vos données et générer des rapports.",
+      "action": "Connecter Google Ads"
+    },
+    "both": {
+      "title": "Configuration requise",
+      "description": "Pour utiliser {{featureName}}, vous devez avoir un abonnement actif et un compte Google Ads connecté.",
+      "action": "Configurer mon compte",
+      "secondaryAction": "Voir les plans"
+    },
+    "defaultFeatureName": "cette fonctionnalité"
+  },
+  "filters": {
+    "title": "Filtres",
+    "allAccounts": "Tous les comptes",
+    "allCampaigns": "Toutes les campagnes"
+  },
+  "actions": {
+    "clear": "Effacer"
+  },
+  "status": {
+    "loading": "Chargement..."
   }
 }

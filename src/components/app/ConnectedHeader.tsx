@@ -20,10 +20,12 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useDemoMode } from "../../contexts/DemoModeContext";
 import { useTheme } from "../../hooks/useTheme";
 import { useFeatureFlags } from "../../contexts/FeatureFlagsContext";
+import { useTranslation } from "react-i18next";
 import MobileMenu from "../MobileMenu";
 import "../Header.css";
 
 const ConnectedHeader = () => {
+    const { t } = useTranslation('common');
     const location = useLocation();
     const navigate = useNavigate();
     const { logout } = useAuth();
@@ -55,12 +57,12 @@ const ConnectedHeader = () => {
 
     // Filter navigation items based on feature flags
     const navItems = [
-        enableDashboard && { path: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
-        enableAudit && { path: "/app/audit", label: "Audit", icon: TrendingUp },
-        enableReports && { path: "/app/reports", label: "Rapports", icon: FileText },
-        enableReports && { path: "/app/schedules", label: "Programmés", icon: Clock },
-        enableReports && { path: "/app/templates", label: "Templates", icon: FileStack },
-        { path: "/app/themes", label: "Thèmes", icon: Palette },
+        enableDashboard && { path: "/app/dashboard", label: t('appNavigation.dashboard'), icon: LayoutDashboard },
+        enableAudit && { path: "/app/audit", label: t('appNavigation.audit'), icon: TrendingUp },
+        enableReports && { path: "/app/reports", label: t('appNavigation.reports'), icon: FileText },
+        enableReports && { path: "/app/schedules", label: t('appNavigation.schedules'), icon: Clock },
+        enableReports && { path: "/app/templates", label: t('appNavigation.templates'), icon: FileStack },
+        { path: "/app/themes", label: t('appNavigation.themes'), icon: Palette },
     ].filter(Boolean) as Array<{ path: string; label: string; icon: typeof LayoutDashboard }>;
 
     return (
@@ -97,7 +99,7 @@ const ConnectedHeader = () => {
                         transition={{ delay: 0.3 }}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        aria-label="Ouvrir le menu"
+                        aria-label={t('appNavigation.openMenu')}
                     >
                         <Menu size={24} />
                     </motion.button>
@@ -144,7 +146,7 @@ const ConnectedHeader = () => {
                             >
                                 <TestTube size={14} className="text-purple-600 dark:text-purple-400" />
                                 <span className="text-xs font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wide">
-                                    Mode Démo
+                                    {t('appNavigation.demoMode')}
                                 </span>
                             </motion.div>
                         )}
@@ -184,7 +186,7 @@ const ConnectedHeader = () => {
                                 }}
                             >
                                 <Settings size={16} />
-                                <span className="hidden md:inline">Settings</span>
+                                <span className="hidden md:inline">{t('appNavigation.settings')}</span>
                             </Link>
                         </motion.div>
 
@@ -205,7 +207,7 @@ const ConnectedHeader = () => {
                             }}
                         >
                             <LogOut size={16} />
-                            <span className="hidden sm:inline">Log Out</span>
+                            <span className="hidden sm:inline">{t('appNavigation.logout')}</span>
                         </motion.button>
                     </div>
                 </div>

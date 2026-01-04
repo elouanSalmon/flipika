@@ -15,6 +15,7 @@ import frSettings from './locales/fr/settings.json';
 import frBilling from './locales/fr/billing.json';
 import frCopilot from './locales/fr/copilot.json';
 import frAudit from './locales/fr/audit.json';
+import frThemes from './locales/fr/themes.json';
 
 // Authenticated Pages - English
 import enDashboard from './locales/en/dashboard.json';
@@ -25,6 +26,7 @@ import enSettings from './locales/en/settings.json';
 import enBilling from './locales/en/billing.json';
 import enCopilot from './locales/en/copilot.json';
 import enAudit from './locales/en/audit.json';
+import enThemes from './locales/en/themes.json';
 
 const resources = {
   en: {
@@ -37,6 +39,7 @@ const resources = {
     billing: enBilling,
     copilot: enCopilot,
     audit: enAudit,
+    themes: enThemes,
   },
   fr: {
     common: frCommon,
@@ -48,6 +51,7 @@ const resources = {
     billing: frBilling,
     copilot: frCopilot,
     audit: frAudit,
+    themes: frThemes,
   },
 };
 
@@ -70,7 +74,7 @@ i18n
       escapeValue: false,
     },
     defaultNS: 'common',
-    ns: ['common', 'dashboard', 'reports', 'templates', 'schedules', 'settings', 'billing', 'copilot', 'audit'],
+    ns: ['common', 'dashboard', 'reports', 'templates', 'schedules', 'settings', 'billing', 'copilot', 'audit', 'themes'],
     load: 'languageOnly',
   });
 

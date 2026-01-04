@@ -56,11 +56,17 @@
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: 0 10px 25px -5px rgba(var(--primary-rgb), 0.3), 0 8px 10px -6px rgba(var(--primary-rgb), 0.3);
+    line-height: 1;
 }
 
 .create-report-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 20px 25px -5px rgba(var(--primary-rgb), 0.4), 0 10px 10px -5px rgba(var(--primary-rgb), 0.4);
+}
+
+.create-report-btn svg {
+    margin-top: 1px;
+    /* Optical alignment */
 }
 
 /* Status Filters */
@@ -250,8 +256,16 @@
 
 /* Empty State */
 .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 32px;
     text-align: center;
-    padding: 80px 20px;
+    background: var(--glass-bg);
+    border: 2px dashed var(--color-border);
+    border-radius: 16px;
+    margin: 32px 0;
 }
 
 .empty-icon {
@@ -260,7 +274,7 @@
     justify-content: center;
     width: 80px;
     height: 80px;
-    margin: 0 auto 16px;
+    margin: 0 auto 24px;
     color: var(--color-text-muted);
     opacity: 0.5;
 }
@@ -291,12 +305,18 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    line-height: 1;
 }
 
 .create-report-btn-secondary:hover {
     background: var(--gradient-primary);
     color: white;
     box-shadow: 0 10px 25px -5px rgba(var(--primary-rgb), 0.3);
+}
+
+.create-report-btn-secondary svg {
+    margin-top: 1px;
+    /* Optical alignment */
 }
 
 /* Loading */

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Filter, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { Campaign } from '../../types/business';
 
 interface FilterBarProps {
@@ -23,6 +24,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
     loadingCampaigns = false,
     className = '',
 }) => {
+    const { t } = useTranslation('common');
     const hasActiveFilters = selectedAccountId || selectedCampaignId;
 
     const handleClearFilters = () => {
@@ -34,7 +36,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
         <div className={`flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-6 ${className}`}>
             <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 mr-2">
                 <Filter size={20} />
-                <span className="font-medium text-sm">Filtres</span>
+                <span className="font-medium text-sm">{t('filters.title')}</span>
             </div>
 
             <div className="flex flex-wrap gap-4 flex-1 w-full sm:w-auto">
@@ -45,7 +47,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
                         value={selectedAccountId}
                         onChange={(e) => onAccountChange(e.target.value)}
                     >
-                        <option value="">Tous les comptes</option>
+                        <option value="">{t('filters.allAccounts')}</option>
                         {accounts.map((account) => (
                             <option key={account.id} value={account.id}>
                                 {account.name}
@@ -63,9 +65,9 @@ const FilterBar: React.FC<FilterBarProps> = ({
                             onChange={(e) => onCampaignChange(e.target.value)}
                             disabled={loadingCampaigns}
                         >
-                            <option value="">Toutes les campagnes</option>
+                            <option value="">{t('filters.allCampaigns')}</option>
                             {loadingCampaigns ? (
-                                <option disabled>Chargement...</option>
+                                <option disabled>{t('status.loading')}</option>
                             ) : (
                                 campaigns.map((campaign) => (
                                     <option key={campaign.id} value={campaign.id}>
@@ -84,7 +86,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
                         className="flex items-center gap-1.5 px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors ml-auto sm:ml-0"
                     >
                         <X size={16} />
-                        Effacer
+                        {t('actions.clear')}
                     </button>
                 )}
             </div>

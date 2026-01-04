@@ -1,0 +1,39 @@
+{
+    "list": {
+        "title": "My Themes",
+        "pageTitle": "My Report Themes",
+        "pageSubtitle": "Create and manage your custom themes for Google Ads reports",
+        "newButton": "New",
+        "createButton": "Create Theme",
+        "loading": "Loading themes..."
+    },
+    "emptyState": {
+        "noCustomThemes": "No custom themes",
+        "createFirstButton": "Create my first theme",
+        "createFirstDescription": "Create your first theme to customize the look of your reports and apply it automatically to your Google Ads accounts.",
+        "notFoundTitle": "No themes found",
+        "notFoundDescription": "No themes are associated with this account.",
+        "viewAllButton": "View all themes"
+    },
+    "card": {
+        "defaultBadge": "Default",
+        "linkedAccounts": "{{count}} linked account",
+        "linkedAccounts_plural": "{{count}} linked accounts",
+        "noLinkedAccounts": "No linked accounts",
+        "actions": {
+            "edit": "Edit",
+            "duplicate": "Duplicate",
+            "delete": "Delete"
+        }
+    },
+    "messages": {
+        "loadError": "Error loading themes",
+        "duplicateSuccess": "Theme duplicated",
+        "duplicateError": "Error duplicating theme",
+        "deleteSuccess": "Theme deleted",
+        "deleteError": "Error deleting theme",
+        "deleteConfirmTitle": "Delete Theme",
+        "deleteConfirmMessage": "Are you sure you want to delete the theme \"{{name}}\"?",
+        "deleteConfirmButton": "Delete"
+    }
+}

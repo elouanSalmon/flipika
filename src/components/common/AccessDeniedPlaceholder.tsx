@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, ExternalLink, CreditCard } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './AccessDeniedPlaceholder.css';
 
 export interface AccessDeniedPlaceholderProps {
@@ -10,27 +11,29 @@ export interface AccessDeniedPlaceholderProps {
 
 const AccessDeniedPlaceholder: React.FC<AccessDeniedPlaceholderProps> = ({
     type,
-    featureName = 'cette fonctionnalité'
+    featureName
 }) => {
+    const { t } = useTranslation('common');
     const navigate = useNavigate();
+    const actualFeatureName = featureName || t('accessDenied.defaultFeatureName');
 
     const getContent = () => {
         switch (type) {
             case 'subscription':
                 return {
                     icon: <CreditCard size={64} />,
-                    title: "Abonnement requis",
-                    description: `Pour utiliser ${featureName}, vous avez besoin d'un abonnement actif. Profitez de toutes les fonctionnalités de Flipika en mettant à niveau votre plan.`,
-                    action: "Voir les plans",
+                    title: t('accessDenied.subscription.title'),
+                    description: t('accessDenied.subscription.description', { featureName: actualFeatureName }),
+                    action: t('accessDenied.subscription.action'),
                     onAction: () => navigate('/app/billing'),
                     secondaryAction: null
                 };
             case 'google-ads':
                 return {
                     icon: <ExternalLink size={64} />,
-                    title: "Compte Google Ads requis",
-                    description: `Pour utiliser ${featureName}, vous devez connecter un compte Google Ads. C'est nécessaire pour récupérer vos données et générer des rapports.`,
-                    action: "Connecter Google Ads",
+                    title: t('accessDenied.googleAds.title'),
+                    description: t('accessDenied.googleAds.description', { featureName: actualFeatureName }),
+                    action: t('accessDenied.googleAds.action'),
                     onAction: () => navigate('/app/settings'),
                     secondaryAction: null
                 };
@@ -38,12 +41,12 @@ const AccessDeniedPlaceholder: React.FC<AccessDeniedPlaceholderProps> = ({
             default:
                 return {
                     icon: <Lock size={64} />,
-                    title: "Configuration requise",
-                    description: `Pour utiliser ${featureName}, vous devez avoir un abonnement actif et un compte Google Ads connecté.`,
-                    action: "Configurer mon compte",
+                    title: t('accessDenied.both.title'),
+                    description: t('accessDenied.both.description', { featureName: actualFeatureName }),
+                    action: t('accessDenied.both.action'),
                     onAction: () => navigate('/app/settings'),
                     secondaryAction: {
-                        label: "Voir les plans",
+                        label: t('accessDenied.both.secondaryAction'),
                         onClick: () => navigate('/app/billing')
                     }
                 };

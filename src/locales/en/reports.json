@@ -10,17 +10,20 @@
     "viewList": "List view",
     "loading": "Loading reports...",
     "tabs": {
-      "all": "All ({count})",
-      "drafts": "Drafts ({count})",
-      "published": "Published ({count})",
-      "archived": "Archived ({count})"
+      "all": "All ({{count}})",
+      "drafts": "Drafts ({{count}})",
+      "published": "Published ({{count}})",
+      "archived": "Archived ({{count}})"
     },
-    "empty": {
-      "notFound": "No reports found",
-      "modifySearch": "Try modifying your search",
-      "noReports": "Create your first report to get started",
+    "emptyState": {
+      "noReports": "No reports found",
+      "trySearch": "Try modifying your search",
+      "createFirst": "Create your first report to get started",
       "createButton": "Create a report"
-    }
+    },
+    "gridView": "Grid view",
+    "listView": "List view",
+    "connectToCreate": "Connect Google Ads to create reports"
   },
   "config": {
     "title": "Report Configuration",

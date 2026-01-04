@@ -19,6 +19,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useDemoMode } from '../contexts/DemoModeContext';
 import { useTheme } from '../hooks/useTheme';
 import { useFeatureFlags } from '../contexts/FeatureFlagsContext';
+import { useTranslation } from 'react-i18next';
 import './MobileMenu.css';
 
 interface MobileMenuProps {
@@ -27,6 +28,7 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
+    const { t } = useTranslation('common');
     const location = useLocation();
     const navigate = useNavigate();
     const { logout } = useAuth();
@@ -52,13 +54,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
 
     // Filter navigation items based on feature flags
     const navItems = [
-        enableDashboard && { path: '/app/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-        enableAudit && { path: '/app/audit', label: 'Audit', icon: TrendingUp },
-        enableReports && { path: '/app/reports', label: 'Rapports', icon: FileText },
-        enableReports && { path: '/app/schedules', label: 'Programmés', icon: Clock },
-        enableReports && { path: '/app/templates', label: 'Templates', icon: FileStack },
-        { path: '/app/themes', label: 'Thèmes', icon: Palette },
-        { path: '/app/settings', label: 'Paramètres', icon: Settings },
+        enableDashboard && { path: '/app/dashboard', label: t('appNavigation.dashboard'), icon: LayoutDashboard },
+        enableAudit && { path: '/app/audit', label: t('appNavigation.audit'), icon: TrendingUp },
+        enableReports && { path: '/app/reports', label: t('appNavigation.reports'), icon: FileText },
+        enableReports && { path: '/app/schedules', label: t('appNavigation.schedules'), icon: Clock },
+        enableReports && { path: '/app/templates', label: t('appNavigation.templates'), icon: FileStack },
+        { path: '/app/themes', label: t('appNavigation.themes'), icon: Palette },
+        { path: '/app/settings', label: t('appNavigation.settings'), icon: Settings },
     ].filter(Boolean) as Array<{ path: string; label: string; icon: typeof LayoutDashboard }>;
 
 
@@ -85,16 +87,16 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                         exit={{ x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                         role="dialog"
-                        aria-label="Menu de navigation mobile"
+                        aria-label={t('appNavigation.menu')}
                         aria-modal="true"
                     >
                         {/* Header */}
                         <div className="mobile-menu-header">
-                            <h2 className="mobile-menu-title">Menu</h2>
+                            <h2 className="mobile-menu-title">{t('appNavigation.menu')}</h2>
                             <button
                                 className="mobile-menu-close"
                                 onClick={onClose}
-                                aria-label="Fermer le menu"
+                                aria-label={t('appNavigation.closeMenu')}
                             >
                                 <X size={24} />
                             </button>
@@ -109,12 +111,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                                 className="mobile-menu-demo-badge"
                             >
                                 <TestTube size={16} />
-                                <span>Mode Démo</span>
+                                <span>{t('appNavigation.demoMode')}</span>
                             </motion.div>
                         )}
 
                         {/* Navigation Links */}
-                        <nav className="mobile-menu-nav" aria-label="Navigation principale">
+                        <nav className="mobile-menu-nav" aria-label={t('appNavigation.mainNavigation')}>
                             {navItems.map((item, index) => {
                                 const Icon = item.icon;
                                 return (
@@ -147,11 +149,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.3 }}
                         >
-                            <span className="mobile-menu-theme-label">Thème</span>
+                            <span className="mobile-menu-theme-label">{t('appNavigation.theme')}</span>
                             <button
                                 className={`theme-toggle ${theme === 'dark' ? 'dark' : 'light'}`}
                                 onClick={toggleTheme}
-                                aria-label={`Changer vers le thème ${theme === 'dark' ? 'clair' : 'sombre'}`}
+                                aria-label={t('appNavigation.toggleTheme', { theme: theme === 'dark' ? t('appNavigation.light') : t('appNavigation.dark') })}
                             >
                                 <div className="toggle-track">
                                     <div className="toggle-thumb">
@@ -168,10 +170,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.35 }}
-                            aria-label="Se déconnecter"
+                            aria-label={t('appNavigation.logout')}
                         >
                             <LogOut size={20} />
-                            <span>Déconnexion</span>
+                            <span>{t('appNavigation.logout')}</span>
                         </motion.button>
                     </motion.div>
                 </>

@@ -10,17 +10,20 @@
     "viewList": "Vue liste",
     "loading": "Chargement des rapports...",
     "tabs": {
-      "all": "Tous ({count})",
-      "drafts": "Brouillons ({count})",
-      "published": "Publiés ({count})",
-      "archived": "Archivés ({count})"
+      "all": "Tous ({{count}})",
+      "drafts": "Brouillons ({{count}})",
+      "published": "Publiés ({{count}})",
+      "archived": "Archivés ({{count}})"
     },
-    "empty": {
-      "notFound": "Aucun rapport trouvé",
-      "modifySearch": "Essayez de modifier votre recherche",
-      "noReports": "Créez votre premier rapport pour commencer",
+    "emptyState": {
+      "noReports": "Aucun rapport trouvé",
+      "trySearch": "Essayez de modifier votre recherche",
+      "createFirst": "Créez votre premier rapport pour commencer",
       "createButton": "Créer un rapport"
-    }
+    },
+    "gridView": "Vue grille",
+    "listView": "Vue liste",
+    "connectToCreate": "Connectez Google Ads pour créer des rapports"
   },
   "config": {
     "title": "Configuration du Rapport",

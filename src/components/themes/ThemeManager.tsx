@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import themeService from '../../services/themeService';
 import Spinner from '../common/Spinner';
+import { useTranslation } from 'react-i18next';
 import type { ReportTheme } from '../../types/reportThemes';
 import type { Account } from '../../types/business';
 import ThemePreview from './ThemePreview';
@@ -19,6 +20,7 @@ interface ThemeManagerProps {
 
 const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = false }) => {
     const { currentUser } = useAuth();
+    const { t } = useTranslation('themes');
     const [themes, setThemes] = useState<ReportTheme[]>([]);
     const [loading, setLoading] = useState(true);
     const [showEditor, setShowEditor] = useState(false);
@@ -48,7 +50,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
             setThemes(userThemes);
         } catch (error) {
             console.error('Error loading themes:', error);
-            toast.error('Erreur lors du chargement des thèmes');
+            toast.error(t('messages.loadError'));
         } finally {
             setLoading(false);
         }
@@ -69,10 +71,11 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
             const newName = `${theme.name} (Copie)`;
             await themeService.duplicateTheme(theme.id, newName);
             await loadThemes();
-            toast.success('Thème dupliqué');
+            await loadThemes();
+            toast.success(t('messages.duplicateSuccess'));
         } catch (error) {
             console.error('Error duplicating theme:', error);
-            toast.error('Erreur lors de la duplication');
+            toast.error(t('messages.duplicateError'));
         }
     };
 
@@ -87,11 +90,13 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
         try {
             await themeService.deleteTheme(themeToDelete.id);
             await loadThemes();
-            toast.success('Thème supprimé');
+            await themeService.deleteTheme(themeToDelete.id);
+            await loadThemes();
+            toast.success(t('messages.deleteSuccess'));
             setThemeToDelete(null);
         } catch (error) {
             console.error('Error deleting theme:', error);
-            toast.error('Erreur lors de la suppression');
+            toast.error(t('messages.deleteError'));
         }
     };
 
@@ -103,7 +108,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
         return (
             <div className="flex flex-col items-center justify-center p-12 gap-4">
                 <Spinner size={48} />
-                <p className="text-gray-500">Chargement des thèmes...</p>
+                <p className="text-gray-500">{t('list.loading')}</p>
             </div>
         );
     }
@@ -112,21 +117,21 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
         return (
             <div className="w-full">
                 <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Mes thèmes</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t('list.title')}</h3>
                     <button
                         className="btn btn-primary btn-sm flex items-center gap-2"
                         onClick={handleCreateTheme}
                     >
                         <Plus size={16} />
-                        Nouveau
+                        {t('list.newButton')}
                     </button>
                 </div>
 
                 {themes.length === 0 ? (
                     <div className="text-center p-8 bg-white/50 dark:bg-gray-800/50 backdrop-blur rounded-xl border border-gray-100 dark:border-gray-700">
-                        <p className="text-sm text-gray-500 mb-3">Aucun thème personnalisé</p>
+                        <p className="text-sm text-gray-500 mb-3">{t('emptyState.noCustomThemes')}</p>
                         <button className="btn btn-secondary btn-sm" onClick={handleCreateTheme}>
-                            Créer mon premier thème
+                            {t('emptyState.createFirstButton')}
                         </button>
                     </div>
                 ) : (
@@ -142,7 +147,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                                         className="btn btn-secondary btn-xs"
                                         onClick={() => handleEditTheme(theme)}
                                     >
-                                        Modifier
+                                        {t('card.actions.edit')}
                                     </button>
                                 </div>
                             </div>
@@ -169,16 +174,16 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                 <div className="header-content">
                     <div className="header-title-row">
                         <Palette size={32} className="header-icon" />
-                        <h1>Mes thèmes de rapport</h1>
+                        <h1>{t('list.pageTitle')}</h1>
                     </div>
-                    <p className="header-subtitle">Créez et gérez vos thèmes personnalisés pour vos rapports Google Ads</p>
+                    <p className="header-subtitle">{t('list.pageSubtitle')}</p>
                 </div>
                 <button
                     className="create-btn"
                     onClick={handleCreateTheme}
                 >
                     <Plus size={20} />
-                    Créer un thème
+                    {t('list.createButton')}
                 </button>
             </div>
 
@@ -198,13 +203,13 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                 filteredThemes.length === 0 && themes.length > 0 ? (
                     <div className="empty-state">
                         <Palette size={64} className="empty-icon" />
-                        <h2>Aucun thème trouvé</h2>
-                        <p>Aucun thème n'est associé à ce compte.</p>
+                        <h2>{t('emptyState.notFoundTitle')}</h2>
+                        <p>{t('emptyState.notFoundDescription')}</p>
                         <button
                             className="btn-secondary"
                             onClick={() => setSelectedAccountId('')}
                         >
-                            Voir tous les thèmes
+                            {t('emptyState.viewAllButton')}
                         </button>
                     </div>
                 ) : themes.length === 0 ? (
@@ -212,17 +217,16 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                         <div className="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-4">
                             <Palette className="w-8 h-8 text-primary" />
                         </div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Aucun thème personnalisé</h3>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('emptyState.noCustomThemes')}</h3>
                         <p className="text-gray-500 mb-6 max-w-md">
-                            Créez votre premier thème pour personnaliser l'apparence de vos rapports
-                            et l'appliquer automatiquement à vos comptes Google Ads.
+                            {t('emptyState.createFirstDescription')}
                         </p>
                         <button
                             className="btn btn-primary"
                             onClick={handleCreateTheme}
                         >
                             <Plus size={20} className="mr-2" />
-                            Créer mon premier thème
+                            {t('emptyState.createFirstButton')}
                         </button>
                     </div>
                 ) : (
@@ -234,7 +238,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                                     <ThemePreview theme={theme} size="medium" />
                                     {theme.isDefault && (
                                         <div className="absolute top-3 right-3 px-2 py-1 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
-                                            Défaut
+                                            {t('card.defaultBadge')}
                                         </div>
                                     )}
                                 </div>
@@ -253,11 +257,11 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                                             <div className="flex items-center gap-1.5 text-xs text-primary bg-primary/5 px-2 py-1 rounded-md border border-primary/10">
                                                 <LinkIcon size={12} />
                                                 <span>
-                                                    {theme.linkedAccountIds.length} compte{theme.linkedAccountIds.length > 1 ? 's' : ''} lié{theme.linkedAccountIds.length > 1 ? 's' : ''}
+                                                    {t('card.linkedAccounts_plural', { count: theme.linkedAccountIds.length })}
                                                 </span>
                                             </div>
                                         ) : (
-                                            <span className="text-xs text-gray-400">Aucun compte lié</span>
+                                            <span className="text-xs text-gray-400">{t('card.noLinkedAccounts')}</span>
                                         )}
                                     </div>
                                 </div>
@@ -267,21 +271,21 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                                     <button
                                         onClick={() => handleDuplicateTheme(theme)}
                                         className="action-btn-icon"
-                                        title="Dupliquer"
+                                        title={t('card.actions.duplicate')}
                                     >
                                         <Copy size={16} />
                                     </button>
                                     <button
                                         onClick={() => handleEditTheme(theme)}
                                         className="action-btn-icon text-primary hover:bg-primary/10"
-                                        title="Modifier"
+                                        title={t('card.actions.edit')}
                                     >
                                         <Edit2 size={16} />
                                     </button>
                                     <button
                                         onClick={() => handleDeleteTheme(theme)}
                                         className="action-btn-icon destructive"
-                                        title="Supprimer"
+                                        title={t('card.actions.delete')}
                                     >
                                         <Trash2 size={16} />
                                     </button>
@@ -311,9 +315,9 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                     setThemeToDelete(null);
                 }}
                 onConfirm={confirmDeleteTheme}
-                title="Supprimer le thème"
-                message={`Êtes-vous sûr de vouloir supprimer le thème "${themeToDelete?.name}" ?`}
-                confirmLabel="Supprimer"
+                title={t('messages.deleteConfirmTitle')}
+                message={t('messages.deleteConfirmMessage', { name: themeToDelete?.name })}
+                confirmLabel={t('messages.deleteConfirmButton')}
                 isDestructive={true}
             />
         </div >

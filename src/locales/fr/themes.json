@@ -1,0 +1,39 @@
+{
+    "list": {
+        "title": "Mes thèmes",
+        "pageTitle": "Mes thèmes de rapport",
+        "pageSubtitle": "Créez et gérez vos thèmes personnalisés pour vos rapports Google Ads",
+        "newButton": "Nouveau",
+        "createButton": "Créer un thème",
+        "loading": "Chargement des thèmes..."
+    },
+    "emptyState": {
+        "noCustomThemes": "Aucun thème personnalisé",
+        "createFirstButton": "Créer mon premier thème",
+        "createFirstDescription": "Créez votre premier thème pour personnaliser l'apparence de vos rapports et l'appliquer automatiquement à vos comptes Google Ads.",
+        "notFoundTitle": "Aucun thème trouvé",
+        "notFoundDescription": "Aucun thème n'est associé à ce compte.",
+        "viewAllButton": "Voir tous les thèmes"
+    },
+    "card": {
+        "defaultBadge": "Défaut",
+        "linkedAccounts": "{{count}} compte lié",
+        "linkedAccounts_plural": "{{count}} comptes liés",
+        "noLinkedAccounts": "Aucun compte lié",
+        "actions": {
+            "edit": "Modifier",
+            "duplicate": "Dupliquer",
+            "delete": "Supprimer"
+        }
+    },
+    "messages": {
+        "loadError": "Erreur lors du chargement des thèmes",
+        "duplicateSuccess": "Thème dupliqué",
+        "duplicateError": "Erreur lors de la duplication",
+        "deleteSuccess": "Thème supprimé",
+        "deleteError": "Erreur lors de la suppression",
+        "deleteConfirmTitle": "Supprimer le thème",
+        "deleteConfirmMessage": "Êtes-vous sûr de vouloir supprimer le thème \"{{name}}\" ?",
+        "deleteConfirmButton": "Supprimer"
+    }
+}

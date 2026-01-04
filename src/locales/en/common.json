@@ -269,5 +269,54 @@
     "lastNameRequired": "Last name is required",
     "emailRequired": "Email is required",
     "emailInvalid": "Email is not valid"
+  },
+  "appNavigation": {
+    "dashboard": "Dashboard",
+    "audit": "Audit",
+    "reports": "Reports",
+    "schedules": "Scheduled",
+    "templates": "Templates",
+    "themes": "Themes",
+    "settings": "Settings",
+    "logout": "Log Out",
+    "demoMode": "Demo Mode",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "mainNavigation": "Main navigation",
+    "theme": "Theme",
+    "toggleTheme": "Switch to {{theme}} theme",
+    "light": "light",
+    "dark": "dark"
+  },
+  "accessDenied": {
+    "subscription": {
+      "title": "Subscription Required",
+      "description": "To use {{featureName}}, you need an active subscription. Enjoy all Flipika features by upgrading your plan.",
+      "action": "View Plans"
+    },
+    "googleAds": {
+      "title": "Google Ads Account Required",
+      "description": "To use {{featureName}}, you must connect a Google Ads account. This is necessary to retrieve your data and generate reports.",
+      "action": "Connect Google Ads"
+    },
+    "both": {
+      "title": "Setup Required",
+      "description": "To use {{featureName}}, you must have an active subscription and a connected Google Ads account.",
+      "action": "Setup My Account",
+      "secondaryAction": "View Plans"
+    },
+    "defaultFeatureName": "this feature"
+  },
+  "filters": {
+    "title": "Filters",
+    "allAccounts": "All Accounts",
+    "allCampaigns": "All Campaigns"
+  },
+  "actions": {
+    "clear": "Clear"
+  },
+  "status": {
+    "loading": "Loading..."
   }
 }

@@ -8,38 +8,46 @@
   "viewList": "List view",
   "sessionExpired": "Google Ads connection required",
   "sessionExpiredDescription": "Unable to retrieve your Google Ads accounts. The session has likely expired. Reconnect account",
-  "empty": {
+  "emptyState": {
     "title": "No templates",
-    "notFound": "No templates match your search",
-    "noTemplates": "Create your first template to generate reports quickly",
+    "noTemplates": "No templates",
+    "noResults": "No templates match your search",
+    "createFirst": "Create your first template to generate reports quickly",
     "createButton": "Create a template"
   },
+  "connectToCreate": "Connect Google Ads to create templates",
   "accountSelector": {
     "title": "Select an account",
     "description": "This template doesn't specify a Google Ads account. Please select one to generate the report.",
     "generate": "Generate report"
   },
-  "delete": {
+  "deleteConfirm": {
     "title": "Delete template",
-    "confirmSimple": "Are you sure you want to delete the template \"{name}\"? This action is irreversible.",
-    "confirmWithSchedules": "This template is used by {count} schedule(s) ({activeCount} active): {names} and {remaining} others.",
-    "warning": "If you delete this template, THESE SCHEDULES WILL ALSO BE DELETED.",
-    "confirmQuestion": "Are you sure you want to continue?",
-    "deleteButton": "Delete"
+    "message": "Are you sure you want to delete the template \"{{name}}\"?",
+    "confirm": "Delete",
+    "checking": "Checking...",
+    "withSchedules": "This template is used by {{count}} schedule(s) ({{activeCount}} active): {{scheduleNames}}{{suffix}}",
+    "andOthers": " and {{count}} other(s)",
+    "activeCount": "{{count}} active"
   },
   "toast": {
     "created": "Template created successfully!",
     "createError": "Error creating template",
     "updated": "Template updated!",
     "updateError": "Error updating template",
-    "checking": "Checking...",
     "deletedWithSchedules": "Template and associated schedules deleted",
     "deleted": "Template deleted",
-    "deleteError": "Error deleting: {error}",
     "duplicated": "Template duplicated!",
     "duplicateError": "Error duplicating template",
     "reportCreated": "Report created from template!",
     "reportError": "Error creating report"
+  },
+  "errors": {
+    "loadingTemplates": "Error loading templates",
+    "checkingUsage": "Error checking usage",
+    "deleting": "Error deleting: {{message}}",
+    "creatingReport": "Error creating report",
+    "unknown": "Unknown error"
   },
   "card": {
     "noAccount": "Not defined",
