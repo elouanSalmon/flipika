@@ -36,8 +36,14 @@ export default function BillingPage() {
 
         // Check for checkout session status
         const session = searchParams.get('session');
+        const fromStripePortal = searchParams.get('from');
+
         if (session === 'success') {
             toast.success(t('toast.subscriptionCreated'));
+            // Sync billing data from Stripe to refresh subscription status
+            syncBilling().catch(err => {
+                console.error('Error syncing billing after checkout:', err);
+            });
             // Remove query param
             searchParams.delete('session');
             navigate({ search: searchParams.toString() }, { replace: true });
@@ -45,8 +51,16 @@ export default function BillingPage() {
             toast.error(t('toast.paymentCanceled'));
             searchParams.delete('session');
             navigate({ search: searchParams.toString() }, { replace: true });
+        } else if (fromStripePortal === 'stripe-portal') {
+            // User returned from Stripe Customer Portal, sync billing data
+            syncBilling().catch(err => {
+                console.error('Error syncing billing after portal:', err);
+            });
+            // Remove query param
+            searchParams.delete('from');
+            navigate({ search: searchParams.toString() }, { replace: true });
         }
-    }, [currentUser, navigate, searchParams]);
+    }, [currentUser, navigate, searchParams, syncBilling, t]);
 
     useEffect(() => {
         if (!currentUser) return;

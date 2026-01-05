@@ -82,7 +82,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         const createPortalFn = httpsCallable(functions, 'createStripePortal');
 
         const result = await createPortalFn({
-            returnUrl: `${window.location.origin}/app/billing`,
+            returnUrl: `${window.location.origin}/app/billing?from=stripe-portal`,
         });
 
         const data = result.data as { url: string };
