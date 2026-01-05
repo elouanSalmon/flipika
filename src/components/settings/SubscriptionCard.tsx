@@ -19,8 +19,7 @@ export default function SubscriptionCard() {
         try {
             setIsOpeningPortal(true);
             const url = await openCustomerPortal();
-            window.open(url, '_blank');
-            setIsOpeningPortal(false);
+            window.location.href = url;
         } catch (error) {
             console.error('Error opening portal:', error);
             setIsOpeningPortal(false);

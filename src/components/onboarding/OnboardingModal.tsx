@@ -574,7 +574,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             </button>
 
                             <button
-                                onClick={() => window.open('/app/billing', '_blank')}
+                                onClick={() => window.location.href = '/app/billing'}
                                 className="w-full px-6 h-14 text-primary dark:text-primary-light font-medium transition-colors flex items-center justify-center gap-2 hover:bg-primary/5 rounded-xl border-2 border-transparent hover:border-primary/10"
                             >
                                 <Info size={20} />

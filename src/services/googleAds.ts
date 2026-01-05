@@ -57,31 +57,8 @@ export const initiateGoogleAdsOAuth = async () => {
             throw new Error(data.error || 'Failed to get authorization URL');
         }
 
-        const width = 600;
-        const height = 700;
-        const left = window.screen.width / 2 - width / 2;
-        const top = window.screen.height / 2 - height / 2;
-
-        const popup = window.open(
-            data.authUrl,
-            'Google Ads Authorization',
-            `width=${width},height=${height},left=${left},top=${top},toolbar=no,menubar=no,scrollbars=yes,resizable=yes`
-        );
-
-        if (!popup) {
-            throw new Error('Popup was blocked. Please allow popups for this site.');
-        }
-
-        return new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => {
-                reject(new Error('OAuth flow timed out'));
-            }, 5 * 60 * 1000);
-
-            setTimeout(() => {
-                clearTimeout(timeout);
-                resolve({ success: true });
-            }, 2000);
-        });
+        // Redirect to Google OAuth in the same window to avoid popup blockers
+        window.location.href = data.authUrl;
     } catch (error: any) {
         console.error("Failed to initiate Google Ads OAuth:", error);
         throw error;

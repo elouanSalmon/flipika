@@ -89,9 +89,7 @@ export default function BillingPage() {
         try {
             setIsCreatingCheckout(true);
             const url = await createCheckout(STRIPE_PRICE_ID);
-            window.open(url, '_blank');
-            setIsCreatingCheckout(false);
-            setIsCreatingCheckout(false);
+            window.location.href = url;
         } catch (error: any) {
             console.error('Error creating checkout:', error);
             toast.error(t('errors.creatingCheckout'));
@@ -103,8 +101,7 @@ export default function BillingPage() {
         try {
             setIsOpeningPortal(true);
             const url = await openCustomerPortal();
-            window.open(url, '_blank');
-            setIsOpeningPortal(false);
+            window.location.href = url;
         } catch (error: any) {
             console.error('Error opening portal:', error);
             toast.error(t('errors.openingPortal'));
