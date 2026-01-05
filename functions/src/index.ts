@@ -471,7 +471,59 @@ export const syncBillingManual = onCall({ memory: '512MiB' }, async (request) =>
     .get();
 
   if (!subscriptionDoc.exists) {
-    throw new Error('No active subscription found');
+    // If no subscription doc exists yet, check Stripe directly
+    // This handles the case where webhooks haven't finished processing yet
+    console.log(`No subscription doc found for ${userId}, checking Stripe directly...`);
+
+    // Get user's email to search for customer in Stripe
+    const userDoc = await admin.firestore().collection('users').doc(userId).get();
+    if (!userDoc.exists) {
+      throw new Error('User not found');
+    }
+
+    const email = userDoc.data()!.email;
+    if (!email) {
+      throw new Error('User email not found');
+    }
+
+    // Search for customer in Stripe by email
+    const customers = await stripe.customers.list({
+      email: email,
+      limit: 1,
+    });
+
+    if (customers.data.length === 0) {
+      throw new Error('No Stripe customer found for this email');
+    }
+
+    const customer = customers.data[0];
+
+    // Get customer's subscriptions
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customer.id,
+      limit: 1,
+      status: 'all',
+    });
+
+    if (subscriptions.data.length === 0) {
+      throw new Error('No subscription found in Stripe');
+    }
+
+    const subscription = subscriptions.data[0];
+
+    // Count Google Ads accounts
+    const accountsSnapshot = await admin.firestore()
+      .collection('users')
+      .doc(userId)
+      .collection('google_ads_accounts')
+      .get();
+
+    const accountCount = accountsSnapshot.size;
+    console.log(`Found ${accountCount} Google Ads accounts for user ${userId}`);
+
+    // Sync using Stripe subscription ID
+    const result = await syncUserBillingByCount(userId, accountCount, subscription.id);
+    return result;
   }
 
   const subscriptionData = subscriptionDoc.data()!;
