@@ -12,6 +12,7 @@ import LanguageCard from '../components/settings/LanguageCard';
 import { motion } from 'framer-motion';
 import { Settings as SettingsIcon } from 'lucide-react';
 import { useSubscription } from '../contexts/SubscriptionContext';
+import toast from 'react-hot-toast';
 
 const Settings = () => {
     const { t } = useTranslation('settings');
@@ -22,11 +23,35 @@ const Settings = () => {
     useEffect(() => {
         const fromStripePortal = searchParams.get('from');
 
+        const syncWithRetry = async (maxRetries = 3, delayMs = 2000) => {
+            const loadingToast = toast.loading('Synchronisation en cours...');
+
+            for (let attempt = 1; attempt <= maxRetries; attempt++) {
+                try {
+                    // Wait a bit before syncing to let Stripe webhooks process
+                    if (attempt === 1) {
+                        await new Promise(resolve => setTimeout(resolve, delayMs));
+                    } else {
+                        await new Promise(resolve => setTimeout(resolve, delayMs * attempt));
+                    }
+
+                    await syncBilling();
+                    toast.dismiss(loadingToast);
+                    toast.success('Abonnement synchronisé !');
+                    return;
+                } catch (err) {
+                    console.error(`Sync attempt ${attempt} failed:`, err);
+                    if (attempt === maxRetries) {
+                        toast.dismiss(loadingToast);
+                        toast.error('Erreur de synchronisation. Rafraîchissez la page.');
+                    }
+                }
+            }
+        };
+
         if (fromStripePortal === 'stripe-portal') {
             // User returned from Stripe Customer Portal, sync billing data
-            syncBilling().catch(err => {
-                console.error('Error syncing billing after portal:', err);
-            });
+            syncWithRetry();
             // Remove query param
             searchParams.delete('from');
             navigate({ search: searchParams.toString() }, { replace: true });
