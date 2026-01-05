@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import ProfileCard from '../components/settings/ProfileCard';
 import SecurityCard from '../components/settings/SecurityCard';
 import ConnectionsCard from '../components/settings/ConnectionsCard';
@@ -9,9 +11,28 @@ import ThemesCard from '../components/settings/ThemesCard';
 import LanguageCard from '../components/settings/LanguageCard';
 import { motion } from 'framer-motion';
 import { Settings as SettingsIcon } from 'lucide-react';
+import { useSubscription } from '../contexts/SubscriptionContext';
 
 const Settings = () => {
     const { t } = useTranslation('settings');
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const { syncBilling } = useSubscription();
+
+    useEffect(() => {
+        const fromStripePortal = searchParams.get('from');
+
+        if (fromStripePortal === 'stripe-portal') {
+            // User returned from Stripe Customer Portal, sync billing data
+            syncBilling().catch(err => {
+                console.error('Error syncing billing after portal:', err);
+            });
+            // Remove query param
+            searchParams.delete('from');
+            navigate({ search: searchParams.toString() }, { replace: true });
+        }
+    }, [searchParams, syncBilling, navigate]);
+
     return (
         <div className="p-4 md:p-8 max-w-6xl mx-auto">
             {/* Header */}

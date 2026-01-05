@@ -18,7 +18,8 @@ export default function SubscriptionCard() {
     const handleManageSubscription = async () => {
         try {
             setIsOpeningPortal(true);
-            const url = await openCustomerPortal();
+            const returnUrl = `${window.location.origin}/app/settings?from=stripe-portal`;
+            const url = await openCustomerPortal(returnUrl);
             window.location.href = url;
         } catch (error) {
             console.error('Error opening portal:', error);
