@@ -348,7 +348,7 @@
         "content": "The controller of your personal data is:",
         "company": "<strong>DISCO SAS</strong>",
         "address": "Headquarters: 1 rue de Stockholm, 75008 Paris, France",
-        "email": "Email: contact@flipika.com",
+        "email": "Email: helloflipika@gmail.com",
         "siret": "SIRET: 927 707 836 00015"
       },
       "dataCollected": {
@@ -464,7 +464,7 @@
         "deletionList": [
           "<strong>Google Ads account disconnection</strong>: Revokes access to your advertising data (immediate token deletion, data retained for 30 days)",
           "<strong>Flipika account deletion</strong>: Complete deletion of all your data within 30 days",
-          "<strong>Direct contact</strong>: Deletion request via contact@flipika.com (response within 48h)"
+          "<strong>Direct contact</strong>: Deletion request via helloflipika@gmail.com (response within 48h)"
         ],
         "autoDeletion": "<strong>Automatic deletion</strong>: In case of inactivity for more than 24 months, we notify you before permanently deleting your data."
       },
@@ -472,10 +472,10 @@
         "title": "7. User rights (GDPR)",
         "intro": "In accordance with the General Data Protection Regulation (GDPR), you have the following rights:",
         "rightsList": [
-          "<strong>Access</strong>: Obtain a copy of your data → Flipika Interface > \"Export my data\" or contact@flipika.com",
+          "<strong>Access</strong>: Obtain a copy of your data → Flipika Interface > \"Export my data\" or helloflipika@gmail.com",
           "<strong>Rectification</strong>: Correct inaccurate data → Flipika Interface > \"Account settings\"",
-          "<strong>Deletion</strong>: Request erasure of your data → Flipika Interface > \"Delete my account\" or contact@flipika.com",
-          "<strong>Restriction</strong>: Restrict processing of your data → contact@flipika.com",
+          "<strong>Deletion</strong>: Request erasure of your data → Flipika Interface > \"Delete my account\" or helloflipika@gmail.com",
+          "<strong>Restriction</strong>: Restrict processing of your data → helloflipika@gmail.com",
           "<strong>Portability</strong>: Retrieve your data in a structured format → Flipika Interface > \"Export my data\" (JSON format)",
           "<strong>Objection</strong>: Object to the processing of your data → Google Ads account disconnection or account deletion",
           "<strong>Consent withdrawal</strong>: Revoke your OAuth consent → Google Account > \"Third-party apps access\" > Revoke Flipika"
@@ -528,7 +528,7 @@
       },
       "minorProtection": {
         "title": "11. Protection of minors",
-        "content": "Flipika is not intended for persons under 18 years of age. We do not knowingly collect data from children. If you notice that a minor has created an account, please contact us immediately at contact@flipika.com."
+        "content": "Flipika is not intended for persons under 18 years of age. We do not knowingly collect data from children. If you notice that a minor has created an account, please contact us immediately at helloflipika@gmail.com."
       },
       "policyChanges": {
         "title": "12. Changes to this policy",
@@ -544,10 +544,10 @@
         "title": "13. Contact and Supervisory Authority",
         "contactUsTitle": "Contact us",
         "contactUsIntro": "For any questions regarding this privacy policy or your data:",
-        "email": "<strong>Email:</strong> contact@flipika.com",
+        "email": "<strong>Email:</strong> helloflipika@gmail.com",
         "address": "<strong>Address:</strong> Flipika SAS, 1 rue de Stockholm, 75008 Paris, France",
         "phone": "<strong>Phone:</strong> +33 (0)6 76 06 19 02",
-        "dpo": "<strong>Data Protection Officer (DPO):</strong> Mathis Colas (dpo@flipika.com)",
+        "dpo": "<strong>Data Protection Officer (DPO):</strong> Mathis Colas (helloflipika@gmail.com)",
         "authorityTitle": "Supervisory authority",
         "authorityIntro": "You have the right to file a complaint with the competent supervisory authority:",
         "cnilName": "<strong>CNIL (Commission Nationale de l'Informatique et des Libertés)</strong>",

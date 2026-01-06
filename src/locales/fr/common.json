@@ -266,7 +266,7 @@
         "content": "Le responsable du traitement de vos données personnelles est :",
         "company": "<strong>DISCO SAS</strong>",
         "address": "Siège social : 1 rue de Stockholm, 75008 Paris, France",
-        "email": "Email : contact@flipika.com",
+        "email": "Email : helloflipika@gmail.com",
         "siret": "SIRET : 927 707 836 00015"
       },
       "dataCollected": {
@@ -382,7 +382,7 @@
         "deletionList": [
           "<strong>Déconnexion du compte Google Ads</strong> : Révoque l'accès à vos données publicitaires (suppression immédiate des tokens, données conservées 30 jours)",
           "<strong>Suppression du compte Flipika</strong> : Suppression complète de toutes vos données sous 30 jours",
-          "<strong>Contact direct</strong> : Demande de suppression via contact@flipika.com (réponse sous 48h)"
+          "<strong>Contact direct</strong> : Demande de suppression via helloflipika@gmail.com (réponse sous 48h)"
         ],
         "autoDeletion": "<strong>Suppression automatique</strong> : En cas d'inactivité de plus de 24 mois, nous vous notifions avant de supprimer définitivement vos données."
       },
@@ -390,10 +390,10 @@
         "title": "7. Droits des utilisateurs (RGPD)",
         "intro": "Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :",
         "rightsList": [
-          "<strong>Accès</strong> : Obtenir une copie de vos données → Interface Flipika > \"Exporter mes données\" ou contact@flipika.com",
+          "<strong>Accès</strong> : Obtenir une copie de vos données → Interface Flipika > \"Exporter mes données\" ou helloflipika@gmail.com",
           "<strong>Rectification</strong> : Corriger des données inexactes → Interface Flipika > \"Paramètres du compte\"",
-          "<strong>Suppression</strong> : Demander l'effacement de vos données → Interface Flipika > \"Supprimer mon compte\" ou contact@flipika.com",
-          "<strong>Limitation</strong> : Restreindre le traitement de vos données → contact@flipika.com",
+          "<strong>Suppression</strong> : Demander l'effacement de vos données → Interface Flipika > \"Supprimer mon compte\" ou helloflipika@gmail.com",
+          "<strong>Limitation</strong> : Restreindre le traitement de vos données → helloflipika@gmail.com",
           "<strong>Portabilité</strong> : Récupérer vos données dans un format structuré → Interface Flipika > \"Exporter mes données\" (format JSON)",
           "<strong>Opposition</strong> : Vous opposer au traitement de vos données → Déconnexion du compte Google Ads ou suppression du compte",
           "<strong>Retrait du consentement</strong> : Révoquer votre consentement OAuth → Google Account > \"Accès aux applications tierces\" > Révoquer Flipika"
@@ -446,7 +446,7 @@
       },
       "minorProtection": {
         "title": "11. Protection des mineurs",
-        "content": "Flipika n'est pas destiné aux personnes de moins de 18 ans. Nous ne collectons pas sciemment de données d'enfants. Si vous constatez qu'un mineur a créé un compte, contactez-nous immédiatement à contact@flipika.com."
+        "content": "Flipika n'est pas destiné aux personnes de moins de 18 ans. Nous ne collectons pas sciemment de données d'enfants. Si vous constatez qu'un mineur a créé un compte, contactez-nous immédiatement à helloflipika@gmail.com."
       },
       "policyChanges": {
         "title": "12. Modifications de cette politique",
@@ -462,10 +462,10 @@
         "title": "13. Contact et Autorité de contrôle",
         "contactUsTitle": "Nous contacter",
         "contactUsIntro": "Pour toute question relative à cette politique de confidentialité ou à vos données :",
-        "email": "<strong>Email :</strong> contact@flipika.com",
+        "email": "<strong>Email :</strong> helloflipika@gmail.com",
         "address": "<strong>Adresse :</strong> Flipika SAS, 1 rue de Stockholm, 75008 Paris, France",
         "phone": "<strong>Téléphone :</strong> +33 (0)6 76 06 19 02",
-        "dpo": "<strong>Délégué à la Protection des Données (DPO) :</strong> Mathis Colas (dpo@flipika.com)",
+        "dpo": "<strong>Délégué à la Protection des Données (DPO) :</strong> Mathis Colas (helloflipika@gmail.com)",
         "authorityTitle": "Autorité de contrôle",
         "authorityIntro": "Vous avez le droit de déposer une plainte auprès de l'autorité de contrôle compétente :",
         "cnilName": "<strong>CNIL (Commission Nationale de l'Informatique et des Libertés)</strong>",
