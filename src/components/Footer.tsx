@@ -14,13 +14,13 @@ const Footer: React.FC = () => {
           </div>
           
           <div className="footer-simple-links">
-            <Link to="/mentions-legales" className="footer-simple-link">
+            <Link to="/legal-notices" className="footer-simple-link">
               {t('common:footer.legal')}
             </Link>
-            <Link to="/politique-confidentialite" className="footer-simple-link">
+            <Link to="/privacy-policy" className="footer-simple-link">
               {t('common:footer.privacy')}
             </Link>
-            <Link to="/conditions-utilisation" className="footer-simple-link">
+            <Link to="/terms-of-service" className="footer-simple-link">
               {t('common:footer.terms')}
             </Link>
           </div>

@@ -114,9 +114,14 @@ const AppRoutes = () => {
       {/* Public Landing Pages */}
       <Route path="/" element={<Landing />} />
       {enableFullLanding && <Route path="/full" element={<LandingFull />} />}
-      <Route path="/mentions-legales" element={<LegalNotices />} />
-      <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
-      <Route path="/conditions-utilisation" element={<TermsOfService />} />
+      <Route path="/legal-notices" element={<LegalNotices />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/terms-of-service" element={<TermsOfService />} />
+
+      {/* Legacy French routes - redirect to new routes */}
+      <Route path="/mentions-legales" element={<Navigate to="/legal-notices" replace />} />
+      <Route path="/politique-confidentialite" element={<Navigate to="/privacy-policy" replace />} />
+      <Route path="/conditions-utilisation" element={<Navigate to="/terms-of-service" replace />} />
 
       {/* Auth Pages */}
       <Route path="/secret-login" element={<Login />} />
