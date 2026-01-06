@@ -255,157 +255,222 @@
   "privacyPolicy": {
     "title": "Politique de Confidentialité",
     "backToHome": "Retour à l'accueil",
-    "lastUpdate": "<strong>Dernière mise à jour :</strong> 15 novembre 2025",
+    "lastUpdate": "<strong>Dernière mise à jour :</strong> 6 janvier 2026",
     "sections": {
       "introduction": {
         "title": "1. Introduction",
-        "content": "Chez DISCO (opérant sous le nom Flipika), la protection de vos données personnelles est notre priorité. Cette politique de confidentialité explique comment nous collectons, utilisons, stockons et protégeons vos informations personnelles conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés."
+        "content": "Flipika (\"nous\", \"notre\", \"nos\") s'engage à protéger la confidentialité de ses utilisateurs. Cette politique décrit comment nous collectons, utilisons, stockons et protégeons les données personnelles et les données Google Ads de nos utilisateurs.<br/><br/><strong>Notre service :</strong> Flipika est une plateforme de gestion et d'analyse de campagnes Google Ads qui permet aux utilisateurs de visualiser les performances de leurs campagnes publicitaires."
       },
       "whoWeAre": {
         "title": "2. Qui sommes-nous ?",
         "content": "Le responsable du traitement de vos données personnelles est :",
         "company": "<strong>DISCO SAS</strong>",
-        "address": "Siège social : DISCO, 1 rue de Stockholm, 75008 Paris, France",
-        "email": "Email : helloflipika@gmail.com",
+        "address": "Siège social : 1 rue de Stockholm, 75008 Paris, France",
+        "email": "Email : contact@flipika.com",
         "siret": "SIRET : 927 707 836 00015"
       },
       "dataCollected": {
-        "title": "3. Données collectées",
-        "content": "Nous collectons les données suivantes :",
-        "identificationData": "Informations d'identification : nom, prénom, email",
-        "connectionData": "Données de connexion : adresse IP, type de navigateur",
-        "usageData": "Données d'utilisation : pages visitées, temps passé sur le site",
-        "commercialData": "Données publicitaires : comptes Google Ads connectés",
-        "list": [
-          "Informations d'identification : nom, prénom, email",
-          "Informations professionnelles : entreprise, poste",
-          "Données de connexion : adresse IP, type de navigateur",
-          "Données d'utilisation : pages visitées, temps passé sur le site",
-          "Données publicitaires : comptes Google Ads connectés"
-        ]
-      },
-      "legalBasis": {
-        "title": "4. Base légale du traitement",
-        "content": "Nous traitons vos données sur les bases légales suivantes :",
-        "consent": "Consentement : pour l'envoi de newsletters et de communications marketing",
-        "contract": "Contrat : pour fournir nos services et gérer votre compte",
-        "legitimateInterest": "Intérêt légitime : pour améliorer nos services et prévenir la fraude",
-        "legalObligation": "Obligation légale : pour respecter nos obligations comptables et fiscales",
-        "list": [
-          "Consentement : pour l'envoi de newsletters et de communications marketing",
-          "Contrat : pour fournir nos services et gérer votre compte",
-          "Intérêt légitime : pour améliorer nos services et prévenir la fraude",
-          "Obligation légale : pour respecter nos obligations comptables et fiscales"
+        "title": "2. Données collectées",
+        "intro": "Nous demandons l'accès aux données Google en deux étapes :",
+        "step1Title": "<strong>Étape 1 - Authentification de l'utilisateur :</strong>",
+        "step1List": [
+          "<code>openid</code> : Identification sécurisée de l'utilisateur",
+          "<code>userinfo.email</code> : Adresse e-mail principale de votre compte Google",
+          "<code>userinfo.profile</code> : Nom, photo de profil et informations publiques"
+        ],
+        "step2Title": "<strong>Étape 2 - Connexion du compte Google Ads</strong> (uniquement lorsque l'utilisateur choisit de connecter son compte Google Ads) :",
+        "step2List": [
+          "<code>auth/adwords</code> : Accès en lecture aux données de vos campagnes Google Ads (impressions, clics, coûts, ROI, créatifs publicitaires)"
+        ],
+        "usageDataTitle": "Données d'utilisation :",
+        "usageDataList": [
+          "Logs de connexion et d'activité sur la plateforme",
+          "Préférences de l'interface utilisateur",
+          "Données techniques (adresse IP, navigateur, système d'exploitation)"
         ]
       },
       "dataUsage": {
-        "title": "5. Utilisation des données",
-        "content": "Vos données sont utilisées pour :",
-        "provideServices": "Fournir et améliorer nos services",
-        "contact": "Personnaliser votre expérience utilisateur",
-        "marketing": "Vous envoyer des communications marketing (avec votre consentement)",
-        "analytics": "Analyser l'utilisation de notre service",
-        "legal": "Respecter nos obligations légales",
-        "list": [
-          "Fournir et améliorer nos services",
-          "Personnaliser votre expérience utilisateur",
-          "Vous envoyer des communications marketing (avec votre consentement)",
-          "Analyser l'utilisation de notre service",
-          "Détecter et prévenir la fraude",
-          "Respecter nos obligations légales"
+        "title": "3. Utilisation des données",
+        "googleAdsTitle": "Données Google Ads",
+        "googleAdsIntro": "Nous utilisons les données Google Ads <strong>exclusivement</strong> pour :",
+        "googleAdsList": [
+          "<strong>Afficher des rapports de performance</strong> : visualisation des métriques (impressions, clics, CTR, CPC, conversions, coûts)",
+          "<strong>Générer des tableaux de bord analytiques</strong> : graphiques et statistiques personnalisés pour l'utilisateur",
+          "<strong>Permettre la navigation dans les campagnes</strong> : consultation de la structure des comptes Google Ads"
+        ],
+        "notDoingTitle": "<strong>Ce que nous ne faisons PAS :</strong>",
+        "notDoingList": [
+          "❌ Modifier, créer ou supprimer automatiquement des campagnes publicitaires",
+          "❌ Utiliser vos données à des fins marketing externes",
+          "❌ Revendre ou transférer vos données à des tiers",
+          "❌ Former des modèles d'IA avec vos données (fonctionnalité non implémentée)"
+        ],
+        "userDataTitle": "Données de profil utilisateur",
+        "userDataList": [
+          "<code>email</code> : Communication relative au service (notifications, support, mises à jour de sécurité)",
+          "<code>profile</code> : Personnalisation de l'interface utilisateur (affichage du nom et de la photo de profil)"
+        ]
+      },
+      "dataSharing": {
+        "title": "4. Partage des données avec des tiers",
+        "noSharingTitle": "Non-partage des données Google",
+        "noSharingContent": "<strong>Flipika ne partage, ne transfère, ni ne divulgue vos données Google Ads à des tiers.</strong><br/><br/>Vos données Google (email, profil, données Google Ads) sont utilisées exclusivement dans le cadre de notre service et ne sont <strong>jamais</strong> :",
+        "neverList": [
+          "Vendues à des annonceurs ou courtiers de données",
+          "Partagées avec des partenaires commerciaux",
+          "Utilisées pour du ciblage publicitaire externe",
+          "Transférées à d'autres applications ou services"
+        ],
+        "serviceProvidersTitle": "Prestataires de services (sous-traitants)",
+        "serviceProvidersIntro": "Nous utilisons des prestataires de services agissant en notre nom, sous accord de confidentialité strict :",
+        "serviceProvidersList": [
+          "<strong>Google Cloud Platform / Firebase</strong> : Hébergement de l'infrastructure, base de données (Firestore). Données stockées de manière chiffrée. Conformité SOC 2/3, ISO 27001.",
+          "<strong>Google Analytics</strong> : Analyse d'usage de la plateforme (anonymisée). Statistiques d'utilisation anonymisées, pas de données Google Ads. Conformité RGPD."
+        ],
+        "serviceProvidersCommitments": "<strong>Engagements de nos sous-traitants :</strong>",
+        "commitmentsList": [
+          "Accès limité aux données strictement nécessaires",
+          "Interdiction d'utiliser les données à leurs propres fins",
+          "Conformité aux normes de sécurité (chiffrement, contrôles d'accès)"
+        ],
+        "legalObligationsTitle": "Obligations légales",
+        "legalObligationsIntro": "Nous pouvons divulguer des données uniquement dans les cas suivants :",
+        "legalObligationsList": [
+          "En réponse à une demande légale valide (assignation, mandat judiciaire)",
+          "Pour protéger les droits, la propriété ou la sécurité de Flipika, de nos utilisateurs ou du public",
+          "En cas de fusion, acquisition ou vente d'actifs (avec notification préalable aux utilisateurs)"
+        ]
+      },
+      "dataSecurity": {
+        "title": "5. Mécanismes de protection des données",
+        "technicalTitle": "Mesures de sécurité techniques",
+        "technicalList": [
+          "<strong>Chiffrement en transit</strong> (TLS 1.3 / SSL) : Toutes les communications entre votre navigateur et nos serveurs sont chiffrées",
+          "<strong>Chiffrement au repos</strong> (AES-256) : Les données stockées dans Firebase Firestore sont chiffrées",
+          "<strong>Authentification sécurisée</strong> (OAuth 2.0) : Protocole standard de Google, aucun mot de passe Flipika stocké",
+          "<strong>Tokens d'accès</strong> : Les tokens OAuth sont stockés de manière chiffrée et expirés automatiquement",
+          "<strong>Accès limité</strong> : Principe du moindre privilège - seules les autorisations strictement nécessaires sont demandées",
+          "<strong>Isolation des données</strong> : Les données de chaque utilisateur sont isolées (pas d'accès croisé)"
+        ],
+        "organizationalTitle": "Mesures organisationnelles",
+        "organizationalList": [
+          "<strong>Accès restreint</strong> : Seuls les employés autorisés (équipe technique) peuvent accéder aux infrastructures",
+          "<strong>Journalisation</strong> : Tous les accès aux données sensibles sont enregistrés et audités",
+          "<strong>Revues de sécurité</strong> : Audits réguliers du code et de l'infrastructure",
+          "<strong>Formation du personnel</strong> : Tous les employés sont formés aux bonnes pratiques de confidentialité",
+          "<strong>Politique de sécurité</strong> : Procédures internes strictes pour la gestion des données"
+        ],
+        "accessControlsTitle": "Contrôles d'accès",
+        "accessControlsList": [
+          "Authentification multi-facteurs (MFA) pour les accès administrateurs",
+          "Rotation régulière des clés d'API et secrets",
+          "Monitoring en temps réel des accès suspects",
+          "Alertes automatiques en cas d'anomalie"
         ]
       },
       "dataRetention": {
         "title": "6. Conservation des données",
-        "content": "Nous conservons vos données pendant :",
-        "contactData": "Données de contact : 3 ans après le dernier contact",
-        "accountData": "Données de compte : durée de votre abonnement + 3 ans",
-        "navigationData": "Données de navigation : 1 an",
-        "billingData": "Données de facturation : 10 ans (obligation légale)",
-        "list": [
-          "Données de compte : durée de votre abonnement + 3 ans",
-          "Données de facturation : 10 ans (obligation légale)",
-          "Données de marketing : jusqu'à désinscription + 3 ans",
-          "Données de connexion : 1 an",
-          "Données de support : 3 ans après la résolution du ticket"
-        ]
-      },
-      "dataSharing": {
-        "title": "7. Partage des données",
-        "content": "Nous ne partageons vos données qu'avec :",
-        "list": [
-          "Google Ads (via leurs API, uniquement avec votre consentement)",
-          "Fournisseurs de services techniques (hébergement, email)",
-          "Autorités légales (sur demande légale)",
-          "Partenaires commerciaux (avec votre consentement explicite)"
-        ]
-      },
-      "dataSecurity": {
-        "title": "8. Sécurité des données",
-        "content": "Nous mettons en œuvre les mesures de sécurité suivantes :",
-        "list": [
-          "Chiffrement des données en transit et au repos",
-          "Authentification à deux facteurs pour l'accès administrateur",
-          "Sauvegardes régulières des données",
-          "Contrôles d'accès stricts",
-          "Audit de sécurité régulier",
-          "Formation du personnel à la sécurité"
-        ]
-      },
-      "yourRights": {
-        "title": "9. Vos droits",
-        "content": "Conformément au RGPD, vous disposez des droits suivants :",
-        "list": [
-          "Droit d'accès : consulter vos données personnelles",
-          "Droit de rectification : corriger vos données inexactes",
-          "Droit à l'effacement : demander la suppression de vos données",
-          "Droit à la portabilité : recevoir vos données dans un format lisible",
-          "Droit d'opposition : vous opposer au traitement de vos données",
-          "Droit de limitation : limiter le traitement de vos données",
-          "Droit de ne pas être profilé : ne pas faire l'objet d'une décision automatisée"
+        "durationTitle": "Durée de conservation",
+        "durationList": [
+          "<strong>Données Google Ads</strong> : Tant que le compte est actif (nécessaire pour afficher les rapports historiques)",
+          "<strong>Données de profil (email, nom)</strong> : Tant que le compte est actif (nécessaire pour l'authentification et la communication)",
+          "<strong>Logs d'activité</strong> : 12 mois maximum (sécurité et débogage)",
+          "<strong>Données analytiques (anonymisées)</strong> : 24 mois maximum (amélioration du service)"
         ],
-        "exercise": "Pour exercer ces droits, contactez-nous à : helloflipika@gmail.com"
+        "deletionTitle": "Suppression des données",
+        "deletionIntro": "Vous pouvez demander la suppression de vos données à tout moment :",
+        "deletionList": [
+          "<strong>Déconnexion du compte Google Ads</strong> : Révoque l'accès à vos données publicitaires (suppression immédiate des tokens, données conservées 30 jours)",
+          "<strong>Suppression du compte Flipika</strong> : Suppression complète de toutes vos données sous 30 jours",
+          "<strong>Contact direct</strong> : Demande de suppression via contact@flipika.com (réponse sous 48h)"
+        ],
+        "autoDeletion": "<strong>Suppression automatique</strong> : En cas d'inactivité de plus de 24 mois, nous vous notifions avant de supprimer définitivement vos données."
+      },
+      "userRights": {
+        "title": "7. Droits des utilisateurs (RGPD)",
+        "intro": "Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :",
+        "rightsList": [
+          "<strong>Accès</strong> : Obtenir une copie de vos données → Interface Flipika > \"Exporter mes données\" ou contact@flipika.com",
+          "<strong>Rectification</strong> : Corriger des données inexactes → Interface Flipika > \"Paramètres du compte\"",
+          "<strong>Suppression</strong> : Demander l'effacement de vos données → Interface Flipika > \"Supprimer mon compte\" ou contact@flipika.com",
+          "<strong>Limitation</strong> : Restreindre le traitement de vos données → contact@flipika.com",
+          "<strong>Portabilité</strong> : Récupérer vos données dans un format structuré → Interface Flipika > \"Exporter mes données\" (format JSON)",
+          "<strong>Opposition</strong> : Vous opposer au traitement de vos données → Déconnexion du compte Google Ads ou suppression du compte",
+          "<strong>Retrait du consentement</strong> : Révoquer votre consentement OAuth → Google Account > \"Accès aux applications tierces\" > Révoquer Flipika"
+        ],
+        "responseTime": "<strong>Délai de réponse</strong> : Nous nous engageons à répondre à toute demande sous 30 jours maximum."
+      },
+      "googleCompliance": {
+        "title": "8. Conformité avec les Règles Google",
+        "commitmentTitle": "Engagement de conformité",
+        "commitmentIntro": "Flipika s'engage à respecter :",
+        "commitmentList": [
+          "<a href=\"https://developers.google.com/terms/api-services-user-data-policy\" target=\"_blank\" rel=\"noopener noreferrer\">Google API Services User Data Policy</a>",
+          "<a href=\"https://developers.google.com/google-ads/api/terms-conditions\" target=\"_blank\" rel=\"noopener noreferrer\">Google Ads API Terms and Conditions</a>",
+          "<a href=\"https://developers.google.com/terms\" target=\"_blank\" rel=\"noopener noreferrer\">Conditions d'utilisation de l'API Google</a>"
+        ],
+        "limitedUseTitle": "Principe d'utilisation limitée",
+        "limitedUseIntro": "Conformément à la <strong>politique d'utilisation limitée des données utilisateur des services API Google</strong>, nous garantissons que :",
+        "limitedUseList": [
+          "<strong>Limitation des données</strong> : Nous demandons uniquement les scopes strictement nécessaires pour fournir notre service",
+          "<strong>Usage transparent</strong> : Les données Google sont utilisées uniquement pour les fonctionnalités visibles par l'utilisateur (rapports, tableaux de bord)",
+          "<strong>Pas de transfert</strong> : Les données ne sont pas transférées à des tiers (sauf sous-traitants contractuels)",
+          "<strong>Pas d'usage publicitaire</strong> : Les données Google ne sont pas utilisées pour diffuser des publicités"
+        ],
+        "scopeJustificationTitle": "Justification des scopes demandés",
+        "scopeJustificationList": [
+          "<code>openid</code> : Authentification sécurisée de l'utilisateur",
+          "<code>userinfo.email</code> : Identification de l'utilisateur et communication relative au service",
+          "<code>userinfo.profile</code> : Personnalisation de l'interface (affichage du nom et de la photo)",
+          "<code>auth/adwords</code> : <strong>Accès en lecture seule</strong> aux données Google Ads pour afficher les rapports de performance (impressions, clics, coûts, ROI). Aucune modification automatique n'est effectuée sans action explicite de l'utilisateur."
+        ]
       },
       "cookies": {
-        "title": "10. Cookies et technologies similaires",
-        "content": "Nous utilisons des cookies pour :",
-        "essentialCookies": "Fonctionnalités essentielles (connexion, préférences)",
-        "preferenceCookies": "Préférences utilisateur (langue, thème)",
-        "analyticsCookies": "Analyses d'utilisation (Google Analytics)",
-        "marketingCookies": "Publicités personnalisées (avec consentement)",
-        "list": [
-          "Fonctionnalités essentielles (connexion, préférences)",
-          "Analyses d'utilisation (Google Analytics)",
-          "Publicités personnalisées (avec consentement)",
-          "Performances du site"
+        "title": "9. Cookies et technologies de suivi",
+        "usedTitle": "Cookies utilisés",
+        "usedList": [
+          "<strong>Cookies de session</strong> : Maintien de la session utilisateur (supprimés à la fermeture du navigateur)",
+          "<strong>Google Analytics</strong> : Analyse anonymisée de l'usage de la plateforme (opt-out possible via Google Consent Mode)"
         ],
-        "consent": "Vous pouvez gérer vos préférences cookies à tout moment via notre centre de préférences.",
-        "manage": "Vous pouvez gérer vos préférences cookies à tout moment via notre centre de préférences."
+        "configuration": "<strong>Configuration :</strong> Nous utilisons Google Consent Mode v2 avec refus par défaut des cookies publicitaires et analytiques jusqu'à votre consentement.",
+        "management": "Vous pouvez refuser les cookies analytiques dans les paramètres de votre navigateur ou via notre bandeau de consentement."
       },
       "internationalTransfers": {
-        "title": "11. Transferts internationaux",
-        "content": "Vos données peuvent être transférées vers des pays hors UE. Dans ce cas, nous garantissons :",
-        "list": [
-          "Des clauses contractuelles types approuvées par la Commission européenne",
-          "Des garanties appropriées pour protéger vos données",
-          "Des mesures de sécurité renforcées"
+        "title": "10. Transferts internationaux de données",
+        "content": "Les données sont hébergées sur <strong>Google Cloud Platform (Firebase)</strong> dans la région <strong>europe-west1 (Belgique)</strong>.",
+        "guaranteesIntro": "En cas de transfert hors Union Européenne (pour des raisons de redondance ou de performance), nous garantissons :",
+        "guaranteesList": [
+          "Utilisation de clauses contractuelles types approuvées par la Commission Européenne",
+          "Conformité aux décisions d'adéquation de la Commission Européenne"
         ]
+      },
+      "minorProtection": {
+        "title": "11. Protection des mineurs",
+        "content": "Flipika n'est pas destiné aux personnes de moins de 18 ans. Nous ne collectons pas sciemment de données d'enfants. Si vous constatez qu'un mineur a créé un compte, contactez-nous immédiatement à contact@flipika.com."
       },
       "policyChanges": {
-        "title": "12. Modifications de la politique",
-        "content": "Nous nous réservons le droit de modifier cette politique à tout moment. Les modifications seront :",
-        "list": [
-          "Communiquées par email aux utilisateurs enregistrés",
-          "Publiées sur cette page avec la date de mise à jour",
-          "Effectives 30 jours après la publication"
-        ]
+        "title": "12. Modifications de cette politique",
+        "intro": "Nous pouvons mettre à jour cette politique de confidentialité périodiquement. En cas de modification substantielle :",
+        "changesList": [
+          "Notification par email à tous les utilisateurs",
+          "Affichage d'une notification dans l'interface Flipika",
+          "Mise à jour de la date \"Dernière mise à jour\" en haut de ce document"
+        ],
+        "archivedVersions": "<strong>Version archivée :</strong> Les versions précédentes de cette politique sont disponibles sur demande."
       },
       "contact": {
-        "title": "13. Contact",
-        "content": "Pour toute question concernant cette politique de confidentialité :",
-        "email": "<strong>Email :</strong> helloflipika@gmail.com",
-        "address": "<strong>Adresse postale :</strong> DISCO - Privacy, 1 rue de Stockholm, 75008 Paris",
-        "cnil": "Vous avez également le droit de déposer une réclamation auprès de la CNIL : <a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener noreferrer\"> www.cnil.fr</a>"
+        "title": "13. Contact et Autorité de contrôle",
+        "contactUsTitle": "Nous contacter",
+        "contactUsIntro": "Pour toute question relative à cette politique de confidentialité ou à vos données :",
+        "email": "<strong>Email :</strong> contact@flipika.com",
+        "address": "<strong>Adresse :</strong> Flipika SAS, 1 rue de Stockholm, 75008 Paris, France",
+        "phone": "<strong>Téléphone :</strong> +33 (0)6 76 06 19 02",
+        "dpo": "<strong>Délégué à la Protection des Données (DPO) :</strong> Mathis Colas (dpo@flipika.com)",
+        "authorityTitle": "Autorité de contrôle",
+        "authorityIntro": "Vous avez le droit de déposer une plainte auprès de l'autorité de contrôle compétente :",
+        "cnilName": "<strong>CNIL (Commission Nationale de l'Informatique et des Libertés)</strong>",
+        "cnilAddress": "3 Place de Fontenoy, TSA 80715, 75334 Paris Cedex 07",
+        "cnilWebsite": "<a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener noreferrer\">www.cnil.fr</a>"
       }
     }
   },
