@@ -1,0 +1,714 @@
+{
+  "header": {
+    "tagline": "Rapports Google Ads",
+    "getStarted": "Voir un exemple",
+    "language": "Langue",
+    "home": "Accueil",
+    "features": "Fonctionnalités",
+    "pricing": "Tarifs",
+    "testimonials": "Avis",
+    "contact": "Contact",
+    "problem": "Problèmes",
+    "login": "Connexion"
+  },
+  "hero": {
+    "title": "Des rapports Google Ads automatiques que vos clients comprennent",
+    "subtitle": "Gagnez des heures chaque mois sur vos reportings clients",
+    "description": "Flipika génère automatiquement des rapports Google Ads clairs, expliqués et prêts à envoyer. Plus besoin d’exporter, de mise en forme ou de justifier chaque chiffre.",
+    "getStarted": "Voir un exemple de rapport",
+    "noCreditCard": "Aucune carte bancaire requise",
+    "cta": "Accéder à la bêta",
+    "ctaSecondary": "Voir comment ça marche"
+  },
+  "problem": {
+    "title": "Le reporting Google Ads vous fait perdre un temps fou",
+    "subtitle": "Des heures passées sur une tâche à faible valeur",
+    "description": "Entre les exports, les dashboards et l’explication des performances, le reporting client devient une corvée récurrente.",
+    "issues": {
+      "timeManagement": "Des heures perdues chaque semaine",
+      "budgetWaste": "Des dashboards que les clients ne comprennent pas",
+      "inconsistentCampaigns": "Des chiffres difficiles à expliquer",
+      "difficultToScale": "Un reporting qui empêche de scaler",
+      "expensiveAgency": "Des rapports longs à produire",
+      "costlyAndTime": "Du stress avant chaque call client"
+    }
+  },
+  "features": {
+    "title": "Le reporting Google Ads, enfin simple",
+    "subtitle": "Automatique, clair et orienté business",
+    "aiGeneration": {
+      "title": "Rapports clients automatiques",
+      "description": "Générez des rapports Google Ads complets avec KPIs clés, variations et explications prêtes à envoyer."
+    },
+    "analytics": {
+      "title": "Performances expliquées",
+      "description": "Flipika explique les variations de CPA, ROAS et conversions avec un discours compréhensible pour vos clients."
+    },
+    "optimization": {
+      "title": "Insights actionnables",
+      "description": "Mettez en avant ce qui a fonctionné, ce qui a moins performé et les prochaines actions."
+    },
+    "buttons": {
+      "learnMore": "En savoir plus",
+      "getStarted": "Commencer"
+    },
+    "createCampaigns": {
+      "title": "Architecture modulaire par Widgets",
+      "subtitle": "Construisez vos rapports sur mesure",
+      "description": "Votre rapport est une collection de widgets personnalisables. Graphiques, tableaux, textes : assemblez-les par simple glisser-déposer.",
+      "benefits": [
+        "Widgets modulaires et réutilisables",
+        "Drag & Drop pour personnaliser",
+        "Templates prêts à l'emploi"
+      ]
+    },
+    "autoOptimize": {
+      "title": "Narrative Layer : Commentaires contextuels",
+      "subtitle": "Les chiffres avec du sens",
+      "description": "Ajoutez vos analyses et explications directement dans le rapport. C'est votre expertise qui apporte la vraie valeur au client.",
+      "benefits": [
+        "Éditeur de texte riche intégré",
+        "Expliquez les variations",
+        "Apportez votre valeur humaine"
+      ]
+    },
+    "actionableInsights": {
+      "title": "Automatisation et Scheduling",
+      "subtitle": "Envoi automatique programmé",
+      "description": "Programmez l'envoi de vos rapports : tous les lundis à 9h, chaque fin de mois... Vos clients reçoivent leurs rapports sans que vous leviez le petit doigt.",
+      "benefits": [
+        "Envoi automatique par email",
+        "Planning personnalisable",
+        "Gain de temps maximal"
+      ]
+    },
+    "whiteLabelPortal": {
+      "title": "Portail White-Label interactif",
+      "subtitle": "Liens de consultation live",
+      "description": "Au lieu d'un PDF statique, envoyez un lien personnalisé. Vos clients interagissent avec les graphiques et vous savez s'ils ont consulté le rapport.",
+      "benefits": [
+        "Graphiques interactifs",
+        "Tracking de consultation",
+        "Votre marque en avant"
+      ]
+    },
+    "dataSnapshots": {
+      "title": "Snapshots de données figées",
+      "subtitle": "Vos rapports restent immuables",
+      "description": "Les données sont \"gelées\" à la finalisation du rapport. Le rapport de janvier restera identique, même consulté en décembre.",
+      "benefits": [
+        "Données figées dans le temps",
+        "Rapports historiques fiables",
+        "Aucune modification rétroactive"
+      ]
+    }
+  },
+  "differentiation": {
+    "title": "Pourquoi les Media Buyers utilisent Flipika",
+    "subtitle": "Pensé pour le reporting client Google Ads",
+    "description": "Flipika simplifie votre workflow de reporting sans remplacer votre expertise.",
+    "notCopywritingTool": {
+      "title": "Pas un dashboard de plus",
+      "subtitle": "Un vrai outil de reporting client",
+      "description": "Flipika transforme vos données Google Ads en rapports compréhensibles et exploitables."
+    },
+    "designedForMediaBuyers": {
+      "title": "Conçu pour les Media Buyers",
+      "subtitle": "Freelance et agences",
+      "description": "Chaque fonctionnalité est pensée pour gagner du temps sur le reporting."
+    },
+    "usesRealData": {
+      "title": "Données Google Ads réelles",
+      "subtitle": "Connexion API sécurisée",
+      "description": "Vos rapports sont générés à partir de vos vraies données."
+    },
+    "learnsAndImproves": {
+      "title": "IA au service du reporting",
+      "subtitle": "Pas au centre",
+      "description": "L’IA détecte les variations et structure le discours client."
+    },
+    "comparison": {
+      "title": "Flipika vs Solutions Traditionnelles",
+      "subtitle": "Comparaison honnête de ce qui nous rend uniques",
+      "featureHeader": "Fonctionnalité",
+      "flipikaHeader": "Flipika",
+      "othersHeader": "Autres outils",
+      "campaignManagement": "Rapports automatisés",
+      "realTimeOptimization": "Widgets personnalisables",
+      "directGoogleAds": "Connexion directe Google Ads",
+      "specializedAI": "IA spécialisée reporting",
+      "continuousLearning": "Snapshots de données",
+      "genericText": "Templates génériques"
+    },
+    "cta": "Prêt à transformer votre reporting ?",
+    "ctaSubtitle": "Rejoignez les Media Buyers qui gagnent du temps avec Flipika."
+  },
+  "testimonials": {
+    "title": "Adopté par des Media Buyers",
+    "subtitle": "Moins de reporting, plus de valeur client",
+    "cta": "Rejoindre la bêta",
+    "ctaSubtitle": "Accès anticipé gratuit",
+    "betaUser": "Utilisateur Bêta",
+    "stats": {
+      "earlyAdopters": "Early adopters",
+      "averageRoas": "Temps gagné",
+      "budgetOptimized": "Rapports générés",
+      "satisfaction": "Satisfaction client"
+    },
+    "reviews": {
+      "pierre": {
+        "name": "Pierre M.",
+        "role": "Media Buyer Freelance",
+        "company": "Gère 12 comptes clients",
+        "content": "Je passais plusieurs heures par semaine à faire des reportings. Avec Flipika, mes rapports Google Ads sont générés automatiquement et mes clients comprennent enfin les performances.",
+        "metric": "4h gagnées / semaine"
+      },
+      "julien": {
+        "name": "Julien R.",
+        "role": "Traffic Manager",
+        "company": "Agence de Media Buying",
+        "content": "Le reporting était un vrai frein pour l’agence. Flipika nous permet d’envoyer des rapports clairs, structurés et prêts à l’envoi sans perdre de temps en mise en forme.",
+        "metric": "Temps de reporting divisé par 2"
+      }
+    }
+  },
+  "emailCapture": {
+    "title": "Marre de perdre du temps sur vos reportings Google Ads ?",
+    "subtitle": "Accédez à la bêta privée et générez vos rapports automatiquement",
+    "emailPlaceholder": "Entrez votre email professionnel",
+    "submitButton": "Accéder à la bêta",
+    "successMessage": "Bienvenue ! Votre accès arrive par email.",
+    "errorEmailRequired": "Veuillez entrer votre adresse email",
+    "errorEmailInvalid": "Veuillez entrer une adresse email valide",
+    "errorGeneric": "Une erreur est survenue. Veuillez réessayer.",
+    "benefits": {
+      "freeBeta": "Accès bêta gratuit",
+      "prioritySupport": "Support prioritaire",
+      "influence": "Accès aux nouvelles fonctionnalités"
+    },
+    "trust": {
+      "activeBeta": "utilisateurs actifs",
+      "remainingSpots": "places restantes",
+      "averageRoas": "Temps gagné moyen"
+    }
+  },
+  "footer": {
+    "copyright": "Tous droits réservés",
+    "legal": "Mentions Légales",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation"
+  },
+  "cookieConsent": {
+    "message": "Nous utilisons des cookies pour améliorer votre expérience. En continuant à utiliser notre site, vous acceptez notre utilisation des cookies.",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "learnMore": "En Savoir Plus"
+  },
+  "legalNotices": {
+    "title": "Mentions Légales",
+    "backToHome": "Retour à l'accueil",
+    "sections": {
+      "generalInfo": {
+        "title": "1. Informations générales",
+        "content": "Le présent site est édité par <strong>DISCO</strong>, société par actions simplifiée (SAS) au capital de 1000 euros, immatriculée au RCS de Paris sous le numéro 927 707 836.",
+        "address": "<strong>Siège social :</strong> DISCO, 1 rue de Stockholm, 75008 Paris, France",
+        "phone": "<strong>Téléphone :</strong> 06 76 06 19 02",
+        "email": "<strong>Email :</strong> helloflipika@gmail.com",
+        "director": "<strong>Directeur de la publication :</strong> Mathis Colas"
+      },
+      "hosting": {
+        "title": "2. Hébergement",
+        "content": "Le site est hébergé par <strong>Google Cloud Platform</strong>",
+        "address": "Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irlande.",
+        "phone": "<strong>Téléphone :</strong> +353 1 436 1000"
+      },
+      "intellectualProperty": {
+        "title": "3. Propriété intellectuelle",
+        "content1": "Tous les contenus du site (textes, images, vidéos, logos, marques, etc.) sont protégés par les lois françaises et internationales sur la propriété intellectuelle.",
+        "content2": "Toute reproduction, représentation, modification, adaptation ou exploitation, même partielle, de ces contenus est strictement interdite sans autorisation écrite préalable de Flipika."
+      },
+      "personalData": {
+        "title": "4. Données personnelles",
+        "content1": "Les données personnelles collectées sur le site sont utilisées uniquement dans le cadre des services fournis par Flipika, conformément à notre politique de confidentialité.",
+        "content2": "Conformément au RGPD, vous disposez des droits d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition sur vos données personnelles."
+      },
+      "cookies": {
+        "title": "5. Cookies",
+        "content": "Le site utilise des cookies pour améliorer l'expérience utilisateur. En naviguant sur le site, vous acceptez l'utilisation de ces cookies. Vous pouvez configurer vos préférences à tout moment."
+      },
+      "liability": {
+        "title": "6. Limitation de responsabilité",
+        "content1": "Flipika s'efforce de fournir des informations aussi exactes que possible sur le site, mais ne peut être tenue responsable de toute erreur, omission ou inexactitude.",
+        "content2": "L'utilisateur du site reconnaît avoir vérifié la compatibilité de son équipement avec le site et que ses capacités techniques permettent un accès et une utilisation sans erreur du site et de ses services."
+      },
+      "applicableLaw": {
+        "title": "7. Droit applicable et juridiction",
+        "content": "Les présentes mentions légales sont soumises au droit français. En cas de litige, une solution amiable sera recherchée. À défaut, les tribunaux de Paris seront seuls compétents."
+      },
+      "contact": {
+        "title": "8. Contact",
+        "content": "Pour toute question concernant ces mentions légales ou le site en général, vous pouvez nous contacter à : <strong>helloflipika@gmail.com</strong>"
+      }
+    },
+    "lastUpdate": "<strong>Dernière mise à jour :</strong> 15 novembre 2025"
+  },
+  "privacyPolicy": {
+    "title": "Politique de Confidentialité",
+    "backToHome": "Retour à l'accueil",
+    "lastUpdate": "<strong>Dernière mise à jour :</strong> 6 janvier 2026",
+    "sections": {
+      "introduction": {
+        "title": "1. Introduction",
+        "content": "Flipika (\"nous\", \"notre\", \"nos\") s'engage à protéger la confidentialité de ses utilisateurs. Cette politique décrit comment nous collectons, utilisons, stockons et protégeons les données personnelles et les données Google Ads de nos utilisateurs.<br/><br/><strong>Notre service :</strong> Flipika est une plateforme de gestion et d'analyse de campagnes Google Ads qui permet aux utilisateurs de visualiser les performances de leurs campagnes publicitaires."
+      },
+      "whoWeAre": {
+        "title": "2. Qui sommes-nous ?",
+        "content": "Le responsable du traitement de vos données personnelles est :",
+        "company": "<strong>DISCO SAS</strong>",
+        "address": "Siège social : 1 rue de Stockholm, 75008 Paris, France",
+        "email": "Email : helloflipika@gmail.com",
+        "siret": "SIRET : 927 707 836 00015"
+      },
+      "dataCollected": {
+        "title": "2. Données collectées",
+        "intro": "Nous demandons l'accès aux données Google en deux étapes :",
+        "step1Title": "<strong>Étape 1 - Authentification de l'utilisateur :</strong>",
+        "step1List": [
+          "<code>openid</code> : Identification sécurisée de l'utilisateur",
+          "<code>userinfo.email</code> : Adresse e-mail principale de votre compte Google",
+          "<code>userinfo.profile</code> : Nom, photo de profil et informations publiques"
+        ],
+        "step2Title": "<strong>Étape 2 - Connexion du compte Google Ads</strong> (uniquement lorsque l'utilisateur choisit de connecter son compte Google Ads) :",
+        "step2List": [
+          "<code>auth/adwords</code> : Accès en lecture aux données de vos campagnes Google Ads (impressions, clics, coûts, ROI, créatifs publicitaires)"
+        ],
+        "usageDataTitle": "Données d'utilisation :",
+        "usageDataList": [
+          "Logs de connexion et d'activité sur la plateforme",
+          "Préférences de l'interface utilisateur",
+          "Données techniques (adresse IP, navigateur, système d'exploitation)"
+        ]
+      },
+      "dataUsage": {
+        "title": "3. Utilisation des données",
+        "googleAdsTitle": "Données Google Ads",
+        "googleAdsIntro": "Nous utilisons les données Google Ads <strong>exclusivement</strong> pour :",
+        "googleAdsList": [
+          "<strong>Afficher des rapports de performance</strong> : visualisation des métriques (impressions, clics, CTR, CPC, conversions, coûts)",
+          "<strong>Générer des tableaux de bord analytiques</strong> : graphiques et statistiques personnalisés pour l'utilisateur",
+          "<strong>Permettre la navigation dans les campagnes</strong> : consultation de la structure des comptes Google Ads"
+        ],
+        "notDoingTitle": "<strong>Ce que nous ne faisons PAS :</strong>",
+        "notDoingList": [
+          "❌ Modifier, créer ou supprimer automatiquement des campagnes publicitaires",
+          "❌ Utiliser vos données à des fins marketing externes",
+          "❌ Revendre ou transférer vos données à des tiers",
+          "❌ Former des modèles d'IA avec vos données (fonctionnalité non implémentée)"
+        ],
+        "userDataTitle": "Données de profil utilisateur",
+        "userDataList": [
+          "<code>email</code> : Communication relative au service (notifications, support, mises à jour de sécurité)",
+          "<code>profile</code> : Personnalisation de l'interface utilisateur (affichage du nom et de la photo de profil)"
+        ]
+      },
+      "dataSharing": {
+        "title": "4. Partage des données avec des tiers",
+        "noSharingTitle": "Non-partage des données Google",
+        "noSharingContent": "<strong>Flipika ne partage, ne transfère, ni ne divulgue vos données Google Ads à des tiers.</strong><br/><br/>Vos données Google (email, profil, données Google Ads) sont utilisées exclusivement dans le cadre de notre service et ne sont <strong>jamais</strong> :",
+        "neverList": [
+          "Vendues à des annonceurs ou courtiers de données",
+          "Partagées avec des partenaires commerciaux",
+          "Utilisées pour du ciblage publicitaire externe",
+          "Transférées à d'autres applications ou services"
+        ],
+        "serviceProvidersTitle": "Prestataires de services (sous-traitants)",
+        "serviceProvidersIntro": "Nous utilisons des prestataires de services agissant en notre nom, sous accord de confidentialité strict :",
+        "serviceProvidersList": [
+          "<strong>Google Cloud Platform / Firebase</strong> : Hébergement de l'infrastructure, base de données (Firestore). Données stockées de manière chiffrée. Conformité SOC 2/3, ISO 27001.",
+          "<strong>Google Analytics</strong> : Analyse d'usage de la plateforme (anonymisée). Statistiques d'utilisation anonymisées, pas de données Google Ads. Conformité RGPD."
+        ],
+        "serviceProvidersCommitments": "<strong>Engagements de nos sous-traitants :</strong>",
+        "commitmentsList": [
+          "Accès limité aux données strictement nécessaires",
+          "Interdiction d'utiliser les données à leurs propres fins",
+          "Conformité aux normes de sécurité (chiffrement, contrôles d'accès)"
+        ],
+        "legalObligationsTitle": "Obligations légales",
+        "legalObligationsIntro": "Nous pouvons divulguer des données uniquement dans les cas suivants :",
+        "legalObligationsList": [
+          "En réponse à une demande légale valide (assignation, mandat judiciaire)",
+          "Pour protéger les droits, la propriété ou la sécurité de Flipika, de nos utilisateurs ou du public",
+          "En cas de fusion, acquisition ou vente d'actifs (avec notification préalable aux utilisateurs)"
+        ]
+      },
+      "dataSecurity": {
+        "title": "5. Mécanismes de protection des données",
+        "technicalTitle": "Mesures de sécurité techniques",
+        "technicalList": [
+          "<strong>Chiffrement en transit</strong> (TLS 1.3 / SSL) : Toutes les communications entre votre navigateur et nos serveurs sont chiffrées",
+          "<strong>Chiffrement au repos</strong> (AES-256) : Les données stockées dans Firebase Firestore sont chiffrées",
+          "<strong>Authentification sécurisée</strong> (OAuth 2.0) : Protocole standard de Google, aucun mot de passe Flipika stocké",
+          "<strong>Tokens d'accès</strong> : Les tokens OAuth sont stockés de manière chiffrée et expirés automatiquement",
+          "<strong>Accès limité</strong> : Principe du moindre privilège - seules les autorisations strictement nécessaires sont demandées",
+          "<strong>Isolation des données</strong> : Les données de chaque utilisateur sont isolées (pas d'accès croisé)"
+        ],
+        "organizationalTitle": "Mesures organisationnelles",
+        "organizationalList": [
+          "<strong>Accès restreint</strong> : Seuls les employés autorisés (équipe technique) peuvent accéder aux infrastructures",
+          "<strong>Journalisation</strong> : Tous les accès aux données sensibles sont enregistrés et audités",
+          "<strong>Revues de sécurité</strong> : Audits réguliers du code et de l'infrastructure",
+          "<strong>Formation du personnel</strong> : Tous les employés sont formés aux bonnes pratiques de confidentialité",
+          "<strong>Politique de sécurité</strong> : Procédures internes strictes pour la gestion des données"
+        ],
+        "accessControlsTitle": "Contrôles d'accès",
+        "accessControlsList": [
+          "Authentification multi-facteurs (MFA) pour les accès administrateurs",
+          "Rotation régulière des clés d'API et secrets",
+          "Monitoring en temps réel des accès suspects",
+          "Alertes automatiques en cas d'anomalie"
+        ]
+      },
+      "dataRetention": {
+        "title": "6. Conservation des données",
+        "durationTitle": "Durée de conservation",
+        "durationList": [
+          "<strong>Données Google Ads</strong> : Tant que le compte est actif (nécessaire pour afficher les rapports historiques)",
+          "<strong>Données de profil (email, nom)</strong> : Tant que le compte est actif (nécessaire pour l'authentification et la communication)",
+          "<strong>Logs d'activité</strong> : 12 mois maximum (sécurité et débogage)",
+          "<strong>Données analytiques (anonymisées)</strong> : 24 mois maximum (amélioration du service)"
+        ],
+        "deletionTitle": "Suppression des données",
+        "deletionIntro": "Vous pouvez demander la suppression de vos données à tout moment :",
+        "deletionList": [
+          "<strong>Déconnexion du compte Google Ads</strong> : Révoque l'accès à vos données publicitaires (suppression immédiate des tokens, données conservées 30 jours)",
+          "<strong>Suppression du compte Flipika</strong> : Suppression complète de toutes vos données sous 30 jours",
+          "<strong>Contact direct</strong> : Demande de suppression via helloflipika@gmail.com (réponse sous 48h)"
+        ],
+        "autoDeletion": "<strong>Suppression automatique</strong> : En cas d'inactivité de plus de 24 mois, nous vous notifions avant de supprimer définitivement vos données."
+      },
+      "userRights": {
+        "title": "7. Droits des utilisateurs (RGPD)",
+        "intro": "Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :",
+        "rightsList": [
+          "<strong>Accès</strong> : Obtenir une copie de vos données → Interface Flipika > \"Exporter mes données\" ou helloflipika@gmail.com",
+          "<strong>Rectification</strong> : Corriger des données inexactes → Interface Flipika > \"Paramètres du compte\"",
+          "<strong>Suppression</strong> : Demander l'effacement de vos données → Interface Flipika > \"Supprimer mon compte\" ou helloflipika@gmail.com",
+          "<strong>Limitation</strong> : Restreindre le traitement de vos données → helloflipika@gmail.com",
+          "<strong>Portabilité</strong> : Récupérer vos données dans un format structuré → Interface Flipika > \"Exporter mes données\" (format JSON)",
+          "<strong>Opposition</strong> : Vous opposer au traitement de vos données → Déconnexion du compte Google Ads ou suppression du compte",
+          "<strong>Retrait du consentement</strong> : Révoquer votre consentement OAuth → Google Account > \"Accès aux applications tierces\" > Révoquer Flipika"
+        ],
+        "responseTime": "<strong>Délai de réponse</strong> : Nous nous engageons à répondre à toute demande sous 30 jours maximum."
+      },
+      "googleCompliance": {
+        "title": "8. Conformité avec les Règles Google",
+        "commitmentTitle": "Engagement de conformité",
+        "commitmentIntro": "Flipika s'engage à respecter :",
+        "commitmentList": [
+          "<a href=\"https://developers.google.com/terms/api-services-user-data-policy\" target=\"_blank\" rel=\"noopener noreferrer\">Google API Services User Data Policy</a>",
+          "<a href=\"https://developers.google.com/google-ads/api/terms-conditions\" target=\"_blank\" rel=\"noopener noreferrer\">Google Ads API Terms and Conditions</a>",
+          "<a href=\"https://developers.google.com/terms\" target=\"_blank\" rel=\"noopener noreferrer\">Conditions d'utilisation de l'API Google</a>"
+        ],
+        "limitedUseTitle": "Principe d'utilisation limitée",
+        "limitedUseIntro": "Conformément à la <strong>politique d'utilisation limitée des données utilisateur des services API Google</strong>, nous garantissons que :",
+        "limitedUseList": [
+          "<strong>Limitation des données</strong> : Nous demandons uniquement les scopes strictement nécessaires pour fournir notre service",
+          "<strong>Usage transparent</strong> : Les données Google sont utilisées uniquement pour les fonctionnalités visibles par l'utilisateur (rapports, tableaux de bord)",
+          "<strong>Pas de transfert</strong> : Les données ne sont pas transférées à des tiers (sauf sous-traitants contractuels)",
+          "<strong>Pas d'usage publicitaire</strong> : Les données Google ne sont pas utilisées pour diffuser des publicités"
+        ],
+        "scopeJustificationTitle": "Justification des scopes demandés",
+        "scopeJustificationList": [
+          "<code>openid</code> : Authentification sécurisée de l'utilisateur",
+          "<code>userinfo.email</code> : Identification de l'utilisateur et communication relative au service",
+          "<code>userinfo.profile</code> : Personnalisation de l'interface (affichage du nom et de la photo)",
+          "<code>auth/adwords</code> : <strong>Accès en lecture seule</strong> aux données Google Ads pour afficher les rapports de performance (impressions, clics, coûts, ROI). Aucune modification automatique n'est effectuée sans action explicite de l'utilisateur."
+        ]
+      },
+      "cookies": {
+        "title": "9. Cookies et technologies de suivi",
+        "usedTitle": "Cookies utilisés",
+        "usedList": [
+          "<strong>Cookies de session</strong> : Maintien de la session utilisateur (supprimés à la fermeture du navigateur)",
+          "<strong>Google Analytics</strong> : Analyse anonymisée de l'usage de la plateforme (opt-out possible via Google Consent Mode)"
+        ],
+        "configuration": "<strong>Configuration :</strong> Nous utilisons Google Consent Mode v2 avec refus par défaut des cookies publicitaires et analytiques jusqu'à votre consentement.",
+        "management": "Vous pouvez refuser les cookies analytiques dans les paramètres de votre navigateur ou via notre bandeau de consentement."
+      },
+      "internationalTransfers": {
+        "title": "10. Transferts internationaux de données",
+        "content": "Les données sont hébergées sur <strong>Google Cloud Platform (Firebase)</strong> dans la région <strong>europe-west1 (Belgique)</strong>.",
+        "guaranteesIntro": "En cas de transfert hors Union Européenne (pour des raisons de redondance ou de performance), nous garantissons :",
+        "guaranteesList": [
+          "Utilisation de clauses contractuelles types approuvées par la Commission Européenne",
+          "Conformité aux décisions d'adéquation de la Commission Européenne"
+        ]
+      },
+      "minorProtection": {
+        "title": "11. Protection des mineurs",
+        "content": "Flipika n'est pas destiné aux personnes de moins de 18 ans. Nous ne collectons pas sciemment de données d'enfants. Si vous constatez qu'un mineur a créé un compte, contactez-nous immédiatement à helloflipika@gmail.com."
+      },
+      "policyChanges": {
+        "title": "12. Modifications de cette politique",
+        "intro": "Nous pouvons mettre à jour cette politique de confidentialité périodiquement. En cas de modification substantielle :",
+        "changesList": [
+          "Notification par email à tous les utilisateurs",
+          "Affichage d'une notification dans l'interface Flipika",
+          "Mise à jour de la date \"Dernière mise à jour\" en haut de ce document"
+        ],
+        "archivedVersions": "<strong>Version archivée :</strong> Les versions précédentes de cette politique sont disponibles sur demande."
+      },
+      "contact": {
+        "title": "13. Contact et Autorité de contrôle",
+        "contactUsTitle": "Nous contacter",
+        "contactUsIntro": "Pour toute question relative à cette politique de confidentialité ou à vos données :",
+        "email": "<strong>Email :</strong> helloflipika@gmail.com",
+        "address": "<strong>Adresse :</strong> Flipika SAS, 1 rue de Stockholm, 75008 Paris, France",
+        "phone": "<strong>Téléphone :</strong> +33 (0)6 76 06 19 02",
+        "dpo": "<strong>Délégué à la Protection des Données (DPO) :</strong> Mathis Colas (helloflipika@gmail.com)",
+        "authorityTitle": "Autorité de contrôle",
+        "authorityIntro": "Vous avez le droit de déposer une plainte auprès de l'autorité de contrôle compétente :",
+        "cnilName": "<strong>CNIL (Commission Nationale de l'Informatique et des Libertés)</strong>",
+        "cnilAddress": "3 Place de Fontenoy, TSA 80715, 75334 Paris Cedex 07",
+        "cnilWebsite": "<a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener noreferrer\">www.cnil.fr</a>"
+      }
+    }
+  },
+  "termsOfService": {
+    "title": "Conditions d'Utilisation",
+    "backToHome": "Retour à l'accueil",
+    "lastUpdate": "<strong>Dernière mise à jour :</strong> 1er janvier 2024",
+    "sections": {
+      "acceptance": {
+        "title": "1. Acceptation des conditions",
+        "content": "En accédant et en utilisant le site web Flipika (ci-après \"le Service\"), vous acceptez d'être lié par ces Conditions d'Utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre Service."
+      },
+      "serviceDescription": {
+        "title": "2. Description du service",
+        "content1": "Flipika fournit une plateforme d'automatisation et d'optimisation des campagnes publicitaires Google Ads utilisant l'intelligence artificielle. Le Service inclut l'accès à notre plateforme, aux outils d'analyse, et aux recommandations générées par notre IA.",
+        "content2": "Le Service est fourni \"tel quel\" et peut être modifié, suspendu ou interrompu à tout moment sans préavis."
+      },
+      "accessConditions": {
+        "title": "3. Conditions d'accès",
+        "content": "L'utilisation du Service nécessite la création d'un compte utilisateur. Vous vous engagez à :",
+        "list": [
+          "Fournir des informations exactes, complètes et à jour lors de l'inscription",
+          "Maintenir la confidentialité de vos identifiants de connexion",
+          "Être responsable de toutes les activités effectuées sous votre compte",
+          "Nous informer immédiatement de toute utilisation non autorisée de votre compte"
+        ]
+      },
+      "authorizedUse": {
+        "title": "4. Utilisation autorisée",
+        "content": "Vous acceptez d'utiliser le Service uniquement pour des usages légaux et conformes à ces conditions. Il est interdit de :",
+        "list": [
+          "Utiliser le Service de manière à violer les lois applicables",
+          "Transmettre des virus, malwares ou tout code malveillant",
+          "Tenter d'accéder à des zones non autorisées du Service",
+          "Utiliser des robots, spiders ou autres moyens automatisés sans autorisation",
+          "Collecter des données personnelles d'autres utilisateurs sans consentement",
+          "Utiliser le Service pour du spam ou des communications non sollicitées",
+          "Afficher, copier ou télécharger des portions non autorisées du Service",
+          "Contourner ou désactiver les mesures de sécurité du Service"
+        ]
+      },
+      "intellectualProperty": {
+        "title": "5. Propriété intellectuelle",
+        "content1": "Le Service et son contenu original (sauf contenu généré par les utilisateurs), fonctionnalités et fonctionnalités sont et resteront la propriété exclusive de Flipika et de ses concédants.",
+        "content2": "Le Service est protégé par le droit d'auteur, les marques commerciales et autres lois. Aucune partie du Service ne peut être copiée, modifiée, distribuée, vendue ou exploitée sans notre consentement écrit préalable."
+      },
+      "userData": {
+        "title": "6. Données utilisateur",
+        "content1": "Vous gardez la propriété de tout contenu que vous soumettez, publiez ou affichez via le Service. En soumettant ce contenu, vous accordez à Flipika une licence mondiale, non exclusive, transférable, sous-licenciable, libre de redevances pour utiliser, copier, modifier, distribuer et afficher ce contenu dans le cadre du Service.",
+        "content2": "Vous déclarez et garantissez que : (i) vous détenez les droits sur le contenu ou avez le droit de le publier, et (ii) le contenu ne viole pas les droits de tiers ou les lois applicables."
+      },
+      "googleAdsAccounts": {
+        "title": "7. Comptes Google Ads",
+        "content": "Lorsque vous connectez vos comptes Google Ads à Flipika, vous autorisez notre plateforme à :",
+        "list": [
+          "Accéder à vos données de campagnes publicitaires",
+          "Générer des recommandations et optimisations basées sur vos données",
+          "Appliquer des optimisations à vos campagnes avec votre consentement"
+        ]
+      },
+      "pricingBilling": {
+        "title": "8. Tarifs et facturation",
+        "content1": "Les conditions tarifaires du Service sont décrites sur notre site et peuvent être modifiées à tout moment. Tout changement sera communiqué avant sa prise d'effet.",
+        "content2": "Les factures sont payables à réception. En cas de non-paiement, Flipika se réserve le droit de suspendre l'accès au Service jusqu'à régularisation."
+      },
+      "termination": {
+        "title": "9. Résiliation",
+        "content1": "Nous pouvons suspendre ou résilier l'accès au Service immédiatement, sans préavis ni responsabilité, pour toute raison, notamment en cas de violation des Conditions.",
+        "content2": "Vous pouvez mettre fin à votre utilisation du Service à tout moment en fermant votre compte ou en contactant le support."
+      },
+      "liability": {
+        "title": "10. Limitation de responsabilité",
+        "content1": "Flipika ne saurait être tenue responsable de tout dommage indirect, accessoire, spécial, consécutif ou punitif, y compris la perte de bénéfices, de données ou d'autres pertes immatérielles, résultant de votre utilisation ou de l'impossibilité d'utiliser le Service.",
+        "content2": "Nous nous efforçons de maintenir un haut niveau de disponibilité, mais nous ne garantissons pas un accès ininterrompu ou sans erreur au Service."
+      },
+      "warrantyDisclaimer": {
+        "title": "11. Garantie et clause de non-responsabilité",
+        "content1": "Le Service est fourni \"TEL QUEL\" et \"SELON DISPONIBILITÉ\" sans garantie d'aucune sorte. Flipika décline expressément toutes les garanties, expresses ou implicites, y compris mais sans s'y limiter, les garanties implicites de qualité marchande, d'adéquation à un usage particulier et de non-contrefaçon.",
+        "content2": "Flipika ne garantit pas que : (i) le Service sera ininterrompu, sécurisé ou sans erreur, (ii) les résultats obtenus par l'utilisation du Service seront exacts ou fiables, (iii) la qualité des produits, services, informations ou autres matériels achetés ou obtenus par vous répondra à vos attentes."
+      },
+      "changes": {
+        "title": "12. Modifications des conditions",
+        "content": "Nous nous réservons le droit de modifier ces Conditions d'Utilisation à tout moment. Les modifications seront publiées sur cette page avec la date de mise à jour."
+      },
+      "serviceChanges": {
+        "title": "13. Modifications du Service",
+        "content": "Flipika se réserve le droit de modifier ou interrompre, temporairement ou définitivement, le Service ou toute partie de celui-ci avec ou sans préavis. Flipika ne sera pas responsable envers vous ou tout tiers pour toute modification, suspension ou interruption du Service."
+      },
+      "applicableLaw": {
+        "title": "14. Droit applicable",
+        "content": "Ces Conditions sont régies par le droit français. En cas de litige, une solution amiable sera recherchée. À défaut, les tribunaux de Paris seront compétents."
+      },
+      "generalProvisions": {
+        "title": "15. Dispositions générales",
+        "content1": "Ces Conditions constituent l'intégralité de l'accord entre vous et Flipika concernant le Service et remplacent tous les accords antérieurs ou contemporains, écrits ou oraux.",
+        "content2": "Si une disposition de ces Conditions est jugée invalide ou inapplicable, les autres dispositions resteront en vigueur. Le fait que Flipika n'exerce pas ou n'applique pas un droit ou une disposition ne constitue pas une renonciation."
+      },
+      "contact": {
+        "title": "16. Contact",
+        "content": "Pour toute question concernant ces Conditions d'Utilisation, vous pouvez nous contacter à :",
+        "email": "<strong>Email :</strong> helloflipika@gmail.com"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page Introuvable",
+    "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "backButton": "Retour",
+    "homeButton": "Retour à l'accueil"
+  },
+  "profile": {
+    "title": "Profil",
+    "username": "Identifiant unique",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "company": "Entreprise",
+    "description": "Description",
+    "optional": "(optionnel)",
+    "required": "*",
+    "edit": "Modifier le profil",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "saving": "Enregistrement...",
+    "shareUrl": "Lien de partage : flipika.com/report/{username}/...",
+    "usernameAvailable": "✓ Identifiant disponible",
+    "usernameRules": "3-30 caractères, lettres minuscules, chiffres, tirets et underscores uniquement",
+    "characterCount": "{current}/{max}",
+    "updateSuccess": "Profil mis à jour avec succès",
+    "updateError": "Échec de la mise à jour du profil"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Bienvenue sur Flipika !",
+      "description": "Configurons votre profil en quelques étapes rapides pour commencer à créer des rapports Google Ads professionnels.",
+      "start": "Commencer"
+    },
+    "username": {
+      "title": "Choisissez votre identifiant",
+      "description": "Votre identifiant unique sera utilisé pour partager vos rapports via des URLs personnalisées.",
+      "label": "Identifiant unique",
+      "placeholder": "mon-identifiant",
+      "available": "✓ Identifiant disponible",
+      "rules": "3-30 caractères, lettres minuscules, chiffres, tirets et underscores uniquement",
+      "sharePreview": "Vos rapports seront partagés via :",
+      "shareUrl": "flipika.com/report/{username}/...",
+      "back": "Retour",
+      "continue": "Continuer"
+    },
+    "details": {
+      "title": "Complétez votre profil",
+      "description": "Ces informations apparaîtront sur vos rapports partagés.",
+      "firstNamePlaceholder": "Jean",
+      "lastNamePlaceholder": "Dupont",
+      "companyPlaceholder": "Mon Agence",
+      "descriptionPlaceholder": "Media Buyer spécialisé en e-commerce...",
+      "back": "Retour",
+      "finish": "Terminer",
+      "creating": "Création..."
+    },
+    "complete": {
+      "title": "Profil créé avec succès !",
+      "description": "Vous allez être redirigé vers l'application..."
+    },
+    "back": "Retour",
+    "subscription": {
+      "title": "Activez votre essai gratuit",
+      "description": "Profitez de <1>14 jours d'essai gratuit</1>, puis une licence de 10€ par compte Google Ads connecté. Sans engagement.",
+      "cta": "Commencer l'essai gratuit",
+      "details": "Voir les détails de l'offre",
+      "skip": "Passer et découvrir en mode démo",
+      "skipping": "Finalisation..."
+    },
+    "googleAds": {
+      "title": "Connectez vos comptes",
+      "description": "Connectez votre compte pour permettre à Flipika de récupérer vos statistiques et générer vos rapports en un clic.",
+      "cta": "Connecter Google Ads",
+      "secure": "Connexion chiffrée et sécurisée via l'API Google"
+    }
+  },
+  "validation": {
+    "usernameRequired": "L'identifiant est requis",
+    "usernameTooShort": "L'identifiant doit contenir au moins {min} caractères",
+    "usernameTooLong": "L'identifiant doit contenir au maximum {max} caractères",
+    "usernameInvalid": "L'identifiant ne peut contenir que des lettres minuscules, chiffres, tirets et underscores",
+    "usernameTaken": "Cet identifiant est déjà utilisé",
+    "firstNameRequired": "Le prénom est requis",
+    "lastNameRequired": "Le nom est requis",
+    "emailRequired": "L'email est requis",
+    "emailInvalid": "L'email n'est pas valide"
+  },
+  "appNavigation": {
+    "dashboard": "Dashboard",
+    "audit": "Audit",
+    "reports": "Rapports",
+    "schedules": "Programmés",
+    "templates": "Templates",
+    "themes": "Thèmes",
+    "settings": "Paramètres",
+    "logout": "Déconnexion",
+    "demoMode": "Mode Démo",
+    "menu": "Menu",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "mainNavigation": "Navigation principale",
+    "theme": "Thème",
+    "toggleTheme": "Changer vers le thème {{theme}}",
+    "light": "clair",
+    "dark": "sombre"
+  },
+  "accessDenied": {
+    "subscription": {
+      "title": "Abonnement requis",
+      "description": "Pour utiliser {{featureName}}, vous avez besoin d'un abonnement actif. Profitez de toutes les fonctionnalités de Flipika en mettant à niveau votre plan.",
+      "action": "Voir les plans"
+    },
+    "googleAds": {
+      "title": "Compte Google Ads requis",
+      "description": "Pour utiliser {{featureName}}, vous devez connecter un compte Google Ads. C'est nécessaire pour récupérer vos données et générer des rapports.",
+      "action": "Connecter Google Ads"
+    },
+    "both": {
+      "title": "Configuration requise",
+      "description": "Pour utiliser {{featureName}}, vous devez avoir un abonnement actif et un compte Google Ads connecté.",
+      "action": "Configurer mon compte",
+      "secondaryAction": "Voir les plans"
+    },
+    "defaultFeatureName": "cette fonctionnalité"
+  },
+  "filters": {
+    "title": "Filtres",
+    "allAccounts": "Tous les comptes",
+    "allCampaigns": "Toutes les campagnes"
+  },
+  "actions": {
+    "clear": "Effacer"
+  },
+  "status": {
+    "loading": "Chargement..."
+  }
+}

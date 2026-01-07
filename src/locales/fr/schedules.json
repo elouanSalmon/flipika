@@ -1,4 +1,5 @@
 {
+  "featureName": "les rapports programmés",
   "title": "Rapports programmés",
   "description": "Automatisez la génération de vos rapports sur une base régulière",
   "newSchedule": "Nouveau schedule",

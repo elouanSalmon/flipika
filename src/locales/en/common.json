@@ -11,6 +11,13 @@
     "problem": "Issues",
     "login": "Login"
   },
+  "meta": {
+    "title": "Flipika - Google Ads Reports for Media Buyers",
+    "description": "Generate automated, clear, and professional Google Ads reports for your clients. The ideal solution for demanding media buyers.",
+    "keywords": "Google Ads Reports, Media Buyer, Automated Reporting, Google Ads Audit, PPC Freelancer, PPC Agency",
+    "ogTitle": "Flipika - Google Ads Reports for Media Buyers",
+    "ogDescription": "Generate automated, clear, and professional Google Ads reports for your clients."
+  },
   "hero": {
     "title": "Automatic Google Ads reports your clients actually understand",
     "subtitle": "Save hours every month on client reporting",
@@ -396,7 +403,7 @@
       "dataSharing": {
         "title": "4. Data sharing with third parties",
         "noSharingTitle": "Non-sharing of Google data",
-        "noSharingContent": "<strong>Flipika does not share, transfer, or disclose your Google Ads data to third parties.</strong><br/><br/>Your Google data (email, profile, Google Ads data) is used exclusively within our service and is <strong>never</strong>:",
+        "noSharingContent": "<strong>All your data is stored internally on our Google Cloud Platform (Firebase/Firestore) servers located in the European Union.</strong><br/><br/><strong>Flipika does not share, transfer, or disclose your Google Ads data to external third parties.</strong><br/><br/>Your Google data (email, profile, Google Ads data) is used exclusively within our service and is <strong>never</strong>:",
         "neverList": [
           "Sold to advertisers or data brokers",
           "Shared with business partners",

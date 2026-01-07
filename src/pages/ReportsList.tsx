@@ -215,7 +215,7 @@ const ReportsList: React.FC = () => {
             </div>
 
             {/* Status Filters */}
-            <FeatureAccessGuard featureName="les rapports">
+            <FeatureAccessGuard featureName={t('featureName')}>
                 <div className="status-filters">
                     <button
                         className={`status-filter-btn ${statusFilter === 'all' ? 'active' : ''}`}

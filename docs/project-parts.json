@@ -1,0 +1,34 @@
+{
+    "repository_type": "multi-part",
+    "parts": [
+        {
+            "id": "web",
+            "name": "Web Application",
+            "root": "src",
+            "type": "web",
+            "tech": "React, Vite"
+        },
+        {
+            "id": "backend",
+            "name": "Backend Functions",
+            "root": "functions",
+            "type": "backend",
+            "tech": "Firebase Functions, Node.js"
+        }
+    ],
+    "integration_points": [
+        {
+            "from": "web",
+            "to": "backend",
+            "type": "HTTP/RPC",
+            "details": "Direct calls to Cloud Functions"
+        },
+        {
+            "from": "web",
+            "to": "backend",
+            "type": "Firestore",
+            "details": "Real-time data sync"
+        }
+    ],
+    "generated_at": "2026-01-05T22:30:00Z"
+}

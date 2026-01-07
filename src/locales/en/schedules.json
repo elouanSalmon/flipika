@@ -1,4 +1,5 @@
 {
+  "featureName": "scheduled reports",
   "title": "Scheduled Reports",
   "description": "Automate report generation on a regular basis",
   "newSchedule": "New schedule",

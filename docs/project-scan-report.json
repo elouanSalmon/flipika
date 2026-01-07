@@ -1,0 +1,81 @@
+{
+  "workflow_version": "1.2.0",
+  "timestamps": {
+    "started": "2026-01-05T21:30:00Z",
+    "last_updated": "2026-01-05T22:35:00Z",
+    "completed": "2026-01-05T22:35:00Z"
+  },
+  "mode": "resume/quick_scan",
+  "scan_level": "quick",
+  "project_root": "/Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika",
+  "output_folder": "/Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/docs",
+  "completed_steps": [
+    {
+      "step": "step_1",
+      "status": "completed",
+      "summary": "Project structure detected"
+    },
+    {
+      "step": "step_2",
+      "status": "completed",
+      "summary": "Existing docs found"
+    },
+    {
+      "step": "step_3",
+      "status": "completed",
+      "summary": "Tech stack analyzed"
+    },
+    {
+      "step": "step_4",
+      "status": "completed",
+      "summary": "Conditional analysis (API/Data) complete"
+    },
+    {
+      "step": "step_5",
+      "status": "completed",
+      "summary": "Source tree analysis complete"
+    },
+    {
+      "step": "step_6",
+      "status": "completed",
+      "summary": "Dev/Ops guides generated"
+    },
+    {
+      "step": "step_7",
+      "status": "completed",
+      "summary": "Integration architecture documented"
+    },
+    {
+      "step": "step_8",
+      "status": "completed",
+      "summary": "Architecture docs generated"
+    },
+    {
+      "step": "step_9",
+      "status": "completed",
+      "summary": "Supporting docs generated"
+    },
+    {
+      "step": "step_10",
+      "status": "completed",
+      "summary": "Master index generated"
+    }
+  ],
+  "current_step": "complete",
+  "outputs_generated": [
+    "project-scan-report.json",
+    "api-contracts-web.md",
+    "data-models-web.md",
+    "api-contracts-backend.md",
+    "data-models-backend.md",
+    "development-guide.md",
+    "deployment-guide.md",
+    "integration-architecture.md",
+    "architecture-web.md",
+    "architecture-backend.md",
+    "project-overview.md",
+    "component-inventory-web.md",
+    "project-parts.json",
+    "index.md"
+  ]
+}

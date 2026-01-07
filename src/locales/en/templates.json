@@ -1,4 +1,5 @@
 {
+  "featureName": "templates",
   "title": "Report Templates",
   "description": "Create reusable templates to generate reports in one click",
   "newTemplate": "New Template",

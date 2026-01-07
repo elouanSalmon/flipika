@@ -127,8 +127,10 @@ export const initiateOAuth = onRequest({ memory: '512MiB' }, async (req, res) =>
             const authUrl = oauth2Client.generateAuthUrl({
                 access_type: 'offline',
                 scope: [
-                    'https://www.googleapis.com/auth/adwords',
-                    'https://www.googleapis.com/auth/analytics.readonly'
+                    'openid',
+                    'https://www.googleapis.com/auth/userinfo.email',
+                    'https://www.googleapis.com/auth/userinfo.profile',
+                    'https://www.googleapis.com/auth/adwords'
                 ],
                 state,
                 prompt: 'consent' // Force consent to get refresh token

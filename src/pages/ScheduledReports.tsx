@@ -316,7 +316,7 @@ const ScheduledReports: React.FC = () => {
 
 
 
-            <FeatureAccessGuard featureName="les rapports programmés">
+            <FeatureAccessGuard featureName={t('featureName')}>
                 {/* Status Filters - Only show if there are schedules */
                     schedules.length > 0 && (
                         <div className="status-filters">

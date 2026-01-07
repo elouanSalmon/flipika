@@ -10,13 +10,17 @@ import { initGA4 } from './utils/ga4'
 // Initialize Google Analytics 4
 initGA4();
 
+import { HelmetProvider } from 'react-helmet-async';
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <DemoModeProvider>
-        <App />
-      </DemoModeProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <DemoModeProvider>
+          <App />
+        </DemoModeProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   </StrictMode>,
 )
