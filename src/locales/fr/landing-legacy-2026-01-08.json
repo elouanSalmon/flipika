@@ -1,0 +1,94 @@
+{
+  "hero": {
+    "title": "Des rapports Google Ads automatiques que vos clients comprennent",
+    "subtitle": "Gagnez des heures chaque mois sur vos reportings clients",
+    "description": "Flipika génère automatiquement des rapports Google Ads clairs, expliqués et prêts à envoyer. Plus besoin d’exporter, de mise en forme ou de justifier chaque chiffre.",
+    "getStarted": "Voir un exemple de rapport",
+    "noCreditCard": "Aucune carte bancaire requise",
+    "cta": "Accéder à la bêta",
+    "ctaSecondary": "Voir comment ça marche"
+  },
+  "features": {
+    "title": "Le reporting Google Ads, enfin simple",
+    "subtitle": "Automatique, clair et orienté business",
+    "aiGeneration": {
+      "title": "Rapports clients automatiques",
+      "description": "Générez des rapports Google Ads complets avec KPIs clés, variations et explications prêtes à envoyer."
+    },
+    "analytics": {
+      "title": "Performances expliquées",
+      "description": "Flipika explique les variations de CPA, ROAS et conversions avec un discours compréhensible pour vos clients."
+    },
+    "optimization": {
+      "title": "Insights actionnables",
+      "description": "Mettez en avant ce qui a fonctionné, ce qui a moins performé et les prochaines actions."
+    },
+    "buttons": {
+      "learnMore": "En savoir plus",
+      "getStarted": "Commencer"
+    },
+    "createCampaigns": {
+      "title": "Architecture modulaire par Widgets",
+      "subtitle": "Construisez vos rapports sur mesure",
+      "description": "Votre rapport est une collection de widgets personnalisables. Graphiques, tableaux, textes : assemblez-les par simple glisser-déposer.",
+      "benefits": [
+        "Widgets modulaires et réutilisables",
+        "Drag & Drop pour personnaliser",
+        "Templates prêts à l'emploi"
+      ]
+    },
+    "autoOptimize": {
+      "title": "Narrative Layer : Commentaires contextuels",
+      "subtitle": "Les chiffres avec du sens",
+      "description": "Ajoutez vos analyses et explications directement dans le rapport. C'est votre expertise qui apporte la vraie valeur au client.",
+      "benefits": [
+        "Éditeur de texte riche intégré",
+        "Expliquez les variations",
+        "Apportez votre valeur humaine"
+      ]
+    },
+    "actionableInsights": {
+      "title": "Automatisation et Scheduling",
+      "subtitle": "Envoi automatique programmé",
+      "description": "Programmez l'envoi de vos rapports : tous les lundis à 9h, chaque fin de mois... Vos clients reçoivent leurs rapports sans que vous leviez le petit doigt.",
+      "benefits": [
+        "Envoi automatique par email",
+        "Planning personnalisable",
+        "Gain de temps maximal"
+      ]
+    },
+    "whiteLabelPortal": {
+      "title": "Portail White-Label interactif",
+      "subtitle": "Liens de consultation live",
+      "description": "Au lieu d'un PDF statique, envoyez un lien personnalisé. Vos clients interagissent avec les graphiques et vous savez s'ils ont consulté le rapport.",
+      "benefits": [
+        "Graphiques interactifs",
+        "Tracking de consultation",
+        "Votre marque en avant"
+      ]
+    },
+    "dataSnapshots": {
+      "title": "Snapshots de données figées",
+      "subtitle": "Vos rapports restent immuables",
+      "description": "Les données sont \"gelées\" à la finalisation du rapport. Le rapport de janvier restera identique, même consulté en décembre.",
+      "benefits": [
+        "Données figées dans le temps",
+        "Rapports historiques fiables",
+        "Aucune modification rétroactive"
+      ]
+    }
+  },
+  "problem": {
+    "title": "Le reporting Google Ads vous fait perdre un temps fou",
+    "subtitle": "Des heures passées sur une tâche à faible valeur",
+    "description": "Entre les exports, les dashboards et l’explication des performances, le reporting client devient une corvée récurrente.",
+    "issues": {
+      "timeManagement": "Des heures perdues chaque semaine",
+      "budgetWaste": "Des dashboards que les clients ne comprennent pas",
+      "inconsistentCampaigns": "Des chiffres difficiles à expliquer",
+      "difficultToScale": "Un reporting qui empêche de scaler",
+      "expensiveAgency": "Des rapports longs à produire",
+      "costlyAndTime": "Du stress avant chaque call client"
+    }
+  }
+}

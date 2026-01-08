@@ -1,0 +1,94 @@
+{
+  "hero": {
+    "title": "Automatic Google Ads reports your clients actually understand",
+    "subtitle": "Save hours every month on client reporting",
+    "description": "Flipika automatically generates clear, explained, and ready-to-send Google Ads reports. No more exporting, formatting, or justifying every number.",
+    "getStarted": "See a report example",
+    "noCreditCard": "No credit card required",
+    "cta": "Access the beta",
+    "ctaSecondary": "See how it works"
+  },
+  "features": {
+    "title": "Google Ads reporting, finally simple",
+    "subtitle": "Automatic, clear, and business-oriented",
+    "aiGeneration": {
+      "title": "Automatic client reports",
+      "description": "Generate complete Google Ads reports with key KPIs, variations, and ready-to-send explanations."
+    },
+    "analytics": {
+      "title": "Explained performance",
+      "description": "Flipika explains CPA, ROAS, and conversion variations with language your clients understand."
+    },
+    "optimization": {
+      "title": "Actionable insights",
+      "description": "Highlight what worked, what underperformed, and next actions to take."
+    },
+    "buttons": {
+      "learnMore": "Learn More",
+      "getStarted": "Get Started"
+    },
+    "createCampaigns": {
+      "title": "Modular Widget Architecture",
+      "subtitle": "Build custom reports",
+      "description": "Your report is a collection of customizable widgets. Charts, tables, text: assemble them with simple drag & drop.",
+      "benefits": [
+        "Modular and reusable widgets",
+        "Drag & Drop to customize",
+        "Ready-to-use templates"
+      ]
+    },
+    "autoOptimize": {
+      "title": "Narrative Layer: Contextual Comments",
+      "subtitle": "Numbers with meaning",
+      "description": "Add your analysis and explanations directly in the report. Your expertise brings the real value to the client.",
+      "benefits": [
+        "Integrated rich text editor",
+        "Explain variations",
+        "Bring your human value"
+      ]
+    },
+    "actionableInsights": {
+      "title": "Automation and Scheduling",
+      "subtitle": "Scheduled automatic sending",
+      "description": "Schedule your report sending: every Monday at 9am, end of each month... Your clients receive their reports without you lifting a finger.",
+      "benefits": [
+        "Automatic email sending",
+        "Customizable schedule",
+        "Maximum time savings"
+      ]
+    },
+    "whiteLabelPortal": {
+      "title": "Interactive White-Label Portal",
+      "subtitle": "Live consultation links",
+      "description": "Instead of a static PDF, send a personalized link. Your clients interact with charts and you know if they viewed the report.",
+      "benefits": [
+        "Interactive charts",
+        "View tracking",
+        "Your brand front and center"
+      ]
+    },
+    "dataSnapshots": {
+      "title": "Frozen Data Snapshots",
+      "subtitle": "Your reports remain immutable",
+      "description": "Data is \"frozen\" when the report is finalized. January's report will stay identical, even when viewed in December.",
+      "benefits": [
+        "Time-frozen data",
+        "Reliable historical reports",
+        "No retroactive changes"
+      ]
+    }
+  },
+  "problem": {
+    "title": "Google Ads reporting wastes your time",
+    "subtitle": "Hours spent on low-value tasks",
+    "description": "Between exports, dashboards, and explaining performance, client reporting becomes a recurring chore.",
+    "issues": {
+      "timeManagement": "Hours lost every week",
+      "budgetWaste": "Dashboards clients don't understand",
+      "inconsistentCampaigns": "Numbers hard to explain",
+      "difficultToScale": "Reporting that prevents scaling",
+      "expensiveAgency": "Time-consuming reports",
+      "costlyAndTime": "Stress before every client call"
+    }
+  }
+}

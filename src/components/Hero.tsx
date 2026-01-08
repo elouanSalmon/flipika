@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Zap, TrendingUp, Target } from 'lucide-react';
+import { ArrowRight, Play, Zap, TrendingUp, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Hero: React.FC = () => {
@@ -35,22 +35,47 @@ const Hero: React.FC = () => {
   const stats = [
     { icon: Zap, value: t('common:hero.stats.reportTime.value'), label: t('common:hero.stats.reportTime.label') },
     { icon: TrendingUp, value: t('common:hero.stats.reportsGenerated.value'), label: t('common:hero.stats.reportsGenerated.label') },
-    { icon: Target, value: t('common:hero.stats.zeroFormatting.value'), label: t('common:hero.stats.zeroFormatting.label') }
+    { icon: Sparkles, value: t('common:hero.stats.zeroFormatting.value'), label: t('common:hero.stats.zeroFormatting.label') }
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-white dark:bg-gray-900 pt-16 pb-24">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-bg-secondary)] pt-16 pb-24">
+      {/* Blue light orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          style={{
+            position: 'absolute',
+            top: '-10%',
+            left: '-10%',
+            width: '40vw',
+            height: '40vw',
+            borderRadius: '50%',
+            background: 'var(--gradient-primary)',
+            opacity: 0.1,
+            filter: 'blur(100px)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '-10%',
+            right: '-10%',
+            width: '40vw',
+            height: '40vw',
+            borderRadius: '50%',
+            background: 'var(--color-primary)',
+            opacity: 0.08,
+            filter: 'blur(100px)',
+          }}
+        />
+      </div>
 
       {/* Grid pattern */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0, 102, 255, 0.15) 1px, transparent 0)`,
-          backgroundSize: '40px 40px',
-          maskImage: 'radial-gradient(ellipse at top, black 30%, transparent 70%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at top, black 30%, transparent 70%)'
+          backgroundImage: `linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
         }}
       />
 
@@ -113,7 +138,7 @@ const Hero: React.FC = () => {
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  className="flex items-center gap-3 px-4 py-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-sm"
+                  className="flex items-center gap-3 px-4 py-3 glass rounded-xl"
                   whileHover={{ y: -4, boxShadow: '0 8px 30px rgba(0, 102, 255, 0.12)' }}
                   transition={{ delay: index * 0.1, type: "spring", stiffness: 300 }}
                 >
@@ -136,7 +161,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="w-full max-w-md bg-white/70 dark:bg-gray-800/70 backdrop-blur-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="w-full max-w-md glass rounded-2xl overflow-hidden shadow-2xl">
               {/* Mockup Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-900/50">
                 <div className="flex gap-2">
@@ -195,7 +220,7 @@ const Hero: React.FC = () => {
 
             {/* Floating elements */}
             <motion.div
-              className="absolute -top-4 -left-4 p-3 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700"
+              className="absolute -top-4 -left-4 p-3 glass rounded-xl"
               animate={{ y: [-8, 8, -8] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             >
@@ -203,7 +228,7 @@ const Hero: React.FC = () => {
             </motion.div>
 
             <motion.div
-              className="absolute -bottom-4 -right-4 p-3 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700"
+              className="absolute -bottom-4 -right-4 p-3 glass rounded-xl"
               animate={{ y: [8, -8, 8] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             >

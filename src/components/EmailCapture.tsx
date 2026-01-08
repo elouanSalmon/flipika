@@ -58,10 +58,37 @@ const EmailCapture: React.FC = () => {
   };
 
   return (
-    <section id="email-capture" className="py-16 bg-white dark:bg-gray-900">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="email-capture" className="relative py-16 bg-[var(--color-bg-secondary)] overflow-hidden">
+      {/* Blue light orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          style={{
+            position: 'absolute',
+            top: '-20%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '50vw',
+            height: '50vw',
+            borderRadius: '50%',
+            background: 'var(--gradient-primary)',
+            opacity: 0.1,
+            filter: 'blur(100px)',
+          }}
+        />
+      </div>
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
+        }}
+      />
+
+      <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <motion.div
-          className="relative p-8 sm:p-10 bg-white/70 dark:bg-gray-800/70 backdrop-blur-2xl border border-gray-200/50 dark:border-gray-700/50 rounded-3xl shadow-xl overflow-hidden"
+          className="relative p-8 sm:p-10 glass rounded-3xl shadow-xl overflow-hidden"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

@@ -58,11 +58,45 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section id="testimonials" className="relative py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+    <section id="testimonials" className="relative py-24 bg-[var(--color-bg-secondary)] overflow-hidden">
+      {/* Blue light orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          style={{
+            position: 'absolute',
+            top: '10%',
+            right: '-5%',
+            width: '30vw',
+            height: '30vw',
+            borderRadius: '50%',
+            background: 'var(--gradient-primary)',
+            opacity: 0.08,
+            filter: 'blur(100px)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '20%',
+            left: '-10%',
+            width: '25vw',
+            height: '25vw',
+            borderRadius: '50%',
+            background: 'var(--color-primary)',
+            opacity: 0.06,
+            filter: 'blur(100px)',
+          }}
+        />
       </div>
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
+        }}
+      />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Header */}
@@ -92,7 +126,7 @@ const Testimonials: React.FC = () => {
           {stats.map((stat) => (
             <motion.div
               key={stat.label}
-              className="flex items-center gap-4 px-6 py-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl"
+              className="flex items-center gap-4 px-6 py-4 glass rounded-xl"
               variants={itemVariants}
             >
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
@@ -117,7 +151,7 @@ const Testimonials: React.FC = () => {
           {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
-              className="relative p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl"
+              className="relative p-6 glass rounded-2xl"
               variants={itemVariants}
               whileHover={{ y: -5 }}
             >

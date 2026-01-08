@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import {
-  Zap,
   ArrowRight,
-  Rocket,
   CheckCircle,
-  Eye
+  LayoutGrid,
+  MessageSquare,
+  Calendar
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -22,7 +22,7 @@ const Features: React.FC = () => {
   const solutions = [
     {
       id: 'create-campaigns',
-      icon: Rocket,
+      icon: LayoutGrid,
       title: t('common:features.createCampaigns.title'),
       subtitle: t('common:features.createCampaigns.subtitle'),
       description: t('common:features.createCampaigns.description'),
@@ -34,7 +34,7 @@ const Features: React.FC = () => {
     },
     {
       id: 'auto-optimize',
-      icon: Zap,
+      icon: MessageSquare,
       title: t('common:features.autoOptimize.title'),
       subtitle: t('common:features.autoOptimize.subtitle'),
       description: t('common:features.autoOptimize.description'),
@@ -46,7 +46,7 @@ const Features: React.FC = () => {
     },
     {
       id: 'actionable-insights',
-      icon: Eye,
+      icon: Calendar,
       title: t('common:features.actionableInsights.title'),
       subtitle: t('common:features.actionableInsights.subtitle'),
       description: t('common:features.actionableInsights.description'),
@@ -83,9 +83,45 @@ const Features: React.FC = () => {
   };
 
   return (
-    <section className="relative py-24 bg-white dark:bg-gray-900 overflow-hidden" id="features">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
+    <section className="relative py-24 bg-[var(--color-bg-secondary)] overflow-hidden" id="features">
+      {/* Blue light orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          style={{
+            position: 'absolute',
+            top: '30%',
+            left: '-10%',
+            width: '35vw',
+            height: '35vw',
+            borderRadius: '50%',
+            background: 'var(--gradient-primary)',
+            opacity: 0.08,
+            filter: 'blur(100px)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '10%',
+            right: '-5%',
+            width: '25vw',
+            height: '25vw',
+            borderRadius: '50%',
+            background: 'var(--color-primary)',
+            opacity: 0.06,
+            filter: 'blur(100px)',
+          }}
+        />
+      </div>
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
+        }}
+      />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Header */}
@@ -115,7 +151,7 @@ const Features: React.FC = () => {
           {solutions.map((solution) => (
             <motion.div
               key={solution.id}
-              className="group relative flex flex-col p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10"
+              className="group relative flex flex-col p-6 glass rounded-2xl"
               variants={itemVariants}
               whileHover={{ y: -8 }}
             >

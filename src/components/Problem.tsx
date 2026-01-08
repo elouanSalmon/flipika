@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, Clock, DollarSign, TrendingDown } from 'lucide-react';
+import { AlertTriangle, Clock, RefreshCw, UserX } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Problem: React.FC = () => {
@@ -33,32 +33,44 @@ const Problem: React.FC = () => {
       description: t('common:problem.issues.budgetWaste')
     },
     {
-      icon: TrendingDown,
+      icon: RefreshCw,
       title: t('common:problem.issues.inconsistentCampaigns'),
       description: t('common:problem.issues.difficultToScale')
     },
     {
-      icon: DollarSign,
+      icon: UserX,
       title: t('common:problem.issues.expensiveAgency'),
       description: t('common:problem.issues.costlyAndTime')
     }
   ];
 
   return (
-    <section id="problem" className="relative py-24 bg-white dark:bg-gray-900 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent opacity-50" />
+    <section id="problem" className="relative py-24 bg-[var(--color-bg-secondary)] overflow-hidden">
+      {/* Blue light orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 102, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 102, 255, 0.1) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px',
-            maskImage: 'radial-gradient(ellipse 100% 100% at 50% 100%, black 40%, transparent 70%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 100% 100% at 50% 100%, black 40%, transparent 70%)'
+            position: 'absolute',
+            top: '20%',
+            right: '-5%',
+            width: '30vw',
+            height: '30vw',
+            borderRadius: '50%',
+            background: 'var(--gradient-primary)',
+            opacity: 0.08,
+            filter: 'blur(100px)',
           }}
         />
       </div>
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
+        }}
+      />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <motion.div
@@ -70,7 +82,7 @@ const Problem: React.FC = () => {
         >
           {/* Section Header */}
           <motion.div className="mb-12" variants={itemVariants}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 text-primary rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6">
               <AlertTriangle size={18} />
               <span>{t('common:problem.title')}</span>
             </div>
@@ -87,7 +99,7 @@ const Problem: React.FC = () => {
             {problems.map((problem, index) => (
               <motion.div
                 key={index}
-                className="group relative p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10"
+                className="group relative p-6 glass rounded-2xl"
                 variants={itemVariants}
                 whileHover={{ y: -5, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300 }}
