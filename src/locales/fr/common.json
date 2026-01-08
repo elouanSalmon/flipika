@@ -19,54 +19,59 @@
     "ogDescription": "Générez des rapports Google Ads automatisés, clairs et professionnels pour vos clients."
   },
   "hero": {
-    "title": "Des rapports Google Ads automatiques que vos clients comprennent",
-    "subtitle": "Gagnez des heures chaque mois sur vos reportings clients",
-    "description": "Flipika génère automatiquement des rapports Google Ads clairs, expliqués et prêts à envoyer. Plus besoin d’exporter, de mise en forme ou de justifier chaque chiffre.",
+    "title": "Rapports Google Ads : de 3h à 2 min.",
+    "subtitle": "Générés automatiquement. Validés visuellement. Envoyés en un clic.",
+    "description": "Flipika connecte vos comptes Google Ads, génère vos rapports clients et vous les soumet pour validation. Vous relisez, vous envoyez. Zéro formatage, zéro stress.",
     "getStarted": "Voir un exemple de rapport",
-    "noCreditCard": "Aucune carte bancaire requise",
-    "cta": "Accéder à la bêta",
-    "ctaSecondary": "Voir comment ça marche"
+    "noCreditCard": "14 jours d'essai gratuit",
+    "cta": "Essayer gratuitement",
+    "ctaSecondary": "Voir un exemple de rapport",
+    "stats": {
+      "reportTime": { "value": "2 min", "label": "par rapport" },
+      "reportsGenerated": { "value": "+2 500", "label": "rapports générés" },
+      "zeroFormatting": { "value": "0", "label": "mise en forme" }
+    }
   },
   "problem": {
-    "title": "Le reporting Google Ads vous fait perdre un temps fou",
-    "subtitle": "Des heures passées sur une tâche à faible valeur",
+    "title": "Le reporting Google Ads tue votre productivité",
+    "subtitle": "Des heures perdues sur une tâche répétitive",
     "description": "Entre les exports, les dashboards et l’explication des performances, le reporting client devient une corvée récurrente.",
     "issues": {
-      "timeManagement": "Des heures perdues chaque semaine",
-      "budgetWaste": "Des dashboards que les clients ne comprennent pas",
-      "inconsistentCampaigns": "Des chiffres difficiles à expliquer",
-      "difficultToScale": "Un reporting qui empêche de scaler",
-      "expensiveAgency": "Des rapports longs à produire",
-      "costlyAndTime": "Du stress avant chaque call client"
+      "timeManagement": "3-5h par client, chaque mois",
+      "budgetWaste": "Des copier-coller de données sans fin",
+      "inconsistentCampaigns": "Des mises en forme à refaire chaque fois",
+      "difficultToScale": "Impossible de scaler avec ce process",
+      "expensiveAgency": "Des clients qui ne lisent pas vos rapports",
+      "costlyAndTime": "Du stress avant chaque deadline"
     }
   },
   "features": {
-    "title": "Le reporting Google Ads, enfin simple",
-    "subtitle": "Automatique, clair et orienté business",
+    "title": "Le reporting Google Ads, enfin serein",
+    "subtitle": "Préparation automatique, validation humaine",
     "aiGeneration": {
-      "title": "Rapports clients automatiques",
-      "description": "Générez des rapports Google Ads complets avec KPIs clés, variations et explications prêtes à envoyer."
+      "title": "Templates prêts à l'emploi",
+      "description": "Choisissez un template, sélectionnez le compte Google Ads et les campagnes : votre rapport est prêt. Plus jamais de mise en forme manuelle."
     },
     "analytics": {
-      "title": "Performances expliquées",
-      "description": "Flipika explique les variations de CPA, ROAS et conversions avec un discours compréhensible pour vos clients."
+      "title": "Un thème par client",
+      "description": "Définissez couleurs, logo et typographie pour chaque client. Le thème s'applique automatiquement à tous leurs rapports. Professionnalisme garanti."
     },
     "optimization": {
-      "title": "Insights actionnables",
-      "description": "Mettez en avant ce qui a fonctionné, ce qui a moins performé et les prochaines actions."
+      "title": "Flipika AI analyse vos données",
+      "description": "Notre IA génère automatiquement des analyses pertinentes : tendances, anomalies, recommandations. Vos clients comprennent enfin leurs performances."
     },
     "buttons": {
       "learnMore": "En savoir plus",
       "getStarted": "Commencer"
     },
     "createCampaigns": {
-      "title": "Architecture modulaire par Widgets",
-      "subtitle": "Construisez vos rapports sur mesure",
-      "description": "Votre rapport est une collection de widgets personnalisables. Graphiques, tableaux, textes : assemblez-les par simple glisser-déposer.",
+      "title": "Widgets connectés à Google Ads",
+      "subtitle": "Vos données en temps réel, synchronisées",
+      "description": "Nos widgets puisent directement dans les comptes Google Ads de vos clients. Impressions, clics, conversions, ROAS : tout est synchronisé automatiquement.",
       "benefits": [
-        "Widgets modulaires et réutilisables",
-        "Drag & Drop pour personnaliser",
-        "Templates prêts à l'emploi"
+        "Zéro copier-coller",
+        "Données toujours à jour",
+        "Multi-comptes & campagnes"
       ]
     },
     "autoOptimize": {
@@ -80,23 +85,23 @@
       ]
     },
     "actionableInsights": {
-      "title": "Automatisation et Scheduling",
-      "subtitle": "Envoi automatique programmé",
-      "description": "Programmez l'envoi de vos rapports : tous les lundis à 9h, chaque fin de mois... Vos clients reçoivent leurs rapports sans que vous leviez le petit doigt.",
+      "title": "Scheduling intelligent",
+      "subtitle": "Préparé automatiquement, validé par vous",
+      "description": "Vos rapports sont générés aux dates prévues et attendent votre validation. Un coup d'œil, un clic, c'est envoyé. Vous gardez le contrôle final.",
       "benefits": [
-        "Envoi automatique par email",
-        "Planning personnalisable",
-        "Gain de temps maximal"
+        "Génération programmée",
+        "Validation visuelle obligatoire",
+        "Vous décidez quand envoyer"
       ]
     },
     "whiteLabelPortal": {
-      "title": "Portail White-Label interactif",
-      "subtitle": "Liens de consultation live",
-      "description": "Au lieu d'un PDF statique, envoyez un lien personnalisé. Vos clients interagissent avec les graphiques et vous savez s'ils ont consulté le rapport.",
+      "title": "Pre-Flight Check intégré",
+      "subtitle": "Zéro erreur, zéro stress",
+      "description": "Avant chaque envoi, validez visuellement : bon client, bon logo, bonnes données. Consultation sécurisée par mot de passe ou export PDF. Conformité RGPD.",
       "benefits": [
-        "Graphiques interactifs",
-        "Tracking de consultation",
-        "Votre marque en avant"
+        "Validation visuelle obligatoire",
+        "Accès protégé par mot de passe",
+        "Hébergement européen sécurisé"
       ]
     },
     "dataSnapshots": {
@@ -155,12 +160,10 @@
     "subtitle": "Moins de reporting, plus de valeur client",
     "cta": "Rejoindre la bêta",
     "ctaSubtitle": "Accès anticipé gratuit",
-    "betaUser": "Utilisateur Bêta",
     "stats": {
-      "earlyAdopters": "Early adopters",
-      "averageRoas": "Temps gagné",
-      "budgetOptimized": "Rapports générés",
-      "satisfaction": "Satisfaction client"
+      "earlyAdopters": "early adopters",
+      "reportsGenerated": "rapports générés",
+      "timeSavedPerReport": "gagnées / rapport"
     },
     "reviews": {
       "pierre": {

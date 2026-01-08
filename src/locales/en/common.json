@@ -19,54 +19,59 @@
     "ogDescription": "Generate automated, clear, and professional Google Ads reports for your clients."
   },
   "hero": {
-    "title": "Automatic Google Ads reports your clients actually understand",
-    "subtitle": "Save hours every month on client reporting",
-    "description": "Flipika automatically generates clear, explained, and ready-to-send Google Ads reports. No more exporting, formatting, or justifying every number.",
-    "getStarted": "See a report example",
-    "noCreditCard": "No credit card required",
-    "cta": "Access the beta",
-    "ctaSecondary": "See how it works"
+    "title": "Google Ads Reports: From 3h to 2 min.",
+    "subtitle": "Auto-generated. Visually validated. Sent in one click.",
+    "description": "Flipika connects to your Google Ads accounts, generates client reports, and submits them for your review. You check, you send. Zero formatting, zero stress.",
+    "getStarted": "See a sample report",
+    "noCreditCard": "14-day free trial",
+    "cta": "Try for free",
+    "ctaSecondary": "See a sample report",
+    "stats": {
+      "reportTime": { "value": "2 min", "label": "per report" },
+      "reportsGenerated": { "value": "+2,500", "label": "reports generated" },
+      "zeroFormatting": { "value": "0", "label": "manual formatting" }
+    }
   },
   "problem": {
-    "title": "Google Ads reporting wastes your time",
-    "subtitle": "Hours spent on low-value tasks",
+    "title": "Google Ads Reporting is Killing Your Productivity",
+    "subtitle": "Hours wasted on repetitive tasks",
     "description": "Between exports, dashboards, and explaining performance, client reporting becomes a recurring chore.",
     "issues": {
-      "timeManagement": "Hours lost every week",
-      "budgetWaste": "Dashboards clients don't understand",
-      "inconsistentCampaigns": "Numbers hard to explain",
-      "difficultToScale": "Reporting that prevents scaling",
-      "expensiveAgency": "Time-consuming reports",
-      "costlyAndTime": "Stress before every client call"
+      "timeManagement": "3-5 hours per client, every month",
+      "budgetWaste": "Endless copy-pasting of data",
+      "inconsistentCampaigns": "Formatting to redo every time",
+      "difficultToScale": "Impossible to scale with this process",
+      "expensiveAgency": "Clients who don't read your reports",
+      "costlyAndTime": "Stress before every deadline"
     }
   },
   "features": {
-    "title": "Google Ads reporting, finally simple",
-    "subtitle": "Automatic, clear, and business-oriented",
+    "title": "Google Ads Reporting, Finally Stress-Free",
+    "subtitle": "Automatic preparation, human validation",
     "aiGeneration": {
-      "title": "Automatic client reports",
-      "description": "Generate complete Google Ads reports with key KPIs, variations, and ready-to-send explanations."
+      "title": "Ready-to-use Templates",
+      "description": "Pick a template, select the Google Ads account and campaigns: your report is ready. Never format manually again."
     },
     "analytics": {
-      "title": "Explained performance",
-      "description": "Flipika explains CPA, ROAS, and conversion variations with language your clients understand."
+      "title": "One Theme Per Client",
+      "description": "Set colors, logo and typography for each client. The theme applies automatically to all their reports. Professionalism guaranteed."
     },
     "optimization": {
-      "title": "Actionable insights",
-      "description": "Highlight what worked, what underperformed, and next actions to take."
+      "title": "Flipika AI Analyzes Your Data",
+      "description": "Our AI automatically generates relevant insights: trends, anomalies, recommendations. Your clients finally understand their performance."
     },
     "buttons": {
       "learnMore": "Learn More",
       "getStarted": "Get Started"
     },
     "createCampaigns": {
-      "title": "Modular Widget Architecture",
-      "subtitle": "Build custom reports",
-      "description": "Your report is a collection of customizable widgets. Charts, tables, text: assemble them with simple drag & drop.",
+      "title": "Widgets Connected to Google Ads",
+      "subtitle": "Real-time data, auto-synced",
+      "description": "Our widgets pull directly from your clients' Google Ads accounts. Impressions, clicks, conversions, ROAS: everything syncs automatically.",
       "benefits": [
-        "Modular and reusable widgets",
-        "Drag & Drop to customize",
-        "Ready-to-use templates"
+        "Zero copy-pasting",
+        "Always up-to-date data",
+        "Multi-account & campaigns"
       ]
     },
     "autoOptimize": {
@@ -80,23 +85,23 @@
       ]
     },
     "actionableInsights": {
-      "title": "Automation and Scheduling",
-      "subtitle": "Scheduled automatic sending",
-      "description": "Schedule your report sending: every Monday at 9am, end of each month... Your clients receive their reports without you lifting a finger.",
+      "title": "Smart Scheduling",
+      "subtitle": "Auto-prepared, validated by you",
+      "description": "Your reports are generated on schedule and wait for your approval. One glance, one click, sent. You keep final control.",
       "benefits": [
-        "Automatic email sending",
-        "Customizable schedule",
-        "Maximum time savings"
+        "Scheduled generation",
+        "Mandatory visual validation",
+        "You decide when to send"
       ]
     },
     "whiteLabelPortal": {
-      "title": "Interactive White-Label Portal",
-      "subtitle": "Live consultation links",
-      "description": "Instead of a static PDF, send a personalized link. Your clients interact with charts and you know if they viewed the report.",
+      "title": "Built-in Pre-Flight Check",
+      "subtitle": "Zero mistakes, zero stress",
+      "description": "Before every send, visually validate: right client, right logo, right data. Password-protected viewing or PDF export. GDPR compliant.",
       "benefits": [
-        "Interactive charts",
-        "View tracking",
-        "Your brand front and center"
+        "Mandatory visual validation",
+        "Password-protected access",
+        "Secure European hosting"
       ]
     },
     "dataSnapshots": {
@@ -155,12 +160,10 @@
     "subtitle": "Less reporting, more client value",
     "cta": "Join the beta",
     "ctaSubtitle": "Free early access",
-    "betaUser": "Beta User",
     "stats": {
-      "earlyAdopters": "Early adopters",
-      "averageRoas": "Time saved",
-      "budgetOptimized": "Reports generated",
-      "satisfaction": "Client satisfaction"
+      "earlyAdopters": "early adopters",
+      "reportsGenerated": "reports generated",
+      "timeSavedPerReport": "saved / report"
     },
     "reviews": {
       "pierre": {

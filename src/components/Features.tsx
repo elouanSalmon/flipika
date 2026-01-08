@@ -8,7 +8,6 @@ import {
   Eye
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import './Features.css';
 
 const Features: React.FC = () => {
   const { t } = useTranslation();
@@ -28,12 +27,10 @@ const Features: React.FC = () => {
       subtitle: t('common:features.createCampaigns.subtitle'),
       description: t('common:features.createCampaigns.description'),
       benefits: [
-        { icon: CheckCircle, text: t('common:features.createCampaigns.benefits.0') },
-        { icon: CheckCircle, text: t('common:features.createCampaigns.benefits.1') },
-        { icon: CheckCircle, text: t('common:features.createCampaigns.benefits.2') }
-      ],
-      color: 'primary',
-      gradient: 'from-indigo-500 to-indigo-600'
+        t('common:features.createCampaigns.benefits.0'),
+        t('common:features.createCampaigns.benefits.1'),
+        t('common:features.createCampaigns.benefits.2')
+      ]
     },
     {
       id: 'auto-optimize',
@@ -42,14 +39,11 @@ const Features: React.FC = () => {
       subtitle: t('common:features.autoOptimize.subtitle'),
       description: t('common:features.autoOptimize.description'),
       benefits: [
-        { icon: CheckCircle, text: t('common:features.autoOptimize.benefits.0') },
-        { icon: CheckCircle, text: t('common:features.autoOptimize.benefits.1') },
-        { icon: CheckCircle, text: t('common:features.autoOptimize.benefits.2') }
-      ],
-      color: 'accent',
-      gradient: 'from-emerald-500 to-emerald-600'
+        t('common:features.autoOptimize.benefits.0'),
+        t('common:features.autoOptimize.benefits.1'),
+        t('common:features.autoOptimize.benefits.2')
+      ]
     },
-
     {
       id: 'actionable-insights',
       icon: Eye,
@@ -57,12 +51,10 @@ const Features: React.FC = () => {
       subtitle: t('common:features.actionableInsights.subtitle'),
       description: t('common:features.actionableInsights.description'),
       benefits: [
-        { icon: CheckCircle, text: t('common:features.actionableInsights.benefits.0') },
-        { icon: CheckCircle, text: t('common:features.actionableInsights.benefits.1') },
-        { icon: CheckCircle, text: t('common:features.actionableInsights.benefits.2') }
-      ],
-      color: 'accent',
-      gradient: 'from-emerald-500 to-emerald-600'
+        t('common:features.actionableInsights.benefits.0'),
+        t('common:features.actionableInsights.benefits.1'),
+        t('common:features.actionableInsights.benefits.2')
+      ]
     }
   ];
 
@@ -78,13 +70,12 @@ const Features: React.FC = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 60, scale: 0.9 },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.6,
         type: "spring" as const,
         stiffness: 100
       }
@@ -92,78 +83,79 @@ const Features: React.FC = () => {
   };
 
   return (
-    <section className="features" id="features">
-      <div className="features-container">
+    <section className="relative py-24 bg-white dark:bg-gray-900 overflow-hidden" id="features">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Header */}
         <motion.div
-          className="features-header"
+          className="text-center mb-16 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="features-title">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
             {t('common:features.title')}
           </h2>
-          <p className="features-subtitle">
+          <p className="text-lg text-gray-600 dark:text-gray-400">
             {t('common:features.subtitle')}
           </p>
         </motion.div>
 
         {/* Features Grid */}
         <motion.div
-          className="features-grid"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {solutions.map((solution, index) => (
+          {solutions.map((solution) => (
             <motion.div
               key={solution.id}
-              className={`feature-card feature-${solution.color}`}
+              className="group relative flex flex-col p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10"
               variants={itemVariants}
-              whileHover={{
-                y: -15,
-                scale: 1.03,
-                transition: { duration: 0.3, ease: "easeOut" }
-              }}
-              style={{ "--delay": `${index * 0.1}s` } as React.CSSProperties}
+              whileHover={{ y: -8 }}
             >
-              {/* Card Background Gradient */}
-              <div className="feature-bg-gradient"></div>
-
-              {/* Icon Section */}
-              <div className="feature-header">
-                <div className="feature-icon-wrapper icon-4xl">
-                  <solution.icon size={24} className="feature-icon icon-md" />
-                  <div className="icon-glow"></div>
+              {/* Header */}
+              <div className="flex items-start justify-between mb-5">
+                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 group-hover:scale-110 transition-transform duration-300">
+                  <solution.icon size={24} className="text-primary" />
                 </div>
-                <div className="feature-badge">
-                  <span className="badge-text">IA</span>
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-primary to-primary-light text-white text-xs font-bold shadow-lg shadow-primary/30">
+                  IA
                 </div>
               </div>
 
               {/* Content */}
-              <div className="feature-content">
-                <h3 className="feature-title">{solution.title}</h3>
-                <h4 className="feature-subtitle">{solution.subtitle}</h4>
-                <p className="feature-description">{solution.description}</p>
+              <div className="flex-1 flex flex-col gap-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                  {solution.title}
+                </h3>
+                <h4 className="text-sm font-semibold text-primary">
+                  {solution.subtitle}
+                </h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {solution.description}
+                </p>
 
-                <div className="feature-list">
-                  {solution.benefits.map((item, idx) => (
+                {/* Benefits list */}
+                <div className="flex flex-col gap-2 mt-4">
+                  {solution.benefits.map((benefit, idx) => (
                     <motion.div
                       key={idx}
-                      className="feature-item"
-                      initial={{ opacity: 0, x: -20 }}
+                      className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400"
+                      initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 * idx, duration: 0.5 }}
+                      transition={{ delay: 0.1 * idx }}
                       viewport={{ once: true }}
                     >
-                      <div className="feature-item-icon-wrapper">
-                        <CheckCircle size={16} className="feature-item-icon icon-xs" />
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-primary/10 flex-shrink-0">
+                        <CheckCircle size={12} className="text-primary" />
                       </div>
-                      <span>{item.text}</span>
+                      <span>{benefit}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -171,13 +163,13 @@ const Features: React.FC = () => {
 
               {/* CTA Button */}
               <motion.button
-                className="feature-cta btn btn-secondary"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+                className="mt-6 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-primary border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={scrollToEmailForm}
               >
                 <span>Découvrir</span>
-                <ArrowRight size={20} />
+                <ArrowRight size={16} />
               </motion.button>
             </motion.div>
           ))}
@@ -185,14 +177,14 @@ const Features: React.FC = () => {
 
         {/* Mini-CTA */}
         <motion.div
-          className="features-mini-cta"
+          className="text-center mt-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
           <motion.button
-            className="btn btn-outline"
+            className="btn btn-outline inline-flex items-center gap-2"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={scrollToEmailForm}
@@ -201,7 +193,6 @@ const Features: React.FC = () => {
             <ArrowRight size={20} />
           </motion.button>
         </motion.div>
-
       </div>
     </section>
   );
