@@ -1,14 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import {
-  Brain,
-  Target,
+  FileText,
+  Users,
   Database,
-  TrendingUp,
+  Sparkles,
   Zap,
   Shield,
   CheckCircle,
-  X
+  X,
+  ArrowRight
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -24,13 +25,13 @@ const Differentiation: React.FC = () => {
 
   const differentiators = [
     {
-      icon: Brain,
+      icon: FileText,
       title: t('common:differentiation.notCopywritingTool.title'),
       subtitle: t('common:differentiation.notCopywritingTool.subtitle'),
       description: t('common:differentiation.notCopywritingTool.description')
     },
     {
-      icon: Target,
+      icon: Users,
       title: t('common:differentiation.designedForMediaBuyers.title'),
       subtitle: t('common:differentiation.designedForMediaBuyers.subtitle'),
       description: t('common:differentiation.designedForMediaBuyers.description')
@@ -42,7 +43,7 @@ const Differentiation: React.FC = () => {
       description: t('common:differentiation.usesRealData.description')
     },
     {
-      icon: TrendingUp,
+      icon: Sparkles,
       title: t('common:differentiation.learnsAndImproves.title'),
       subtitle: t('common:differentiation.learnsAndImproves.subtitle'),
       description: t('common:differentiation.learnsAndImproves.description')
@@ -72,18 +73,45 @@ const Differentiation: React.FC = () => {
   };
 
   return (
-    <section className="relative py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+    <section className="relative py-24 bg-[var(--color-bg-secondary)] overflow-hidden">
+      {/* Blue light orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
-          className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0, 102, 255, 0.1) 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
+            position: 'absolute',
+            top: '10%',
+            left: '-10%',
+            width: '30vw',
+            height: '30vw',
+            borderRadius: '50%',
+            background: 'var(--gradient-primary)',
+            opacity: 0.08,
+            filter: 'blur(100px)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '20%',
+            right: '-5%',
+            width: '25vw',
+            height: '25vw',
+            borderRadius: '50%',
+            background: 'var(--color-primary)',
+            opacity: 0.06,
+            filter: 'blur(100px)',
           }}
         />
       </div>
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px',
+        }}
+      />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Header */}
@@ -94,7 +122,7 @@ const Differentiation: React.FC = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 text-primary rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6">
             <Shield size={16} />
             <span>{t('common:differentiation.title')}</span>
           </div>
@@ -117,7 +145,7 @@ const Differentiation: React.FC = () => {
           {differentiators.map((diff) => (
             <motion.div
               key={diff.title}
-              className="group p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
+              className="group p-6 glass rounded-2xl"
               variants={itemVariants}
               whileHover={{ y: -5 }}
             >
@@ -154,7 +182,7 @@ const Differentiation: React.FC = () => {
             </p>
           </div>
 
-          <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl overflow-hidden">
+          <div className="glass rounded-2xl overflow-hidden">
             {/* Table Header */}
             <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50/50 dark:bg-gray-900/50 border-b border-gray-200/50 dark:border-gray-700/50">
               <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">
@@ -201,7 +229,7 @@ const Differentiation: React.FC = () => {
 
         {/* Bottom CTA */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl"
+          className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 glass rounded-2xl"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -222,7 +250,7 @@ const Differentiation: React.FC = () => {
             whileTap={{ scale: 0.95 }}
           >
             <span>{t('common:hero.cta')}</span>
-            <TrendingUp size={18} />
+            <ArrowRight size={18} />
           </motion.button>
         </motion.div>
       </div>
