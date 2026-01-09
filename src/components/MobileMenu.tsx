@@ -14,6 +14,7 @@ import {
     Palette,
     FileStack,
     Clock,
+    Users,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useDemoMode } from '../contexts/DemoModeContext';
@@ -60,6 +61,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         enableReports && { path: '/app/schedules', label: t('appNavigation.schedules'), icon: Clock },
         enableReports && { path: '/app/templates', label: t('appNavigation.templates'), icon: FileStack },
         { path: '/app/themes', label: t('appNavigation.themes'), icon: Palette },
+        { path: '/app/clients', label: t('appNavigation.clients'), icon: Users },
         { path: '/app/settings', label: t('appNavigation.settings'), icon: Settings },
     ].filter(Boolean) as Array<{ path: string; label: string; icon: typeof LayoutDashboard }>;
 

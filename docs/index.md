@@ -24,7 +24,12 @@
 - **Tech**: Node.js 22, Firebase Cloud Functions
 - **Root**: `functions/`
 - **Entry**: `functions/src/index.ts`
-- **Docs**: [Architecture](./architecture-backend.md) | [API Contracts](./api-contracts-backend.md)
+- **Docs**: [Architecture](./architecture-backend.md) |- [Backend API Contracts](api-contracts-backend.md)
+- [Deep Dive: Backend Functions](deep-dive-backend-functions.md)
+- [Deep Dive: Google Ads Integration](deep-dive-google-ads.md)
+- [Deep Dive: Reports System](deep-dive-reports-system.md)
+- [Deep Dive: Billing & Subscription](deep-dive-billing-subscription.md)
+- [Deep Dive: Design System](deep-dive-design-system.md)
 
 ## Generated Documentation
 

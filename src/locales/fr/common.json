@@ -27,9 +27,18 @@
     "cta": "Essayer gratuitement",
     "ctaSecondary": "Voir un exemple de rapport",
     "stats": {
-      "reportTime": { "value": "2 min", "label": "par rapport" },
-      "reportsGenerated": { "value": "+2 500", "label": "rapports générés" },
-      "zeroFormatting": { "value": "0", "label": "mise en forme" }
+      "reportTime": {
+        "value": "2 min",
+        "label": "par rapport"
+      },
+      "reportsGenerated": {
+        "value": "+2 500",
+        "label": "rapports générés"
+      },
+      "zeroFormatting": {
+        "value": "0",
+        "label": "mise en forme"
+      }
     }
   },
   "problem": {
@@ -676,6 +685,7 @@
     "dashboard": "Dashboard",
     "audit": "Audit",
     "reports": "Rapports",
+    "clients": "Clients",
     "schedules": "Programmés",
     "templates": "Templates",
     "themes": "Thèmes",

@@ -10,6 +10,7 @@ import { SubscriptionProvider } from './contexts/SubscriptionContext';
 import { usePageTracking } from './hooks/usePageTracking';
 import { useUserTracking } from './hooks/useUserTracking';
 import HubSpotChat from './components/HubSpotChat';
+import LanguageRedirect from './components/LanguageRedirect';
 import CookieConsent from './components/CookieConsent';
 import InstallPWA from './components/InstallPWA';
 import OnboardingModal from './components/onboarding/OnboardingModal';
@@ -38,7 +39,10 @@ import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import NotFound from './pages/NotFound';
-import LanguageRedirect from './components/LanguageRedirect';
+import ClientsPage from './pages/ClientsPage';
+// ... (existing imports, but cleaner to just add route and import at top separately)
+// Actually, relying on AllowMultiple=false means ONE block. 
+// I'll do two replace calls. One for import, one for route.
 import './App.css';
 
 // Protected Route Component
@@ -142,6 +146,7 @@ const AppRoutes = () => {
         {enableReports && <Route path="reports/new" element={<NewReport />} />}
         {enableReports && <Route path="templates" element={<Templates />} />}
         {enableReports && <Route path="schedules" element={<ScheduledReports />} />}
+        <Route path="clients" element={<ClientsPage />} />
         <Route path="themes" element={<ThemesPage />} />
         <Route path="billing" element={<BillingPage />} />
         <Route path="settings" element={<Settings />} />

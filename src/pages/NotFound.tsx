@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, ArrowLeft } from 'lucide-react';
+import { Home, ArrowLeft, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import SimpleHeader from '../components/SimpleHeader';
 import ConnectedHeader from '../components/app/ConnectedHeader';
@@ -58,13 +58,23 @@ const NotFound = () => {
                                 <ArrowLeft size={18} />
                                 {t('common:notFound.backButton')}
                             </button>
-                            <button
-                                onClick={() => navigate('/')}
-                                className="btn btn-primary gap-2"
-                            >
-                                <Home size={18} />
-                                {t('common:notFound.homeButton')}
-                            </button>
+                            {isConnected ? (
+                                <button
+                                    onClick={() => navigate('/app/clients')}
+                                    className="btn btn-primary gap-2"
+                                >
+                                    <Users size={18} />
+                                    {t('common:appNavigation.clients')}
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => navigate('/')}
+                                    className="btn btn-primary gap-2"
+                                >
+                                    <Home size={18} />
+                                    {t('common:notFound.homeButton')}
+                                </button>
+                            )}
                         </div>
                     </motion.div>
                 </div>

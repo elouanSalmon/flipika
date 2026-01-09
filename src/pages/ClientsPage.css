@@ -1,0 +1,91 @@
+.clients-page {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px 24px;
+    min-height: calc(100vh - 80px);
+}
+
+@media (max-width: 768px) {
+    .clients-page {
+        padding: 24px 16px;
+    }
+}
+
+/* Standard Header */
+.clients-page .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.clients-page .header-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.clients-page .header-title-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.clients-page .header-icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+}
+
+.clients-page .page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.clients-page .header-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin: 8px 0 0 48px;
+}
+
+/* Standard Button */
+.clients-page .create-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+.clients-page .create-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 102, 255, 0.4);
+}
+
+.clients-page .create-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .clients-page .page-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .clients-page .create-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

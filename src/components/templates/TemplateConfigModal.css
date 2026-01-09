@@ -297,3 +297,212 @@
         transform: rotate(360deg);
     }
 }
+
+.template-config-modal .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.template-config-modal .add-widget-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 2px dashed var(--color-border);
+    border-radius: 8px;
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.template-config-modal .add-widget-btn:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    background: rgba(0, 102, 255, 0.05);
+}
+
+.template-config-modal .empty-widgets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border: 2px dashed var(--color-border);
+    border-radius: 12px;
+    background: var(--glass-bg);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.template-config-modal .empty-widgets:hover {
+    border-color: var(--color-primary);
+    background: rgba(0, 102, 255, 0.05);
+}
+
+.template-config-modal .empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
+    margin-bottom: 16px;
+    transition: all 0.2s;
+}
+
+.template-config-modal .empty-widgets:hover .empty-icon {
+    background: rgba(0, 102, 255, 0.1);
+    color: var(--color-primary);
+}
+
+.template-config-modal .empty-widgets p {
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.template-config-modal .empty-widgets span {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.template-config-modal .widget-preview-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: var(--glass-bg);
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+}
+
+.template-config-modal .widget-preview-item:hover {
+    border-color: var(--color-primary);
+}
+
+.template-config-modal .widget-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.template-config-modal .widget-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.5px;
+}
+
+.template-config-modal .widget-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.template-config-modal .remove-widget-btn {
+    padding: 8px;
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex; /* Ensure icon is centered */
+    align-items: center; justify-content: center;
+}
+
+.template-config-modal .remove-widget-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+/* Nested Modal for Widget Library */
+.nested-modal-overlay {
+    position: absolute; /* Relative to the main modal overlay or fixed on screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10; /* Above the form content but below main modal header if needed, or simply inside */
+}
+
+.nested-modal-content {
+    background: var(--color-bg-card);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nested-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 2px solid var(--color-border);
+    background: var(--color-bg-secondary);
+}
+
+.nested-modal-header h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.nested-modal-header button {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nested-modal-header button:hover {
+    background: var(--color-bg-hover);
+    color: var(--color-text-primary);
+}
+
+/* Ensure WidgetLibrary takes available space */
+.nested-modal-content > div:last-child {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0; /* Let WidgetLibrary handle padding if needed, or add padding here */
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

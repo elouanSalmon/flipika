@@ -68,7 +68,7 @@ workflow_status:
         purpose: "Define product requirements with FRs and NFRs"
       - id: "create-ux-design"
         name: "UX Design"
-        status: "conditional"
+        status: "planning-artifacts/ux-design-specification.md"
         agent: "ux-designer"
         command: "/bmad:bmm:workflows:create-ux-design"
         purpose: "UI/UX design (if UI changes needed)"
@@ -80,7 +80,7 @@ workflow_status:
     workflows:
       - id: "create-architecture"
         name: "Architecture"
-        status: "required"
+        status: "planning-artifacts/architecture.md"
         agent: "architect"
         command: "/bmad:bmm:workflows:create-architecture"
         purpose: "System architecture and technical decisions"
