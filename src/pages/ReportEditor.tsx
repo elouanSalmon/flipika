@@ -26,7 +26,6 @@ import { WidgetType } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
 import type { Account, Campaign } from '../types/business';
 import PreFlightModal from '../components/reports/PreFlightModal';
-import type { PreFlightKPIData } from '../services/preFlightService';
 import './ReportEditor.css';
 
 const ReportEditor: React.FC = () => {
@@ -403,8 +402,8 @@ const ReportEditor: React.FC = () => {
         setShowPreFlightModal(true);
     };
 
-    const handlePreFlightDownload = async (data: PreFlightKPIData) => {
-        console.log('📥 Pre-Flight validated, proceeding with PDF download/share', data);
+    const handlePreFlightDownload = async () => {
+        console.log('📥 Pre-Flight validated, proceeding with PDF download/share');
         // Close PreFlight modal
         setShowPreFlightModal(false);
 
@@ -606,11 +605,8 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                 <PreFlightModal
                     isOpen={showPreFlightModal}
                     onClose={() => setShowPreFlightModal(false)}
-                    onDownloadPDF={handlePreFlightDownload}
-                    accountId={report.accountId}
-                    clientName={report.accountName || 'Client'}
-                    startDate={report.startDate || new Date()}
-                    endDate={report.endDate || new Date()}
+                    onSendEmail={handlePreFlightDownload}
+                    reportId={report.id}
                 />
             )}
         </div>
