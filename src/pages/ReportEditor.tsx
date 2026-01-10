@@ -25,7 +25,7 @@ import type { EditableReport, WidgetConfig } from '../types/reportTypes';
 import { WidgetType } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
 import type { Account, Campaign } from '../types/business';
-import PreFlightModal from '../components/reports/PreFlightModal';
+
 import './ReportEditor.css';
 
 const ReportEditor: React.FC = () => {
@@ -57,10 +57,14 @@ const ReportEditor: React.FC = () => {
     const [isLoadingSettings, setIsLoadingSettings] = useState(false);
 
     // Security modal state
+    // Security modal state
     const [showSecurityModal, setShowSecurityModal] = useState(false);
 
     // PreFlight modal state
     const [showPreFlightModal, setShowPreFlightModal] = useState(false);
+    const [tempPassword, setTempPassword] = useState<string>(''); // Temporary password storage for email sharing
+
+
 
 
 
@@ -404,92 +408,7 @@ const ReportEditor: React.FC = () => {
         navigate(`/app/reports/${report.id}/preview`);
     };
 
-    const handlePreFlightDownload = async () => {
-        console.log('📥 Pre-Flight validated, proceeding with PDF download/share');
-        // Close PreFlight modal
-        setShowPreFlightModal(false);
 
-        // TODO: Implement PDF generation (Story 3.2)
-        // For now, we'll just trigger the email share
-        await handleShareByEmail();
-    };
-
-    const handleShareByEmail = async () => {
-        console.log('🔵 handleShareByEmail called');
-        console.log('Report:', report);
-        console.log('Current User:', currentUser);
-
-        if (!report || !currentUser) {
-            console.error('❌ Missing report or currentUser');
-            return;
-        }
-
-        try {
-            // Get user profile for signature
-            const profile = await getUserProfile(currentUser.uid);
-
-            // Get campaign names - fetch them on demand
-            const campaignNames: string[] = [];
-            try {
-                const response = await fetchCampaigns(report.accountId);
-                if (response.success && response.campaigns) {
-                    const campaigns = Array.isArray(response.campaigns) ? response.campaigns : [];
-                    report.campaignIds.forEach(id => {
-                        const campaign = campaigns.find((c: Campaign) => c.id === id);
-                        if (campaign) {
-                            campaignNames.push(campaign.name);
-                        }
-                    });
-                }
-            } catch (err) {
-                console.warn('Could not load campaign names for email:', err);
-            }
-
-            // Format dates
-            const formatDate = (date?: Date) => {
-                if (!date) return 'N/A';
-                return new Date(date).toLocaleDateString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                });
-            };
-
-            // Build email
-            const subject = `Rapport Google Ads - ${report.title}`;
-            const body = `Bonjour,
-
-Je vous partage le rapport d'analyse Google Ads suivant :
-
-Rapport : ${report.title}
-Période : ${formatDate(report.startDate)} - ${formatDate(report.endDate)}
-${campaignNames.length > 0 ? `Campagnes analysées : ${campaignNames.join(', ')}` : ''}
-
-Lien d'accès : ${window.location.origin}${report.shareUrl}
-${report.isPasswordProtected && tempPassword ? `Mot de passe : ${tempPassword}` : report.isPasswordProtected ? `Ce rapport est protégé par mot de passe (mot de passe non disponible - veuillez le partager séparément)` : ''}
-
-N'hésitez pas si vous avez des questions.
-
-Cordialement,
-${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${profile.company}` : ''}`;
-
-            const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            console.log('📬 Opening mailto link:', mailtoLink.substring(0, 100) + '...');
-
-            // Create a temporary link and click it (bypasses popup blockers)
-            const link = document.createElement('a');
-            link.href = mailtoLink;
-            link.target = '_self';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            toast.success('Email pré-rempli ouvert !');
-        } catch (error) {
-            console.error('Error generating email:', error);
-            toast.error('Erreur lors de la génération de l\'email');
-        }
-    };
 
     if (isLoading) {
         return (
@@ -602,15 +521,7 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                 />
             )}
 
-            {/* PreFlight Modal */}
-            {showPreFlightModal && report && (
-                <PreFlightModal
-                    isOpen={showPreFlightModal}
-                    onClose={() => setShowPreFlightModal(false)}
-                    onSendEmail={handlePreFlightDownload}
-                    reportId={report.id}
-                />
-            )}
+
 
 
         </div>
