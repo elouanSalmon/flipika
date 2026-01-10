@@ -1,0 +1,42 @@
+{
+    "title": "Guide de démarrage",
+    "description": "Maîtrisez Flipika étape par étape.",
+    "progress": "{{percent}}% complété",
+    "dismiss": "Masquer le guide",
+    "cannotDismiss": "Terminez le guide pour le masquer",
+    "expand": "Ouvrir le guide",
+    "collapse": "Réduire",
+    "completed": "Terminé",
+    "steps": {
+        "createClient": {
+            "label": "Créer votre premier Client",
+            "action": "Ajouter un Client"
+        },
+        "createTheme": {
+            "label": "Configurer un Thème de marque",
+            "action": "Créer un Thème"
+        },
+        "createTemplate": {
+            "label": "Définir un Modèle de rapport",
+            "action": "Créer un Modèle"
+        },
+        "createSchedule": {
+            "label": "Programmer un envoi automatique",
+            "action": "Programmer"
+        },
+        "generateReport": {
+            "label": "Créer votre premier rapport",
+            "action": "Créer"
+        },
+        "sendReport": {
+            "label": "Envoyer le rapport par email",
+            "action": "Voir les Rapports"
+        }
+    },
+    "confirmDismiss": {
+        "title": "Masquer le guide ?",
+        "message": "Vous ne verrez plus ce panneau d'aide.\nVous pourrez toujours retrouver ces étapes dans la documentation.",
+        "confirm": "Masquer définitivement",
+        "cancel": "Garder le guide"
+    }
+}

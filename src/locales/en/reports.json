@@ -165,7 +165,62 @@
       "title": "Loading error",
       "noData": "No data available for this period",
       "generic": "Error loading data",
-      "retry": "Retry"
+      "retry": "Retry",
+      "retrying": "Retrying...",
+      "attemptCount": "Attempt {{count}}/{{max}}",
+      "maxAttempts": "Maximum retry attempts reached",
+      "technicalDetails": "Technical details",
+      "types": {
+        "AUTHENTICATION_ERROR": {
+          "message": "Your Google Ads connection has expired.",
+          "suggestion": "Please reconnect to Google Ads."
+        },
+        "PERMISSION_ERROR": {
+          "message": "You don't have permission to access this account.",
+          "suggestion": "Check your access rights to the Google Ads account."
+        },
+        "RATE_LIMIT_ERROR": {
+          "message": "Too many requests sent.",
+          "suggestion": "Please wait a moment and try again."
+        },
+        "TIMEOUT_ERROR": {
+          "message": "The request took too long.",
+          "suggestion": "Please try again. If the problem persists, try a shorter date range."
+        },
+        "NETWORK_ERROR": {
+          "message": "Network connection interrupted.",
+          "suggestion": "Check your internet connection and try again."
+        },
+        "NO_DATA": {
+          "message": "No data available for this period.",
+          "suggestion": "Try selecting a different date range."
+        },
+        "INVALID_PERIOD": {
+          "message": "The selected date range is invalid.",
+          "suggestion": "Please select valid dates."
+        },
+        "ACCOUNT_NOT_FOUND": {
+          "message": "Google Ads account not found.",
+          "suggestion": "Verify that the account is properly linked to Flipika."
+        },
+        "UNKNOWN_ERROR": {
+          "message": "An unexpected error occurred.",
+          "suggestion": "Please try again. If the problem persists, contact support."
+        }
+      }
+    },
+    "emptyState": {
+      "title": "No data available",
+      "message": "This report doesn't contain any widgets. Add widgets to visualize your Google Ads data.",
+      "suggestion": "Return to the editor to add widgets to your report.",
+      "editReport": "Edit Report",
+      "backToReports": "Back to Reports"
+    },
+    "errorBoundary": {
+      "title": "An error occurred",
+      "message": "An unexpected problem occurred. Please try again or go back to home.",
+      "retry": "Retry",
+      "home": "Home"
     },
     "warnings": {
       "title": "Warnings",

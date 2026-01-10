@@ -8,6 +8,7 @@ export interface UserProfile {
     description?: string; // optional
     photoURL?: string;
     hasCompletedOnboarding: boolean;
+    hasCompletedTutorial: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -29,6 +30,8 @@ export interface UpdateUserProfileData {
     company?: string;
     description?: string;
     photoURL?: string;
+    hasCompletedOnboarding?: boolean;
+    hasCompletedTutorial?: boolean;
 }
 
 // Username validation constants

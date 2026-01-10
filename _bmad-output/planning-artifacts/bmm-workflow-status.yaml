@@ -15,7 +15,7 @@
 #   - {file-path}: File created/found (e.g., "docs/product-brief.md")
 #   - skipped: Optional/conditional workflow that was skipped
 
-generated: "2026-01-05"
+generated: "2026-01-10"
 project: "flipika"
 project_type: "brownfield"
 selected_track: "method"
@@ -28,7 +28,7 @@ workflow_status:
     workflows:
       - id: "document-project"
         name: "Document Project"
-        status: "required"
+        status: "docs/project-scan-report.json"
         agent: "analyst"
         command: "/bmad:bmm:workflows:document-project"
         purpose: "Understand existing codebase before planning"
@@ -86,7 +86,7 @@ workflow_status:
         purpose: "System architecture and technical decisions"
       - id: "create-epics-and-stories"
         name: "Epics & Stories"
-        status: "required"
+        status: "planning-artifacts/epics.md"
         agent: "pm"
         command: "/bmad:bmm:workflows:create-epics-and-stories"
         purpose: "Break down PRD into implementable work items"
@@ -98,7 +98,7 @@ workflow_status:
         purpose: "System-level testability assessment"
       - id: "implementation-readiness"
         name: "Implementation Readiness Check"
-        status: "required"
+        status: "planning-artifacts/implementation-readiness-report-2026-01-10.md"
         agent: "architect"
         command: "/bmad:bmm:workflows:check-implementation-readiness"
         purpose: "Validate all planning artifacts before implementation"
@@ -109,7 +109,7 @@ workflow_status:
     workflows:
       - id: "sprint-planning"
         name: "Sprint Planning"
-        status: "required"
+        status: "implementation-artifacts/sprint-status.yaml"
         agent: "sm"
         command: "/bmad:bmm:workflows:sprint-planning"
         purpose: "Create sprint plan and tracking"

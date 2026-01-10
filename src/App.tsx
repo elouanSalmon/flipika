@@ -4,7 +4,10 @@ import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DemoModeProvider } from './contexts/DemoModeContext';
+import { TutorialProvider } from './contexts/TutorialContext';
 import { GoogleAdsProvider } from './contexts/GoogleAdsContext';
+
+
 import { FeatureFlagsProvider, useFeatureFlags } from './contexts/FeatureFlagsContext';
 import { SubscriptionProvider } from './contexts/SubscriptionContext';
 import { usePageTracking } from './hooks/usePageTracking';
@@ -206,40 +209,42 @@ function App() {
         <AnalyticsTracker />
         <SubscriptionProvider>
           <GoogleAdsProvider>
-            <DemoModeProvider>
-              <FeatureFlagsProvider>
-                <Toaster
-                  position="top-right"
-                  toastOptions={{
-                    duration: 4000,
-                    style: {
-                      background: 'var(--color-bg-primary)',
-                      color: 'var(--color-text-primary)',
-                      border: '1px solid var(--color-border)',
-                    },
-                    success: {
-                      iconTheme: {
-                        primary: '#10b981',
-                        secondary: '#fff',
+            <TutorialProvider>
+              <DemoModeProvider>
+                <FeatureFlagsProvider>
+                  <Toaster
+                    position="top-right"
+                    toastOptions={{
+                      duration: 4000,
+                      style: {
+                        background: 'var(--color-bg-primary)',
+                        color: 'var(--color-text-primary)',
+                        border: '1px solid var(--color-border)',
                       },
-                    },
-                    error: {
-                      iconTheme: {
-                        primary: '#ef4444',
-                        secondary: '#fff',
+                      success: {
+                        iconTheme: {
+                          primary: '#10b981',
+                          secondary: '#fff',
+                        },
                       },
-                    },
-                  }}
-                />
-                <HubSpotChat />
-                <CookieConsent />
-                <InstallPWA />
-                <AnalyticsTracker />
-                <div className="App">
-                  <AppContent />
-                </div>
-              </FeatureFlagsProvider>
-            </DemoModeProvider>
+                      error: {
+                        iconTheme: {
+                          primary: '#ef4444',
+                          secondary: '#fff',
+                        },
+                      },
+                    }}
+                  />
+                  <HubSpotChat />
+                  <CookieConsent />
+                  <InstallPWA />
+                  <AnalyticsTracker />
+                  <div className="App">
+                    <AppContent />
+                  </div>
+                </FeatureFlagsProvider>
+              </DemoModeProvider>
+            </TutorialProvider>
           </GoogleAdsProvider>
         </SubscriptionProvider>
       </AuthProvider>

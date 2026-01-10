@@ -9,6 +9,7 @@ import { WidgetType } from '../../types/reportTypes';
 import ConfirmationModal from '../common/ConfirmationModal';
 import './TemplateConfigModal.css';
 import WidgetLibrary from '../reports/WidgetLibrary';
+import { useTutorial } from '../../contexts/TutorialContext';
 
 interface GoogleAdsAccount {
     id: string;
@@ -71,6 +72,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
 
     // Safeguards
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { refresh: refreshTutorial } = useTutorial();
     const [showUnsavedModal, setShowUnsavedModal] = useState(false);
     const [initialStateStr, setInitialStateStr] = useState('');
 
@@ -164,6 +166,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                 periodPreset,
                 widgetConfigs,
             });
+            await refreshTutorial();
         } catch (error) {
             console.error("Error submitting template:", error);
         } finally {

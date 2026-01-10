@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Client, CreateClientInput, UpdateClientInput } from '../../types/client';
 import type { ReportTemplate } from '../../types/templateTypes';
 import type { ReportTheme } from '../../types/reportThemes';
@@ -7,6 +8,7 @@ import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { listUserTemplates } from '../../services/templateService';
 import themeService from '../../services/themeService';
 import { getAuth } from 'firebase/auth';
+import { useTutorial } from '../../contexts/TutorialContext';
 
 interface ClientFormProps {
     initialData?: Client;
@@ -21,6 +23,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
     onCancel,
     isLoading
 }) => {
+    const { t } = useTranslation('clients');
     const [name, setName] = useState(initialData?.name || '');
     const [email, setEmail] = useState(initialData?.email || '');
     const [googleAdsId, setGoogleAdsId] = useState(initialData?.googleAdsCustomerId || '');
@@ -28,6 +31,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
     const [logoPreview, setLogoPreview] = useState<string | null>(initialData?.logoUrl || null);
     const [errors, setErrors] = useState<{ name?: string, email?: string, googleAdsId?: string }>({});
     const { accounts, isConnected } = useGoogleAds();
+    const { refresh: refreshTutorial } = useTutorial();
 
     // Preset configuration state
     const [defaultTemplateId, setDefaultTemplateId] = useState<string>(initialData?.defaultTemplateId || '');
@@ -80,16 +84,16 @@ export const ClientForm: React.FC<ClientFormProps> = ({
 
     const validate = () => {
         const newErrors: { name?: string, email?: string, googleAdsId?: string } = {};
-        if (!name.trim()) newErrors.name = "Le nom est requis";
+        if (!name.trim()) newErrors.name = t('form.name.error');
         if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            newErrors.email = "Format d'email invalide";
+            newErrors.email = t('form.email.error');
         }
         // Google Ads ID validation (10 digits, optional dashes)
         const cleanId = googleAdsId.replace(/\D/g, '');
         if (!cleanId) {
-            newErrors.googleAdsId = "L'ID Google Ads est requis";
+            newErrors.googleAdsId = t('form.googleAds.error.required');
         } else if (cleanId.length !== 10) {
-            newErrors.googleAdsId = "L'ID doit contenir 10 chiffres";
+            newErrors.googleAdsId = t('form.googleAds.error.format');
         }
 
         setErrors(newErrors);
@@ -132,6 +136,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                 logoFile: logoFile || undefined
             });
         }
+        await refreshTutorial();
     };
 
 
@@ -140,21 +145,21 @@ export const ClientForm: React.FC<ClientFormProps> = ({
         <form onSubmit={handleSubmit} className="space-y-6">
             <div>
                 <label htmlFor="logo" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Logo
+                    {t('form.logo.label')}
                 </label>
                 <div className="flex items-center gap-6">
                     <div className="w-24 h-24 rounded-lg bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center overflow-hidden relative group">
                         {logoPreview ? (
                             <>
-                                <img src={logoPreview} alt="Preview" className="w-full h-full object-contain" />
+                                <img src={logoPreview} alt={t('form.logo.alt')} className="w-full h-full object-contain" />
                                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                    <span className="text-white text-xs">Modifier</span>
+                                    <span className="text-white text-xs">{t('form.logo.change')}</span>
                                 </div>
                             </>
                         ) : (
                             <div className="text-center p-2">
                                 <Upload className="w-8 h-8 text-gray-400 mx-auto mb-1" />
-                                <span className="text-xs text-gray-500">Ajouter</span>
+                                <span className="text-xs text-gray-500">{t('form.logo.upload')}</span>
                             </div>
                         )}
                         <input
@@ -163,12 +168,11 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                             accept="image/*"
                             onChange={handleLogoChange}
                             className="absolute inset-0 opacity-0 cursor-pointer"
-                            title="Changer le logo"
+                            title={t('form.logo.change')}
                         />
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">
-                        <p>PNG, JPG ou SVG recommandés</p>
-                        <p>Max. 2 Mo</p>
+                        <p>{t('form.logo.helper')}</p>
                         {logoPreview && (
                             <button
                                 type="button"
@@ -178,7 +182,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                                 }}
                                 className="text-red-500 hover:text-red-700 text-xs mt-2 underline"
                             >
-                                Supprimer / Réinitialiser
+                                {t('form.logo.remove')}
                             </button>
                         )}
                     </div>
@@ -187,7 +191,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
 
             <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Nom du client *
+                    {t('form.name.label')}
                 </label>
                 <input
                     type="text"
@@ -198,19 +202,19 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             block w-full rounded-md border shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 sm:text-sm
             ${errors.name ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300'}
           `}
-                    placeholder="Ex: Acme Corp"
+                    placeholder={t('form.name.placeholder')}
                 />
                 {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
             </div>
 
             <div>
                 <label htmlFor="googleAdsId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Compte Google Ads *
+                    {t('form.googleAds.label')}
                 </label>
                 {!isConnected ? (
                     <div className="p-3 mb-2 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md">
                         <p className="text-sm text-yellow-700 dark:text-yellow-400">
-                            Vous devez connecter votre compte Google Ads pour sélectionner un client.
+                            {t('form.googleAds.noConnection')}
                         </p>
                     </div>
                 ) : (
@@ -223,7 +227,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                             ${errors.googleAdsId ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300'}
                         `}
                     >
-                        <option value="">Sélectionner un compte</option>
+                        <option value="">{t('form.googleAds.placeholder')}</option>
                         {accounts.map((account) => (
                             <option key={account.id} value={account.id}>
                                 {account.name} ({account.id})
@@ -233,13 +237,13 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                 )}
                 {errors.googleAdsId && <p className="mt-1 text-sm text-red-600">{errors.googleAdsId}</p>}
                 <p className="mt-1 text-xs text-gray-500">
-                    Sélectionnez le compte Google Ads à associer à ce client.
+                    {t('form.googleAds.helper')}
                 </p>
             </div>
 
             <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Email de contact
+                    {t('form.email.label')}
                 </label>
                 <input
                     type="email"
@@ -250,7 +254,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             block w-full rounded-md border shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 sm:text-sm
             ${errors.email ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300'}
           `}
-                    placeholder="contact@acme.com"
+                    placeholder={t('form.email.placeholder')}
                 />
                 {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
             </div>
@@ -262,7 +266,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                         <div className="flex items-center gap-2">
                             <Settings className="w-5 h-5 text-gray-500" />
                             <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                                Paramètres par défaut des rapports
+                                {t('form.presets.title')}
                             </h3>
                         </div>
                         {(defaultTemplateId || defaultThemeId) && (
@@ -272,18 +276,18 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                                 className="text-xs text-gray-500 hover:text-red-600 flex items-center gap-1"
                             >
                                 <X className="w-3 h-3" />
-                                Effacer
+                                {t('form.presets.clear')}
                             </button>
                         )}
                     </div>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                        Configurez les paramètres par défaut pour la génération de rapports de ce client.
+                        {t('form.presets.description')}
                     </p>
 
                     <div className="space-y-4">
                         <div>
                             <label htmlFor="defaultTemplate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Template par défaut
+                                {t('form.presets.template.label')}
                             </label>
                             <select
                                 id="defaultTemplate"
@@ -292,19 +296,19 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                                 disabled={loadingPresets}
                                 className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             >
-                                <option value="">Aucun template par défaut</option>
+                                <option value="">{t('form.presets.template.placeholder')}</option>
                                 {templates.map((template) => (
                                     <option key={template.id} value={template.id}>
                                         {template.name}
                                     </option>
                                 ))}
                             </select>
-                            {loadingPresets && <p className="mt-1 text-xs text-gray-500">Chargement des templates...</p>}
+                            {loadingPresets && <p className="mt-1 text-xs text-gray-500">{t('common:loading')}...</p>}
                         </div>
 
                         <div>
                             <label htmlFor="defaultTheme" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Thème par défaut
+                                {t('form.presets.theme.label')}
                             </label>
                             <select
                                 id="defaultTheme"
@@ -313,14 +317,14 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                                 disabled={loadingPresets}
                                 className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             >
-                                <option value="">Aucun thème par défaut</option>
+                                <option value="">{t('form.presets.theme.placeholder')}</option>
                                 {themes.map((theme) => (
                                     <option key={theme.id} value={theme.id}>
                                         {theme.name}
                                     </option>
                                 ))}
                             </select>
-                            {loadingPresets && <p className="mt-1 text-xs text-gray-500">Chargement des thèmes...</p>}
+                            {loadingPresets && <p className="mt-1 text-xs text-gray-500">{t('common:loading')}...</p>}
                         </div>
                     </div>
                 </div>
@@ -333,7 +337,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     disabled={isLoading}
                     className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600"
                 >
-                    Annuler
+                    {t('form.buttons.cancel')}
                 </button>
                 <button
                     type="submit"
@@ -341,7 +345,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                    {initialData ? 'Enregistrer' : 'Créer le client'}
+                    {initialData ? t('form.buttons.update') : t('form.buttons.create')}
                 </button>
             </div>
         </form>

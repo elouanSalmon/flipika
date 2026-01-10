@@ -98,7 +98,8 @@ service cloud.firestore {
         && request.resource.data.lastName.size() <= 50
         && (!('company' in request.resource.data) || (request.resource.data.company is string && request.resource.data.company.size() <= 100))
         && (!('description' in request.resource.data) || (request.resource.data.description is string && request.resource.data.description.size() <= 500))
-        && request.resource.data.hasCompletedOnboarding is bool;
+        && request.resource.data.hasCompletedOnboarding is bool
+        && (!('hasCompletedTutorial' in request.resource.data) || request.resource.data.hasCompletedTutorial is bool);
       
       allow update: if isOwner(userId)
         && (!('username' in request.resource.data) || (
@@ -127,6 +128,13 @@ service cloud.firestore {
     // USER INTEGRATIONS (Google Ads, etc.)
     // ========================================
     match /users/{userId}/integrations/{integrationId} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // ========================================
+    // CLIENTS MANAGEMENT
+    // ========================================
+    match /users/{userId}/clients/{clientId} {
       allow read, write: if isOwner(userId);
     }
     

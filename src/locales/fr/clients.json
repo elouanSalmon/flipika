@@ -1,0 +1,56 @@
+{
+    "form": {
+        "title": {
+            "create": "Nouveau Client",
+            "edit": "Modifier le Client"
+        },
+        "logo": {
+            "label": "Logo",
+            "upload": "Ajouter",
+            "change": "Modifier",
+            "remove": "Supprimer / Réinitialiser",
+            "helper": "PNG, JPG ou SVG recommandés. Max. 2 Mo",
+            "alt": "Aperçu du logo"
+        },
+        "name": {
+            "label": "Nom du client *",
+            "placeholder": "Ex: Acme Corp",
+            "error": "Le nom est requis"
+        },
+        "googleAds": {
+            "label": "Compte Google Ads *",
+            "placeholder": "Sélectionner un compte",
+            "helper": "Sélectionnez le compte Google Ads à associer à ce client.",
+            "error": {
+                "required": "L'ID Google Ads est requis",
+                "format": "L'ID doit contenir 10 chiffres"
+            },
+            "noConnection": "Vous devez connecter votre compte Google Ads pour sélectionner un client."
+        },
+        "email": {
+            "label": "Email de contact",
+            "placeholder": "contact@client.com",
+            "error": "Format d'email invalide"
+        },
+        "presets": {
+            "title": "Configuration par défaut",
+            "description": "Ces réglages seront appliqués automatiquement lors de la création de nouveaux rapports pour ce client.",
+            "template": {
+                "label": "Modèle par défaut",
+                "placeholder": "Sélectionner un modèle"
+            },
+            "theme": {
+                "label": "Thème par défaut",
+                "placeholder": "Sélectionner un thème"
+            },
+            "clear": "Effacer la configuration"
+        },
+        "buttons": {
+            "cancel": "Annuler",
+            "create": "Créer le client",
+            "update": "Mettre à jour",
+            "creating": "Création...",
+            "updating": "Mise à jour..."
+        }
+    }
+}

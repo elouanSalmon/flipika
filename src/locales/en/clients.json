@@ -1,0 +1,56 @@
+{
+    "form": {
+        "title": {
+            "create": "New Client",
+            "edit": "Edit Client"
+        },
+        "logo": {
+            "label": "Logo",
+            "upload": "Upload",
+            "change": "Change",
+            "remove": "Remove / Reset",
+            "helper": "PNG, JPG or SVG recommended. Max 2 MB",
+            "alt": "Logo preview"
+        },
+        "name": {
+            "label": "Client Name *",
+            "placeholder": "Ex: Acme Corp",
+            "error": "Name is required"
+        },
+        "googleAds": {
+            "label": "Google Ads Account *",
+            "placeholder": "Select an account",
+            "helper": "Select the Google Ads account to associate with this client.",
+            "error": {
+                "required": "Google Ads ID is required",
+                "format": "ID must contain 10 digits"
+            },
+            "noConnection": "You must connect your Google Ads account to select a client."
+        },
+        "email": {
+            "label": "Contact Email",
+            "placeholder": "contact@client.com",
+            "error": "Invalid email format"
+        },
+        "presets": {
+            "title": "Default Configuration",
+            "description": "These settings will be automatically applied when creating new reports for this client.",
+            "template": {
+                "label": "Default Template",
+                "placeholder": "Select a template"
+            },
+            "theme": {
+                "label": "Default Theme",
+                "placeholder": "Select a theme"
+            },
+            "clear": "Clear configuration"
+        },
+        "buttons": {
+            "cancel": "Cancel",
+            "create": "Create Client",
+            "update": "Update",
+            "creating": "Creating...",
+            "updating": "Updating..."
+        }
+    }
+}

@@ -1,4 +1,4 @@
-# CLAUDE.md - Memory & Guidelines
+# GEMINI.md - Memory & Guidelines
 
 ## ⚠️ Critical Rules (NEVER IGNORE)
 
@@ -6,22 +6,23 @@
     - ALWAYS update `firestore.rules` when creating new collections or modifying access patterns.
     - NEVER assume a collection exists or is accessible without checking rules.
     - When adding a new feature that stores data, ask yourself: *"Does the current user have write access to this path in firestore.rules?"*
+    - **Action**: Run `firebase deploy --only firestore:rules` if you have access, or notify user to do it.
 
 2.  **Tailwind & Styling**:
     - ALWAYS import necessary Tailwind/CSS files for styles to apply.
     - DO NOT rely on implicit imports.
     - Check global `index.css` or `App.css` to see available utility classes.
-    - If a style isn't applying, verify the component is included in `tailwind.config.js` `content` array.
+    - Ensure your component files are covered by `tailwind.config.js`.
 
-4.  **Z-Index Hierarchy**:
-    - **Header**: `z-40` (Sticky/Fixed elements)
-    - **Modals/Overlays**: `z-50` or higher (Must overlap header)
-    - **Toasts/Notifications**: `z-60` or higher
-    - ALWAYS ensure modals use a higher z-index than the header to prevent clipping.
+3.  **Z-Index Hierarchy**:
+    - **Header**: `z-40`
+    - **Modals**: `z-50`+ (MUST be higher than Header)
+    - **Toasts**: `z-60`+
 
 3.  **Internationalization (i18n)**:
     - ALWAYS add new keys to BOTH French (`src/locales/fr/`) AND English (`src/locales/en/`) files.
-    - NEVER hardcode text.
+    - NEVER hardcode text in components; use `t('namespace:key')`.
+    - Check `src/i18n.ts` if adding a new namespace is required.
 
 ## 📄 Project Context
 

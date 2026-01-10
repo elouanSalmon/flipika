@@ -165,7 +165,62 @@
       "title": "Erreur de chargement",
       "noData": "Aucune donnée disponible pour cette période",
       "generic": "Erreur lors du chargement des données",
-      "retry": "Réessayer"
+      "retry": "Réessayer",
+      "retrying": "Nouvelle tentative...",
+      "attemptCount": "Tentative {{count}}/{{max}}",
+      "maxAttempts": "Nombre maximum de tentatives atteint",
+      "technicalDetails": "Détails techniques",
+      "types": {
+        "AUTHENTICATION_ERROR": {
+          "message": "Votre connexion Google Ads a expiré.",
+          "suggestion": "Veuillez vous reconnecter à Google Ads."
+        },
+        "PERMISSION_ERROR": {
+          "message": "Vous n'avez pas les permissions nécessaires pour accéder à ce compte.",
+          "suggestion": "Vérifiez vos droits d'accès au compte Google Ads."
+        },
+        "RATE_LIMIT_ERROR": {
+          "message": "Trop de requêtes envoyées.",
+          "suggestion": "Veuillez patienter quelques instants et réessayer."
+        },
+        "TIMEOUT_ERROR": {
+          "message": "La requête a pris trop de temps.",
+          "suggestion": "Veuillez réessayer. Si le problème persiste, essayez avec une période plus courte."
+        },
+        "NETWORK_ERROR": {
+          "message": "Connexion réseau interrompue.",
+          "suggestion": "Vérifiez votre connexion internet et réessayez."
+        },
+        "NO_DATA": {
+          "message": "Aucune donnée disponible pour cette période.",
+          "suggestion": "Essayez de sélectionner une période différente."
+        },
+        "INVALID_PERIOD": {
+          "message": "La période sélectionnée est invalide.",
+          "suggestion": "Veuillez sélectionner des dates valides."
+        },
+        "ACCOUNT_NOT_FOUND": {
+          "message": "Compte Google Ads introuvable.",
+          "suggestion": "Vérifiez que le compte est bien lié à Flipika."
+        },
+        "UNKNOWN_ERROR": {
+          "message": "Une erreur inattendue est survenue.",
+          "suggestion": "Veuillez réessayer. Si le problème persiste, contactez le support."
+        }
+      }
+    },
+    "emptyState": {
+      "title": "Aucune donnée disponible",
+      "message": "Ce rapport ne contient pas de widgets. Ajoutez des widgets pour visualiser vos données Google Ads.",
+      "suggestion": "Retournez à l'éditeur pour ajouter des widgets à votre rapport.",
+      "editReport": "Modifier le rapport",
+      "backToReports": "Retour aux rapports"
+    },
+    "errorBoundary": {
+      "title": "Une erreur est survenue",
+      "message": "Un problème inattendu s'est produit. Veuillez réessayer ou retourner à l'accueil.",
+      "retry": "Réessayer",
+      "home": "Accueil"
     },
     "warnings": {
       "title": "Avertissements",

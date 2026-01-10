@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Plus, Clock, AlertCircle, Search, Grid, List as ListIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useTutorial } from '../contexts/TutorialContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import { useDemoMode } from '../contexts/DemoModeContext';
@@ -43,6 +44,7 @@ const ScheduledReports: React.FC = () => {
     const { isConnected: isGoogleAdsConnected } = useGoogleAds();
     const { canAccess } = useSubscription();
     const { isDemoMode } = useDemoMode();
+    const { refresh: refreshTutorial } = useTutorial();
 
     const hasAccess = (canAccess && isGoogleAdsConnected) || isDemoMode;
 
@@ -220,6 +222,7 @@ const ScheduledReports: React.FC = () => {
             setIsModalOpen(false);
             setEditingSchedule(undefined);
             await loadData();
+            await refreshTutorial();
         } catch (error: any) {
             console.error('Error saving schedule:', error);
             toast.error(error.message || t('errors.saving'));
@@ -239,6 +242,7 @@ const ScheduledReports: React.FC = () => {
             toast.success(t('toast.deleted'));
             setScheduleToDelete(null);
             await loadData();
+            await refreshTutorial();
         } catch (error: any) {
             console.error('Error deleting schedule:', error);
             toast.error(t('errors.deleting'));

@@ -13,6 +13,7 @@ import type { ReportTheme } from '../../types/reportThemes';
 import type { Account } from '../../types/business';
 import ThemePreview from './ThemePreview';
 import ThemeEditor from './ThemeEditor';
+import { useTutorial } from '../../contexts/TutorialContext';
 import ConfirmationModal from '../common/ConfirmationModal';
 import FilterBar from '../common/FilterBar';
 import './ThemeManager.css'; // Keeping for potential specific tweaks
@@ -28,6 +29,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
     const { canAccess } = useSubscription();
     const { isDemoMode } = useDemoMode();
     const { t } = useTranslation('themes');
+    const { refresh: refreshTutorial } = useTutorial();
     const [themes, setThemes] = useState<ReportTheme[]>([]);
     const [loading, setLoading] = useState(true);
     const [showEditor, setShowEditor] = useState(false);
@@ -81,7 +83,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
             const newName = `${theme.name} (Copie)`;
             await themeService.duplicateTheme(theme.id, newName);
             await loadThemes();
-            await loadThemes();
+            await refreshTutorial(); // Refresh tutorial status
             toast.success(t('messages.duplicateSuccess'));
         } catch (error) {
             console.error('Error duplicating theme:', error);
@@ -100,8 +102,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
         try {
             await themeService.deleteTheme(themeToDelete.id);
             await loadThemes();
-            await themeService.deleteTheme(themeToDelete.id);
-            await loadThemes();
+            await refreshTutorial(); // Refresh tutorial status
             toast.success(t('messages.deleteSuccess'));
             setThemeToDelete(null);
         } catch (error) {
@@ -112,6 +113,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
 
     const handleSaveTheme = async () => {
         await loadThemes();
+        await refreshTutorial(); // Refresh tutorial status
     };
 
     if (loading) {

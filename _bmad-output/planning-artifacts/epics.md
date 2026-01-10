@@ -265,3 +265,46 @@ So that I know which clients I have already handled this month.
 **When** I return to the dashboard or click "Mark as Sent"
 **Then** The status for this Client/Month updates to "Sent" (Green checkmark)
 
+
+### Epic 5: Onboarding & Gamification ("Le Guide")
+Accompagner l'utilisateur pas à pas dans la découverte de l'application via une checklist interactive qui se valide automatiquement.
+**FRs covered:** N/A (New Requirement)
+**Notes:** Système de "Meta-State" qui écoute les événements ou interroge la base pour valider des étapes. Doit être non-intrusif mais gratifiant.
+
+### Story 5.1: Moteur d'Onboarding (Checklist Logic)
+
+As a System,
+I want to track the completion status of key onboarding steps for each user/client,
+So that I can display their progress in real-time.
+
+**Acceptance Criteria:**
+
+**Given** A new user account
+**When** The user completes an action (Create Client, Bind Ads, etc.)
+**Then** The system detects this event (via listeners or periodic check)
+**And** Updates the status of the corresponding step to "Completed" in the User's profile
+**And** This state persists across sessions
+
+**Steps to Track:**
+1. Create Client
+2. Create Theme & Link to Client
+3. Create Template
+4. Create Schedule
+5. Create Report
+6. Send Report
+
+### Story 5.2: Widget d'Onboarding (UI & Navigation)
+
+As a User,
+I want to see a clear, step-by-step checklist of actions to perform,
+So that I can click a button to go exactly where I need to be and see my progress instantly.
+
+**Acceptance Criteria:**
+
+**Given** I am on the Dashboard
+**When** I have incomplete onboarding steps
+**Then** I see a "Getting Started" container listing the 6 steps
+**And** Each step has a **visual status indicator** (Empty circle vs Green Checkmark)
+**And** Each incomplete step has a clear **"Action Button"** (e.g., "Create Client", "Go to Settings")
+**And** Clicking the button redirects me **directly** to the specific URL required for that step
+**And** Completed steps are visually "dimmed" or marked as Done to plainly show progress

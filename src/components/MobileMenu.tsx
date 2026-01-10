@@ -12,7 +12,7 @@ import {
     Sun,
     Moon,
     Palette,
-    FileStack,
+    LayoutTemplate,
     Clock,
     Users,
 } from 'lucide-react';
@@ -59,7 +59,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         enableAudit && { path: '/app/audit', label: t('appNavigation.audit'), icon: TrendingUp },
         enableReports && { path: '/app/reports', label: t('appNavigation.reports'), icon: FileText },
         enableReports && { path: '/app/schedules', label: t('appNavigation.schedules'), icon: Clock },
-        enableReports && { path: '/app/templates', label: t('appNavigation.templates'), icon: FileStack },
+        enableReports && { path: '/app/templates', label: t('appNavigation.templates'), icon: LayoutTemplate },
         { path: '/app/themes', label: t('appNavigation.themes'), icon: Palette },
         { path: '/app/clients', label: t('appNavigation.clients'), icon: Users },
         { path: '/app/settings', label: t('appNavigation.settings'), icon: Settings },

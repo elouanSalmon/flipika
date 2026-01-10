@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Send, AlertCircle, Edit, Copy, Download, Check, Loader2 } from 'lucide-react';
+import { ArrowLeft, Send, Edit, Copy, Download, Check, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getReportWithWidgets } from '../services/reportService';
 import { getUserProfile } from '../services/userProfileService';
@@ -9,14 +9,20 @@ import pdfGenerationService from '../services/pdfGenerationService';
 import { useAuth } from '../contexts/AuthContext';
 import ReportCanvas from '../components/reports/ReportCanvas';
 import Spinner from '../components/common/Spinner';
+import ErrorState from '../components/common/ErrorState';
+import EmptyState from '../components/common/EmptyState';
+import ErrorBoundary from '../components/common/ErrorBoundary';
 import toast from 'react-hot-toast';
+import { parseApiError, API_TIMEOUT_MS, MAX_RETRY_ATTEMPTS } from '../types/errors';
+import type { ApiError } from '../types/errors';
 import type { EditableReport, WidgetConfig } from '../types/reportTypes';
 import type { Campaign } from '../types/business';
 
 type PreviewState =
     | { status: 'loading' }
     | { status: 'success'; report: EditableReport; widgets: WidgetConfig[] }
-    | { status: 'error'; error: string };
+    | { status: 'error'; error: ApiError }
+    | { status: 'empty'; report: EditableReport };
 
 const ReportPreview: React.FC = () => {
     const { reportId } = useParams<{ reportId: string }>();
@@ -28,6 +34,8 @@ const ReportPreview: React.FC = () => {
     const [emailData, setEmailData] = useState<{ clientEmail: string; subject: string; body: string } | null>(null);
     const [pdfGenerating, setPdfGenerating] = useState(false);
     const [pdfProgress, setPdfProgress] = useState(0);
+    const [retryCount, setRetryCount] = useState(0);
+    const [isRetrying, setIsRetrying] = useState(false);
     const reportPreviewRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -40,13 +48,29 @@ const ReportPreview: React.FC = () => {
         if (!reportId) return;
 
         setState({ status: 'loading' });
+
+        // Create abort controller for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+
         try {
             const result = await getReportWithWidgets(reportId);
+
+            clearTimeout(timeoutId);
 
             if (!result) {
                 setState({
                     status: 'error',
-                    error: t('preFlight.error.noData'),
+                    error: parseApiError(new Error('Report not found')),
+                });
+                return;
+            }
+
+            // Check for empty widgets (no data state)
+            if (!result.widgets || result.widgets.length === 0) {
+                setState({
+                    status: 'empty',
+                    report: result.report,
                 });
                 return;
             }
@@ -56,12 +80,36 @@ const ReportPreview: React.FC = () => {
                 report: result.report,
                 widgets: result.widgets
             });
-        } catch (error: any) {
+
+            // Reset retry count on success
+            setRetryCount(0);
+        } catch (error: unknown) {
+            clearTimeout(timeoutId);
+
+            // Parse the error into a structured format
+            const apiError = parseApiError(error);
+
+            console.error('Error loading report:', apiError);
+
             setState({
                 status: 'error',
-                error: error.message || t('preFlight.error.generic'),
+                error: apiError,
             });
         }
+    };
+
+    const handleRetry = async () => {
+        if (retryCount >= MAX_RETRY_ATTEMPTS) return;
+
+        setIsRetrying(true);
+        setRetryCount(prev => prev + 1);
+
+        // Wait with exponential backoff before retrying
+        const delay = Math.min(1000 * Math.pow(2, retryCount), 10000);
+        await new Promise(resolve => setTimeout(resolve, delay));
+
+        await loadReport();
+        setIsRetrying(false);
     };
 
     const handleSendEmail = async () => {
@@ -189,7 +237,7 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
         try {
             await navigator.clipboard.writeText(text);
             toast.success(t('preFlight.postSend.copied', { label }));
-        } catch (error) {
+        } catch {
             toast.error(t('preFlight.postSend.copyError'));
         }
     };
@@ -254,28 +302,80 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
     }
 
     if (state.status === 'error') {
+        const { error } = state;
+
+        // Get translated error message based on error code
+        const errorMessage = t(`preFlight.error.types.${error.code}.message`, { defaultValue: error.userMessage });
+        const errorSuggestion = t(`preFlight.error.types.${error.code}.suggestion`, { defaultValue: error.suggestion });
+
         return (
             <div className="flex flex-col items-center justify-center min-h-screen p-4">
-                <div className="p-4 rounded-full bg-red-50 dark:bg-red-900/20 mb-4">
-                    <AlertCircle size={48} className="text-red-600 dark:text-red-400" />
+                <div className="max-w-lg w-full">
+                    <ErrorState
+                        title={t('preFlight.error.title')}
+                        message={errorMessage}
+                        suggestion={errorSuggestion}
+                        technicalDetails={error.technicalDetails}
+                        errorCode={error.code}
+                        onRetry={error.retryable ? handleRetry : undefined}
+                        retryCount={retryCount}
+                        maxRetries={MAX_RETRY_ATTEMPTS}
+                        isRetrying={isRetrying}
+                        translations={{
+                            retry: t('preFlight.error.retry'),
+                            retrying: t('preFlight.error.retrying'),
+                            attemptCount: t('preFlight.error.attemptCount', { count: retryCount, max: MAX_RETRY_ATTEMPTS }),
+                            maxAttempts: t('preFlight.error.maxAttempts'),
+                            technicalDetails: t('preFlight.error.technicalDetails'),
+                        }}
+                    />
+
+                    <div className="mt-6 flex justify-center">
+                        <button
+                            onClick={handleBack}
+                            className="flex items-center gap-2 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        >
+                            <ArrowLeft size={20} />
+                            {t('preFlight.actions.back')}
+                        </button>
+                    </div>
                 </div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                    {t('preFlight.error.title')}
-                </h1>
-                <p className="text-gray-500 dark:text-gray-400 text-center max-w-md mb-6">
-                    {state.error}
-                </p>
-                <button onClick={handleBack} className="btn btn-primary">
-                    <ArrowLeft size={20} />
-                    {t('preFlight.actions.back')}
-                </button>
+            </div>
+        );
+    }
+
+    if (state.status === 'empty') {
+        const { report } = state;
+
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen p-4">
+                <div className="max-w-lg w-full">
+                    <EmptyState
+                        title={t('preFlight.emptyState.title')}
+                        message={t('preFlight.emptyState.message')}
+                        suggestion={t('preFlight.emptyState.suggestion')}
+                        variant="warning"
+                        action={{
+                            label: t('preFlight.emptyState.editReport'),
+                            onClick: () => navigate(`/app/reports/${report.id}`),
+                        }}
+                        secondaryAction={{
+                            label: t('preFlight.emptyState.backToReports'),
+                            onClick: handleBack,
+                        }}
+                    />
+                </div>
             </div>
         );
     }
 
     const { report, widgets } = state;
 
+    // Check if generation buttons should be disabled
+    const canGenerate = widgets.length > 0;
+
     return (
+        <ErrorBoundary>
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
             {/* Header */}
             <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
@@ -309,8 +409,9 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                                 </button>
                                 <button
                                     onClick={handleSendEmail}
-                                    disabled={pdfGenerating}
+                                    disabled={pdfGenerating || !canGenerate}
                                     className="btn btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    title={!canGenerate ? 'Ajoutez des widgets pour générer le rapport' : undefined}
                                 >
                                     {pdfGenerating ? (
                                         <>
@@ -442,22 +543,24 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                 </div>
             )}
 
-            {/* Report Preview */}
-            {!showEmailSent && (
-                <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
-                        <ReportCanvas
-                            widgets={widgets}
-                            design={report.design}
-                            startDate={report.startDate}
-                            endDate={report.endDate}
-                            isPublicView={true}
-                            reportId={report.id}
-                        />
-                    </div>
-                </main>
-            )}
+            {/* Report Preview - Always rendered but hidden when showEmailSent to keep ref alive for PDF */}
+            <main
+                className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${showEmailSent ? 'absolute left-[-9999px] top-0' : ''}`}
+                aria-hidden={showEmailSent}
+            >
+                <div ref={reportPreviewRef} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+                    <ReportCanvas
+                        widgets={widgets}
+                        design={report.design}
+                        startDate={report.startDate}
+                        endDate={report.endDate}
+                        isPublicView={true}
+                        reportId={report.id}
+                    />
+                </div>
+            </main>
         </div>
+        </ErrorBoundary>
     );
 };
 

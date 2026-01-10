@@ -4,6 +4,8 @@ import "../components/Header.css"; // Use header styles
 import "../components/app/Connected.css"; // We might need to adjust or remove this if it enforced sidebar layout
 import Footer from "../components/Footer";
 
+import { TutorialWidget } from "../components/tutorial/TutorialWidget";
+
 const AppLayout = () => {
   return (
     <div className="min-h-dvh bg-[var(--color-bg-secondary)] flex flex-col">
@@ -14,6 +16,7 @@ const AppLayout = () => {
         {/* Content Wrapper - ensures min-height and spacing */}
         <div className="app-content-wrapper">
           <div className="content-container">
+            <TutorialWidget />
             <Outlet />
           </div>
         </div>

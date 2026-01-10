@@ -16,6 +16,8 @@ import frBilling from './locales/fr/billing.json';
 import frCopilot from './locales/fr/copilot.json';
 import frAudit from './locales/fr/audit.json';
 import frThemes from './locales/fr/themes.json';
+import frClients from './locales/fr/clients.json';
+import frTutorial from './locales/fr/tutorial.json';
 
 // Authenticated Pages - English
 import enDashboard from './locales/en/dashboard.json';
@@ -27,6 +29,8 @@ import enBilling from './locales/en/billing.json';
 import enCopilot from './locales/en/copilot.json';
 import enAudit from './locales/en/audit.json';
 import enThemes from './locales/en/themes.json';
+import enClients from './locales/en/clients.json';
+import enTutorial from './locales/en/tutorial.json';
 
 const resources = {
   en: {
@@ -40,6 +44,8 @@ const resources = {
     copilot: enCopilot,
     audit: enAudit,
     themes: enThemes,
+    clients: enClients,
+    tutorial: enTutorial,
   },
   fr: {
     common: frCommon,
@@ -52,6 +58,8 @@ const resources = {
     copilot: frCopilot,
     audit: frAudit,
     themes: frThemes,
+    clients: frClients,
+    tutorial: frTutorial,
   },
 };
 

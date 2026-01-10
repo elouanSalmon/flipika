@@ -1,0 +1,42 @@
+{
+    "title": "Getting Started Guide",
+    "description": "Master Flipika step by step.",
+    "progress": "{{percent}}% completed",
+    "dismiss": "Dismiss guide",
+    "cannotDismiss": "Complete steps to dismiss",
+    "expand": "Open guide",
+    "collapse": "Collapse",
+    "completed": "Done",
+    "steps": {
+        "createClient": {
+            "label": "Create your first Client",
+            "action": "Add Client"
+        },
+        "createTheme": {
+            "label": "Configure a Brand Theme",
+            "action": "Create Theme"
+        },
+        "createTemplate": {
+            "label": "Define a Report Template",
+            "action": "Create Template"
+        },
+        "createSchedule": {
+            "label": "Schedule an automatic report",
+            "action": "Schedule"
+        },
+        "generateReport": {
+            "label": "Create your first report",
+            "action": "Create"
+        },
+        "sendReport": {
+            "label": "Send report via email",
+            "action": "View Reports"
+        }
+    },
+    "confirmDismiss": {
+        "title": "Dismiss the guide?",
+        "message": "You won't see this help panel anymore.\nYou can always find these steps in the documentation.",
+        "confirm": "Dismiss permanently",
+        "cancel": "Keep guide"
+    }
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../contexts/AuthContext';
+import { useTutorial } from '../contexts/TutorialContext';
 import {
     getReportWithWidgets,
     saveReportWithWidgets,
@@ -32,6 +33,7 @@ const ReportEditor: React.FC = () => {
     const navigate = useNavigate();
     const { id: reportId } = useParams<{ id: string }>();
     const { currentUser } = useAuth();
+    const { refresh: refreshTutorial } = useTutorial();
 
     // Report state
     const [report, setReport] = useState<EditableReport | null>(null);
@@ -61,7 +63,8 @@ const ReportEditor: React.FC = () => {
 
     // PreFlight modal state
     const [showPreFlightModal, setShowPreFlightModal] = useState(false);
-    const [tempPassword, setTempPassword] = useState<string>(''); // Temporary password storage for email sharing
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [tempPassword, _setTempPassword] = useState<string>(''); // Temporary password storage for email sharing
 
 
 
@@ -172,6 +175,7 @@ const ReportEditor: React.FC = () => {
             }, widgets);
             setLastSaved(new Date());
             setIsDirty(false);
+            await refreshTutorial();
             toast.success('Rapport sauvegardé');
         } catch (error) {
             console.error('Save error:', error);
@@ -201,6 +205,7 @@ const ReportEditor: React.FC = () => {
             const shareUrl = await publishReport(report.id, profile.username);
 
             setReport({ ...report, status: 'published', shareUrl });
+            await refreshTutorial(); // Refresh tutorial status as sending/publishing report is a step
             toast.success('Rapport publié !');
         } catch (error) {
             console.error('Publish error:', error);
@@ -413,6 +418,7 @@ const ReportEditor: React.FC = () => {
         // TODO: Implement PDF generation (Story 3.2)
         // For now, we'll just trigger the email share
         await handleShareByEmail();
+        await refreshTutorial(); // Refresh tutorial status
     };
 
     const handleShareByEmail = async () => {

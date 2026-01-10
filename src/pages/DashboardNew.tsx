@@ -14,6 +14,7 @@ import EmptyDashboardState from '../components/dashboard/EmptyDashboardState';
 import dataService from '../services/dataService';
 import type { Account, Campaign, DateRange, Alert, TimeSeriesMetrics } from '../types/business';
 
+
 const DashboardNew = () => {
     const navigate = useNavigate();
     const { isConnected, authError } = useGoogleAds();
@@ -226,6 +227,7 @@ const DashboardNew = () => {
                 </div>
                 <DateRangePicker value={dateRange} onChange={setDateRange} />
             </div>
+
 
             {/* KPIs Grid */}
             <MetricsGrid data={metricsData} loading={loading} />
