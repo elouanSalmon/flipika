@@ -18,6 +18,7 @@
     - **Modals/Overlays**: `z-50` or higher (Must overlap header)
     - **Toasts/Notifications**: `z-60` or higher
     - ALWAYS ensure modals use a higher z-index than the header to prevent clipping.
+    - **Portal**: Always use `createPortal` (rendering to `document.body`) for modals to avoid stacking context issues with sticky headers.
 
 3.  **Internationalization (i18n)**:
     - ALWAYS add new keys to BOTH French (`src/locales/fr/`) AND English (`src/locales/en/`) files.

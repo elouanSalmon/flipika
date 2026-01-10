@@ -308,3 +308,110 @@ So that I can click a button to go exactly where I need to be and see my progres
 **And** Each incomplete step has a clear **"Action Button"** (e.g., "Create Client", "Go to Settings")
 **And** Clicking the button redirects me **directly** to the specific URL required for that step
 **And** Completed steps are visually "dimmed" or marked as Done to plainly show progress
+
+
+### Epic 6: Slides & Advanced Scoping ("Le Microscope")
+Transformer les "Widgets" en "Slides" intelligentes avec un contrôle granulaire de la portée (Scope) et des outils d'analyse avancés pour les Media Buyers.
+**FRs covered:** New FRs (Slide Concept, Granular Scoping, New Analytics)
+**Notes:** Refonte majeure du modèle de données "Widget" pour inclure le scope. Backend/Frontend.
+
+### Story 6.1: Rename & Refactor "Widget" to "Slide"
+
+As a User,
+I want to manipulate "Slides" instead of "Widgets",
+So that the terminology matches my mental model of a presentation/report.
+
+**Acceptance Criteria:**
+
+**Given** I am in the Report Editor
+**When** I look at the UI
+**Then** All references to "Widgets" are replaced by "Slides"
+**And** The codebase reflects this change (Component names, Types, etc.) to maintain consistency
+**And** The "Add Widget" button becomes "Add Slide"
+
+### Story 6.2: Slide Scoping Logic (Granular Control)
+
+As a Power User,
+I want to define precisely which data a specific slide displays (Account vs Campaigns vs Single Campaign),
+So that I can tell a specific story (e.g., "Performance of the Summer Sale Campaign" vs "Global Account Performance").
+
+**Acceptance Criteria:**
+
+**Given** I am configuring a Slide (formerly Widget)
+**When** I open its settings
+**Then** I see a "Data Scope" section
+**And** I can choose between:
+  1. **Report Default** (Inherits the report's selected Account/Campaigns)
+  2. **Specific Account** (Overrides report account)
+  3. **Specific Campaigns** (Select a subset of campaigns from the account)
+  4. **Single Campaign** (Focus on one campaign)
+**And** When I change the Scope, the data visualized updates immediately to reflect this selection
+**And** This specific scope is saved with the Slide configuration
+
+### Story 6.3: Retrofit Existing Slides
+
+As a Product Manager,
+I want the 4 existing slides (Performance, Chart, Metrics, Creative) to support this new Scoping logic,
+So that we don't lose functionality during the transition.
+
+**Acceptance Criteria:**
+
+**Given** I have a report with existing widgets (Performance Overview, Campaign Chart, Key Metrics, Ad Creative)
+**When** I apply the new Scoping logic
+**Then** They default to "Report Default" scope (backward compatibility)
+**And** I can override their scope individually
+**And** The data fetching logic correctly respects the override (e.g., fetching metrics for just ONE campaign if selected)
+
+### Story 6.4: New Slide - Funnel Analysis
+
+As a Media Buyer,
+I want to visualize the conversion funnel (Impressions -> Clicks -> Conversions),
+So that I can identify where I am losing potential customers.
+
+**Acceptance Criteria:**
+
+**Given** I add a "Funnel Analysis" slide
+**When** It renders
+**Then** It displays a funnel chart showing the drop-off rates between steps
+**And** It displays Key Ratios (CTR, Conv. Rate) between steps
+
+### Story 6.5: New Slide - Day/Hour Heatmap
+
+As a Media Buyer,
+I want to see *when* my ads perform best (Day of Week & Hour of Day),
+So that I can optimize my ad scheduling.
+
+**Acceptance Criteria:**
+
+**Given** I add a "Heatmap" slide
+**When** It renders
+**Then** It displays a grid (7 days x 24 hours)
+**And** Cells are colored based on a metric (e.g., Clicks, Conversions, Cost) with a gradient
+**And** I can switch the metric being visualized
+
+### Story 6.6: New Slide - Device & Platform Split
+
+As a Media Buyer,
+I want to compare performance across Devices (Mobile/Desktop) and Platforms (Search/Display/YouTube),
+So that I can adjust my bid adjustments.
+
+**Acceptance Criteria:**
+
+**Given** I add a "Device/Platform" slide
+**When** It renders
+**Then** It displays Pie Charts or Bar Charts comparing the breakdown
+**And** It shows Cost/Conversion per device/platform
+
+### Story 6.7: New Slide - Top Performers
+
+As a Media Buyer,
+I want to see a ranked list of my best assets (Keywords, Search Terms, Locations),
+So that I can double down on what works.
+
+**Acceptance Criteria:**
+
+**Given** I add a "Top Performers" slide
+**When** I configure it
+**Then** I can choose the Dimension (Keywords, Search Terms, Locations, Ads)
+**And** I can choose the Metric to sort by (Cost, Conversions, ROAS)
+**And** It displays the top N (e.g., Top 5 or Top 10) items in a list or table

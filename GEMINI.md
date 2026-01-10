@@ -16,7 +16,7 @@
 
 3.  **Z-Index Hierarchy**:
     - **Header**: `z-40`
-    - **Modals**: `z-50`+ (MUST be higher than Header)
+    - **Modals**: `z-50`+ (MUST be higher than Header). **Tip**: Use `createPortal` to render at `document.body`.
     - **Toasts**: `z-60`+
 
 3.  **Internationalization (i18n)**:
