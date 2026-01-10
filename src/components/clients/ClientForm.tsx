@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import type { Client, CreateClientInput, UpdateClientInput } from '../../types/client';
-import { Upload, Loader2 } from 'lucide-react';
+import type { ReportTemplate } from '../../types/templateTypes';
+import type { ReportTheme } from '../../types/reportThemes';
+import { Upload, Loader2, Settings, X } from 'lucide-react';
+import { useGoogleAds } from '../../contexts/GoogleAdsContext';
+import { listUserTemplates } from '../../services/templateService';
+import themeService from '../../services/themeService';
+import { getAuth } from 'firebase/auth';
 
 interface ClientFormProps {
     initialData?: Client;
@@ -21,6 +27,14 @@ export const ClientForm: React.FC<ClientFormProps> = ({
     const [logoFile, setLogoFile] = useState<File | null>(null);
     const [logoPreview, setLogoPreview] = useState<string | null>(initialData?.logoUrl || null);
     const [errors, setErrors] = useState<{ name?: string, email?: string, googleAdsId?: string }>({});
+    const { accounts, isConnected } = useGoogleAds();
+
+    // Preset configuration state
+    const [defaultTemplateId, setDefaultTemplateId] = useState<string>(initialData?.defaultTemplateId || '');
+    const [defaultThemeId, setDefaultThemeId] = useState<string>(initialData?.defaultThemeId || '');
+    const [templates, setTemplates] = useState<ReportTemplate[]>([]);
+    const [themes, setThemes] = useState<ReportTheme[]>([]);
+    const [loadingPresets, setLoadingPresets] = useState(false);
 
     useEffect(() => {
         // Cleanup preview URL if it was created locally
@@ -30,6 +44,31 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             }
         };
     }, [logoPreview, initialData]);
+
+    // Load templates and themes for preset configuration
+    useEffect(() => {
+        const loadPresetsData = async () => {
+            const auth = getAuth();
+            const user = auth.currentUser;
+            if (!user) return;
+
+            setLoadingPresets(true);
+            try {
+                const [templatesData, themesData] = await Promise.all([
+                    listUserTemplates(user.uid),
+                    themeService.getUserThemes(user.uid)
+                ]);
+                setTemplates(templatesData);
+                setThemes(themesData);
+            } catch (error) {
+                console.error('Error loading preset data:', error);
+            } finally {
+                setLoadingPresets(false);
+            }
+        };
+
+        loadPresetsData();
+    }, []);
 
     const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -57,6 +96,11 @@ export const ClientForm: React.FC<ClientFormProps> = ({
         return Object.keys(newErrors).length === 0;
     };
 
+    const handleClearPreset = () => {
+        setDefaultTemplateId('');
+        setDefaultThemeId('');
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validate()) return;
@@ -70,6 +114,15 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             if (email !== initialData.email) updateData.email = email;
             if (cleanAdsId !== initialData.googleAdsCustomerId) updateData.googleAdsCustomerId = cleanAdsId;
             if (logoFile) updateData.logoFile = logoFile;
+
+            // Handle preset changes
+            if (defaultTemplateId !== (initialData.defaultTemplateId || '')) {
+                updateData.defaultTemplateId = defaultTemplateId || undefined;
+            }
+            if (defaultThemeId !== (initialData.defaultThemeId || '')) {
+                updateData.defaultThemeId = defaultThemeId || undefined;
+            }
+
             await onSubmit(updateData);
         } else {
             await onSubmit({
@@ -80,6 +133,8 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             });
         }
     };
+
+
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -150,26 +205,35 @@ export const ClientForm: React.FC<ClientFormProps> = ({
 
             <div>
                 <label htmlFor="googleAdsId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    ID Compte Google Ads *
+                    Compte Google Ads *
                 </label>
-                <input
-                    type="text"
-                    id="googleAdsId"
-                    value={googleAdsId}
-                    onChange={(e) => {
-                        // Allow digits and dashes
-                        const val = e.target.value;
-                        if (/^[0-9-]*$/.test(val)) setGoogleAdsId(val);
-                    }}
-                    className={`
-            block w-full rounded-md border shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 sm:text-sm font-mono
-            ${errors.googleAdsId ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300'}
-          `}
-                    placeholder="123-456-7890"
-                />
+                {!isConnected ? (
+                    <div className="p-3 mb-2 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md">
+                        <p className="text-sm text-yellow-700 dark:text-yellow-400">
+                            Vous devez connecter votre compte Google Ads pour sélectionner un client.
+                        </p>
+                    </div>
+                ) : (
+                    <select
+                        id="googleAdsId"
+                        value={googleAdsId}
+                        onChange={(e) => setGoogleAdsId(e.target.value)}
+                        className={`
+                            block w-full rounded-md border shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 sm:text-sm
+                            ${errors.googleAdsId ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300'}
+                        `}
+                    >
+                        <option value="">Sélectionner un compte</option>
+                        {accounts.map((account) => (
+                            <option key={account.id} value={account.id}>
+                                {account.name} ({account.id})
+                            </option>
+                        ))}
+                    </select>
+                )}
                 {errors.googleAdsId && <p className="mt-1 text-sm text-red-600">{errors.googleAdsId}</p>}
                 <p className="mt-1 text-xs text-gray-500">
-                    L'ID à 10 chiffres de votre compte client Google Ads. Doit être unique.
+                    Sélectionnez le compte Google Ads à associer à ce client.
                 </p>
             </div>
 
@@ -190,6 +254,77 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                 />
                 {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
             </div>
+
+            {/* Preset Configuration Section */}
+            {initialData && (
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-2">
+                            <Settings className="w-5 h-5 text-gray-500" />
+                            <h3 className="text-sm font-medium text-gray-900 dark:text-white">
+                                Paramètres par défaut des rapports
+                            </h3>
+                        </div>
+                        {(defaultTemplateId || defaultThemeId) && (
+                            <button
+                                type="button"
+                                onClick={handleClearPreset}
+                                className="text-xs text-gray-500 hover:text-red-600 flex items-center gap-1"
+                            >
+                                <X className="w-3 h-3" />
+                                Effacer
+                            </button>
+                        )}
+                    </div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                        Configurez les paramètres par défaut pour la génération de rapports de ce client.
+                    </p>
+
+                    <div className="space-y-4">
+                        <div>
+                            <label htmlFor="defaultTemplate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                Template par défaut
+                            </label>
+                            <select
+                                id="defaultTemplate"
+                                value={defaultTemplateId}
+                                onChange={(e) => setDefaultTemplateId(e.target.value)}
+                                disabled={loadingPresets}
+                                className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            >
+                                <option value="">Aucun template par défaut</option>
+                                {templates.map((template) => (
+                                    <option key={template.id} value={template.id}>
+                                        {template.name}
+                                    </option>
+                                ))}
+                            </select>
+                            {loadingPresets && <p className="mt-1 text-xs text-gray-500">Chargement des templates...</p>}
+                        </div>
+
+                        <div>
+                            <label htmlFor="defaultTheme" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                Thème par défaut
+                            </label>
+                            <select
+                                id="defaultTheme"
+                                value={defaultThemeId}
+                                onChange={(e) => setDefaultThemeId(e.target.value)}
+                                disabled={loadingPresets}
+                                className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            >
+                                <option value="">Aucun thème par défaut</option>
+                                {themes.map((theme) => (
+                                    <option key={theme.id} value={theme.id}>
+                                        {theme.name}
+                                    </option>
+                                ))}
+                            </select>
+                            {loadingPresets && <p className="mt-1 text-xs text-gray-500">Chargement des thèmes...</p>}
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <button

@@ -15,7 +15,8 @@ import {
     toggleScheduleStatus,
 } from '../services/scheduledReportService';
 import { listUserTemplates } from '../services/templateService';
-import { fetchAccessibleCustomers, fetchCampaigns } from '../services/googleAds';
+import { fetchCampaigns } from '../services/googleAds';
+import liveDataService from '../services/liveDataService';
 import ScheduleCard from '../components/schedules/ScheduleCard';
 import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import ScheduleConfigModal, { type ScheduleFormData } from '../components/schedules/ScheduleConfigModal';
@@ -107,25 +108,19 @@ const ScheduledReports: React.FC = () => {
             // Load Google Ads accounts separately
             if (isGoogleAdsConnected) {
                 try {
-                    const accountsResponse = await fetchAccessibleCustomers();
-                    if (accountsResponse.success && accountsResponse.customers) {
-                        const accountsList = accountsResponse.customers.map((customer: any) => ({
-                            id: customer.id,
-                            name: customer.descriptiveName || customer.id,
+                    const accounts = await liveDataService.getAccounts();
+                    if (accounts && accounts.length > 0) {
+                        const accountsList = accounts.map(account => ({
+                            id: account.id,
+                            name: account.name,
                         }));
                         setAccounts(accountsList);
                     } else {
                         setAccounts([]);
-                        if (accountsResponse.error && (
-                            accountsResponse.error.includes('invalid_grant') ||
-                            accountsResponse.error.includes('UNAUTHENTICATED')
-                        )) {
-                            setGoogleAuthError(true);
-                            toast.error(t('errors.sessionExpired'));
-                        }
                     }
                 } catch (err) {
                     console.error('Error fetching Google Ads accounts:', err);
+                    setAccounts([]);
                 }
             } else {
                 setAccounts([]);

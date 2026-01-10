@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Client } from '../../types/client';
-import { Edit, Trash2 } from 'lucide-react';
+import { Edit, Trash2, CheckCircle2 } from 'lucide-react';
 
 interface ClientCardProps {
     client: Client;
@@ -9,8 +9,11 @@ interface ClientCardProps {
 }
 
 export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete }) => {
+    const hasPreset = !!(client.defaultTemplateId || client.defaultThemeId);
+
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 flex items-center justify-between hover:shadow-md transition-shadow">
+        <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm border p-4 flex items-center justify-between hover:shadow-md transition-shadow ${hasPreset ? 'border-emerald-200 dark:border-emerald-800' : 'border-gray-100 dark:border-gray-700'
+            }`}>
             <div className="flex items-center gap-4">
                 {/* Logo or Placeholder */}
                 <div className="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-600 flex-shrink-0">
@@ -25,9 +28,23 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete
 
                 {/* Info */}
                 <div className="min-w-0">
-                    <h3 className="font-semibold text-gray-900 dark:text-white truncate" title={client.name}>
-                        {client.name}
-                    </h3>
+                    <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-gray-900 dark:text-white truncate" title={client.name}>
+                            {client.name}
+                        </h3>
+                        {hasPreset && (
+                            <div
+                                className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 rounded-full text-xs font-medium"
+                                title={`Prêt pour génération : ${[
+                                    client.defaultTemplateId && 'Template',
+                                    client.defaultThemeId && 'Thème'
+                                ].filter(Boolean).join(', ')} configurés`}
+                            >
+                                <CheckCircle2 size={12} />
+                                <span>Prêt</span>
+                            </div>
+                        )}
+                    </div>
                     <p className="text-sm text-gray-500 dark:text-gray-400 truncate" title={client.email}>
                         {client.email}
                     </p>

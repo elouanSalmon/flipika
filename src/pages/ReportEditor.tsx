@@ -25,6 +25,8 @@ import type { EditableReport, WidgetConfig } from '../types/reportTypes';
 import { WidgetType } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
 import type { Account, Campaign } from '../types/business';
+import PreFlightModal from '../components/reports/PreFlightModal';
+import type { PreFlightKPIData } from '../services/preFlightService';
 import './ReportEditor.css';
 
 const ReportEditor: React.FC = () => {
@@ -58,6 +60,9 @@ const ReportEditor: React.FC = () => {
     // Security modal state
     const [showSecurityModal, setShowSecurityModal] = useState(false);
     const [tempPassword, setTempPassword] = useState<string>(''); // Temporary password storage for email sharing
+
+    // PreFlight modal state
+    const [showPreFlightModal, setShowPreFlightModal] = useState(false);
 
     const autoSaveTimerRef = useRef<number | null>(null);
 
@@ -393,6 +398,21 @@ const ReportEditor: React.FC = () => {
         }
     };
 
+    const handleOpenPreFlight = () => {
+        console.log('🛫 Opening Pre-Flight Check');
+        setShowPreFlightModal(true);
+    };
+
+    const handlePreFlightDownload = async (data: PreFlightKPIData) => {
+        console.log('📥 Pre-Flight validated, proceeding with PDF download/share', data);
+        // Close PreFlight modal
+        setShowPreFlightModal(false);
+
+        // TODO: Implement PDF generation (Story 3.2)
+        // For now, we'll just trigger the email share
+        await handleShareByEmail();
+    };
+
     const handleShareByEmail = async () => {
         console.log('🔵 handleShareByEmail called');
         console.log('Report:', report);
@@ -500,7 +520,7 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                 onDelete={handleDelete}
                 onOpenSettings={handleOpenSettings}
                 onOpenSecurity={() => setShowSecurityModal(true)}
-                onShareByEmail={handleShareByEmail}
+                onShareByEmail={handleOpenPreFlight}
                 isSaving={isSaving}
                 isLoadingSettings={isLoadingSettings}
                 canPublish={widgets.length > 0}
@@ -578,6 +598,19 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                     isPasswordProtected={report.isPasswordProtected}
                     onClose={() => setShowSecurityModal(false)}
                     onUpdate={handleUpdatePassword}
+                />
+            )}
+
+            {/* PreFlight Modal */}
+            {showPreFlightModal && report && (
+                <PreFlightModal
+                    isOpen={showPreFlightModal}
+                    onClose={() => setShowPreFlightModal(false)}
+                    onDownloadPDF={handlePreFlightDownload}
+                    accountId={report.accountId}
+                    clientName={report.accountName || 'Client'}
+                    startDate={report.startDate || new Date()}
+                    endDate={report.endDate || new Date()}
                 />
             )}
         </div>

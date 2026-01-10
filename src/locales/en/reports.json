@@ -126,13 +126,15 @@
       "archived": "Archived"
     },
     "noAccount": "Not defined",
-    "campaigns": "{{count}} Campaign{{count, plural, one {} other {s}}}",
+    "campaigns_one": "{{count}} Campaign",
+    "campaigns_other": "{{count}} Campaigns",
     "noCampaigns": "No campaigns",
     "modifiedOn": "Modified on {{date}}",
     "sections": "Sections",
     "widgets": "Widgets",
     "actions": {
       "viewPublic": "View public",
+      "shareByEmail": "Share by email",
       "edit": "Edit",
       "duplicate": "Duplicate",
       "archive": "Archive",
@@ -150,6 +152,54 @@
       "title": "Delete report",
       "message": "Are you sure you want to delete the report \"{{title}}\"?",
       "confirm": "Delete"
+    }
+  },
+  "preFlight": {
+    "title": "Report Preview",
+    "subtitle": "{{clientName}} • {{dateRange}}",
+    "loading": {
+      "title": "Loading data...",
+      "subtitle": "Fetching KPIs from Google Ads"
+    },
+    "error": {
+      "title": "Loading error",
+      "noData": "No data available for this period",
+      "generic": "Error loading data",
+      "retry": "Retry"
+    },
+    "warnings": {
+      "title": "Warnings",
+      "noImpressions": "No impressions recorded",
+      "lowCtr": "Low CTR (< 1%) with over 1000 impressions",
+      "noConversions": "No conversions with over 100 clicks"
+    },
+    "kpis": {
+      "cost": "Total Cost",
+      "clicks": "Clicks",
+      "impressions": "Impressions",
+      "ctr": "CTR",
+      "cpc": "Avg CPC",
+      "campaigns": "Campaigns"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "send": "Send by Email",
+      "edit": "Edit",
+      "back": "Back to Reports",
+      "viewPreview": "View Preview",
+      "downloadPdf": "Download PDF",
+      "copy": "Copy"
+    },
+    "postSend": {
+      "title": "Email App Opened",
+      "description": "Your native email application should have opened with a pre-filled email. You can also download the PDF and copy the information below.",
+      "recipientLabel": "Recipient",
+      "subjectLabel": "Subject",
+      "bodyLabel": "Email Body",
+      "emailOpened": "Email app opened!",
+      "copied": "{{label}} copied!",
+      "copyError": "Error copying",
+      "pdfTodo": "PDF download to be implemented"
     }
   }
 }

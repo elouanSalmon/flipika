@@ -126,13 +126,15 @@
       "archived": "Archivé"
     },
     "noAccount": "Non défini",
-    "campaigns": "{{count}} Campagne{{count, plural, one {} other {s}}}",
+    "campaigns_one": "{{count}} Campagne",
+    "campaigns_other": "{{count}} Campagnes",
     "noCampaigns": "Aucune campagne",
     "modifiedOn": "Modifié le {{date}}",
     "sections": "Sections",
     "widgets": "Widgets",
     "actions": {
       "viewPublic": "Voir public",
+      "shareByEmail": "Partager par email",
       "edit": "Éditer",
       "duplicate": "Dupliquer",
       "archive": "Archiver",
@@ -150,6 +152,60 @@
       "title": "Supprimer le rapport",
       "message": "Êtes-vous sûr de vouloir supprimer le rapport \"{{title}}\" ?",
       "confirm": "Supprimer"
+    }
+  },
+  "preFlight": {
+    "title": "Aperçu du Rapport",
+    "subtitle": "{{clientName}} • {{dateRange}}",
+    "loading": {
+      "title": "Chargement des données...",
+      "subtitle": "Récupération des KPIs depuis Google Ads"
+    },
+    "error": {
+      "title": "Erreur de chargement",
+      "noData": "Aucune donnée disponible pour cette période",
+      "generic": "Erreur lors du chargement des données",
+      "retry": "Réessayer"
+    },
+    "warnings": {
+      "title": "Avertissements",
+      "noImpressions": "Aucune impression enregistrée",
+      "lowCtr": "CTR faible (< 1%) avec plus de 1000 impressions",
+      "noConversions": "Aucune conversion avec plus de 100 clics"
+    },
+    "kpis": {
+      "cost": "Coût Total",
+      "clicks": "Clics",
+      "impressions": "Impressions",
+      "ctr": "CTR",
+      "cpc": "CPC Moyen",
+      "campaigns": "Campagnes"
+    },
+    "actions": {
+      "cancel": "Annuler",
+      "send": "Envoyer par Email",
+      "edit": "Éditer",
+      "back": "Retour aux rapports",
+      "viewPreview": "Voir la preview",
+      "downloadPdf": "Télécharger le PDF",
+      "generating": "Génération en cours...",
+      "copy": "Copier"
+    },
+    "pdf": {
+      "success": "PDF généré avec succès",
+      "error": "Erreur lors de la génération du PDF",
+      "progress": "Génération du PDF: {{progress}}%"
+    },
+    "postSend": {
+      "title": "Application email ouverte",
+      "description": "Votre application email native devrait s'être ouverte avec un email pré-rempli. Vous pouvez également télécharger le PDF et copier les informations ci-dessous.",
+      "recipientLabel": "Destinataire",
+      "subjectLabel": "Objet",
+      "bodyLabel": "Corps de l'email",
+      "emailOpened": "Application email ouverte !",
+      "copied": "{{label}} copié !",
+      "copyError": "Erreur lors de la copie",
+      "pdfTodo": "Téléchargement PDF à implémenter"
     }
   }
 }

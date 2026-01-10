@@ -52,7 +52,8 @@
   },
   "card": {
     "noAccount": "Not defined",
-    "campaigns": "{{count}} Campaign{{count, plural, one {} other {s}}}",
+    "campaigns_one": "{{count}} Campaign",
+    "campaigns_other": "{{count}} Campaigns",
     "noCampaigns": "No campaigns",
     "usedOn": "Used on {{date}}",
     "createdOn": "Created on {{date}}",

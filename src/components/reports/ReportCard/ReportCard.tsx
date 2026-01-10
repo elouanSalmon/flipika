@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone, Calendar } from 'lucide-react';
+import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone, Calendar, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { deleteReport, duplicateReport, archiveReport } from '../../../services/reportService';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -93,6 +93,17 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
         setShowMenu(false);
     };
 
+    const handleOpenPreFlight = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (!report.shareUrl || !currentUser) {
+            toast.error('Le rapport doit être publié pour être partagé par email');
+            return;
+        }
+        console.log('🛫 Navigating to Report Preview');
+        navigate(`/app/reports/${report.id}/preview`);
+        setShowMenu(false);
+    };
+
     const getStatusBadge = () => {
         const config = {
             draft: { label: t('card.status.draft'), className: 'draft' },
@@ -160,9 +171,14 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
             {/* Actions Menu (Hover) */}
             <div className="listing-card-actions">
                 {report.status === 'published' && report.shareUrl && (
-                    <button onClick={handleViewPublic} className="action-btn-icon" title={t('card.actions.viewPublic')}>
-                        <ExternalLink size={16} />
-                    </button>
+                    <>
+                        <button onClick={handleViewPublic} className="action-btn-icon" title={t('card.actions.viewPublic')}>
+                            <ExternalLink size={16} />
+                        </button>
+                        <button onClick={handleOpenPreFlight} className="action-btn-icon" title={t('card.actions.shareByEmail')}>
+                            <Send size={16} />
+                        </button>
+                    </>
                 )}
                 <button onClick={handleEdit} className="action-btn-icon" title={t('card.actions.edit')}>
                     <Edit size={16} />

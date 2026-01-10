@@ -149,6 +149,15 @@ export const clientService = {
                 // We will assume overwriting path logic or just leaving old files is fine for now.
             }
 
+            // Handle preset configuration
+            if (input.defaultTemplateId !== undefined) {
+                updates.defaultTemplateId = input.defaultTemplateId;
+            }
+
+            if (input.defaultThemeId !== undefined) {
+                updates.defaultThemeId = input.defaultThemeId;
+            }
+
             await updateDoc(docRef, updates);
         } catch (error) {
             console.error('Error updating client:', error);
