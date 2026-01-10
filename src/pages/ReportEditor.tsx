@@ -58,10 +58,12 @@ const ReportEditor: React.FC = () => {
 
     // Security modal state
     const [showSecurityModal, setShowSecurityModal] = useState(false);
-    const [tempPassword, setTempPassword] = useState<string>(''); // Temporary password storage for email sharing
 
     // PreFlight modal state
     const [showPreFlightModal, setShowPreFlightModal] = useState(false);
+
+
+
 
     const autoSaveTimerRef = useRef<number | null>(null);
 
@@ -377,8 +379,7 @@ const ReportEditor: React.FC = () => {
         try {
             await updateReportPassword(report.id, password);
 
-            // Store password temporarily for email sharing
-            setTempPassword(password || '');
+
 
             setReport({
                 ...report,
@@ -398,8 +399,9 @@ const ReportEditor: React.FC = () => {
     };
 
     const handleOpenPreFlight = () => {
-        console.log('🛫 Opening Pre-Flight Check');
-        setShowPreFlightModal(true);
+        if (!report) return;
+        // Navigate to full page preview
+        navigate(`/app/reports/${report.id}/preview`);
     };
 
     const handlePreFlightDownload = async () => {
@@ -609,6 +611,8 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                     reportId={report.id}
                 />
             )}
+
+
         </div>
     );
 };
