@@ -36,8 +36,13 @@ class PDFGenerationService {
 
         this.isGenerating = true;
 
+        // Create overlay to hide the capture process
+        const overlay = this.createExportOverlay();
+        document.body.appendChild(overlay);
+
         try {
             options.onProgress?.(5);
+            this.updateOverlayProgress(overlay, 5, 'Préparation...');
 
             // Find all slide items in the element
             const slideElements = element.querySelectorAll('.slide-item');
@@ -47,6 +52,7 @@ class PDFGenerationService {
             }
 
             options.onProgress?.(10);
+            this.updateOverlayProgress(overlay, 10, 'Création du document...');
 
             // Create PDF document with PowerPoint 16:9 dimensions
             const pdf = new jsPDF({
@@ -58,6 +64,7 @@ class PDFGenerationService {
             // Add cover page
             await this.addCoverPage(pdf, options);
             options.onProgress?.(20);
+            this.updateOverlayProgress(overlay, 20, 'Page de couverture...');
 
             // Calculate progress increment per slide
             const progressPerSlide = 60 / slideElements.length;
@@ -65,6 +72,8 @@ class PDFGenerationService {
             // Process each slide
             for (let i = 0; i < slideElements.length; i++) {
                 const slideElement = slideElements[i] as HTMLElement;
+
+                this.updateOverlayProgress(overlay, 20 + i * progressPerSlide, `Slide ${i + 1} / ${slideElements.length}...`);
 
                 // Add new page for each slide
                 pdf.addPage();
@@ -76,14 +85,17 @@ class PDFGenerationService {
             }
 
             options.onProgress?.(85);
+            this.updateOverlayProgress(overlay, 85, 'Finalisation...');
 
             // Add page numbers to all pages
             this.addPageNumbers(pdf);
             options.onProgress?.(95);
+            this.updateOverlayProgress(overlay, 95, 'Enregistrement...');
 
             // Save the PDF
             pdf.save(options.filename);
             options.onProgress?.(100);
+            this.updateOverlayProgress(overlay, 100, 'Terminé !');
 
         } catch (error) {
             console.error('PDF generation error:', error);
@@ -93,7 +105,125 @@ class PDFGenerationService {
                     : 'Failed to generate PDF'
             );
         } finally {
+            // Remove overlay with a small delay for "Terminé!" to show
+            setTimeout(() => {
+                if (overlay.parentNode) {
+                    overlay.remove();
+                }
+            }, 500);
             this.isGenerating = false;
+        }
+    }
+
+    /**
+     * Create a beautiful overlay to hide the PDF export process
+     */
+    private createExportOverlay(): HTMLElement {
+        const overlay = document.createElement('div');
+        overlay.id = 'pdf-export-overlay';
+        overlay.innerHTML = `
+            <div class="pdf-overlay-content">
+                <div class="pdf-overlay-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                </div>
+                <h3 class="pdf-overlay-title">Génération du PDF</h3>
+                <p class="pdf-overlay-status">Préparation...</p>
+                <div class="pdf-overlay-progress-container">
+                    <div class="pdf-overlay-progress-bar"></div>
+                </div>
+                <p class="pdf-overlay-hint">Veuillez patienter...</p>
+            </div>
+        `;
+
+        const style = document.createElement('style');
+        style.textContent = `
+            #pdf-export-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(8px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 999999;
+                animation: fadeIn 0.2s ease-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            .pdf-overlay-content {
+                text-align: center;
+                color: white;
+                max-width: 400px;
+                padding: 40px;
+            }
+            .pdf-overlay-icon {
+                margin-bottom: 24px;
+                color: #3b82f6;
+                animation: pulse 2s ease-in-out infinite;
+            }
+            @keyframes pulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.7; transform: scale(1.05); }
+            }
+            .pdf-overlay-title {
+                font-size: 24px;
+                font-weight: 600;
+                margin: 0 0 8px 0;
+            }
+            .pdf-overlay-status {
+                font-size: 16px;
+                color: #94a3b8;
+                margin: 0 0 24px 0;
+            }
+            .pdf-overlay-progress-container {
+                width: 100%;
+                height: 6px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 3px;
+                overflow: hidden;
+                margin-bottom: 16px;
+            }
+            .pdf-overlay-progress-bar {
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+                border-radius: 3px;
+                transition: width 0.3s ease-out;
+            }
+            .pdf-overlay-hint {
+                font-size: 13px;
+                color: #64748b;
+                margin: 0;
+            }
+        `;
+        overlay.appendChild(style);
+
+        return overlay;
+    }
+
+    /**
+     * Update the overlay progress display
+     */
+    private updateOverlayProgress(overlay: HTMLElement, progress: number, status: string): void {
+        const progressBar = overlay.querySelector('.pdf-overlay-progress-bar') as HTMLElement;
+        const statusEl = overlay.querySelector('.pdf-overlay-status') as HTMLElement;
+
+        if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+        }
+        if (statusEl) {
+            statusEl.textContent = status;
         }
     }
 
@@ -182,86 +312,20 @@ class PDFGenerationService {
         // Remove drag handles and action buttons from clone
         slideClone.querySelectorAll('.slide-handle, .slide-actions').forEach(el => el.remove());
 
-        // Disable ALL animations, transitions, and hover states for PDF capture
-        const disableAnimationsStyle = document.createElement('style');
-        disableAnimationsStyle.id = 'pdf-disable-animations';
-        disableAnimationsStyle.textContent = `
-            /* Global animation/transition reset */
-            .pdf-export-wrapper *,
-            .pdf-export-wrapper *::before,
-            .pdf-export-wrapper *::after {
-                animation: none !important;
-                animation-delay: 0s !important;
-                animation-duration: 0s !important;
-                animation-fill-mode: none !important;
-                transition: none !important;
-                transition-delay: 0s !important;
-                transition-duration: 0s !important;
-            }
+        // Apply inline styles directly to elements to ensure html2canvas captures them correctly
+        this.resetElementStylesForPDF(slideClone);
 
-            /* Force all elements to be fully visible and positioned */
-            .pdf-export-wrapper * {
-                opacity: 1 !important;
-                visibility: visible !important;
-            }
-
-            /* Performance Overview Widget */
-            .pdf-export-wrapper .performance-overview-widget,
-            .pdf-export-wrapper .performance-overview-widget:hover {
-                transform: none !important;
-                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
-            }
-
-            /* Metric Cards - reset animation state and hover */
-            .pdf-export-wrapper .metric-card,
-            .pdf-export-wrapper .metric-card:hover {
-                animation: none !important;
-                transform: none !important;
-                opacity: 1 !important;
-                box-shadow: none !important;
-                border: 1px solid rgba(0, 0, 0, 0.06) !important;
-            }
-            .pdf-export-wrapper .metric-card::before,
-            .pdf-export-wrapper .metric-card:hover::before {
+        // Inject minimal CSS to hide pseudo-elements (can't be done with JS)
+        const pdfStyle = document.createElement('style');
+        pdfStyle.id = 'pdf-export-style';
+        pdfStyle.textContent = `
+            .pdf-export-wrapper .metric-card::before {
+                display: none !important;
                 opacity: 0 !important;
-            }
-
-            /* Ad Creative Cards */
-            .pdf-export-wrapper .ad-creative-card,
-            .pdf-export-wrapper .ad-creative-card:hover {
-                transform: none !important;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-            }
-            .pdf-export-wrapper .metric-row,
-            .pdf-export-wrapper .metric-row:hover {
-                background: rgba(0, 0, 0, 0.02) !important;
-            }
-            .pdf-export-wrapper .ad-headline,
-            .pdf-export-wrapper .ad-headline:hover {
-                text-decoration: none !important;
-            }
-
-            /* Ad Badge - ensure proper display */
-            .pdf-export-wrapper .ad-badge {
-                display: inline-block !important;
-                position: relative !important;
-                transform: none !important;
-                background: rgba(0, 0, 0, 0.8) !important;
-                color: #ffffff !important;
-                padding: 2px 6px !important;
-                border-radius: 2px !important;
-            }
-
-            /* Ensure proper overflow */
-            .pdf-export-wrapper .metrics-grid {
-                overflow: visible !important;
-            }
-            .pdf-export-wrapper .widget-content,
-            .pdf-export-wrapper .slide-content {
-                overflow: visible !important;
+                height: 0 !important;
             }
         `;
-        document.head.appendChild(disableAnimationsStyle);
+        document.head.appendChild(pdfStyle);
         wrapper.classList.add('pdf-export-wrapper');
 
         // Style the clone to fill the wrapper
@@ -318,12 +382,82 @@ class PDFGenerationService {
         } finally {
             // Clean up
             document.body.removeChild(wrapper);
-            // Remove the animation-disabling style
-            const styleEl = document.getElementById('pdf-disable-animations');
-            if (styleEl) {
-                styleEl.remove();
-            }
+            // Remove injected style
+            const pdfStyleEl = document.getElementById('pdf-export-style');
+            if (pdfStyleEl) pdfStyleEl.remove();
         }
+    }
+
+    /**
+     * Reset all element styles inline for proper PDF capture
+     * html2canvas doesn't always respect CSS classes, so we apply styles directly
+     */
+    private resetElementStylesForPDF(element: HTMLElement): void {
+        // Reset all elements - disable animations and transitions
+        const allElements = element.querySelectorAll('*');
+        allElements.forEach((el) => {
+            const htmlEl = el as HTMLElement;
+            // Disable animations and transitions
+            htmlEl.style.animation = 'none';
+            htmlEl.style.transition = 'none';
+            htmlEl.style.animationDelay = '0s';
+            htmlEl.style.transitionDelay = '0s';
+        });
+
+        // Reset metric cards specifically (Performance Overview)
+        const metricCards = element.querySelectorAll('.metric-card');
+        metricCards.forEach((card) => {
+            const htmlCard = card as HTMLElement;
+            htmlCard.style.animation = 'none';
+            htmlCard.style.transform = 'none';
+            htmlCard.style.opacity = '1';
+            htmlCard.style.boxShadow = 'none';
+            htmlCard.style.border = '1px solid rgba(0, 0, 0, 0.06)';
+            htmlCard.style.transition = 'none';
+
+            // Remove the ::before pseudo-element effect by adding a style
+            htmlCard.style.setProperty('--before-opacity', '0');
+        });
+
+        // Reset performance overview widget
+        const widgets = element.querySelectorAll('.performance-overview-widget');
+        widgets.forEach((widget) => {
+            const htmlWidget = widget as HTMLElement;
+            htmlWidget.style.transform = 'none';
+            htmlWidget.style.transition = 'none';
+        });
+
+        // Reset ad creative cards
+        const adCards = element.querySelectorAll('.ad-creative-card');
+        adCards.forEach((card) => {
+            const htmlCard = card as HTMLElement;
+            htmlCard.style.transform = 'none';
+            htmlCard.style.transition = 'none';
+        });
+
+        // Reset metric rows
+        const metricRows = element.querySelectorAll('.metric-row');
+        metricRows.forEach((row) => {
+            const htmlRow = row as HTMLElement;
+            htmlRow.style.transition = 'none';
+        });
+
+        // Ensure ad badges are properly styled
+        const adBadges = element.querySelectorAll('.ad-badge');
+        adBadges.forEach((badge) => {
+            const htmlBadge = badge as HTMLElement;
+            htmlBadge.style.display = 'inline-block';
+            htmlBadge.style.position = 'relative';
+            htmlBadge.style.transform = 'none';
+        });
+
+        // Ensure all content is visible
+        const hiddenElements = element.querySelectorAll('[style*="opacity: 0"], [style*="visibility: hidden"]');
+        hiddenElements.forEach((el) => {
+            const htmlEl = el as HTMLElement;
+            htmlEl.style.opacity = '1';
+            htmlEl.style.visibility = 'visible';
+        });
     }
 
     /**
