@@ -22,6 +22,12 @@
     "description": "Ce template ne spécifie pas de compte Google Ads. Veuillez en sélectionner un pour générer le rapport.",
     "generate": "Générer le rapport"
   },
+  "clientSelector": {
+    "title": "Sélectionner un client",
+    "message": "Veuillez sélectionner le client pour qui créer ce rapport.",
+    "placeholder": "Choisir un client...",
+    "noAccount": "Ce client n'a pas de compte Google Ads lié."
+  },
   "deleteConfirm": {
     "title": "Supprimer le template",
     "message": "Êtes-vous sûr de vouloir supprimer le template \"{{name}}\" ?",
@@ -91,13 +97,19 @@
       "title": "Période d'analyse",
       "description": "Sélectionnez une période relative. Les dates seront calculées automatiquement lors de la création du rapport."
     },
+    "client": {
+      "label": "Client *",
+      "placeholder": "Choisir un client...",
+      "noAccount": "⚠️ Ce client n'a pas de compte Google Ads associé. Veuillez lier un compte dans la page Clients."
+    },
     "account": {
       "title": "Compte et Campagnes",
       "requiredBadge": "Requis",
       "description": "Sélectionnez le compte et les campagnes à analyser pour ce template.",
       "label": "Compte Google Ads *",
       "defaultOption": "-- Définir lors de l'utilisation --",
-      "campaignsLabel": "Campagnes ({{count}} sélectionnée{{s}}) *",
+      "campaignsLabel_one": "Campagnes ({{count}} sélectionnée) *",
+      "campaignsLabel_other": "Campagnes ({{count}} sélectionnées) *",
       "selectAll": "Tout sélectionner",
       "deselectAll": "Tout désélectionner",
       "noCampaigns": "Aucune campagne trouvée pour ce compte"
@@ -118,6 +130,7 @@
     },
     "validation": {
       "nameRequired": "Veuillez donner un nom au template",
+      "clientRequired": "Veuillez sélectionner un client",
       "accountRequired": "Veuillez sélectionner un compte Google Ads",
       "campaignsRequired": "Veuillez sélectionner au moins une campagne",
       "slidesRequired": "Veuillez sélectionner au moins un slide"

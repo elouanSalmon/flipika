@@ -26,7 +26,7 @@ import TemplateConfigModal, { type TemplateConfig } from '../components/template
 import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
 import ConfirmationModal from '../components/common/ConfirmationModal';
-import AccountSelectionModal from '../components/templates/AccountSelectionModal';
+import ClientSelectionModal from '../components/templates/ClientSelectionModal';
 import FilterBar from '../components/common/FilterBar';
 import InfoModal from '../components/common/InfoModal';
 import Pagination from '../components/common/Pagination';
@@ -73,8 +73,8 @@ const Templates: React.FC = () => {
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
 
-    // State for account selection modal (for legacy templates or overrides)
-    const [showAccountModal, setShowAccountModal] = useState(false);
+    // State for client selection modal (for legacy templates or overrides)
+    const [showClientModal, setShowClientModal] = useState(false);
     const [pendingTemplateForUse, setPendingTemplateForUse] = useState<ReportTemplate | null>(null);
     const [showInfoModal, setShowInfoModal] = useState(false);
 
@@ -301,7 +301,19 @@ const Templates: React.FC = () => {
         if (!currentUser) return;
 
         try {
-            // Priority 1: Template has explicit account
+            // Priority 1: Template has explicit client
+            if (template.clientId) {
+                // If template has client, we assume it has associated accountId stored or we can resolve it during creation if needed?
+                // Actually createReportFromTemplate uses template.accountId. Does template have it guaranteed if clientId is there?
+                // Migration ensures new templates have both. 
+                // We trust createReportFromTemplate to handle it or error out.
+                const reportId = await createReportFromTemplate(template.id, currentUser.uid);
+                toast.success(t('toast.reportCreated'));
+                navigate(`/app/reports/${reportId}`);
+                return;
+            }
+
+            // Priority 2: Template has explicit account (Legacy)
             if (template.accountId) {
                 const reportId = await createReportFromTemplate(template.id, currentUser.uid);
                 toast.success(t('toast.reportCreated'));
@@ -309,38 +321,36 @@ const Templates: React.FC = () => {
                 return;
             }
 
-            // Priority 2: Account selected in filter bar
-            if (selectedFilterAccountId) {
-                const accountName = accounts.find(a => a.id === selectedFilterAccountId)?.name;
-                const reportId = await createReportFromTemplate(template.id, currentUser.uid, {
-                    accountId: selectedFilterAccountId,
-                    accountName: accountName,
-                    // If template had no account, it likely has no valid campaigns for this new account
-                    // so we don't pass campaigns unless we want to try to keep ids (risky across accounts)
-                    campaignIds: [],
-                    campaignNames: []
-                });
-                toast.success(t('toast.reportCreated'));
-                navigate(`/app/reports/${reportId}`);
-                return;
-            }
+            // Priority 3: Account selected in filter bar (Legacy behavior, maybe map to client?)
+            // If user filtered by account, we can mistakenly use that account without client?
+            // Ideally we should prompt for Client to enforce Client Centricity.
+            // But if user is just exploring, maybe using the filtered account is a shortcut.
+            // However, we want to associate with Client.
+            // So let's skip this shortcut OR try to find client for that account.
+            // But finding client from account ID is expensive without full client list loaded if we only have accounts.
+            // Let's force Prompt for Client which is safer.
 
-            // Priority 3: Prompt user
+            // Priority 3: Prompt user for Client
             setPendingTemplateForUse(template);
-            setShowAccountModal(true);
+            setShowClientModal(true);
         } catch (error) {
             console.error('Error using template:', error);
             toast.error(t('errors.creatingReport'));
         }
     };
 
-    const handleAccountSelectionParams = async (accountId: string) => {
+    const handleClientSelectionParams = async (clientId: string, accountId: string, clientName: string, accountName: string) => {
         if (!currentUser || !pendingTemplateForUse) return;
 
         try {
             const reportId = await createReportFromTemplate(pendingTemplateForUse.id, currentUser.uid, {
+                clientId,
+                clientName,
                 accountId,
-                accountName: accounts.find(a => a.id === accountId)?.name,
+                accountName,
+                // Reset campaigns as we switch context
+                campaignIds: [],
+                campaignNames: []
             });
             toast.success(t('toast.reportCreated'));
             navigate(`/app/reports/${reportId}`);
@@ -555,17 +565,13 @@ const Templates: React.FC = () => {
                 isDestructive={true}
             />
 
-            <AccountSelectionModal
-                isOpen={showAccountModal}
+            <ClientSelectionModal
+                isOpen={showClientModal}
                 onClose={() => {
-                    setShowAccountModal(false);
+                    setShowClientModal(false);
                     setPendingTemplateForUse(null);
                 }}
-                onConfirm={handleAccountSelectionParams}
-                accounts={accounts}
-                title={t('accountSelector.title')}
-                message={t('accountSelector.message')}
-                confirmLabel={t('accountSelector.confirm')}
+                onConfirm={handleClientSelectionParams}
             />
 
             <InfoModal

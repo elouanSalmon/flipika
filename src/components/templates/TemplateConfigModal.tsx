@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Loader2, Plus, Grid, Trash2 } from 'lucide-react';
+import { X, Loader2, Plus, Grid, Trash2, Users } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { Campaign } from '../../types/business';
 import type { PeriodPreset, TemplateSlideConfig } from '../../types/templateTypes';
@@ -11,6 +11,7 @@ import './TemplateConfigModal.css';
 import SlideLibrary from '../reports/SlideLibrary';
 import { useTutorial } from '../../contexts/TutorialContext';
 import { useTranslation } from 'react-i18next';
+import { useClients } from '../../hooks/useClients';
 
 interface GoogleAdsAccount {
     id: string;
@@ -32,6 +33,8 @@ interface TemplateConfigModalProps {
 export interface TemplateConfig {
     name: string;
     description?: string;
+    clientId?: string;
+    clientName?: string;
     accountId?: string;
     accountName?: string;
     campaignIds: string[];
@@ -54,13 +57,57 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
 }) => {
     const [name, setName] = useState(initialConfig?.name || '');
     const [description, setDescription] = useState(initialConfig?.description || '');
+
+    // Client & Account State
+    const { clients, isLoading: loadingClients } = useClients();
+    const [selectedClientId, setSelectedClientId] = useState<string>(initialConfig?.clientId || '');
     const [accountId, setAccountId] = useState(selectedAccountId || initialConfig?.accountId || '');
+
     const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>(initialConfig?.campaignIds || []);
     const [periodPreset, setPeriodPreset] = useState<PeriodPreset>(initialConfig?.periodPreset || 'last_30_days');
     const [slideConfigs, setSlideConfigs] = useState<TemplateSlideConfig[]>(initialConfig?.slideConfigs || []);
     // selectAll state removed as it was unused and replaced by derived state
     const [showSlideLibrary, setShowSlideLibrary] = useState(false);
     const { t } = useTranslation('templates');
+
+    // Effect: When client selection changes, update account ID
+    useEffect(() => {
+        if (selectedClientId) {
+            const client = clients.find(c => c.id === selectedClientId);
+            if (client && client.googleAdsCustomerId) {
+                // If account changed, update it
+                if (client.googleAdsCustomerId !== accountId) {
+                    setAccountId(client.googleAdsCustomerId);
+                    if (onAccountChange) {
+                        onAccountChange(client.googleAdsCustomerId);
+                    }
+                    setSelectedCampaigns([]); // Reset campaigns on account change
+                }
+            } else if (client && !client.googleAdsCustomerId) {
+                // Client has no account
+                setAccountId('');
+                if (onAccountChange) {
+                    onAccountChange('');
+                }
+                setSelectedCampaigns([]);
+            }
+        }
+    }, [selectedClientId, clients]);
+
+    // Backward compatibility: If editing and we have accountId but no clientId, try to match
+    useEffect(() => {
+        if (isEditMode && initialConfig?.accountId && !selectedClientId && clients.length > 0) {
+            const matchingClient = clients.find(c => c.googleAdsCustomerId === initialConfig.accountId);
+            if (matchingClient) {
+                setSelectedClientId(matchingClient.id);
+            }
+        }
+    }, [isEditMode, initialConfig, clients, selectedClientId]);
+
+    const handleClientChange = (clientId: string) => {
+        setSelectedClientId(clientId);
+        // Effect will handle accountId update and campaign reset
+    };
 
     const getSlideTitle = (type: string) => {
         switch (type) {
@@ -93,13 +140,9 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
         setInitialStateStr(JSON.stringify(state));
     }, [initialConfig, selectedAccountId]);
 
-    const handleAccountChange = (newAccountId: string) => {
-        setAccountId(newAccountId);
-        setSelectedCampaigns([]); // Reset campaigns on account change
-        if (onAccountChange) {
-            onAccountChange(newAccountId);
-        }
-    };
+    // Manual account selection is deprecated in favor of client selection
+    // But we keep this internal helper if needed or just remove it.
+    // Logic moved to effect.
 
     const handleToggleCampaign = (campaignId: string) => {
         setSelectedCampaigns(prev =>
@@ -109,7 +152,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
         );
     };
 
-    const currentAccountCampaigns = campaigns.filter(c => c.accountId === accountId);
+    const currentAccountCampaigns = campaigns;
 
     const handleSelectAllCampaigns = () => {
         if (selectedCampaigns.length === currentAccountCampaigns.length) {
@@ -141,6 +184,11 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
             return;
         }
 
+        if (!selectedClientId) {
+            toast.error(t('configModal.validation.clientRequired', { defaultValue: 'Veuillez sélectionner un client' }));
+            return;
+        }
+
         if (!accountId) {
             toast.error(t('configModal.validation.accountRequired'));
             return;
@@ -158,9 +206,13 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
 
         try {
             setIsSubmitting(true);
+            const client = clients.find(c => c.id === selectedClientId);
+
             await onSubmit({
                 name: name.trim(),
                 description: description.trim() || undefined,
+                clientId: selectedClientId,
+                clientName: client?.name,
                 accountId: accountId || undefined,
                 accountName: accounts.find(a => a.id === accountId)?.name,
                 campaignIds: selectedCampaigns,
@@ -182,6 +234,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
         const currentState = {
             name,
             description,
+            clientId: selectedClientId,
             accountId,
             campaignIds: selectedCampaigns,
             periodPreset,
@@ -268,7 +321,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                 </div>
                             </div>
 
-                            {/* Account & Campaigns (Mandatory) */}
+                            {/* Client & Account Selection */}
                             <div className="form-section">
                                 <h3>
                                     {t('configModal.account.title')}
@@ -280,65 +333,90 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                     {t('configModal.account.description')}
                                 </p>
 
-                                {accounts.length > 0 && (
-                                    <>
-                                        <div className="form-group">
-                                            <label htmlFor="template-account">{t('configModal.account.label')}</label>
+                                <div className="form-group">
+                                    <label htmlFor="template-client">{t('configModal.client.label', { defaultValue: 'Client' })}</label>
+                                    {loadingClients ? (
+                                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                                            <Loader2 size={16} className="animate-spin" />
+                                            {t('common:loading', { defaultValue: 'Chargement...' })}
+                                        </div>
+                                    ) : (
+                                        <div className="relative">
+                                            <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={18} />
                                             <select
-                                                id="template-account"
-                                                value={accountId}
-                                                onChange={(e) => handleAccountChange(e.target.value)}
+                                                id="template-client"
+                                                value={selectedClientId}
+                                                onChange={(e) => handleClientChange(e.target.value)}
                                                 required
                                                 disabled={isSubmitting}
+                                                className="pl-10 appearance-none w-full"
+                                                style={{
+                                                    paddingLeft: '2.5rem' // Ensure padding despite css class if needed
+                                                }}
                                             >
-                                                <option value="">{t('configModal.account.defaultOption')}</option>
-                                                {accounts.map(acc => (
-                                                    <option key={acc.id} value={acc.id}>{acc.name}</option>
+                                                <option value="">{t('configModal.client.placeholder', { defaultValue: 'Sélectionner un client' })}</option>
+                                                {clients.map(client => (
+                                                    <option key={client.id} value={client.id}>{client.name}</option>
                                                 ))}
                                             </select>
                                         </div>
+                                    )}
 
-                                        {accountId && (
-                                            <div className="form-group">
-                                                <label>{t('configModal.account.campaignsLabel', { count: selectedCampaigns.length })}</label>
-                                                <div className="campaigns-selection">
-                                                    <div className="campaigns-header">
-                                                        <button
-                                                            type="button"
-                                                            className="select-all-btn"
-                                                            onClick={handleSelectAllCampaigns}
-                                                            disabled={isSubmitting}
-                                                        >
-                                                            {selectedCampaigns.length === currentAccountCampaigns.length && currentAccountCampaigns.length > 0 ? t('configModal.account.deselectAll') : t('configModal.account.selectAll')}
-                                                        </button>
-                                                    </div>
-                                                    <div className="campaigns-list">
-                                                        {currentAccountCampaigns.length === 0 ? (
-                                                            <div className="empty-message">{t('configModal.account.noCampaigns')}</div>
-                                                        ) : (
-                                                            currentAccountCampaigns.map(campaign => (
-                                                                <label key={campaign.id} className="campaign-item">
-                                                                    <input
-                                                                        type="checkbox"
-                                                                        checked={selectedCampaigns.includes(campaign.id)}
-                                                                        onChange={() => handleToggleCampaign(campaign.id)}
-                                                                        disabled={isSubmitting}
-                                                                    />
-                                                                    <span className="campaign-name">{campaign.name}</span>
-                                                                    {campaign.status && (
-                                                                        <span className={`campaign-status status-${String(campaign.status).toLowerCase()}`}>
-                                                                            {String(campaign.status)}
-                                                                        </span>
-                                                                    )}
-                                                                </label>
-                                                            ))
-                                                        )}
-                                                    </div>
-                                                </div>
+                                    {/* Account Feedback */}
+                                    {selectedClientId && accountId && (
+                                        <div className="mt-2 text-sm text-gray-500 flex items-center gap-1 bg-gray-50 dark:bg-gray-800/50 p-2 rounded-md border border-gray-100 dark:border-gray-700">
+                                            <span className="font-medium">Compte Google Ads :</span>
+                                            {accounts.find(a => a.id === accountId)?.name || accountId}
+                                        </div>
+                                    )}
+                                    {selectedClientId && !accountId && (
+                                        <div className="mt-2 text-sm text-amber-600 bg-amber-50 dark:bg-amber-900/20 p-2 rounded-md border border-amber-200 dark:border-amber-800 flex items-center gap-2">
+                                            <span className="font-bold">⚠</span>
+                                            {t('configModal.client.noAccount', { defaultValue: 'Ce client n\'est lié à aucun compte Google Ads.' })}
+                                        </div>
+                                    )}
+                                </div>
+
+                                {accountId && (
+                                    <div className="form-group">
+                                        <label>{t('configModal.account.campaignsLabel', { count: selectedCampaigns.length })}</label>
+                                        <div className="campaigns-selection">
+                                            <div className="campaigns-header">
+                                                <button
+                                                    type="button"
+                                                    className="select-all-btn"
+                                                    onClick={handleSelectAllCampaigns}
+                                                    disabled={isSubmitting}
+                                                >
+                                                    {selectedCampaigns.length === currentAccountCampaigns.length && currentAccountCampaigns.length > 0 ? t('configModal.account.deselectAll') : t('configModal.account.selectAll')}
+                                                </button>
                                             </div>
-                                        )}
-                                    </>
+                                            <div className="campaigns-list">
+                                                {currentAccountCampaigns.length === 0 ? (
+                                                    <div className="empty-message">{t('configModal.account.noCampaigns')}</div>
+                                                ) : (
+                                                    currentAccountCampaigns.map(campaign => (
+                                                        <label key={campaign.id} className="campaign-item">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={selectedCampaigns.includes(campaign.id)}
+                                                                onChange={() => handleToggleCampaign(campaign.id)}
+                                                                disabled={isSubmitting}
+                                                            />
+                                                            <span className="campaign-name">{campaign.name}</span>
+                                                            {campaign.status && (
+                                                                <span className={`campaign-status status-${String(campaign.status).toLowerCase()}`}>
+                                                                    {String(campaign.status)}
+                                                                </span>
+                                                            )}
+                                                        </label>
+                                                    ))
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
                                 )}
+
                             </div>
 
                             {/* Slides Configuration */}
@@ -425,8 +503,8 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                 </div>
                             </div>
                         )}
-                    </div>
-                </div>,
+                    </div >
+                </div >,
                 document.body
             )}
 

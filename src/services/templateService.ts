@@ -29,6 +29,8 @@ export async function createTemplate(
     config: {
         name: string;
         description?: string;
+        clientId?: string;
+        clientName?: string;
         accountId?: string;
         accountName?: string;
         campaignIds?: string[];
@@ -43,6 +45,8 @@ export async function createTemplate(
             userId,
             name: config.name,
             description: config.description || '',
+            clientId: config.clientId || null,
+            clientName: config.clientName || null,
             accountId: config.accountId || null,
             accountName: config.accountName || null,
             campaignIds: config.campaignIds || [],
@@ -82,6 +86,8 @@ export async function getTemplate(templateId: string): Promise<ReportTemplate | 
             userId: data.userId,
             name: data.name,
             description: data.description,
+            clientId: data.clientId,
+            clientName: data.clientName,
             accountId: data.accountId,
             accountName: data.accountName,
             campaignIds: data.campaignIds || [],
@@ -122,6 +128,8 @@ export async function listUserTemplates(userId: string): Promise<ReportTemplate[
                 userId: data.userId,
                 name: data.name,
                 description: data.description,
+                clientId: data.clientId,
+                clientName: data.clientName,
                 accountId: data.accountId,
                 accountName: data.accountName,
                 campaignIds: data.campaignIds || [],
@@ -196,6 +204,8 @@ export async function duplicateTemplate(
         return await createTemplate(userId, {
             name: newName,
             description: template.description,
+            clientId: template.clientId,
+            clientName: template.clientName,
             accountId: template.accountId,
             accountName: template.accountName,
             campaignIds: template.campaignIds,
@@ -234,6 +244,8 @@ export async function createReportFromTemplate(
     userId: string,
     overrides?: {
         title?: string;
+        clientId?: string;
+        clientName?: string;
         accountId?: string;
         accountName?: string;
         campaignIds?: string[];
@@ -251,6 +263,9 @@ export async function createReportFromTemplate(
         const { start, end } = calculateDateRange(template.periodPreset);
 
         // Use overrides or template values
+        const clientId = overrides?.clientId || template.clientId;
+        // If client overrides account, account MUST be re-verified or passed in overrides.
+        // Assuming overrides contains matching account info if clientId is passed.
         const accountId = overrides?.accountId || template.accountId;
         const accountName = overrides?.accountName || template.accountName;
         const campaignIds = overrides?.campaignIds || template.campaignIds;
@@ -273,7 +288,8 @@ export async function createReportFromTemplate(
                 preset: template.periodPreset,
             },
             accountName,
-            campaignNames
+            campaignNames,
+            clientId // Pass clientId
         );
 
         // Add widgets from template

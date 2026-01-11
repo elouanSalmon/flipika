@@ -30,8 +30,10 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
         ? t(`configModal.presets.${template.periodPreset}.label`)
         : template.periodPreset;
 
-    // Resolve account name - same logic as ReportConfigModal
+    // Resolve account/client name
     const accountName = accounts.find(a => a.id === template.accountId)?.name || template.accountId || t('card.noAccount');
+    const displayName = template.clientName || accountName;
+    const isClientLinked = !!template.clientName;
 
     // Resolve campaigns text
     const campaignsText = template.campaignNames?.length
@@ -85,9 +87,9 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
 
                 <div className="space-y-2">
                     <div className="listing-card-row">
-                        <div className="listing-card-info-item" title={accountName}>
-                            <Building size={14} />
-                            <span>{accountName}</span>
+                        <div className="listing-card-info-item" title={isClientLinked ? `${displayName} (${accountName})` : accountName}>
+                            {isClientLinked ? <Building size={14} className="text-primary-500" /> : <Building size={14} />}
+                            <span>{displayName}</span>
                         </div>
                     </div>
 

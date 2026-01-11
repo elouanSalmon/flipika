@@ -53,6 +53,8 @@ export interface ReportTemplate {
     description?: string;
 
     // Configuration - optional fields can be set when using the template
+    clientId?: string; // Optional - Linked Client ID
+    clientName?: string; // Optional - for display
     accountId?: string; // Optional - can be set when using template
     accountName?: string; // Optional - for display
     campaignIds: string[]; // Can be empty - set when using template
