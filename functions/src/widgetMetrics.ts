@@ -255,6 +255,21 @@ export const getWidgetMetrics = onRequest({
                     ORDER BY ${orderBy}
                     LIMIT ${limit}
                 `;
+            } else {
+                // Default fallback if dimension doesn't match known types
+                console.warn(`⚠️ Unknown dimension '${dimension}' for top_performers, defaulting to KEYWORDS`);
+                query = `
+                    SELECT
+                        ad_group_criterion.keyword.text,
+                        ad_group.name,
+                        campaign.name,
+                        ${commonMetrics}
+                    FROM keyword_view
+                    WHERE campaign.id IN (${campaignIdList})
+                      AND segments.date BETWEEN '${startDate}' AND '${endDate}'
+                    ORDER BY ${orderBy}
+                    LIMIT ${limit}
+                `;
             }
         } else if (widgetType === 'heatmap') {
             // Build campaign ID filter using IN clause
@@ -284,10 +299,14 @@ export const getWidgetMetrics = onRequest({
         }
 
 
+        if (!query || query.trim() === '') {
+            throw new Error(`Failed to generate GAQL query for widget type: ${widgetType}`);
+        }
+
         // 6. Execute Query
         console.log('🔍 Executing Google Ads query for widget type:', widgetType);
         console.log('📝 GAQL Query:', query.trim());
-        const results = await customer.query(query);
+        const results = await customer.query(query.trim());
         console.log('✅ Query executed successfully, rows returned:', results.length);
 
         // 7. Format response based on widget type

@@ -227,19 +227,18 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
                 '--widget-primary': design.colorScheme.primary,
                 '--widget-text': design.colorScheme.text,
                 '--widget-background': design.colorScheme.background,
-                background: design.colorScheme.background,
+                backgroundColor: design.colorScheme.background,
                 color: design.colorScheme.text,
+                padding: '24px',
+                height: '100%',
+                borderRadius: '12px',
+                display: 'flex',
+                flexDirection: 'column'
             } as React.CSSProperties}
         >
-            <div className="widget-header" style={{
-                padding: '16px 20px',
-                borderBottom: `1px solid ${design.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)'}`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-            }}>
+            <div className="flex items-center justify-between mb-6">
                 <h3 style={{
-                    color: design.colorScheme.secondary,
+                    color: design.colorScheme.text,
                     margin: 0,
                     fontSize: '18px',
                     fontWeight: 600,
@@ -248,28 +247,21 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
                 </h3>
                 {isMockData && (
                     <span
-                        className="mock-data-badge"
-                        title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies annonces"
+                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
                         style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            padding: '4px 8px',
-                            background: 'rgba(251, 191, 36, 0.1)',
-                            color: '#f59e0b',
-                            borderRadius: '4px',
-                            fontSize: '11px',
-                            fontWeight: 500,
-                            cursor: 'help',
+                            backgroundColor: '#fffbeb',
+                            color: '#b45309',
+                            border: '1px solid #fcd34d'
                         }}
+                        title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies annonces"
                     >
-                        <AlertTriangle size={14} />
-                        Démo
+                        <AlertTriangle size={12} />
+                        Mode Démo
                     </span>
                 )}
             </div>
 
-            <div className="widget-content" style={{ padding: '20px' }}>
+            <div className="widget-content flex-1 flex flex-col justify-center">
                 <AdCreativeCard
                     adData={adData}
                     metrics={adMetrics}

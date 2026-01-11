@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { AlertTriangle, Calendar, Clock } from 'lucide-react';
+import { AlertTriangle, Calendar } from 'lucide-react';
 import { getSlideData } from '../../../services/slideService';
 import Spinner from '../../common/Spinner';
 import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
@@ -140,80 +140,118 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
         <div
             className="heatmap-container"
             style={{
-                background: design.colorScheme.background,
+                backgroundColor: design.colorScheme.background,
                 color: design.colorScheme.text,
+                padding: '24px',
+                height: '100%',
+                borderRadius: '12px',
+                display: 'flex',
+                flexDirection: 'column'
             }}
         >
-            <div className="heatmap-controls">
-                {isMockData && (
-                    <span className="mock-data-badge mr-auto flex items-center gap-1 text-xs text-amber-500 bg-amber-500/10 px-2 py-1 rounded">
-                        <AlertTriangle size={12} />
-                        Démo
-                    </span>
-                )}
-
-                <select
-                    value={selectedMetric}
-                    onChange={(e) => setSelectedMetric(e.target.value)}
-                    className="heatmap-metric-selector"
-                    style={{
-                        borderColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
-                        background: design.mode === 'dark' ? 'rgba(30, 41, 59, 0.5)' : '#fff',
+            <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                    <h3 style={{
                         color: design.colorScheme.text,
-                    }}
-                >
-                    {METRIC_OPTIONS.map(opt => (
-                        <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
-                </select>
+                        fontSize: '18px',
+                        fontWeight: 600,
+                        margin: 0
+                    }}>
+                        Heatmap
+                    </h3>
+                    <select
+                        value={selectedMetric}
+                        onChange={(e) => setSelectedMetric(e.target.value)}
+                        className="heatmap-metric-selector"
+                        style={{
+                            borderColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+                            backgroundColor: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : '#fff',
+                            color: design.colorScheme.text,
+                            padding: '4px 8px',
+                            borderRadius: '6px',
+                            fontSize: '13px',
+                            outline: 'none',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        {METRIC_OPTIONS.map(opt => (
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    {isMockData && (
+                        <span
+                            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
+                            style={{
+                                backgroundColor: '#fffbeb',
+                                color: '#b45309',
+                                border: '1px solid #fcd34d'
+                            }}
+                            title="Données de démonstration - Connectez un compte Google Ads pour voir vos données réelles"
+                        >
+                            <AlertTriangle size={12} />
+                            Mode Démo
+                        </span>
+                    )}
+                </div>
             </div>
 
-            <div className="heatmap-content">
-                <div className="heatmap-grid">
+            <div className="heatmap-content flex-1 flex flex-col justify-center overflow-hidden">
+                <div className="heatmap-grid" style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'auto repeat(24, 1fr)',
+                    gap: '2px',
+                    height: '100%'
+                }}>
                     {/* Header Row: Hours */}
-                    <div className="heatmap-header-cell empty px-2">
-                        <Clock size={14} />
-                    </div>
+                    <div className="heatmap-header-cell empty"></div>
                     {HOURS.map(hour => (
-                        <div key={`header-${hour}`} className="heatmap-header-cell">
-                            {hour}h
+                        <div key={`header-${hour}`} className="heatmap-header-cell text-xs opacity-50 text-center" style={{ fontSize: '10px' }}>
+                            {hour}
                         </div>
                     ))}
 
                     {/* Data Rows: Days */}
                     {DAYS.map((dayLabel, dayIndex) => {
-                        // Google Ads Day of week: 0=Sunday? Actually usually Enum. 
-                        // Let's assume our data normalizes to 0=Monday for array indexing simplicity if we map DAYS array.
-                        // We will ensure data service maps correctly.
-
                         return (
                             <React.Fragment key={`row-${dayIndex}`}>
                                 {/* Row Label */}
-                                <div className="heatmap-row-label">
+                                <div className="heatmap-row-label text-xs font-medium opacity-70 flex items-center" style={{ fontSize: '11px' }}>
                                     {dayLabel}
                                 </div>
 
                                 {/* Cells for this day */}
                                 {HOURS.map(hour => {
-                                    // Find data for this day/hour
-                                    // Assuming dayIndex 0 = Monday.
                                     const cellData = heatmapData.find(d => d.day === dayIndex && d.hour === hour);
                                     const value = cellData ? (cellData.metrics as any)[selectedMetric] || 0 : 0;
 
                                     return (
                                         <div
                                             key={`cell-${dayIndex}-${hour}`}
-                                            className="heatmap-cell"
+                                            className="heatmap-cell relative group rounded-sm"
                                             style={{
                                                 backgroundColor: getCellColor(value),
                                                 opacity: value === 0 ? 1 : getCellOpacity(value),
-                                                // If value is 0, we used a specific bg color in getCellColor, so opacity 1 is fine.
-                                                // If value > 0, we returned primary color, so we modulate opacity.
+                                                cursor: 'help'
                                             }}
                                         >
-                                            <div className="heatmap-tooltip">
+                                            <div
+                                                className="heatmap-tooltip opacity-0 group-hover:opacity-100 absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 rounded shadow-lg pointer-events-none transition-opacity z-50 whitespace-nowrap"
+                                                style={{
+                                                    backgroundColor: design.mode === 'dark' ? '#fff' : '#1e293b',
+                                                    color: design.mode === 'dark' ? '#1e293b' : '#fff',
+                                                    fontSize: '12px'
+                                                }}
+                                            >
                                                 <strong>{dayLabel} {hour}h:00 - {hour}h:59</strong><br />
                                                 {formatValue(value, selectedMetric)} {METRIC_OPTIONS.find(o => o.value === selectedMetric)?.label}
+                                                {/* Arrow */}
+                                                <div
+                                                    className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent"
+                                                    style={{ borderTopColor: design.mode === 'dark' ? '#fff' : '#1e293b' }}
+                                                ></div>
                                             </div>
                                         </div>
                                     );
@@ -224,13 +262,12 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 </div>
             </div>
 
-            <div className="text-center text-xs opacity-50 mt-2">
-                <div className="flex items-center justify-center gap-2">
-                    <Calendar size={12} />
-                    <span>7 jours</span>
-                    <span className="mx-1">•</span>
-                    <Clock size={12} />
-                    <span>24 heures</span>
+            <div className="flex justify-center mt-4 opacity-50 text-xs">
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1.5">
+                        <Calendar size={12} />
+                        <span>7 derniers jours</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -169,16 +169,36 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
         <div
             className={`funnel-analysis-widget ${design.mode === 'dark' ? 'dark-mode' : ''}`}
             style={{
-                '--widget-background': design.colorScheme.background,
+                backgroundColor: design.colorScheme.background,
                 color: design.colorScheme.text,
+                padding: '24px',
+                height: '100%',
+                borderRadius: '12px',
+                display: 'flex',
+                flexDirection: 'column'
             } as React.CSSProperties}
         >
-            <div className="widget-header">
-                <h3 style={{ color: design.colorScheme.secondary }}>Analyse de conversion</h3>
+            <div className="flex items-center justify-between mb-8">
+                <h3 style={{
+                    color: design.colorScheme.text,
+                    fontSize: '18px',
+                    fontWeight: 600,
+                    margin: 0
+                }}>
+                    Analyse de conversion
+                </h3>
                 {isMockData && (
-                    <span className="mock-data-badge" title="Données de démonstration">
-                        <AlertTriangle size={14} />
-                        Démo
+                    <span
+                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
+                        style={{
+                            backgroundColor: '#fffbeb',
+                            color: '#b45309',
+                            border: '1px solid #fcd34d'
+                        }}
+                        title="Données de démonstration - Connectez un compte Google Ads pour voir vos données réelles"
+                    >
+                        <AlertTriangle size={12} />
+                        Mode Démo
                     </span>
                 )}
                 {editable && (
@@ -188,34 +208,47 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                 )}
             </div>
 
-            <div className="widget-content">
-                <div className="funnel-container">
+            <div className="widget-content flex-1 flex flex-col justify-center">
+                <div className="funnel-container flex flex-col gap-4">
                     {funnelData.map((step) => (
-                        <div key={step.id} className="funnel-step">
-                            <div className="funnel-label" style={{ color: design.colorScheme.text }}>
-                                {step.label}
-                            </div>
-
-                            <div className="funnel-bar-container">
-                                <div
-                                    className="funnel-bar"
-                                    style={{
-                                        width: `${Math.max(step.percentage, 5)}%`, // Min width 5%
-                                        backgroundColor: step.color
-                                    }}
-                                >
+                        <div key={step.id} className="funnel-step relative">
+                            <div className="flex items-center justify-between mb-2">
+                                <div className="funnel-label font-medium" style={{ color: design.colorScheme.text, fontSize: '14px' }}>
+                                    {step.label}
+                                </div>
+                                <div className="funnel-value font-bold" style={{ color: design.colorScheme.text, fontSize: '14px' }}>
+                                    {formatNumber(step.value)}
                                 </div>
                             </div>
 
-                            <div className="funnel-value" style={{ color: design.colorScheme.text }}>
-                                {formatNumber(step.value)}
+                            <div className="funnel-bar-container relative h-10 w-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                                <div
+                                    className="funnel-bar h-full rounded-r-lg transition-all duration-1000 ease-out"
+                                    style={{
+                                        width: `${Math.max(step.percentage, 2)}%`,
+                                        backgroundColor: step.color
+                                    }}
+                                />
                             </div>
 
-                            {/* Conversion Rate Bubble (omitted for first step) */}
+                            {/* Conversion Rate Bubble */}
                             {step.conversionRate !== undefined && (
-                                <div className="funnel-conversion-rate">
-                                    <ArrowDown size={12} />
-                                    {formatPercent(step.conversionRate)}
+                                <div
+                                    className="absolute right-0 top-10 transform translate-y-2 flex flex-col items-center"
+                                    style={{ zIndex: 10 }}
+                                >
+                                    <div
+                                        className="text-xs font-medium px-2 py-1 rounded-full shadow-sm flex items-center gap-1"
+                                        style={{
+                                            backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'white',
+                                            color: design.colorScheme.text,
+                                            border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`
+                                        }}
+                                    >
+                                        <ArrowDown size={10} />
+                                        {formatPercent(step.conversionRate)}
+                                    </div>
+                                    <div className="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
                                 </div>
                             )}
                         </div>

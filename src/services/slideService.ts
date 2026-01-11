@@ -269,7 +269,8 @@ async function getPerformanceOverviewData(
         );
 
         if (!result.success || !result.metrics) {
-            console.warn('⚠️ API call failed, using mock data:', result.error);
+            console.warn('⚠️ [PerformanceOverview] API call failed, using mock data. Reason:', result.error || 'No metrics returned');
+            console.debug('Request details:', { accountId, campaignIds, startDate, endDate });
             return generateMockPerformanceData(settings, startDate, endDate);
         }
 
@@ -289,7 +290,10 @@ async function getPerformanceOverviewData(
 
         return responseData;
     } catch (error) {
-        console.error('❌ Error fetching performance data:', error);
+        console.error('❌ [PerformanceOverview] Unexpected error fetching data:', error);
+        if (error instanceof Error) {
+            console.error('Error details:', error.message, error.stack);
+        }
 
         // Try to load from cache as fallback
         if (widgetId && reportId) {
@@ -396,7 +400,7 @@ async function getCampaignChartData(
         );
 
         if (!result.success || !result.chartData || !result.campaigns) {
-            console.warn('⚠️ API call failed, using mock data:', result.error);
+            console.warn('⚠️ [CampaignChart] API call failed, using mock data. Reason:', result.error || 'Missing chart data or campaigns');
             return generateMockChartData(campaignIds, startDate, endDate);
         }
 
@@ -418,7 +422,7 @@ async function getCampaignChartData(
 
         return responseData;
     } catch (error) {
-        console.error('❌ Error fetching chart data:', error);
+        console.error('❌ [CampaignChart] Unexpected error fetching data:', error);
 
         // Try to load from cache as fallback
         if (widgetId && reportId) {
@@ -688,7 +692,7 @@ async function getDevicePlatformSplitData(
 
         console.log('📱 Fetching real device/platform data:', {
             accountId,
-            campaignIds
+            campaignIds: JSON.stringify(campaignIds)
         });
 
         const result = await fetchSlideMetrics(
@@ -700,7 +704,7 @@ async function getDevicePlatformSplitData(
         );
 
         if (!result.success || !result.deviceData || !result.platformData) {
-            console.warn('⚠️ API call failed, using mock data:', result.error);
+            console.warn('⚠️ [DevicePlatform] API call failed, using mock data. Reason:', result.error || 'Missing device or platform data');
             return generateMockDevicePlatformSplitData();
         }
 
@@ -716,7 +720,7 @@ async function getDevicePlatformSplitData(
 
         return responseData;
     } catch (error) {
-        console.error('❌ Error fetching device/platform data:', error);
+        console.error('❌ [DevicePlatform] Unexpected error fetching data:', error);
 
         if (widgetId && reportId) {
             const cachedData = await loadCachedWidgetData(widgetId, reportId);
@@ -776,7 +780,7 @@ async function getHeatmapData(
             return generateMockHeatmapData(); // Fixed arguments
         }
 
-        console.log('🔥 Fetching real heatmap data:', { accountId, campaignIds });
+        console.log('🔥 Fetching real heatmap data:', { accountId, campaignIds: JSON.stringify(campaignIds) });
 
         // Call Google Ads API (simulated via fetchSlideMetrics for now until a specific heatmap endpoint exists)
         // Since we likely don't have the granular day/hour segmentation in the generic 'fetchSlideMetrics',
@@ -791,7 +795,7 @@ async function getHeatmapData(
         );
 
         if (!result.success || !result.heatmapData) {
-            console.warn('⚠️ API call failed or no heatmap data, using mock data:', result.error);
+            console.warn('⚠️ [Heatmap] API call failed, using mock data. Reason:', result.error || 'No heatmap data returned');
             return generateMockHeatmapData();
         }
 
@@ -807,7 +811,7 @@ async function getHeatmapData(
         return responseData;
 
     } catch (error) {
-        console.error('❌ Error fetching heatmap data:', error);
+        console.error('❌ [Heatmap] Unexpected error fetching data:', error);
         if (widgetId && reportId) {
             // Note: loadCachedWidgetData isn't strictly available in this scope unless hoisted or passed, assuming it's available in module scope
             const cachedData = await loadCachedWidgetData(widgetId, reportId);
@@ -897,7 +901,7 @@ async function getTopPerformersData(
             return generateMockTopPerformersData(settings);
         }
 
-        console.log('🏆 Fetching real top performers data:', { accountId, campaignIds, settings });
+        console.log('🏆 Fetching real top performers data:', { accountId, campaignIds: JSON.stringify(campaignIds), settings });
 
         const result = await fetchSlideMetrics(
             accountId,
@@ -913,7 +917,7 @@ async function getTopPerformersData(
         );
 
         if (!result.success || !result.data) {
-            console.warn('⚠️ API call failed, using mock data:', result.error);
+            console.warn('⚠️ [TopPerformers] API call failed, using mock data. Reason:', result.error || 'No data returned');
             return generateMockTopPerformersData(settings);
         }
 
@@ -928,7 +932,7 @@ async function getTopPerformersData(
 
         return responseData;
     } catch (error) {
-        console.error('❌ Error fetching top performers data:', error);
+        console.error('❌ [TopPerformers] Unexpected error fetching data:', error);
         if (widgetId && reportId) {
             const cachedData = await loadCachedWidgetData(widgetId, reportId);
             if (cachedData) return cachedData;

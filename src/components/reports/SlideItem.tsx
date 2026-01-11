@@ -157,6 +157,7 @@ const SlideItem: React.FC<SlideItemProps> = ({
                         accountId={slide.accountId || reportAccountId}
                         campaignIds={slide.campaignIds || reportCampaignIds}
                         config={slide}
+                        design={design}
                         startDate={startDate}
                         endDate={endDate}
                         reportId={reportId}
