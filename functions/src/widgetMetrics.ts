@@ -101,6 +101,8 @@ export const getWidgetMetrics = onRequest({
         // 5. Build query based on widget type
         let query = '';
 
+        console.log('🎯 Widget type received:', widgetType, 'Type:', typeof widgetType);
+
         if (widgetType === 'performance_overview' || widgetType === 'key_metrics') {
             // Build campaign ID filter using IN clause (more efficient and avoids parentheses issues)
             const campaignIdList = campaignIds.map((id: string) => id).join(', ');
@@ -306,6 +308,11 @@ export const getWidgetMetrics = onRequest({
         // 6. Execute Query
         console.log('🔍 Executing Google Ads query for widget type:', widgetType);
         console.log('📝 GAQL Query:', query.trim());
+        console.log('📏 Query length:', query.trim().length);
+        console.log('🔤 Query preview:', {
+            first100: query.trim().substring(0, 100),
+            last100: query.trim().substring(query.trim().length - 100)
+        });
         const results = await customer.query(query.trim());
         console.log('✅ Query executed successfully, rows returned:', results.length);
 

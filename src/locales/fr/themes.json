@@ -82,5 +82,10 @@
         "successUpdate": "Thème mis à jour",
         "successCreate": "Thème créé",
         "errorSave": "Erreur lors de la sauvegarde du thème"
+    },
+    "info": {
+        "buttonLabel": "Information",
+        "modalTitle": "Qu'est-ce qu'un thème ?",
+        "modalContent": "Les thèmes vous permettent de personnaliser l'apparence visuelle de vos rapports Google Ads pour correspondre à l'identité de marque de vos clients.\n\nAvec les thèmes, vous pouvez :\n• Définir des couleurs personnalisées (principale et secondaire)\n• Choisir entre les modes clair et sombre\n• Sélectionner des polices personnalisées pour vos rapports\n• Lier des thèmes à des comptes Google Ads spécifiques pour une application automatique\n• Définir un thème par défaut pour tous vos rapports\n\nLes thèmes sont appliqués lors de la génération des rapports PDF, garantissant une cohérence de marque sur tous vos livrables clients."
     }
 }

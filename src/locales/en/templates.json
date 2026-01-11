@@ -173,5 +173,10 @@
         "description": "Full previous year"
       }
     }
+  },
+  "info": {
+    "buttonLabel": "Information",
+    "modalTitle": "What are Templates?",
+    "modalContent": "Templates are reusable report configurations that allow you to generate consistent Google Ads reports with a single click.\n\nWith templates, you can:\n• Define a standard set of slides and metrics for recurring reports\n• Pre-configure Google Ads accounts and campaigns to analyze\n• Set default analysis periods (last 7 days, last month, etc.)\n• Create reports instantly without reconfiguring settings each time\n• Use templates as the basis for scheduled automated reports\n\nTemplates are perfect for standardizing your reporting process and ensuring consistency across client deliverables."
   }
 }

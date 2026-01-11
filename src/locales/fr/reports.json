@@ -137,14 +137,14 @@
     "title": "Bibliothèque de Slides",
     "subtitle": "Glissez ou cliquez pour ajouter",
     "categoryLabel": "Catégorie",
-    "scopeLabel": "Portée des données",
+    "scopeLabel": "Portée",
     "categories": {
-      "all": "Toutes les catégories",
+      "all": "Toutes",
       "analytics": "Analytique",
       "content": "Contenu"
     },
     "scopes": {
-      "all": "Toutes les portées",
+      "all": "Toutes",
       "modifiable": "Modifiable",
       "multiple_campaigns": "Campagnes multiples",
       "single_campaign": "Campagne unique"
@@ -395,5 +395,10 @@
       "copyError": "Erreur lors de la copie",
       "pdfTodo": "Téléchargement PDF à implémenter"
     }
+  },
+  "info": {
+    "buttonLabel": "Information",
+    "modalTitle": "Qu'est-ce qu'un rapport ?",
+    "modalContent": "Les rapports sont des documents de performance Google Ads personnalisables que vous créez et partagez avec vos clients ou parties prenantes.\n\nAvec les rapports, vous pouvez :\n• Combiner plusieurs types de slides (métriques, graphiques, texte, créatives) en présentations complètes\n• Analyser des campagnes et périodes spécifiques\n• Sauvegarder en brouillon, publier ou archiver pour l'organisation\n• Protéger les rapports par mot de passe pour un partage sécurisé\n• Générer des exports PDF pour une distribution hors ligne\n• Partager par email avec du contenu pré-rempli\n\nLes rapports peuvent être créés de zéro ou générés à partir de templates pour des livrables plus rapides et cohérents."
   }
 }

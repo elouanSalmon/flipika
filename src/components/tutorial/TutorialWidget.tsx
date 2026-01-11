@@ -11,22 +11,25 @@ import {
     Mail,
     Plus,
     Palette,
-    LayoutTemplate
+    LayoutTemplate,
+    Info
 } from 'lucide-react';
 import { useTutorial } from '../../contexts/TutorialContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import ConfirmationModal from '../common/ConfirmationModal';
+import InfoModal from '../common/InfoModal';
 
 export const TutorialWidget = () => {
-    const { t } = useTranslation(['tutorial']);
+    const { t } = useTranslation(['tutorial', 'clients', 'themes', 'templates', 'schedules', 'reports']);
     const { status, isLoading, dismissTutorial } = useTutorial();
     const { userProfile, updateProfile } = useAuth();
     const navigate = useNavigate();
 
     const [isExpanded, setIsExpanded] = useState(true);
     const [showConfirmDismiss, setShowConfirmDismiss] = useState(false);
+    const [activeInfoModal, setActiveInfoModal] = useState<string | null>(null);
 
     if (isLoading) return null;
 
@@ -45,37 +48,43 @@ export const TutorialWidget = () => {
             id: 'createClient',
             statusKey: 'hasClient',
             path: '/app/clients',
-            icon: <Plus size={16} />
+            icon: <Plus size={16} />,
+            infoNamespace: 'clients'
         },
         {
             id: 'createTheme',
             statusKey: 'hasTheme',
             path: '/app/themes',
-            icon: <Palette size={16} />
+            icon: <Palette size={16} />,
+            infoNamespace: 'themes'
         },
         {
             id: 'createTemplate',
             statusKey: 'hasTemplate',
             path: '/app/templates',
-            icon: <LayoutTemplate size={16} />
+            icon: <LayoutTemplate size={16} />,
+            infoNamespace: 'templates'
         },
         {
             id: 'createSchedule',
             statusKey: 'hasSchedule',
             path: '/app/schedules',
-            icon: <Calendar size={16} />
+            icon: <Calendar size={16} />,
+            infoNamespace: 'schedules'
         },
         {
             id: 'generateReport',
             statusKey: 'hasGeneratedReport',
             path: '/app/reports',
-            icon: <FileText size={16} />
+            icon: <FileText size={16} />,
+            infoNamespace: 'reports'
         },
         {
             id: 'sendReport',
             statusKey: 'hasSentReport',
             path: '/app/reports',
-            icon: <Mail size={16} />
+            icon: <Mail size={16} />,
+            infoNamespace: null // No info modal for this step
         }
     ];
 
@@ -103,6 +112,14 @@ export const TutorialWidget = () => {
         } catch (error) {
             console.error('Error dismissing tutorial:', error);
         }
+    };
+
+    const getInfoModalContent = (namespace: string | null) => {
+        if (!namespace) return null;
+        return {
+            title: t(`${namespace}:info.modalTitle`),
+            content: t(`${namespace}:info.modalContent`)
+        };
     };
 
     return (
@@ -214,6 +231,16 @@ export const TutorialWidget = () => {
                                                         </button>
                                                     )}
                                                 </div>
+
+                                                {step.infoNamespace && (
+                                                    <button
+                                                        onClick={() => setActiveInfoModal(step.infoNamespace)}
+                                                        className="flex-shrink-0 p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-400 hover:text-primary transition-colors"
+                                                        title={t(`${step.infoNamespace}:info.buttonLabel`)}
+                                                    >
+                                                        <Info size={16} />
+                                                    </button>
+                                                )}
                                             </div>
                                         );
                                     })}
@@ -243,6 +270,16 @@ export const TutorialWidget = () => {
                 confirmLabel={t('tutorial:confirmDismiss.confirm')}
                 cancelLabel={t('tutorial:confirmDismiss.cancel')}
             />
+
+            {/* Info Modals */}
+            {activeInfoModal && (
+                <InfoModal
+                    isOpen={true}
+                    onClose={() => setActiveInfoModal(null)}
+                    title={getInfoModalContent(activeInfoModal)?.title || ''}
+                    content={getInfoModalContent(activeInfoModal)?.content || ''}
+                />
+            )}
         </>
     );
 };

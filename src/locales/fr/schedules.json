@@ -80,5 +80,10 @@
       "edit": "Modifier",
       "delete": "Supprimer"
     }
+  },
+  "info": {
+    "buttonLabel": "Information",
+    "modalTitle": "Qu'est-ce qu'un rapport programmé ?",
+    "modalContent": "Les rapports programmés génèrent automatiquement vos rapports Google Ads de manière récurrente, avec des slides alimentées par des données à jour et analysées par l'IA Narrative Layer.\n\nAvec les rapports programmés, vous pouvez :\n• Générer automatiquement des rapports quotidiens, hebdomadaires ou mensuels\n• Obtenir des données fraîches pour la période sélectionnée à chaque génération\n• Bénéficier d'analyses IA des tendances et insights de performance\n• Réviser les rapports avant de les envoyer aux clients (l'envoi reste manuel)\n• Utiliser des templates comme base pour les rapports automatisés\n• Suivre l'historique d'exécution et les taux de succès\n\nLes rapports programmés vous font gagner du temps en automatisant la collecte et l'analyse des données, tout en vous laissant le contrôle des communications clients."
   }
 }

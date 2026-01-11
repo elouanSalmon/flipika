@@ -1,16 +1,20 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useClients } from '../hooks/useClients';
 import { ClientList } from '../components/clients/ClientList';
 import { ClientForm } from '../components/clients/ClientForm';
-import { Plus, Users } from 'lucide-react';
+import { Plus, Users, Info } from 'lucide-react';
+import InfoModal from '../components/common/InfoModal';
 import type { Client } from '../types/client';
 import './ClientsPage.css';
 
 export default function ClientsPage() {
+    const { t } = useTranslation('clients');
     const { clients, isLoading, createClient, updateClient, deleteClient } = useClients();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingClient, setEditingClient] = useState<Client | undefined>(undefined);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showInfoModal, setShowInfoModal] = useState(false);
 
     const handleAdd = () => {
         setEditingClient(undefined);
@@ -47,9 +51,36 @@ export default function ClientsPage() {
         <div className="clients-page">
             <div className="page-header">
                 <div className="header-content">
-                    <div className="header-title-row">
+                    <div className="header-title-row" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <Users size={32} className="header-icon" />
                         <h1>Clients</h1>
+                        <button
+                            onClick={() => setShowInfoModal(true)}
+                            className="info-button"
+                            style={{
+                                padding: '0.5rem',
+                                background: 'transparent',
+                                border: '2px solid var(--color-border, #e5e7eb)',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s',
+                                color: 'var(--color-text-secondary, #6b7280)'
+                            }}
+                            title={t('info.buttonLabel')}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--color-primary, #2563eb)';
+                                e.currentTarget.style.color = 'var(--color-primary, #2563eb)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--color-border, #e5e7eb)';
+                                e.currentTarget.style.color = 'var(--color-text-secondary, #6b7280)';
+                            }}
+                        >
+                            <Info size={20} />
+                        </button>
                     </div>
                     <p className="header-subtitle">Gérez votre portefeuille client</p>
                 </div>
@@ -85,6 +116,13 @@ export default function ClientsPage() {
                     </div>
                 </div>
             )}
+
+            <InfoModal
+                isOpen={showInfoModal}
+                onClose={() => setShowInfoModal(false)}
+                title={t('info.modalTitle')}
+                content={t('info.modalContent')}
+            />
         </div>
     );
 }

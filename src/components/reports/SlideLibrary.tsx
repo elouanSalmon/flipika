@@ -134,15 +134,7 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
                 </div>
             )}
 
-            <div className="slide-library-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                    <h3>{t('slideLibrary.title')}</h3>
-                    <p>{t('slideLibrary.subtitle')}</p>
-                </div>
-                {/* Close button for when used in modal */}
-                {/* onClose is handled by parent modal usually, but we can add it here if needed, 
-                    currently the parent handles the close button in the header */}
-            </div>
+
 
             {/* Category Filter */}
             <div className="slide-categories" style={{ marginBottom: '0.75rem' }}>

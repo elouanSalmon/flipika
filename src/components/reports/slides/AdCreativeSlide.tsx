@@ -48,6 +48,10 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     const [isMockData, setIsMockData] = useState(true);
     const [realAds, setRealAds] = useState<RealAdCreative[]>([]);
 
+    // Compute effective scope (per-slide override or report-level default)
+    const effectiveAccountId = config.scope?.accountId || accountId || '';
+    const effectiveCampaignIds = config.scope?.campaignIds || campaignIds || [];
+
     // DEMO DATA - Mock ad examples for demonstration
     // In production, these would be fetched from Google Ads API based on user selection
     const mockSearchAd: AdCreativeData = {
@@ -87,7 +91,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
 
     useEffect(() => {
         loadData();
-    }, [config, accountId, campaignIds, startDate, endDate]);
+    }, [config, effectiveAccountId, effectiveCampaignIds, startDate, endDate]);
 
     const loadData = async () => {
         try {
@@ -96,18 +100,18 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
 
             // Debug logging to trace values
             console.log('🎯 AdCreativeSlide loadData called with:', {
-                accountId,
-                campaignIds,
-                campaignIdsLength: campaignIds?.length,
-                hasAccountId: !!accountId,
-                hasCampaignIds: campaignIds && campaignIds.length > 0,
+                effectiveAccountId,
+                effectiveCampaignIds,
+                campaignIdsLength: effectiveCampaignIds?.length,
+                hasAccountId: !!effectiveAccountId,
+                hasCampaignIds: effectiveCampaignIds && effectiveCampaignIds.length > 0,
                 startDate,
                 endDate
             });
 
             // Check if we have the required data to fetch ads
             // We need at least an accountId. campaignIds can be empty (meaning "all campaigns")
-            if (!accountId) {
+            if (!effectiveAccountId) {
                 console.warn('⚠️ Missing accountId, using demo data');
                 setIsMockData(true);
                 setLoading(false);
@@ -117,7 +121,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
             // Fetch real ad creatives from Google Ads API
             const { fetchAdCreatives } = await import('../../../services/googleAds');
             // Ensure we pass an empty array if campaignIds is undefined, as the service expects string[]
-            const result = await fetchAdCreatives(accountId, campaignIds || []);
+            const result = await fetchAdCreatives(effectiveAccountId, effectiveCampaignIds || []);
 
             if (!result.success || !result.ads || result.ads.length === 0) {
                 console.warn('No ads returned from API, using demo data:', result.error);

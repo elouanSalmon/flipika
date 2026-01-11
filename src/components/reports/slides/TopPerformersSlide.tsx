@@ -28,9 +28,13 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
     const [error, setError] = useState<string | null>(null);
     const [isMockData, setIsMockData] = useState(false);
 
+    // Compute effective scope (per-slide override or report-level default)
+    const effectiveAccountId = config.scope?.accountId || accountId || '';
+    const effectiveCampaignIds = config.scope?.campaignIds || campaignIds || [];
+
     useEffect(() => {
         const fetchData = async () => {
-            if (!accountId && campaignIds.length === 0) return; // Allow if accountId allows fetching all
+            if (!effectiveAccountId || effectiveCampaignIds.length === 0) return;
 
             try {
                 setIsLoading(true);
@@ -38,8 +42,8 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
 
                 const result = await getSlideData(
                     config,
-                    accountId,
-                    campaignIds,
+                    effectiveAccountId,
+                    effectiveCampaignIds,
                     startDate,
                     endDate,
                     reportId
@@ -58,7 +62,7 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
         };
 
         fetchData();
-    }, [config, accountId, campaignIds, startDate, endDate, reportId]);
+    }, [config, effectiveAccountId, effectiveCampaignIds, startDate, endDate, reportId]);
 
     const formatCurrency = (value: number) => {
         return new Intl.NumberFormat('fr-FR', {

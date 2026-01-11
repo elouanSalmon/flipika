@@ -567,6 +567,7 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     onSlideSelect={setSelectedSlideId}
                     reportId={report.id}
                     reportAccountId={report.accountId}
+                    reportCampaignIds={report.campaignIds}
                 />
             </div>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Search, Grid, List as ListIcon, FileText } from 'lucide-react';
+import { Plus, Search, Grid, List as ListIcon, FileText, Info } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
@@ -14,6 +14,7 @@ import type { EditableReport } from '../types/reportTypes';
 import type { Campaign } from '../types/business';
 import ReportCard from '../components/reports/ReportCard/ReportCard';
 import FilterBar from '../components/common/FilterBar';
+import InfoModal from '../components/common/InfoModal';
 import Spinner from '../components/common/Spinner';
 import './ReportsList.css';
 
@@ -50,6 +51,7 @@ const ReportsList: React.FC = () => {
     const [selectedCampaignId, setSelectedCampaignId] = useState<string>('');
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [loadingCampaigns, setLoadingCampaigns] = useState(false);
+    const [showInfoModal, setShowInfoModal] = useState(false);
 
     const loadReports = async () => {
         if (!currentUser) return;
@@ -180,9 +182,36 @@ const ReportsList: React.FC = () => {
         <div className="reports-list-page">
             <div className="page-header">
                 <div className="header-content">
-                    <div className="header-title-row">
+                    <div className="header-title-row" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <FileText size={32} className="header-icon" />
                         <h1>{t('list.title')}</h1>
+                        <button
+                            onClick={() => setShowInfoModal(true)}
+                            className="info-button"
+                            style={{
+                                padding: '0.5rem',
+                                background: 'transparent',
+                                border: '2px solid var(--color-border, #e5e7eb)',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s',
+                                color: 'var(--color-text-secondary, #6b7280)'
+                            }}
+                            title={t('info.buttonLabel')}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--color-primary, #2563eb)';
+                                e.currentTarget.style.color = 'var(--color-primary, #2563eb)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--color-border, #e5e7eb)';
+                                e.currentTarget.style.color = 'var(--color-text-secondary, #6b7280)';
+                            }}
+                        >
+                            <Info size={20} />
+                        </button>
                     </div>
                     <p className="subtitle">{t('list.description')}</p>
                 </div>
@@ -341,6 +370,13 @@ const ReportsList: React.FC = () => {
                         </>
                     )
                 }
+
+                <InfoModal
+                    isOpen={showInfoModal}
+                    onClose={() => setShowInfoModal(false)}
+                    title={t('info.modalTitle')}
+                    content={t('info.modalContent')}
+                />
             </FeatureAccessGuard>
         </div>
     );

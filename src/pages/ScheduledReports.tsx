@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Plus, Clock, AlertCircle, Search, Grid, List as ListIcon } from 'lucide-react';
+import { Plus, Clock, AlertCircle, Search, Grid, List as ListIcon, Info } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTutorial } from '../contexts/TutorialContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
@@ -22,6 +22,7 @@ import ScheduleCard from '../components/schedules/ScheduleCard';
 import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import ScheduleConfigModal, { type ScheduleFormData } from '../components/schedules/ScheduleConfigModal';
 import FilterBar from '../components/common/FilterBar';
+import InfoModal from '../components/common/InfoModal';
 import type { Campaign } from '../types/business';
 import Spinner from '../components/common/Spinner';
 import toast from 'react-hot-toast';
@@ -57,6 +58,7 @@ const ScheduledReports: React.FC = () => {
     const [editingSchedule, setEditingSchedule] = useState<ScheduledReport | undefined>();
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [scheduleToDelete, setScheduleToDelete] = useState<ScheduledReport | null>(null);
+    const [showInfoModal, setShowInfoModal] = useState(false);
 
     // Filters
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
@@ -288,9 +290,36 @@ const ScheduledReports: React.FC = () => {
         <div className="scheduled-reports-page">
             <div className="page-header">
                 <div className="header-content">
-                    <div className="header-title-row">
+                    <div className="header-title-row" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <Clock size={32} className="header-icon" />
                         <h1>{t('title')}</h1>
+                        <button
+                            onClick={() => setShowInfoModal(true)}
+                            className="info-button"
+                            style={{
+                                padding: '0.5rem',
+                                background: 'transparent',
+                                border: '2px solid var(--color-border, #e5e7eb)',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s',
+                                color: 'var(--color-text-secondary, #6b7280)'
+                            }}
+                            title={t('info.buttonLabel')}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--color-primary, #2563eb)';
+                                e.currentTarget.style.color = 'var(--color-primary, #2563eb)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--color-border, #e5e7eb)';
+                                e.currentTarget.style.color = 'var(--color-text-secondary, #6b7280)';
+                            }}
+                        >
+                            <Info size={20} />
+                        </button>
                         <button
                             className="btn-create"
                             onClick={handleCreateSchedule}
@@ -488,6 +517,13 @@ const ScheduledReports: React.FC = () => {
                     message={t('deleteConfirm.message', { name: scheduleToDelete?.name })}
                     confirmLabel={t('deleteConfirm.confirm')}
                     isDestructive={true}
+                />
+
+                <InfoModal
+                    isOpen={showInfoModal}
+                    onClose={() => setShowInfoModal(false)}
+                    title={t('info.modalTitle')}
+                    content={t('info.modalContent')}
                 />
             </FeatureAccessGuard>
         </div >

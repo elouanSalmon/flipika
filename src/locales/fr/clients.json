@@ -52,5 +52,10 @@
             "creating": "Création...",
             "updating": "Mise à jour..."
         }
+    },
+    "info": {
+        "buttonLabel": "Information",
+        "modalTitle": "Qu'est-ce qu'un client ?",
+        "modalContent": "Les clients représentent vos clients ou unités commerciales dans Flipika, vous permettant d'organiser et de gérer vos rapports Google Ads par client.\n\nAvec les clients, vous pouvez :\n• Associer chaque client à un compte Google Ads spécifique\n• Télécharger des logos personnalisés pour des rapports brandés\n• Définir des templates et thèmes par défaut pour une application automatique\n• Enregistrer les informations de contact pour adresser automatiquement les rapports à l'email du client\n• Organiser vos rapports par client pour un accès facile\n\nLes clients vous aident à rationaliser votre flux de travail et à garantir des rapports cohérents et professionnels pour chaque client."
     }
 }
