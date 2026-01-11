@@ -14,7 +14,6 @@ interface PDFGenerationOptions {
 // PowerPoint 16:9 slide dimensions in mm (standard widescreen)
 const SLIDE_WIDTH_MM = 338.67;  // ~13.33 inches
 const SLIDE_HEIGHT_MM = 190.5;  // ~7.5 inches
-const MARGIN_MM = 10;
 
 /**
  * PDF Generation Service

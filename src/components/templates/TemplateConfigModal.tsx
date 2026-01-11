@@ -37,7 +37,7 @@ export interface TemplateConfig {
     campaignIds: string[];
     campaignNames?: string[];
     periodPreset: PeriodPreset;
-    widgetConfigs: TemplateSlideConfig[];
+    slideConfigs: TemplateSlideConfig[];
 }
 
 
@@ -57,7 +57,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
     const [accountId, setAccountId] = useState(selectedAccountId || initialConfig?.accountId || '');
     const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>(initialConfig?.campaignIds || []);
     const [periodPreset, setPeriodPreset] = useState<PeriodPreset>(initialConfig?.periodPreset || 'last_30_days');
-    const [widgetConfigs, setSlideConfigs] = useState<TemplateSlideConfig[]>(initialConfig?.widgetConfigs || []);
+    const [slideConfigs, setSlideConfigs] = useState<TemplateSlideConfig[]>(initialConfig?.slideConfigs || []);
     // selectAll state removed as it was unused and replaced by derived state
     const [showSlideLibrary, setShowSlideLibrary] = useState(false);
     const { t } = useTranslation('templates');
@@ -88,7 +88,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
             accountId: selectedAccountId || initialConfig?.accountId || '',
             campaignIds: initialConfig?.campaignIds || [],
             periodPreset: initialConfig?.periodPreset || 'last_30_days',
-            widgetConfigs: initialConfig?.widgetConfigs || []
+            slideConfigs: initialConfig?.slideConfigs || []
         };
         setInitialStateStr(JSON.stringify(state));
     }, [initialConfig, selectedAccountId]);
@@ -122,7 +122,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
     const handleAddSlide = (type: SlideType) => {
         const newSlide: TemplateSlideConfig = {
             type,
-            order: widgetConfigs.length,
+            order: slideConfigs.length,
             settings: {} // Initialize with empty settings
         };
         setSlideConfigs(prev => [...prev, newSlide]);
@@ -151,7 +151,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
             return;
         }
 
-        if (widgetConfigs.length === 0) {
+        if (slideConfigs.length === 0) {
             toast.error(t('configModal.validation.slidesRequired'));
             return;
         }
@@ -168,7 +168,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                     .filter(c => selectedCampaigns.includes(c.id))
                     .map(c => c.name),
                 periodPreset,
-                widgetConfigs,
+                slideConfigs,
             });
             await refreshTutorial();
         } catch (error) {
@@ -185,7 +185,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
             accountId,
             campaignIds: selectedCampaigns,
             periodPreset,
-            widgetConfigs
+            slideConfigs
         };
         return JSON.stringify(currentState) !== initialStateStr;
     };
@@ -360,7 +360,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                     </button>
                                 </div>
 
-                                {widgetConfigs.length === 0 ? (
+                                {slideConfigs.length === 0 ? (
                                     <div className="empty-slides" onClick={() => setShowSlideLibrary(true)}>
                                         <div className="empty-icon"><Grid size={32} /></div>
                                         <p>{t('configModal.slides.emptyTitle')}</p>
@@ -368,7 +368,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                     </div>
                                 ) : (
                                     <div className="widgets-list">
-                                        {widgetConfigs.map((config, index) => (
+                                        {slideConfigs.map((config, index) => (
                                             <div key={index} className="widget-preview-item">
                                                 <div className="widget-info">
                                                     {/* <span className="widget-type">{config.type}</span> */}
@@ -396,7 +396,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                 <button
                                     type="submit"
                                     className="btn-primary"
-                                    disabled={!name.trim() || widgetConfigs.length === 0 || isSubmitting}
+                                    disabled={!name.trim() || slideConfigs.length === 0 || isSubmitting}
                                 >
                                     {isSubmitting ? (
                                         <>

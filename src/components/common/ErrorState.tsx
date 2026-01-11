@@ -12,6 +12,13 @@ interface ErrorStateProps {
     retryCount?: number;
     maxRetries?: number;
     isRetrying?: boolean;
+    translations?: {
+        retry: string;
+        retrying: string;
+        attemptCount: string;
+        maxAttempts: string;
+        technicalDetails: string;
+    };
 }
 
 const ERROR_ICONS: Partial<Record<ApiErrorCode, React.ReactNode>> = {
@@ -31,6 +38,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({
     retryCount = 0,
     maxRetries = 3,
     isRetrying = false,
+    translations,
 }) => {
     const [showDetails, setShowDetails] = useState(false);
 
@@ -68,11 +76,13 @@ const ErrorState: React.FC<ErrorStateProps> = ({
                         className="btn btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         <RefreshCw size={18} className={isRetrying ? 'animate-spin' : ''} />
-                        {isRetrying ? 'Retrying...' : 'Retry'}
+                        {isRetrying
+                            ? (translations?.retrying || 'Retrying...')
+                            : (translations?.retry || 'Retry')}
                     </button>
                     {retryCount > 0 && (
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                            Attempt {retryCount}/{maxRetries}
+                            {translations?.attemptCount || `Attempt ${retryCount}/${maxRetries}`}
                         </p>
                     )}
                 </div>
@@ -80,7 +90,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({
 
             {!canRetry && onRetry && (
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                    Maximum retry attempts reached
+                    {translations?.maxAttempts || 'Maximum retry attempts reached'}
                 </p>
             )}
 
@@ -91,7 +101,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({
                         className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 mx-auto"
                     >
                         {showDetails ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                        Technical details
+                        {translations?.technicalDetails || 'Technical details'}
                     </button>
 
                     {showDetails && (
