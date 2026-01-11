@@ -231,8 +231,8 @@ const ReportPreview: React.FC = () => {
             const subject = resolveEmailVariables(rawSubject, emailContext);
             const body = resolveEmailVariables(rawBody, emailContext);
 
-            // TODO: Get client email from report/account data
-            const clientEmail = report.accountName ? `${report.accountName.toLowerCase().replace(/\s+/g, '.')}@example.com` : 'client@example.com';
+            // Use client email if available, otherwise generate a placeholder or use default
+            const clientEmail = clientData?.email || (report.accountName ? `${report.accountName.toLowerCase().replace(/\s+/g, '.')}@example.com` : 'client@example.com');
 
             const mailtoLink = `mailto:${clientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 

@@ -5,6 +5,7 @@ import { useClients } from '../hooks/useClients';
 import { ClientList } from '../components/clients/ClientList';
 import { Plus, Users, Info } from 'lucide-react';
 import InfoModal from '../components/common/InfoModal';
+import ConfirmationModal from '../components/common/ConfirmationModal';
 import type { Client } from '../types/client';
 import './ClientsPage.css';
 
@@ -14,12 +15,26 @@ export default function ClientsPage() {
     const { clients, isLoading, deleteClient } = useClients();
     const [showInfoModal, setShowInfoModal] = useState(false);
 
+    // Deletion Modal State
+    const [clientToDelete, setClientToDelete] = useState<Client | null>(null);
+
     const handleAdd = () => {
         navigate('/app/clients/new');
     };
 
     const handleEdit = (client: Client) => {
         navigate(`/app/clients/${client.id}`);
+    };
+
+    const handleDeleteRequest = (client: Client) => {
+        setClientToDelete(client);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (clientToDelete) {
+            await deleteClient(clientToDelete);
+            setClientToDelete(null);
+        }
     };
 
     return (
@@ -72,7 +87,7 @@ export default function ClientsPage() {
                 clients={clients}
                 isLoading={isLoading}
                 onEdit={handleEdit}
-                onDelete={deleteClient}
+                onDelete={handleDeleteRequest}
                 onAdd={handleAdd}
             />
 
@@ -81,6 +96,20 @@ export default function ClientsPage() {
                 onClose={() => setShowInfoModal(false)}
                 title={t('info.modalTitle')}
                 content={t('info.modalContent')}
+            />
+
+            <ConfirmationModal
+                isOpen={!!clientToDelete}
+                onClose={() => setClientToDelete(null)}
+                onConfirm={handleConfirmDelete}
+                title={t('delete.title', { defaultValue: 'Supprimer le client' })}
+                message={t('delete.message', {
+                    name: clientToDelete?.name,
+                    defaultValue: `Êtes-vous sûr de vouloir supprimer le client "${clientToDelete?.name}" ? Cette action est irréversible.`
+                })}
+                confirmLabel={t('delete.confirm', { defaultValue: 'Supprimer' })}
+                cancelLabel={t('delete.cancel', { defaultValue: 'Annuler' })}
+                isDestructive={true}
             />
         </div>
     );

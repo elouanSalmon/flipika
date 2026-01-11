@@ -5,7 +5,6 @@ import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { createReport } from '../services/reportService';
 import { fetchCampaigns } from '../services/googleAds';
 import ReportConfigModal, { type ReportConfig } from '../components/reports/ReportConfigModal';
-import Spinner from '../components/common/Spinner';
 import GoogleAdsGuard from '../components/common/GoogleAdsGuard';
 import type { Campaign } from '../types/business';
 import toast from 'react-hot-toast';
@@ -17,7 +16,7 @@ const NewReport: React.FC = () => {
     // const [accounts, setAccounts] = useState<GoogleAdsAccount[]>([]); // Removed local state
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
-    const [loading] = useState(false); // Changed default to false, or rely on context loading? context loading is better but let's keep local for campaign loading
+    const [loadingCampaigns, setLoadingCampaigns] = useState(false);
 
     // Auto-select removed: Driven by Client Selection in Modal now.
     /*
@@ -36,6 +35,7 @@ const NewReport: React.FC = () => {
     // Removed loadAccounts function
 
     const loadCampaigns = async (accountId: string) => {
+        setLoadingCampaigns(true);
         try {
             const response = await fetchCampaigns(accountId);
 
@@ -48,6 +48,8 @@ const NewReport: React.FC = () => {
         } catch (error) {
             console.error('Error loading campaigns:', error);
             setCampaigns([]);
+        } finally {
+            setLoadingCampaigns(false);
         }
     };
 
@@ -84,18 +86,8 @@ const NewReport: React.FC = () => {
         navigate('/app/reports');
     };
 
-    if (loading) {
-        return (
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh'
-            }}>
-                <Spinner size={48} />
-            </div>
-        );
-    }
+    // Removed spinner for global loading
+
 
     return (
         <GoogleAdsGuard mode="block">
@@ -106,6 +98,7 @@ const NewReport: React.FC = () => {
                 selectedAccountId={selectedAccountId}
                 onAccountChange={handleAccountChange}
                 campaigns={campaigns}
+                isLoadingCampaigns={loadingCampaigns}
             />
         </GoogleAdsGuard>
     );

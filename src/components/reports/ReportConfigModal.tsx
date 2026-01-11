@@ -21,6 +21,7 @@ interface ReportConfigModalProps {
     isEditMode?: boolean;
     initialConfig?: Partial<ReportConfig>;
     isSubmitting?: boolean;
+    isLoadingCampaigns?: boolean;
 }
 
 export interface ReportConfig {
@@ -86,6 +87,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     isEditMode = false,
     initialConfig,
     isSubmitting = false,
+    isLoadingCampaigns = false,
 }) => {
     const { t, i18n } = useTranslation('reports');
     // Fetch clients
@@ -332,7 +334,12 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                         </div>
 
                         <div className="campaigns-list">
-                            {campaigns.length === 0 ? (
+                            {isLoadingCampaigns ? (
+                                <div className="flex flex-col items-center justify-center p-8 space-y-3">
+                                    <Loader2 className="animate-spin text-primary-500" size={32} />
+                                    <p className="text-sm text-gray-500">{t('config.loadingCampaigns', { defaultValue: 'Chargement des campagnes...' })}</p>
+                                </div>
+                            ) : campaigns.length === 0 ? (
                                 <div className="empty-campaigns">
                                     {t('config.campaigns.noCampaigns')}
                                 </div>

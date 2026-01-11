@@ -62,6 +62,25 @@ export const ClientForm: React.FC<ClientFormProps> = ({
         };
     }, [logoPreview, initialData]);
 
+    // Update form state when initialData changes
+    useEffect(() => {
+        if (initialData) {
+            setName(initialData.name || '');
+            setEmail(initialData.email || '');
+            setGoogleAdsId(initialData.googleAdsCustomerId || '');
+            setLogoPreview(initialData.logoUrl || null);
+            setDefaultTemplateId(initialData.defaultTemplateId || '');
+            setDefaultThemeId(initialData.defaultThemeId || '');
+            // Only update email preset if it exists, otherwise define defaults logic if needed, 
+            // but usually we keep existing local state if user started typing? 
+            // Better to overwrite if initialData is late-arriving essentially "loading".
+            if (initialData.emailPreset) {
+                setEmailSubject(initialData.emailPreset.subject);
+                setEmailBody(initialData.emailPreset.body);
+            }
+        }
+    }, [initialData]);
+
     // Load templates and themes for preset configuration
     useEffect(() => {
         const loadPresetsData = async () => {

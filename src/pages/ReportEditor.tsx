@@ -301,6 +301,9 @@ const ReportEditor: React.FC = () => {
 
         try {
             setIsLoadingSettings(true);
+            // Show modal immediately so user sees loader inside
+            setShowSettingsModal(true);
+
             // Set the account ID for the modal
             setSettingsAccountId(report.accountId);
 
@@ -312,8 +315,6 @@ const ReportEditor: React.FC = () => {
             } else {
                 setSettingsCampaigns([]);
             }
-
-            setShowSettingsModal(true);
         } catch (error) {
             console.error('Error loading campaigns for settings:', error);
             toast.error(t('editor.messages.campaignsLoadError'));
@@ -370,6 +371,7 @@ const ReportEditor: React.FC = () => {
 
     const handleSettingsAccountChange = async (accountId: string) => {
         setSettingsAccountId(accountId);
+        setIsLoadingSettings(true);
         try {
             const response = await fetchCampaigns(accountId);
             if (response.success && response.campaigns) {
@@ -380,6 +382,8 @@ const ReportEditor: React.FC = () => {
         } catch (error) {
             console.error('Error loading campaigns:', error);
             setSettingsCampaigns([]);
+        } finally {
+            setIsLoadingSettings(false);
         }
     };
 
@@ -601,6 +605,7 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     campaigns={settingsCampaigns}
                     isEditMode={true}
                     isSubmitting={isSaving}
+                    isLoadingCampaigns={isLoadingSettings}
                     initialConfig={{
                         title: report.title,
                         clientId: report.clientId, // Pass existing client ID

@@ -47,7 +47,8 @@
       "display": "From {{start}} to {{end}}"
     },
     "campaigns": {
-      "title": "Campaigns ({count} selected)",
+      "title_one": "Campaign ({{count}} selected)",
+      "title_other": "Campaigns ({{count}} selected)",
       "selectAll": "Select all",
       "deselectAll": "Deselect all",
       "noCampaigns": "No campaigns available",

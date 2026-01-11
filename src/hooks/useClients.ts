@@ -64,7 +64,8 @@ export const useClients = () => {
 
     const deleteClient = async (client: Client) => {
         if (!currentUser) return;
-        if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce client ?')) return;
+        // Logic moved to component
+        // if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce client ?')) return;
 
         try {
             await clientService.deleteClient(currentUser.uid, client.id, client.logoUrl);
