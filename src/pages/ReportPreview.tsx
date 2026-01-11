@@ -138,6 +138,18 @@ const ReportPreview: React.FC = () => {
                     design: report.design,
                     onProgress: (progress) => {
                         setPdfProgress(progress);
+                    },
+                    translations: {
+                        title: t('preFlight.pdf.overlay.title'),
+                        preparing: t('preFlight.pdf.overlay.preparing'),
+                        creatingDocument: t('preFlight.pdf.overlay.creatingDocument'),
+                        coverPage: t('preFlight.pdf.overlay.coverPage'),
+                        slideProgress: t('preFlight.pdf.overlay.slideProgress'),
+                        finalizing: t('preFlight.pdf.overlay.finalizing'),
+                        saving: t('preFlight.pdf.overlay.saving'),
+                        complete: t('preFlight.pdf.overlay.complete'),
+                        pleaseWait: t('preFlight.pdf.overlay.pleaseWait'),
+                        generatedOn: t('preFlight.pdf.overlay.generatedOn'),
                     }
                 }
             );
@@ -267,6 +279,18 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                     design: report.design,
                     onProgress: (progress) => {
                         setPdfProgress(progress);
+                    },
+                    translations: {
+                        title: t('preFlight.pdf.overlay.title'),
+                        preparing: t('preFlight.pdf.overlay.preparing'),
+                        creatingDocument: t('preFlight.pdf.overlay.creatingDocument'),
+                        coverPage: t('preFlight.pdf.overlay.coverPage'),
+                        slideProgress: t('preFlight.pdf.overlay.slideProgress'),
+                        finalizing: t('preFlight.pdf.overlay.finalizing'),
+                        saving: t('preFlight.pdf.overlay.saving'),
+                        complete: t('preFlight.pdf.overlay.complete'),
+                        pleaseWait: t('preFlight.pdf.overlay.pleaseWait'),
+                        generatedOn: t('preFlight.pdf.overlay.generatedOn'),
                     }
                 }
             );

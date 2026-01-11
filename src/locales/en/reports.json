@@ -60,8 +60,43 @@
       "updating": "Updating..."
     }
   },
+  "header": {
+    "backToReports": "Back to reports",
+    "titlePlaceholder": "Report title",
+    "saving": "Saving...",
+    "loading": "Loading...",
+    "settings": "Settings",
+    "save": "Save",
+    "publish": "Publish",
+    "share": "Share",
+    "moreActions": "More actions",
+    "archive": "Archive",
+    "delete": "Delete",
+    "copyLink": "Copy link",
+    "openInNewTab": "Open in new tab",
+    "linkCopied": "Link copied to clipboard!",
+    "deleteModal": {
+      "title": "Delete report",
+      "message": "Are you sure you want to delete this report?",
+      "confirm": "Delete"
+    },
+    "managePassword": "Manage password",
+    "protectPassword": "Password protect",
+    "shareEmail": "Share by email",
+    "autoSave": {
+      "saved": "Saved",
+      "saving": "Saving...",
+      "error": "Save error",
+      "justNow": "just now",
+      "ago_minutes_one": "{{count}} min ago",
+      "ago_minutes_other": "{{count}} mins ago",
+      "ago_hours_one": "{{count}}h ago",
+      "ago_hours_other": "{{count}}h ago"
+    }
+  },
   "editor": {
     "notFound": "Report not found",
+    "notAvailable": "N/A",
     "unauthorized": "Unauthorized access",
     "loadError": "Error loading report",
     "close": "Close",
@@ -74,6 +109,9 @@
       "archiveError": "Error archiving",
       "deleted": "Report deleted",
       "deleteError": "Error deleting",
+      "settingsUpdated": "Settings updated",
+      "settingsUpdateError": "Error updating settings",
+      "campaignsLoadError": "Error loading campaigns",
       "usernameRequired": "Please configure your username in settings",
       "passwordEnabled": "Password protection enabled",
       "passwordDisabled": "Password protection disabled",
@@ -82,19 +120,96 @@
       "emailError": "Error generating email"
     },
     "email": {
-      "subject": "Google Ads Report - {title}",
+      "subject": "Google Ads Report - {{title}}",
       "greeting": "Hello,",
       "intro": "I'm sharing the following Google Ads analysis report with you...",
-      "reportTitle": "Report: {title}",
-      "period": "Period: {date} - {date}",
-      "campaigns": "Campaigns analyzed: {names}",
-      "accessLink": "Access link: {url}",
-      "password": "Password: {password}",
+      "reportTitle": "Report: {{title}}",
+      "period": "Period: {{startDate}} - {{endDate}}",
+      "campaigns": "Campaigns analyzed: {{names}}",
+      "accessLink": "Access link: {{url}}",
+      "password": "Password: {{password}}",
       "passwordProtected": "This report is password protected (password not available - please share separately)",
       "questions": "Feel free to reach out if you have any questions.",
       "signature": "Best regards,",
-      "signatureName": "{name}",
-      "signatureCompany": "{company}"
+      "signatureName": "{{name}}",
+      "signatureCompany": "{{company}}"
+    }
+  },
+  "slideLibrary": {
+    "title": "Slide Library",
+    "subtitle": "Drag or click to add",
+    "categoryLabel": "Category",
+    "scopeLabel": "Data Scope",
+    "categories": {
+      "all": "All categories",
+      "analytics": "Analytics",
+      "content": "Content"
+    },
+    "scopes": {
+      "all": "All scopes",
+      "modifiable": "Modifiable",
+      "multiple_campaigns": "Multiple campaigns",
+      "single_campaign": "Single campaign"
+    },
+    "add": "Add"
+  },
+  "canvas": {
+    "empty": {
+      "title": "Start your report",
+      "description": "Drag slides from the library or click to add",
+      "hint": "Drag & Drop from left"
+    }
+  },
+  "slides": {
+    "types": {
+      "performance_overview": {
+        "title": "Performance Overview",
+        "description": "Key metrics: impressions, clicks, cost, conversions"
+      },
+      "key_metrics": {
+        "title": "Key Metrics",
+        "description": "Spend, Revenue, ROAS and CPA with variations"
+      },
+      "campaign_chart": {
+        "title": "Campaign Chart",
+        "description": "Campaign data visualization"
+      },
+      "ad_creative": {
+        "title": "Ad Preview",
+        "description": "Google Ads mockup with performance data"
+      },
+      "funnel_analysis": {
+        "title": "Funnel Analysis",
+        "description": "Conversion: Impressions → Clicks → Conversions"
+      },
+      "text_block": {
+        "title": "Text Block",
+        "description": "Rich text with formatting"
+      },
+      "heatmap": {
+        "title": "Day/Hour Heatmap",
+        "description": "Performance by day and hour"
+      },
+      "custom": {
+        "title": "Custom Slide",
+        "description": "Create your own slide"
+      },
+      "device_platform_split": {
+        "title": "Devices & Platforms",
+        "description": "Split by device and network"
+      },
+      "top_performers": {
+        "title": "Top Performers",
+        "description": "Ranking (Keywords, Ads...)"
+      },
+      "section_title": {
+        "title": "Section Title",
+        "description": "Separator with title and subtitle"
+      },
+      "rich_text": {
+        "title": "Rich Text",
+        "description": "Free text paragraph"
+      }
     }
   },
   "security": {
@@ -108,6 +223,13 @@
     "passwordHelp": "This password will be required for visitors to access the report. Share it securely.",
     "passwordMinLength": "Password must be at least 6 characters",
     "passwordCopied": "Password copied!",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "updateError": "Error updating security settings",
+    "protectionEnabled": "Password protection enabled",
+    "protectionDisabled": "Password protection disabled",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
     "actions": {
       "save": "Save",
       "saving": "Saving...",
@@ -245,6 +367,23 @@
       "viewPreview": "View Preview",
       "downloadPdf": "Download PDF",
       "copy": "Copy"
+    },
+    "pdf": {
+      "success": "PDF generated successfully",
+      "error": "Error generating PDF",
+      "progress": "Generating PDF: {{progress}}%",
+      "overlay": {
+        "title": "Generating PDF",
+        "preparing": "Preparing...",
+        "creatingDocument": "Creating document...",
+        "coverPage": "Cover page...",
+        "slideProgress": "Slide {{current}} / {{total}}...",
+        "finalizing": "Finalizing...",
+        "saving": "Saving...",
+        "complete": "Complete!",
+        "pleaseWait": "Please wait...",
+        "generatedOn": "Generated on {{date}}"
+      }
     },
     "postSend": {
       "title": "Email App Opened",

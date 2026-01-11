@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { useAuth } from '../contexts/AuthContext';
 import { useTutorial } from '../contexts/TutorialContext';
@@ -30,6 +31,7 @@ import PreFlightModal from '../components/reports/PreFlightModal';
 import './ReportEditor.css';
 
 const ReportEditor: React.FC = () => {
+    const { t } = useTranslation('reports');
     const navigate = useNavigate();
     const { id: reportId } = useParams<{ id: string }>();
     const { currentUser } = useAuth();
@@ -124,13 +126,13 @@ const ReportEditor: React.FC = () => {
             const result = await getReportWithSlides(id);
 
             if (!result) {
-                toast.error('Rapport introuvable');
+                toast.error(t('editor.notFound'));
                 navigate('/app/reports');
                 return;
             }
 
             if (result.report.userId !== currentUser?.uid) {
-                toast.error('Accès non autorisé');
+                toast.error(t('editor.unauthorized'));
                 navigate('/app/reports');
                 return;
             }
@@ -140,7 +142,7 @@ const ReportEditor: React.FC = () => {
             setLastSaved(result.report.updatedAt);
         } catch (error) {
             console.error('Error loading report:', error);
-            toast.error('Erreur lors du chargement du rapport');
+            toast.error(t('editor.loadError'));
         } finally {
             setIsLoading(false);
         }
@@ -176,10 +178,10 @@ const ReportEditor: React.FC = () => {
             setLastSaved(new Date());
             setIsDirty(false);
             await refreshTutorial();
-            toast.success('Rapport sauvegardé');
+            toast.success(t('editor.messages.saved'));
         } catch (error) {
             console.error('Save error:', error);
-            toast.error('Erreur lors de la sauvegarde');
+            toast.error(t('editor.messages.saveError'));
         } finally {
             setIsSaving(false);
         }
@@ -194,7 +196,7 @@ const ReportEditor: React.FC = () => {
             // Get user profile for username
             const profile = await getUserProfile(currentUser.uid);
             if (!profile?.username) {
-                toast.error('Veuillez configurer votre nom d\'utilisateur dans les paramètres');
+                toast.error(t('editor.messages.usernameRequired'));
                 return;
             }
 
@@ -206,10 +208,10 @@ const ReportEditor: React.FC = () => {
 
             setReport({ ...report, status: 'published', shareUrl });
             await refreshTutorial(); // Refresh tutorial status as sending/publishing report is a step
-            toast.success('Rapport publié !');
+            toast.success(t('editor.messages.published'));
         } catch (error) {
             console.error('Publish error:', error);
-            toast.error('Erreur lors de la publication');
+            toast.error(t('editor.messages.publishError'));
         } finally {
             setIsSaving(false);
         }
@@ -221,10 +223,10 @@ const ReportEditor: React.FC = () => {
         try {
             await archiveReport(report.id);
             setReport({ ...report, status: 'archived' });
-            toast.success('Rapport archivé');
+            toast.success(t('editor.messages.archived'));
         } catch (error) {
             console.error('Archive error:', error);
-            toast.error('Erreur lors de l\'archivage');
+            toast.error(t('editor.messages.archiveError'));
         }
     };
 
@@ -233,11 +235,11 @@ const ReportEditor: React.FC = () => {
 
         try {
             await deleteReport(report.id);
-            toast.success('Rapport supprimé');
+            toast.success(t('editor.messages.deleted'));
             navigate('/app/reports');
         } catch (error) {
             console.error('Delete error:', error);
-            toast.error('Erreur lors de la suppression');
+            toast.error(t('editor.messages.deleteError'));
         }
     };
 
@@ -314,7 +316,7 @@ const ReportEditor: React.FC = () => {
             setShowSettingsModal(true);
         } catch (error) {
             console.error('Error loading campaigns for settings:', error);
-            toast.error('Erreur lors du chargement des campagnes');
+            toast.error(t('editor.messages.campaignsLoadError'));
         } finally {
             setIsLoadingSettings(false);
         }
@@ -352,13 +354,13 @@ const ReportEditor: React.FC = () => {
             })));
 
             setShowSettingsModal(false);
-            toast.success('Paramètres mis à jour');
+            toast.success(t('editor.messages.settingsUpdated'));
 
             // Reload the report to get fresh data
             await loadReport(report.id);
         } catch (error) {
             console.error('Error updating settings:', error);
-            toast.error('Erreur lors de la mise à jour des paramètres');
+            toast.error(t('editor.messages.settingsUpdateError'));
         } finally {
             setIsSaving(false);
         }
@@ -394,12 +396,12 @@ const ReportEditor: React.FC = () => {
             });
             toast.success(
                 password
-                    ? 'Protection par mot de passe activée'
-                    : 'Protection par mot de passe désactivée'
+                    ? t('editor.messages.passwordEnabled')
+                    : t('editor.messages.passwordDisabled')
             );
         } catch (error) {
             console.error('Error updating password:', error);
-            toast.error('Erreur lors de la mise à jour du mot de passe');
+            toast.error(t('editor.messages.passwordError'));
             throw error;
         }
     };
@@ -463,24 +465,32 @@ const ReportEditor: React.FC = () => {
             };
 
             // Build email
-            const subject = `Rapport Google Ads - ${report.title}`;
-            const body = `Bonjour,
+            const subject = t('editor.email.subject', { title: report.title });
 
-Je vous partage le rapport d'analyse Google Ads suivant :
+            const passwordPart = report.isPasswordProtected
+                ? (tempPassword
+                    ? t('editor.email.password', { password: tempPassword })
+                    : t('editor.email.passwordProtected'))
+                : '';
 
-Rapport : ${report.title}
-Période : ${formatDate(report.startDate)} - ${formatDate(report.endDate)}
-${campaignNames.length > 0 ? `Campagnes analysées : ${campaignNames.join(', ')}` : ''}
+            const emailBody = `${t('editor.email.greeting')}
 
-Lien d'accès : ${window.location.origin}${report.shareUrl}
-${report.isPasswordProtected && tempPassword ? `Mot de passe : ${tempPassword}` : report.isPasswordProtected ? `Ce rapport est protégé par mot de passe (mot de passe non disponible - veuillez le partager séparément)` : ''}
+${t('editor.email.intro')}
 
-N'hésitez pas si vous avez des questions.
+${t('editor.email.reportTitle', { title: report.title })}
+${t('editor.email.period', { startDate: formatDate(report.startDate), endDate: formatDate(report.endDate) })}
+${campaignNames.length > 0 ? t('editor.email.campaigns', { names: campaignNames.join(', ') }) : ''}
 
-Cordialement,
-${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${profile.company}` : ''}`;
+${t('editor.email.accessLink', { url: window.location.origin + report.shareUrl })}
+${passwordPart}
 
-            const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+${t('editor.email.questions')}
+
+${t('editor.email.signature')}
+${t('editor.email.signatureName', { name: `${profile?.firstName || ''} ${profile?.lastName || ''}`.trim() })}
+${profile?.company ? t('editor.email.signatureCompany', { company: profile.company }) : ''}`;
+
+            const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
             console.log('📬 Opening mailto link:', mailtoLink.substring(0, 100) + '...');
 
             // Create a temporary link and click it (bypasses popup blockers)
@@ -491,10 +501,10 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
             link.click();
             document.body.removeChild(link);
 
-            toast.success('Email pré-rempli ouvert !');
+            toast.success(t('editor.messages.emailOpened'));
         } catch (error) {
             console.error('Error generating email:', error);
-            toast.error('Erreur lors de la génération de l\'email');
+            toast.error(t('editor.messages.emailError'));
         }
     };
 
@@ -557,7 +567,6 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                     onSlideSelect={setSelectedSlideId}
                     reportId={report.id}
                     reportAccountId={report.accountId}
-                    reportCampaignIds={report.campaignIds}
                 />
             </div>
 
@@ -571,7 +580,7 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                                 onClick={() => setShowThemeManager(false)}
                                 className="mt-6 w-full px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
                             >
-                                Fermer
+                                {t('editor.close')}
                             </button>
                         </div>
                     </div>

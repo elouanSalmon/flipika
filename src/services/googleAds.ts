@@ -119,7 +119,8 @@ export const fetchSlideMetrics = async (
     campaignIds: string[],
     startDate: Date,
     endDate: Date,
-    widgetType: 'performance_overview' | 'campaign_chart' | 'key_metrics'
+    widgetType: 'performance_overview' | 'campaign_chart' | 'key_metrics' | 'device_platform_split' | 'heatmap' | 'top_performers',
+    options?: { dimension?: string; metric?: string; limit?: number }
 ) => {
     try {
         const headers = await getAuthHeaders();
@@ -140,7 +141,8 @@ export const fetchSlideMetrics = async (
                 campaignIds,
                 startDate: formatDate(startDate),
                 endDate: formatDate(endDate),
-                widgetType
+                widgetType,
+                ...options
             })
         });
 

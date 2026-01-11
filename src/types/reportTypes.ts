@@ -22,8 +22,14 @@ export const SlideType = {
     CAMPAIGN_CHART: 'campaign_chart',
     KEY_METRICS: 'key_metrics',
     AD_CREATIVE: 'ad_creative',
+    FUNNEL_ANALYSIS: 'funnel_analysis',
     TEXT_BLOCK: 'text_block',
     CUSTOM: 'custom',
+    DEVICE_PLATFORM_SPLIT: 'device_platform_split',
+    HEATMAP: 'heatmap',
+    TOP_PERFORMERS: 'top_performers',
+    SECTION_TITLE: 'section_title',
+    RICH_TEXT: 'rich_text',
 } as const;
 
 export type SlideType = typeof SlideType[keyof typeof SlideType];
@@ -42,6 +48,10 @@ export interface SlideConfig {
     campaignIds: string[];
     scope?: SlideScope;  // Optional - defaults to report_default
     order: number;
+    // Structural Slide Content
+    title?: string;      // For SECTION_TITLE
+    subtitle?: string;   // For SECTION_TITLE
+    body?: string;       // For RICH_TEXT
     settings?: {
         // Performance Overview
         metrics?: string[]; // ['impressions', 'clicks', 'ctr', 'cpc', 'conversions', 'roas']

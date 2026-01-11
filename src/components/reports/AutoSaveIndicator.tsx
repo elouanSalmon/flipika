@@ -1,5 +1,6 @@
 import React from 'react';
 import { Check, Clock, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './AutoSaveIndicator.css';
 
 interface AutoSaveIndicatorProps {
@@ -8,24 +9,26 @@ interface AutoSaveIndicatorProps {
 }
 
 const AutoSaveIndicator: React.FC<AutoSaveIndicatorProps> = ({ status, lastSaved }) => {
+    const { t, i18n } = useTranslation('reports');
+
     const getStatusConfig = () => {
         switch (status) {
             case 'saved':
                 return {
                     icon: <Check size={14} />,
-                    text: 'Sauvegardé',
+                    text: t('header.autoSave.saved'),
                     className: 'saved',
                 };
             case 'saving':
                 return {
                     icon: <Clock size={14} />,
-                    text: 'Sauvegarde...',
+                    text: t('header.autoSave.saving'),
                     className: 'saving',
                 };
             case 'error':
                 return {
                     icon: <AlertCircle size={14} />,
-                    text: 'Erreur de sauvegarde',
+                    text: t('header.autoSave.error'),
                     className: 'error',
                 };
         }
@@ -41,13 +44,13 @@ const AutoSaveIndicator: React.FC<AutoSaveIndicatorProps> = ({ status, lastSaved
         const hours = Math.floor(minutes / 60);
 
         if (seconds < 60) {
-            return 'à l\'instant';
+            return t('header.autoSave.justNow');
         } else if (minutes < 60) {
-            return `il y a ${minutes} min`;
+            return t('header.autoSave.ago_minutes', { count: minutes });
         } else if (hours < 24) {
-            return `il y a ${hours}h`;
+            return t('header.autoSave.ago_hours', { count: hours });
         } else {
-            return lastSaved.toLocaleDateString('fr-FR', {
+            return lastSaved.toLocaleDateString(i18n.language === 'fr' ? 'fr-FR' : 'en-US', {
                 day: 'numeric',
                 month: 'short',
                 hour: '2-digit',

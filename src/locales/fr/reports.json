@@ -60,8 +60,41 @@
       "updating": "Mise à jour..."
     }
   },
+  "header": {
+    "backToReports": "Retour aux rapports",
+    "titlePlaceholder": "Titre du rapport",
+    "saving": "Enregistrement...",
+    "loading": "Chargement...",
+    "settings": "Paramètres",
+    "save": "Sauvegarder",
+    "publish": "Publier",
+    "share": "Partager",
+    "moreActions": "Plus d'actions",
+    "archive": "Archiver",
+    "delete": "Supprimer",
+    "copyLink": "Copier le lien",
+    "openInNewTab": "Ouvrir dans un nouvel onglet",
+    "linkCopied": "Lien copié dans le presse-papier !",
+    "deleteModal": {
+      "title": "Supprimer le rapport",
+      "message": "Êtes-vous sûr de vouloir supprimer ce rapport ?",
+      "confirm": "Supprimer"
+    },
+    "managePassword": "Gérer le mot de passe",
+    "protectPassword": "Protéger par mot de passe",
+    "shareEmail": "Partager par email",
+    "autoSave": {
+      "saved": "Sauvegardé",
+      "saving": "Sauvegarde...",
+      "error": "Erreur de sauvegarde",
+      "justNow": "à l'instant",
+      "ago_minutes": "il y a {{count}} min",
+      "ago_hours": "il y a {{count}}h"
+    }
+  },
   "editor": {
     "notFound": "Rapport introuvable",
+    "notAvailable": "N/A",
     "unauthorized": "Accès non autorisé",
     "loadError": "Erreur lors du chargement du rapport",
     "close": "Fermer",
@@ -74,6 +107,9 @@
       "archiveError": "Erreur lors de l'archivage",
       "deleted": "Rapport supprimé",
       "deleteError": "Erreur lors de la suppression",
+      "settingsUpdated": "Paramètres mis à jour",
+      "settingsUpdateError": "Erreur lors de la mise à jour des paramètres",
+      "campaignsLoadError": "Erreur lors du chargement des campagnes",
       "usernameRequired": "Veuillez configurer votre nom d'utilisateur dans les paramètres",
       "passwordEnabled": "Protection par mot de passe activée",
       "passwordDisabled": "Protection par mot de passe désactivée",
@@ -82,19 +118,96 @@
       "emailError": "Erreur lors de la génération de l'email"
     },
     "email": {
-      "subject": "Rapport Google Ads - {title}",
+      "subject": "Rapport Google Ads - {{title}}",
       "greeting": "Bonjour,",
       "intro": "Je vous partage le rapport d'analyse Google Ads suivant...",
-      "reportTitle": "Rapport : {title}",
-      "period": "Période : {date} - {date}",
-      "campaigns": "Campagnes analysées : {names}",
-      "accessLink": "Lien d'accès : {url}",
-      "password": "Mot de passe : {password}",
+      "reportTitle": "Rapport : {{title}}",
+      "period": "Période : {{startDate}} - {{endDate}}",
+      "campaigns": "Campagnes analysées : {{names}}",
+      "accessLink": "Lien d'accès : {{url}}",
+      "password": "Mot de passe : {{password}}",
       "passwordProtected": "Ce rapport est protégé par mot de passe (mot de passe non disponible - veuillez le partager séparément)",
       "questions": "N'hésitez pas si vous avez des questions.",
       "signature": "Cordialement,",
-      "signatureName": "{name}",
-      "signatureCompany": "{company}"
+      "signatureName": "{{name}}",
+      "signatureCompany": "{{company}}"
+    }
+  },
+  "slideLibrary": {
+    "title": "Bibliothèque de Slides",
+    "subtitle": "Glissez ou cliquez pour ajouter",
+    "categoryLabel": "Catégorie",
+    "scopeLabel": "Portée des données",
+    "categories": {
+      "all": "Toutes les catégories",
+      "analytics": "Analytique",
+      "content": "Contenu"
+    },
+    "scopes": {
+      "all": "Toutes les portées",
+      "modifiable": "Modifiable",
+      "multiple_campaigns": "Campagnes multiples",
+      "single_campaign": "Campagne unique"
+    },
+    "add": "Ajouter"
+  },
+  "canvas": {
+    "empty": {
+      "title": "Commencez votre rapport",
+      "description": "Glissez des slides depuis la bibliothèque ou cliquez pour les ajouter",
+      "hint": "Drag & Drop depuis la gauche"
+    }
+  },
+  "slides": {
+    "types": {
+      "performance_overview": {
+        "title": "Vue d'ensemble des performances",
+        "description": "Métriques clés : impressions, clics, coût, conversions"
+      },
+      "key_metrics": {
+        "title": "Métriques Clés",
+        "description": "Dépenses, Revenus, ROAS et CPA avec variations"
+      },
+      "campaign_chart": {
+        "title": "Graphique de campagne",
+        "description": "Visualisation des données de campagne"
+      },
+      "ad_creative": {
+        "title": "Aperçu d'annonce",
+        "description": "Mockup d'annonce Google Ads avec performances"
+      },
+      "funnel_analysis": {
+        "title": "Analyse du Tunnel",
+        "description": "Conversion : Impressions → Clicks → Conversions"
+      },
+      "text_block": {
+        "title": "Bloc de texte",
+        "description": "Texte riche avec formatage"
+      },
+      "heatmap": {
+        "title": "Heatmap Jour/Heure",
+        "description": "Performance par jour et heure"
+      },
+      "custom": {
+        "title": "Slide personnalisé",
+        "description": "Créez votre propre slide"
+      },
+      "device_platform_split": {
+        "title": "Appareils & Plateformes",
+        "description": "Répartition par appareil et réseau"
+      },
+      "top_performers": {
+        "title": "Top Performers",
+        "description": "Classement (Mots-clés, Annonces...)"
+      },
+      "section_title": {
+        "title": "Titre de Section",
+        "description": "Séparateur avec titre et sous-titre"
+      },
+      "rich_text": {
+        "title": "Texte Riche",
+        "description": "Paragraphe de texte libre"
+      }
     }
   },
   "security": {
@@ -108,6 +221,13 @@
     "passwordHelp": "Ce mot de passe sera demandé aux visiteurs pour accéder au rapport. Partagez-le de manière sécurisée.",
     "passwordMinLength": "Le mot de passe doit contenir au moins 6 caractères",
     "passwordCopied": "Mot de passe copié !",
+    "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères",
+    "updateError": "Erreur lors de la mise à jour",
+    "protectionEnabled": "Protection par mot de passe activée",
+    "protectionDisabled": "Protection par mot de passe désactivée",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
     "actions": {
       "save": "Enregistrer",
       "saving": "Enregistrement...",
@@ -250,7 +370,19 @@
     "pdf": {
       "success": "PDF généré avec succès",
       "error": "Erreur lors de la génération du PDF",
-      "progress": "Génération du PDF: {{progress}}%"
+      "progress": "Génération du PDF: {{progress}}%",
+      "overlay": {
+        "title": "Génération du PDF",
+        "preparing": "Préparation...",
+        "creatingDocument": "Création du document...",
+        "coverPage": "Page de couverture...",
+        "slideProgress": "Slide {{current}} / {{total}}...",
+        "finalizing": "Finalisation...",
+        "saving": "Enregistrement...",
+        "complete": "Terminé !",
+        "pleaseWait": "Veuillez patienter...",
+        "generatedOn": "Généré le {{date}}"
+      }
     },
     "postSend": {
       "title": "Application email ouverte",

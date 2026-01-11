@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Lock, Unlock, Eye, EyeOff, Copy, Check } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import './ReportSecurityModal.css';
 
 interface ReportSecurityModalProps {
@@ -14,6 +15,7 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
     onClose,
     onUpdate,
 }) => {
+    const { t } = useTranslation('reports');
     const [isProtected, setIsProtected] = useState(isPasswordProtected);
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +34,7 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
         if (password) {
             navigator.clipboard.writeText(password);
             setCopied(true);
-            toast.success('Mot de passe copié !');
+            toast.success(t('security.passwordCopied'));
             setTimeout(() => setCopied(false), 2000);
         }
     };
@@ -41,7 +43,7 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
         e.preventDefault();
 
         if (isProtected && password.length < 6) {
-            toast.error('Le mot de passe doit contenir au moins 6 caractères');
+            toast.error(t('security.passwordTooShort'));
             return;
         }
 
@@ -52,13 +54,13 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
             await onUpdate(isProtected ? password : null);
             toast.success(
                 isProtected
-                    ? 'Protection par mot de passe activée'
-                    : 'Protection par mot de passe désactivée'
+                    ? t('security.protectionEnabled')
+                    : t('security.protectionDisabled')
             );
             onClose();
         } catch (error) {
             console.error('Error updating password:', error);
-            toast.error('Erreur lors de la mise à jour');
+            toast.error(t('security.updateError'));
         } finally {
             setIsLoading(false);
         }
@@ -73,13 +75,13 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
                             {isProtected ? <Lock size={24} /> : <Unlock size={24} />}
                         </div>
                         <div>
-                            <h2 className="modal-title">Sécurité du rapport</h2>
+                            <h2 className="modal-title">{t('security.title')}</h2>
                             <p className="modal-subtitle">
-                                Protégez votre rapport avec un mot de passe
+                                {t('security.description')}
                             </p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="modal-close-btn" aria-label="Fermer">
+                    <button onClick={onClose} className="modal-close-btn" aria-label={t('editor.close')}>
                         <X size={20} />
                     </button>
                 </div>
@@ -90,12 +92,12 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
                         <div className="security-toggle-info">
                             <div className="security-toggle-label">
                                 {isProtected ? <Lock size={20} /> : <Unlock size={20} />}
-                                <span>Protection par mot de passe</span>
+                                <span>{t('security.passwordProtection')}</span>
                             </div>
                             <p className="security-toggle-description">
                                 {isProtected
-                                    ? 'Les visiteurs devront entrer un mot de passe pour accéder au rapport'
-                                    : 'Le rapport est accessible publiquement sans mot de passe'}
+                                    ? t('security.enabledDescription')
+                                    : t('security.disabledDescription')}
                             </p>
                         </div>
                         <label className="toggle-switch">
@@ -112,7 +114,7 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
                     {isProtected && (
                         <div className="password-section">
                             <label className="form-label">
-                                Mot de passe
+                                {t('security.passwordLabel')}
                                 <span className="form-label-required">*</span>
                             </label>
                             <div className="password-input-group">
@@ -120,7 +122,7 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
                                     type={showPassword ? 'text' : 'password'}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Minimum 6 caractères"
+                                    placeholder={t('security.passwordPlaceholder')}
                                     className="form-input password-input"
                                     minLength={6}
                                     required={isProtected}
@@ -145,8 +147,7 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
                                 )}
                             </div>
                             <p className="form-help">
-                                Ce mot de passe sera demandé aux visiteurs pour accéder au rapport.
-                                Partagez-le de manière sécurisée.
+                                {t('security.passwordHelp')}
                             </p>
                         </div>
                     )}
@@ -159,14 +160,14 @@ const ReportSecurityModal: React.FC<ReportSecurityModalProps> = ({
                             className="btn btn-secondary"
                             disabled={isLoading}
                         >
-                            Annuler
+                            {t('security.cancel')}
                         </button>
                         <button
                             type="submit"
                             className="btn btn-primary"
                             disabled={isLoading || (isProtected && password.length < 6)}
                         >
-                            {isLoading ? 'Enregistrement...' : 'Enregistrer'}
+                            {isLoading ? t('security.saving') : t('security.save')}
                         </button>
                     </div>
                 </form>

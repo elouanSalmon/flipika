@@ -152,6 +152,7 @@ export async function getSlideData(
         switch (type) {
             case SlideType.PERFORMANCE_OVERVIEW:
             case SlideType.KEY_METRICS:
+            case SlideType.FUNNEL_ANALYSIS:
                 freshData = await getPerformanceOverviewData(
                     accountId,
                     campaignIds,
@@ -174,6 +175,44 @@ export async function getSlideData(
                     reportId
                 );
                 break;
+
+            case SlideType.DEVICE_PLATFORM_SPLIT:
+                freshData = await getDevicePlatformSplitData(
+                    accountId,
+                    campaignIds,
+                    settings,
+                    startDate,
+                    endDate,
+                    widgetConfig.id,
+                    reportId
+                );
+                break;
+
+            case SlideType.HEATMAP:
+                freshData = await getHeatmapData(
+                    accountId,
+                    campaignIds,
+                    settings,
+                    startDate,
+                    endDate,
+                    widgetConfig.id,
+                    reportId
+                );
+                break;
+
+            case SlideType.TOP_PERFORMERS:
+                freshData = await getTopPerformersData(
+                    accountId,
+                    campaignIds,
+                    settings,
+                    startDate,
+                    endDate,
+                    widgetConfig.id,
+                    reportId
+                );
+                break;
+
+
 
             default:
                 throw new Error(`Unknown widget type: ${type}`);
@@ -624,4 +663,301 @@ export async function cacheWidgetData(
         console.error('Error caching widget data:', error);
         // Don't throw - caching is optional
     }
+}
+/**
+ * Get Device & Platform Split widget data
+ */
+async function getDevicePlatformSplitData(
+    accountId: string,
+    campaignIds?: string[],
+    _settings?: SlideConfig['settings'],
+    startDate?: Date,
+    endDate?: Date,
+    widgetId?: string,
+    reportId?: string
+): Promise<{
+    deviceData: Array<any>;
+    platformData: Array<any>;
+    isMockData: boolean;
+}> {
+    try {
+        if (!accountId || !campaignIds || campaignIds.length === 0) {
+            console.warn('📱 Missing accountId or campaignIds, using mock data');
+            return generateMockDevicePlatformSplitData();
+        }
+
+        console.log('📱 Fetching real device/platform data:', {
+            accountId,
+            campaignIds
+        });
+
+        const result = await fetchSlideMetrics(
+            accountId,
+            campaignIds,
+            startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            endDate || new Date(),
+            'device_platform_split' as any // We need to update the type in googleAds.ts too ideally, but casting for now
+        );
+
+        if (!result.success || !result.deviceData || !result.platformData) {
+            console.warn('⚠️ API call failed, using mock data:', result.error);
+            return generateMockDevicePlatformSplitData();
+        }
+
+        const responseData = {
+            deviceData: result.deviceData,
+            platformData: result.platformData,
+            isMockData: false
+        };
+
+        if (widgetId && reportId) {
+            await cacheWidgetData(widgetId, reportId, responseData);
+        }
+
+        return responseData;
+    } catch (error) {
+        console.error('❌ Error fetching device/platform data:', error);
+
+        if (widgetId && reportId) {
+            const cachedData = await loadCachedWidgetData(widgetId, reportId);
+            if (cachedData) return cachedData;
+        }
+
+        return generateMockDevicePlatformSplitData();
+    }
+}
+
+function generateMockDevicePlatformSplitData() {
+    return {
+        deviceData: [
+            { name: 'MOBILE', impressions: 5000, clicks: 150, cost: 450, conversions: 12, ctr: 3.0, cpc: 3.0, cpa: 37.5, roas: 4.5 },
+            { name: 'DESKTOP', impressions: 3000, clicks: 120, cost: 500, conversions: 15, ctr: 4.0, cpc: 4.16, cpa: 33.3, roas: 5.2 },
+            { name: 'TABLET', impressions: 500, clicks: 10, cost: 30, conversions: 1, ctr: 2.0, cpc: 3.0, cpa: 30.0, roas: 3.0 },
+        ],
+        platformData: [
+            { name: 'SEARCH', impressions: 4000, clicks: 200, cost: 700, conversions: 20, ctr: 5.0, cpc: 3.5, cpa: 35.0, roas: 6.0 },
+            { name: 'DISPLAY', impressions: 4000, clicks: 60, cost: 200, conversions: 5, ctr: 1.5, cpc: 3.33, cpa: 40.0, roas: 3.0 },
+            { name: 'YOUTUBE', impressions: 500, clicks: 20, cost: 80, conversions: 3, ctr: 4.0, cpc: 4.0, cpa: 26.6, roas: 4.0 },
+        ],
+        isMockData: true
+    };
+}
+
+/**
+ * Get Heatmap widget data
+ */
+async function getHeatmapData(
+    accountId: string,
+    campaignIds?: string[],
+    _settings?: SlideConfig['settings'],
+    startDate?: Date,
+    endDate?: Date,
+    widgetId?: string,
+    reportId?: string
+): Promise<{
+    heatmapData: Array<{
+        day: number;
+        hour: number;
+        metrics: {
+            impressions: number;
+            clicks: number;
+            conversions: number;
+            cost: number;
+            ctr: number;
+            avgCpc: number;
+        };
+    }>;
+    isMockData: boolean;
+}> {
+    try {
+        // Validation
+        if (!accountId || !campaignIds || campaignIds.length === 0) {
+            console.warn('🔥 Missing accountId for heatmap, using mock data');
+            return generateMockHeatmapData(); // Fixed arguments
+        }
+
+        console.log('🔥 Fetching real heatmap data:', { accountId, campaignIds });
+
+        // Call Google Ads API (simulated via fetchSlideMetrics for now until a specific heatmap endpoint exists)
+        // Since we likely don't have the granular day/hour segmentation in the generic 'fetchSlideMetrics',
+        // we might check if 'heatmap' is supported or fallback to mock if the API wrapper isn't ready.
+        // Assuming fetchSlideMetrics handles 'heatmap' type by returning segment data.
+        const result = await fetchSlideMetrics(
+            accountId,
+            campaignIds,
+            startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            endDate || new Date(),
+            'heatmap'
+        );
+
+        if (!result.success || !result.heatmapData) {
+            console.warn('⚠️ API call failed or no heatmap data, using mock data:', result.error);
+            return generateMockHeatmapData();
+        }
+
+        const responseData = {
+            heatmapData: result.heatmapData,
+            isMockData: false
+        };
+
+        if (widgetId && reportId) {
+            await cacheWidgetData(widgetId, reportId, responseData);
+        }
+
+        return responseData;
+
+    } catch (error) {
+        console.error('❌ Error fetching heatmap data:', error);
+        if (widgetId && reportId) {
+            // Note: loadCachedWidgetData isn't strictly available in this scope unless hoisted or passed, assuming it's available in module scope
+            const cachedData = await loadCachedWidgetData(widgetId, reportId);
+            if (cachedData) return cachedData;
+        }
+        return generateMockHeatmapData();
+    }
+}
+
+/**
+ * Generate mock heatmap data
+ */
+function generateMockHeatmapData(_startDate?: Date, _endDate?: Date): {
+    heatmapData: Array<{
+        day: number;
+        hour: number;
+        metrics: {
+            impressions: number;
+            clicks: number;
+            conversions: number;
+            cost: number;
+            ctr: number;
+            avgCpc: number;
+        };
+    }>;
+    isMockData: boolean;
+} {
+    console.log('🔄 Generating mock heatmap data');
+    const heatmapData = [];
+
+    // Generate 7 days x 24 hours = 168 cells
+    for (let day = 0; day < 7; day++) {
+        for (let hour = 0; hour < 24; hour++) {
+            // Create realistic-looking patterns
+            // More activity during work hours (9-17) and weekdays (0-4 assuming Mon-Fri)
+            const isWorkHour = hour >= 9 && hour <= 17;
+            const isWeekend = day >= 5; // Assuming 0=Mon, 5=Sat, 6=Sun
+
+            let multiplier = 1;
+            if (isWorkHour) multiplier *= 2;
+            if (isWeekend) multiplier *= 0.5;
+
+            // Random variation
+            multiplier *= (0.5 + Math.random());
+
+            const impressions = Math.round(100 * multiplier);
+            const clicks = Math.round(impressions * 0.05 * (0.8 + Math.random() * 0.4));
+            const cost = clicks * (0.5 + Math.random() * 1.5);
+            const conversions = Math.round(clicks * 0.1 * Math.random());
+
+            heatmapData.push({
+                day,
+                hour,
+                metrics: {
+                    impressions,
+                    clicks,
+                    conversions,
+                    cost,
+                    ctr: impressions > 0 ? clicks / impressions : 0,
+                    avgCpc: clicks > 0 ? cost / clicks : 0,
+                }
+            });
+        }
+    }
+
+    return { heatmapData, isMockData: true };
+}
+
+/**
+ * Get Top Performers widget data
+ */
+async function getTopPerformersData(
+    accountId: string,
+    campaignIds?: string[],
+    settings?: SlideConfig['settings'],
+    startDate?: Date,
+    endDate?: Date,
+    widgetId?: string,
+    reportId?: string
+): Promise<{
+    data: Array<any>;
+    isMockData: boolean;
+}> {
+    try {
+        if (!accountId || !campaignIds || campaignIds.length === 0) {
+            console.warn('🏆 Missing accountId or campaignIds, using mock data');
+            return generateMockTopPerformersData(settings);
+        }
+
+        console.log('🏆 Fetching real top performers data:', { accountId, campaignIds, settings });
+
+        const result = await fetchSlideMetrics(
+            accountId,
+            campaignIds,
+            startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+            endDate || new Date(),
+            'top_performers',
+            {
+                dimension: settings?.dimension || 'KEYWORDS',
+                metric: settings?.metric || 'COST',
+                limit: settings?.limit || 10
+            }
+        );
+
+        if (!result.success || !result.data) {
+            console.warn('⚠️ API call failed, using mock data:', result.error);
+            return generateMockTopPerformersData(settings);
+        }
+
+        const responseData = {
+            data: result.data,
+            isMockData: false
+        };
+
+        if (widgetId && reportId) {
+            await cacheWidgetData(widgetId, reportId, responseData);
+        }
+
+        return responseData;
+    } catch (error) {
+        console.error('❌ Error fetching top performers data:', error);
+        if (widgetId && reportId) {
+            const cachedData = await loadCachedWidgetData(widgetId, reportId);
+            if (cachedData) return cachedData;
+        }
+        return generateMockTopPerformersData(settings);
+    }
+}
+
+function generateMockTopPerformersData(settings?: SlideConfig['settings']) {
+    console.log('🔄 Generating mock top performers data');
+    const dimension = settings?.dimension || 'KEYWORDS';
+    const limit = settings?.limit || 10;
+
+    const mockItems = Array.from({ length: limit }, (_, i) => {
+        const baseValue = 1000 - (i * 50);
+        return {
+            name: `${dimension === 'KEYWORDS' ? 'Keyword' : dimension === 'SEARCH_TERMS' ? 'Search Term' : dimension === 'ADS' ? 'Ad' : 'Location'} ${i + 1}`,
+            campaignName: `Campaign ${String.fromCharCode(65 + (i % 3))}`,
+            adGroupName: `Ad Group ${i + 1}`,
+            impressions: baseValue * 10,
+            clicks: baseValue,
+            cost: baseValue * 2,
+            conversions: Math.round(baseValue / 20),
+            conversions_value: baseValue * 5,
+            ctr: 10,
+            cpc: 2,
+            roas: 2.5
+        };
+    });
+
+    return { data: mockItems, isMockData: true };
 }

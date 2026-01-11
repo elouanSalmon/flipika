@@ -31,6 +31,23 @@ const SLIDE_SCOPE_COMPATIBILITY: Record<SlideType, SlideScope['type'][]> = {
 
     // Custom: Allow all options
     custom: ['report_default', 'specific_campaigns', 'single_campaign'],
+
+    // Funnel Analysis
+    funnel_analysis: ['report_default', 'specific_campaigns', 'single_campaign'],
+
+    // Heatmap
+    heatmap: ['report_default', 'specific_campaigns', 'single_campaign'],
+
+    // Device Platform Split
+    device_platform_split: ['report_default', 'specific_campaigns', 'single_campaign'],
+
+    // Top Performers
+    // Top Performers
+    top_performers: ['report_default', 'specific_campaigns', 'single_campaign'],
+
+    // Structural Slides (No specific data scope needed, default to report)
+    section_title: ['report_default'],
+    rich_text: ['report_default'],
 };
 
 const SCOPE_LABELS: Record<SlideScope['type'], string> = {

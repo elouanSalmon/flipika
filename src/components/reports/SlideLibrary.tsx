@@ -1,5 +1,6 @@
 import React from 'react';
-import { Plus, BarChart3, TrendingUp, FileText, Layout, Image } from 'lucide-react';
+import { Plus, BarChart3, TrendingUp, FileText, Layout, Image, Filter, PieChart, Trophy } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { SlideType } from '../../types/reportTypes';
 import ThemeSelector from '../themes/ThemeSelector';
 import type { ReportTheme } from '../../types/reportThemes';
@@ -7,11 +8,9 @@ import './SlideLibrary.css';
 
 interface SlideTemplate {
     type: SlideType;
-    title: string;
-    description: string;
     icon: React.ReactNode;
     category: 'analytics' | 'content';
-    scopeType: 'modifiable' | 'single_campaign' | 'multiple_campaigns';  // NEW: Scope classification
+    scopeType: 'modifiable' | 'single_campaign' | 'multiple_campaigns';
 }
 
 interface SlideLibraryProps {
@@ -29,51 +28,75 @@ interface SlideLibraryProps {
 const SLIDE_TEMPLATES: SlideTemplate[] = [
     {
         type: SlideType.PERFORMANCE_OVERVIEW,
-        title: 'Vue d\'ensemble des performances',
-        description: 'Métriques clés : impressions, clics, coût, conversions',
         icon: <TrendingUp size={24} />,
         category: 'analytics',
-        scopeType: 'modifiable',  // Can be all, specific, or single
+        scopeType: 'modifiable',
     },
     {
         type: SlideType.KEY_METRICS,
-        title: 'Métriques Clés',
-        description: 'Dépenses, Revenus, ROAS et CPA avec variations',
         icon: <BarChart3 size={24} />,
         category: 'analytics',
-        scopeType: 'modifiable',  // Can be all, specific, or single
+        scopeType: 'modifiable',
     },
     {
         type: SlideType.CAMPAIGN_CHART,
-        title: 'Graphique de campagne',
-        description: 'Visualisation des données de campagne',
         icon: <BarChart3 size={24} />,
         category: 'analytics',
-        scopeType: 'multiple_campaigns',  // Designed for comparison
+        scopeType: 'multiple_campaigns',
     },
     {
         type: SlideType.AD_CREATIVE,
-        title: 'Aperçu d\'annonce',
-        description: 'Mockup d\'annonce Google Ads avec performances',
         icon: <Image size={24} />,
         category: 'analytics',
-        scopeType: 'single_campaign',  // Only for single campaign
+        scopeType: 'single_campaign',
+    },
+    {
+        type: SlideType.FUNNEL_ANALYSIS,
+        icon: <Filter size={24} />,
+        category: 'analytics',
+        scopeType: 'modifiable',
     },
     {
         type: SlideType.TEXT_BLOCK,
-        title: 'Bloc de texte',
-        description: 'Texte riche avec formatage',
         icon: <FileText size={24} />,
         category: 'content',
-        scopeType: 'modifiable',  // Not data-driven
+        scopeType: 'modifiable',
+    },
+    {
+        type: SlideType.HEATMAP,
+        icon: <Layout size={24} />,
+        category: 'analytics',
+        scopeType: 'modifiable',
     },
     {
         type: SlideType.CUSTOM,
-        title: 'Slide personnalisé',
-        description: 'Créez votre propre slide',
         icon: <Layout size={24} />,
         category: 'content',
-        scopeType: 'modifiable',  // Flexible
+        scopeType: 'modifiable',
+    },
+    {
+        type: SlideType.DEVICE_PLATFORM_SPLIT,
+        icon: <PieChart size={24} />,
+        category: 'analytics',
+        scopeType: 'modifiable',
+    },
+    {
+        type: SlideType.TOP_PERFORMERS,
+        icon: <Trophy size={24} />,
+        category: 'analytics',
+        scopeType: 'modifiable',
+    },
+    {
+        type: SlideType.SECTION_TITLE,
+        icon: <Layout size={24} />,
+        category: 'content',
+        scopeType: 'modifiable',
+    },
+    {
+        type: SlideType.RICH_TEXT,
+        icon: <FileText size={24} />,
+        category: 'content',
+        scopeType: 'modifiable',
     },
 ];
 
@@ -85,6 +108,7 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
     onThemeSelect,
     onCreateTheme,
 }) => {
+    const { t } = useTranslation('reports');
     const [selectedCategory, setSelectedCategory] = React.useState<'all' | 'analytics' | 'content'>('all');
     const [selectedScope, setSelectedScope] = React.useState<'all' | 'modifiable' | 'single_campaign' | 'multiple_campaigns'>('all');
 
@@ -112,8 +136,8 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
 
             <div className="slide-library-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                    <h3>Bibliothèque de Slides</h3>
-                    <p>Glissez ou cliquez pour ajouter</p>
+                    <h3>{t('slideLibrary.title')}</h3>
+                    <p>{t('slideLibrary.subtitle')}</p>
                 </div>
                 {/* Close button for when used in modal */}
                 {/* onClose is handled by parent modal usually, but we can add it here if needed, 
@@ -123,7 +147,7 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
             {/* Category Filter */}
             <div className="slide-categories" style={{ marginBottom: '0.75rem' }}>
                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>
-                    Catégorie
+                    {t('slideLibrary.categoryLabel')}
                 </label>
                 <select
                     value={selectedCategory}
@@ -139,16 +163,16 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
                         cursor: 'pointer',
                     }}
                 >
-                    <option value="all">Toutes les catégories</option>
-                    <option value="analytics">Analytique</option>
-                    <option value="content">Contenu</option>
+                    <option value="all">{t('slideLibrary.categories.all')}</option>
+                    <option value="analytics">{t('slideLibrary.categories.analytics')}</option>
+                    <option value="content">{t('slideLibrary.categories.content')}</option>
                 </select>
             </div>
 
             {/* Scope Filter */}
             <div className="slide-categories" style={{ marginBottom: '1rem' }}>
                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>
-                    Portée des données
+                    {t('slideLibrary.scopeLabel')}
                 </label>
                 <select
                     value={selectedScope}
@@ -164,10 +188,10 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
                         cursor: 'pointer',
                     }}
                 >
-                    <option value="all">Toutes les portées</option>
-                    <option value="modifiable">Modifiable</option>
-                    <option value="multiple_campaigns">Campagnes multiples</option>
-                    <option value="single_campaign">Campagne unique</option>
+                    <option value="all">{t('slideLibrary.scopes.all')}</option>
+                    <option value="modifiable">{t('slideLibrary.scopes.modifiable')}</option>
+                    <option value="multiple_campaigns">{t('slideLibrary.scopes.multiple_campaigns')}</option>
+                    <option value="single_campaign">{t('slideLibrary.scopes.single_campaign')}</option>
                 </select>
             </div>
 
@@ -188,10 +212,10 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
                             {template.icon}
                         </div>
                         <div className="slide-template-content">
-                            <h4>{template.title}</h4>
-                            <p>{template.description}</p>
+                            <h4>{t(`slides.types.${template.type}.title`)}</h4>
+                            <p>{t(`slides.types.${template.type}.description`)}</p>
                         </div>
-                        <button className="slide-template-add" title="Ajouter">
+                        <button className="slide-template-add" title={t('slideLibrary.add')}>
                             <Plus size={18} />
                         </button>
                     </div>

@@ -1,0 +1,134 @@
+/* Heatmap Grid Layout */
+.heatmap-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.heatmap-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+
+.heatmap-metric-selector {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color, #e2e8f0);
+    background-color: var(--bg-surface, #ffffff);
+    color: var(--text-primary, #1e293b);
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.heatmap-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding: 0 1rem 1rem 1rem;
+}
+
+.heatmap-grid {
+    display: grid;
+    /* First column for Day labels, then 24 columns for Hours */
+    grid-template-columns: auto repeat(24, 1fr);
+    grid-gap: 4px;
+    width: 100%;
+}
+
+/* Header Row (Hours) */
+.heatmap-header-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--text-secondary, #64748b);
+    padding: 4px;
+    font-weight: 500;
+}
+
+/* .heatmap-header-cell.empty { } */
+
+/* Day Row Label */
+.heatmap-row-label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary, #64748b);
+}
+
+/* Data Cell */
+.heatmap-cell {
+    position: relative;
+    border-radius: 4px;
+    min-height: 24px;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+}
+
+.heatmap-cell:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Tooltip */
+.heatmap-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1e293b;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    z-index: 20;
+    margin-bottom: 6px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.heatmap-cell:hover .heatmap-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.heatmap-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -4px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #1e293b transparent transparent transparent;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .heatmap-grid {
+        font-size: 0.65rem;
+    }
+
+    .heatmap-header-cell {
+        font-size: 0.65rem;
+        /* Show every other hour or just ticks on small screens if needed */
+    }
+
+    .heatmap-row-label {
+        font-size: 0.75rem;
+    }
+}

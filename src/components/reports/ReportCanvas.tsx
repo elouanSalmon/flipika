@@ -3,6 +3,7 @@ import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, us
 import type { DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Layout, Plus } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import SlideItem from './SlideItem';
 import type { SlideConfig, ReportDesign } from '../../types/reportTypes';
 import './ReportCanvas.css';
@@ -40,6 +41,7 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
     reportAccountId = '',
     reportCampaignIds = [],
 }) => {
+    const { t } = useTranslation('reports');
     const sensors = useSensors(
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
@@ -97,11 +99,11 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
                     <div className="empty-icon">
                         <Layout size={64} strokeWidth={1.5} />
                     </div>
-                    <h3>Commencez votre rapport</h3>
-                    <p>Glissez des slides depuis la bibliothèque ou cliquez pour les ajouter</p>
+                    <h3>{t('canvas.empty.title')}</h3>
+                    <p>{t('canvas.empty.description')}</p>
                     <div className="empty-hint">
                         <Plus size={20} />
-                        <span>Drag & Drop depuis la gauche</span>
+                        <span>{t('canvas.empty.hint')}</span>
                     </div>
                 </div>
             </div>

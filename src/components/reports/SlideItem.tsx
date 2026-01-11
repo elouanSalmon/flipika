@@ -8,6 +8,12 @@ import PerformanceOverviewSlide from './slides/PerformanceOverviewSlide';
 import CampaignChartSlide from './slides/CampaignChartSlide';
 import KeyMetricsSlide from './slides/KeyMetricsSlide';
 import AdCreativeSlide from './slides/AdCreativeSlide';
+import FunnelAnalysisSlide from './slides/FunnelAnalysisSlide';
+import HeatmapSlide from './slides/HeatmapSlide';
+import DevicePlatformSplitSlide from './slides/DevicePlatformSplitSlide';
+import TopPerformersSlide from './slides/TopPerformersSlide';
+import SectionTitleSlide from './slides/SectionTitleSlide';
+import RichTextSlide from './slides/RichTextSlide';
 import type { SlideConfig, ReportDesign, SlideScope } from '../../types/reportTypes';
 import { SlideType } from '../../types/reportTypes';
 import './SlideItem.css';
@@ -109,6 +115,69 @@ const SlideItem: React.FC<SlideItemProps> = ({
                         reportId={reportId}
                     />
                 );
+            case SlideType.FUNNEL_ANALYSIS:
+                return (
+                    <FunnelAnalysisSlide
+                        accountId={slide.accountId || reportAccountId}
+                        campaignIds={slide.campaignIds || reportCampaignIds}
+                        config={slide}
+                        design={design}
+                        startDate={startDate}
+                        endDate={endDate}
+                        reportId={reportId}
+                    />
+                );
+            case SlideType.HEATMAP:
+                return (
+                    <HeatmapSlide
+                        accountId={slide.accountId || reportAccountId}
+                        campaignIds={slide.campaignIds || reportCampaignIds}
+                        config={slide}
+                        design={design}
+                        startDate={startDate}
+                        endDate={endDate}
+                        reportId={reportId}
+                    />
+                );
+            case SlideType.DEVICE_PLATFORM_SPLIT:
+                return (
+                    <DevicePlatformSplitSlide
+                        accountId={slide.accountId || reportAccountId}
+                        campaignIds={slide.campaignIds || reportCampaignIds}
+                        config={slide}
+                        design={design}
+                        startDate={startDate}
+                        endDate={endDate}
+                        reportId={reportId}
+                    />
+                );
+            case SlideType.TOP_PERFORMERS:
+                return (
+                    <TopPerformersSlide
+                        accountId={slide.accountId || reportAccountId}
+                        campaignIds={slide.campaignIds || reportCampaignIds}
+                        config={slide}
+                        startDate={startDate}
+                        endDate={endDate}
+                        reportId={reportId}
+                    />
+                );
+            case SlideType.SECTION_TITLE:
+                return (
+                    <SectionTitleSlide
+                        config={slide}
+                        design={design}
+                        editable={!isPublicView}
+                    />
+                );
+            case SlideType.RICH_TEXT:
+                return (
+                    <RichTextSlide
+                        config={slide}
+                        design={design}
+                        editable={!isPublicView}
+                    />
+                );
             case SlideType.TEXT_BLOCK:
                 return (
                     <div className="text-block-slide">
@@ -187,8 +256,8 @@ const SlideItem: React.FC<SlideItemProps> = ({
                 </div>
             )}
 
-            {/* Scope Configuration Panel */}
-            {!isPublicView && isSelected && showScopePanel && onUpdate && (
+            {/* Scope Configuration Panel for Data Slides */}
+            {!isPublicView && isSelected && showScopePanel && onUpdate && slide.type !== SlideType.SECTION_TITLE && slide.type !== SlideType.RICH_TEXT && (
                 <div className="mt-4" onClick={(e) => e.stopPropagation()}>
                     <ScopeSelector
                         value={slide.scope}
@@ -200,6 +269,56 @@ const SlideItem: React.FC<SlideItemProps> = ({
                         slideType={slide.type}
                     />
                 </div>
+            )}
+
+            {/* Content Configuration Panel for Structural Slides */}
+            {!isPublicView && isSelected && showScopePanel && onUpdate && (
+                (slide.type === SlideType.SECTION_TITLE || slide.type === SlideType.RICH_TEXT) && (
+                    <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex items-center gap-2 mb-4">
+                            <Settings size={18} className="text-blue-600 dark:text-blue-400" />
+                            <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+                                Configuration du contenu
+                            </h4>
+                        </div>
+                        {slide.type === SlideType.SECTION_TITLE && (
+                            <div className="space-y-4">
+                                <div className="space-y-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Titre</label>
+                                    <input
+                                        type="text"
+                                        value={slide.title || ''}
+                                        onChange={(e) => onUpdate({ title: e.target.value })}
+                                        className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-gray-900 dark:text-gray-100"
+                                        placeholder="Titre de la section"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Sous-titre</label>
+                                    <input
+                                        type="text"
+                                        value={slide.subtitle || ''}
+                                        onChange={(e) => onUpdate({ subtitle: e.target.value })}
+                                        className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-gray-900 dark:text-gray-100"
+                                        placeholder="Sous-titre optionnel"
+                                    />
+                                </div>
+                            </div>
+                        )}
+                        {slide.type === SlideType.RICH_TEXT && (
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Contenu</label>
+                                <textarea
+                                    value={slide.body || ''}
+                                    onChange={(e) => onUpdate({ body: e.target.value })}
+                                    rows={6}
+                                    className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-gray-900 dark:text-gray-100"
+                                    placeholder="Saisissez votre texte ici..."
+                                />
+                            </div>
+                        )}
+                    </div>
+                )
             )}
 
             <ConfirmationModal

@@ -2,6 +2,19 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import type { ReportDesign } from '../types/reportTypes';
 
+interface PDFTranslations {
+    title: string;
+    preparing: string;
+    creatingDocument: string;
+    coverPage: string;
+    slideProgress: string;
+    finalizing: string;
+    saving: string;
+    complete: string;
+    pleaseWait: string;
+    generatedOn: string;
+}
+
 interface PDFGenerationOptions {
     filename: string;
     reportTitle: string;
@@ -9,11 +22,26 @@ interface PDFGenerationOptions {
     endDate?: Date;
     design: ReportDesign;
     onProgress?: (progress: number) => void;
+    translations?: PDFTranslations;
 }
 
 // PowerPoint 16:9 slide dimensions in mm (standard widescreen)
 const SLIDE_WIDTH_MM = 338.67;  // ~13.33 inches
 const SLIDE_HEIGHT_MM = 190.5;  // ~7.5 inches
+
+// Default translations (French)
+const DEFAULT_TRANSLATIONS: PDFTranslations = {
+    title: 'Génération du PDF',
+    preparing: 'Préparation...',
+    creatingDocument: 'Création du document...',
+    coverPage: 'Page de couverture...',
+    slideProgress: 'Slide {{current}} / {{total}}...',
+    finalizing: 'Finalisation...',
+    saving: 'Enregistrement...',
+    complete: 'Terminé !',
+    pleaseWait: 'Veuillez patienter...',
+    generatedOn: 'Généré le {{date}}',
+};
 
 /**
  * PDF Generation Service
@@ -36,13 +64,16 @@ class PDFGenerationService {
 
         this.isGenerating = true;
 
+        // Get translations with fallback to defaults
+        const t = { ...DEFAULT_TRANSLATIONS, ...options.translations };
+
         // Create overlay to hide the capture process
-        const overlay = this.createExportOverlay();
+        const overlay = this.createExportOverlay(t);
         document.body.appendChild(overlay);
 
         try {
             options.onProgress?.(5);
-            this.updateOverlayProgress(overlay, 5, 'Préparation...');
+            this.updateOverlayProgress(overlay, 5, t.preparing);
 
             // Find all slide items in the element
             const slideElements = element.querySelectorAll('.slide-item');
@@ -52,7 +83,7 @@ class PDFGenerationService {
             }
 
             options.onProgress?.(10);
-            this.updateOverlayProgress(overlay, 10, 'Création du document...');
+            this.updateOverlayProgress(overlay, 10, t.creatingDocument);
 
             // Create PDF document with PowerPoint 16:9 dimensions
             const pdf = new jsPDF({
@@ -62,9 +93,9 @@ class PDFGenerationService {
             });
 
             // Add cover page
-            await this.addCoverPage(pdf, options);
+            await this.addCoverPage(pdf, options, t);
             options.onProgress?.(20);
-            this.updateOverlayProgress(overlay, 20, 'Page de couverture...');
+            this.updateOverlayProgress(overlay, 20, t.coverPage);
 
             // Calculate progress increment per slide
             const progressPerSlide = 60 / slideElements.length;
@@ -73,7 +104,10 @@ class PDFGenerationService {
             for (let i = 0; i < slideElements.length; i++) {
                 const slideElement = slideElements[i] as HTMLElement;
 
-                this.updateOverlayProgress(overlay, 20 + i * progressPerSlide, `Slide ${i + 1} / ${slideElements.length}...`);
+                const slideStatus = t.slideProgress
+                    .replace('{{current}}', String(i + 1))
+                    .replace('{{total}}', String(slideElements.length));
+                this.updateOverlayProgress(overlay, 20 + i * progressPerSlide, slideStatus);
 
                 // Add new page for each slide
                 pdf.addPage();
@@ -85,17 +119,17 @@ class PDFGenerationService {
             }
 
             options.onProgress?.(85);
-            this.updateOverlayProgress(overlay, 85, 'Finalisation...');
+            this.updateOverlayProgress(overlay, 85, t.finalizing);
 
             // Add page numbers to all pages
             this.addPageNumbers(pdf);
             options.onProgress?.(95);
-            this.updateOverlayProgress(overlay, 95, 'Enregistrement...');
+            this.updateOverlayProgress(overlay, 95, t.saving);
 
             // Save the PDF
             pdf.save(options.filename);
             options.onProgress?.(100);
-            this.updateOverlayProgress(overlay, 100, 'Terminé !');
+            this.updateOverlayProgress(overlay, 100, t.complete);
 
         } catch (error) {
             console.error('PDF generation error:', error);
@@ -118,7 +152,7 @@ class PDFGenerationService {
     /**
      * Create a beautiful overlay to hide the PDF export process
      */
-    private createExportOverlay(): HTMLElement {
+    private createExportOverlay(t: PDFTranslations): HTMLElement {
         const overlay = document.createElement('div');
         overlay.id = 'pdf-export-overlay';
         overlay.innerHTML = `
@@ -132,12 +166,12 @@ class PDFGenerationService {
                         <polyline points="10 9 9 9 8 9"></polyline>
                     </svg>
                 </div>
-                <h3 class="pdf-overlay-title">Génération du PDF</h3>
-                <p class="pdf-overlay-status">Préparation...</p>
+                <h3 class="pdf-overlay-title">${t.title}</h3>
+                <p class="pdf-overlay-status">${t.preparing}</p>
                 <div class="pdf-overlay-progress-container">
                     <div class="pdf-overlay-progress-bar"></div>
                 </div>
-                <p class="pdf-overlay-hint">Veuillez patienter...</p>
+                <p class="pdf-overlay-hint">${t.pleaseWait}</p>
             </div>
         `;
 
@@ -230,7 +264,7 @@ class PDFGenerationService {
     /**
      * Add cover page with title and date range (full slide background)
      */
-    private async addCoverPage(pdf: jsPDF, options: PDFGenerationOptions): Promise<void> {
+    private async addCoverPage(pdf: jsPDF, options: PDFGenerationOptions, t: PDFTranslations): Promise<void> {
         const { design, reportTitle, startDate, endDate } = options;
 
         // Full page background with primary color
@@ -269,7 +303,8 @@ class PDFGenerationService {
         // Generation info (bottom right)
         pdf.setTextColor(255, 255, 255, 0.7);
         pdf.setFontSize(10);
-        pdf.text(`Généré le ${this.formatDate(new Date())}`, SLIDE_WIDTH_MM - 20, SLIDE_HEIGHT_MM - 15, { align: 'right' });
+        const generatedText = t.generatedOn.replace('{{date}}', this.formatDate(new Date()));
+        pdf.text(generatedText, SLIDE_WIDTH_MM - 20, SLIDE_HEIGHT_MM - 15, { align: 'right' });
     }
 
     /**

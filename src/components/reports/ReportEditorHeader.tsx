@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap, Settings, Link, Lock, Unlock, Mail, ExternalLink } from 'lucide-react';
 import toast from 'react-hot-toast';
 import AutoSaveIndicator from './AutoSaveIndicator';
@@ -50,6 +51,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
     isLoadingSettings = false,
     canPublish,
 }) => {
+    const { t } = useTranslation('reports');
     const [showActions, setShowActions] = React.useState(false);
     const [showShareMenu, setShowShareMenu] = React.useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
@@ -70,8 +72,8 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                 <button
                     onClick={() => navigate('/app/reports')}
                     className="btn-back"
-                    title="Retour aux rapports"
-                    aria-label="Retour aux rapports"
+                    title={t('header.backToReports')}
+                    aria-label={t('header.backToReports')}
                 >
                     <ArrowLeft size={20} />
                 </button>
@@ -80,13 +82,11 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                     value={title}
                     onChange={(e) => onTitleChange(e.target.value)}
                     className="report-title-input"
-                    placeholder="Titre du rapport"
+                    placeholder={t('header.titlePlaceholder')}
                 />
                 <AutoSaveIndicator status={autoSaveStatus} lastSaved={lastSaved} />
                 <span className={`report-status-badge status-${status}`}>
-                    {status === 'draft' && 'Brouillon'}
-                    {status === 'published' && 'Publié'}
-                    {status === 'archived' && 'Archivé'}
+                    {t(`card.status.${status}`)}
                 </span>
             </div>
 
@@ -99,7 +99,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                     onClick={onOpenSettings}
                     disabled={isLoadingSettings}
                     className="btn btn-secondary"
-                    title="Paramètres du rapport"
+                    title={t('header.settings')}
                 >
                     {isLoadingSettings ? (
                         <>
@@ -107,12 +107,12 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
-                            <span>Chargement...</span>
+                            <span>{t('header.loading')}</span>
                         </>
                     ) : (
                         <>
                             <Settings size={18} />
-                            <span>Paramètres</span>
+                            <span>{t('header.settings')}</span>
                         </>
                     )}
                 </button>
@@ -121,10 +121,10 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                     onClick={onSave}
                     disabled={isSaving || autoSaveStatus === 'saving'}
                     className="btn btn-secondary"
-                    title="Sauvegarder"
+                    title={t('header.save')}
                 >
                     <Save size={18} />
-                    <span>Sauvegarder</span>
+                    <span>{t('header.save')}</span>
                 </button>
 
                 {status === 'draft' && (
@@ -132,10 +132,10 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                         onClick={onPublish}
                         disabled={!canPublish || isSaving}
                         className="btn btn-primary"
-                        title="Publier le rapport"
+                        title={t('header.publish')}
                     >
                         <Share2 size={18} />
-                        <span>Publier</span>
+                        <span>{t('header.publish')}</span>
                     </button>
                 )}
 
@@ -145,10 +145,10 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                         <button
                             onClick={() => setShowShareMenu(!showShareMenu)}
                             className="btn btn-primary"
-                            title="Options de partage"
+                            title={t('header.share')}
                         >
                             <Share2 size={18} />
-                            <span>Partager</span>
+                            <span>{t('header.share')}</span>
                         </button>
 
                         {showShareMenu && (
@@ -163,13 +163,13 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                             onClick={() => {
                                                 const fullUrl = `${window.location.origin}${shareUrl}`;
                                                 navigator.clipboard.writeText(fullUrl);
-                                                toast.success('Lien copié dans le presse-papier !');
+                                                toast.success(t('header.linkCopied'));
                                                 setShowShareMenu(false);
                                             }}
                                             className="actions-menu-item"
                                         >
                                             <Link size={18} />
-                                            <span>Copier le lien</span>
+                                            <span>{t('header.copyLink')}</span>
                                         </button>
                                     )}
 
@@ -183,7 +183,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                             className="actions-menu-item"
                                         >
                                             <ExternalLink size={18} />
-                                            <span>Ouvrir dans un nouvel onglet</span>
+                                            <span>{t('header.openInNewTab')}</span>
                                         </button>
                                     )}
 
@@ -196,7 +196,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                             className="actions-menu-item"
                                         >
                                             {isPasswordProtected ? <Lock size={18} /> : <Unlock size={18} />}
-                                            <span>{isPasswordProtected ? 'Gérer le mot de passe' : 'Protéger par mot de passe'}</span>
+                                            <span>{isPasswordProtected ? t('header.managePassword') : t('header.protectPassword')}</span>
                                         </button>
                                     )}
 
@@ -210,7 +210,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                             className="actions-menu-item"
                                         >
                                             <Mail size={18} />
-                                            <span>Partager par email</span>
+                                            <span>{t('header.shareEmail')}</span>
                                         </button>
                                     )}
                                 </div>
@@ -224,7 +224,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                     <button
                         onClick={() => setShowActions(!showActions)}
                         className="btn btn-icon"
-                        title="Plus d'actions"
+                        title={t('header.moreActions')}
                     >
                         <MoreVertical size={18} />
                     </button>
@@ -245,7 +245,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                         className="actions-menu-item"
                                     >
                                         <Archive size={18} />
-                                        <span>Archiver</span>
+                                        <span>{t('header.archive')}</span>
                                     </button>
                                 )}
                                 <button
@@ -256,7 +256,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                     className="actions-menu-item danger"
                                 >
                                     <Trash2 size={18} />
-                                    <span>Supprimer</span>
+                                    <span>{t('header.delete')}</span>
                                 </button>
                             </div>
                         </>
@@ -268,9 +268,9 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
                 onConfirm={onDelete}
-                title="Supprimer le rapport"
-                message="Êtes-vous sûr de vouloir supprimer ce rapport ?"
-                confirmLabel="Supprimer"
+                title={t('header.deleteModal.title')}
+                message={t('header.deleteModal.message')}
+                confirmLabel={t('header.deleteModal.confirm')}
                 isDestructive={true}
             />
         </div>

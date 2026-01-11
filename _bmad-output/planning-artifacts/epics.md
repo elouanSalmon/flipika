@@ -416,6 +416,25 @@ So that I can double down on what works.
 **And** I can choose the Metric to sort by (Cost, Conversions, ROAS)
 **And** It displays the top N (e.g., Top 5 or Top 10) items in a list or table
 
+### Story 6.8: Structural Slides (Formatting & Text)
+
+As a User,
+I want to insert slides that serve as section headers or text containers,
+So that I can organize my report logically and add qualitative commentary.
+
+**Acceptance Criteria:**
+
+**Given** I add a "Section Title" slide
+**When** I configure it
+**Then** I can enter a "Title" and a "Subtitle"
+**And** It renders as a divider slide with large typography
+
+**Given** I add a "Rich Text" slide
+**When** I configure it
+**Then** I can enter free-form text
+**And** I can use basic formatting (Bold, Italic, Lists)
+**And** It renders as a standard content slide
+
 ### Epic 7: Email Presets & Custom Messaging ("La Signature")
 Permettre la personnalisation des emails pour chaque client afin de rendre les envois plus professionnels et adaptés.
 **FRs covered:** New FRs (Custom Email Subject/Body, Variable Substitution)

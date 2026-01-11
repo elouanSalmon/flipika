@@ -142,21 +142,147 @@ export const getWidgetMetrics = onRequest({
 
             // For chart data, we need daily breakdown
             query = `
-            SELECT 
-              campaign.id,
-              campaign.name,
-              segments.date,
-              metrics.impressions,
-              metrics.clicks,
-              metrics.cost_micros,
-              metrics.conversions
+            SELECT
+                campaign.id,
+                campaign.name,
+                segments.date,
+                metrics.impressions,
+                metrics.clicks,
+                metrics.cost_micros,
+                metrics.conversions
             FROM campaign
             WHERE campaign.id IN (${campaignIdList})
               AND segments.date BETWEEN '${startDate}' AND '${endDate}'
               AND campaign.status != 'REMOVED'
             ORDER BY segments.date ASC
-          `;
+                `;
+        } else if (widgetType === 'device_platform_split') {
+            // Build campaign ID filter using IN clause
+            const campaignIdList = campaignIds.map((id: string) => id).join(', ');
+
+            console.log('🔧 Building query with campaign IDs:', {
+                campaignIds,
+                campaignIdList,
+                startDate,
+                endDate
+            });
+
+            // Need separate queries for Device and Platform (Network) because querying them together might create too many rows/segments
+            // However, we can try to query both segments in one go and aggregate in memory to save API calls
+            // segments.device and segments.ad_network_type are compatible
+            query = `
+            SELECT
+                segments.device,
+                segments.ad_network_type,
+                metrics.impressions,
+                metrics.clicks,
+                metrics.cost_micros,
+                metrics.conversions,
+                metrics.conversions_value
+            FROM campaign
+            WHERE campaign.id IN (${campaignIdList})
+                AND segments.date BETWEEN '${startDate}' AND '${endDate}'
+                AND campaign.status != 'REMOVED'
+                `;
+        } else if (widgetType === 'top_performers') {
+            const { dimension = 'KEYWORDS', metric = 'COST', limit = 10 } = req.body;
+            // Build campaign ID filter using IN clause
+            const campaignIdList = campaignIds.map((id: string) => id).join(', ');
+
+            // Determine sort order
+            let orderBy = 'metrics.cost_micros DESC';
+            if (metric === 'CONVERSIONS') orderBy = 'metrics.conversions DESC';
+            else if (metric === 'ROAS') orderBy = 'metrics.conversions_value DESC';
+
+            // Common metrics
+            const commonMetrics = `
+                metrics.impressions,
+                metrics.clicks,
+                metrics.cost_micros,
+                metrics.conversions,
+                metrics.conversions_value
+            `;
+
+            if (dimension === 'KEYWORDS') {
+                query = `
+                    SELECT
+                        ad_group_criterion.keyword.text,
+                        ad_group.name,
+                        campaign.name,
+                        ${commonMetrics}
+                    FROM keyword_view
+                    WHERE campaign.id IN (${campaignIdList})
+                      AND segments.date BETWEEN '${startDate}' AND '${endDate}'
+                    ORDER BY ${orderBy}
+                    LIMIT ${limit}
+                `;
+            } else if (dimension === 'SEARCH_TERMS') {
+                query = `
+                    SELECT
+                        search_term_view.search_term,
+                        ad_group.name,
+                        campaign.name,
+                        ${commonMetrics}
+                    FROM search_term_view
+                    WHERE campaign.id IN (${campaignIdList})
+                      AND segments.date BETWEEN '${startDate}' AND '${endDate}'
+                    ORDER BY ${orderBy}
+                    LIMIT ${limit}
+                `;
+            } else if (dimension === 'LOCATIONS') {
+                query = `
+                    SELECT
+                        user_location_view.country_criterion_id,
+                        campaign.name,
+                        ${commonMetrics}
+                    FROM user_location_view
+                    WHERE campaign.id IN (${campaignIdList})
+                      AND segments.date BETWEEN '${startDate}' AND '${endDate}'
+                    ORDER BY ${orderBy}
+                    LIMIT ${limit}
+                `;
+            } else if (dimension === 'ADS') {
+                query = `
+                    SELECT
+                        ad_group_ad.ad.name,
+                        ad_group_ad.ad.id,
+                        ad_group.name,
+                        campaign.name,
+                        ${commonMetrics}
+                    FROM ad_group_ad
+                    WHERE campaign.id IN (${campaignIdList})
+                      AND segments.date BETWEEN '${startDate}' AND '${endDate}'
+                    ORDER BY ${orderBy}
+                    LIMIT ${limit}
+                `;
+            }
+        } else if (widgetType === 'heatmap') {
+            // Build campaign ID filter using IN clause
+            const campaignIdList = campaignIds.map((id: string) => id).join(', ');
+
+            console.log('🔧 Building query with campaign IDs:', {
+                campaignIds,
+                startDate,
+                endDate
+            });
+
+            // Query segmented by Day of Week and Hour
+            query = `
+                SELECT
+                    segments.day_of_week,
+                    segments.hour,
+                    metrics.impressions,
+                    metrics.clicks,
+                    metrics.cost_micros,
+                    metrics.conversions,
+                    metrics.conversions_value
+                FROM campaign
+                WHERE campaign.id IN (${campaignIdList})
+                  AND segments.date BETWEEN '${startDate}' AND '${endDate}'
+                  AND campaign.status != 'REMOVED'
+            `;
         }
+
 
         // 6. Execute Query
         console.log('🔍 Executing Google Ads query for widget type:', widgetType);
@@ -256,6 +382,172 @@ export const getWidgetMetrics = onRequest({
                 success: true,
                 chartData,
                 campaigns
+            });
+
+        } else if (widgetType === 'device_platform_split') {
+            const deviceMap = new Map<string, any>();
+            const platformMap = new Map<string, any>();
+
+            results.forEach((row: any) => {
+                const device = row.segments?.device; // 'MOBILE', 'DESKTOP', 'TABLET', 'OTHER', 'UNKNOWN'
+                const network = row.segments?.adNetworkType; // 'SEARCH', 'DISPLAY', 'YOUTUBE_SEARCH', 'YOUTUBE_WATCH', 'MIXED', 'CONTENT'
+
+                // Metrics
+                const metrics = {
+                    impressions: row.metrics?.impressions || 0,
+                    clicks: row.metrics?.clicks || 0,
+                    cost_micros: row.metrics?.costMicros || 0,
+                    conversions: row.metrics?.conversions || 0,
+                    conversions_value: row.metrics?.conversionsValue || 0,
+                };
+
+                // Aggregate Device
+                if (device) {
+                    if (!deviceMap.has(device)) {
+                        deviceMap.set(device, { name: device, ...metrics });
+                    } else {
+                        const existing = deviceMap.get(device);
+                        existing.impressions += metrics.impressions;
+                        existing.clicks += metrics.clicks;
+                        existing.cost_micros += metrics.cost_micros;
+                        existing.conversions += metrics.conversions;
+                        existing.conversions_value += metrics.conversions_value;
+                    }
+                }
+
+                // Aggregate Platform (Network)
+                if (network) {
+                    if (!platformMap.has(network)) {
+                        platformMap.set(network, { name: network, ...metrics });
+                    } else {
+                        const existing = platformMap.get(network);
+                        existing.impressions += metrics.impressions;
+                        existing.clicks += metrics.clicks;
+                        existing.cost_micros += metrics.cost_micros;
+                        existing.conversions += metrics.conversions;
+                        existing.conversions_value += metrics.conversions_value;
+                    }
+                }
+            });
+
+            // Transform to array
+            const deviceData = Array.from(deviceMap.values()).map(d => ({
+                ...d,
+                cost: d.cost_micros / 1_000_000,
+                ctr: d.impressions > 0 ? (d.clicks / d.impressions) * 100 : 0,
+                cpc: d.clicks > 0 ? (d.cost_micros / 1_000_000) / d.clicks : 0,
+                cpa: d.conversions > 0 ? (d.cost_micros / 1_000_000) / d.conversions : 0,
+                roas: d.cost_micros > 0 ? d.conversions_value / (d.cost_micros / 1_000_000) : 0,
+            }));
+
+            const platformData = Array.from(platformMap.values()).map(p => ({
+                ...p,
+                cost: p.cost_micros / 1_000_000,
+                ctr: p.impressions > 0 ? (p.clicks / p.impressions) * 100 : 0,
+                cpc: p.clicks > 0 ? (p.cost_micros / 1_000_000) / p.clicks : 0,
+                cpa: p.conversions > 0 ? (p.cost_micros / 1_000_000) / p.conversions : 0,
+                roas: p.cost_micros > 0 ? p.conversions_value / (p.cost_micros / 1_000_000) : 0,
+            }));
+
+            res.status(200).json({
+                success: true,
+                deviceData,
+                platformData
+            });
+
+        } else if (widgetType === 'top_performers') {
+            const { dimension = 'KEYWORDS' } = req.body;
+            // Format Results
+            const data = results.map((row: any) => {
+                let name = 'Unknown';
+                if (dimension === 'KEYWORDS') name = row.adGroupCriterion?.keyword?.text;
+                else if (dimension === 'SEARCH_TERMS') name = row.searchTermView?.searchTerm;
+                else if (dimension === 'LOCATIONS') name = `Location ID: ${row.userLocationView?.countryCriterionId}`;
+                else if (dimension === 'ADS') name = row.adGroupAd?.ad?.name || `Ad #${row.adGroupAd?.ad?.id}`;
+
+                return {
+                    name,
+                    campaignName: row.campaign?.name,
+                    adGroupName: row.adGroup?.name,
+                    impressions: row.metrics?.impressions || 0,
+                    clicks: row.metrics?.clicks || 0,
+                    cost: (row.metrics?.costMicros || 0) / 1_000_000,
+                    conversions: row.metrics?.conversions || 0,
+                    conversions_value: row.metrics?.conversionsValue || 0,
+                    ctr: row.metrics?.impressions > 0 ? (row.metrics?.clicks / row.metrics?.impressions) * 100 : 0,
+                    cpc: row.metrics?.clicks > 0 ? ((row.metrics?.costMicros || 0) / 1_000_000) / row.metrics?.clicks : 0,
+                    roas: (row.metrics?.costMicros || 0) > 0 ? (row.metrics?.conversionsValue || 0) / ((row.metrics?.costMicros || 0) / 1_000_000) : 0,
+                };
+            });
+
+            res.status(200).json({
+                success: true,
+                data
+            });
+
+        } else if (widgetType === 'heatmap') {
+            // Map Day of Week enum to index (0 = Monday, 6 = Sunday)
+            // GAQL returns: MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+            const dayMap: Record<string, number> = {
+                'MONDAY': 0,
+                'TUESDAY': 1,
+                'WEDNESDAY': 2,
+                'THURSDAY': 3,
+                'FRIDAY': 4,
+                'SATURDAY': 5,
+                'SUNDAY': 6
+            };
+
+            const heatmapDataMap = new Map<string, any>();
+
+            results.forEach((row: any) => {
+                const dayEnum = row.segments?.dayOfWeek; // e.g., 'MONDAY'
+                const hour = row.segments?.hour; // 0-23
+
+                if (!dayEnum || hour === undefined) return;
+
+                const dayIndex = dayMap[dayEnum];
+                const key = `${dayIndex}-${hour}`;
+
+                if (!heatmapDataMap.has(key)) {
+                    heatmapDataMap.set(key, {
+                        day: dayIndex,
+                        hour: parseInt(hour.toString(), 10),
+                        metrics: {
+                            impressions: 0,
+                            clicks: 0,
+                            cost_micros: 0,
+                            conversions: 0,
+                            conversions_value: 0
+                        }
+                    });
+                }
+
+                const cell = heatmapDataMap.get(key);
+                cell.metrics.impressions += row.metrics?.impressions || 0;
+                cell.metrics.clicks += row.metrics?.clicks || 0;
+                cell.metrics.cost_micros += row.metrics?.costMicros || 0;
+                cell.metrics.conversions += row.metrics?.conversions || 0;
+                cell.metrics.conversions_value += row.metrics?.conversionsValue || 0;
+            });
+
+            // Transform to expected format
+            const heatmapData = Array.from(heatmapDataMap.values()).map(cell => ({
+                day: cell.day,
+                hour: cell.hour,
+                metrics: {
+                    impressions: cell.metrics.impressions,
+                    clicks: cell.metrics.clicks,
+                    cost: cell.metrics.cost_micros / 1_000_000,
+                    conversions: cell.metrics.conversions,
+                    ctr: cell.metrics.impressions > 0 ? (cell.metrics.clicks / cell.metrics.impressions) * 100 : 0,
+                    avgCpc: cell.metrics.clicks > 0 ? (cell.metrics.cost_micros / 1_000_000) / cell.metrics.clicks : 0,
+                }
+            }));
+
+            res.status(200).json({
+                success: true,
+                heatmapData
             });
 
         } else {

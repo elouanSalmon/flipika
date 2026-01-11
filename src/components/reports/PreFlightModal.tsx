@@ -26,7 +26,7 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
     onSendEmail,
     reportId,
 }) => {
-    const { t } = useTranslation('reports');
+    const { t, i18n } = useTranslation('reports');
     const [state, setState] = useState<PreFlightState>({ status: 'idle' });
 
     useEffect(() => {
@@ -72,8 +72,8 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
     };
 
     const formatDate = (date?: Date): string => {
-        if (!date) return 'N/A';
-        return new Intl.DateTimeFormat('fr-FR', {
+        if (!date) return t('editor.notAvailable') || 'N/A';
+        return new Intl.DateTimeFormat(i18n.language === 'fr' ? 'fr-FR' : 'en-US', {
             day: '2-digit',
             month: 'short',
             year: 'numeric',
