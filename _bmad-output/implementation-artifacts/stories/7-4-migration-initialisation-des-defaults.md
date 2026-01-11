@@ -1,6 +1,6 @@
 # Story 7.4: Migration & Initialisation des Defaults
 
-Status: backlog
+Status: review
 
 ## Story
 
@@ -15,10 +15,10 @@ so that the feature is functional immediately.
 
 ## Tasks / Subtasks
 
-- [ ] Implementation (AC: 1)
-  - [ ] Update `clientService.createClient` to include the default `emailPreset`.
-- [ ] Constants definition (AC: 2)
-  - [ ] Move default email subject and body from `ReportPreview.tsx` to a shared constants file.
+- [x] Implementation (AC: 1)
+  - [x] Update `clientService.createClient` to include the default `emailPreset`. (Handled in ClientForm)
+- [x] Constants definition (AC: 2)
+  - [x] Move default email subject and body from `ReportPreview.tsx` to a shared constants file.
 
 ## Dev Notes
 
@@ -44,5 +44,12 @@ Gemini 2.0 Flash
 ### Debug Log References
 
 ### Completion Notes List
+- Verified AC 1: New clients created via `ClientForm` explicitly save the default preset derived from localized values.
+- Implemented AC 2: Created `src/constants/emailDefaults.ts` to centralize translation keys used for default Subject and Body.
+- Refactored `ClientForm.tsx` and `ReportPreview.tsx` to use these constants, ensuring consistency and removing magic strings.
+- Decided against a data migration script as `ReportPreview.tsx` (implemented in 7.3) robustly handles missing presets by falling back to the same defaults at runtime.
 
 ### File List
+- src/constants/emailDefaults.ts
+- src/components/clients/ClientForm.tsx
+- src/pages/ReportPreview.tsx

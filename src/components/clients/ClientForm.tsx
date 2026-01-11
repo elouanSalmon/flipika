@@ -3,12 +3,15 @@ import { useTranslation } from 'react-i18next';
 import type { Client, CreateClientInput, UpdateClientInput } from '../../types/client';
 import type { ReportTemplate } from '../../types/templateTypes';
 import type { ReportTheme } from '../../types/reportThemes';
-import { Upload, Loader2, Settings, X, Mail } from 'lucide-react';
+import { Upload, Loader2, X, Building2, Mail, Palette } from 'lucide-react';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { listUserTemplates } from '../../services/templateService';
 import themeService from '../../services/themeService';
 import { getAuth } from 'firebase/auth';
 import { useTutorial } from '../../contexts/TutorialContext';
+import { EmailPresetEditor } from './EmailPresetEditor';
+import { EMAIL_PRESET_KEYS } from '../../constants/emailDefaults';
+import './ClientForm.css';
 
 interface ClientFormProps {
     initialData?: Client;
@@ -43,10 +46,9 @@ export const ClientForm: React.FC<ClientFormProps> = ({
     // Email Config State
     // We use a useEffect to update these validation-dependent defaults if needed, 
     // but simple initialization is usually enough. 
-    // However, for "Report for {{clientName}}", we might want it to update if name changes?
-    // Let's keep it simple: Initialize with current name or placeholder.
-    const defaultSubject = t('form.emailConfig.subject.default', { clientName: initialData?.name || '' });
-    const defaultBody = t('form.emailConfig.body.default');
+    // The keys contain tags like [client_name] which are resolved at send time, not here.
+    const defaultSubject = t(EMAIL_PRESET_KEYS.SUBJECT_DEFAULT);
+    const defaultBody = t(EMAIL_PRESET_KEYS.BODY_DEFAULT);
 
     const [emailSubject, setEmailSubject] = useState(initialData?.emailPreset?.subject || defaultSubject);
     const [emailBody, setEmailBody] = useState(initialData?.emailPreset?.body || defaultBody);
@@ -156,7 +158,6 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                 name,
                 email,
                 googleAdsCustomerId: cleanAdsId,
-                googleAdsCustomerId: cleanAdsId,
                 logoFile: logoFile || undefined,
                 emailPreset: {
                     subject: emailSubject,
@@ -170,252 +171,236 @@ export const ClientForm: React.FC<ClientFormProps> = ({
 
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-                <label htmlFor="logo" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    {t('form.logo.label')}
-                </label>
-                <div className="flex items-center gap-6">
-                    <div className="w-24 h-24 rounded-lg bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center overflow-hidden relative group">
-                        {logoPreview ? (
-                            <>
-                                <img src={logoPreview} alt={t('form.logo.alt')} className="w-full h-full object-contain" />
-                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                    <span className="text-white text-xs">{t('form.logo.change')}</span>
-                                </div>
-                            </>
-                        ) : (
-                            <div className="text-center p-2">
-                                <Upload className="w-8 h-8 text-gray-400 mx-auto mb-1" />
-                                <span className="text-xs text-gray-500">{t('form.logo.upload')}</span>
-                            </div>
-                        )}
-                        <input
-                            type="file"
-                            id="logo"
-                            accept="image/*"
-                            onChange={handleLogoChange}
-                            className="absolute inset-0 opacity-0 cursor-pointer"
-                            title={t('form.logo.change')}
-                        />
-                    </div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
-                        <p>{t('form.logo.helper')}</p>
-                        {logoPreview && (
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setLogoFile(null);
-                                    setLogoPreview(initialData?.logoUrl || null);
-                                }}
-                                className="text-red-500 hover:text-red-700 text-xs mt-2 underline"
-                            >
-                                {t('form.logo.remove')}
-                            </button>
-                        )}
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    {t('form.name.label')}
-                </label>
-                <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className={`
-            block w-full rounded-md border shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 sm:text-sm
-            ${errors.name ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300'}
-          `}
-                    placeholder={t('form.name.placeholder')}
-                />
-                {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-            </div>
-
-            <div>
-                <label htmlFor="googleAdsId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    {t('form.googleAds.label')}
-                </label>
-                {!isConnected ? (
-                    <div className="p-3 mb-2 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md">
-                        <p className="text-sm text-yellow-700 dark:text-yellow-400">
-                            {t('form.googleAds.noConnection')}
+        <form onSubmit={handleSubmit} className="client-form-container">
+            {/* Basic Information Section */}
+            <div className="client-form-section">
+                <div className="client-form-section-header">
+                    <div>
+                        <h3 className="client-form-section-title">
+                            <Building2 />
+                            {t('form.sections.basicInfo')}
+                        </h3>
+                        <p className="client-form-section-description">
+                            {t('form.sections.basicInfoDescription')}
                         </p>
                     </div>
-                ) : (
-                    <select
-                        id="googleAdsId"
-                        value={googleAdsId}
-                        onChange={(e) => setGoogleAdsId(e.target.value)}
-                        className={`
-                            block w-full rounded-md border shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 sm:text-sm
-                            ${errors.googleAdsId ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300'}
-                        `}
-                    >
-                        <option value="">{t('form.googleAds.placeholder')}</option>
-                        {accounts.map((account) => (
-                            <option key={account.id} value={account.id}>
-                                {account.name} ({account.id})
-                            </option>
-                        ))}
-                    </select>
-                )}
-                {errors.googleAdsId && <p className="mt-1 text-sm text-red-600">{errors.googleAdsId}</p>}
-                <p className="mt-1 text-xs text-gray-500">
-                    {t('form.googleAds.helper')}
-                </p>
-            </div>
+                </div>
 
-            <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    {t('form.email.label')}
-                </label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className={`
-            block w-full rounded-md border shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 sm:text-sm
-            ${errors.email ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300'}
-          `}
-                    placeholder={t('form.email.placeholder')}
-                />
-                {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                {/* Logo Upload */}
+                <div className="client-form-group">
+                    <label htmlFor="logo" className="client-form-label">
+                        {t('form.logo.label')}
+                    </label>
+                    <div className="client-form-logo-container">
+                        <div className="client-form-logo-preview">
+                            {logoPreview ? (
+                                <>
+                                    <img src={logoPreview} alt={t('form.logo.alt')} />
+                                    <div className="client-form-logo-overlay">
+                                        <span>{t('form.logo.change')}</span>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="client-form-logo-placeholder">
+                                    <Upload />
+                                    <span>{t('form.logo.upload')}</span>
+                                </div>
+                            )}
+                            <input
+                                type="file"
+                                id="logo"
+                                accept="image/*"
+                                onChange={handleLogoChange}
+                                className="client-form-logo-input"
+                                title={t('form.logo.change')}
+                            />
+                        </div>
+                        <div className="client-form-logo-info">
+                            <p className="client-form-helper">{t('form.logo.helper')}</p>
+                            {logoPreview && (
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setLogoFile(null);
+                                        setLogoPreview(initialData?.logoUrl || null);
+                                    }}
+                                    className="client-form-logo-remove"
+                                >
+                                    {t('form.logo.remove')}
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Client Name */}
+                <div className="client-form-group">
+                    <label htmlFor="name" className="client-form-label">
+                        {t('form.name.label')}
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className={`client-form-input ${errors.name ? 'error' : ''}`}
+                        placeholder={t('form.name.placeholder')}
+                    />
+                    {errors.name && <p className="client-form-error">{errors.name}</p>}
+                </div>
+
+                {/* Google Ads Account */}
+                <div className="client-form-group">
+                    <label htmlFor="googleAdsId" className="client-form-label">
+                        {t('form.googleAds.label')}
+                    </label>
+                    {!isConnected ? (
+                        <div className="client-form-warning">
+                            <p>{t('form.googleAds.noConnection')}</p>
+                        </div>
+                    ) : (
+                        <select
+                            id="googleAdsId"
+                            value={googleAdsId}
+                            onChange={(e) => setGoogleAdsId(e.target.value)}
+                            className={`client-form-select ${errors.googleAdsId ? 'error' : ''}`}
+                        >
+                            <option value="">{t('form.googleAds.placeholder')}</option>
+                            {accounts.map((account) => (
+                                <option key={account.id} value={account.id}>
+                                    {account.name} ({account.id})
+                                </option>
+                            ))}
+                        </select>
+                    )}
+                    {errors.googleAdsId && <p className="client-form-error">{errors.googleAdsId}</p>}
+                    <p className="client-form-helper">{t('form.googleAds.helper')}</p>
+                </div>
+
+                {/* Email */}
+                <div className="client-form-group">
+                    <label htmlFor="email" className="client-form-label">
+                        {t('form.email.label')}
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={`client-form-input ${errors.email ? 'error' : ''}`}
+                        placeholder={t('form.email.placeholder')}
+                    />
+                    {errors.email && <p className="client-form-error">{errors.email}</p>}
+                </div>
             </div>
 
             {/* Preset Configuration Section */}
             {initialData && (
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                            <Settings className="w-5 h-5 text-gray-500" />
-                            <h3 className="text-sm font-medium text-gray-900 dark:text-white">
+                <div className="client-form-section">
+                    <div className="client-form-section-header">
+                        <div>
+                            <h3 className="client-form-section-title">
+                                <Palette />
                                 {t('form.presets.title')}
                             </h3>
+                            <p className="client-form-section-description">
+                                {t('form.presets.description')}
+                            </p>
                         </div>
                         {(defaultTemplateId || defaultThemeId) && (
                             <button
                                 type="button"
                                 onClick={handleClearPreset}
-                                className="text-xs text-gray-500 hover:text-red-600 flex items-center gap-1"
+                                className="client-form-preset-clear"
                             >
-                                <X className="w-3 h-3" />
+                                <X />
                                 {t('form.presets.clear')}
                             </button>
                         )}
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                        {t('form.presets.description')}
-                    </p>
 
-                    <div className="space-y-4">
-                        <div>
-                            <label htmlFor="defaultTemplate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                {t('form.presets.template.label')}
-                            </label>
-                            <select
-                                id="defaultTemplate"
-                                value={defaultTemplateId}
-                                onChange={(e) => setDefaultTemplateId(e.target.value)}
-                                disabled={loadingPresets}
-                                className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            >
-                                <option value="">{t('form.presets.template.placeholder')}</option>
-                                {templates.map((template) => (
-                                    <option key={template.id} value={template.id}>
-                                        {template.name}
-                                    </option>
-                                ))}
-                            </select>
-                            {loadingPresets && <p className="mt-1 text-xs text-gray-500">{t('common:loading')}...</p>}
-                        </div>
+                    <div className="client-form-group">
+                        <label htmlFor="defaultTemplate" className="client-form-label">
+                            {t('form.presets.template.label')}
+                        </label>
+                        <select
+                            id="defaultTemplate"
+                            value={defaultTemplateId}
+                            onChange={(e) => setDefaultTemplateId(e.target.value)}
+                            disabled={loadingPresets}
+                            className="client-form-select"
+                        >
+                            <option value="">{t('form.presets.template.placeholder')}</option>
+                            {templates.map((template) => (
+                                <option key={template.id} value={template.id}>
+                                    {template.name}
+                                </option>
+                            ))}
+                        </select>
+                        {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
+                    </div>
 
-                        <div>
-                            <label htmlFor="defaultTheme" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                {t('form.presets.theme.label')}
-                            </label>
-                            <select
-                                id="defaultTheme"
-                                value={defaultThemeId}
-                                onChange={(e) => setDefaultThemeId(e.target.value)}
-                                disabled={loadingPresets}
-                                className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            >
-                                <option value="">{t('form.presets.theme.placeholder')}</option>
-                                {themes.map((theme) => (
-                                    <option key={theme.id} value={theme.id}>
-                                        {theme.name}
-                                    </option>
-                                ))}
-                            </select>
-                            {loadingPresets && <p className="mt-1 text-xs text-gray-500">{t('common:loading')}...</p>}
-                        </div>
+                    <div className="client-form-group">
+                        <label htmlFor="defaultTheme" className="client-form-label">
+                            {t('form.presets.theme.label')}
+                        </label>
+                        <select
+                            id="defaultTheme"
+                            value={defaultThemeId}
+                            onChange={(e) => setDefaultThemeId(e.target.value)}
+                            disabled={loadingPresets}
+                            className="client-form-select"
+                        >
+                            <option value="">{t('form.presets.theme.placeholder')}</option>
+                            {themes.map((theme) => (
+                                <option key={theme.id} value={theme.id}>
+                                    {theme.name}
+                                </option>
+                            ))}
+                        </select>
+                        {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
                     </div>
                 </div>
             )}
 
             {/* Email Configuration Section */}
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                <div className="flex items-center gap-2 mb-4">
-                    <Mail className="w-5 h-5 text-gray-500" />
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-                        {t('form.emailConfig.title')}
-                    </h3>
-                </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-                    {t('form.emailConfig.description')}
-                </p>
-
-                <div className="space-y-4">
+            <div className="client-form-section">
+                <div className="client-form-section-header">
                     <div>
-                        <label htmlFor="emailSubject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            {t('form.emailConfig.subject.label')}
-                        </label>
-                        <input
-                            type="text"
-                            id="emailSubject"
-                            value={emailSubject}
-                            onChange={(e) => setEmailSubject(e.target.value)}
-                            className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            placeholder={t('form.emailConfig.subject.placeholder', { clientName: name || 'Client' })}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="emailBody" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            {t('form.emailConfig.body.label')}
-                        </label>
-                        <textarea
-                            id="emailBody"
-                            value={emailBody}
-                            onChange={(e) => setEmailBody(e.target.value)}
-                            rows={6}
-                            className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            placeholder={t('form.emailConfig.body.placeholder')}
-                        />
+                        <h3 className="client-form-section-title">
+                            <Mail />
+                            {t('form.emailConfig.title')}
+                        </h3>
+                        <p className="client-form-section-description">
+                            {t('form.emailConfig.description')}
+                        </p>
                     </div>
                 </div>
+                <EmailPresetEditor
+                    subject={emailSubject}
+                    body={emailBody}
+                    onSubjectChange={setEmailSubject}
+                    onBodyChange={setEmailBody}
+                    clientName={name}
+                />
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
+            {/* Form Footer */}
+            <div className="client-form-footer">
                 <button
                     type="button"
                     onClick={onCancel}
                     disabled={isLoading}
-                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600"
+                    className="client-form-btn client-form-btn-secondary"
                 >
                     {t('form.buttons.cancel')}
                 </button>
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="client-form-btn client-form-btn-primary"
                 >
-                    {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+                    {isLoading && <Loader2 className="animate-spin" />}
                     {initialData ? t('form.buttons.update') : t('form.buttons.create')}
                 </button>
             </div>

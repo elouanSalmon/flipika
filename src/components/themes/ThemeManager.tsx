@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Copy, Trash2, Link as LinkIcon, Palette } from 'lucide-react';
+import { Plus, Edit2, Copy, Trash2, Link as LinkIcon, Palette, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
@@ -15,6 +15,7 @@ import ThemePreview from './ThemePreview';
 import ThemeEditor from './ThemeEditor';
 import { useTutorial } from '../../contexts/TutorialContext';
 import ConfirmationModal from '../common/ConfirmationModal';
+import InfoModal from '../common/InfoModal';
 import FilterBar from '../common/FilterBar';
 import './ThemeManager.css'; // Keeping for potential specific tweaks
 
@@ -36,6 +37,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
     const [editingTheme, setEditingTheme] = useState<ReportTheme | null>(null);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [themeToDelete, setThemeToDelete] = useState<ReportTheme | null>(null);
+    const [showInfoModal, setShowInfoModal] = useState(false);
 
     // Filters
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
@@ -200,6 +202,33 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                     <div className="header-title-row">
                         <Palette size={32} className="header-icon" />
                         <h1>{t('list.pageTitle')}</h1>
+                        <button
+                            onClick={() => setShowInfoModal(true)}
+                            className="info-button"
+                            style={{
+                                padding: '0.5rem',
+                                background: 'transparent',
+                                border: '2px solid var(--color-border, #e5e7eb)',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s',
+                                color: 'var(--color-text-secondary, #6b7280)'
+                            }}
+                            title={t('info.buttonLabel')}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--color-primary, #2563eb)';
+                                e.currentTarget.style.color = 'var(--color-primary, #2563eb)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = 'var(--color-border, #e5e7eb)';
+                                e.currentTarget.style.color = 'var(--color-text-secondary, #6b7280)';
+                            }}
+                        >
+                            <Info size={20} />
+                        </button>
                     </div>
                     <p className="header-subtitle">{t('list.pageSubtitle')}</p>
                 </div>
@@ -356,6 +385,13 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                 message={t('messages.deleteConfirmMessage', { name: themeToDelete?.name })}
                 confirmLabel={t('messages.deleteConfirmButton')}
                 isDestructive={true}
+            />
+
+            <InfoModal
+                isOpen={showInfoModal}
+                onClose={() => setShowInfoModal(false)}
+                title={t('info.modalTitle')}
+                content={t('info.modalContent')}
             />
         </div >
     );

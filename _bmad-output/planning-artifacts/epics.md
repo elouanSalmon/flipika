@@ -555,3 +555,35 @@ So that I can easily find and archive the report.
 **And** The PDF is tagged for basic accessibility (Screen readers can read the text)
 
 
+
+### Epic 9: Client-Centric Architecture ("Le Pivot Structurel")
+Refonte de l'architecture pour placer le Client au centre du flux de travail des Rapports et Templates, remplaçant la liaison directe avec les comptes Google Ads.
+**FRs covered:** New FRs (Client-First Workflow, Report-Client Link)
+**Notes:** Changement critique du modèle de données. Empêche la création de rapports sans Client.
+
+### Story 9.1: Enforce Client Selection & Data Model Update (Report)
+
+As a User,
+I want to select a Client *before* creating a report,
+So that all my reports are correctly organized by client and inherit their settings.
+
+**Acceptance Criteria:**
+
+**Given** I am on the Reports list
+**When** I click "Create Report"
+**Then** I MUST select a Client from a list (or create one)
+**And** I CANNOT select a Google Ads account directly (it is derived from the Client)
+**And** The created report is linked to the `clientId` in the database
+
+### Story 9.2: Client-Centric Template Management
+
+As a User,
+I want my templates to be compatible with my client's structure,
+So that I can reuse them easily.
+
+**Acceptance Criteria:**
+
+**Given** I am creating a report for Client A
+**When** I choose a Template
+**Then** I see only templates relevant (or all, but the instantiation applies Client A's data)
+**And** The new report uses Client A's Google Ads account automatically

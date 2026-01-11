@@ -1,0 +1,123 @@
+/* EmailPresetEditor - Aligned with Design System */
+
+.email-preset-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Variable Toolbar */
+.email-variables-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--glass-bg);
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+}
+
+.email-variables-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-right: 8px;
+}
+
+.email-variables-label svg {
+    width: 14px;
+    height: 14px;
+}
+
+.email-variable-tag {
+    padding: 6px 12px;
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+}
+
+.email-variable-tag:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: rgba(var(--primary-rgb), 0.05);
+    transform: translateY(-1px);
+}
+
+/* Form Groups */
+.email-preset-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.email-preset-label {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.email-preset-input,
+.email-preset-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--glass-bg);
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    transition: all 0.2s ease;
+}
+
+.email-preset-input:focus,
+.email-preset-textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: var(--color-bg-card);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+.email-preset-input::placeholder,
+.email-preset-textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+.email-preset-textarea {
+    font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* Dark Mode Support */
+.dark .email-preset-input,
+.dark .email-preset-textarea {
+    background: rgba(var(--glass-rgb), 0.05);
+}
+
+.dark .email-variable-tag {
+    background: rgba(var(--glass-rgb), 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .email-variables-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .email-variables-label {
+        margin-right: 0;
+        margin-bottom: 4px;
+    }
+}

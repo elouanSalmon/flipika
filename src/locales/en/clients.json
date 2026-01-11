@@ -4,6 +4,10 @@
             "create": "New Client",
             "edit": "Edit Client"
         },
+        "sections": {
+            "basicInfo": "Basic Information",
+            "basicInfoDescription": "Client name, logo and contact details"
+        },
         "logo": {
             "label": "Logo",
             "upload": "Upload",
@@ -48,15 +52,25 @@
         "emailConfig": {
             "title": "Email Configuration",
             "description": "Customize the email subject and message for this client.",
+            "variables": {
+                "label": "Variables",
+                "tooltips": {
+                    "client_name": "Client Name",
+                    "period": "Report Period",
+                    "campaigns": "Campaign List",
+                    "user_name": "Your Name",
+                    "company": "Your Company"
+                }
+            },
             "subject": {
                 "label": "Subject",
-                "placeholder": "Report for {{clientName}}",
-                "default": "Report for {{clientName}}"
+                "placeholder": "Report for [client_name]",
+                "default": "Report [period] for [client_name]"
             },
             "body": {
                 "label": "Message",
                 "placeholder": "Hello,\n\nPlease find attached your report.\n\nBest regards,",
-                "default": "Hello,\n\nPlease find attached your report.\n\nBest regards,"
+                "default": "Hello [client_name],\n\nPlease find attached your report for [period], covering the following campaigns:\n[campaigns]\n\nLet me know if you have any questions.\n\nBest regards,\n[user_name]"
             }
         },
         "buttons": {

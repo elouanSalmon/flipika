@@ -1,6 +1,6 @@
 # Story 7.3: Application Automatique lors de l'envoi (Report Preview)
 
-Status: backlog
+Status: review
 
 ## Story
 
@@ -16,12 +16,12 @@ so that I don't have to copy-paste or re-type the message.
 
 ## Tasks / Subtasks
 
-- [ ] Value Replacement Logic (AC: 2)
-  - [ ] Create a utility `resolveEmailVariables(text, context)` that replaces `[key]` with values.
-  - [ ] Provide context: `Client`, `Report`, `User Profile`.
-- [ ] Preview Page Integration (AC: 1, 3)
-  - [ ] Update `handleSendEmail` in `ReportPreview.tsx` to fetch the client and its email preset.
-  - [ ] Replace hardcoded texts with resolved Preset content.
+- [x] Value Replacement Logic (AC: 2)
+  - [x] Create a utility `resolveEmailVariables(text, context)` that replaces `[key]` with values.
+  - [x] Provide context: `Client`, `Report`, `User Profile`.
+- [x] Preview Page Integration (AC: 1, 3)
+  - [x] Update `handleSendEmail` in `ReportPreview.tsx` to fetch the client and its email preset.
+  - [x] Replace hardcoded texts with resolved Preset content.
 
 ## Dev Notes
 
@@ -47,5 +47,17 @@ Gemini 2.0 Flash
 ### Debug Log References
 
 ### Completion Notes List
+- Created `resolveEmailVariables` utility to handle tag replacement.
+- Updated `ReportPreview.tsx` to:
+    - Lazy load `clientService` and fetch client data using `getClient(userId, clientId)`.
+    - Generate email context (Client name, Period, Campaigns, User name).
+    - Resolve Subject and Body using the utility.
+    - Fallback to localized defaults if no preset exists.
+- Updated `clientService.ts` to export `getClient` and removed unused variable.
+- Updated `reportTypes.ts` to include `clientId` in `EditableReport`.
 
 ### File List
+- src/utils/emailResolver.ts
+- src/pages/ReportPreview.tsx
+- src/services/clientService.ts
+- src/types/reportTypes.ts

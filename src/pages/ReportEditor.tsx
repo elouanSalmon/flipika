@@ -330,6 +330,7 @@ const ReportEditor: React.FC = () => {
 
             // Update report settings
             await updateReportSettings(report.id, {
+                clientId: config.clientId,
                 accountId: config.accountId,
                 campaignIds: config.campaignIds,
                 startDate: new Date(config.dateRange.start),
@@ -340,6 +341,7 @@ const ReportEditor: React.FC = () => {
             // Update local state
             setReport({
                 ...report,
+                clientId: config.clientId,
                 accountId: config.accountId,
                 campaignIds: config.campaignIds,
                 startDate: new Date(config.dateRange.start),
@@ -601,6 +603,7 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     isSubmitting={isSaving}
                     initialConfig={{
                         title: report.title,
+                        clientId: report.clientId, // Pass existing client ID
                         accountId: report.accountId,
                         campaignIds: report.campaignIds,
                         dateRange: {

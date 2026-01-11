@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { X, Loader2 } from 'lucide-react';
 import type { Campaign } from '../../types/business';
+import { useClients } from '../../hooks/useClients';
 import './ReportConfigModal.css';
 
 interface GoogleAdsAccount {
@@ -13,9 +14,9 @@ interface GoogleAdsAccount {
 interface ReportConfigModalProps {
     onClose: () => void;
     onSubmit: (config: ReportConfig) => void;
-    accounts: GoogleAdsAccount[];
-    selectedAccountId: string;
-    onAccountChange: (accountId: string) => void;
+    accounts: GoogleAdsAccount[]; // Still useful for validation/name lookup
+    selectedAccountId: string; // Legacy/Derived
+    onAccountChange: (accountId: string) => void; // Maybe unused now?
     campaigns: Campaign[];
     isEditMode?: boolean;
     initialConfig?: Partial<ReportConfig>;
@@ -24,6 +25,7 @@ interface ReportConfigModalProps {
 
 export interface ReportConfig {
     title: string;
+    clientId: string; // NEW: Required
     accountId: string;
     campaignIds: string[];
     dateRange: {
@@ -86,13 +88,52 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     isSubmitting = false,
 }) => {
     const { t, i18n } = useTranslation('reports');
+    // Fetch clients
+    const { clients, isLoading: loadingClients } = useClients();
+
     const [title, setTitle] = useState(initialConfig?.title || t('list.newReport'));
+    // New state for Client
+    const [selectedClientId, setSelectedClientId] = useState<string>(initialConfig?.clientId || '');
+
     const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>(initialConfig?.campaignIds || []);
     const [datePreset, setDatePreset] = useState<string>(initialConfig?.dateRange?.preset || 'last_30_days');
     const [customDateRange, setCustomDateRange] = useState(
         initialConfig?.dateRange ? { start: initialConfig.dateRange.start, end: initialConfig.dateRange.end } : getDateRangeFromPreset('last_30_days')
     );
     const [selectAll, setSelectAll] = useState(false);
+
+    // Effect: When client selection changes, update account ID
+    useEffect(() => {
+        if (selectedClientId) {
+            const client = clients.find(c => c.id === selectedClientId);
+            if (client && client.googleAdsCustomerId) {
+                // Determine if we need to notify parent about account change (to fetch campaigns)
+                if (client.googleAdsCustomerId !== selectedAccountId) {
+                    onAccountChange(client.googleAdsCustomerId);
+                }
+            }
+        }
+    }, [selectedClientId, clients]);
+
+    // Initial load: If in edit mode and we have clientId, explicit set
+    // This is handled by useState initialization if initialConfig has clientId.
+    // However, for existing reports (migration scenario), we might have accountId but no clientId.
+    // In that case, we should try to reverse-match accountId to a client?
+    useEffect(() => {
+        if (isEditMode && initialConfig?.accountId && !selectedClientId && clients.length > 0) {
+            const matchingClient = clients.find(c => c.googleAdsCustomerId === initialConfig.accountId);
+            if (matchingClient) {
+                setSelectedClientId(matchingClient.id);
+            }
+        }
+    }, [isEditMode, initialConfig, clients, selectedClientId]);
+
+    const handleClientChange = (clientId: string) => {
+        setSelectedClientId(clientId);
+        // Effects will trigger account update
+        // Reset campaigns when switching client
+        setSelectedCampaigns([]);
+    };
 
     const handlePresetChange = (preset: string) => {
         setDatePreset(preset);
@@ -121,6 +162,11 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (!selectedClientId) {
+            alert(t('config.client.required')); // Need to add translation or hardcode fallback
+            return;
+        }
+
         if (selectedCampaigns.length === 0) {
             alert(t('config.campaigns.atLeastOne'));
             return;
@@ -128,6 +174,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
 
         onSubmit({
             title,
+            clientId: selectedClientId,
             accountId: selectedAccountId,
             campaignIds: selectedCampaigns,
             dateRange: {
@@ -161,31 +208,60 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                         />
                     </div>
 
-                    {/* Compte Google Ads */}
+                    {/* Client Selection */}
                     <div className="form-group">
-                        <label htmlFor="account">{t('config.googleAdsAccount')}</label>
-                        <select
-                            id="account"
-                            value={selectedAccountId}
-                            onChange={(e) => onAccountChange(e.target.value)}
-                            required
-                            style={{
-                                width: '100%',
-                                padding: '12px 16px',
-                                background: 'var(--glass-bg)',
-                                border: '2px solid var(--color-border)',
-                                borderRadius: '10px',
-                                fontSize: '1rem',
-                                color: 'var(--color-text-primary)',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            {accounts.map(account => (
-                                <option key={account.id} value={account.id}>
-                                    {account.name}
+                        <label htmlFor="client">{t('config.clientLabel', { defaultValue: 'Client' })}</label>
+                        {loadingClients ? (
+                            <div className="flex items-center gap-2 text-sm text-gray-500">
+                                <Loader2 size={16} className="animate-spin" />
+                                {t('config.loadingClients', { defaultValue: 'Chargement des clients...' })}
+                            </div>
+                        ) : clients.length === 0 ? (
+                            <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 rounded-lg text-sm border border-yellow-200 dark:border-yellow-800">
+                                {t('config.noClients', { defaultValue: 'Aucun client trouvé.' })}
+                                <a href="/app/clients" className="underline ml-1 font-medium hover:text-yellow-900 dark:hover:text-yellow-100">
+                                    {t('config.createClient', { defaultValue: 'Créer un client' })}
+                                </a>
+                            </div>
+                        ) : (
+                            <select
+                                id="client"
+                                value={selectedClientId}
+                                onChange={(e) => handleClientChange(e.target.value)}
+                                required
+                                style={{
+                                    width: '100%',
+                                    padding: '12px 16px',
+                                    background: 'var(--glass-bg)',
+                                    border: '2px solid var(--color-border)',
+                                    borderRadius: '10px',
+                                    fontSize: '1rem',
+                                    color: 'var(--color-text-primary)',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                <option value="" disabled>
+                                    {t('config.selectClient', { defaultValue: 'Sélectionner un client' })}
                                 </option>
-                            ))}
-                        </select>
+                                {clients.map(client => (
+                                    <option key={client.id} value={client.id}>
+                                        {client.name}
+                                    </option>
+                                ))}
+                            </select>
+                        )}
+                        {/* Selected Account Display (Read-only info) */}
+                        {selectedClientId && selectedAccountId && (
+                            <div className="mt-2 text-sm text-gray-500 flex items-center gap-1">
+                                <span className="font-medium">Compte Google Ads :</span>
+                                {accounts.find(a => a.id === selectedAccountId)?.name || selectedAccountId}
+                            </div>
+                        )}
+                        {selectedClientId && !selectedAccountId && (
+                            <div className="mt-2 text-sm text-red-500 flex items-center gap-1">
+                                ⚠ {t('config.noAccountLinked', { defaultValue: 'Aucun compte Google Ads lié à ce client.' })}
+                            </div>
+                        )}
                     </div>
 
                     {/* Période */}

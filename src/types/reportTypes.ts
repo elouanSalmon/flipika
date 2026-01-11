@@ -95,6 +95,7 @@ export interface SlideTemplate {
 export interface EditableReport {
     id: string;
     userId: string;
+    clientId?: string; // Client ID associated with this report
     accountId: string;
     accountName?: string; // For display
     campaignIds: string[];

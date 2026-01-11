@@ -13,22 +13,18 @@ import toast from 'react-hot-toast';
 const NewReport: React.FC = () => {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
-    const { customerId, accounts } = useGoogleAds(); // Use context
+    const { accounts } = useGoogleAds(); // Use context
     // const [accounts, setAccounts] = useState<GoogleAdsAccount[]>([]); // Removed local state
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
     const [loading] = useState(false); // Changed default to false, or rely on context loading? context loading is better but let's keep local for campaign loading
 
+    // Auto-select removed: Driven by Client Selection in Modal now.
+    /*
     useEffect(() => {
-        // Auto-select default account if available and not set
-        if (!selectedAccountId) {
-            if (customerId) {
-                setSelectedAccountId(customerId);
-            } else if (accounts.length > 0) {
-                setSelectedAccountId(accounts[0].id);
-            }
-        }
+        // ...
     }, [customerId, accounts, selectedAccountId]);
+    */
 
     // Load campaigns when account is selected
     useEffect(() => {
@@ -72,7 +68,8 @@ const NewReport: React.FC = () => {
                 config.campaignIds,
                 config.dateRange,
                 accounts.find(a => a.id === config.accountId)?.name,
-                campaigns.filter(c => config.campaignIds.includes(c.id)).map(c => c.name)
+                campaigns.filter(c => config.campaignIds.includes(c.id)).map(c => c.name),
+                config.clientId // Pass Client ID
             );
 
             toast.success('Rapport créé !');

@@ -85,14 +85,16 @@ development_status:
 
   # Epic 7
   epic-7: in-progress
-  7-1-configuration-des-email-presets-par-client: in-progress
-  7-2-editeur-dynamique-avec-variables-tags: backlog
-  7-3-application-automatique-lors-de-lenvoi-report-preview: backlog
-  7-4-migration-initialisation-des-defaults: backlog
+  7-1-configuration-des-email-presets-par-client: review
+  7-2-editeur-dynamique-avec-variables-tags: review
+  7-3-application-automatique-lors-de-lenvoi-report-preview: review
+  7-4-migration-initialisation-des-defaults: review
   epic-7-retrospective: optional
 
-  # Epic 8
-  epic-8: backlog
+  # Epic 9
+  epic-9: in-progress
+  9-1-enforce-client-selection: done
+
   8-1-gestion-intelligente-des-sauts-de-page-page-breaks: backlog
   8-2-rendu-haute-definition-fidelite-visuelle: backlog
   8-3-optimisation-de-la-taille-performance: backlog

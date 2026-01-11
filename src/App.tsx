@@ -43,6 +43,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import NotFound from './pages/NotFound';
 import ClientsPage from './pages/ClientsPage';
+import ClientEditPage from './pages/ClientEditPage';
 import ReportPreview from './pages/ReportPreview';
 // ... (existing imports, but cleaner to just add route and import at top separately)
 // Actually, relying on AllowMultiple=false means ONE block. 
@@ -151,6 +152,8 @@ const AppRoutes = () => {
         {enableReports && <Route path="templates" element={<Templates />} />}
         {enableReports && <Route path="schedules" element={<ScheduledReports />} />}
         <Route path="clients" element={<ClientsPage />} />
+        <Route path="clients/new" element={<ClientEditPage />} />
+        <Route path="clients/:id" element={<ClientEditPage />} />
         <Route path="themes" element={<ThemesPage />} />
         <Route path="billing" element={<BillingPage />} />
         <Route path="settings" element={<Settings />} />

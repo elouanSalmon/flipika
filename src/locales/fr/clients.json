@@ -4,6 +4,10 @@
             "create": "Nouveau Client",
             "edit": "Modifier le Client"
         },
+        "sections": {
+            "basicInfo": "Informations de base",
+            "basicInfoDescription": "Nom, logo et coordonnées du client"
+        },
         "logo": {
             "label": "Logo",
             "upload": "Ajouter",
@@ -48,15 +52,25 @@
         "emailConfig": {
             "title": "Configuration Email",
             "description": "Personnalisez l'objet et le message de l'email pour ce client.",
+            "variables": {
+                "label": "Variables",
+                "tooltips": {
+                    "client_name": "Nom du client",
+                    "period": "Période du rapport",
+                    "campaigns": "Liste des campagnes",
+                    "user_name": "Votre nom",
+                    "company": "Votre entreprise"
+                }
+            },
             "subject": {
                 "label": "Objet",
-                "placeholder": "Rapport pour {{clientName}}",
-                "default": "Rapport pour {{clientName}}"
+                "placeholder": "Rapport pour [client_name]",
+                "default": "Rapport [period] pour [client_name]"
             },
             "body": {
                 "label": "Message",
                 "placeholder": "Bonjour,\n\nVeuillez trouver ci-joint votre rapport.\n\nCordialement,",
-                "default": "Bonjour,\n\nVeuillez trouver ci-joint votre rapport.\n\nCordialement,"
+                "default": "Bonjour [client_name],\n\nVeuillez trouver ci-joint votre rapport pour la période [period], concernant les campagnes suivantes :\n[campaigns]\n\nN'hésitez pas si vous avez des questions.\n\nCordialement,\n[user_name]"
             }
         },
         "buttons": {

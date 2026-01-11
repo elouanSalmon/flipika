@@ -39,11 +39,13 @@ export async function createReport(
     campaignIds: string[] = [],
     dateRange?: { start: string; end: string; preset?: string },
     accountName?: string,
-    campaignNames?: string[]
+    campaignNames?: string[],
+    clientId?: string // New Parameter
 ): Promise<string> {
     try {
         const newReport: any = {
             userId,
+            clientId: clientId || null, // Store it
             accountId,
             accountName: accountName || null,
             campaignIds,
@@ -554,6 +556,7 @@ export async function duplicateReport(
 export async function updateReportSettings(
     reportId: string,
     settings: {
+        clientId?: string;
         accountId?: string;
         campaignIds?: string[];
         startDate?: Date;
@@ -573,6 +576,9 @@ export async function updateReportSettings(
             version: increment(1),
         };
 
+        if (settings.clientId !== undefined) {
+            reportUpdates.clientId = settings.clientId;
+        }
         if (settings.accountId !== undefined) {
             reportUpdates.accountId = settings.accountId;
         }

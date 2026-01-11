@@ -1,6 +1,6 @@
 # Story 7.2: Éditeur Dynamique avec Variables (Tags)
 
-Status: backlog
+Status: review
 
 ## Story
 
@@ -16,12 +16,12 @@ so that the information is automatically updated for each report.
 
 ## Tasks / Subtasks
 
-- [ ] UI Component (AC: 1, 3)
-  - [ ] Create a `VariablePicker` or similar small component.
-  - [ ] List supported keys: `[client_name]`, `[period]`, `[campaigns]`, `[user_name]`, `[company]`.
-- [ ] Editor Integration (AC: 2)
-  - [ ] Add "Click to insert" buttons above or below the Subject/Body fields.
-  - [ ] Implement cursor-aware insertion logic.
+- [x] UI Component (AC: 1, 3)
+  - [x] Create a `VariablePicker` or similar small component.
+  - [x] List supported keys: `[client_name]`, `[period]`, `[campaigns]`, `[user_name]`, `[company]`.
+- [x] Editor Integration (AC: 2)
+  - [x] Add "Click to insert" buttons above or below the Subject/Body fields.
+  - [x] Implement cursor-aware insertion logic.
 
 ## Dev Notes
 
@@ -46,5 +46,13 @@ Gemini 2.0 Flash
 ### Debug Log References
 
 ### Completion Notes List
+- Created `EmailPresetEditor` component with variable picker toolbar.
+- Implemented cursor-aware insertion logic.
+- Integrated `EmailPresetEditor` into `ClientForm`.
+- Added localized tooltips for variables.
 
 ### File List
+- src/components/clients/EmailPresetEditor.tsx
+- src/components/clients/ClientForm.tsx
+- src/locales/fr/clients.json
+- src/locales/en/clients.json

@@ -114,6 +114,38 @@ export const clientService = {
     },
 
     /**
+     * Get a single client
+     * Note: Requires userId from AuthContext usually, but if we only have clientId, 
+     * we might need to search or pass userId. 
+     * For now, assuming we know userId is needed.
+     * BUT: The service call in ReportPreview didn't pass userId.
+     * We need to fix the service call or this method.
+     * The `report` object usually doesn't store userId unless we added it. 
+     * `EditableReport` has `userId`.
+     * So we need `getClient(userId, clientId)`.
+     */
+    async getClient(userId: string, clientId: string): Promise<Client | null> {
+        try {
+            const docRef = doc(db, 'users', userId, COLLECTION_NAME, clientId);
+
+            // Simpler: getDoc
+            const { getDoc } = await import('firebase/firestore');
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                return {
+                    id: docSnap.id,
+                    ...docSnap.data()
+                } as Client;
+            }
+            return null;
+        } catch (error) {
+            console.error('Error fetching client:', error);
+            return null;
+        }
+    },
+
+    /**
      * Update a client
      */
     async updateClient(userId: string, clientId: string, input: UpdateClientInput): Promise<void> {
@@ -196,3 +228,5 @@ export const clientService = {
         }
     }
 };
+
+export const getClient = clientService.getClient;
