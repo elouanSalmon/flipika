@@ -45,6 +45,20 @@
             },
             "clear": "Effacer la configuration"
         },
+        "emailConfig": {
+            "title": "Configuration Email",
+            "description": "Personnalisez l'objet et le message de l'email pour ce client.",
+            "subject": {
+                "label": "Objet",
+                "placeholder": "Rapport pour {{clientName}}",
+                "default": "Rapport pour {{clientName}}"
+            },
+            "body": {
+                "label": "Message",
+                "placeholder": "Bonjour,\n\nVeuillez trouver ci-joint votre rapport.\n\nCordialement,",
+                "default": "Bonjour,\n\nVeuillez trouver ci-joint votre rapport.\n\nCordialement,"
+            }
+        },
         "buttons": {
             "cancel": "Annuler",
             "create": "Créer le client",

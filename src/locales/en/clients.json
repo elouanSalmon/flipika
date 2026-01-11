@@ -45,6 +45,20 @@
             },
             "clear": "Clear configuration"
         },
+        "emailConfig": {
+            "title": "Email Configuration",
+            "description": "Customize the email subject and message for this client.",
+            "subject": {
+                "label": "Subject",
+                "placeholder": "Report for {{clientName}}",
+                "default": "Report for {{clientName}}"
+            },
+            "body": {
+                "label": "Message",
+                "placeholder": "Hello,\n\nPlease find attached your report.\n\nBest regards,",
+                "default": "Hello,\n\nPlease find attached your report.\n\nBest regards,"
+            }
+        },
         "buttons": {
             "cancel": "Cancel",
             "create": "Create Client",

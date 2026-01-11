@@ -73,7 +73,8 @@ export const clientService = {
                 googleAdsCustomerId: input.googleAdsCustomerId,
                 logoUrl: logoUrl,
                 createdAt: serverTimestamp(), // Use server timestamp
-                updatedAt: serverTimestamp()
+                updatedAt: serverTimestamp(),
+                ...(input.emailPreset && { emailPreset: input.emailPreset })
             });
 
             return clientId;
@@ -156,6 +157,10 @@ export const clientService = {
 
             if (input.defaultThemeId !== undefined) {
                 updates.defaultThemeId = input.defaultThemeId;
+            }
+
+            if (input.emailPreset) {
+                updates.emailPreset = input.emailPreset;
             }
 
             await updateDoc(docRef, updates);

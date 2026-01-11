@@ -163,7 +163,21 @@ export async function saveReportWithSlides(
 
         batch.update(reportRef, reportUpdates);
 
-        // Update slides in sub-collection
+        // Get existing slides to identify which ones need to be deleted
+        const slidesRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
+        const existingSlidesSnap = await getDocs(slidesRef);
+        const existingSlideIds = new Set(existingSlidesSnap.docs.map(doc => doc.id));
+        const currentSlideIds = new Set(slides.map(w => w.id));
+
+        // Delete slides that are no longer in the current slides array
+        existingSlideIds.forEach(existingId => {
+            if (!currentSlideIds.has(existingId)) {
+                const widgetRef = doc(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION, existingId);
+                batch.delete(widgetRef);
+            }
+        });
+
+        // Update or create slides in sub-collection
         slides.forEach((widget, index) => {
             const widgetRef = doc(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION, widget.id);
             batch.set(widgetRef, {

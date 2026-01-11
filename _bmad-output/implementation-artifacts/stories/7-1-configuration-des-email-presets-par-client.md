@@ -17,8 +17,8 @@ so that the automated email matches my communication style with them.
 
 ## Tasks / Subtasks
 
-- [ ] Data Model (AC: 4)
-  - [ ] Update `Client` interface in `src/types/client.ts` to include `emailPreset` object.
+- [x] Data Model (AC: 4)
+  - [x] Update `Client` interface in `src/types/client.ts` to include `emailPreset` object.
 - [ ] UI Implementation (AC: 1, 2)
   - [ ] Add Email section to `ClientForm.tsx` (or equivalent).
   - [ ] Add Subject (input) and Body (textarea) fields.

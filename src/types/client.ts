@@ -13,9 +13,15 @@ export interface Client {
     // Period is managed at template level, not client level
     defaultTemplateId?: string; // Default template to use for this client
     defaultThemeId?: string; // Default theme for reports
+    emailPreset?: EmailPreset; // Custom email preset for this client
 
     createdAt: Timestamp;
     updatedAt: Timestamp;
+}
+
+export interface EmailPreset {
+    subject: string;
+    body: string;
 }
 
 export interface CreateClientInput {
@@ -23,6 +29,7 @@ export interface CreateClientInput {
     email: string;
     googleAdsCustomerId: string;
     logoFile?: File;
+    emailPreset?: EmailPreset;
 }
 
 export interface UpdateClientInput {
@@ -34,4 +41,5 @@ export interface UpdateClientInput {
     // Preset configuration (optional)
     defaultTemplateId?: string;
     defaultThemeId?: string;
+    emailPreset?: EmailPreset;
 }

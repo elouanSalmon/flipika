@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { Client, CreateClientInput, UpdateClientInput } from '../../types/client';
 import type { ReportTemplate } from '../../types/templateTypes';
 import type { ReportTheme } from '../../types/reportThemes';
-import { Upload, Loader2, Settings, X } from 'lucide-react';
+import { Upload, Loader2, Settings, X, Mail } from 'lucide-react';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { listUserTemplates } from '../../services/templateService';
 import themeService from '../../services/themeService';
@@ -39,6 +39,17 @@ export const ClientForm: React.FC<ClientFormProps> = ({
     const [templates, setTemplates] = useState<ReportTemplate[]>([]);
     const [themes, setThemes] = useState<ReportTheme[]>([]);
     const [loadingPresets, setLoadingPresets] = useState(false);
+
+    // Email Config State
+    // We use a useEffect to update these validation-dependent defaults if needed, 
+    // but simple initialization is usually enough. 
+    // However, for "Report for {{clientName}}", we might want it to update if name changes?
+    // Let's keep it simple: Initialize with current name or placeholder.
+    const defaultSubject = t('form.emailConfig.subject.default', { clientName: initialData?.name || '' });
+    const defaultBody = t('form.emailConfig.body.default');
+
+    const [emailSubject, setEmailSubject] = useState(initialData?.emailPreset?.subject || defaultSubject);
+    const [emailBody, setEmailBody] = useState(initialData?.emailPreset?.body || defaultBody);
 
     useEffect(() => {
         // Cleanup preview URL if it was created locally
@@ -127,13 +138,30 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                 updateData.defaultThemeId = defaultThemeId || undefined;
             }
 
+            // Handle email preset changes
+            // We save if it's different from initial or if we're establishing a default where none existed
+            if (
+                emailSubject !== (initialData.emailPreset?.subject) ||
+                emailBody !== (initialData.emailPreset?.body)
+            ) {
+                updateData.emailPreset = {
+                    subject: emailSubject,
+                    body: emailBody
+                };
+            }
+
             await onSubmit(updateData);
         } else {
             await onSubmit({
                 name,
                 email,
                 googleAdsCustomerId: cleanAdsId,
-                logoFile: logoFile || undefined
+                googleAdsCustomerId: cleanAdsId,
+                logoFile: logoFile || undefined,
+                emailPreset: {
+                    subject: emailSubject,
+                    body: emailBody
+                }
             });
         }
         await refreshTutorial();
@@ -329,6 +357,49 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     </div>
                 </div>
             )}
+
+            {/* Email Configuration Section */}
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                <div className="flex items-center gap-2 mb-4">
+                    <Mail className="w-5 h-5 text-gray-500" />
+                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">
+                        {t('form.emailConfig.title')}
+                    </h3>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                    {t('form.emailConfig.description')}
+                </p>
+
+                <div className="space-y-4">
+                    <div>
+                        <label htmlFor="emailSubject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            {t('form.emailConfig.subject.label')}
+                        </label>
+                        <input
+                            type="text"
+                            id="emailSubject"
+                            value={emailSubject}
+                            onChange={(e) => setEmailSubject(e.target.value)}
+                            className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            placeholder={t('form.emailConfig.subject.placeholder', { clientName: name || 'Client' })}
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="emailBody" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            {t('form.emailConfig.body.label')}
+                        </label>
+                        <textarea
+                            id="emailBody"
+                            value={emailBody}
+                            onChange={(e) => setEmailBody(e.target.value)}
+                            rows={6}
+                            className="block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-3 py-2 text-gray-900 dark:text-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            placeholder={t('form.emailConfig.body.placeholder')}
+                        />
+                    </div>
+                </div>
+            </div>
 
             <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <button

@@ -84,8 +84,8 @@ development_status:
   epic-6-retrospective: optional
 
   # Epic 7
-  epic-7: backlog
-  7-1-configuration-des-email-presets-par-client: backlog
+  epic-7: in-progress
+  7-1-configuration-des-email-presets-par-client: in-progress
   7-2-editeur-dynamique-avec-variables-tags: backlog
   7-3-application-automatique-lors-de-lenvoi-report-preview: backlog
   7-4-migration-initialisation-des-defaults: backlog
