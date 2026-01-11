@@ -60,19 +60,118 @@
     "connectToUse": "Connect Google Ads",
     "useTemplate": "Use this template",
     "uses": "Uses",
-    "widgets": "Widgets",
+    "slides": "Slides",
     "actions": {
       "edit": "Edit",
       "createReport": "Create report",
       "duplicate": "Duplicate",
       "delete": "Delete"
     },
-    "widgetTypes": {
+    "slideTypes": {
       "performance": "Perf.",
       "chart": "Chart",
       "metrics": "Metrics",
       "creatives": "Creatives",
       "text": "Text"
+    }
+  },
+  "configModal": {
+    "title": {
+      "create": "New Report Template",
+      "edit": "Edit Template"
+    },
+    "info": {
+      "title": "Template Information",
+      "nameLabel": "Template name *",
+      "namePlaceholder": "Ex: Weekly SEA Report",
+      "descLabel": "Description (optional)",
+      "descPlaceholder": "Description of this template..."
+    },
+    "period": {
+      "title": "Analysis Period",
+      "description": "Select a relative period. Dates will be calculated automatically upon report creation."
+    },
+    "account": {
+      "title": "Account and Campaigns",
+      "requiredBadge": "Required",
+      "description": "Select the account and campaigns to analyze for this template.",
+      "label": "Google Ads Account *",
+      "defaultOption": "-- Set when using --",
+      "campaignsLabel": "Campaigns ({{count}} selected) *",
+      "selectAll": "Select All",
+      "deselectAll": "Deselect All",
+      "noCampaigns": "No campaigns found for this account"
+    },
+    "slides": {
+      "title": "Slides to include *",
+      "description": "Configure default slides for this template.",
+      "addFirst": "Add a slide",
+      "emptyTitle": "No slides configured",
+      "emptyDesc": "Click to add slides to the template"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "create": "Create template",
+      "update": "Update template",
+      "creating": "Creating...",
+      "updating": "Updating..."
+    },
+    "validation": {
+      "nameRequired": "Please provide a name for the template",
+      "accountRequired": "Please select a Google Ads account",
+      "campaignsRequired": "Please select at least one campaign",
+      "slidesRequired": "Please select at least one slide"
+    },
+    "unsaved": {
+      "title": "Unsaved changes",
+      "message": "You have unsaved changes. Are you sure you want to close without saving?",
+      "confirm": "Close without saving"
+    },
+    "slideTitles": {
+      "performance": "Performance Overview",
+      "metrics": "Key Metrics",
+      "chart": "Campaign Chart",
+      "creative": "Ad Creative Preview",
+      "text": "Text Block",
+      "custom": "Custom Slide"
+    },
+    "presets": {
+      "last_7_days": {
+        "label": "Last 7 days",
+        "description": "The last 7 days"
+      },
+      "last_30_days": {
+        "label": "Last 30 days",
+        "description": "The last 30 days"
+      },
+      "last_90_days": {
+        "label": "Last 90 days",
+        "description": "The last 90 days"
+      },
+      "this_month": {
+        "label": "This month",
+        "description": "From first to last day of current month"
+      },
+      "last_month": {
+        "label": "Last month",
+        "description": "From first to last day of previous month"
+      },
+      "this_quarter": {
+        "label": "This quarter",
+        "description": "From first day of current quarter to today"
+      },
+      "last_quarter": {
+        "label": "Last quarter",
+        "description": "Full previous quarter"
+      },
+      "this_year": {
+        "label": "This year",
+        "description": "From January 1st to today"
+      },
+      "last_year": {
+        "label": "Last year",
+        "description": "Full previous year"
+      }
     }
   }
 }

@@ -15,9 +15,9 @@ import {
     writeBatch
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import type { ReportTemplate, TemplateWidgetConfig, PeriodPreset } from '../types/templateTypes';
+import type { ReportTemplate, TemplateSlideConfig, PeriodPreset } from '../types/templateTypes';
 import { getDateRangeFromPreset as calculateDateRange } from '../types/templateTypes';
-import { createReport, addWidget } from './reportService';
+import { createReport, addSlide } from './reportService';
 
 const TEMPLATES_COLLECTION = 'reportTemplates';
 
@@ -34,7 +34,7 @@ export async function createTemplate(
         campaignIds?: string[];
         campaignNames?: string[];
         periodPreset: PeriodPreset;
-        widgetConfigs: TemplateWidgetConfig[];
+        slideConfigs: TemplateSlideConfig[];
         design?: any;
     }
 ): Promise<string> {
@@ -48,7 +48,7 @@ export async function createTemplate(
             campaignIds: config.campaignIds || [],
             campaignNames: config.campaignNames || [],
             periodPreset: config.periodPreset,
-            widgetConfigs: config.widgetConfigs,
+            slideConfigs: config.slideConfigs,
             design: config.design || null,
             usageCount: 0,
             lastUsedAt: null,
@@ -87,7 +87,7 @@ export async function getTemplate(templateId: string): Promise<ReportTemplate | 
             campaignIds: data.campaignIds || [],
             campaignNames: data.campaignNames || [],
             periodPreset: data.periodPreset,
-            widgetConfigs: data.widgetConfigs || [],
+            slideConfigs: data.slideConfigs || [],
             design: data.design,
             usageCount: data.usageCount || 0,
             lastUsedAt: data.lastUsedAt?.toDate(),
@@ -127,7 +127,7 @@ export async function listUserTemplates(userId: string): Promise<ReportTemplate[
                 campaignIds: data.campaignIds || [],
                 campaignNames: data.campaignNames || [],
                 periodPreset: data.periodPreset,
-                widgetConfigs: data.widgetConfigs || [],
+                slideConfigs: data.slideConfigs || [],
                 design: data.design,
                 usageCount: data.usageCount || 0,
                 lastUsedAt: data.lastUsedAt?.toDate(),
@@ -201,7 +201,7 @@ export async function duplicateTemplate(
             campaignIds: template.campaignIds,
             campaignNames: template.campaignNames,
             periodPreset: template.periodPreset,
-            widgetConfigs: template.widgetConfigs,
+            slideConfigs: template.slideConfigs,
             design: template.design,
         });
     } catch (error) {
@@ -279,8 +279,8 @@ export async function createReportFromTemplate(
         // Add widgets from template
         const batch = writeBatch(db);
 
-        for (const widgetConfig of template.widgetConfigs) {
-            await addWidget(reportId, {
+        for (const widgetConfig of template.slideConfigs) {
+            await addSlide(reportId, {
                 type: widgetConfig.type,
                 accountId,
                 campaignIds,

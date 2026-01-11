@@ -415,3 +415,124 @@ So that I can double down on what works.
 **Then** I can choose the Dimension (Keywords, Search Terms, Locations, Ads)
 **And** I can choose the Metric to sort by (Cost, Conversions, ROAS)
 **And** It displays the top N (e.g., Top 5 or Top 10) items in a list or table
+
+### Epic 7: Email Presets & Custom Messaging ("La Signature")
+Permettre la personnalisation des emails pour chaque client afin de rendre les envois plus professionnels et adaptés.
+**FRs covered:** New FRs (Custom Email Subject/Body, Variable Substitution)
+**Notes:** Utilisation du terme "Email Preset" pour éviter le conflit avec "Template". Système de tags dynamiques.
+
+### Story 7.1: Configuration des "Email Presets" par Client
+
+As a User,
+I want to define a custom Email Subject and Body for each client,
+So that the automated email matches my communication style with them.
+
+**Acceptance Criteria:**
+
+**Given** I am editing a Client
+**When** I go to the "Config Email" section
+**Then** I see two rich text/textarea fields for "Subject" and "Message Body"
+**And** These fields are pre-filled with a default value if never edited
+**And** I can save these settings for the client
+
+### Story 7.2: Éditeur Dynamique avec Variables (Tags)
+
+As a User,
+I want to insert dynamic variables in my email content,
+So that the information is automatically updated for each report.
+
+**Acceptance Criteria:**
+
+**Given** I am in the Email Preset Editor
+**When** I click on a variable button (e.g., "[Client Name]", "[Period]", "[Campaign List]")
+**Then** The corresponding key (e.g., `[client_name]`) is inserted into the text at the cursor position
+**And** I can see a list of available variables: Client Name, Report Period, Campaigns, User Name, Company.
+
+### Story 7.3: Application Automatique lors de l'envoi (Report Preview)
+
+As a User,
+I want the "Send" action to use my custom Email Preset,
+So that I don't have to copy-paste or re-type the message.
+
+**Acceptance Criteria:**
+
+**Given** I am in the Report Preview for a specific client
+**When** I click "Send"
+**Then** The generated `mailto:` link uses the customized Subject and Body defined for this client
+**And** All variables are correctly replaced by their real values (e.g., `[client_name]` becomes "Acme Corp")
+**And** If the client has no custom preset, the global default is used.
+
+### Story 7.4: Migration & Initialisation des Defaults
+
+As a Developer,
+I want every client (existing and new) to have a default Email Preset,
+So that the feature is functional immediately.
+
+**Acceptance Criteria:**
+
+**Given** I create a new client
+**When** The creation is finalized
+**Then** The email subject and body are initialized with the standard default pattern
+**And** A migration script or logic ensures existing clients get these fields populated if missing.
+
+### Epic 8: PDF Export Perfection ("Le Rendu Premium")
+Garantir un rendu PDF de qualité professionnelle, sans coupures maladroites, respectant parfaitement le branding et optimisé pour l'impression/mailing.
+**FRs covered:** FR-10, NFR-01
+**Notes:** Utilisation de `html2pdf.js` avec une gestion avancée des sauts de page et du rendu haute définition.
+
+### Story 8.1: Gestion Intelligente des Sauts de Page (Page Breaks)
+
+As a User,
+I want my report slides to not be cut in half across two pages,
+So that the report looks professional and is easy to read.
+
+**Acceptance Criteria:**
+
+**Given** I have a long report with many slides
+**When** I generate the PDF
+**Then** Slides are never split between two pages (unless a single slide is larger than a page)
+**And** Page breaks occur correctly between slides
+**And** I can manually insert a page break if needed in the editor
+
+### Story 8.2: Rendu Haute Définition & Fidélité Visuelle
+
+As a Admin User,
+I want the PDF to be perfectly sharp and match exactly the colors and fonts of my theme,
+So that the "Pre-flight" visual promise is kept.
+
+**Acceptance Criteria:**
+
+**Given** I generate a PDF
+**When** I open the file
+**Then** The text is sharp (no pixelation)
+**And** The colors match the Hex codes of the theme
+**And** The charts (Recharts) are rendered with high fidelity (SVG to Canvas optimization)
+
+### Story 8.3: Optimisation de la Taille & Performance
+
+As a User,
+I want the PDF generation to be fast and the resulting file to be reasonably small,
+So that I can send it via email without issues.
+
+**Acceptance Criteria:**
+
+**Given** I start a PDF generation
+**When** The report contains many images/charts
+**Then** The generation process does not freeze the UI (UI remains responsive)
+**And** The final PDF size is optimized (compression activated)
+**And** A clear progress bar shows the exact state of generation
+
+### Story 8.4: Métadonnées & Accessibilité PDF
+
+As a Recipient,
+I want to see the report information in the file metadata and have a structured document,
+So that I can easily find and archive the report.
+
+**Acceptance Criteria:**
+
+**Given** I receive the PDF
+**When** I check the file properties
+**Then** I see the Title, Author (Flipika), and Subject correctly filled
+**And** The PDF is tagged for basic accessibility (Screen readers can read the text)
+
+

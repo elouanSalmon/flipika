@@ -4,6 +4,7 @@ import themeService from '../../services/themeService';
 import Spinner from '../common/Spinner';
 import type { ReportTheme } from '../../types/reportThemes';
 import ThemePreview from './ThemePreview';
+import { useTranslation } from 'react-i18next';
 import './ThemeSelector.css';
 
 interface ThemeSelectorProps {
@@ -21,6 +22,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
     onThemeSelect,
     onCreateTheme,
 }) => {
+    const { t } = useTranslation('themes');
     const [themes, setThemes] = useState<ReportTheme[]>([]);
     const [loading, setLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
@@ -62,14 +64,14 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
         return (
             <div className="theme-selector-loading">
                 <Spinner size={16} />
-                <span style={{ marginLeft: '8px' }}>Chargement des thèmes...</span>
+                <span style={{ marginLeft: '8px' }}>{t('selector.loading')}</span>
             </div>
         );
     }
 
     return (
         <div className="theme-selector">
-            <label className="theme-selector-label">Thème du rapport</label>
+            <label className="theme-selector-label">{t('selector.label')}</label>
 
             <div className="theme-selector-dropdown">
                 <button
@@ -84,7 +86,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
                                 <span className="theme-selector-button-text">{selectedTheme.name}</span>
                             </>
                         ) : (
-                            <span className="theme-selector-button-text">Thème par défaut</span>
+                            <span className="theme-selector-button-text">{t('selector.defaultThemeButton')}</span>
                         )}
                     </div>
                     <ChevronDown size={18} className={`theme-selector-chevron ${isOpen ? 'open' : ''}`} />
@@ -93,7 +95,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
                 {isOpen && (
                     <div className="theme-selector-menu">
                         <div className="theme-selector-menu-header">
-                            <span>Sélectionner un thème</span>
+                            <span>{t('selector.header')}</span>
                         </div>
 
                         <div className="theme-selector-menu-content">
@@ -107,8 +109,8 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
                                     <ThemePreview size="small" />
                                 </div>
                                 <div className="theme-selector-option-info">
-                                    <div className="theme-selector-option-name">Thème par défaut</div>
-                                    <div className="theme-selector-option-description">Design standard de Flipika</div>
+                                    <div className="theme-selector-option-name">{t('selector.defaultThemeTitle')}</div>
+                                    <div className="theme-selector-option-description">{t('selector.defaultThemeDesc')}</div>
                                 </div>
                             </button>
 
@@ -126,9 +128,9 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
                                     <div className="theme-selector-option-info">
                                         <div className="theme-selector-option-name">
                                             {theme.name}
-                                            {theme.isDefault && <span className="theme-selector-badge">Par défaut</span>}
+                                            {theme.isDefault && <span className="theme-selector-badge">{t('selector.defaultBadge')}</span>}
                                             {accountId && theme.linkedAccountIds.includes(accountId) && (
-                                                <span className="theme-selector-badge linked">Lié au compte</span>
+                                                <span className="theme-selector-badge linked">{t('selector.linkedBadge')}</span>
                                             )}
                                         </div>
                                         {theme.description && (
@@ -149,7 +151,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
                                         onCreateTheme();
                                     }}
                                 >
-                                    + Créer un nouveau thème
+                                    {t('selector.createButton')}
                                 </button>
                             </div>
                         )}

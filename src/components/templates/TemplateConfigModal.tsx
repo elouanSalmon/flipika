@@ -3,13 +3,14 @@ import { createPortal } from 'react-dom';
 import { X, Loader2, Plus, Grid, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { Campaign } from '../../types/business';
-import type { PeriodPreset, TemplateWidgetConfig } from '../../types/templateTypes';
+import type { PeriodPreset, TemplateSlideConfig } from '../../types/templateTypes';
 import { PERIOD_PRESETS } from '../../types/templateTypes';
-import { WidgetType } from '../../types/reportTypes';
+import { SlideType } from '../../types/reportTypes';
 import ConfirmationModal from '../common/ConfirmationModal';
 import './TemplateConfigModal.css';
-import WidgetLibrary from '../reports/WidgetLibrary';
+import SlideLibrary from '../reports/SlideLibrary';
 import { useTutorial } from '../../contexts/TutorialContext';
+import { useTranslation } from 'react-i18next';
 
 interface GoogleAdsAccount {
     id: string;
@@ -36,20 +37,10 @@ export interface TemplateConfig {
     campaignIds: string[];
     campaignNames?: string[];
     periodPreset: PeriodPreset;
-    widgetConfigs: TemplateWidgetConfig[];
+    widgetConfigs: TemplateSlideConfig[];
 }
 
-const getWidgetTitle = (type: string) => {
-    switch (type) {
-        case WidgetType.PERFORMANCE_OVERVIEW: return 'Vue d\'ensemble';
-        case WidgetType.KEY_METRICS: return 'Métriques Clés';
-        case WidgetType.CAMPAIGN_CHART: return 'Graphique';
-        case WidgetType.AD_CREATIVE: return 'Aperçu d\'annonce';
-        case WidgetType.TEXT_BLOCK: return 'Bloc de texte';
-        case WidgetType.CUSTOM: return 'Personnalisé';
-        default: return type;
-    }
-};
+
 
 const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
     onClose,
@@ -66,9 +57,22 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
     const [accountId, setAccountId] = useState(selectedAccountId || initialConfig?.accountId || '');
     const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>(initialConfig?.campaignIds || []);
     const [periodPreset, setPeriodPreset] = useState<PeriodPreset>(initialConfig?.periodPreset || 'last_30_days');
-    const [widgetConfigs, setWidgetConfigs] = useState<TemplateWidgetConfig[]>(initialConfig?.widgetConfigs || []);
+    const [widgetConfigs, setSlideConfigs] = useState<TemplateSlideConfig[]>(initialConfig?.widgetConfigs || []);
     // selectAll state removed as it was unused and replaced by derived state
-    const [showWidgetLibrary, setShowWidgetLibrary] = useState(false);
+    const [showSlideLibrary, setShowSlideLibrary] = useState(false);
+    const { t } = useTranslation('templates');
+
+    const getSlideTitle = (type: string) => {
+        switch (type) {
+            case SlideType.PERFORMANCE_OVERVIEW: return t('configModal.slideTitles.performance');
+            case SlideType.KEY_METRICS: return t('configModal.slideTitles.metrics');
+            case SlideType.CAMPAIGN_CHART: return t('configModal.slideTitles.chart');
+            case SlideType.AD_CREATIVE: return t('configModal.slideTitles.creative');
+            case SlideType.TEXT_BLOCK: return t('configModal.slideTitles.text');
+            case SlideType.CUSTOM: return t('configModal.slideTitles.custom');
+            default: return type;
+        }
+    };
 
     // Safeguards
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -115,40 +119,40 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
         }
     };
 
-    const handleAddWidget = (type: WidgetType) => {
-        const newWidget: TemplateWidgetConfig = {
+    const handleAddSlide = (type: SlideType) => {
+        const newSlide: TemplateSlideConfig = {
             type,
             order: widgetConfigs.length,
             settings: {} // Initialize with empty settings
         };
-        setWidgetConfigs(prev => [...prev, newWidget]);
-        setShowWidgetLibrary(false);
+        setSlideConfigs(prev => [...prev, newSlide]);
+        setShowSlideLibrary(false);
     };
 
-    const handleRemoveWidget = (indexToRemove: number) => {
-        setWidgetConfigs(prev => prev.filter((_, index) => index !== indexToRemove));
+    const handleRemoveSlide = (indexToRemove: number) => {
+        setSlideConfigs(prev => prev.filter((_, index) => index !== indexToRemove));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!name.trim()) {
-            toast.error('Veuillez donner un nom au template');
+            toast.error(t('configModal.validation.nameRequired'));
             return;
         }
 
         if (!accountId) {
-            toast.error('Veuillez sélectionner un compte Google Ads');
+            toast.error(t('configModal.validation.accountRequired'));
             return;
         }
 
         if (selectedCampaigns.length === 0) {
-            toast.error('Veuillez sélectionner au moins une campagne');
+            toast.error(t('configModal.validation.campaignsRequired'));
             return;
         }
 
         if (widgetConfigs.length === 0) {
-            toast.error('Veuillez sélectionner au moins un widget');
+            toast.error(t('configModal.validation.slidesRequired'));
             return;
         }
 
@@ -205,7 +209,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                 <div className="template-config-modal-overlay" onClick={handleCloseAttempt}>
                     <div className="template-config-modal" onClick={(e) => e.stopPropagation()}>
                         <div className="modal-header">
-                            <h2>{isEditMode ? 'Modifier le Template' : 'Nouveau Template de Rapport'}</h2>
+                            <h2>{isEditMode ? t('configModal.title.edit') : t('configModal.title.create')}</h2>
                             <button className="close-btn" onClick={handleCloseAttempt} disabled={isSubmitting}>
                                 <X size={24} />
                             </button>
@@ -214,28 +218,28 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                         <form onSubmit={handleSubmit} className="modal-content">
                             {/* Template Info */}
                             <div className="form-section">
-                                <h3>Informations du Template</h3>
+                                <h3>{t('configModal.info.title')}</h3>
 
                                 <div className="form-group">
-                                    <label htmlFor="template-name">Nom du template *</label>
+                                    <label htmlFor="template-name">{t('configModal.info.nameLabel')}</label>
                                     <input
                                         id="template-name"
                                         type="text"
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        placeholder="Ex: Rapport Hebdomadaire SEA"
+                                        placeholder={t('configModal.info.namePlaceholder')}
                                         required
                                         disabled={isSubmitting}
                                     />
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="template-desc">Description (optionnel)</label>
+                                    <label htmlFor="template-desc">{t('configModal.info.descLabel')}</label>
                                     <textarea
                                         id="template-desc"
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
-                                        placeholder="Description de ce template..."
+                                        placeholder={t('configModal.info.descPlaceholder')}
                                         rows={3}
                                         disabled={isSubmitting}
                                     />
@@ -244,9 +248,9 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
 
                             {/* Period Preset */}
                             <div className="form-section">
-                                <h3>Période d'analyse</h3>
+                                <h3>{t('configModal.period.title')}</h3>
                                 <p className="section-description">
-                                    Sélectionnez une période relative. Les dates seront calculées automatiquement lors de la création du rapport.
+                                    {t('configModal.period.description')}
                                 </p>
                                 <div className="period-presets">
                                     {PERIOD_PRESETS.map((preset) => (
@@ -255,10 +259,10 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                             type="button"
                                             className={`preset-btn ${periodPreset === preset.value ? 'active' : ''}`}
                                             onClick={() => setPeriodPreset(preset.value)}
-                                            title={preset.description}
+                                            title={t(`configModal.presets.${preset.value}.description`)}
                                             disabled={isSubmitting}
                                         >
-                                            {preset.label}
+                                            {t(`configModal.presets.${preset.value}.label`)}
                                         </button>
                                     ))}
                                 </div>
@@ -267,19 +271,19 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                             {/* Account & Campaigns (Mandatory) */}
                             <div className="form-section">
                                 <h3>
-                                    Compte et Campagnes
+                                    {t('configModal.account.title')}
                                     {(!accountId || selectedCampaigns.length === 0) && (
-                                        <span className="text-xs font-medium text-red-500 bg-red-50 px-2 py-0.5 rounded-full dark:bg-red-900/30 dark:text-red-400 ml-2">Requis</span>
+                                        <span className="text-xs font-medium text-red-500 bg-red-50 px-2 py-0.5 rounded-full dark:bg-red-900/30 dark:text-red-400 ml-2">{t('configModal.account.requiredBadge')}</span>
                                     )}
                                 </h3>
                                 <p className="section-description">
-                                    Sélectionnez le compte et les campagnes à analyser pour ce template.
+                                    {t('configModal.account.description')}
                                 </p>
 
                                 {accounts.length > 0 && (
                                     <>
                                         <div className="form-group">
-                                            <label htmlFor="template-account">Compte Google Ads *</label>
+                                            <label htmlFor="template-account">{t('configModal.account.label')}</label>
                                             <select
                                                 id="template-account"
                                                 value={accountId}
@@ -287,7 +291,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                                 required
                                                 disabled={isSubmitting}
                                             >
-                                                <option value="">-- Définir lors de l'utilisation --</option>
+                                                <option value="">{t('configModal.account.defaultOption')}</option>
                                                 {accounts.map(acc => (
                                                     <option key={acc.id} value={acc.id}>{acc.name}</option>
                                                 ))}
@@ -296,7 +300,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
 
                                         {accountId && (
                                             <div className="form-group">
-                                                <label>Campagnes ({selectedCampaigns.length} sélectionnée{selectedCampaigns.length > 1 ? 's' : ''}) *</label>
+                                                <label>{t('configModal.account.campaignsLabel', { count: selectedCampaigns.length })}</label>
                                                 <div className="campaigns-selection">
                                                     <div className="campaigns-header">
                                                         <button
@@ -305,12 +309,12 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                                             onClick={handleSelectAllCampaigns}
                                                             disabled={isSubmitting}
                                                         >
-                                                            {selectedCampaigns.length === currentAccountCampaigns.length && currentAccountCampaigns.length > 0 ? 'Tout désélectionner' : 'Tout sélectionner'}
+                                                            {selectedCampaigns.length === currentAccountCampaigns.length && currentAccountCampaigns.length > 0 ? t('configModal.account.deselectAll') : t('configModal.account.selectAll')}
                                                         </button>
                                                     </div>
                                                     <div className="campaigns-list">
                                                         {currentAccountCampaigns.length === 0 ? (
-                                                            <div className="empty-message">Aucune campagne trouvée pour ce compte</div>
+                                                            <div className="empty-message">{t('configModal.account.noCampaigns')}</div>
                                                         ) : (
                                                             currentAccountCampaigns.map(campaign => (
                                                                 <label key={campaign.id} className="campaign-item">
@@ -337,30 +341,30 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                 )}
                             </div>
 
-                            {/* Widgets Configuration */}
+                            {/* Slides Configuration */}
                             <div className="form-section">
                                 <div className="section-header">
                                     <div>
-                                        <h3>Widgets à inclure *</h3>
+                                        <h3>{t('configModal.slides.title')}</h3>
                                         <p className="section-description">
-                                            Configurez les widgets par défaut pour ce template.
+                                            {t('configModal.slides.description')}
                                         </p>
                                     </div>
                                     <button
                                         type="button"
                                         className="add-widget-btn"
-                                        onClick={() => setShowWidgetLibrary(true)}
+                                        onClick={() => setShowSlideLibrary(true)}
                                         disabled={isSubmitting}
                                     >
-                                        <Plus size={16} /> Ajouter un widget
+                                        <Plus size={16} /> {t('configModal.slides.addFirst')}
                                     </button>
                                 </div>
 
                                 {widgetConfigs.length === 0 ? (
-                                    <div className="empty-widgets" onClick={() => setShowWidgetLibrary(true)}>
+                                    <div className="empty-slides" onClick={() => setShowSlideLibrary(true)}>
                                         <div className="empty-icon"><Grid size={32} /></div>
-                                        <p>Aucun widget configuré</p>
-                                        <span>Cliquez pour ajouter des widgets au template</span>
+                                        <p>{t('configModal.slides.emptyTitle')}</p>
+                                        <span>{t('configModal.slides.emptyDesc')}</span>
                                     </div>
                                 ) : (
                                     <div className="widgets-list">
@@ -368,12 +372,12 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                             <div key={index} className="widget-preview-item">
                                                 <div className="widget-info">
                                                     {/* <span className="widget-type">{config.type}</span> */}
-                                                    <span className="widget-title">{getWidgetTitle(config.type)}</span>
+                                                    <span className="widget-title">{getSlideTitle(config.type)}</span>
                                                 </div>
                                                 <button
                                                     type="button"
                                                     className="remove-widget-btn"
-                                                    onClick={() => handleRemoveWidget(index)}
+                                                    onClick={() => handleRemoveSlide(index)}
                                                     disabled={isSubmitting}
                                                 >
                                                     <Trash2 size={16} />
@@ -387,7 +391,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                             {/* Actions */}
                             <div className="modal-footer">
                                 <button type="button" className="btn-secondary" onClick={handleCloseAttempt} disabled={isSubmitting}>
-                                    Annuler
+                                    {t('configModal.actions.cancel')}
                                 </button>
                                 <button
                                     type="submit"
@@ -397,26 +401,26 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                     {isSubmitting ? (
                                         <>
                                             <Loader2 className="animate-spin h-[18px] w-[18px] mr-2" />
-                                            {isEditMode ? 'Mise à jour...' : 'Création...'}
+                                            {isEditMode ? t('configModal.actions.updating') : t('configModal.actions.creating')}
                                         </>
                                     ) : (
-                                        isEditMode ? 'Mettre à jour le template' : 'Créer le template'
+                                        isEditMode ? t('configModal.actions.update') : t('configModal.actions.create')
                                     )}
                                 </button>
                             </div>
                         </form>
 
-                        {/* Widget Library Modal (Nested) */}
-                        {showWidgetLibrary && (
+                        {/* Slide Library Modal (Nested) */}
+                        {showSlideLibrary && (
                             <div className="nested-modal-overlay">
                                 <div className="nested-modal-content">
                                     <div className="nested-modal-header">
-                                        <h3>Ajouter un widget</h3>
-                                        <button onClick={() => setShowWidgetLibrary(false)}><X size={20} /></button>
+                                        <h3>{t('configModal.slides.addFirst')}</h3>
+                                        <button onClick={() => setShowSlideLibrary(false)}><X size={20} /></button>
                                     </div>
-                                    <WidgetLibrary
-                                        onAddWidget={handleAddWidget}
-                                        onClose={() => setShowWidgetLibrary(false)}
+                                    <SlideLibrary
+                                        onAddSlide={handleAddSlide}
+                                        onClose={() => setShowSlideLibrary(false)}
                                     />
                                 </div>
                             </div>
@@ -430,9 +434,9 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                 isOpen={showUnsavedModal}
                 onClose={() => setShowUnsavedModal(false)}
                 onConfirm={resetAndClose}
-                title="Modifications non enregistrées"
-                message="Vous avez des modifications en cours. Êtes-vous sûr de vouloir fermer sans enregistrer ?"
-                confirmLabel="Fermer sans enregistrer"
+                title={t('configModal.unsaved.title')}
+                message={t('configModal.unsaved.message')}
+                confirmLabel={t('configModal.unsaved.confirm')}
                 isDestructive={true}
             />
         </>

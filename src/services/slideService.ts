@@ -11,19 +11,19 @@ import {
     serverTimestamp
 } from 'firebase/firestore';
 import { db, auth } from '../firebase/config';
-import { fetchWidgetMetrics } from './googleAds';
-import type { WidgetConfig, WidgetTemplate, WidgetInstance } from '../types/reportTypes';
-import { WidgetType } from '../types/reportTypes';
+import { fetchSlideMetrics } from './googleAds';
+import type { SlideConfig, SlideTemplate, SlideInstance } from '../types/reportTypes';
+import { SlideType } from '../types/reportTypes';
 
-const WIDGETS_COLLECTION = 'widgets';
-const WIDGET_TEMPLATES_COLLECTION = 'widgetTemplates';
+const WIDGETS_COLLECTION = 'slides'; // Top-level collection (if used)
+const SLIDE_TEMPLATES_COLLECTION = 'slideTemplates';
 
 /**
  * Create a widget in a report
  */
 export async function createWidget(
     reportId: string,
-    widgetConfig: Omit<WidgetConfig, 'id' | 'createdAt' | 'updatedAt'>
+    widgetConfig: Omit<SlideConfig, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<string> {
     try {
         const newWidget = {
@@ -46,7 +46,7 @@ export async function createWidget(
  */
 export async function updateWidget(
     widgetId: string,
-    config: Partial<WidgetConfig>
+    config: Partial<SlideConfig>
 ): Promise<void> {
     try {
         const docRef = doc(db, WIDGETS_COLLECTION, widgetId);
@@ -88,8 +88,8 @@ export async function loadCachedWidgetData(
 ): Promise<any | null> {
     try {
         const q = query(
-            collection(db, 'widgetInstances'),
-            where('widgetConfigId', '==', widgetId),
+            collection(db, 'slideInstances'), // Updated from widgetInstances
+            where('slideConfigId', '==', widgetId),
             where('reportId', '==', reportId)
         );
 
@@ -116,8 +116,8 @@ export async function loadCachedWidgetData(
 /**
  * Get widget data from Google Ads or cache
  */
-export async function getWidgetData(
-    widgetConfig: WidgetConfig,
+export async function getSlideData(
+    widgetConfig: SlideConfig,
     accountId: string,
     campaignIds?: string[],
     startDate?: Date,
@@ -150,8 +150,8 @@ export async function getWidgetData(
         // Fetch fresh data from API (only if authenticated)
         let freshData;
         switch (type) {
-            case WidgetType.PERFORMANCE_OVERVIEW:
-            case WidgetType.KEY_METRICS:
+            case SlideType.PERFORMANCE_OVERVIEW:
+            case SlideType.KEY_METRICS:
                 freshData = await getPerformanceOverviewData(
                     accountId,
                     campaignIds,
@@ -163,7 +163,7 @@ export async function getWidgetData(
                 );
                 break;
 
-            case WidgetType.CAMPAIGN_CHART:
+            case SlideType.CAMPAIGN_CHART:
                 freshData = await getCampaignChartData(
                     accountId,
                     campaignIds,
@@ -192,7 +192,7 @@ export async function getWidgetData(
 async function getPerformanceOverviewData(
     accountId: string,
     campaignIds?: string[],
-    settings?: WidgetConfig['settings'],
+    settings?: SlideConfig['settings'],
     startDate?: Date,
     endDate?: Date,
     widgetId?: string,
@@ -221,7 +221,7 @@ async function getPerformanceOverviewData(
         });
 
         // Appeler la vraie API Google Ads
-        const result = await fetchWidgetMetrics(
+        const result = await fetchSlideMetrics(
             accountId,
             campaignIds,
             startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
@@ -270,7 +270,7 @@ async function getPerformanceOverviewData(
  * Generate mock performance data as fallback
  */
 function generateMockPerformanceData(
-    settings?: WidgetConfig['settings'],
+    settings?: SlideConfig['settings'],
     startDate?: Date,
     endDate?: Date
 ): {
@@ -320,7 +320,7 @@ function generateMockPerformanceData(
 async function getCampaignChartData(
     accountId: string,
     campaignIds?: string[],
-    _settings?: WidgetConfig['settings'],
+    _settings?: SlideConfig['settings'],
     startDate?: Date,
     endDate?: Date,
     widgetId?: string,
@@ -348,7 +348,7 @@ async function getCampaignChartData(
         });
 
         // Appeler la vraie API Google Ads
-        const result = await fetchWidgetMetrics(
+        const result = await fetchSlideMetrics(
             accountId,
             campaignIds,
             startDate || new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
@@ -479,14 +479,14 @@ function formatMetric(metricName: string, value: number): string {
 /**
  * Save widget as template
  */
-export async function saveWidgetTemplate(
+export async function saveSlideTemplate(
     userId: string,
-    widgetConfig: WidgetConfig,
+    widgetConfig: SlideConfig,
     name: string,
     description: string
 ): Promise<string> {
     try {
-        const template: Omit<WidgetTemplate, 'id'> = {
+        const template: Omit<SlideTemplate, 'id'> = {
             userId,
             name,
             description,
@@ -497,7 +497,7 @@ export async function saveWidgetTemplate(
             createdAt: new Date(),
         };
 
-        const docRef = await addDoc(collection(db, WIDGET_TEMPLATES_COLLECTION), {
+        const docRef = await addDoc(collection(db, SLIDE_TEMPLATES_COLLECTION), {
             ...template,
             createdAt: serverTimestamp(),
         });
@@ -512,16 +512,16 @@ export async function saveWidgetTemplate(
 /**
  * Get user's widget templates
  */
-export async function getUserWidgetTemplates(userId: string): Promise<WidgetTemplate[]> {
+export async function getUserSlideTemplates(userId: string): Promise<SlideTemplate[]> {
     try {
         const q = query(
-            collection(db, WIDGET_TEMPLATES_COLLECTION),
+            collection(db, SLIDE_TEMPLATES_COLLECTION),
             where('userId', '==', userId),
             orderBy('createdAt', 'desc')
         );
 
         const querySnapshot = await getDocs(q);
-        const templates: WidgetTemplate[] = [];
+        const templates: SlideTemplate[] = [];
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
@@ -529,7 +529,7 @@ export async function getUserWidgetTemplates(userId: string): Promise<WidgetTemp
                 id: doc.id,
                 ...data,
                 createdAt: data.createdAt?.toDate() || new Date(),
-            } as WidgetTemplate);
+            } as SlideTemplate);
         });
 
         return templates;
@@ -542,15 +542,15 @@ export async function getUserWidgetTemplates(userId: string): Promise<WidgetTemp
 /**
  * Get default widget templates
  */
-export async function getDefaultWidgetTemplates(): Promise<WidgetTemplate[]> {
+export async function getDefaultSlideTemplates(): Promise<SlideTemplate[]> {
     try {
         const q = query(
-            collection(db, WIDGET_TEMPLATES_COLLECTION),
+            collection(db, SLIDE_TEMPLATES_COLLECTION),
             where('isDefault', '==', true)
         );
 
         const querySnapshot = await getDocs(q);
-        const templates: WidgetTemplate[] = [];
+        const templates: SlideTemplate[] = [];
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
@@ -558,7 +558,7 @@ export async function getDefaultWidgetTemplates(): Promise<WidgetTemplate[]> {
                 id: doc.id,
                 ...data,
                 createdAt: data.createdAt?.toDate() || new Date(),
-            } as WidgetTemplate);
+            } as SlideTemplate);
         });
 
         return templates;
@@ -571,9 +571,9 @@ export async function getDefaultWidgetTemplates(): Promise<WidgetTemplate[]> {
 /**
  * Delete widget template
  */
-export async function deleteWidgetTemplate(templateId: string): Promise<void> {
+export async function deleteSlideTemplate(templateId: string): Promise<void> {
     try {
-        const docRef = doc(db, WIDGET_TEMPLATES_COLLECTION, templateId);
+        const docRef = doc(db, SLIDE_TEMPLATES_COLLECTION, templateId);
         await deleteDoc(docRef);
     } catch (error) {
         console.error('Error deleting widget template:', error);
@@ -590,8 +590,8 @@ export async function cacheWidgetData(
     data: any
 ): Promise<void> {
     try {
-        const widgetInstance: Omit<WidgetInstance, 'id'> = {
-            widgetConfigId: widgetId,
+        const widgetInstance: Omit<SlideInstance, 'id'> = {
+            slideConfigId: widgetId,
             reportId,
             data,
             lastUpdated: new Date(),
@@ -599,8 +599,8 @@ export async function cacheWidgetData(
 
         // Check if instance exists
         const q = query(
-            collection(db, 'widgetInstances'),
-            where('widgetConfigId', '==', widgetId),
+            collection(db, 'slideInstances'),
+            where('slideConfigId', '==', widgetId),
             where('reportId', '==', reportId)
         );
 
@@ -608,13 +608,13 @@ export async function cacheWidgetData(
 
         if (querySnapshot.empty) {
             // Create new instance
-            await addDoc(collection(db, 'widgetInstances'), {
+            await addDoc(collection(db, 'slideInstances'), {
                 ...widgetInstance,
                 lastUpdated: serverTimestamp(),
             });
         } else {
             // Update existing instance
-            const docRef = doc(db, 'widgetInstances', querySnapshot.docs[0].id);
+            const docRef = doc(db, 'slideInstances', querySnapshot.docs[0].id);
             await updateDoc(docRef, {
                 data,
                 lastUpdated: serverTimestamp(),

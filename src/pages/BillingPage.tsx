@@ -345,7 +345,7 @@ export default function BillingPage() {
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
-                                        <span>Widgets personnalisables</span>
+                                        <span>Slides personnalisables</span>
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />

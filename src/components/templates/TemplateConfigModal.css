@@ -325,7 +325,7 @@
     background: rgba(0, 102, 255, 0.05);
 }
 
-.template-config-modal .empty-widgets {
+.template-config-modal .empty-slides {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -339,7 +339,7 @@
     text-align: center;
 }
 
-.template-config-modal .empty-widgets:hover {
+.template-config-modal .empty-slides:hover {
     border-color: var(--color-primary);
     background: rgba(0, 102, 255, 0.05);
 }
@@ -357,19 +357,19 @@
     transition: all 0.2s;
 }
 
-.template-config-modal .empty-widgets:hover .empty-icon {
+.template-config-modal .empty-slides:hover .empty-icon {
     background: rgba(0, 102, 255, 0.1);
     color: var(--color-primary);
 }
 
-.template-config-modal .empty-widgets p {
+.template-config-modal .empty-slides p {
     margin: 0 0 4px 0;
     font-size: 1rem;
     font-weight: 600;
     color: var(--color-text-primary);
 }
 
-.template-config-modal .empty-widgets span {
+.template-config-modal .empty-slides span {
     font-size: 0.875rem;
     color: var(--color-text-secondary);
 }
@@ -489,11 +489,11 @@
     color: var(--color-text-primary);
 }
 
-/* Ensure WidgetLibrary takes available space */
+/* Ensure SlideLibrary takes available space */
 .nested-modal-content > div:last-child {
     flex: 1;
     overflow-y: auto;
-    padding: 0; /* Let WidgetLibrary handle padding if needed, or add padding here */
+    padding: 0; /* Let SlideLibrary handle padding if needed, or add padding here */
 }
 
 @keyframes slideUp {

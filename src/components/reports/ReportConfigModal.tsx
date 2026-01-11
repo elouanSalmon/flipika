@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import { X, Loader2 } from 'lucide-react';
 import type { Campaign } from '../../types/business';
 import './ReportConfigModal.css';
@@ -33,12 +34,12 @@ export interface ReportConfig {
 }
 
 const DATE_PRESETS = [
-    { value: 'last_7_days', label: 'Derniers 7 jours' },
-    { value: 'last_30_days', label: 'Derniers 30 jours' },
-    { value: 'last_90_days', label: 'Derniers 90 jours' },
-    { value: 'this_month', label: 'Ce mois' },
-    { value: 'last_month', label: 'Mois dernier' },
-    { value: 'custom', label: 'Personnalisé' },
+    { value: 'last_7_days', labelKey: 'config.periods.last7Days' },
+    { value: 'last_30_days', labelKey: 'config.periods.last30Days' },
+    { value: 'last_90_days', labelKey: 'config.periods.last90Days' },
+    { value: 'this_month', labelKey: 'config.periods.thisMonth' },
+    { value: 'last_month', labelKey: 'config.periods.lastMonth' },
+    { value: 'custom', labelKey: 'config.periods.custom' },
 ];
 
 const getDateRangeFromPreset = (preset: string): { start: string; end: string } => {
@@ -84,8 +85,8 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     initialConfig,
     isSubmitting = false,
 }) => {
-
-    const [title, setTitle] = useState(initialConfig?.title || 'Nouveau Rapport');
+    const { t, i18n } = useTranslation('reports');
+    const [title, setTitle] = useState(initialConfig?.title || t('list.newReport'));
     const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>(initialConfig?.campaignIds || []);
     const [datePreset, setDatePreset] = useState<string>(initialConfig?.dateRange?.preset || 'last_30_days');
     const [customDateRange, setCustomDateRange] = useState(
@@ -121,7 +122,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
         e.preventDefault();
 
         if (selectedCampaigns.length === 0) {
-            alert('Veuillez sélectionner au moins une campagne');
+            alert(t('config.campaigns.atLeastOne'));
             return;
         }
 
@@ -140,7 +141,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
         <div className="report-config-modal-overlay" onClick={onClose}>
             <div className="report-config-modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>{isEditMode ? 'Paramètres du Rapport' : 'Configuration du Rapport'}</h2>
+                    <h2>{isEditMode ? t('config.settings') : t('config.title')}</h2>
                     <button className="close-btn" onClick={onClose}>
                         <X size={24} />
                     </button>
@@ -149,20 +150,20 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                 <form onSubmit={handleSubmit} className="modal-content">
                     {/* Titre */}
                     <div className="form-group">
-                        <label htmlFor="title">Titre du rapport</label>
+                        <label htmlFor="title">{t('config.reportTitle')}</label>
                         <input
                             id="title"
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Ex: Rapport Mensuel Décembre 2024"
+                            placeholder={t('config.titlePlaceholder')}
                             required
                         />
                     </div>
 
                     {/* Compte Google Ads */}
                     <div className="form-group">
-                        <label htmlFor="account">Compte Google Ads</label>
+                        <label htmlFor="account">{t('config.googleAdsAccount')}</label>
                         <select
                             id="account"
                             value={selectedAccountId}
@@ -190,7 +191,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                     {/* Période */}
                     <div className="form-group">
                         <label>
-                            Période d'analyse
+                            {t('config.analysisPeriod')}
                         </label>
                         <div className="date-presets">
                             {DATE_PRESETS.map(preset => (
@@ -200,7 +201,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                                     className={`preset-btn ${datePreset === preset.value ? 'active' : ''}`}
                                     onClick={() => handlePresetChange(preset.value)}
                                 >
-                                    {preset.label}
+                                    {t(preset.labelKey)}
                                 </button>
                             ))}
                         </div>
@@ -208,7 +209,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                         {datePreset === 'custom' && (
                             <div className="custom-date-range">
                                 <div className="date-input">
-                                    <label htmlFor="start-date">Du</label>
+                                    <label htmlFor="start-date">{t('config.dateRange.from')}</label>
                                     <input
                                         id="start-date"
                                         type="date"
@@ -218,7 +219,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                                     />
                                 </div>
                                 <div className="date-input">
-                                    <label htmlFor="end-date">Au</label>
+                                    <label htmlFor="end-date">{t('config.dateRange.to')}</label>
                                     <input
                                         id="end-date"
                                         type="date"
@@ -231,14 +232,17 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                         )}
 
                         <div className="date-range-display">
-                            Du {new Date(customDateRange.start).toLocaleDateString('fr-FR')} au {new Date(customDateRange.end).toLocaleDateString('fr-FR')}
+                            {t('config.dateRange.display', {
+                                start: new Date(customDateRange.start).toLocaleDateString(i18n.language),
+                                end: new Date(customDateRange.end).toLocaleDateString(i18n.language)
+                            })}
                         </div>
                     </div>
 
                     {/* Campagnes */}
                     <div className="form-group">
                         <label>
-                            Campagnes ({selectedCampaigns.length} sélectionnée{selectedCampaigns.length > 1 ? 's' : ''})
+                            {t('config.campaigns.title', { count: selectedCampaigns.length })}
                         </label>
 
                         <div className="campaigns-header">
@@ -247,14 +251,14 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                                 className="select-all-btn"
                                 onClick={handleSelectAll}
                             >
-                                {selectAll ? 'Tout désélectionner' : 'Tout sélectionner'}
+                                {selectAll ? t('config.campaigns.deselectAll') : t('config.campaigns.selectAll')}
                             </button>
                         </div>
 
                         <div className="campaigns-list">
                             {campaigns.length === 0 ? (
                                 <div className="empty-campaigns">
-                                    Aucune campagne disponible
+                                    {t('config.campaigns.noCampaigns')}
                                 </div>
                             ) : (
                                 campaigns.map(campaign => (
@@ -279,7 +283,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                     {/* Actions */}
                     <div className="modal-footer">
                         <button type="button" className="btn-secondary" onClick={onClose} disabled={isSubmitting}>
-                            Annuler
+                            {t('config.actions.cancel')}
                         </button>
                         <button
                             type="submit"
@@ -289,10 +293,10 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                             {isSubmitting ? (
                                 <>
                                     <Loader2 className="animate-spin h-[18px] w-[18px] mr-2" />
-                                    Mise à jour...
+                                    {t('config.actions.updating')}
                                 </>
                             ) : (
-                                isEditMode ? 'Mettre à jour' : 'Créer le rapport'
+                                isEditMode ? t('config.actions.update') : t('config.actions.create')
                             )}
                         </button>
                     </div>

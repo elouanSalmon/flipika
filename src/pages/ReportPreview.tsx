@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Send, Edit, Copy, Download, Check, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { getReportWithWidgets } from '../services/reportService';
+import { getReportWithSlides } from '../services/reportService';
 import { getUserProfile } from '../services/userProfileService';
 import { fetchCampaigns } from '../services/googleAds';
 import pdfGenerationService from '../services/pdfGenerationService';
@@ -15,12 +15,12 @@ import ErrorBoundary from '../components/common/ErrorBoundary';
 import toast from 'react-hot-toast';
 import { parseApiError, API_TIMEOUT_MS, MAX_RETRY_ATTEMPTS } from '../types/errors';
 import type { ApiError } from '../types/errors';
-import type { EditableReport, WidgetConfig } from '../types/reportTypes';
+import type { EditableReport, SlideConfig } from '../types/reportTypes';
 import type { Campaign } from '../types/business';
 
 type PreviewState =
     | { status: 'loading' }
-    | { status: 'success'; report: EditableReport; widgets: WidgetConfig[] }
+    | { status: 'success'; report: EditableReport; slides: SlideConfig[] }
     | { status: 'error'; error: ApiError }
     | { status: 'empty'; report: EditableReport };
 
@@ -54,7 +54,7 @@ const ReportPreview: React.FC = () => {
         const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
 
         try {
-            const result = await getReportWithWidgets(reportId);
+            const result = await getReportWithSlides(reportId);
 
             clearTimeout(timeoutId);
 
@@ -66,8 +66,8 @@ const ReportPreview: React.FC = () => {
                 return;
             }
 
-            // Check for empty widgets (no data state)
-            if (!result.widgets || result.widgets.length === 0) {
+            // Check for empty slides (no data state)
+            if (!result.slides || result.slides.length === 0) {
                 setState({
                     status: 'empty',
                     report: result.report,
@@ -78,7 +78,7 @@ const ReportPreview: React.FC = () => {
             setState({
                 status: 'success',
                 report: result.report,
-                widgets: result.widgets
+                slides: result.slides
             });
 
             // Reset retry count on success
@@ -369,10 +369,10 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
         );
     }
 
-    const { report, widgets } = state;
+    const { report, slides } = state;
 
     // Check if generation buttons should be disabled
-    const canGenerate = widgets.length > 0;
+    const canGenerate = slides.length > 0;
 
     return (
         <ErrorBoundary>
@@ -411,7 +411,7 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                                     onClick={handleSendEmail}
                                     disabled={pdfGenerating || !canGenerate}
                                     className="btn btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                                    title={!canGenerate ? 'Ajoutez des widgets pour générer le rapport' : undefined}
+                                    title={!canGenerate ? 'Ajoutez des slides pour générer le rapport' : undefined}
                                 >
                                     {pdfGenerating ? (
                                         <>
@@ -550,7 +550,7 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
             >
                 <div ref={reportPreviewRef} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
                     <ReportCanvas
-                        widgets={widgets}
+                        slides={slides}
                         design={report.design}
                         startDate={report.startDate}
                         endDate={report.endDate}

@@ -1,4 +1,4 @@
-.widget-item {
+.slide-item {
     position: relative;
     background: var(--color-bg-card);
     border: 2px solid var(--color-border);
@@ -8,24 +8,24 @@
     cursor: pointer;
 }
 
-.widget-item:hover {
+.slide-item:hover {
     border-color: var(--color-primary);
     box-shadow: var(--shadow-md);
 }
 
-.widget-item.selected {
+.slide-item.selected {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
 }
 
-.widget-item.dragging {
+.slide-item.dragging {
     cursor: grabbing;
     box-shadow: var(--shadow-xl);
     z-index: 1000;
 }
 
 /* Drag Handle */
-.widget-handle {
+.slide-handle {
     position: absolute;
     left: -12px;
     top: 50%;
@@ -44,23 +44,23 @@
     transition: all 0.2s;
 }
 
-.widget-item:hover .widget-handle {
+.slide-item:hover .slide-handle {
     opacity: 1;
 }
 
-.widget-handle:active {
+.slide-handle:active {
     cursor: grabbing;
 }
 
 /* Widget Content */
-.widget-content {
+.slide-content {
     position: relative;
     width: 100%;
     z-index: 1;
 }
 
 /* Widget Actions */
-.widget-actions {
+.slide-actions {
     position: absolute;
     top: 16px;
     right: 16px;
@@ -69,7 +69,7 @@
     z-index: 10;
 }
 
-.widget-action-btn {
+.slide-action-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,13 +83,13 @@
     transition: all 0.2s;
 }
 
-.widget-action-btn:hover {
+.slide-action-btn:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
     transform: scale(1.1);
 }
 
-.widget-action-btn.danger:hover {
+.slide-action-btn.danger:hover {
     border-color: var(--color-error);
     color: var(--color-error);
     background: rgba(var(--error-rgb), 0.1);
@@ -138,22 +138,22 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .widget-item {
+    .slide-item {
         padding: 16px;
     }
 
-    .widget-handle {
+    .slide-handle {
         left: -8px;
         width: 20px;
         height: 40px;
     }
 
-    .widget-actions {
+    .slide-actions {
         top: 12px;
         right: 12px;
     }
 
-    .widget-action-btn {
+    .slide-action-btn {
         width: 28px;
         height: 28px;
     }

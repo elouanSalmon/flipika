@@ -8,6 +8,7 @@ import { getAllThemePresets } from '../../data/defaultThemes';
 import type { ReportTheme, ThemePreset, CreateThemeDTO } from '../../types/reportThemes';
 import type { Account } from '../../types/business';
 import ThemePreview from './ThemePreview';
+import { useTranslation } from 'react-i18next';
 import './ThemeEditor.css';
 
 interface ThemeEditorProps {
@@ -25,6 +26,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
     onSave,
     onClose,
 }) => {
+    const { t } = useTranslation('themes');
     const presets = getAllThemePresets();
     const defaultDesign = presets[0]?.design || {
         mode: 'light' as const,
@@ -61,7 +63,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
         if (!name) {
             setName(preset.name);
         }
-        toast.success(`Thème "${preset.name}" appliqué`);
+        toast.success(t('editor.presetApplied', { name: preset.name }));
     };
 
     const toggleAccountLink = (accountId: string) => {
@@ -123,7 +125,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
 
     const handleSave = async () => {
         if (!name.trim()) {
-            toast.error('Veuillez entrer un nom pour le thème');
+            toast.error(t('editor.errorNameRequired'));
             return;
         }
 
@@ -141,7 +143,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                 const updatedTheme = await themeService.getTheme(theme.id);
                 if (updatedTheme) {
                     onSave(updatedTheme);
-                    toast.success('Thème mis à jour');
+                    toast.success(t('editor.successUpdate'));
                 }
             } else {
                 const themeData: CreateThemeDTO = {
@@ -155,13 +157,13 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
 
                 const newTheme = await themeService.createTheme(userId, themeData);
                 onSave(newTheme);
-                toast.success('Thème créé');
+                toast.success(t('editor.successCreate'));
             }
 
             onClose();
         } catch (error) {
             console.error('Error saving theme:', error);
-            toast.error('Erreur lors de la sauvegarde du thème');
+            toast.error(t('editor.errorSave'));
         } finally {
             setSaving(false);
         }
@@ -173,9 +175,9 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                 {/* Header */}
                 <div className="theme-editor-header">
                     <div className="theme-editor-header-left">
-                        <h2>{theme ? 'Modifier le thème' : 'Créer un thème'}</h2>
+                        <h2>{theme ? t('editor.titleEdit') : t('editor.titleCreate')}</h2>
                     </div>
-                    <button className="theme-editor-close" onClick={onClose} aria-label="Fermer">
+                    <button className="theme-editor-close" onClick={onClose} aria-label={t('editor.close')}>
                         <X size={20} />
                     </button>
                 </div>
@@ -186,8 +188,8 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                         {/* Quick Start with Presets */}
                         <div className="theme-editor-section">
                             <div className="theme-editor-section-header">
-                                <h3>Démarrage rapide</h3>
-                                <p>Choisissez un thème prédéfini comme base</p>
+                                <h3>{t('editor.quickStartTitle')}</h3>
+                                <p>{t('editor.quickStartDesc')}</p>
                             </div>
                             <div className="theme-editor-presets-grid">
                                 {presets.map(preset => (
@@ -207,24 +209,24 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                         {/* Basic Information */}
                         <div className="theme-editor-section">
                             <div className="theme-editor-section-header">
-                                <h3>Informations</h3>
+                                <h3>{t('editor.infoTitle')}</h3>
                             </div>
                             <div className="theme-editor-field">
-                                <label>Nom du thème *</label>
+                                <label>{t('editor.nameLabel')}</label>
                                 <input
                                     type="text"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    placeholder="Ex: Thème Corporate"
+                                    placeholder={t('editor.namePlaceholder')}
                                     className="theme-editor-input"
                                 />
                             </div>
                             <div className="theme-editor-field">
-                                <label>Description</label>
+                                <label>{t('editor.descLabel')}</label>
                                 <textarea
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
-                                    placeholder="Description du thème..."
+                                    placeholder={t('editor.descPlaceholder')}
                                     className="theme-editor-textarea"
                                     rows={2}
                                 />
@@ -234,8 +236,8 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                         {/* Mode Selection */}
                         <div className="theme-editor-section">
                             <div className="theme-editor-section-header">
-                                <h3>Mode d'affichage</h3>
-                                <p>Choisissez le mode clair ou sombre pour votre thème</p>
+                                <h3>{t('editor.modeTitle')}</h3>
+                                <p>{t('editor.modeDesc')}</p>
                             </div>
                             <div className="theme-editor-mode-selector">
                                 <button
@@ -254,7 +256,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                                         <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
                                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                                     </svg>
-                                    <span>Clair</span>
+                                    <span>{t('editor.modeLight')}</span>
                                 </button>
                                 <button
                                     type="button"
@@ -264,17 +266,17 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                                     </svg>
-                                    <span>Sombre</span>
+                                    <span>{t('editor.modeDark')}</span>
                                 </button>
                             </div>
                             {design.mode === 'light' && (
                                 <p className="theme-editor-mode-hint">
-                                    💡 Mode clair : L'arrière-plan sera automatiquement clair et le texte sombre
+                                    {t('editor.modeLightHint')}
                                 </p>
                             )}
                             {design.mode === 'dark' && (
                                 <p className="theme-editor-mode-hint">
-                                    🌙 Mode sombre : L'arrière-plan sera automatiquement sombre et le texte clair
+                                    {t('editor.modeDarkHint')}
                                 </p>
                             )}
                         </div>
@@ -282,11 +284,11 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                         {/* Colors */}
                         <div className="theme-editor-section">
                             <div className="theme-editor-section-header">
-                                <h3>Couleurs</h3>
+                                <h3>{t('editor.colorsTitle')}</h3>
                             </div>
                             <div className="theme-editor-colors-grid">
                                 <div className="theme-editor-color-field">
-                                    <label>Couleur principale</label>
+                                    <label>{t('editor.primaryColor')}</label>
                                     <button
                                         className="theme-editor-color-button"
                                         onClick={() => setShowColorPicker(showColorPicker === 'primary' ? null : 'primary')}
@@ -304,7 +306,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                                     )}
                                 </div>
                                 <div className="theme-editor-color-field">
-                                    <label>Couleur secondaire</label>
+                                    <label>{t('editor.secondaryColor')}</label>
                                     <button
                                         className="theme-editor-color-button"
                                         onClick={() => setShowColorPicker(showColorPicker === 'secondary' ? null : 'secondary')}
@@ -327,10 +329,10 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                         {/* Typography */}
                         <div className="theme-editor-section">
                             <div className="theme-editor-section-header">
-                                <h3>Typographie</h3>
+                                <h3>{t('editor.typographyTitle')}</h3>
                             </div>
                             <div className="theme-editor-field">
-                                <label>Police de caractères</label>
+                                <label>{t('editor.fontLabel')}</label>
                                 <select
                                     value={design.typography.fontFamily}
                                     onChange={(e) => setDesign({ ...design, typography: { ...design.typography, fontFamily: e.target.value } })}
@@ -349,8 +351,8 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                         {accounts.length > 0 && (
                             <div className="theme-editor-section">
                                 <div className="theme-editor-section-header">
-                                    <h3>Comptes Google Ads liés</h3>
-                                    <p>Application automatique pour ces comptes</p>
+                                    <h3>{t('editor.linkedAccountsTitle')}</h3>
+                                    <p>{t('editor.linkedAccountsDesc')}</p>
                                 </div>
                                 <div className="theme-editor-accounts-list">
                                     {accounts.map(account => (
@@ -377,7 +379,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                                     onChange={(e) => setIsDefault(e.target.checked)}
                                     className="theme-editor-checkbox-input"
                                 />
-                                <span>Définir comme thème par défaut</span>
+                                <span>{t('editor.setAsDefault')}</span>
                             </label>
                         </div>
                     </div>
@@ -385,7 +387,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                     {/* Right Column - Live Preview */}
                     <div className="theme-editor-preview">
                         <div className="theme-editor-preview-header">
-                            <h3>Aperçu en direct</h3>
+                            <h3>{t('editor.previewTitle')}</h3>
                         </div>
                         <div className="theme-editor-preview-content">
                             <ThemePreview
@@ -409,7 +411,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
 
                 <div className="theme-editor-footer">
                     <button className="btn-secondary" onClick={onClose}>
-                        Annuler
+                        {t('editor.cancel')}
                     </button>
                     <button
                         className="btn-primary"
@@ -422,12 +424,12 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                Enregistrement...
+                                {t('editor.saving')}
                             </>
                         ) : (
                             <>
                                 <Save size={18} />
-                                {theme ? 'Mettre à jour' : 'Créer le thème'}
+                                {theme ? t('editor.update') : t('editor.save')}
                             </>
                         )}
                     </button>

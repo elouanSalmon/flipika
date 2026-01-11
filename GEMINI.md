@@ -14,7 +14,13 @@
     - Check global `index.css` or `App.css` to see available utility classes.
     - Ensure your component files are covered by `tailwind.config.js`.
 
-3.  **Z-Index Hierarchy**:
+3.  **Deployment & Environments**:
+    - NEVER run `firebase deploy` directly for hosting.
+    - ALWAYS use `npm run deploy:dev` or `npm run deploy:prod`.
+    - This ensures Vite builds with the correct `--mode` and uses the correct `.env` files.
+    - **Action**: Use `npm run deploy:hosting:dev` if you only need to update the frontend.
+
+4.  **Z-Index Hierarchy**:
     - **Header**: `z-40`
     - **Modals**: `z-50`+ (MUST be higher than Header). **Tip**: Use `createPortal` to render at `document.body`.
     - **Toasts**: `z-60`+

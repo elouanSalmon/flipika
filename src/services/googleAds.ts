@@ -114,7 +114,7 @@ export const fetchCampaigns = async (customerIdParam?: string) => {
 /**
  * Fetch widget metrics for specific campaigns and date range
  */
-export const fetchWidgetMetrics = async (
+export const fetchSlideMetrics = async (
     customerId: string,
     campaignIds: string[],
     startDate: Date,

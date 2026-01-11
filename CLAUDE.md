@@ -13,6 +13,12 @@
     - Check global `index.css` or `App.css` to see available utility classes.
     - If a style isn't applying, verify the component is included in `tailwind.config.js` `content` array.
 
+3.  **Deployment & Environments**:
+    - NEVER run `firebase deploy` directly for hosting.
+    - ALWAYS use `npm run deploy:dev` or `npm run deploy:prod`.
+    - This ensures Vite builds with the correct `--mode` (`development` for dev, `production` for prod) and uses the correct `.env` files.
+    - Check `package.json` for all environment-specific deploy scripts.
+
 4.  **Z-Index Hierarchy**:
     - **Header**: `z-40` (Sticky/Fixed elements)
     - **Modals/Overlays**: `z-50` or higher (Must overlap header)

@@ -7,7 +7,7 @@ import { verifyPassword, storeReportAccess, hasReportAccess } from '../utils/pas
 import ReportCanvas from '../components/reports/ReportCanvas';
 import PasswordPrompt from '../components/reports/PasswordPrompt';
 import Spinner from '../components/common/Spinner';
-import type { EditableReport, WidgetConfig } from '../types/reportTypes';
+import type { EditableReport, SlideConfig } from '../types/reportTypes';
 import type { UserProfile } from '../types/userProfile';
 import './PublicReportView.css';
 
@@ -15,7 +15,7 @@ const PublicReportView: React.FC = () => {
     const { username, reportId } = useParams<{ username: string; reportId: string }>();
     const navigate = useNavigate();
     const [report, setReport] = useState<EditableReport | null>(null);
-    const [widgets, setWidgets] = useState<WidgetConfig[]>([]);
+    const [slides, setWidgets] = useState<SlideConfig[]>([]);
     const [author, setAuthor] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -61,14 +61,14 @@ const PublicReportView: React.FC = () => {
                 // Check if user already has access in session
                 if (hasReportAccess(reportId)) {
                     setHasAccess(true);
-                    setWidgets(result.widgets);
+                    setWidgets(result.slides);
                 } else {
                     setNeedsPassword(true);
                 }
             } else {
                 // No password needed
                 setHasAccess(true);
-                setWidgets(result.widgets);
+                setWidgets(result.slides);
             }
         } catch (err) {
             console.error('Error loading public report:', error);
@@ -90,10 +90,10 @@ const PublicReportView: React.FC = () => {
                 setHasAccess(true);
                 setNeedsPassword(false);
 
-                // Load widgets
+                // Load slides
                 const result = await getPublicReport(reportId);
                 if (result) {
-                    setWidgets(result.widgets);
+                    setWidgets(result.slides);
                 }
             }
 
@@ -178,7 +178,7 @@ const PublicReportView: React.FC = () => {
             {/* Report Content */}
             <main className="public-report-main">
                 <ReportCanvas
-                    widgets={widgets}
+                    slides={slides}
                     design={report.design}
                     startDate={report.startDate}
                     endDate={report.endDate}

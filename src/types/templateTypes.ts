@@ -1,4 +1,4 @@
-import type { WidgetType } from './reportTypes';
+import type { SlideType } from './reportTypes';
 import type { ReportDesign } from './reportTypes';
 
 // Period presets for templates (relative dates)
@@ -26,8 +26,8 @@ export const PERIOD_PRESETS: Array<{ value: PeriodPreset; label: string; descrip
 ];
 
 // Widget configuration in a template
-export interface TemplateWidgetConfig {
-    type: WidgetType;
+export interface TemplateSlideConfig {
+    type: SlideType;
     order: number;
     settings?: {
         // Performance Overview
@@ -62,7 +62,7 @@ export interface ReportTemplate {
     periodPreset: PeriodPreset;
 
     // Widgets to include
-    widgetConfigs: TemplateWidgetConfig[];
+    slideConfigs: TemplateSlideConfig[];
 
     // Design (optional)
     design?: Partial<ReportDesign>;

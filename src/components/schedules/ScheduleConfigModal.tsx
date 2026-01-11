@@ -214,8 +214,8 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                             <span className="preview-value">{selectedTemplate?.periodPreset}</span>
                                         </div>
                                         <div className="preview-item">
-                                            <span className="preview-label">Widgets:</span>
-                                            <span className="preview-value">{selectedTemplate?.widgetConfigs?.length}</span>
+                                            <span className="preview-label">Slides:</span>
+                                            <span className="preview-value">{selectedTemplate?.slideConfigs?.length}</span>
                                         </div>
                                     </div>
                                 )}

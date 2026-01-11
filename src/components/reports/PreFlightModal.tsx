@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, AlertCircle, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { getReportWithWidgets } from '../../services/reportService';
+import { getReportWithSlides } from '../../services/reportService';
 import ReportCanvas from './ReportCanvas';
-import type { EditableReport, WidgetConfig } from '../../types/reportTypes';
+import type { EditableReport, SlideConfig } from '../../types/reportTypes';
 
 type PreFlightState =
     | { status: 'idle' }
     | { status: 'loading' }
-    | { status: 'success'; report: EditableReport; widgets: WidgetConfig[] }
+    | { status: 'success'; report: EditableReport; slides: SlideConfig[] }
     | { status: 'error'; error: string };
 
 interface PreFlightModalProps {
@@ -38,7 +38,7 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
     const loadReport = async () => {
         setState({ status: 'loading' });
         try {
-            const result = await getReportWithWidgets(reportId);
+            const result = await getReportWithSlides(reportId);
 
             if (!result) {
                 setState({
@@ -51,7 +51,7 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
             setState({
                 status: 'success',
                 report: result.report,
-                widgets: result.widgets
+                slides: result.slides
             });
         } catch (error: any) {
             setState({
@@ -171,7 +171,7 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
                             {state.status === 'success' && (
                                 <div className="report-preview-container">
                                     <ReportCanvas
-                                        widgets={state.widgets}
+                                        slides={state.slides}
                                         design={state.report.design}
                                         startDate={state.report.startDate}
                                         endDate={state.report.endDate}

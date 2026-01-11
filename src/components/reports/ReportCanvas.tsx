@@ -3,38 +3,42 @@ import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, us
 import type { DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Layout, Plus } from 'lucide-react';
-import WidgetItem from './WidgetItem';
-import type { WidgetConfig, ReportDesign } from '../../types/reportTypes';
+import SlideItem from './SlideItem';
+import type { SlideConfig, ReportDesign } from '../../types/reportTypes';
 import './ReportCanvas.css';
 
 interface ReportCanvasProps {
-    widgets: WidgetConfig[];
+    slides: SlideConfig[];
     design: ReportDesign;
     startDate?: Date;
     endDate?: Date;
-    onReorder?: (widgets: WidgetConfig[]) => void;
-    onWidgetUpdate?: (widgetId: string, config: Partial<WidgetConfig>) => void;
-    onWidgetDelete?: (widgetId: string) => void;
-    onWidgetDrop?: (widgetType: string) => void;
-    selectedWidgetId?: string | null;
-    onWidgetSelect?: (widgetId: string | null) => void;
+    onReorder?: (slides: SlideConfig[]) => void;
+    onSlideUpdate?: (slideId: string, config: Partial<SlideConfig>) => void;
+    onSlideDelete?: (slideId: string) => void;
+    onSlideDrop?: (slideType: string) => void;
+    selectedSlideId?: string | null;
+    onSlideSelect?: (slideId: string | null) => void;
     isPublicView?: boolean; // Read-only mode for public viewing
     reportId?: string;
+    reportAccountId?: string;  // For scope selector
+    reportCampaignIds?: string[];  // For scope selector
 }
 
 const ReportCanvas: React.FC<ReportCanvasProps> = ({
-    widgets,
+    slides,
     design,
     startDate,
     endDate,
     onReorder,
-    onWidgetUpdate,
-    onWidgetDelete,
-    onWidgetDrop,
-    selectedWidgetId,
-    onWidgetSelect,
+    onSlideUpdate,
+    onSlideDelete,
+    onSlideDrop,
+    selectedSlideId,
+    onSlideSelect,
     isPublicView = false,
     reportId,
+    reportAccountId = '',
+    reportCampaignIds = [],
 }) => {
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -49,10 +53,10 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
         const { active, over } = event;
 
         if (over && active.id !== over.id) {
-            const oldIndex = widgets.findIndex((w) => w.id === active.id);
-            const newIndex = widgets.findIndex((w) => w.id === over.id);
+            const oldIndex = slides.findIndex((w) => w.id === active.id);
+            const newIndex = slides.findIndex((w) => w.id === over.id);
 
-            const newWidgets = [...widgets];
+            const newWidgets = [...slides];
             const [movedWidget] = newWidgets.splice(oldIndex, 1);
             newWidgets.splice(newIndex, 0, movedWidget);
 
@@ -67,12 +71,12 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
     };
 
     const handleDrop = (e: React.DragEvent) => {
-        if (isPublicView || !onWidgetDrop) return;
+        if (isPublicView || !onSlideDrop) return;
 
         e.preventDefault();
-        const widgetType = e.dataTransfer.getData('widgetType');
-        if (widgetType) {
-            onWidgetDrop(widgetType);
+        const slideType = e.dataTransfer.getData('slideType');
+        if (slideType) {
+            onSlideDrop(slideType);
         }
     };
 
@@ -82,7 +86,7 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
         e.dataTransfer.dropEffect = 'copy';
     };
 
-    if (widgets.length === 0) {
+    if (slides.length === 0) {
         return (
             <div
                 className="report-canvas empty"
@@ -94,7 +98,7 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
                         <Layout size={64} strokeWidth={1.5} />
                     </div>
                     <h3>Commencez votre rapport</h3>
-                    <p>Glissez des widgets depuis la bibliothèque ou cliquez pour les ajouter</p>
+                    <p>Glissez des slides depuis la bibliothèque ou cliquez pour les ajouter</p>
                     <div className="empty-hint">
                         <Plus size={20} />
                         <span>Drag & Drop depuis la gauche</span>
@@ -116,23 +120,25 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
                 onDragEnd={handleDragEnd}
             >
                 <SortableContext
-                    items={widgets.map(w => w.id)}
+                    items={slides.map(w => w.id)}
                     strategy={verticalListSortingStrategy}
                 >
-                    <div className="widgets-container">
-                        {widgets.map((widget) => (
-                            <WidgetItem
-                                key={widget.id}
-                                widget={widget}
+                    <div className="slides-container">
+                        {slides.map((slide) => (
+                            <SlideItem
+                                key={slide.id}
+                                slide={slide}
                                 design={design}
-                                isSelected={selectedWidgetId === widget.id}
+                                isSelected={selectedSlideId === slide.id}
                                 startDate={startDate}
                                 endDate={endDate}
-                                onSelect={onWidgetSelect ? () => onWidgetSelect(widget.id) : undefined}
-                                onUpdate={onWidgetUpdate ? (config) => onWidgetUpdate(widget.id, config) : undefined}
-                                onDelete={onWidgetDelete ? () => onWidgetDelete(widget.id) : undefined}
+                                onSelect={onSlideSelect ? () => onSlideSelect(slide.id) : undefined}
+                                onUpdate={onSlideUpdate ? (config) => onSlideUpdate(slide.id, config) : undefined}
+                                onDelete={onSlideDelete ? () => onSlideDelete(slide.id) : undefined}
                                 isPublicView={isPublicView}
                                 reportId={reportId}
+                                reportAccountId={reportAccountId}
+                                reportCampaignIds={reportCampaignIds}
                             />
                         ))}
                     </div>

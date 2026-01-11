@@ -50,9 +50,10 @@ export const getAdCreatives = onRequest({
             return;
         }
 
-        if (!campaignIds || !Array.isArray(campaignIds) || campaignIds.length === 0) {
-            res.status(400).json({ error: "Missing or invalid campaignIds" });
-            return;
+        if (!campaignIds || !Array.isArray(campaignIds)) {
+            // It's okay if campaignIds is undefined or empty array - we'll fetch for the whole account
+            // But if it's provided, it must be an array
+            console.log('ℹ️ No campaign IDs provided, fetching for entire account');
         }
 
         // 3. Get Refresh Token
@@ -89,7 +90,11 @@ export const getAdCreatives = onRequest({
         console.log('✅ Initialized Google Ads client for customer:', customerId);
 
         // 5. Build GAQL Query for Ad Creatives
-        const campaignIdList = campaignIds.map((id: string) => id).join(', ');
+        let campaignFilter = '';
+        if (campaignIds && Array.isArray(campaignIds) && campaignIds.length > 0) {
+            const campaignIdList = campaignIds.map((id: string) => id).join(', ');
+            campaignFilter = `AND campaign.id IN (${campaignIdList})`;
+        }
 
         const query = `
             SELECT 
@@ -116,8 +121,8 @@ export const getAdCreatives = onRequest({
                 metrics.cost_micros,
                 metrics.conversions
             FROM ad_group_ad
-            WHERE campaign.id IN (${campaignIdList})
-                AND ad_group_ad.status = 'ENABLED'
+            WHERE ad_group_ad.status = 'ENABLED'
+                ${campaignFilter}
                 AND metrics.impressions > 0
             ORDER BY metrics.impressions DESC
             LIMIT 50

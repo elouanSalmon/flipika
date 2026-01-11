@@ -1,4 +1,4 @@
-import { fetchWidgetMetrics } from './googleAds';
+import { fetchSlideMetrics } from './googleAds';
 
 /**
  * Test function to verify Google Ads API connectivity
@@ -21,7 +21,7 @@ export async function testGoogleAdsAPI(
     try {
         // Test Performance Overview
         console.log('\n📊 Testing Performance Overview...');
-        const perfResult = await fetchWidgetMetrics(
+        const perfResult = await fetchSlideMetrics(
             customerId,
             campaignIds,
             startDate,
@@ -38,7 +38,7 @@ export async function testGoogleAdsAPI(
 
         // Test Campaign Chart
         console.log('\n📈 Testing Campaign Chart...');
-        const chartResult = await fetchWidgetMetrics(
+        const chartResult = await fetchSlideMetrics(
             customerId,
             campaignIds,
             startDate,

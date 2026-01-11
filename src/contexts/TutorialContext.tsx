@@ -80,7 +80,7 @@ export const TutorialProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         refresh: async () => {
             await checkStatus();
         },
-        updateStep: async (stepId: string, value: boolean) => {
+        updateStep: async (_stepId: string, _value: boolean) => {
             // Implementation for manual step updates - for now just refresh to sync with backend
             // In a real app we might optimistically update 'status' state here
             await checkStatus();

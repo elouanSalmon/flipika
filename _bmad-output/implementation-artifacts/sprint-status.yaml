@@ -71,3 +71,33 @@ development_status:
   5-1-moteur-onboarding-checklist-logic: review
   5-2-widget-onboarding-ui: review
   epic-5-retrospective: optional
+
+  # Epic 6
+  epic-6: backlog
+  6-1-rename-refactor-widget-to-slide: backlog
+  6-2-slide-scoping-logic-granular-control: backlog
+  6-3-retrofit-existing-slides: backlog
+  6-4-new-slide-funnel-analysis: backlog
+  6-5-new-slide-day-hour-heatmap: backlog
+  6-6-new-slide-device-platform-split: backlog
+  6-7-new-slide-top-performers: backlog
+  epic-6-retrospective: optional
+
+  # Epic 7
+  epic-7: backlog
+  7-1-configuration-des-email-presets-par-client: backlog
+  7-2-editeur-dynamique-avec-variables-tags: backlog
+  7-3-application-automatique-lors-de-lenvoi-report-preview: backlog
+  7-4-migration-initialisation-des-defaults: backlog
+  epic-7-retrospective: optional
+
+  # Epic 8
+  epic-8: backlog
+  8-1-gestion-intelligente-des-sauts-de-page-page-breaks: backlog
+  8-2-rendu-haute-definition-fidelite-visuelle: backlog
+  8-3-optimisation-de-la-taille-performance: backlog
+  8-4-metadonnees-accessibilite-pdf: backlog
+  epic-8-retrospective: optional
+
+
+

@@ -74,9 +74,9 @@
       "getStarted": "Commencer"
     },
     "createCampaigns": {
-      "title": "Widgets connectés à Google Ads",
+      "title": "Slides connectés à Google Ads",
       "subtitle": "Vos données en temps réel, synchronisées",
-      "description": "Nos widgets puisent directement dans les comptes Google Ads de vos clients. Impressions, clics, conversions, ROAS : tout est synchronisé automatiquement.",
+      "description": "Nos slides puisent directement dans les comptes Google Ads de vos clients. Impressions, clics, conversions, ROAS : tout est synchronisé automatiquement.",
       "benefits": [
         "Zéro copier-coller",
         "Données toujours à jour",
@@ -155,7 +155,7 @@
       "flipikaHeader": "Flipika",
       "othersHeader": "Autres outils",
       "campaignManagement": "Rapports automatisés",
-      "realTimeOptimization": "Widgets personnalisables",
+      "realTimeOptimization": "Slides personnalisables",
       "directGoogleAds": "Connexion directe Google Ads",
       "specializedAI": "IA spécialisée reporting",
       "continuousLearning": "Snapshots de données",

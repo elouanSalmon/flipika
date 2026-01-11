@@ -3,29 +3,32 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical, Settings, Trash2 } from 'lucide-react';
 import ConfirmationModal from '../common/ConfirmationModal';
-import PerformanceOverviewWidget from './widgets/PerformanceOverviewWidget';
-import CampaignChartWidget from './widgets/CampaignChartWidget';
-import KeyMetricsWidget from './widgets/KeyMetricsWidget';
-import AdCreativeWidget from './widgets/AdCreativeWidget';
-import type { WidgetConfig, ReportDesign } from '../../types/reportTypes';
-import { WidgetType } from '../../types/reportTypes';
-import './WidgetItem.css';
+import ScopeSelector from './ScopeSelector';
+import PerformanceOverviewSlide from './slides/PerformanceOverviewSlide';
+import CampaignChartSlide from './slides/CampaignChartSlide';
+import KeyMetricsSlide from './slides/KeyMetricsSlide';
+import AdCreativeSlide from './slides/AdCreativeSlide';
+import type { SlideConfig, ReportDesign, SlideScope } from '../../types/reportTypes';
+import { SlideType } from '../../types/reportTypes';
+import './SlideItem.css';
 
-interface WidgetItemProps {
-    widget: WidgetConfig;
+interface SlideItemProps {
+    slide: SlideConfig;
     design: ReportDesign;
     isSelected?: boolean;
     startDate?: Date;
     endDate?: Date;
     onSelect?: () => void;
-    onUpdate?: (config: Partial<WidgetConfig>) => void;
+    onUpdate?: (config: Partial<SlideConfig>) => void;
     onDelete?: () => void;
     isPublicView?: boolean;
     reportId?: string;
+    reportAccountId?: string;  // For scope selector
+    reportCampaignIds?: string[];  // For scope selector
 }
 
-const WidgetItem: React.FC<WidgetItemProps> = ({
-    widget,
+const SlideItem: React.FC<SlideItemProps> = ({
+    slide,
     design,
     isSelected = false,
     startDate,
@@ -35,8 +38,11 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
     onDelete,
     isPublicView = false,
     reportId,
+    reportAccountId = '',
+    reportCampaignIds = [],
 }) => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
+    const [showScopePanel, setShowScopePanel] = React.useState(false);
 
     const {
         attributes,
@@ -45,7 +51,7 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
         transform,
         transition,
         isDragging,
-    } = useSortable({ id: widget.id });
+    } = useSortable({ id: slide.id });
 
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -53,59 +59,59 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
         opacity: isDragging ? 0.5 : 1,
     };
 
-    const renderWidget = () => {
-        switch (widget.type) {
-            case WidgetType.PERFORMANCE_OVERVIEW:
+    const renderSlide = () => {
+        switch (slide.type) {
+            case SlideType.PERFORMANCE_OVERVIEW:
                 return (
-                    <PerformanceOverviewWidget
-                        accountId={widget.accountId}
-                        campaignIds={widget.campaignIds}
-                        config={widget}
+                    <PerformanceOverviewSlide
+                        accountId={slide.accountId || reportAccountId}
+                        campaignIds={slide.campaignIds || reportCampaignIds}
+                        config={slide}
                         design={design}
                         startDate={startDate}
                         endDate={endDate}
                         reportId={reportId}
                     />
                 );
-            case WidgetType.CAMPAIGN_CHART:
+            case SlideType.CAMPAIGN_CHART:
                 return (
-                    <CampaignChartWidget
-                        accountId={widget.accountId}
-                        campaignIds={widget.campaignIds}
-                        config={widget}
+                    <CampaignChartSlide
+                        accountId={slide.accountId || reportAccountId}
+                        campaignIds={slide.campaignIds || reportCampaignIds}
+                        config={slide}
                         design={design}
                         startDate={startDate}
                         endDate={endDate}
                         reportId={reportId}
                     />
                 );
-            case WidgetType.KEY_METRICS:
+            case SlideType.KEY_METRICS:
                 return (
-                    <KeyMetricsWidget
-                        accountId={widget.accountId}
-                        campaignIds={widget.campaignIds}
-                        config={widget}
+                    <KeyMetricsSlide
+                        accountId={slide.accountId || reportAccountId}
+                        campaignIds={slide.campaignIds || reportCampaignIds}
+                        config={slide}
                         design={design}
                         startDate={startDate}
                         endDate={endDate}
                         reportId={reportId}
                     />
                 );
-            case WidgetType.AD_CREATIVE:
+            case SlideType.AD_CREATIVE:
                 return (
-                    <AdCreativeWidget
-                        accountId={widget.accountId}
-                        campaignIds={widget.campaignIds}
-                        config={widget}
+                    <AdCreativeSlide
+                        accountId={slide.accountId || reportAccountId}
+                        campaignIds={slide.campaignIds || reportCampaignIds}
+                        config={slide}
                         design={design}
                         startDate={startDate}
                         endDate={endDate}
                         reportId={reportId}
                     />
                 );
-            case WidgetType.TEXT_BLOCK:
+            case SlideType.TEXT_BLOCK:
                 return (
-                    <div className="text-block-widget">
+                    <div className="text-block-slide">
                         <div
                             contentEditable
                             suppressContentEditableWarning
@@ -113,26 +119,26 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                                 if (onUpdate) {
                                     onUpdate({
                                         settings: {
-                                            ...widget.settings,
+                                            ...slide.settings,
                                             content: e.currentTarget.innerHTML,
                                         },
                                     });
                                 }
                             }}
                             dangerouslySetInnerHTML={{
-                                __html: widget.settings?.content || '<p>Cliquez pour éditer...</p>',
+                                __html: slide.settings?.content || '<p>Cliquez pour éditer...</p>',
                             }}
                         />
                     </div>
                 );
-            case WidgetType.CUSTOM:
+            case SlideType.CUSTOM:
                 return (
-                    <div className="custom-widget">
-                        <p>Widget personnalisé - Configuration requise</p>
+                    <div className="custom-slide">
+                        <p>Slide personnalisé - Configuration requise</p>
                     </div>
                 );
             default:
-                return <div>Widget inconnu</div>;
+                return <div>Slide inconnu</div>;
         }
     };
 
@@ -140,36 +146,36 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
         <div
             ref={setNodeRef}
             style={style}
-            className={`widget-item ${isSelected ? 'selected' : ''} ${isDragging ? 'dragging' : ''} ${isPublicView ? 'public-view' : ''}`}
+            className={`slide-item ${isSelected ? 'selected' : ''} ${isDragging ? 'dragging' : ''} ${isPublicView ? 'public-view' : ''}`}
             onClick={onSelect}
         >
             {/* Drag Handle - Hidden in public view */}
             {!isPublicView && (
-                <div className="widget-handle" {...attributes} {...listeners}>
+                <div className="slide-handle" {...attributes} {...listeners}>
                     <GripVertical size={20} />
                 </div>
             )}
 
-            {/* Widget Content */}
-            <div className="widget-content">
-                {renderWidget()}
+            {/* Slide Content */}
+            <div className="slide-content">
+                {renderSlide()}
             </div>
 
-            {/* Widget Actions - Hidden in public view */}
+            {/* Slide Actions - Hidden in public view */}
             {!isPublicView && isSelected && onDelete && (
-                <div className="widget-actions">
+                <div className="slide-actions">
                     <button
-                        className="widget-action-btn"
+                        className="slide-action-btn"
                         onClick={(e) => {
                             e.stopPropagation();
-                            // TODO: Open config panel
+                            setShowScopePanel(!showScopePanel);
                         }}
                         title="Configurer"
                     >
                         <Settings size={16} />
                     </button>
                     <button
-                        className="widget-action-btn danger"
+                        className="slide-action-btn danger"
                         onClick={(e) => {
                             e.stopPropagation();
                             setIsDeleteModalOpen(true);
@@ -181,14 +187,29 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
                 </div>
             )}
 
+            {/* Scope Configuration Panel */}
+            {!isPublicView && isSelected && showScopePanel && onUpdate && (
+                <div className="mt-4" onClick={(e) => e.stopPropagation()}>
+                    <ScopeSelector
+                        value={slide.scope}
+                        onChange={(scope: SlideScope | undefined) => {
+                            onUpdate({ scope });
+                        }}
+                        reportAccountId={reportAccountId}
+                        reportCampaignIds={reportCampaignIds}
+                        slideType={slide.type}
+                    />
+                </div>
+            )}
+
             <ConfirmationModal
                 isOpen={isDeleteModalOpen}
                 onClose={() => setIsDeleteModalOpen(false)}
                 onConfirm={() => {
                     if (onDelete) onDelete();
                 }}
-                title="Supprimer le widget"
-                message="Êtes-vous sûr de vouloir supprimer ce widget ?"
+                title="Supprimer le slide"
+                message="Êtes-vous sûr de vouloir supprimer ce slide ?"
                 confirmLabel="Supprimer"
                 isDestructive={true}
             />
@@ -196,4 +217,4 @@ const WidgetItem: React.FC<WidgetItemProps> = ({
     );
 };
 
-export default WidgetItem;
+export default SlideItem;

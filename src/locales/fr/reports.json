@@ -43,7 +43,8 @@
     },
     "dateRange": {
       "from": "Du",
-      "to": "Au"
+      "to": "Au",
+      "display": "Du {{start}} au {{end}}"
     },
     "campaigns": {
       "title": "Campagnes ({count} sélectionnée{s})",
@@ -131,7 +132,7 @@
     "noCampaigns": "Aucune campagne",
     "modifiedOn": "Modifié le {{date}}",
     "sections": "Sections",
-    "widgets": "Widgets",
+    "slides": "Slides",
     "actions": {
       "viewPublic": "Voir public",
       "shareByEmail": "Partager par email",
@@ -211,8 +212,8 @@
     },
     "emptyState": {
       "title": "Aucune donnée disponible",
-      "message": "Ce rapport ne contient pas de widgets. Ajoutez des widgets pour visualiser vos données Google Ads.",
-      "suggestion": "Retournez à l'éditeur pour ajouter des widgets à votre rapport.",
+      "message": "Ce rapport ne contient pas de slides. Ajoutez des slides pour visualiser vos données Google Ads.",
+      "suggestion": "Retournez à l'éditeur pour ajouter des slides à votre rapport.",
       "editReport": "Modifier le rapport",
       "backToReports": "Retour aux rapports"
     },

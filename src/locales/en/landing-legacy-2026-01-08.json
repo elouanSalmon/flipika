@@ -28,11 +28,11 @@
       "getStarted": "Get Started"
     },
     "createCampaigns": {
-      "title": "Modular Widget Architecture",
+      "title": "Modular Slide Architecture",
       "subtitle": "Build custom reports",
-      "description": "Your report is a collection of customizable widgets. Charts, tables, text: assemble them with simple drag & drop.",
+      "description": "Your report is a collection of customizable slides. Charts, tables, text: assemble them with simple drag & drop.",
       "benefits": [
-        "Modular and reusable widgets",
+        "Modular and reusable slides",
         "Drag & Drop to customize",
         "Ready-to-use templates"
       ]

@@ -15,12 +15,12 @@ import {
     arrayUnion
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import type { EditableReport, WidgetConfig } from '../types/reportTypes';
+import type { EditableReport, SlideConfig } from '../types/reportTypes';
 import { defaultReportDesign } from '../types/reportTypes';
 import { hashPassword } from '../utils/passwordUtils';
 
 const REPORTS_COLLECTION = 'reports';
-const WIDGETS_SUBCOLLECTION = 'widgets';
+const WIDGETS_SUBCOLLECTION = 'slides';
 
 export interface ReportFilters {
     status?: 'draft' | 'published' | 'archived';
@@ -51,7 +51,7 @@ export async function createReport(
             title,
             content: { type: 'doc', content: [] },
             sections: [],
-            widgetIds: [], // References to widgets in sub-collection
+            slideIds: [], // References to slides in sub-collection
             comments: [],
             design: defaultReportDesign,
             status: 'draft' as const,
@@ -81,11 +81,11 @@ export async function createReport(
 }
 
 /**
- * Get a report by ID with its widgets
+ * Get a report by ID with its slides
  */
-export async function getReportWithWidgets(
+export async function getReportWithSlides(
     reportId: string
-): Promise<{ report: EditableReport; widgets: WidgetConfig[] } | null> {
+): Promise<{ report: EditableReport; slides: SlideConfig[] } | null> {
     try {
         // Get report document
         const reportRef = doc(db, REPORTS_COLLECTION, reportId);
@@ -97,17 +97,17 @@ export async function getReportWithWidgets(
 
         const reportData = reportSnap.data();
 
-        // Get widgets from sub-collection
-        const widgetsRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
-        const widgetsQuery = query(widgetsRef, orderBy('order', 'asc'));
-        const widgetsSnap = await getDocs(widgetsQuery);
+        // Get slides from sub-collection
+        const slidesRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
+        const slidesQuery = query(slidesRef, orderBy('order', 'asc'));
+        const slidesSnap = await getDocs(slidesQuery);
 
-        const widgets: WidgetConfig[] = widgetsSnap.docs.map(doc => ({
+        const slides: SlideConfig[] = slidesSnap.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),
             createdAt: doc.data().createdAt?.toDate() || new Date(),
             updatedAt: doc.data().updatedAt?.toDate() || new Date(),
-        } as WidgetConfig));
+        } as SlideConfig));
 
         const report: EditableReport = {
             id: reportSnap.id,
@@ -118,31 +118,31 @@ export async function getReportWithWidgets(
             lastAutoSave: reportData.lastAutoSave?.toDate() || undefined,
             startDate: reportData.startDate?.toDate ? reportData.startDate.toDate() : (reportData.startDate ? new Date(reportData.startDate) : undefined),
             endDate: reportData.endDate?.toDate ? reportData.endDate.toDate() : (reportData.endDate ? new Date(reportData.endDate) : undefined),
-            widgets,
+            slides,
         } as EditableReport;
 
-        return { report, widgets };
+        return { report, slides };
     } catch (error) {
-        console.error('Error getting report with widgets:', error);
+        console.error('Error getting report with slides:', error);
         throw new Error('Failed to get report');
     }
 }
 
 /**
- * Get a report by ID (legacy - without widgets)
+ * Get a report by ID (legacy - without slides)
  */
 export async function getReport(reportId: string): Promise<EditableReport | null> {
-    const result = await getReportWithWidgets(reportId);
+    const result = await getReportWithSlides(reportId);
     return result?.report || null;
 }
 
 /**
- * Save report with widgets using batch write (atomic operation)
+ * Save report with slides using batch write (atomic operation)
  */
-export async function saveReportWithWidgets(
+export async function saveReportWithSlides(
     reportId: string,
     updates: Partial<EditableReport>,
-    widgets: WidgetConfig[]
+    slides: SlideConfig[]
 ): Promise<void> {
     try {
         const batch = writeBatch(db);
@@ -151,20 +151,20 @@ export async function saveReportWithWidgets(
         const reportRef = doc(db, REPORTS_COLLECTION, reportId);
         const reportUpdates: any = {
             ...updates,
-            widgetIds: widgets.map(w => w.id),
+            slideIds: slides.map(w => w.id),
             updatedAt: serverTimestamp(),
             version: increment(1),
         };
 
         // Remove fields that shouldn't be in Firestore
         delete reportUpdates.id;
-        delete reportUpdates.widgets;
+        delete reportUpdates.slides;
         delete reportUpdates.createdAt;
 
         batch.update(reportRef, reportUpdates);
 
-        // Update widgets in sub-collection
-        widgets.forEach((widget, index) => {
+        // Update slides in sub-collection
+        slides.forEach((widget, index) => {
             const widgetRef = doc(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION, widget.id);
             batch.set(widgetRef, {
                 ...widget,
@@ -176,7 +176,7 @@ export async function saveReportWithWidgets(
         // Commit all changes atomically
         await batch.commit();
     } catch (error) {
-        console.error('Error saving report with widgets:', error);
+        console.error('Error saving report with slides:', error);
         throw new Error('Failed to save report');
     }
 }
@@ -198,9 +198,9 @@ export async function updateReport(
             version: increment(1),
         };
 
-        // Remove id and widgets from updates if present
+        // Remove id and slides from updates if present
         delete firestoreUpdates.id;
-        delete firestoreUpdates.widgets;
+        delete firestoreUpdates.slides;
 
         await updateDoc(docRef, firestoreUpdates);
     } catch (error) {
@@ -212,24 +212,24 @@ export async function updateReport(
 /**
  * Add a widget to a report
  */
-export async function addWidget(
+export async function addSlide(
     reportId: string,
-    widget: Omit<WidgetConfig, 'id' | 'createdAt' | 'updatedAt'>
+    widget: Omit<SlideConfig, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<string> {
     try {
-        const widgetsRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
+        const slidesRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
         const widgetData = {
             ...widget,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
         };
 
-        const docRef = await addDoc(widgetsRef, widgetData);
+        const docRef = await addDoc(slidesRef, widgetData);
 
-        // Update report's widgetIds array
+        // Update report's slideIds array
         const reportRef = doc(db, REPORTS_COLLECTION, reportId);
         await updateDoc(reportRef, {
-            widgetIds: arrayUnion(docRef.id),
+            slideIds: arrayUnion(docRef.id),
             updatedAt: serverTimestamp(),
         });
 
@@ -243,7 +243,7 @@ export async function addWidget(
 /**
  * Delete a widget from a report
  */
-export async function deleteWidget(
+export async function deleteSlide(
     reportId: string,
     widgetId: string
 ): Promise<void> {
@@ -263,16 +263,16 @@ export async function deleteWidget(
 }
 
 /**
- * Delete a report and all its widgets
+ * Delete a report and all its slides
  */
 export async function deleteReport(reportId: string): Promise<void> {
     try {
         const batch = writeBatch(db);
 
-        // Delete all widgets
-        const widgetsRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
-        const widgetsSnap = await getDocs(widgetsRef);
-        widgetsSnap.docs.forEach(doc => {
+        // Delete all slides
+        const slidesRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
+        const slidesSnap = await getDocs(slidesRef);
+        slidesSnap.docs.forEach(doc => {
             batch.delete(doc.ref);
         });
 
@@ -324,7 +324,7 @@ export async function listUserReports(
                 title: data.title,
                 content: data.content,
                 sections: data.sections || [],
-                widgetIds: data.widgetIds || [],
+                slideIds: data.slideIds || [],
                 comments: data.comments || [],
                 design: data.design || defaultReportDesign,
                 status: data.status,
@@ -336,7 +336,7 @@ export async function listUserReports(
                 createdAt: data.createdAt?.toDate() || new Date(),
                 updatedAt: data.updatedAt?.toDate() || new Date(),
                 version: data.version || 1,
-                widgets: [], // Don't load widgets for list view (performance)
+                slides: [], // Don't load slides for list view (performance)
             } as EditableReport);
         });
 
@@ -384,7 +384,7 @@ export async function publishReport(
  */
 export async function getPublicReport(
     reportId: string
-): Promise<{ report: EditableReport; widgets: WidgetConfig[] } | null> {
+): Promise<{ report: EditableReport; slides: SlideConfig[] } | null> {
     try {
         // Get report document
         const reportRef = doc(db, REPORTS_COLLECTION, reportId);
@@ -401,17 +401,17 @@ export async function getPublicReport(
             return null;
         }
 
-        // Get widgets from sub-collection
-        const widgetsRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
-        const widgetsQuery = query(widgetsRef, orderBy('order', 'asc'));
-        const widgetsSnap = await getDocs(widgetsQuery);
+        // Get slides from sub-collection
+        const slidesRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
+        const slidesQuery = query(slidesRef, orderBy('order', 'asc'));
+        const slidesSnap = await getDocs(slidesQuery);
 
-        const widgets: WidgetConfig[] = widgetsSnap.docs.map(doc => ({
+        const slides: SlideConfig[] = slidesSnap.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),
             createdAt: doc.data().createdAt?.toDate() || new Date(),
             updatedAt: doc.data().updatedAt?.toDate() || new Date(),
-        } as WidgetConfig));
+        } as SlideConfig));
 
         const report: EditableReport = {
             id: reportSnap.id,
@@ -422,10 +422,10 @@ export async function getPublicReport(
             lastAutoSave: reportData.lastAutoSave?.toDate() || undefined,
             startDate: reportData.startDate?.toDate ? reportData.startDate.toDate() : (reportData.startDate ? new Date(reportData.startDate) : undefined),
             endDate: reportData.endDate?.toDate ? reportData.endDate.toDate() : (reportData.endDate ? new Date(reportData.endDate) : undefined),
-            widgets,
+            slides,
         } as EditableReport;
 
-        return { report, widgets };
+        return { report, slides };
     } catch (error) {
         console.error('Error getting public report:', error);
         return null;
@@ -453,7 +453,7 @@ export async function autoSaveReport(
     reportId: string,
     content: any,
     sections?: any[],
-    widgets?: WidgetConfig[]
+    slides?: SlideConfig[]
 ): Promise<void> {
     try {
         const updates: any = {
@@ -468,9 +468,9 @@ export async function autoSaveReport(
             updates.sections = sections;
         }
 
-        // If widgets provided, use batch write
-        if (widgets && widgets.length > 0) {
-            await saveReportWithWidgets(reportId, updates, widgets);
+        // If slides provided, use batch write
+        if (slides && slides.length > 0) {
+            await saveReportWithSlides(reportId, updates, slides);
         } else {
             const docRef = doc(db, REPORTS_COLLECTION, reportId);
             await updateDoc(docRef, updates);
@@ -482,26 +482,26 @@ export async function autoSaveReport(
 }
 
 /**
- * Duplicate a report with all its widgets
+ * Duplicate a report with all its slides
  */
 export async function duplicateReport(
     reportId: string,
     userId: string
 ): Promise<string> {
     try {
-        const result = await getReportWithWidgets(reportId);
+        const result = await getReportWithSlides(reportId);
 
         if (!result || result.report.userId !== userId) {
             throw new Error('Report not found or unauthorized');
         }
 
-        const { report: originalReport, widgets: originalWidgets } = result;
+        const { report: originalReport, slides: originalWidgets } = result;
         const newTitle = `${originalReport.title} (Copy)`;
 
         // Create new report
         const newReportId = await createReport(userId, originalReport.accountId, newTitle);
 
-        // Copy widgets using batch
+        // Copy slides using batch
         const batch = writeBatch(db);
 
         originalWidgets.forEach((widget, index) => {
@@ -521,7 +521,7 @@ export async function duplicateReport(
             content: originalReport.content,
             sections: originalReport.sections,
             design: originalReport.design,
-            widgetIds: originalWidgets.map(w => w.id),
+            slideIds: originalWidgets.map(w => w.id),
         });
 
         await batch.commit();
@@ -535,7 +535,7 @@ export async function duplicateReport(
 
 /**
  * Update report settings (accountId, campaignIds, date range)
- * Also updates all associated widgets with the new parameters
+ * Also updates all associated slides with the new parameters
  */
 export async function updateReportSettings(
     reportId: string,
@@ -583,12 +583,12 @@ export async function updateReportSettings(
 
         batch.update(reportRef, reportUpdates);
 
-        // Update all widgets with new accountId and campaignIds
+        // Update all slides with new accountId and campaignIds
         if (settings.accountId !== undefined || settings.campaignIds !== undefined) {
-            const widgetsRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
-            const widgetsSnap = await getDocs(widgetsRef);
+            const slidesRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
+            const slidesSnap = await getDocs(slidesRef);
 
-            widgetsSnap.docs.forEach(widgetDoc => {
+            slidesSnap.docs.forEach(widgetDoc => {
                 const widgetRef = doc(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION, widgetDoc.id);
                 const widgetUpdates: any = {
                     updatedAt: serverTimestamp(),

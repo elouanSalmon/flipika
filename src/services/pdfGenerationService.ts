@@ -1,4 +1,5 @@
-import html2pdf from 'html2pdf.js';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import type { ReportDesign } from '../types/reportTypes';
 
 interface PDFGenerationOptions {
@@ -10,33 +11,21 @@ interface PDFGenerationOptions {
     onProgress?: (progress: number) => void;
 }
 
-interface PDFConfig {
-    margin: number;
-    filename: string;
-    image: { type: 'jpeg' | 'png' | 'webp'; quality: number };
-    html2canvas: {
-        scale: number;
-        useCORS: boolean;
-        logging: boolean;
-        letterRendering: boolean;
-    };
-    jsPDF: {
-        unit: string;
-        format: string;
-        orientation: 'portrait' | 'landscape';
-        compress: boolean;
-    };
-}
+// PowerPoint 16:9 slide dimensions in mm (standard widescreen)
+const SLIDE_WIDTH_MM = 338.67;  // ~13.33 inches
+const SLIDE_HEIGHT_MM = 190.5;  // ~7.5 inches
+const MARGIN_MM = 10;
 
 /**
  * PDF Generation Service
- * Handles client-side PDF generation from HTML elements using html2pdf.js
+ * Generates PDF with one page per slide using html2canvas + jsPDF directly
  */
 class PDFGenerationService {
     private isGenerating = false;
 
     /**
      * Generate a PDF from a report element
+     * Creates one page per slide for better rendering
      */
     async generateReportPDF(
         element: HTMLElement,
@@ -49,48 +38,54 @@ class PDFGenerationService {
         this.isGenerating = true;
 
         try {
-            // Report progress
+            options.onProgress?.(5);
+
+            // Find all slide items in the element
+            const slideElements = element.querySelectorAll('.slide-item');
+
+            if (slideElements.length === 0) {
+                throw new Error('No slides found in the report');
+            }
+
             options.onProgress?.(10);
 
-            // Prepare the element for PDF rendering
-            const preparedElement = await this.preparePDFElement(element, options);
-            options.onProgress?.(20);
-
-            // Configure html2pdf
-            const config = this.createPDFConfig(options);
-            options.onProgress?.(30);
-
-            // Generate PDF
-            const worker = html2pdf().set(config).from(preparedElement);
-
-            await worker.toPdf().get('pdf').then((pdf: any) => {
-                options.onProgress?.(80);
-
-                // Add page numbers
-                const totalPages = pdf.internal.getNumberOfPages();
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const pageHeight = pdf.internal.pageSize.getHeight();
-
-                for (let i = 1; i <= totalPages; i++) {
-                    pdf.setPage(i);
-                    pdf.setFontSize(9);
-                    pdf.setTextColor(150);
-                    pdf.text(
-                        `Page ${i} of ${totalPages}`,
-                        pageWidth / 2,
-                        pageHeight - 10,
-                        { align: 'center' }
-                    );
-                }
-
-                options.onProgress?.(90);
+            // Create PDF document with PowerPoint 16:9 dimensions
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'mm',
+                format: [SLIDE_WIDTH_MM, SLIDE_HEIGHT_MM],
             });
 
-            await worker.save();
+            // Add cover page
+            await this.addCoverPage(pdf, options);
+            options.onProgress?.(20);
+
+            // Calculate progress increment per slide
+            const progressPerSlide = 60 / slideElements.length;
+
+            // Process each slide
+            for (let i = 0; i < slideElements.length; i++) {
+                const slideElement = slideElements[i] as HTMLElement;
+
+                // Add new page for each slide
+                pdf.addPage();
+
+                // Render slide to canvas
+                await this.renderSlideToPage(pdf, slideElement, options.design, i + 1);
+
+                options.onProgress?.(20 + (i + 1) * progressPerSlide);
+            }
+
+            options.onProgress?.(85);
+
+            // Add page numbers to all pages
+            this.addPageNumbers(pdf);
+            options.onProgress?.(95);
+
+            // Save the PDF
+            pdf.save(options.filename);
             options.onProgress?.(100);
 
-            // Cleanup
-            this.cleanupAfterGeneration(preparedElement);
         } catch (error) {
             console.error('PDF generation error:', error);
             throw new Error(
@@ -104,218 +99,312 @@ class PDFGenerationService {
     }
 
     /**
-     * Create PDF configuration
+     * Add cover page with title and date range (full slide background)
      */
-    private createPDFConfig(options: PDFGenerationOptions): PDFConfig {
-        return {
-            margin: 15,
-            filename: options.filename,
-            image: {
-                type: 'jpeg',
-                quality: 0.95
-            },
-            html2canvas: {
-                scale: 2, // Higher quality
-                useCORS: true, // Allow cross-origin images
-                logging: false,
-                letterRendering: true, // Better text rendering
-            },
-            jsPDF: {
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait',
-                compress: true, // Reduce file size
-            },
-        };
-    }
+    private async addCoverPage(pdf: jsPDF, options: PDFGenerationOptions): Promise<void> {
+        const { design, reportTitle, startDate, endDate } = options;
 
-    /**
-     * Prepare element for PDF rendering
-     * Clones the element and applies PDF-specific styles
-     */
-    private async preparePDFElement(
-        element: HTMLElement,
-        options: PDFGenerationOptions
-    ): Promise<HTMLElement> {
-        // Clone the element to avoid modifying the original
-        const clone = element.cloneNode(true) as HTMLElement;
+        // Full page background with primary color
+        const primaryColor = this.hexToRgb(design.colorScheme.primary);
+        pdf.setFillColor(primaryColor.r, primaryColor.g, primaryColor.b);
+        pdf.rect(0, 0, SLIDE_WIDTH_MM, SLIDE_HEIGHT_MM, 'F');
 
-        // Create a container for PDF rendering
-        const container = document.createElement('div');
-        container.className = 'pdf-container';
-        container.style.position = 'absolute';
-        container.style.left = '-9999px';
-        container.style.top = '0';
-        container.style.width = '210mm'; // A4 width
-        container.style.backgroundColor = 'white';
-        container.style.padding = '20mm';
+        // Title - centered vertically and horizontally
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFontSize(42);
+        pdf.setFont('helvetica', 'bold');
 
-        // Apply theme colors
-        this.applyThemeToPDF(container, options.design);
+        // Word wrap for long titles
+        const titleLines = pdf.splitTextToSize(reportTitle, SLIDE_WIDTH_MM - 60);
+        const titleY = startDate && endDate ? SLIDE_HEIGHT_MM / 2 - 15 : SLIDE_HEIGHT_MM / 2;
+        pdf.text(titleLines, SLIDE_WIDTH_MM / 2, titleY, { align: 'center' });
 
-        // Add header
-        const header = this.createPDFHeader(options);
-        container.appendChild(header);
-
-        // Add content
-        container.appendChild(clone);
-
-        // Add footer
-        const footer = this.createPDFFooter();
-        container.appendChild(footer);
-
-        // Append to body temporarily
-        document.body.appendChild(container);
-
-        // Wait for images to load
-        await this.waitForImages(container);
-
-        return container;
-    }
-
-    /**
-     * Create PDF header with logo and title
-     */
-    private createPDFHeader(options: PDFGenerationOptions): HTMLElement {
-        const header = document.createElement('div');
-        header.className = 'pdf-header';
-        header.style.cssText = `
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--primary-color, #3b82f6);
-        `;
-
-        // Logo section
-        if (options.design.logo?.url) {
-            const logoContainer = document.createElement('div');
-            logoContainer.className = 'pdf-logo';
-
-            const logo = document.createElement('img');
-            logo.src = options.design.logo.url;
-            logo.alt = 'Logo';
-
-            const logoSize = options.design.logo.size === 'small' ? '40px'
-                : options.design.logo.size === 'large' ? '80px'
-                    : '60px';
-
-            logo.style.cssText = `
-                height: ${logoSize};
-                width: auto;
-                object-fit: contain;
-            `;
-
-            logoContainer.appendChild(logo);
-            header.appendChild(logoContainer);
+        // Date range
+        if (startDate && endDate) {
+            pdf.setFontSize(20);
+            pdf.setFont('helvetica', 'normal');
+            const dateText = `${this.formatDate(startDate)} - ${this.formatDate(endDate)}`;
+            pdf.text(dateText, SLIDE_WIDTH_MM / 2, SLIDE_HEIGHT_MM / 2 + 20, { align: 'center' });
         }
 
-        // Title and date section
-        const titleContainer = document.createElement('div');
-        titleContainer.className = 'pdf-title-section';
-        titleContainer.style.cssText = `
-            flex: 1;
-            text-align: ${options.design.logo ? 'right' : 'left'};
-            margin-left: ${options.design.logo ? '20px' : '0'};
+        // Logo if available (top left corner)
+        if (design.logo?.url) {
+            try {
+                const logoSize = design.logo.size === 'small' ? 20 : design.logo.size === 'large' ? 40 : 30;
+                await this.addImageToPdf(pdf, design.logo.url, 20, 15, logoSize, logoSize);
+            } catch (e) {
+                console.warn('Could not add logo to PDF:', e);
+            }
+        }
+
+        // Generation info (bottom right)
+        pdf.setTextColor(255, 255, 255, 0.7);
+        pdf.setFontSize(10);
+        pdf.text(`Généré le ${this.formatDate(new Date())}`, SLIDE_WIDTH_MM - 20, SLIDE_HEIGHT_MM - 15, { align: 'right' });
+    }
+
+    /**
+     * Render a single slide to a PDF page (full page, no margins)
+     */
+    private async renderSlideToPage(
+        pdf: jsPDF,
+        slideElement: HTMLElement,
+        design: ReportDesign,
+        _slideNumber: number
+    ): Promise<void> {
+        // Create a wrapper with exact slide dimensions for proper capture
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = `
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 1280px;
+            height: 720px;
+            background-color: ${design.colorScheme.background};
+            padding: 40px;
+            box-sizing: border-box;
+            z-index: 99999;
+            overflow: hidden;
         `;
 
-        const title = document.createElement('h1');
-        title.textContent = options.reportTitle;
-        title.style.cssText = `
+        // Apply theme variables
+        wrapper.style.setProperty('--primary-color', design.colorScheme.primary);
+        wrapper.style.setProperty('--secondary-color', design.colorScheme.secondary);
+        wrapper.style.setProperty('--accent-color', design.colorScheme.accent);
+        wrapper.style.setProperty('--widget-primary', design.colorScheme.primary);
+        wrapper.style.setProperty('--widget-text', design.colorScheme.text);
+        wrapper.style.setProperty('--widget-background', design.colorScheme.background);
+        wrapper.style.fontFamily = design.typography.fontFamily;
+        wrapper.style.color = design.colorScheme.text;
+
+        // Clone the slide content
+        const slideClone = slideElement.cloneNode(true) as HTMLElement;
+
+        // Remove drag handles and action buttons from clone
+        slideClone.querySelectorAll('.slide-handle, .slide-actions').forEach(el => el.remove());
+
+        // Disable ALL animations, transitions, and hover states for PDF capture
+        const disableAnimationsStyle = document.createElement('style');
+        disableAnimationsStyle.id = 'pdf-disable-animations';
+        disableAnimationsStyle.textContent = `
+            /* Global animation/transition reset */
+            .pdf-export-wrapper *,
+            .pdf-export-wrapper *::before,
+            .pdf-export-wrapper *::after {
+                animation: none !important;
+                animation-delay: 0s !important;
+                animation-duration: 0s !important;
+                animation-fill-mode: none !important;
+                transition: none !important;
+                transition-delay: 0s !important;
+                transition-duration: 0s !important;
+            }
+
+            /* Force all elements to be fully visible and positioned */
+            .pdf-export-wrapper * {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+
+            /* Performance Overview Widget */
+            .pdf-export-wrapper .performance-overview-widget,
+            .pdf-export-wrapper .performance-overview-widget:hover {
+                transform: none !important;
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
+            }
+
+            /* Metric Cards - reset animation state and hover */
+            .pdf-export-wrapper .metric-card,
+            .pdf-export-wrapper .metric-card:hover {
+                animation: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+                box-shadow: none !important;
+                border: 1px solid rgba(0, 0, 0, 0.06) !important;
+            }
+            .pdf-export-wrapper .metric-card::before,
+            .pdf-export-wrapper .metric-card:hover::before {
+                opacity: 0 !important;
+            }
+
+            /* Ad Creative Cards */
+            .pdf-export-wrapper .ad-creative-card,
+            .pdf-export-wrapper .ad-creative-card:hover {
+                transform: none !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+            }
+            .pdf-export-wrapper .metric-row,
+            .pdf-export-wrapper .metric-row:hover {
+                background: rgba(0, 0, 0, 0.02) !important;
+            }
+            .pdf-export-wrapper .ad-headline,
+            .pdf-export-wrapper .ad-headline:hover {
+                text-decoration: none !important;
+            }
+
+            /* Ad Badge - ensure proper display */
+            .pdf-export-wrapper .ad-badge {
+                display: inline-block !important;
+                position: relative !important;
+                transform: none !important;
+                background: rgba(0, 0, 0, 0.8) !important;
+                color: #ffffff !important;
+                padding: 2px 6px !important;
+                border-radius: 2px !important;
+            }
+
+            /* Ensure proper overflow */
+            .pdf-export-wrapper .metrics-grid {
+                overflow: visible !important;
+            }
+            .pdf-export-wrapper .widget-content,
+            .pdf-export-wrapper .slide-content {
+                overflow: visible !important;
+            }
+        `;
+        document.head.appendChild(disableAnimationsStyle);
+        wrapper.classList.add('pdf-export-wrapper');
+
+        // Style the clone to fill the wrapper
+        slideClone.style.cssText = `
+            transform: none;
+            opacity: 1;
+            width: 100%;
+            height: 100%;
             margin: 0;
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--text-color, #1f2937);
-            font-family: ${options.design.typography.headingFontFamily || options.design.typography.fontFamily};
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            background: transparent;
         `;
-        titleContainer.appendChild(title);
 
-        if (options.startDate && options.endDate) {
-            const dateRange = document.createElement('p');
-            dateRange.textContent = `${this.formatDate(options.startDate)} - ${this.formatDate(options.endDate)}`;
-            dateRange.style.cssText = `
-                margin: 8px 0 0 0;
-                font-size: 14px;
-                color: #6b7280;
+        // Find the slide-content inside and make it fill
+        const slideContent = slideClone.querySelector('.slide-content') as HTMLElement;
+        if (slideContent) {
+            slideContent.style.cssText = `
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             `;
-            titleContainer.appendChild(dateRange);
         }
 
-        header.appendChild(titleContainer);
+        wrapper.appendChild(slideClone);
+        document.body.appendChild(wrapper);
 
-        return header;
-    }
+        // Wait for any images and rendering
+        await this.waitForRender(wrapper);
 
-    /**
-     * Create PDF footer with generation date
-     */
-    private createPDFFooter(): HTMLElement {
-        const footer = document.createElement('div');
-        footer.className = 'pdf-footer';
-        footer.style.cssText = `
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-            text-align: center;
-            font-size: 12px;
-            color: #9ca3af;
-        `;
-
-        const generatedText = document.createElement('p');
-        generatedText.textContent = `Generated on ${this.formatDate(new Date())}`;
-        generatedText.style.margin = '0';
-
-        footer.appendChild(generatedText);
-
-        return footer;
-    }
-
-    /**
-     * Apply theme colors to PDF container
-     */
-    private applyThemeToPDF(container: HTMLElement, design: ReportDesign): void {
-        container.style.setProperty('--primary-color', design.colorScheme.primary);
-        container.style.setProperty('--secondary-color', design.colorScheme.secondary);
-        container.style.setProperty('--accent-color', design.colorScheme.accent);
-        container.style.setProperty('--background-color', design.colorScheme.background);
-        container.style.setProperty('--text-color', design.colorScheme.text);
-        container.style.fontFamily = design.typography.fontFamily;
-        container.style.fontSize = `${design.typography.fontSize}px`;
-        container.style.lineHeight = `${design.typography.lineHeight}`;
-    }
-
-    /**
-     * Wait for all images in the container to load
-     */
-    private async waitForImages(container: HTMLElement): Promise<void> {
-        const images = Array.from(container.querySelectorAll('img'));
-
-        if (images.length === 0) {
-            return;
-        }
-
-        const imagePromises = images.map((img) => {
-            return new Promise<void>((resolve) => {
-                if (img.complete) {
-                    resolve();
-                } else {
-                    img.onload = () => resolve();
-                    img.onerror = () => resolve(); // Continue even if image fails
-                }
+        try {
+            // Capture with html2canvas at 16:9 ratio
+            const canvas = await html2canvas(wrapper, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: design.colorScheme.background,
+                logging: false,
+                width: 1280,
+                height: 720,
+                scrollX: 0,
+                scrollY: 0,
+                windowWidth: 1280,
+                windowHeight: 720,
             });
-        });
 
-        await Promise.all(imagePromises);
+            // Add canvas image to PDF - full page
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            pdf.addImage(imgData, 'JPEG', 0, 0, SLIDE_WIDTH_MM, SLIDE_HEIGHT_MM);
+
+        } finally {
+            // Clean up
+            document.body.removeChild(wrapper);
+            // Remove the animation-disabling style
+            const styleEl = document.getElementById('pdf-disable-animations');
+            if (styleEl) {
+                styleEl.remove();
+            }
+        }
     }
 
     /**
-     * Cleanup after PDF generation
+     * Wait for images and rendering to complete
      */
-    private cleanupAfterGeneration(element: HTMLElement): void {
-        if (element && element.parentNode) {
-            element.parentNode.removeChild(element);
+    private async waitForRender(element: HTMLElement): Promise<void> {
+        // Wait for images
+        const images = Array.from(element.querySelectorAll('img'));
+        await Promise.all(
+            images.map(img =>
+                new Promise<void>(resolve => {
+                    if (img.complete) {
+                        resolve();
+                    } else {
+                        img.onload = () => resolve();
+                        img.onerror = () => resolve();
+                    }
+                })
+            )
+        );
+
+        // Wait for fonts and rendering
+        await document.fonts.ready;
+
+        // Small delay for DOM to settle (animations are disabled)
+        await new Promise(resolve => setTimeout(resolve, 50));
+    }
+
+    /**
+     * Add page numbers to all pages (bottom right, subtle)
+     */
+    private addPageNumbers(pdf: jsPDF): void {
+        const totalPages = pdf.getNumberOfPages();
+
+        for (let i = 1; i <= totalPages; i++) {
+            pdf.setPage(i);
+            pdf.setFontSize(9);
+            pdf.setTextColor(150, 150, 150);
+            pdf.text(
+                `${i} / ${totalPages}`,
+                SLIDE_WIDTH_MM - 15,
+                SLIDE_HEIGHT_MM - 8,
+                { align: 'right' }
+            );
         }
+    }
+
+    /**
+     * Add an image to PDF from URL
+     */
+    private async addImageToPdf(
+        pdf: jsPDF,
+        url: string,
+        x: number,
+        y: number,
+        width: number,
+        height: number
+    ): Promise<void> {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => {
+                try {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    if (ctx) {
+                        ctx.drawImage(img, 0, 0);
+                        const dataUrl = canvas.toDataURL('image/png');
+                        pdf.addImage(dataUrl, 'PNG', x, y, width, height);
+                    }
+                    resolve();
+                } catch (e) {
+                    reject(e);
+                }
+            };
+            img.onerror = reject;
+            img.src = url;
+        });
     }
 
     /**
@@ -327,6 +416,20 @@ class PDFGenerationService {
             month: 'short',
             year: 'numeric',
         }).format(date);
+    }
+
+    /**
+     * Convert hex color to RGB
+     */
+    private hexToRgb(hex: string): { r: number; g: number; b: number } {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result
+            ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16),
+            }
+            : { r: 59, g: 130, b: 246 }; // Default blue
     }
 
     /**

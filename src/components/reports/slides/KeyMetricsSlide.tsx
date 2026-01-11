@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { TrendingUp, TrendingDown, DollarSign, Target, BarChart3, AlertTriangle } from 'lucide-react';
-import { getWidgetData } from '../../../services/widgetService';
+import { getSlideData } from '../../../services/slideService';
 import Spinner from '../../common/Spinner';
-import type { WidgetConfig, ReportDesign } from '../../../types/reportTypes';
-import './KeyMetricsWidget.css';
+import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
+import './KeyMetricsSlide.css';
 
-interface KeyMetricsWidgetProps {
-    config: WidgetConfig;
+interface KeyMetricsSlideProps {
+    config: SlideConfig;
     design: ReportDesign;
     accountId: string;
     campaignIds?: string[];
@@ -25,7 +25,7 @@ interface MetricData {
     icon: React.ReactNode;
 }
 
-const KeyMetricsWidget: React.FC<KeyMetricsWidgetProps> = ({
+const KeyMetricsSlide: React.FC<KeyMetricsSlideProps> = ({
     config,
     design,
     accountId,
@@ -40,16 +40,21 @@ const KeyMetricsWidget: React.FC<KeyMetricsWidgetProps> = ({
     const [error, setError] = useState<string | null>(null);
     const [isMockData, setIsMockData] = useState(false);
 
+    // Compute effective scope: slide scope overrides report scope
+    // CRITICAL: Ensure values are never undefined to avoid CORS errors
+    const effectiveAccountId = config.scope?.accountId || accountId || '';
+    const effectiveCampaignIds = config.scope?.campaignIds || campaignIds || [];
+
     useEffect(() => {
         loadData();
-    }, [config, accountId, campaignIds, startDate, endDate]);
+    }, [config, effectiveAccountId, effectiveCampaignIds, startDate, endDate]);
 
     const loadData = async () => {
         try {
             setLoading(true);
             setError(null);
 
-            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate, reportId);
+            const data = await getSlideData(config, effectiveAccountId, effectiveCampaignIds, startDate, endDate, reportId);
 
             // Extract the 4 key metrics from the data
             const rawMetrics = data.metrics || [];
@@ -218,4 +223,4 @@ const KeyMetricsWidget: React.FC<KeyMetricsWidgetProps> = ({
     );
 };
 
-export default KeyMetricsWidget;
+export default KeyMetricsSlide;

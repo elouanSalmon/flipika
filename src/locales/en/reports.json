@@ -43,7 +43,8 @@
     },
     "dateRange": {
       "from": "From",
-      "to": "To"
+      "to": "To",
+      "display": "From {{start}} to {{end}}"
     },
     "campaigns": {
       "title": "Campaigns ({count} selected)",
@@ -131,7 +132,7 @@
     "noCampaigns": "No campaigns",
     "modifiedOn": "Modified on {{date}}",
     "sections": "Sections",
-    "widgets": "Widgets",
+    "slides": "Slides",
     "actions": {
       "viewPublic": "View public",
       "shareByEmail": "Share by email",
@@ -211,8 +212,8 @@
     },
     "emptyState": {
       "title": "No data available",
-      "message": "This report doesn't contain any widgets. Add widgets to visualize your Google Ads data.",
-      "suggestion": "Return to the editor to add widgets to your report.",
+      "message": "This report doesn't contain any slides. Add slides to visualize your Google Ads data.",
+      "suggestion": "Return to the editor to add slides to your report.",
       "editReport": "Edit Report",
       "backToReports": "Back to Reports"
     },

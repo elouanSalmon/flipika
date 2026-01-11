@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Calendar, MoreVertical, Copy, Edit2, Trash2, Play, Building, Megaphone, Clock } from 'lucide-react';
 import type { ReportTemplate } from '../../types/templateTypes';
-import { PERIOD_PRESETS } from '../../types/templateTypes';
 import './TemplateCard.css'; // Minimized
 
 interface TemplateCardProps {
@@ -27,7 +26,9 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
     const { t } = useTranslation('templates');
     const [showMenu, setShowMenu] = React.useState(false);
 
-    const periodPresetLabel = PERIOD_PRESETS.find(p => p.value === template.periodPreset)?.label || template.periodPreset;
+    const periodPresetLabel = template.periodPreset
+        ? t(`configModal.presets.${template.periodPreset}.label`)
+        : template.periodPreset;
 
     // Resolve account name - same logic as ReportConfigModal
     const accountName = accounts.find(a => a.id === template.accountId)?.name || template.accountId || t('card.noAccount');
@@ -105,17 +106,17 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                     </div>
                 </div>
 
-                {/* Widget Badges - Inline */}
-                {template.widgetConfigs.length > 0 && (
+                {/* Slide Badges - Inline */}
+                {template.slideConfigs.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-3">
-                        {template.widgetConfigs.slice(0, 3).map((widget, index) => (
+                        {template.slideConfigs.slice(0, 3).map((slide, index) => (
                             <span key={index} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded text-xs">
-                                {getWidgetTypeName(widget.type, t)}
+                                {getSlideTypeName(slide.type, t)}
                             </span>
                         ))}
-                        {template.widgetConfigs.length > 3 && (
+                        {template.slideConfigs.length > 3 && (
                             <span className="px-2 py-0.5 bg-gray-50 dark:bg-gray-800 text-gray-500 rounded text-xs">
-                                +{template.widgetConfigs.length - 3}
+                                +{template.slideConfigs.length - 3}
                             </span>
                         )}
                     </div>
@@ -129,8 +130,8 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                         <span className="listing-card-stat-label">{t('card.uses')}</span>
                     </div>
                     <div className="listing-card-stat border-l border-gray-200 dark:border-gray-700 pl-4">
-                        <span className="listing-card-stat-value">{template.widgetConfigs.length}</span>
-                        <span className="listing-card-stat-label">{t('card.widgets')}</span>
+                        <span className="listing-card-stat-value">{template.slideConfigs.length}</span>
+                        <span className="listing-card-stat-label">{t('card.slides')}</span>
                     </div>
                 </div>
             </div>
@@ -186,13 +187,13 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
     );
 };
 
-function getWidgetTypeName(type: string, t: any): string {
+function getSlideTypeName(type: string, t: any): string {
     const names: Record<string, string> = {
-        'performance_overview': t('card.widgetTypes.performance'),
-        'campaign_chart': t('card.widgetTypes.chart'),
-        'key_metrics': t('card.widgetTypes.metrics'),
-        'ad_creative': t('card.widgetTypes.creatives'),
-        'text_block': t('card.widgetTypes.text'),
+        'performance_overview': t('card.slideTypes.performance'),
+        'campaign_chart': t('card.slideTypes.chart'),
+        'key_metrics': t('card.slideTypes.metrics'),
+        'ad_creative': t('card.slideTypes.creatives'),
+        'text_block': t('card.slideTypes.text'),
     };
     return names[type] || type;
 }

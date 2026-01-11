@@ -16,8 +16,8 @@ export const SectionType = {
 export type SectionType = typeof SectionType[keyof typeof SectionType];
 
 
-// Widget Types
-export const WidgetType = {
+// Slide Types
+export const SlideType = {
     PERFORMANCE_OVERVIEW: 'performance_overview',
     CAMPAIGN_CHART: 'campaign_chart',
     KEY_METRICS: 'key_metrics',
@@ -26,13 +26,21 @@ export const WidgetType = {
     CUSTOM: 'custom',
 } as const;
 
-export type WidgetType = typeof WidgetType[keyof typeof WidgetType];
+export type SlideType = typeof SlideType[keyof typeof SlideType];
 
-export interface WidgetConfig {
+// Slide Scope Types
+export interface SlideScope {
+    type: 'report_default' | 'specific_campaigns' | 'single_campaign';
+    accountId?: string;  // Always uses report account
+    campaignIds?: string[];  // Subset of report campaigns
+}
+
+export interface SlideConfig {
     id: string;
-    type: WidgetType;
+    type: SlideType;
     accountId: string;
     campaignIds: string[];
+    scope?: SlideScope;  // Optional - defaults to report_default
     order: number;
     settings?: {
         // Performance Overview
@@ -53,21 +61,21 @@ export interface WidgetConfig {
     updatedAt: Date;
 }
 
-export interface WidgetInstance {
+export interface SlideInstance {
     id: string;
-    widgetConfigId: string;
+    slideConfigId: string;
     reportId: string;
     data?: any; // Cached data from Google Ads API
     lastUpdated: Date;
 }
 
-export interface WidgetTemplate {
+export interface SlideTemplate {
     id: string;
     userId?: string; // null for default templates
     name: string;
     description: string;
-    type: WidgetType;
-    defaultSettings: WidgetConfig['settings'];
+    type: SlideType;
+    defaultSettings: SlideConfig['settings'];
     thumbnail?: string;
     isDefault: boolean;
     createdAt: Date;
@@ -84,8 +92,8 @@ export interface EditableReport {
     title: string;
     content: JSONContent;
     sections: ReportSection[];
-    widgetIds: string[]; // IDs of widgets in the widgets sub-collection
-    widgets: WidgetConfig[]; // Populated widgets (may be empty for list views)
+    slideIds: string[]; // IDs of slides in the slides sub-collection
+    slides: SlideConfig[]; // Populated slides (may be empty for list views)
     comments: ReportComment[];
     design: ReportDesign;
     status: 'draft' | 'published' | 'archived';

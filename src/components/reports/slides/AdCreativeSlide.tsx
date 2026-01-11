@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import AdCreativeCard from './AdCreativeCard';
 import type { AdCreativeData, AdMetrics } from './AdCreativeCard';
 import Spinner from '../../common/Spinner';
-import type { WidgetConfig, ReportDesign } from '../../../types/reportTypes';
+import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
 import { AlertTriangle } from 'lucide-react';
 
-interface AdCreativeWidgetProps {
-    config: WidgetConfig;
+interface AdCreativeSlideProps {
+    config: SlideConfig;
     design: ReportDesign;
     accountId: string;
     campaignIds?: string[];
@@ -34,7 +34,7 @@ interface RealAdCreative {
     };
 }
 
-const AdCreativeWidget: React.FC<AdCreativeWidgetProps> = ({
+const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     config,
     design,
     accountId,
@@ -94,9 +94,21 @@ const AdCreativeWidget: React.FC<AdCreativeWidgetProps> = ({
             setLoading(true);
             setError(null);
 
+            // Debug logging to trace values
+            console.log('🎯 AdCreativeSlide loadData called with:', {
+                accountId,
+                campaignIds,
+                campaignIdsLength: campaignIds?.length,
+                hasAccountId: !!accountId,
+                hasCampaignIds: campaignIds && campaignIds.length > 0,
+                startDate,
+                endDate
+            });
+
             // Check if we have the required data to fetch ads
-            if (!accountId || !campaignIds || campaignIds.length === 0) {
-                console.warn('Missing accountId or campaignIds, using demo data');
+            // We need at least an accountId. campaignIds can be empty (meaning "all campaigns")
+            if (!accountId) {
+                console.warn('⚠️ Missing accountId, using demo data');
                 setIsMockData(true);
                 setLoading(false);
                 return;
@@ -104,7 +116,8 @@ const AdCreativeWidget: React.FC<AdCreativeWidgetProps> = ({
 
             // Fetch real ad creatives from Google Ads API
             const { fetchAdCreatives } = await import('../../../services/googleAds');
-            const result = await fetchAdCreatives(accountId, campaignIds);
+            // Ensure we pass an empty array if campaignIds is undefined, as the service expects string[]
+            const result = await fetchAdCreatives(accountId, campaignIds || []);
 
             if (!result.success || !result.ads || result.ads.length === 0) {
                 console.warn('No ads returned from API, using demo data:', result.error);
@@ -267,4 +280,4 @@ const AdCreativeWidget: React.FC<AdCreativeWidgetProps> = ({
     );
 };
 
-export default AdCreativeWidget;
+export default AdCreativeSlide;

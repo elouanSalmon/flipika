@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { BarChart3, LineChart, TrendingUp, FileText, Plus, Trash2, GripVertical } from 'lucide-react';
-import type { TemplateWidgetConfig } from '../../types/templateTypes';
-import { WidgetType } from '../../types/reportTypes';
+import type { TemplateSlideConfig } from '../../types/templateTypes';
+import { SlideType } from '../../types/reportTypes';
 import './WidgetSelector.css';
 
 interface WidgetSelectorProps {
-    widgetConfigs: TemplateWidgetConfig[];
-    onChange: (configs: TemplateWidgetConfig[]) => void;
+    widgetConfigs: TemplateSlideConfig[];
+    onChange: (configs: TemplateSlideConfig[]) => void;
 }
 
 const AVAILABLE_WIDGETS = [
     {
-        type: WidgetType.PERFORMANCE_OVERVIEW,
+        type: SlideType.PERFORMANCE_OVERVIEW,
         name: 'Vue d\'ensemble Performance',
         description: 'Métriques clés avec comparaisons',
         icon: TrendingUp,
@@ -21,7 +21,7 @@ const AVAILABLE_WIDGETS = [
         },
     },
     {
-        type: WidgetType.CAMPAIGN_CHART,
+        type: SlideType.CAMPAIGN_CHART,
         name: 'Graphique Campagnes',
         description: 'Évolution des performances',
         icon: LineChart,
@@ -30,7 +30,7 @@ const AVAILABLE_WIDGETS = [
         },
     },
     {
-        type: WidgetType.KEY_METRICS,
+        type: SlideType.KEY_METRICS,
         name: 'Métriques Clés',
         description: 'Indicateurs principaux',
         icon: BarChart3,
@@ -39,7 +39,7 @@ const AVAILABLE_WIDGETS = [
         },
     },
     {
-        type: WidgetType.TEXT_BLOCK,
+        type: SlideType.TEXT_BLOCK,
         name: 'Bloc de Texte',
         description: 'Texte personnalisé',
         icon: FileText,
@@ -52,20 +52,20 @@ const AVAILABLE_WIDGETS = [
 const WidgetSelector: React.FC<WidgetSelectorProps> = ({ widgetConfigs, onChange }) => {
     const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
-    const addWidget = (widgetType: WidgetType) => {
-        const widgetTemplate = AVAILABLE_WIDGETS.find(w => w.type === widgetType);
+    const addSlide = (slideType: SlideType) => {
+        const widgetTemplate = AVAILABLE_WIDGETS.find(w => w.type === slideType);
         if (!widgetTemplate) return;
 
-        const newWidget: TemplateWidgetConfig = {
-            type: widgetType,
+        const newSlide: TemplateSlideConfig = {
+            type: slideType,
             order: widgetConfigs.length,
             settings: { ...widgetTemplate.defaultSettings },
         };
 
-        onChange([...widgetConfigs, newWidget]);
+        onChange([...widgetConfigs, newSlide]);
     };
 
-    const removeWidget = (index: number) => {
+    const removeSlide = (index: number) => {
         const newConfigs = widgetConfigs.filter((_, i) => i !== index);
         // Reorder
         const reordered = newConfigs.map((config, i) => ({ ...config, order: i }));
@@ -95,7 +95,7 @@ const WidgetSelector: React.FC<WidgetSelectorProps> = ({ widgetConfigs, onChange
         setDraggedIndex(null);
     };
 
-    const updateWidgetSettings = (index: number, settings: any) => {
+    const updateSlideSettings = (index: number, settings: any) => {
         const newConfigs = [...widgetConfigs];
         newConfigs[index] = {
             ...newConfigs[index],
@@ -104,14 +104,14 @@ const WidgetSelector: React.FC<WidgetSelectorProps> = ({ widgetConfigs, onChange
         onChange(newConfigs);
     };
 
-    const getWidgetInfo = (type: WidgetType) => {
+    const getSlideInfo = (type: SlideType) => {
         return AVAILABLE_WIDGETS.find(w => w.type === type);
     };
 
     return (
         <div className="widget-selector">
-            {/* Available Widgets */}
-            <h4>Widgets disponibles</h4>
+            {/* Available Slides */}
+            <h4>Slides disponibles</h4>
             <div className="widget-grid">
                 {AVAILABLE_WIDGETS.map(widget => {
                     const Icon = widget.icon;
@@ -120,7 +120,7 @@ const WidgetSelector: React.FC<WidgetSelectorProps> = ({ widgetConfigs, onChange
                             key={widget.type}
                             type="button"
                             className="widget-option"
-                            onClick={() => addWidget(widget.type)}
+                            onClick={() => addSlide(widget.type)}
                             title={widget.description}
                         >
                             <Icon size={20} />
@@ -131,16 +131,16 @@ const WidgetSelector: React.FC<WidgetSelectorProps> = ({ widgetConfigs, onChange
                 })}
             </div>
 
-            {/* Selected Widgets */}
+            {/* Selected Slides */}
             {widgetConfigs.length > 0 && (
                 <>
-                    <h4>Widgets sélectionnés ({widgetConfigs.length})</h4>
+                    <h4>Slides sélectionnés ({widgetConfigs.length})</h4>
                     <div className="widgets-list">
                         {widgetConfigs.map((config, index) => {
-                            const widgetInfo = getWidgetInfo(config.type);
-                            if (!widgetInfo) return null;
+                            const slideInfo = getSlideInfo(config.type);
+                            if (!slideInfo) return null;
 
-                            const Icon = widgetInfo.icon;
+                            const Icon = slideInfo.icon;
 
                             return (
                                 <div
@@ -154,25 +154,25 @@ const WidgetSelector: React.FC<WidgetSelectorProps> = ({ widgetConfigs, onChange
                                     <div className="widget-header">
                                         <GripVertical size={16} className="drag-handle" />
                                         <Icon size={18} />
-                                        <span className="widget-name">{widgetInfo.name}</span>
+                                        <span className="widget-name">{slideInfo.name}</span>
                                         <button
                                             type="button"
                                             className="remove-btn"
-                                            onClick={() => removeWidget(index)}
+                                            onClick={() => removeSlide(index)}
                                             title="Retirer ce widget"
                                         >
                                             <Trash2 size={16} />
                                         </button>
                                     </div>
 
-                                    {/* Widget-specific settings */}
-                                    {config.type === WidgetType.CAMPAIGN_CHART && (
+                                    {/* Slide-specific settings */}
+                                    {config.type === SlideType.CAMPAIGN_CHART && (
                                         <div className="widget-settings">
                                             <label>
                                                 Type de graphique:
                                                 <select
                                                     value={config.settings?.chartType || 'line'}
-                                                    onChange={(e) => updateWidgetSettings(index, { chartType: e.target.value })}
+                                                    onChange={(e) => updateSlideSettings(index, { chartType: e.target.value })}
                                                 >
                                                     <option value="line">Ligne</option>
                                                     <option value="bar">Barres</option>
@@ -182,13 +182,13 @@ const WidgetSelector: React.FC<WidgetSelectorProps> = ({ widgetConfigs, onChange
                                         </div>
                                     )}
 
-                                    {config.type === WidgetType.PERFORMANCE_OVERVIEW && (
+                                    {config.type === SlideType.PERFORMANCE_OVERVIEW && (
                                         <div className="widget-settings">
                                             <label className="checkbox-label">
                                                 <input
                                                     type="checkbox"
                                                     checked={config.settings?.showComparison ?? true}
-                                                    onChange={(e) => updateWidgetSettings(index, { showComparison: e.target.checked })}
+                                                    onChange={(e) => updateSlideSettings(index, { showComparison: e.target.checked })}
                                                 />
                                                 <span>Afficher les comparaisons</span>
                                             </label>
@@ -203,8 +203,8 @@ const WidgetSelector: React.FC<WidgetSelectorProps> = ({ widgetConfigs, onChange
 
             {widgetConfigs.length === 0 && (
                 <div className="empty-state">
-                    <p>Aucun widget sélectionné</p>
-                    <p className="empty-hint">Cliquez sur un widget ci-dessus pour l'ajouter</p>
+                    <p>Aucun slide sélectionné</p>
+                    <p className="empty-hint">Cliquez sur un slide ci-dessus pour l'ajouter</p>
                 </div>
             )}
         </div>

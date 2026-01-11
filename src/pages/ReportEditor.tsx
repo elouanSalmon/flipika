@@ -4,8 +4,8 @@ import toast from 'react-hot-toast';
 import { useAuth } from '../contexts/AuthContext';
 import { useTutorial } from '../contexts/TutorialContext';
 import {
-    getReportWithWidgets,
-    saveReportWithWidgets,
+    getReportWithSlides,
+    saveReportWithSlides,
     publishReport,
     archiveReport,
     deleteReport,
@@ -16,14 +16,14 @@ import { getUserProfile } from '../services/userProfileService';
 import dataService from '../services/dataService';
 import { fetchCampaigns } from '../services/googleAds';
 import ReportEditorHeader from '../components/reports/ReportEditorHeader';
-import WidgetLibrary from '../components/reports/WidgetLibrary';
+import SlideLibrary from '../components/reports/SlideLibrary';
 import ReportCanvas from '../components/reports/ReportCanvas';
 import ThemeManager from '../components/themes/ThemeManager';
 import ReportConfigModal, { type ReportConfig } from '../components/reports/ReportConfigModal';
 import ReportSecurityModal from '../components/reports/ReportSecurityModal';
 import Spinner from '../components/common/Spinner';
-import type { EditableReport, WidgetConfig } from '../types/reportTypes';
-import { WidgetType } from '../types/reportTypes';
+import type { EditableReport, SlideConfig } from '../types/reportTypes';
+import { SlideType } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
 import type { Account, Campaign } from '../types/business';
 import PreFlightModal from '../components/reports/PreFlightModal';
@@ -37,8 +37,8 @@ const ReportEditor: React.FC = () => {
 
     // Report state
     const [report, setReport] = useState<EditableReport | null>(null);
-    const [widgets, setWidgets] = useState<WidgetConfig[]>([]);
-    const [selectedWidgetId, setSelectedWidgetId] = useState<string | null>(null);
+    const [slides, setSlides] = useState<SlideConfig[]>([]);
+    const [selectedSlideId, setSelectedSlideId] = useState<string | null>(null);
     const [selectedTheme, setSelectedTheme] = useState<ReportTheme | null>(null);
 
     // UI state
@@ -100,7 +100,7 @@ const ReportEditor: React.FC = () => {
                 window.clearTimeout(autoSaveTimerRef.current);
             }
         };
-    }, [isDirty, report, widgets]);
+    }, [isDirty, report, slides]);
 
     // Load Google Ads accounts for theme manager
     useEffect(() => {
@@ -121,7 +121,7 @@ const ReportEditor: React.FC = () => {
     const loadReport = async (id: string) => {
         try {
             setIsLoading(true);
-            const result = await getReportWithWidgets(id);
+            const result = await getReportWithSlides(id);
 
             if (!result) {
                 toast.error('Rapport introuvable');
@@ -136,7 +136,7 @@ const ReportEditor: React.FC = () => {
             }
 
             setReport(result.report);
-            setWidgets(result.widgets);
+            setSlides(result.slides);
             setLastSaved(result.report.updatedAt);
         } catch (error) {
             console.error('Error loading report:', error);
@@ -151,10 +151,10 @@ const ReportEditor: React.FC = () => {
 
         try {
             setAutoSaveStatus('saving');
-            await saveReportWithWidgets(report.id, {
+            await saveReportWithSlides(report.id, {
                 title: report.title,
                 design: report.design,
-            }, widgets);
+            }, slides);
             setAutoSaveStatus('saved');
             setLastSaved(new Date());
             setIsDirty(false);
@@ -162,17 +162,17 @@ const ReportEditor: React.FC = () => {
             console.error('Auto-save error:', error);
             setAutoSaveStatus('error');
         }
-    }, [report, widgets, currentUser]);
+    }, [report, slides, currentUser]);
 
     const handleSave = async () => {
         if (!report || !currentUser) return;
 
         try {
             setIsSaving(true);
-            await saveReportWithWidgets(report.id, {
+            await saveReportWithSlides(report.id, {
                 title: report.title,
                 design: report.design,
-            }, widgets);
+            }, slides);
             setLastSaved(new Date());
             setIsDirty(false);
             await refreshTutorial();
@@ -256,40 +256,40 @@ const ReportEditor: React.FC = () => {
         }
     };
 
-    const handleAddWidget = (type: WidgetType) => {
+    const handleAddSlide = (type: SlideType) => {
         if (!report) return;
 
-        const newWidget: WidgetConfig = {
-            id: `widget-${Date.now()}`,
+        const newSlide: SlideConfig = {
+            id: `slide-${Date.now()}`,
             type,
             accountId: report.accountId,
             campaignIds: report.campaignIds,
-            order: widgets.length,
+            order: slides.length,
             settings: {},
             createdAt: new Date(),
             updatedAt: new Date(),
         };
 
-        setWidgets([...widgets, newWidget]);
+        setSlides([...slides, newSlide]);
         setIsDirty(true);
     };
 
-    const handleWidgetReorder = (reorderedWidgets: WidgetConfig[]) => {
-        setWidgets(reorderedWidgets);
+    const handleSlideReorder = (reorderedSlides: SlideConfig[]) => {
+        setSlides(reorderedSlides);
         setIsDirty(true);
     };
 
-    const handleWidgetUpdate = (widgetId: string, config: Partial<WidgetConfig>) => {
-        setWidgets(widgets.map(w =>
-            w.id === widgetId ? { ...w, ...config, updatedAt: new Date() } : w
+    const handleSlideUpdate = (slideId: string, config: Partial<SlideConfig>) => {
+        setSlides(slides.map(w =>
+            w.id === slideId ? { ...w, ...config, updatedAt: new Date() } : w
         ));
         setIsDirty(true);
     };
 
-    const handleWidgetDelete = (widgetId: string) => {
-        setWidgets(widgets.filter(w => w.id !== widgetId));
-        if (selectedWidgetId === widgetId) {
-            setSelectedWidgetId(null);
+    const handleSlideDelete = (slideId: string) => {
+        setSlides(slides.filter(w => w.id !== slideId));
+        if (selectedSlideId === slideId) {
+            setSelectedSlideId(null);
         }
         setIsDirty(true);
     };
@@ -344,8 +344,8 @@ const ReportEditor: React.FC = () => {
                 endDate: new Date(config.dateRange.end),
             });
 
-            // Update all widgets with new parameters
-            setWidgets(widgets.map(w => ({
+            // Update all slides with new parameters
+            setSlides(slides.map(w => ({
                 ...w,
                 accountId: config.accountId,
                 campaignIds: config.campaignIds,
@@ -531,12 +531,12 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                 onShareByEmail={handleOpenPreFlight}
                 isSaving={isSaving}
                 isLoadingSettings={isLoadingSettings}
-                canPublish={widgets.length > 0}
+                canPublish={slides.length > 0}
             />
 
             <div className="report-editor-content">
-                <WidgetLibrary
-                    onAddWidget={handleAddWidget}
+                <SlideLibrary
+                    onAddSlide={handleAddSlide}
                     userId={currentUser.uid}
                     accountId={report.accountId}
                     selectedTheme={selectedTheme}
@@ -545,17 +545,19 @@ ${profile?.firstName || ''} ${profile?.lastName || ''}${profile?.company ? `\n${
                 />
 
                 <ReportCanvas
-                    widgets={widgets}
+                    slides={slides}
                     design={report.design}
                     startDate={report.startDate}
                     endDate={report.endDate}
-                    onReorder={handleWidgetReorder}
-                    onWidgetUpdate={handleWidgetUpdate}
-                    onWidgetDelete={handleWidgetDelete}
-                    onWidgetDrop={(type) => handleAddWidget(type as WidgetType)}
-                    selectedWidgetId={selectedWidgetId}
-                    onWidgetSelect={setSelectedWidgetId}
+                    onReorder={handleSlideReorder}
+                    onSlideUpdate={handleSlideUpdate}
+                    onSlideDelete={handleSlideDelete}
+                    onSlideDrop={(type) => handleAddSlide(type as SlideType)}
+                    selectedSlideId={selectedSlideId}
+                    onSlideSelect={setSelectedSlideId}
                     reportId={report.id}
+                    reportAccountId={report.accountId}
+                    reportCampaignIds={report.campaignIds}
                 />
             </div>
 

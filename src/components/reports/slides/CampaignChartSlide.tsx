@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, BarChart, Bar, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { AlertTriangle } from 'lucide-react';
-import { getWidgetData } from '../../../services/widgetService';
+import { getSlideData } from '../../../services/slideService';
 import Spinner from '../../common/Spinner';
-import type { WidgetConfig, ReportDesign } from '../../../types/reportTypes';
-import './CampaignChartWidget.css';
+import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
+import './CampaignChartSlide.css';
 
-interface CampaignChartWidgetProps {
-    config: WidgetConfig;
+interface CampaignChartSlideProps {
+    config: SlideConfig;
     design: ReportDesign;
     accountId: string;
     campaignIds?: string[];
@@ -22,7 +22,7 @@ interface ChartDataPoint {
     [key: string]: any;
 }
 
-const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
+const CampaignChartSlide: React.FC<CampaignChartSlideProps> = ({
     config,
     design,
     accountId,
@@ -38,16 +38,21 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
     const [error, setError] = useState<string | null>(null);
     const [isMockData, setIsMockData] = useState(false);
 
+    // Compute effective scope: slide scope overrides report scope
+    // CRITICAL: Ensure values are never undefined to avoid CORS errors
+    const effectiveAccountId = config.scope?.accountId || accountId || '';
+    const effectiveCampaignIds = config.scope?.campaignIds || campaignIds || [];
+
     useEffect(() => {
         loadData();
-    }, [config, accountId, campaignIds, startDate, endDate]);
+    }, [config, effectiveAccountId, effectiveCampaignIds, startDate, endDate]);
 
     const loadData = async () => {
         try {
             setLoading(true);
             setError(null);
 
-            const data = await getWidgetData(config, accountId, campaignIds, startDate, endDate, reportId);
+            const data = await getSlideData(config, effectiveAccountId, effectiveCampaignIds, startDate, endDate, reportId);
             setChartData(data.chartData || []);
             setCampaigns(data.campaigns || []);
             setIsMockData(data.isMockData || false);
@@ -292,4 +297,4 @@ const CampaignChartWidget: React.FC<CampaignChartWidgetProps> = ({
     );
 };
 
-export default CampaignChartWidget;
+export default CampaignChartSlide;

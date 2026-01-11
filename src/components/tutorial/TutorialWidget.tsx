@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     CheckCircle,
@@ -96,7 +96,7 @@ export const TutorialWidget = () => {
             await dismissTutorial();
             // Also update profile to ensure persistence
             if (userProfile) {
-                await updateProfile(userProfile.uid, {
+                await updateProfile({
                     hasCompletedTutorial: true
                 });
             }
@@ -116,12 +116,12 @@ export const TutorialWidget = () => {
                 {!isExpanded && (
                     <button
                         onClick={() => setIsExpanded(true)}
-                        className="bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition-transform hover:scale-105 flex items-center gap-2"
+                        className="bg-primary text-white w-[60px] h-[60px] rounded-full shadow-xl hover:bg-primary-dark transition-transform hover:scale-105 flex items-center justify-center relative"
                         title={t('tutorial:expand')}
                     >
-                        <Rocket size={24} />
+                        <Rocket size={32} />
                         {progress > 0 && progress < 100 && (
-                            <span className="text-xs font-bold bg-white text-gray-900 px-1.5 py-0.5 rounded-full min-w-[20px]">
+                            <span className="absolute -top-1 -right-1 text-xs font-bold bg-white text-gray-900 px-1.5 py-0.5 rounded-full shadow-sm border border-gray-100">
                                 {progress}%
                             </span>
                         )}
@@ -181,7 +181,7 @@ export const TutorialWidget = () => {
                             {/* Steps List */}
                             <div className="max-h-[60vh] overflow-y-auto custom-scrollbar">
                                 <div className="p-2 space-y-1">
-                                    {steps.map((step, index) => {
+                                    {steps.map((step) => {
                                         const isCompleted = currentStatus.steps[step.statusKey as keyof typeof currentStatus.steps];
                                         return (
                                             <div

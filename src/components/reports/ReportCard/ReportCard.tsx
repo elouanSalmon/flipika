@@ -162,8 +162,8 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
                         <span className="listing-card-stat-label">{t('card.sections')}</span>
                     </div>
                     <div className="listing-card-stat border-l border-gray-200 dark:border-gray-700 pl-4">
-                        <span className="listing-card-stat-value">{report.widgetIds?.length || 0}</span>
-                        <span className="listing-card-stat-label">{t('card.widgets')}</span>
+                        <span className="listing-card-stat-value">{report.slideIds?.length || 0}</span>
+                        <span className="listing-card-stat-label">{t('card.slides')}</span>
                     </div>
                 </div>
             </div>

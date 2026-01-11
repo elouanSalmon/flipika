@@ -28,11 +28,11 @@
       "getStarted": "Commencer"
     },
     "createCampaigns": {
-      "title": "Architecture modulaire par Widgets",
+      "title": "Architecture modulaire par Slides",
       "subtitle": "Construisez vos rapports sur mesure",
-      "description": "Votre rapport est une collection de widgets personnalisables. Graphiques, tableaux, textes : assemblez-les par simple glisser-déposer.",
+      "description": "Votre rapport est une collection de slides personnalisables. Graphiques, tableaux, textes : assemblez-les par simple glisser-déposer.",
       "benefits": [
-        "Widgets modulaires et réutilisables",
+        "Slides modulaires et réutilisables",
         "Drag & Drop pour personnaliser",
         "Templates prêts à l'emploi"
       ]

@@ -226,7 +226,7 @@ export default function SubscriptionCard() {
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
-                                    <span>{t('subscription.noSubscription.features.customWidgets')}</span>
+                                    <span>{t('subscription.noSubscription.features.customSlides')}</span>
                                 </li>
                             </ul>
                         </div>
