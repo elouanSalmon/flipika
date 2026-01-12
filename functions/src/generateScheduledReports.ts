@@ -157,6 +157,18 @@ async function generateReportFromSchedule(
     });
     const reportTitle = `${scheduleName} - ${dateStr}`;
 
+    // Fetch User Profile
+    const userProfile = await fetchUserProfile(userId);
+
+    // Fetch Client Info
+    const client = await fetchClientByAccountId(userId, accountId);
+
+    // Generate Cover Slide Content
+    const coverContent = generateCoverSlideContent(reportTitle, client, userProfile, now);
+
+    // Generate Conclusion Slide Content
+    const conclusionContent = generateConclusionSlideContent(userProfile);
+
     // Create the report using the template service
     const reportId = await createReportFromTemplateInFunction(
         userId,
@@ -165,7 +177,9 @@ async function generateReportFromSchedule(
         accountId,
         reportTitle,
         accountName,
-        campaignNames
+        campaignNames,
+        coverContent,
+        conclusionContent
     );
 
     return reportId;
@@ -182,7 +196,9 @@ async function createReportFromTemplateInFunction(
     accountId: string,
     title: string,
     accountName?: string,
-    campaignNames?: string[]
+    campaignNames?: string[],
+    coverContent?: string,
+    conclusionContent?: string
 ): Promise<string> {
     const db = admin.firestore();
 
@@ -215,6 +231,31 @@ async function createReportFromTemplateInFunction(
     const batch = db.batch();
     const slideIds: string[] = [];
 
+    // 1. Insert Cover Slide if content provided
+    if (coverContent) {
+        const coverRef = db
+            .collection("reports")
+            .doc(reportId)
+            .collection("slides")
+            .doc();
+
+        slideIds.push(coverRef.id);
+        batch.set(coverRef, {
+            reportId,
+            type: "rich_text", // Using rich_text for custom HTML
+            order: -1, // Ensure it's first (will reorder later)
+            body: coverContent, // Using body field as expected by RichTextSlide
+            settings: {},
+            accountId,
+            campaignIds: templateData.campaignIds || [],
+            startDate: dateRange.start.toISOString(),
+            endDate: dateRange.end.toISOString(),
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        });
+    }
+
+    // 2. Insert Template Slides
     for (const widgetConfig of templateData.slideConfigs || []) {
         const widgetRef = db
             .collection("reports")
@@ -235,9 +276,50 @@ async function createReportFromTemplateInFunction(
             updatedAt: admin.firestore.FieldValue.serverTimestamp(),
         };
 
+        // Also copy body/title/subtitle if they exist in template config
+        if (widgetConfig.body) Object.assign(widgetData, { body: widgetConfig.body });
+        if (widgetConfig.title) Object.assign(widgetData, { title: widgetConfig.title });
+        if (widgetConfig.subtitle) Object.assign(widgetData, { subtitle: widgetConfig.subtitle });
+
         batch.set(widgetRef, widgetData);
         slideIds.push(widgetRef.id);
     }
+
+    // 3. Insert Conclusion Slide if content provided
+    if (conclusionContent) {
+        const conclusionRef = db
+            .collection("reports")
+            .doc(reportId)
+            .collection("slides")
+            .doc();
+
+        slideIds.push(conclusionRef.id);
+        batch.set(conclusionRef, {
+            reportId,
+            type: "rich_text",
+            order: 9999, // Ensure it's last
+            body: conclusionContent, // Using body field as expected by RichTextSlide
+            settings: {},
+            accountId,
+            campaignIds: templateData.campaignIds || [],
+            startDate: dateRange.start.toISOString(),
+            endDate: dateRange.end.toISOString(),
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        });
+    }
+
+    // 4. Update orders to be sequential (0, 1, 2...)
+    // Warning: We already pushed IDs in order, but the individual docs have 'order' fields.
+    // Ideally we should update the docs with new order, but for now we just rely on slideIds array order
+    // if the frontend uses that. However, frontend might sort by 'order' field.
+    // Let's re-write the order in a separate loop if needed, OR just trust the slideIds array?
+    // The previous implementation used `widgetConfig.order`.
+    // Let's rely on slideIds array for order generally, but to be safe for queries:
+    // We already set order -1 and 9999.
+    // If we want perfect 0-index:
+    // But we can't easily update the batched writes we just made without re-iterating or complex logic.
+    // `slideIds` array on report doc is the source of truth for order in many places.
 
     // Update report with widget IDs
     batch.update(reportRef, { slideIds });
@@ -251,6 +333,102 @@ async function createReportFromTemplateInFunction(
     });
 
     return reportId;
+}
+
+/**
+ * Fetch User Profile
+ */
+async function fetchUserProfile(userId: string): Promise<any> {
+    const userDoc = await admin.firestore().collection("users").doc(userId).get();
+    return userDoc.exists ? userDoc.data() : null;
+}
+
+/**
+ * Fetch Client by Google Ads Account ID
+ */
+async function fetchClientByAccountId(userId: string, accountId: string): Promise<any> {
+    const clientsSnapshot = await admin.firestore()
+        .collection("users")
+        .doc(userId)
+        .collection("clients")
+        .where("googleAdsCustomerId", "==", accountId)
+        .limit(1)
+        .get();
+
+    if (!clientsSnapshot.empty) {
+        return clientsSnapshot.docs[0].data();
+    }
+    return null;
+}
+
+/**
+ * Generate Cover Slide HTML Content
+ */
+function generateCoverSlideContent(title: string, client: any, user: any, date: Date): string {
+    const dateStr = date.toLocaleDateString("fr-FR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+
+    const clientLogo = client?.logoUrl ? `<img src="${client.logoUrl}" alt="Client Logo" style="max-height: 120px; margin-bottom: 2rem;" />` : '';
+    const clientName = client?.name || "";
+
+    // User info (Media Buyer)
+    const preparedBy = user?.company
+        ? `${user.firstName} ${user.lastName}<br/>${user.company}`
+        : `${user.firstName} ${user.lastName}`;
+
+    return `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 4rem;">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; width: 100%;">
+                ${clientLogo}
+                <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-primary);">${title}</h1>
+                <h2 style="font-size: 1.5rem; font-weight: 500; color: #64748b; margin-top: 0;">${clientName}</h2>
+                <div style="width: 100px; height: 4px; background: var(--color-primary); margin: 2rem auto;"></div>
+                <p style="font-size: 1.25rem; color: #475569;">${dateStr}</p>
+            </div>
+            
+            <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid #e2e8f0; width: 100%;">
+                <p style="font-size: 0.875rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Préparé par</p>
+                <p style="font-size: 1.125rem; font-weight: 600; color: #334155;">${preparedBy}</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Generate Conclusion Slide HTML Content
+ */
+function generateConclusionSlideContent(user: any): string {
+    const contactName = `${user?.firstName || ''} ${user?.lastName || ''}`.trim();
+    const contactEmail = user?.email || "";
+    // const contactPhone = user?.phoneNumber || ""; // If available
+
+    const userPhoto = user?.photoURL
+        ? `<img src="${user.photoURL}" alt="${contactName}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;" />`
+        : '';
+
+    return `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 4rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--color-primary);">Merci de votre confiance</h2>
+            <p style="font-size: 1.25rem; color: #475569; max-width: 600px; margin-bottom: 3rem; line-height: 1.6;">
+                Nous restons à votre disposition pour analyser ces résultats en détail et optimiser vos futures campagnes.
+            </p>
+            
+            <div style="background: #f8fafc; padding: 2.5rem; border-radius: 1rem; border: 1px solid #e2e8f0; min-width: 300px;">
+                ${userPhoto}
+                <h3 style="font-size: 1.25rem; font-weight: 600; color: #0f172a; margin-bottom: 0.5rem;">${contactName}</h3>
+                <p style="color: #64748b; margin-bottom: 1.5rem;">Votre expert média</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                    <a href="mailto:${contactEmail}" style="color: var(--color-primary); text-decoration: none; font-weight: 500; font-size: 1.125rem;">
+                        ${contactEmail}
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 /**

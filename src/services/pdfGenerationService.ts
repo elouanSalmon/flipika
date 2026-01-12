@@ -1,6 +1,8 @@
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import type { ReportDesign } from '../types/reportTypes';
+import type { UserProfile } from '../types/userProfile';
+import type { Client } from '../types/client';
 
 interface PDFTranslations {
     title: string;
@@ -21,6 +23,8 @@ interface PDFGenerationOptions {
     startDate?: Date;
     endDate?: Date;
     design: ReportDesign;
+    client?: Client;
+    user?: UserProfile;
     onProgress?: (progress: number) => void;
     translations?: PDFTranslations;
 }
@@ -93,7 +97,7 @@ class PDFGenerationService {
             });
 
             // Add cover page
-            await this.addCoverPage(pdf, options, t);
+            await this.addCoverPage(pdf, options);
             options.onProgress?.(20);
             this.updateOverlayProgress(overlay, 20, t.coverPage);
 
@@ -118,6 +122,10 @@ class PDFGenerationService {
                 options.onProgress?.(20 + (i + 1) * progressPerSlide);
             }
 
+            // ADD CONCLUSION PAGE
+            pdf.addPage();
+            await this.addConclusionPage(pdf, options);
+
             options.onProgress?.(85);
             this.updateOverlayProgress(overlay, 85, t.finalizing);
 
@@ -127,7 +135,12 @@ class PDFGenerationService {
             this.updateOverlayProgress(overlay, 95, t.saving);
 
             // Save the PDF
-            pdf.save(options.filename);
+            const finalFilename = options.filename.toLowerCase().endsWith('.pdf')
+                ? options.filename
+                : `${options.filename}.pdf`;
+
+            console.log('Saving PDF to:', finalFilename);
+            pdf.save(finalFilename);
             options.onProgress?.(100);
             this.updateOverlayProgress(overlay, 100, t.complete);
 
@@ -262,49 +275,122 @@ class PDFGenerationService {
     }
 
     /**
-     * Add cover page with title and date range (full slide background)
+     * Add cover page with title, date range, client info, and user info
      */
-    private async addCoverPage(pdf: jsPDF, options: PDFGenerationOptions, t: PDFTranslations): Promise<void> {
-        const { design, reportTitle, startDate, endDate } = options;
+    private async addCoverPage(pdf: jsPDF, options: PDFGenerationOptions): Promise<void> {
+        const { design, reportTitle, startDate, endDate, client, user } = options;
 
         // Full page background with primary color
         const primaryColor = this.hexToRgb(design.colorScheme.primary);
         pdf.setFillColor(primaryColor.r, primaryColor.g, primaryColor.b);
         pdf.rect(0, 0, SLIDE_WIDTH_MM, SLIDE_HEIGHT_MM, 'F');
 
-        // Title - centered vertically and horizontally
+        // Text Color
         pdf.setTextColor(255, 255, 255);
-        pdf.setFontSize(42);
-        pdf.setFont('helvetica', 'bold');
-
-        // Word wrap for long titles
-        const titleLines = pdf.splitTextToSize(reportTitle, SLIDE_WIDTH_MM - 60);
-        const titleY = startDate && endDate ? SLIDE_HEIGHT_MM / 2 - 15 : SLIDE_HEIGHT_MM / 2;
-        pdf.text(titleLines, SLIDE_WIDTH_MM / 2, titleY, { align: 'center' });
-
-        // Date range
-        if (startDate && endDate) {
-            pdf.setFontSize(20);
-            pdf.setFont('helvetica', 'normal');
-            const dateText = `${this.formatDate(startDate)} - ${this.formatDate(endDate)}`;
-            pdf.text(dateText, SLIDE_WIDTH_MM / 2, SLIDE_HEIGHT_MM / 2 + 20, { align: 'center' });
-        }
 
         // Logo if available (top left corner)
-        if (design.logo?.url) {
+        if (client?.logoUrl || design.logo?.url) {
             try {
-                const logoSize = design.logo.size === 'small' ? 20 : design.logo.size === 'large' ? 40 : 30;
-                await this.addImageToPdf(pdf, design.logo.url, 20, 15, logoSize, logoSize);
+                // Prefer client logo if available, or design logo
+                const logoUrl = client?.logoUrl || design.logo?.url;
+                if (logoUrl) {
+                    const logoSize = design.logo?.size === 'small' ? 20 : design.logo?.size === 'large' ? 40 : 30;
+                    await this.addImageToPdf(pdf, logoUrl, 20, 15, logoSize, logoSize);
+                }
             } catch (e) {
                 console.warn('Could not add logo to PDF:', e);
             }
         }
 
-        // Generation info (bottom right)
-        pdf.setTextColor(255, 255, 255, 0.7);
-        pdf.setFontSize(10);
-        const generatedText = t.generatedOn.replace('{{date}}', this.formatDate(new Date()));
-        pdf.text(generatedText, SLIDE_WIDTH_MM - 20, SLIDE_HEIGHT_MM - 15, { align: 'right' });
+        // Title - centered vertically (adjusted if dates/client info present)
+        let contentY = SLIDE_HEIGHT_MM / 2 - 20;
+
+        pdf.setFontSize(42);
+        pdf.setFont('helvetica', 'bold');
+
+        // Word wrap for long titles
+        const titleLines = pdf.splitTextToSize(reportTitle, SLIDE_WIDTH_MM - 60);
+        pdf.text(titleLines, SLIDE_WIDTH_MM / 2, contentY, { align: 'center' });
+
+        // Date range
+        if (startDate && endDate) {
+            contentY += 25;
+            pdf.setFontSize(20);
+            pdf.setFont('helvetica', 'normal');
+            const dateText = `${this.formatDate(startDate)} - ${this.formatDate(endDate)}`;
+            pdf.text(dateText, SLIDE_WIDTH_MM / 2, contentY, { align: 'center' });
+        }
+
+        // Client & User Info at the bottom
+        const bottomY = SLIDE_HEIGHT_MM - 20;
+
+        // "Prepared for [Client]" (Left bottom)
+        if (client?.name) {
+            pdf.setFontSize(12);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Préparé pour :', 20, bottomY - 6);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text(client.name, 20, bottomY);
+        }
+
+        // "Prepared by [User]" (Right bottom)
+        if (user) {
+            const userName = `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.email || '';
+            const company = user.company || '';
+
+            pdf.setFontSize(12);
+            pdf.setFont('helvetica', 'bold');
+            const preparedByLabel = 'Préparé par :';
+            pdf.text(preparedByLabel, SLIDE_WIDTH_MM - 20, bottomY - 6, { align: 'right' });
+
+            pdf.setFont('helvetica', 'normal');
+            let userText = userName;
+            if (company) userText += ` - ${company}`;
+            pdf.text(userText, SLIDE_WIDTH_MM - 20, bottomY, { align: 'right' });
+        }
+    }
+
+    /**
+     * Add conclusion page with contact info
+     */
+    private async addConclusionPage(pdf: jsPDF, options: PDFGenerationOptions): Promise<void> {
+        const { design, user } = options;
+
+        // Full page background with primary color
+        const primaryColor = this.hexToRgb(design.colorScheme.primary);
+        pdf.setFillColor(primaryColor.r, primaryColor.g, primaryColor.b);
+        pdf.rect(0, 0, SLIDE_WIDTH_MM, SLIDE_HEIGHT_MM, 'F');
+
+        // Text Color
+        pdf.setTextColor(255, 255, 255);
+
+        // Center Content
+        const centerX = SLIDE_WIDTH_MM / 2;
+        const centerY = SLIDE_HEIGHT_MM / 2;
+
+        // "Merci de votre lecture !"
+        pdf.setFontSize(36);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text('Merci de votre lecture !', centerX, centerY - 10, { align: 'center' });
+
+        // Contact Info
+        if (user) {
+            pdf.setFontSize(16);
+            pdf.setFont('helvetica', 'normal');
+
+            const contactText = "Pour toute question, n'hésitez pas à nous contacter :";
+            pdf.text(contactText, centerX, centerY + 20, { align: 'center' });
+
+            const email = user.email || '';
+            if (email) {
+                pdf.setFontSize(18);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text(email, centerX, centerY + 35, { align: 'center' });
+            }
+        }
+
+
+
     }
 
     /**

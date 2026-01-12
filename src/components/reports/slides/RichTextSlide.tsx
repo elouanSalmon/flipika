@@ -40,11 +40,10 @@ const RichTextSlide: React.FC<RichTextSlideProps> = ({
                     '--tw-prose-links': design.colorScheme.primary,
                 } as React.CSSProperties}
             >
-                {/* 
-                   Fallback: rendering body as-is with whitespace-pre-wrap 
-                   Future improvement: use react-markdown or DOMPurify + dangerouslySetInnerHTML 
-                */}
-                <div className="whitespace-pre-wrap">{body}</div>
+                <div
+                    className="rich-text-content"
+                    dangerouslySetInnerHTML={{ __html: body }}
+                />
             </div>
         </div>
     );

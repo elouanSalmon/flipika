@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Send, Edit, Copy, Download, Check, Loader2 } from 'lucide-react';
+import { ArrowLeft, Send, Edit, Copy, Download, Check, Loader2, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 import { getReportWithSlides } from '../services/reportService';
 import { getUserProfile } from '../services/userProfileService';
 import { fetchCampaigns } from '../services/googleAds';
@@ -18,6 +19,7 @@ import type { ApiError } from '../types/errors';
 import type { EditableReport, SlideConfig } from '../types/reportTypes';
 import type { Campaign } from '../types/business';
 import { EMAIL_PRESET_KEYS, getFullKey } from '../constants/emailDefaults';
+import '../components/Header.css';
 
 type PreviewState =
     | { status: 'loading' }
@@ -113,6 +115,49 @@ const ReportPreview: React.FC = () => {
         setIsRetrying(false);
     };
 
+    const fetchReportContext = async (report: EditableReport) => {
+        let profile = null;
+        let clientData = null;
+        const campaignNames: string[] = [];
+
+        // Fetch User Profile
+        if (currentUser?.uid) {
+            try {
+                profile = await getUserProfile(currentUser.uid);
+            } catch (err) {
+                console.warn('Could not load user profile:', err);
+            }
+        }
+
+        // Fetch Client Data
+        if (report.clientId && currentUser?.uid) {
+            try {
+                const { getClient } = await import('../services/clientService');
+                clientData = await getClient(currentUser.uid, report.clientId);
+            } catch (err) {
+                console.warn('Could not load client data:', err);
+            }
+        }
+
+        // Fetch Campaign Names
+        try {
+            const response = await fetchCampaigns(report.accountId);
+            if (response.success && response.campaigns) {
+                const campaigns = Array.isArray(response.campaigns) ? response.campaigns : [];
+                report.campaignIds.forEach(id => {
+                    const campaign = campaigns.find((c: Campaign) => c.id === id);
+                    if (campaign) {
+                        campaignNames.push(campaign.name);
+                    }
+                });
+            }
+        } catch (err) {
+            console.warn('Could not load campaign names:', err);
+        }
+
+        return { profile, clientData, campaignNames };
+    };
+
     const handleSendEmail = async () => {
         if (state.status !== 'success' || !currentUser) return;
 
@@ -122,12 +167,22 @@ const ReportPreview: React.FC = () => {
             setPdfGenerating(true);
             setPdfProgress(0);
 
-            // Step 1: Generate PDF first
+            // Step 1: Fetch Context Data
+            const { profile, clientData, campaignNames } = await fetchReportContext(report);
+
+            // Step 2: Generate PDF
+            // Sanitize filename: allow alphanumeric, accents, and basic separators
+            const safeTitle = (report.title || 'Untitled_Report')
+                .trim()
+                .replace(/[^a-zA-Z0-9àâçéèêëîïôûùüÿñæoe\-_ ]/g, '') // Remove special chars but keep accents
+                .replace(/\s+/g, '_'); // Replace spaces with underscores
+
+            const filename = `${safeTitle}_${new Date().toISOString().split('T')[0]}.pdf`;
+            console.log('Generating PDF for email:', filename);
+
             if (!reportPreviewRef.current) {
                 throw new Error('Report preview not found');
             }
-
-            const filename = `${report.title.replace(/[^a-z0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
 
             await pdfGenerationService.generateReportPDF(
                 reportPreviewRef.current,
@@ -137,6 +192,8 @@ const ReportPreview: React.FC = () => {
                     startDate: report.startDate,
                     endDate: report.endDate,
                     design: report.design,
+                    client: clientData || undefined,
+                    user: profile || undefined,
                     onProgress: (progress) => {
                         setPdfProgress(progress);
                     },
@@ -158,10 +215,7 @@ const ReportPreview: React.FC = () => {
             toast.success(t('preFlight.pdf.success'));
             setPdfProgress(100);
 
-            // Step 2: Get user profile for email signature
-            const profile = await getUserProfile(currentUser.uid);
-
-            // Format dates
+            // Step 3: Format email content
             const formatDate = (date?: Date) => {
                 if (!date) return 'N/A';
                 return new Date(date).toLocaleDateString('fr-FR', {
@@ -171,50 +225,12 @@ const ReportPreview: React.FC = () => {
                 });
             };
 
-            // Get campaign names
-            const campaignNames: string[] = [];
-            try {
-                const response = await fetchCampaigns(report.accountId);
-                if (response.success && response.campaigns) {
-                    const campaigns = Array.isArray(response.campaigns) ? response.campaigns : [];
-                    report.campaignIds.forEach(id => {
-                        const campaign = campaigns.find((c: Campaign) => c.id === id);
-                        if (campaign) {
-                            campaignNames.push(campaign.name);
-                        }
-                    });
-                }
-            } catch (err) {
-                console.warn('Could not load campaign names for email:', err);
-            }
-
-            // Step 3: Fetch Client Context
-            let clientData = null;
-            if (report.clientId) {
-                try {
-                    // Lazy load client service only when needed
-                    const { getClient } = await import('../services/clientService');
-                    if (currentUser?.uid) {
-                        clientData = await getClient(currentUser.uid, report.clientId);
-                    }
-                } catch (err) {
-                    console.warn('Could not load client data:', err);
-                }
-            }
-
             // Step 4: Resolve Email Content
             const { resolveEmailVariables } = await import('../utils/emailResolver');
 
             // Default configuration from locales or hardcoded fallback
             const defaultSubject = t(getFullKey(EMAIL_PRESET_KEYS.SUBJECT_DEFAULT));
             const defaultBody = t(getFullKey(EMAIL_PRESET_KEYS.BODY_DEFAULT));
-
-            // Use client preset if available, otherwise defaults
-            // If defaultSubject returns the key (meaning not found in 'reports' namespace which is default here), 
-            // we should probably ensure we have access to 'clients' namespace or hardcode fallback.
-            // Since useTranslation('reports') is used, we need to make sure 'clients' namespace is loaded or keys are accessible.
-            // The t function might not be able to access 'clients' unless we load it. 
-            // Let's assume we can pass namespace prefix.
 
             const rawSubject = clientData?.emailPreset?.subject || defaultSubject;
             const rawBody = clientData?.emailPreset?.body || defaultBody;
@@ -239,7 +255,7 @@ const ReportPreview: React.FC = () => {
             // Save email data for the post-send step
             setEmailData({ clientEmail, subject, body });
 
-            // Step 4: Open mailto link
+            // Step 5: Open mailto link
             const link = document.createElement('a');
             link.href = mailtoLink;
             link.target = '_self';
@@ -247,7 +263,7 @@ const ReportPreview: React.FC = () => {
             link.click();
             document.body.removeChild(link);
 
-            // Step 5: Show post-send step
+            // Step 6: Show post-send step
             setShowEmailSent(true);
             toast.success(t('preFlight.postSend.emailOpened'));
         } catch (error) {
@@ -286,11 +302,22 @@ const ReportPreview: React.FC = () => {
             setPdfGenerating(true);
             setPdfProgress(0);
 
+            // Step 1: Fetch Context Data
+            const { profile, clientData } = await fetchReportContext(report);
+
+            // Step 2: Generate PDF
+            // Sanitize filename: allow alphanumeric, accents, and basic separators
+            const safeTitle = (report.title || 'Untitled_Report')
+                .trim()
+                .replace(/[^a-zA-Z0-9àâçéèêëîïôûùüÿñæoe\-_ ]/g, '') // Remove special chars but keep accents
+                .replace(/\s+/g, '_'); // Replace spaces with underscores
+
+            const filename = `${safeTitle}_${new Date().toISOString().split('T')[0]}.pdf`;
+            console.log('Generating PDF for download:', filename);
+
             if (!reportPreviewRef.current) {
                 throw new Error('Report preview not found');
             }
-
-            const filename = `${report.title.replace(/[^a-z0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
 
             await pdfGenerationService.generateReportPDF(
                 reportPreviewRef.current,
@@ -300,6 +327,8 @@ const ReportPreview: React.FC = () => {
                     startDate: report.startDate,
                     endDate: report.endDate,
                     design: report.design,
+                    client: clientData || undefined,
+                    user: profile || undefined,
                     onProgress: (progress) => {
                         setPdfProgress(progress);
                     },
@@ -425,39 +454,63 @@ const ReportPreview: React.FC = () => {
         <ErrorBoundary>
             <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
                 {/* Header */}
-                <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+                <header className="sticky top-0 z-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-200">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between h-16">
                             <div className="flex items-center gap-4">
                                 <button
                                     onClick={handleBack}
-                                    className="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                    className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors mr-2"
                                     title="Retour"
                                 >
-                                    <ArrowLeft size={20} />
+                                    <ArrowLeft size={24} />
                                 </button>
-                                <div>
-                                    <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
-                                        {t('preFlight.title')}
+
+                                {/* Logo Wrapper */}
+                                <div
+                                    className="flex items-center gap-2 cursor-pointer group"
+                                    onClick={() => navigate('/app/reports')}
+                                >
+                                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+                                        <Zap size={20} className="fill-current" />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 leading-none">
+                                            Flipika
+                                        </span>
+                                        <span className="text-[0.65rem] font-bold text-gray-500 dark:text-gray-400 tracking-widest uppercase leading-none mt-0.5">
+                                            IA
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Divider */}
+                                <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
+
+                                <div className="hidden sm:block">
+                                    <h1 className="text-lg font-semibold text-gray-900 dark:text-white line-clamp-1">
+                                        {report.title}
                                     </h1>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                                        {report.title} • {formatDate(report.startDate)} - {formatDate(report.endDate)}
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+                                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                        {formatDate(report.startDate)} - {formatDate(report.endDate)}
                                     </p>
                                 </div>
                             </div>
+
                             {!showEmailSent && (
                                 <div className="flex items-center gap-3">
                                     <button
                                         onClick={handleEdit}
-                                        className="px-4 py-2 border-2 border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 transition-colors flex items-center gap-2"
+                                        className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-sm font-medium"
                                     >
-                                        <Edit size={18} />
-                                        {t('preFlight.actions.edit')}
+                                        <Edit size={16} />
+                                        <span className="hidden sm:inline">{t('preFlight.actions.edit')}</span>
                                     </button>
                                     <button
                                         onClick={handleSendEmail}
                                         disabled={pdfGenerating || !canGenerate}
-                                        className="btn btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="btn btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-all"
                                         title={!canGenerate ? 'Ajoutez des slides pour générer le rapport' : undefined}
                                     >
                                         {pdfGenerating ? (
@@ -480,17 +533,21 @@ const ReportPreview: React.FC = () => {
 
                 {/* Post-Send Step */}
                 {showEmailSent && emailData && (
-                    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-                            <div className="flex items-start gap-4 mb-6">
-                                <div className="p-3 bg-green-100 dark:bg-green-900/20 rounded-full">
-                                    <Check size={24} className="text-green-600 dark:text-green-400" />
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+                    >
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700">
+                            <div className="flex items-start gap-5 mb-8">
+                                <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full shadow-sm">
+                                    <Check size={32} className="text-green-600 dark:text-green-400" />
                                 </div>
                                 <div className="flex-1">
-                                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                                         {t('preFlight.postSend.title')}
                                     </h2>
-                                    <p className="text-gray-600 dark:text-gray-400">
+                                    <p className="text-gray-600 dark:text-gray-400 text-lg">
                                         {t('preFlight.postSend.description')}
                                     </p>
                                 </div>
@@ -499,103 +556,110 @@ const ReportPreview: React.FC = () => {
                             {/* Download PDF Button */}
                             <button
                                 onClick={handleDownloadPDF}
-                                className="w-full mb-4 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center gap-2"
+                                className="w-full mb-8 px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3 font-semibold text-lg"
                             >
-                                <Download size={20} />
+                                <Download size={24} />
                                 {t('preFlight.actions.downloadPdf')}
                             </button>
 
-                            {/* Client Email */}
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    {t('preFlight.postSend.recipientLabel')}
-                                </label>
-                                <div className="flex gap-2">
-                                    <input
-                                        type="text"
-                                        value={emailData.clientEmail}
-                                        readOnly
-                                        className="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white"
-                                    />
-                                    <button
-                                        onClick={() => handleCopy(emailData.clientEmail, t('preFlight.postSend.recipientLabel'))}
-                                        className="px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
-                                    >
-                                        <Copy size={18} />
-                                        {t('preFlight.actions.copy')}
-                                    </button>
+                            <div className="space-y-6 bg-gray-50 dark:bg-gray-900/50 p-6 rounded-xl border border-gray-200 dark:border-gray-700/50">
+                                {/* Client Email */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">
+                                        {t('preFlight.postSend.recipientLabel')}
+                                    </label>
+                                    <div className="flex gap-2 group">
+                                        <input
+                                            type="text"
+                                            value={emailData.clientEmail}
+                                            readOnly
+                                            className="flex-1 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
+                                        />
+                                        <button
+                                            onClick={() => handleCopy(emailData.clientEmail, t('preFlight.postSend.recipientLabel'))}
+                                            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all flex items-center gap-2 shadow-sm"
+                                        >
+                                            <Copy size={18} />
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Subject */}
-                            <div className="mb-6">
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    {t('preFlight.postSend.subjectLabel')}
-                                </label>
-                                <div className="flex gap-2">
-                                    <input
-                                        type="text"
-                                        value={emailData.subject}
-                                        readOnly
-                                        className="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white"
-                                    />
-                                    <button
-                                        onClick={() => handleCopy(emailData.subject, t('preFlight.postSend.subjectLabel'))}
-                                        className="px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
-                                    >
-                                        <Copy size={18} />
-                                        {t('preFlight.actions.copy')}
-                                    </button>
+                                {/* Subject */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">
+                                        {t('preFlight.postSend.subjectLabel')}
+                                    </label>
+                                    <div className="flex gap-2 group">
+                                        <input
+                                            type="text"
+                                            value={emailData.subject}
+                                            readOnly
+                                            className="flex-1 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
+                                        />
+                                        <button
+                                            onClick={() => handleCopy(emailData.subject, t('preFlight.postSend.subjectLabel'))}
+                                            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all flex items-center gap-2 shadow-sm"
+                                        >
+                                            <Copy size={18} />
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Email Body */}
-                            <div className="mb-6">
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    {t('preFlight.postSend.bodyLabel')}
-                                </label>
-                                <div className="flex gap-2">
-                                    <textarea
-                                        value={emailData.body}
-                                        readOnly
-                                        rows={8}
-                                        className="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white resize-none font-mono text-sm"
-                                    />
-                                    <button
-                                        onClick={() => handleCopy(emailData.body, t('preFlight.postSend.bodyLabel'))}
-                                        className="px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 self-start"
-                                    >
-                                        <Copy size={18} />
-                                        {t('preFlight.actions.copy')}
-                                    </button>
+                                {/* Email Body */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">
+                                        {t('preFlight.postSend.bodyLabel')}
+                                    </label>
+                                    <div className="relative group">
+                                        <textarea
+                                            value={emailData.body}
+                                            readOnly
+                                            rows={8}
+                                            className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white resize-none font-mono text-sm leading-relaxed focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
+                                        />
+                                        <button
+                                            onClick={() => handleCopy(emailData.body, t('preFlight.postSend.bodyLabel'))}
+                                            className="absolute top-3 right-3 p-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 rounded-md hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all shadow-sm opacity-0 group-hover:opacity-100"
+                                            title={t('preFlight.actions.copy')}
+                                        >
+                                            <Copy size={16} />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Actions */}
-                            <div className="flex gap-3">
+                            <div className="flex gap-4 mt-8">
                                 <button
                                     onClick={handleBack}
-                                    className="flex-1 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                    className="flex-1 px-6 py-3 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all font-medium"
                                 >
                                     {t('preFlight.actions.back')}
                                 </button>
                                 <button
                                     onClick={() => setShowEmailSent(false)}
-                                    className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                                    className="flex-1 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:bg-gray-800 dark:hover:bg-gray-100 transition-all font-medium shadow-lg hover:shadow-xl"
                                 >
                                     {t('preFlight.actions.viewPreview')}
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 )}
 
                 {/* Report Preview - Always rendered but hidden when showEmailSent to keep ref alive for PDF */}
                 <main
-                    className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 ${showEmailSent ? 'absolute left-[-9999px] top-0' : ''}`}
+                    className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-all duration-300 ${showEmailSent ? 'absolute left-[-9999px] top-0 opacity-0' : 'opacity-100'
+                        }`}
                     aria-hidden={showEmailSent}
                 >
-                    <div ref={reportPreviewRef} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        ref={reportPreviewRef}
+                        className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700/50"
+                    >
                         <ReportCanvas
                             slides={slides}
                             design={report.design}
@@ -604,7 +668,7 @@ const ReportPreview: React.FC = () => {
                             isPublicView={true}
                             reportId={report.id}
                         />
-                    </div>
+                    </motion.div>
                 </main>
             </div>
         </ErrorBoundary>
