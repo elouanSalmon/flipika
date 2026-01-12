@@ -69,6 +69,20 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "scheduledReports",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isActive",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "nextRun",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": []
