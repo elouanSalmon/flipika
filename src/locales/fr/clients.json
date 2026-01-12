@@ -1,12 +1,22 @@
 {
+    "list": {
+        "title": "Comptes",
+        "subtitle": "Gérez votre portefeuille compte",
+        "createButton": "Nouveau Compte"
+    },
+    "emptyState": {
+        "title": "Aucun compte",
+        "message": "Vous n'avez pas encore ajouté de compte. Créez-en un pour commencer.",
+        "action": "Ajouter un compte"
+    },
     "form": {
         "title": {
-            "create": "Nouveau Client",
-            "edit": "Modifier le Client"
+            "create": "Nouveau Compte",
+            "edit": "Modifier le Compte"
         },
         "sections": {
             "basicInfo": "Informations de base",
-            "basicInfoDescription": "Nom, logo et coordonnées du client"
+            "basicInfoDescription": "Nom, logo et coordonnées du compte"
         },
         "logo": {
             "label": "Logo",
@@ -17,19 +27,19 @@
             "alt": "Aperçu du logo"
         },
         "name": {
-            "label": "Nom du client *",
+            "label": "Nom du compte *",
             "placeholder": "Ex: Acme Corp",
             "error": "Le nom est requis"
         },
         "googleAds": {
             "label": "Compte Google Ads *",
             "placeholder": "Sélectionner un compte",
-            "helper": "Sélectionnez le compte Google Ads à associer à ce client.",
+            "helper": "Sélectionnez le compte Google Ads à associer à ce compte.",
             "error": {
                 "required": "L'ID Google Ads est requis",
                 "format": "L'ID doit contenir 10 chiffres"
             },
-            "noConnection": "Vous devez connecter votre compte Google Ads pour sélectionner un client."
+            "noConnection": "Vous devez connecter votre compte Google Ads pour sélectionner un compte."
         },
         "email": {
             "label": "Email de contact",
@@ -38,7 +48,7 @@
         },
         "presets": {
             "title": "Configuration par défaut",
-            "description": "Ces réglages seront appliqués automatiquement lors de la création de nouveaux rapports pour ce client.",
+            "description": "Ces réglages seront appliqués automatiquement lors de la création de nouveaux rapports pour ce compte.",
             "template": {
                 "label": "Modèle par défaut",
                 "placeholder": "Sélectionner un modèle"
@@ -51,11 +61,11 @@
         },
         "emailConfig": {
             "title": "Configuration Email",
-            "description": "Personnalisez l'objet et le message de l'email pour ce client.",
+            "description": "Personnalisez l'objet et le message de l'email pour ce compte.",
             "variables": {
                 "label": "Variables",
                 "tooltips": {
-                    "client_name": "Nom du client",
+                    "client_name": "Nom du compte",
                     "period": "Période du rapport",
                     "campaigns": "Liste des campagnes",
                     "user_name": "Votre nom",
@@ -75,7 +85,7 @@
         },
         "buttons": {
             "cancel": "Annuler",
-            "create": "Créer le client",
+            "create": "Créer le compte",
             "update": "Mettre à jour",
             "creating": "Création...",
             "updating": "Mise à jour..."
@@ -83,12 +93,12 @@
     },
     "info": {
         "buttonLabel": "Information",
-        "modalTitle": "Qu'est-ce qu'un client ?",
-        "modalContent": "Les clients représentent vos clients ou unités commerciales dans Flipika, vous permettant d'organiser et de gérer vos rapports Google Ads par client.\n\nAvec les clients, vous pouvez :\n• Associer chaque client à un compte Google Ads spécifique\n• Télécharger des logos personnalisés pour des rapports brandés\n• Définir des templates et thèmes par défaut pour une application automatique\n• Enregistrer les informations de contact pour adresser automatiquement les rapports à l'email du client\n• Organiser vos rapports par client pour un accès facile\n\nLes clients vous aident à rationaliser votre flux de travail et à garantir des rapports cohérents et professionnels pour chaque client."
+        "modalTitle": "Qu'est-ce qu'un compte ?",
+        "modalContent": "Les comptes représentent vos clients ou unités commerciales dans Flipika, vous permettant d'organiser et de gérer vos rapports Google Ads par compte.\n\nAvec les comptes, vous pouvez :\n• Associer chaque compte à un compte Google Ads spécifique\n• Télécharger des logos personnalisés pour des rapports brandés\n• Définir des templates et thèmes par défaut pour une application automatique\n• Enregistrer les informations de contact pour adresser automatiquement les rapports à l'email du compte\n• Organiser vos rapports par compte pour un accès facile\n\nLes comptes vous aident à rationaliser votre flux de travail et à garantir des rapports cohérents et professionnels pour chaque client."
     },
     "delete": {
-        "title": "Supprimer le client",
-        "message": "Êtes-vous sûr de vouloir supprimer le client \"{{name}}\" ? Cette action est irréversible.",
+        "title": "Supprimer le compte",
+        "message": "Êtes-vous sûr de vouloir supprimer le compte \"{{name}}\" ? Cette action est irréversible.",
         "confirm": "Supprimer",
         "cancel": "Annuler"
     }

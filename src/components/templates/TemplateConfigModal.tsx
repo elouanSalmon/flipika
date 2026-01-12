@@ -115,6 +115,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
         const state = {
             name: initialConfig?.name || '',
             description: initialConfig?.description || '',
+            clientId: initialConfig?.clientId || '',
             accountId: selectedAccountId || initialConfig?.accountId || '',
             campaignIds: initialConfig?.campaignIds || [],
             periodPreset: initialConfig?.periodPreset || 'last_30_days'
@@ -221,11 +222,17 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
     return (
         <>
             {createPortal(
-                <div className="template-config-modal-overlay" onClick={handleCloseAttempt}>
+                <div className="modal-overlay" onClick={handleCloseAttempt}>
                     <div className="template-config-modal" onClick={(e) => e.stopPropagation()}>
                         <div className="modal-header">
                             <h2>{isEditMode ? t('configModal.title.edit') : t('configModal.title.create')}</h2>
-                            <button className="close-btn" onClick={handleCloseAttempt} disabled={isSubmitting}>
+                            <button
+                                type="button"
+                                className="close-btn"
+                                onClick={handleCloseAttempt}
+                                disabled={isSubmitting}
+                                aria-label={t('configModal.actions.cancel')}
+                            >
                                 <X size={24} />
                             </button>
                         </div>

@@ -9,8 +9,8 @@
     "completed": "Done",
     "steps": {
         "createClient": {
-            "label": "Create your first Client",
-            "action": "Add Client"
+            "label": "Create your first Account",
+            "action": "Add Account"
         },
         "createTheme": {
             "label": "Configure a Brand Theme",

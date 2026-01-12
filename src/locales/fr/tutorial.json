@@ -9,8 +9,8 @@
     "completed": "Terminé",
     "steps": {
         "createClient": {
-            "label": "Créer votre premier Client",
-            "action": "Ajouter un Client"
+            "label": "Créer votre premier Compte",
+            "action": "Ajouter un Compte"
         },
         "createTheme": {
             "label": "Configurer un Thème de marque",

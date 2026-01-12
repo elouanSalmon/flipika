@@ -187,11 +187,16 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     };
 
     return createPortal(
-        <div className="report-config-modal-overlay" onClick={onClose}>
+        <div className="modal-overlay" onClick={onClose}>
             <div className="report-config-modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
                     <h2>{isEditMode ? t('config.settings') : t('config.title')}</h2>
-                    <button className="close-btn" onClick={onClose}>
+                    <button
+                        type="button"
+                        className="close-btn"
+                        onClick={onClose}
+                        aria-label={t('config.actions.cancel')}
+                    >
                         <X size={24} />
                     </button>
                 </div>

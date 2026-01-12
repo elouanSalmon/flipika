@@ -401,6 +401,6 @@
   "info": {
     "buttonLabel": "Information",
     "modalTitle": "What are Reports?",
-    "modalContent": "Reports are customizable Google Ads performance documents that you create and share with your clients or stakeholders.\n\nWith reports, you can:\n• Combine multiple slide types (metrics, charts, text, creatives) into comprehensive presentations\n• Analyze specific campaigns and date ranges\n• Save as drafts, publish, or archive for organization\n• Password-protect reports for secure sharing\n• Generate PDF exports for offline distribution\n• Share via email with pre-filled content\n\nReports can be created from scratch or generated from templates for faster, consistent deliverables."
+    "modalContent": "Reports are customizable Google Ads performance documents that you create and share with your accounts or stakeholders.\n\nWith reports, you can:\n• Combine multiple slide types (metrics, charts, text, creatives) into comprehensive presentations\n• Analyze specific campaigns and date ranges\n• Save as drafts, publish, or archive for organization\n• Password-protect reports for secure sharing\n• Generate PDF exports for offline distribution\n• Share via email with pre-filled content\n\nReports can be created from scratch or generated from templates for faster, consistent deliverables."
   }
 }

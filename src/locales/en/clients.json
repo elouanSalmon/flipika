@@ -1,12 +1,22 @@
 {
+    "list": {
+        "title": "Accounts",
+        "subtitle": "Manage your account portfolio",
+        "createButton": "New Account"
+    },
+    "emptyState": {
+        "title": "No accounts",
+        "message": "You haven't added any account yet. Create one to get started.",
+        "action": "Add an account"
+    },
     "form": {
         "title": {
-            "create": "New Client",
-            "edit": "Edit Client"
+            "create": "New Account",
+            "edit": "Edit Account"
         },
         "sections": {
             "basicInfo": "Basic Information",
-            "basicInfoDescription": "Client name, logo and contact details"
+            "basicInfoDescription": "Account name, logo and contact details"
         },
         "logo": {
             "label": "Logo",
@@ -17,19 +27,19 @@
             "alt": "Logo preview"
         },
         "name": {
-            "label": "Client Name *",
+            "label": "Account Name *",
             "placeholder": "Ex: Acme Corp",
             "error": "Name is required"
         },
         "googleAds": {
             "label": "Google Ads Account *",
             "placeholder": "Select an account",
-            "helper": "Select the Google Ads account to associate with this client.",
+            "helper": "Select the Google Ads account to associate with this account.",
             "error": {
                 "required": "Google Ads ID is required",
                 "format": "ID must contain 10 digits"
             },
-            "noConnection": "You must connect your Google Ads account to select a client."
+            "noConnection": "You must connect your Google Ads account to select an account."
         },
         "email": {
             "label": "Contact Email",
@@ -38,7 +48,7 @@
         },
         "presets": {
             "title": "Default Configuration",
-            "description": "These settings will be automatically applied when creating new reports for this client.",
+            "description": "These settings will be automatically applied when creating new reports for this account.",
             "template": {
                 "label": "Default Template",
                 "placeholder": "Select a template"
@@ -51,11 +61,11 @@
         },
         "emailConfig": {
             "title": "Email Configuration",
-            "description": "Customize the email subject and message for this client.",
+            "description": "Customize the email subject and message for this account.",
             "variables": {
                 "label": "Variables",
                 "tooltips": {
-                    "client_name": "Client Name",
+                    "client_name": "Account Name",
                     "period": "Report Period",
                     "campaigns": "Campaign List",
                     "user_name": "Your Name",
@@ -75,7 +85,7 @@
         },
         "buttons": {
             "cancel": "Cancel",
-            "create": "Create Client",
+            "create": "Create Account",
             "update": "Update",
             "creating": "Creating...",
             "updating": "Updating..."
@@ -83,12 +93,12 @@
     },
     "info": {
         "buttonLabel": "Information",
-        "modalTitle": "What are Clients?",
-        "modalContent": "Clients represent your customers or business units in Flipika, allowing you to organize and manage your Google Ads reporting by client.\n\nWith clients, you can:\n• Associate each client with a specific Google Ads account\n• Upload custom logos for branded reports\n• Set default templates and themes for automatic application\n• Store contact information to automatically address reports to the client's email\n• Organize your reports by client for easy access\n\nClients help you streamline your workflow and ensure consistent, professional reporting for each customer."
+        "modalTitle": "What are Accounts?",
+        "modalContent": "Accounts represent your customers or business units in Flipika, allowing you to organize and manage your Google Ads reporting by account.\n\nWith accounts, you can:\n• Associate each account with a specific Google Ads account\n• Upload custom logos for branded reports\n• Set default templates and themes for automatic application\n• Store contact information to automatically address reports to the account's email\n• Organize your reports by account for easy access\n\nAccounts help you streamline your workflow and ensure consistent, professional reporting for each customer."
     },
     "delete": {
-        "title": "Delete Client",
-        "message": "Are you sure you want to delete client \"{{name}}\"? This action cannot be undone.",
+        "title": "Delete Account",
+        "message": "Are you sure you want to delete account \"{{name}}\"? This action cannot be undone.",
         "confirm": "Delete",
         "cancel": "Cancel"
     }

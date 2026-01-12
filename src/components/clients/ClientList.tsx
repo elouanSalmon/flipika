@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Client } from '../../types/client';
 import { ClientCard } from './ClientCard';
+import { useTranslation } from 'react-i18next';
 import EmptyState from '../common/EmptyState';
 import { Users } from 'lucide-react';
 
@@ -19,6 +20,8 @@ export const ClientList: React.FC<ClientListProps> = ({
     onDelete,
     onAdd
 }) => {
+    const { t } = useTranslation('clients');
+
     if (isLoading) {
         return (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -42,10 +45,10 @@ export const ClientList: React.FC<ClientListProps> = ({
             <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
                 <EmptyState
                     icon={<Users size={48} className="text-gray-300 dark:text-gray-600" />}
-                    title="Aucun client"
-                    message="Vous n'avez pas encore ajouté de client. Créez-en un pour commencer."
+                    title={t('emptyState.title', { defaultValue: 'Aucun compte' })}
+                    message={t('emptyState.message', { defaultValue: "Vous n'avez pas encore ajouté de compte. Créez-en un pour commencer." })}
                     action={{
-                        label: "Ajouter un client",
+                        label: t('emptyState.action', { defaultValue: 'Ajouter un compte' }),
                         onClick: onAdd
                     }}
                 />

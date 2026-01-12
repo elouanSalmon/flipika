@@ -58,7 +58,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         <AnimatePresence>
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                    className="fixed inset-0 z-[12000] flex items-center justify-center p-4"
                     onClick={(e) => e.stopPropagation()} // Stop propagation from the portal wrapper
                 >
                     {/* Backdrop */}

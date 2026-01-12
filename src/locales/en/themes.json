@@ -17,9 +17,9 @@
     },
     "card": {
         "defaultBadge": "Default",
-        "linkedClients": "{{count}} linked client",
-        "linkedClients_plural": "{{count}} linked clients",
-        "noLinkedClients": "No linked clients",
+        "linkedClients": "{{count}} linked account",
+        "linkedClients_plural": "{{count}} linked accounts",
+        "noLinkedClients": "No linked accounts",
         "actions": {
             "edit": "Edit",
             "duplicate": "Duplicate",
@@ -70,8 +70,8 @@
         "secondaryColor": "Secondary Color",
         "typographyTitle": "Typography",
         "fontLabel": "Font Family",
-        "linkedClientsTitle": "Linked Clients",
-        "linkedClientsDesc": "Automatic application for these clients",
+        "linkedClientsTitle": "Linked Accounts",
+        "linkedClientsDesc": "Automatic application for these accounts",
         "setAsDefault": "Set as default theme",
         "previewTitle": "Live Preview",
         "cancel": "Cancel",
@@ -86,6 +86,6 @@
     "info": {
         "buttonLabel": "Information",
         "modalTitle": "What are Themes?",
-        "modalContent": "Themes allow you to customize the visual appearance of your Google Ads reports to match your clients' brand identity.\n\nWith themes, you can:\n• Define custom colors (primary and secondary)\n• Choose between light and dark modes\n• Select custom fonts for your reports\n• Link themes to specific Google Ads accounts for automatic application\n• Set a default theme for all your reports\n\nThemes are applied when generating PDF reports, ensuring consistent branding across all your client deliverables."
+        "modalContent": "Themes allow you to customize the visual appearance of your Google Ads reports to match your accounts' brand identity.\n\nWith themes, you can:\n• Define custom colors (primary and secondary)\n• Choose between light and dark modes\n• Select custom fonts for your reports\n• Link themes to specific Google Ads accounts for automatic application\n• Set a default theme for all your reports\n\nThemes are applied when generating PDF reports, ensuring consistent branding across all your account deliverables."
     }
 }

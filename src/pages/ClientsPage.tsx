@@ -43,7 +43,7 @@ export default function ClientsPage() {
                 <div className="header-content">
                     <div className="header-title-row" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <Users size={32} className="header-icon" />
-                        <h1>Clients</h1>
+                        <h1>{t('list.title')}</h1>
                         <button
                             onClick={() => setShowInfoModal(true)}
                             className="info-button"
@@ -72,14 +72,14 @@ export default function ClientsPage() {
                             <Info size={20} />
                         </button>
                     </div>
-                    <p className="header-subtitle">Gérez votre portefeuille client</p>
+                    <p className="header-subtitle">{t('list.subtitle')}</p>
                 </div>
                 <button
                     onClick={handleAdd}
                     className="create-btn"
                 >
                     <Plus size={20} />
-                    Nouveau Client
+                    {t('list.createButton')}
                 </button>
             </div>
 
@@ -102,10 +102,10 @@ export default function ClientsPage() {
                 isOpen={!!clientToDelete}
                 onClose={() => setClientToDelete(null)}
                 onConfirm={handleConfirmDelete}
-                title={t('delete.title', { defaultValue: 'Supprimer le client' })}
+                title={t('delete.title', { defaultValue: 'Supprimer le compte' })}
                 message={t('delete.message', {
                     name: clientToDelete?.name,
-                    defaultValue: `Êtes-vous sûr de vouloir supprimer le client "${clientToDelete?.name}" ? Cette action est irréversible.`
+                    defaultValue: `Êtes-vous sûr de vouloir supprimer le compte "${clientToDelete?.name}" ? Cette action est irréversible.`
                 })}
                 confirmLabel={t('delete.confirm', { defaultValue: 'Supprimer' })}
                 cancelLabel={t('delete.cancel', { defaultValue: 'Annuler' })}

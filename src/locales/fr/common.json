@@ -685,7 +685,7 @@
     "dashboard": "Dashboard",
     "audit": "Audit",
     "reports": "Rapports",
-    "clients": "Clients",
+    "clients": "Comptes",
     "schedules": "Programmés",
     "templates": "Modèles",
     "themes": "Thèmes",
@@ -723,7 +723,7 @@
   "filters": {
     "title": "Filtres",
     "allAccounts": "Tous les comptes",
-    "allClients": "Tous les clients",
+    "allClients": "Tous les comptes",
     "allCampaigns": "Toutes les campagnes"
   },
   "actions": {

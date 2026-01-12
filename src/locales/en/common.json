@@ -306,9 +306,9 @@
   },
   "appNavigation": {
     "dashboard": "Dashboard",
-    "audit": "Audit",
     "reports": "Reports",
-    "schedules": "Scheduled",
+    "clients": "Accounts",
+    "schedules": "Schedules",
     "templates": "Templates",
     "themes": "Themes",
     "settings": "Settings",
@@ -344,9 +344,9 @@
   },
   "filters": {
     "title": "Filters",
-    "allAccounts": "All Accounts",
-    "allClients": "All Clients",
-    "allCampaigns": "All Campaigns"
+    "allAccounts": "All accounts",
+    "allClients": "All accounts",
+    "allCampaigns": "All campaigns"
   },
   "actions": {
     "clear": "Clear"

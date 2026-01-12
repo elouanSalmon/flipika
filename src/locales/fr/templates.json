@@ -1,56 +1,56 @@
 {
   "featureName": "les modèles",
-  "title": "Templates de Rapports",
-  "description": "Créez des templates réutilisables pour générer des rapports en un clic",
-  "newTemplate": "Nouveau Template",
-  "connectRequired": "Connectez Google Ads pour créer des templates",
-  "searchPlaceholder": "Rechercher un template...",
+  "title": "Modèles de Rapports",
+  "description": "Créez des modèles réutilisables pour générer des rapports en un clic",
+  "newTemplate": "Nouveau Modèle",
+  "connectRequired": "Connectez Google Ads pour créer des modèles",
+  "searchPlaceholder": "Rechercher un modèle...",
   "viewGrid": "Vue grille",
   "viewList": "Vue liste",
   "sessionExpired": "Connexion Google Ads requise",
   "sessionExpiredDescription": "Impossible de récupérer vos comptes Google Ads. La session a probablement expiré. Reconnecter le compte",
   "emptyState": {
-    "title": "Aucun template",
-    "noTemplates": "Aucun template",
-    "noResults": "Aucun template ne correspond à votre recherche",
-    "createFirst": "Créez votre premier template pour générer des rapports rapidement",
-    "createButton": "Créer un template"
+    "title": "Aucun modèle",
+    "noTemplates": "Aucun modèle",
+    "noResults": "Aucun modèle ne correspond à votre recherche",
+    "createFirst": "Créez votre premier modèle pour générer des rapports rapidement",
+    "createButton": "Créer un modèle"
   },
-  "connectToCreate": "Connectez Google Ads pour créer des templates",
+  "connectToCreate": "Connectez Google Ads pour créer des modèles",
   "accountSelector": {
     "title": "Sélectionner un compte",
-    "description": "Ce template ne spécifie pas de compte Google Ads. Veuillez en sélectionner un pour générer le rapport.",
+    "description": "Ce modèle ne spécifie pas de compte Google Ads. Veuillez en sélectionner un pour générer le rapport.",
     "generate": "Générer le rapport"
   },
   "clientSelector": {
-    "title": "Sélectionner un client",
-    "message": "Veuillez sélectionner le client pour qui créer ce rapport.",
-    "placeholder": "Choisir un client...",
-    "noAccount": "Ce client n'a pas de compte Google Ads lié."
+    "title": "Sélectionner un compte",
+    "message": "Veuillez sélectionner le compte pour qui créer ce rapport.",
+    "placeholder": "Choisir un compte...",
+    "noAccount": "Ce compte n'a pas de compte Google Ads lié."
   },
   "deleteConfirm": {
-    "title": "Supprimer le template",
-    "message": "Êtes-vous sûr de vouloir supprimer le template \"{{name}}\" ?",
+    "title": "Supprimer le modèle",
+    "message": "Êtes-vous sûr de vouloir supprimer le modèle \"{{name}}\" ?",
     "confirm": "Supprimer",
     "checking": "Vérification...",
-    "withSchedules": "Ce template est utilisé par {{count}} programmation(s) (dont {{activeCount}} actives) : {{scheduleNames}}{{suffix}}",
+    "withSchedules": "Ce modèle est utilisé par {{count}} programmation(s) (dont {{activeCount}} actives) : {{scheduleNames}}{{suffix}}",
     "andOthers": " et {{count}} autre(s)",
     "activeCount": "dont {{count}} actives"
   },
   "toast": {
-    "created": "Template créé avec succès !",
-    "createError": "Erreur lors de la création du template",
-    "updated": "Template mis à jour !",
-    "updateError": "Erreur lors de la mise à jour du template",
-    "deletedWithSchedules": "Template et programmations associées supprimés",
-    "deleted": "Template supprimé",
-    "duplicated": "Template dupliqué !",
-    "duplicateError": "Erreur lors de la duplication du template",
-    "reportCreated": "Rapport créé depuis le template !",
+    "created": "Modèle créé avec succès !",
+    "createError": "Erreur lors de la création du modèle",
+    "updated": "Modèle mis à jour !",
+    "updateError": "Erreur lors de la mise à jour du modèle",
+    "deletedWithSchedules": "Modèle et programmations associées supprimés",
+    "deleted": "Modèle supprimé",
+    "duplicated": "Modèle dupliqué !",
+    "duplicateError": "Erreur lors de la duplication du modèle",
+    "reportCreated": "Rapport créé depuis le modèle !",
     "reportError": "Erreur lors de la création du rapport"
   },
   "errors": {
-    "loadingTemplates": "Erreur lors du chargement des templates",
+    "loadingTemplates": "Erreur lors du chargement des modèles",
     "checkingUsage": "Erreur lors de la vérification de l'utilisation",
     "deleting": "Erreur lors de la suppression : {{message}}",
     "creatingReport": "Erreur lors de la création du rapport",
@@ -64,7 +64,7 @@
     "usedOn": "Utilisé le {{date}}",
     "createdOn": "Créé le {{date}}",
     "connectToUse": "Connectez Google Ads",
-    "useTemplate": "Utiliser ce template",
+    "useTemplate": "Utiliser ce modèle",
     "uses": "Utilisations",
     "slides": "Slides",
     "actions": {
@@ -83,29 +83,29 @@
   },
   "configModal": {
     "title": {
-      "create": "Nouveau Template de Rapport",
-      "edit": "Modifier le Template"
+      "create": "Nouveau Modèle de Rapport",
+      "edit": "Modifier le Modèle"
     },
     "info": {
-      "title": "Informations du Template",
-      "nameLabel": "Nom du template *",
+      "title": "Informations du Modèle",
+      "nameLabel": "Nom du modèle *",
       "namePlaceholder": "Ex: Rapport Hebdomadaire SEA",
       "descLabel": "Description (optionnel)",
-      "descPlaceholder": "Description de ce template..."
+      "descPlaceholder": "Description de ce modèle..."
     },
     "period": {
       "title": "Période d'analyse",
       "description": "Sélectionnez une période relative. Les dates seront calculées automatiquement lors de la création du rapport."
     },
     "client": {
-      "label": "Client *",
-      "placeholder": "Choisir un client...",
-      "noAccount": "⚠️ Ce client n'a pas de compte Google Ads associé. Veuillez lier un compte dans la page Clients."
+      "label": "Compte *",
+      "placeholder": "Choisir un compte...",
+      "noAccount": "⚠️ Ce compte n'a pas de compte Google Ads associé. Veuillez lier un compte dans la page Comptes."
     },
     "account": {
       "title": "Compte et Campagnes",
       "requiredBadge": "Requis",
-      "description": "Sélectionnez le compte et les campagnes à analyser pour ce template.",
+      "description": "Sélectionnez le compte et les campagnes à analyser pour ce modèle.",
       "label": "Compte Google Ads *",
       "defaultOption": "-- Définir lors de l'utilisation --",
       "campaignsLabel_one": "Campagnes ({{count}} sélectionnée) *",
@@ -116,21 +116,21 @@
     },
     "slides": {
       "title": "Slides à inclure *",
-      "description": "Configurez les slides par défaut pour ce template.",
+      "description": "Configurez les slides par défaut pour ce modèle.",
       "addFirst": "Ajouter un slide",
       "emptyTitle": "Aucun slide configuré",
-      "emptyDesc": "Cliquez pour ajouter des slides au template"
+      "emptyDesc": "Cliquez pour ajouter des slides au modèle"
     },
     "actions": {
       "cancel": "Annuler",
-      "create": "Créer le template",
-      "update": "Mettre à jour le template",
+      "create": "Créer le modèle",
+      "update": "Mettre à jour le modèle",
       "creating": "Création...",
       "updating": "Mise à jour..."
     },
     "validation": {
-      "nameRequired": "Veuillez donner un nom au template",
-      "clientRequired": "Veuillez sélectionner un client",
+      "nameRequired": "Veuillez donner un nom au modèle",
+      "clientRequired": "Veuillez sélectionner un compte",
       "accountRequired": "Veuillez sélectionner un compte Google Ads",
       "campaignsRequired": "Veuillez sélectionner au moins une campagne",
       "slidesRequired": "Veuillez sélectionner au moins un slide"
@@ -189,23 +189,23 @@
   },
   "info": {
     "buttonLabel": "Information",
-    "modalTitle": "Qu'est-ce qu'un template ?",
-    "modalContent": "Les templates sont des configurations de rapports réutilisables qui vous permettent de générer des rapports Google Ads cohérents en un seul clic.\n\nAvec les templates, vous pouvez :\n• Définir un ensemble standard de slides et de métriques pour les rapports récurrents\n• Pré-configurer les comptes et campagnes Google Ads à analyser\n• Définir des périodes d'analyse par défaut (7 derniers jours, mois dernier, etc.)\n• Créer des rapports instantanément sans reconfigurer les paramètres à chaque fois\n• Utiliser les templates comme base pour les rapports programmés automatisés\n\nLes templates sont parfaits pour standardiser votre processus de reporting et garantir la cohérence de vos livrables clients."
+    "modalTitle": "Qu'est-ce qu'un modèle ?",
+    "modalContent": "Les modèles sont des configurations de rapports réutilisables qui vous permettent de générer des rapports Google Ads cohérents en un seul clic.\n\nAvec les modèles, vous pouvez :\n• Définir un ensemble standard de slides et de métriques pour les rapports récurrents\n• Pré-configurer les comptes et campagnes Google Ads à analyser\n• Définir des périodes d'analyse par défaut (7 derniers jours, mois dernier, etc.)\n• Créer des rapports instantanément sans reconfigurer les paramètres à chaque fois\n• Utiliser les modèles comme base pour les rapports programmés automatisés\n\nLes modèles sont parfaits pour standardiser votre processus de reporting et garantir la cohérence de vos livrables comptes."
   },
   "editor": {
-    "backToTemplates": "Retour aux templates",
-    "namePlaceholder": "Nom du template",
-    "templateBadge": "Template",
+    "backToTemplates": "Retour aux modèles",
+    "namePlaceholder": "Nom du modèle",
+    "templateBadge": "Modèle",
     "settings": "Paramètres",
     "loading": "Chargement...",
-    "saveTemplate": "Sauvegarder le template",
+    "saveTemplate": "Sauvegarder le modèle",
     "close": "Fermer",
-    "notFound": "Template introuvable",
-    "unauthorized": "Vous n'êtes pas autorisé à modifier ce template",
-    "loadError": "Erreur lors du chargement du template",
+    "notFound": "Modèle introuvable",
+    "unauthorized": "Vous n'êtes pas autorisé à modifier ce modèle",
+    "loadError": "Erreur lors du chargement du modèle",
     "messages": {
-      "saved": "Template sauvegardé !",
-      "saveError": "Erreur lors de la sauvegarde du template",
+      "saved": "Modèle sauvegardé !",
+      "saveError": "Erreur lors de la sauvegarde du modèle",
       "campaignsLoadError": "Erreur lors du chargement des campagnes",
       "settingsUpdated": "Paramètres mis à jour !",
       "settingsUpdateError": "Erreur lors de la mise à jour des paramètres"
