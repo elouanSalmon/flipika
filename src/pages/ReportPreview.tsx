@@ -467,22 +467,20 @@ const ReportPreview: React.FC = () => {
                                 </button>
 
                                 {/* Logo Wrapper */}
-                                <div
-                                    className="flex items-center gap-2 cursor-pointer group"
+                                <motion.div
+                                    className="logo"
+                                    whileHover={{ scale: 1.05 }}
+                                    transition={{ duration: 0.2 }}
                                     onClick={() => navigate('/app/reports')}
                                 >
-                                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
-                                        <Zap size={20} className="fill-current" />
+                                    <div className="logo-icon">
+                                        <Zap size={24} />
                                     </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 leading-none">
-                                            Flipika
-                                        </span>
-                                        <span className="text-[0.65rem] font-bold text-gray-500 dark:text-gray-400 tracking-widest uppercase leading-none mt-0.5">
-                                            IA
-                                        </span>
+                                    <div className="logo-content">
+                                        <span className="logo-text gradient-text">Flipika</span>
+                                        <span className="logo-subtitle">IA</span>
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* Divider */}
                                 <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
