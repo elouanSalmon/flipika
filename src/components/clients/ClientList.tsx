@@ -61,7 +61,7 @@ export const ClientList: React.FC<ClientListProps> = ({
     return (
         <div className={viewMode === 'grid' ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : "flex flex-col gap-4"}>
             {clients.map((client) => (
-                <div key={client.id} className={viewMode === 'list' ? 'bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700' : ''}>
+                <div key={client.id}>
                     {viewMode === 'list' ? (
                         /* Simple wrapper for list view - relying on ClientCard's internal flexibility or just wrapping it */
                         /* ClientCard is designed as a card. For list view we might want to pass viewMode to it if we want distinct styling inside */

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Client } from '../../types/client';
-import { Edit, Trash2, CheckCircle2 } from 'lucide-react';
+import { Edit2, Trash2, MoreVertical, Mail, Palette, Layout, Calendar, Building, CheckCircle2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+// No specific CSS needed, generic listing-card styles from index.css are used
 
 interface ClientCardProps {
     client: Client;
@@ -9,66 +11,132 @@ interface ClientCardProps {
 }
 
 export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete }) => {
-    const hasPreset = !!(client.defaultTemplateId || client.defaultThemeId);
+    const { t } = useTranslation('clients');
+    const [showMenu, setShowMenu] = useState(false);
+
+    const hasTemplate = !!client.defaultTemplateId;
+    const hasTheme = !!client.defaultThemeId;
+    const isConfigured = hasTemplate || hasTheme;
+
+    // Helper to safely handle Firestore Timestamp or Date
+    const getFormattedDate = (dateOrTimestamp: any) => {
+        if (!dateOrTimestamp) return '';
+        const date = dateOrTimestamp.toDate ? dateOrTimestamp.toDate() : new Date(dateOrTimestamp);
+        return date.toLocaleDateString('fr-FR');
+    };
+
+    const handleMenuClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setShowMenu(!showMenu);
+    };
+
+    const handleAction = (action: () => void) => {
+        setShowMenu(false);
+        action();
+    };
 
     return (
-        <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm border p-4 flex items-center justify-between hover:shadow-md transition-shadow ${hasPreset ? 'border-emerald-200 dark:border-emerald-800' : 'border-gray-100 dark:border-gray-700'
-            }`}>
-            <div className="flex items-center gap-4">
-                {/* Logo or Placeholder */}
-                <div className="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-600 flex-shrink-0">
-                    {client.logoUrl ? (
-                        <img src={client.logoUrl} alt={client.name} className="w-full h-full object-contain" />
-                    ) : (
-                        <span className="text-xl font-bold text-gray-400 dark:text-gray-500">
-                            {client.name.charAt(0).toUpperCase()}
-                        </span>
-                    )}
+        <div className="listing-card group">
+            {/* Header Section */}
+            <div className="listing-card-header">
+                <div className="listing-card-title-group">
+                    <h3 className="listing-card-title" title={client.name}>
+                        {client.name}
+                    </h3>
+                    <div className="listing-card-subtitle">
+                        <Calendar size={12} />
+                        <span>{t('card.createdOn', { date: getFormattedDate(client.createdAt), defaultValue: `Créé le ${getFormattedDate(client.createdAt)}` })}</span>
+                    </div>
                 </div>
+                {/* Status Badge */}
+                {isConfigured ? (
+                    <div className="status-badge success" title={t('card.status.configured', { defaultValue: 'Compte configuré' })}>
+                        <CheckCircle2 size={12} />
+                        <span>{t('card.status.ready', { defaultValue: 'Prêt' })}</span>
+                    </div>
+                ) : (
+                    <div className="status-badge warning" title={t('card.status.incomplete', { defaultValue: 'Configuration incomplète' })}>
+                        <span>{t('card.status.setup', { defaultValue: 'À configurer' })}</span>
+                    </div>
+                )}
+            </div>
 
-                {/* Info */}
-                <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-gray-900 dark:text-white truncate" title={client.name}>
-                            {client.name}
-                        </h3>
-                        {hasPreset && (
-                            <div
-                                className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 rounded-full text-xs font-medium"
-                                title={`Prêt pour génération : ${[
-                                    client.defaultTemplateId && 'Template',
-                                    client.defaultThemeId && 'Thème'
-                                ].filter(Boolean).join(', ')} configurés`}
-                            >
-                                <CheckCircle2 size={12} />
-                                <span>Prêt</span>
+            {/* Body Section */}
+            <div className="listing-card-body">
+                <div className="space-y-2">
+                    {/* Google Ads ID */}
+                    <div className="listing-card-row">
+                        <div className="listing-card-info-item" title={t('card.googleAdsId', { defaultValue: 'ID Google Ads' })}>
+                            <Building size={14} />
+                            <span className="font-mono text-xs">{client.googleAdsCustomerId || '-'}</span>
+                        </div>
+                    </div>
+
+                    {/* Email */}
+                    <div className="listing-card-row">
+                        <div className="listing-card-info-item" title={client.email}>
+                            <Mail size={14} />
+                            <span className="truncate">{client.email}</span>
+                        </div>
+                    </div>
+
+                    {/* Configuration Chips */}
+                    <div className="flex flex-wrap gap-2 mt-2">
+                        {hasTheme && (
+                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-gray-50 dark:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-600">
+                                <Palette size={10} />
+                                <span>{t('card.config.theme', { defaultValue: 'Thème' })}</span>
                             </div>
                         )}
+                        {hasTemplate && (
+                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-gray-50 dark:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-600">
+                                <Layout size={10} />
+                                <span>{t('card.config.template', { defaultValue: 'Modèle' })}</span>
+                            </div>
+                        )}
+                        {!hasTheme && !hasTemplate && (
+                            <span className="text-xs text-gray-400 italic">{t('card.config.none', { defaultValue: 'Aucune config.' })}</span>
+                        )}
                     </div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 truncate" title={client.email}>
-                        {client.email}
-                    </p>
                 </div>
             </div>
 
+            {/* Footer / Stats Section - Placeholder for now or removed if minimal */}
+            {/* <div className="listing-card-footer">
+                  <div className="listing-card-stats">
+                       <span className="text-xs text-gray-400">ID: {client.id.slice(0, 8)}...</span>
+                  </div>
+             </div> */}
+
             {/* Actions */}
-            <div className="flex gap-2 pl-4">
+            <div className="listing-card-actions">
                 <button
-                    onClick={() => onEdit(client)}
-                    className="p-2 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
-                    title="Modifier"
-                    aria-label="Modifier le client"
+                    onClick={() => handleAction(() => onEdit(client))}
+                    className="action-btn-icon"
+                    title={t('actions.edit', { defaultValue: 'Modifier' })}
                 >
-                    <Edit size={18} />
+                    <Edit2 size={16} />
                 </button>
-                <button
-                    onClick={() => onDelete(client)}
-                    className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                    title="Supprimer"
-                    aria-label="Supprimer le client"
-                >
-                    <Trash2 size={18} />
-                </button>
+
+                <div className="relative">
+                    <button
+                        onClick={handleMenuClick}
+                        className="action-btn-icon"
+                    >
+                        <MoreVertical size={16} />
+                    </button>
+
+                    {showMenu && (
+                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 py-1">
+                            <button
+                                onClick={() => handleAction(() => onDelete(client))}
+                                className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"
+                            >
+                                <Trash2 size={14} /> {t('actions.delete', { defaultValue: 'Supprimer' })}
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

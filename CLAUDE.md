@@ -14,19 +14,21 @@
     - If a style isn't applying, verify the component is included in `tailwind.config.js` `content` array.
 
 3.  **Deployment & Environments**:
-    - NEVER run `firebase deploy` directly for hosting.
     - ALWAYS use `npm run deploy:dev` or `npm run deploy:prod`.
     - This ensures Vite builds with the correct `--mode` (`development` for dev, `production` for prod) and uses the correct `.env` files.
     - Check `package.json` for all environment-specific deploy scripts.
 
 4.  **Z-Index Hierarchy**:
+    - **Z-Index**: Header(40) < Modals(50+) < Toasts(60+)
     - **Header**: `z-40` (Sticky/Fixed elements)
     - **Modals/Overlays**: `z-50` or higher (Must overlap header)
     - **Toasts/Notifications**: `z-60` or higher
     - ALWAYS ensure modals use a higher z-index than the header to prevent clipping.
     - **Portal**: Always use `createPortal` (rendering to `document.body`) for modals to avoid stacking context issues with sticky headers.
 
-3.  **Internationalization (i18n)**:
+5.  **No Emojis**: Do NOT use emojis in the UI. Use Lucide icons instead.
+
+6.  **Internationalization (i18n)**:
     - ALWAYS add new keys to BOTH French (`src/locales/fr/`) AND English (`src/locales/en/`) files.
     - NEVER hardcode text.
 

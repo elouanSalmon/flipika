@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, MoreVertical, Copy, Edit2, Trash2, Play, Building, Megaphone, Clock } from 'lucide-react';
+import { Calendar, MoreVertical, Copy, Edit2, Trash2, Play, Building, Megaphone, Clock, CheckCircle2, FileWarning } from 'lucide-react';
 import type { ReportTemplate } from '../../types/templateTypes';
 import './TemplateCard.css'; // Minimized
 
@@ -67,15 +67,18 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                         {dateLabel}
                     </div>
                 </div>
-                {/* Primary Use Action - Always visible on hover */}
-                <button
-                    className={`ml-2 p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all opacity-0 group-hover:opacity-100 flex-shrink-0 ${!isGoogleAdsConnected ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    onClick={() => onUse(template)}
-                    disabled={!isGoogleAdsConnected}
-                    title={!isGoogleAdsConnected ? t('card.connectToUse') : t('card.useTemplate')}
-                >
-                    <Play size={16} fill="currentColor" />
-                </button>
+                {/* Status Badge */}
+                {template.slideConfigs.length > 0 ? (
+                    <div className="status-badge success ml-auto" title={t('card.status.ready', { defaultValue: 'Prêt à l\'emploi' })}>
+                        <CheckCircle2 size={12} />
+                        <span>{t('card.status.ready', { defaultValue: 'Prêt' })}</span>
+                    </div>
+                ) : (
+                    <div className="status-badge warning ml-auto" title={t('card.status.notReady', { defaultValue: 'Aucune slide configurée' })}>
+                        <FileWarning size={12} />
+                        <span>{t('card.status.draft', { defaultValue: 'Brouillon' })}</span>
+                    </div>
+                )}
             </div>
 
             <div className="listing-card-body">
@@ -185,7 +188,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

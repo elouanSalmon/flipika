@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { Client, CreateClientInput, UpdateClientInput } from '../../types/client';
 import type { ReportTemplate } from '../../types/templateTypes';
 import type { ReportTheme } from '../../types/reportThemes';
-import { Upload, Loader2, X, Building2, Mail, Palette } from 'lucide-react';
+import { Upload, Loader2, X, Building2, Mail, Palette, AlertTriangle } from 'lucide-react';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { listUserTemplates } from '../../services/templateService';
 import themeService from '../../services/themeService';
@@ -341,6 +341,12 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                         <p className="client-form-section-description">
                             {t('form.presets.description')}
                         </p>
+                        {(!defaultTemplateId && !defaultThemeId) && (
+                            <div className="flex items-center gap-2 mt-2 p-2 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 text-xs rounded-lg border border-amber-100 dark:border-amber-800">
+                                <AlertTriangle size={14} className="flex-shrink-0" />
+                                <span>{t('form.presets.missingWarning', { defaultValue: 'Configurez au moins un modèle ou un thème pour que le compte soit "Prêt".' })}</span>
+                            </div>
+                        )}
                     </div>
                     {(defaultTemplateId || defaultThemeId) && (
                         <button
@@ -365,13 +371,16 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                         disabled={loadingPresets}
                         className="client-form-select"
                     >
-                        <option value="">{t('form.presets.template.placeholder')}</option>
+                        <option value="">{t('form.presets.template.placeholder')} {defaultThemeId ? '' : '*'}</option>
                         {templates.map((template) => (
                             <option key={template.id} value={template.id}>
                                 {template.name}
                             </option>
                         ))}
                     </select>
+                    {!defaultTemplateId && <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                        {t('form.presets.template.recommended', { defaultValue: 'Recommandé pour la génération de rapports' })}
+                    </p>}
                     {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
                 </div>
 
@@ -445,6 +454,6 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     {initialData ? t('form.buttons.update') : t('form.buttons.create')}
                 </button>
             </div>
-        </form>
+        </form >
     );
 };

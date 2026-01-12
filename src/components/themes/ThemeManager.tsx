@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Copy, Trash2, Link as LinkIcon, Palette, Info, Grid, List as ListIcon } from 'lucide-react';
+import { Plus, Edit2, Copy, Trash2, Link as LinkIcon, Palette, Info, Grid, List as ListIcon, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
@@ -170,7 +170,12 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                                     <ThemePreview theme={theme} size="small" />
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <div className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate pr-2">{theme.name}</div>
+                                    <div className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate pr-2 flex items-center gap-2">
+                                        {theme.name}
+                                        <div className="status-badge success px-1.5 py-0.5 text-[10px]" title={t('card.status.ready', { defaultValue: 'Prêt' })}>
+                                            <CheckCircle2 size={10} />
+                                        </div>
+                                    </div>
                                     <button
                                         className="btn btn-secondary btn-xs"
                                         onClick={() => handleEditTheme(theme)}
@@ -334,8 +339,16 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
 
                                     <div className={`flex flex-col ${viewMode === 'list' ? 'flex-1 p-4 justify-between' : 'p-5'}`}>
                                         <div className={viewMode === 'list' ? 'flex justify-between items-start' : 'mb-4'}>
-                                            <div>
-                                                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 truncate">{theme.name}</h3>
+                                            <div className="w-full">
+                                                <div className="flex items-start justify-between gap-2">
+                                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 truncate">{theme.name}</h3>
+                                                    {viewMode === 'grid' && (
+                                                        <div className="status-badge success flex-shrink-0" title={t('card.status.ready', { defaultValue: 'Prêt' })}>
+                                                            <CheckCircle2 size={12} />
+                                                            <span>{t('card.status.ready', { defaultValue: 'Prêt' })}</span>
+                                                        </div>
+                                                    )}
+                                                </div>
                                                 {theme.description && (
                                                     <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{theme.description}</p>
                                                 )}
@@ -344,6 +357,10 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                                             {/* List View Actions - Always visible */}
                                             {viewMode === 'list' && (
                                                 <div className="flex items-center gap-2">
+                                                    <div className="status-badge success hidden sm:flex" title={t('card.status.ready', { defaultValue: 'Prêt à l\'emploi' })}>
+                                                        <CheckCircle2 size={10} />
+                                                        <span>{t('card.status.ready', { defaultValue: 'Prêt' })}</span>
+                                                    </div>
                                                     <button
                                                         onClick={() => handleDuplicateTheme(theme)}
                                                         className="p-2 text-gray-500 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"

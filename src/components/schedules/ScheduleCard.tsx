@@ -86,8 +86,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
             {/* Hero Section: Next Execution or Paused State */}
             <div className={`rounded-xl p-4 mb-4 border relative overflow-hidden ${schedule.isActive
-                    ? 'bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary/10 dark:border-primary/20'
-                    : 'bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700'
+                ? 'bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary/10 dark:border-primary/20'
+                : 'bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700'
                 }`}>
                 {schedule.isActive ? (
                     <>

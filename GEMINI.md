@@ -28,7 +28,12 @@
 3.  **Internationalization (i18n)**:
     - ALWAYS add new keys to BOTH French (`src/locales/fr/`) AND English (`src/locales/en/`) files.
     - NEVER hardcode text in components; use `t('namespace:key')`.
+
     - Check `src/i18n.ts` if adding a new namespace is required.
+
+5.  **Design System**:
+    - **NO EMOJIS**: Do NOT use emojis in the UI (buttons, labels, text). Use Lucide icons instead.
+    - **Consistent Card Styles**: Use `.listing-card` framework in `src/index.css`.
 
 ## 📄 Project Context
 
