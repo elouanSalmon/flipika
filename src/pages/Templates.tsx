@@ -11,7 +11,6 @@ import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import {
     listUserTemplates,
     createTemplate,
-    updateTemplate,
     deleteTemplate,
     duplicateTemplate,
 
@@ -50,7 +49,6 @@ const Templates: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const [editingTemplate, setEditingTemplate] = useState<ReportTemplate | null>(null);
     // Removed local accounts state
     const [selectedAccountId, setSelectedAccountId] = useState('');
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -201,19 +199,7 @@ const Templates: React.FC = () => {
         }
     };
 
-    const handleEditTemplate = async (config: TemplateConfig) => {
-        if (!currentUser || !editingTemplate) return;
 
-        try {
-            await updateTemplate(editingTemplate.id, config);
-            toast.success(t('toast.updated'));
-            setEditingTemplate(null);
-            loadTemplates();
-        } catch (error) {
-            console.error('Error updating template:', error);
-            toast.error(t('toast.updateError'));
-        }
-    };
 
     const handleDeleteTemplate = async (template: ReportTemplate) => {
         const loadingToast = toast.loading(t('deleteConfirm.checking'), { id: 'check-usage' });
@@ -495,7 +481,7 @@ const Templates: React.FC = () => {
                                     key={template.id}
                                     template={template}
                                     onUse={handleUseTemplate}
-                                    onEdit={setEditingTemplate}
+                                    onEdit={(t) => navigate(`/app/templates/editor/${t.id}`)}
                                     onDuplicate={handleDuplicateTemplate}
                                     onDelete={handleDeleteTemplate}
                                     isGoogleAdsConnected={isConnected}
@@ -537,19 +523,15 @@ const Templates: React.FC = () => {
                 )}
             </FeatureAccessGuard>
 
-            {(showCreateModal || editingTemplate) && (
+            {showCreateModal && (
                 <TemplateConfigModal
-                    onClose={() => {
-                        setShowCreateModal(false);
-                        setEditingTemplate(null);
-                    }}
-                    onSubmit={editingTemplate ? handleEditTemplate : handleCreateTemplate}
+                    onClose={() => setShowCreateModal(false)}
+                    onSubmit={handleCreateTemplate}
                     accounts={accounts}
                     selectedAccountId={selectedAccountId}
                     onAccountChange={setSelectedAccountId}
                     campaigns={campaigns}
-                    isEditMode={!!editingTemplate}
-                    initialConfig={editingTemplate || undefined}
+                    isEditMode={false}
                 />
             )}
 
