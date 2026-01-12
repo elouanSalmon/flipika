@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone, Calendar, Send, Users } from 'lucide-react';
+import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone, Calendar, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { deleteReport, duplicateReport, archiveReport } from '../../../services/reportService';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -9,6 +9,7 @@ import type { Client } from '../../../types/client';
 import toast from 'react-hot-toast';
 import ConfirmationModal from '../../common/ConfirmationModal';
 import './ReportCard.css'; // Keeping for potential specific overrides, but content will be minimized
+import ClientLogoAvatar from '../../common/ClientLogoAvatar';
 
 interface ReportCardProps {
     report: EditableReport;
@@ -135,7 +136,9 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
     };
 
     const displayName = getDisplayName();
-    const isClient = !!(report.clientId || clients.find(c => c.googleAdsCustomerId === report.accountId));
+    const linkedClient = report.clientId ? clients.find(c => c.id === report.clientId) : clients.find(c => c.googleAdsCustomerId === report.accountId);
+    const isClient = !!linkedClient;
+    const clientLogo = linkedClient?.logoUrl;
 
     // Resolve campaigns text
     const campaignsText = report.campaignNames?.length
@@ -163,7 +166,11 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
             <div className="listing-card-body">
                 <div className="listing-card-row mb-2">
                     <div className="listing-card-info-item" title={displayName}>
-                        {isClient ? <Users size={14} /> : <Building size={14} />}
+                        {isClient ? (
+                            <ClientLogoAvatar logo={clientLogo} name={displayName} size="sm" />
+                        ) : (
+                            <Building size={14} />
+                        )}
                         <span>{displayName}</span>
                     </div>
                 </div>

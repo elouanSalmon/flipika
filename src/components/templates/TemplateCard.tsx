@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Calendar, MoreVertical, Copy, Edit2, Trash2, Play, Building, Megaphone, Clock, CheckCircle2, FileWarning } from 'lucide-react';
 import type { ReportTemplate } from '../../types/templateTypes';
+import type { Client } from '../../types/client';
+import ClientLogoAvatar from '../common/ClientLogoAvatar';
 import './TemplateCard.css'; // Minimized
 
 interface TemplateCardProps {
@@ -12,6 +14,7 @@ interface TemplateCardProps {
     onDelete: (template: ReportTemplate) => void;
     isGoogleAdsConnected?: boolean;
     accounts?: { id: string; name: string }[];
+    clients?: Client[];
 }
 
 const TemplateCard: React.FC<TemplateCardProps> = ({
@@ -22,6 +25,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
     onDelete,
     isGoogleAdsConnected = true,
     accounts = [],
+    clients = [],
 }) => {
     const { t } = useTranslation('templates');
     const [showMenu, setShowMenu] = React.useState(false);
@@ -30,10 +34,12 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
         ? t(`configModal.presets.${template.periodPreset}.label`)
         : template.periodPreset;
 
-    // Resolve account/client name
+    // Resolve account/client name and logo
+    const linkedClient = template.clientId ? clients.find(c => c.id === template.clientId) : null;
     const accountName = accounts.find(a => a.id === template.accountId)?.name || template.accountId || t('card.noAccount');
-    const displayName = template.clientName || accountName;
-    const isClientLinked = !!template.clientName;
+    const displayName = linkedClient?.name || template.clientName || accountName;
+    const isClientLinked = !!linkedClient || !!template.clientName;
+    const clientLogo = linkedClient?.logoUrl;
 
     // Resolve campaigns text
     const campaignsText = template.campaignNames?.length
@@ -91,7 +97,11 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                 <div className="space-y-2">
                     <div className="listing-card-row">
                         <div className="listing-card-info-item" title={isClientLinked ? `${displayName} (${accountName})` : accountName}>
-                            {isClientLinked ? <Building size={14} className="text-primary-500" /> : <Building size={14} />}
+                            {isClientLinked ? (
+                                <ClientLogoAvatar logo={clientLogo} name={displayName} size="sm" />
+                            ) : (
+                                <Building size={14} />
+                            )}
                             <span>{displayName}</span>
                         </div>
                     </div>

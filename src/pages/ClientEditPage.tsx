@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ClientForm } from '../components/clients/ClientForm';
 import { useClients } from '../hooks/useClients';
-import { ArrowLeft, Users, UserPlus } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import type { Client } from '../types/client';
 import { motion } from 'framer-motion';
 
@@ -60,31 +60,29 @@ export default function ClientEditPage() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="mb-10"
+                className="mb-6"
             >
-                <button
-                    onClick={() => navigate('/app/clients')}
-                    className="flex items-center text-sm font-medium text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary-light mb-6 transition-colors group"
-                >
-                    <ArrowLeft className="w-4 h-4 mr-1.5 transform group-hover:-translate-x-1 transition-transform" />
-                    {t('form.buttons.cancel')}
-                </button>
+                <div className="flex flex-wrap items-center gap-4">
+                    <button
+                        onClick={() => navigate('/app/clients')}
+                        className="flex items-center text-sm font-medium text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary-light transition-colors group"
+                    >
+                        <ArrowLeft className="w-4 h-4 mr-1.5 transform group-hover:-translate-x-1 transition-transform" />
+                        {t('form.buttons.cancel')}
+                    </button>
 
-                <div className="flex items-center gap-4 mb-3">
-                    <div className="p-3 bg-gradient-to-br from-primary/10 to-primary/20 dark:from-primary/20 dark:to-primary/30 rounded-2xl border border-primary/20 shadow-lg shadow-primary/5">
-                        {isEditing ? (
-                            <Users className="w-8 h-8 text-primary dark:text-primary-light" />
-                        ) : (
-                            <UserPlus className="w-8 h-8 text-primary dark:text-primary-light" />
-                        )}
+                    <div className="h-5 w-px bg-gray-300 dark:bg-gray-700 hidden sm:block"></div>
+
+                    <div className="flex items-center gap-3">
+                        <h1 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+                            {isEditing ? t('form.title.edit') : t('form.title.create')}
+                        </h1>
+                        <span className="text-gray-300 dark:text-gray-600 hidden sm:inline">|</span>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 hidden sm:block">
+                            {t('form.sections.basicInfoDescription')}
+                        </p>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
-                        {isEditing ? t('form.title.edit') : t('form.title.create')}
-                    </h1>
                 </div>
-                <p className="text-gray-500 dark:text-gray-400 text-lg ml-1">
-                    {isEditing ? t('form.sections.basicInfoDescription') : t('form.sections.basicInfoDescription')}
-                </p>
             </motion.div>
 
             <ClientForm

@@ -8,6 +8,8 @@ import { useSubscription } from '../contexts/SubscriptionContext';
 import { useDemoMode } from '../contexts/DemoModeContext';
 import type { ScheduledReport } from '../types/scheduledReportTypes';
 import type { ReportTemplate } from '../types/templateTypes';
+import type { Client } from '../types/client';
+import { clientService } from '../services/clientService';
 import {
     listUserScheduledReports,
     createScheduledReport,
@@ -74,6 +76,9 @@ const ScheduledReports: React.FC = () => {
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
 
+    // Clients for logo display
+    const [clients, setClients] = useState<Client[]>([]);
+
     useEffect(() => {
         if (currentUser) {
             loadData();
@@ -108,6 +113,14 @@ const ScheduledReports: React.FC = () => {
 
             setSchedules(schedulesData);
             setTemplates(templatesData);
+
+            // Load clients for logo display
+            try {
+                const clientsData = await clientService.getClients(currentUser.uid);
+                setClients(clientsData);
+            } catch (err) {
+                console.error('Error loading clients:', err);
+            }
 
             // Load Google Ads accounts separately
             if (isGoogleAdsConnected) {
@@ -268,6 +281,14 @@ const ScheduledReports: React.FC = () => {
 
     const getAccountName = (accountId: string): string => {
         return accounts.find(a => a.id === accountId)?.name || t('unknownAccount');
+    };
+
+    const getClientLogoForSchedule = (templateId: string): string | undefined => {
+        const template = templates.find(t => t.id === templateId);
+        if (template?.clientId) {
+            return clients.find(c => c.id === template.clientId)?.logoUrl;
+        }
+        return undefined;
     };
 
     const activeCount = schedules.filter(s => s.isActive).length;
@@ -477,6 +498,7 @@ const ScheduledReports: React.FC = () => {
                                     schedule={schedule}
                                     templateName={getTemplateName(schedule.templateId)}
                                     accountName={getAccountName(schedule.accountId)}
+                                    clientLogo={getClientLogoForSchedule(schedule.templateId)}
                                     onEdit={handleEditSchedule}
                                     onDelete={handleDeleteSchedule}
                                     onToggleStatus={handleToggleStatus}

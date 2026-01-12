@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Copy, Trash2, Link as LinkIcon, Palette, Info, Grid, List as ListIcon, CheckCircle2 } from 'lucide-react';
+import { Plus, Edit2, Copy, Trash2, Palette, Info, Grid, List as ListIcon, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
@@ -17,6 +17,7 @@ import { useTutorial } from '../../contexts/TutorialContext';
 import ConfirmationModal from '../common/ConfirmationModal';
 import InfoModal from '../common/InfoModal';
 import FilterBar from '../common/FilterBar';
+import ClientLogoAvatar from '../common/ClientLogoAvatar';
 import './ThemeManager.css'; // Keeping for potential specific tweaks
 
 interface ThemeManagerProps {
@@ -386,14 +387,31 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                                             )}
                                         </div>
 
-                                        {/* Footer / Stats */}
+                                        {/* Footer / Stats - Client Logos */}
                                         <div className={`flex items-center justify-between ${viewMode === 'list' ? 'mt-2' : 'mt-4'}`}>
                                             {(() => {
-                                                const linkedCount = clients.filter(c => c.defaultThemeId === theme.id).length;
+                                                const linkedClients = clients.filter(c => theme.linkedClientIds?.includes(c.id));
+                                                const linkedCount = linkedClients.length;
+                                                const maxDisplay = 4;
                                                 return linkedCount > 0 ? (
-                                                    <div className="flex items-center gap-1.5 text-xs text-primary bg-primary/5 px-2 py-1 rounded-md border border-primary/10">
-                                                        <LinkIcon size={12} />
-                                                        <span>
+                                                    <div className="flex items-center gap-1.5">
+                                                        <div className="flex items-center -space-x-1.5">
+                                                            {linkedClients.slice(0, maxDisplay).map(client => (
+                                                                <ClientLogoAvatar
+                                                                    key={client.id}
+                                                                    logo={client.logoUrl}
+                                                                    name={client.name}
+                                                                    size="sm"
+                                                                    className="ring-2 ring-white dark:ring-gray-800"
+                                                                />
+                                                            ))}
+                                                            {linkedCount > maxDisplay && (
+                                                                <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-[10px] font-semibold text-gray-600 dark:text-gray-300 ring-2 ring-white dark:ring-gray-800">
+                                                                    +{linkedCount - maxDisplay}
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                        <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">
                                                             {t('card.linkedClients_plural', { count: linkedCount })}
                                                         </span>
                                                     </div>

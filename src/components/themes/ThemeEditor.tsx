@@ -58,18 +58,8 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
     const [saving, setSaving] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState<string | null>(null);
 
-    // Load clients that have this theme as defaultThemeId when editing
-    React.useEffect(() => {
-        const loadLinkedClients = async () => {
-            if (theme?.id && clients.length > 0) {
-                const linkedIds = clients
-                    .filter(client => client.defaultThemeId === theme.id)
-                    .map(client => client.id);
-                setLinkedClientIds(linkedIds);
-            }
-        };
-        loadLinkedClients();
-    }, [theme?.id, clients]);
+    // Removed useEffect that was mistakenly overwriting linkedClientIds from client defaultThemeId
+    // We now count linkedClientIds as the source of truth for the local state, which comes from theme prop.
 
     const handleApplyPreset = (preset: ThemePreset) => {
         setDesign(preset.design);
@@ -144,6 +134,10 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
 
         setSaving(true);
         try {
+            let savedThemeId: string;
+            let finalTheme: ReportTheme;
+
+            // 1. Save or Create Theme
             if (theme?.id) {
                 await themeService.updateTheme(theme.id, {
                     name,
@@ -152,19 +146,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                     linkedClientIds,
                     isDefault,
                 });
-
-                // Update all linked clients' defaultThemeId
-                const { clientService } = await import('../../services/clientService');
-                const updatePromises = linkedClientIds.map(clientId =>
-                    clientService.updateClient(userId, clientId, { defaultThemeId: theme.id })
-                );
-                await Promise.all(updatePromises);
-
-                const updatedTheme = await themeService.getTheme(theme.id);
-                if (updatedTheme) {
-                    onSave(updatedTheme);
-                    toast.success(t('editor.successUpdate'));
-                }
+                savedThemeId = theme.id;
             } else {
                 const themeData: CreateThemeDTO = {
                     userId,
@@ -174,18 +156,84 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                     linkedClientIds,
                     isDefault,
                 };
+                finalTheme = await themeService.createTheme(userId, themeData);
+                savedThemeId = finalTheme.id;
+            }
 
-                const newTheme = await themeService.createTheme(userId, themeData);
+            // 2. Sync Clients (Many-to-Many)
+            const { clientService } = await import('../../services/clientService');
 
-                // Update all linked clients' defaultThemeId
-                const { clientService } = await import('../../services/clientService');
-                const updatePromises = linkedClientIds.map(clientId =>
-                    clientService.updateClient(userId, clientId, { defaultThemeId: newTheme.id })
-                );
-                await Promise.all(updatePromises);
+            const originalLinkedIds = theme?.linkedClientIds || [];
+            const newLinkedIds = linkedClientIds;
 
-                onSave(newTheme);
-                toast.success(t('editor.successCreate'));
+            const addedIds = newLinkedIds.filter(id => !originalLinkedIds.includes(id));
+            const removedIds = originalLinkedIds.filter(id => !newLinkedIds.includes(id));
+            const unchangedIds = newLinkedIds.filter(id => originalLinkedIds.includes(id));
+
+            const updatePromises: Promise<void>[] = [];
+
+            // Handle Added: Add to linkedThemeIds and set as default (preserving "assign" behavior)
+            for (const clientId of addedIds) {
+                const client = clients.find(c => c.id === clientId);
+                if (client) {
+                    const currentLinked = client.linkedThemeIds || [];
+                    // Add only if not present
+                    const newLinked = currentLinked.includes(savedThemeId)
+                        ? currentLinked
+                        : [...currentLinked, savedThemeId];
+
+                    updatePromises.push(clientService.updateClient(userId, clientId, {
+                        linkedThemeIds: newLinked,
+                        defaultThemeId: savedThemeId
+                    }));
+                }
+            }
+
+            // Handle Removed: Remove from linkedThemeIds and unset default if it matches
+            for (const clientId of removedIds) {
+                const client = clients.find(c => c.id === clientId);
+                if (client) {
+                    const currentLinked = client.linkedThemeIds || [];
+                    const newLinked = currentLinked.filter(id => id !== savedThemeId);
+
+                    const updates: any = { linkedThemeIds: newLinked };
+                    if (client.defaultThemeId === savedThemeId) {
+                        // If we are removing the default theme, what should happen?
+                        // For now, unset it (create empty string/undefined behavior)
+                        // Note: undefined in updateClient might skip it, so we might need distinct logic if clearing.
+                        // clientService.updateClient handles explicit undefined? check impl.
+                        // impl checks `if (input.defaultThemeId !== undefined)`.
+                        // So to UNSET, we might need to send null or empty string?
+                        // Firestore usually needs deleteField() or null.
+                        // But `updateClient` types are string | undefined. 
+                        // Let's assume empty string is safe enough for "no ID" or handled by UI.
+                        updates.defaultThemeId = '';
+                    }
+                    updatePromises.push(clientService.updateClient(userId, clientId, updates));
+                }
+            }
+
+            // Handle Unchanged: Ensure backfill (Migration)
+            for (const clientId of unchangedIds) {
+                const client = clients.find(c => c.id === clientId);
+                if (client) {
+                    const currentLinked = client.linkedThemeIds || [];
+                    if (!currentLinked.includes(savedThemeId)) {
+                        const newLinked = [...currentLinked, savedThemeId];
+                        updatePromises.push(clientService.updateClient(userId, clientId, {
+                            linkedThemeIds: newLinked
+                        }));
+                    }
+                }
+            }
+
+            await Promise.all(updatePromises);
+
+            // 3. Return updated object
+            const updatedTheme = await themeService.getTheme(savedThemeId);
+            if (updatedTheme) {
+                onSave(updatedTheme);
+                toast.success(theme ? t('editor.successUpdate') : t('editor.successCreate'));
             }
 
             onClose();

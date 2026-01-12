@@ -4,12 +4,14 @@ import { Clock, Calendar, MoreVertical, Edit2, Trash2, Power, PowerOff, External
 import { useNavigate } from 'react-router-dom';
 import type { ScheduledReport } from '../../types/scheduledReportTypes';
 import { formatScheduleConfig, getTimeUntilNextRun } from '../../types/scheduledReportTypes';
+import ClientLogoAvatar from '../common/ClientLogoAvatar';
 import './ScheduleCard.css'; // Minimized
 
 interface ScheduleCardProps {
     schedule: ScheduledReport;
     templateName?: string;
     accountName?: string;
+    clientLogo?: string;
     onEdit: (schedule: ScheduledReport) => void;
     onDelete: (schedule: ScheduledReport) => void;
     onToggleStatus: (schedule: ScheduledReport, isActive: boolean) => void;
@@ -20,6 +22,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     schedule,
     templateName,
     accountName,
+    clientLogo,
     onEdit,
     onDelete,
     onToggleStatus,
@@ -168,6 +171,11 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
             {/* Context Chips */}
             <div className="flex flex-wrap gap-2 mb-4">
+                {clientLogo && (
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-50 dark:bg-gray-800 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700">
+                        <ClientLogoAvatar logo={clientLogo} name={accountName} size="xs" />
+                    </div>
+                )}
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-50 dark:bg-gray-800 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700 max-w-full" title={templateName}>
                     <BarChart2 size={12} className="text-gray-400" />
                     <span className="truncate max-w-[120px]">{templateName || 'Template'}</span>

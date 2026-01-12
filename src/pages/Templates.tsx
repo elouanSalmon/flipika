@@ -20,6 +20,8 @@ import { getSchedulesByTemplateId, deleteScheduledReport } from '../services/sch
 import type { ReportTemplate } from '../types/templateTypes';
 import type { Campaign } from '../types/business';
 import type { ScheduledReport } from '../types/scheduledReportTypes';
+import type { Client } from '../types/client';
+import { clientService } from '../services/clientService';
 import TemplateCard from '../components/templates/TemplateCard';
 import TemplateConfigModal, { type TemplateConfig } from '../components/templates/TemplateConfigModal';
 import Spinner from '../components/common/Spinner';
@@ -75,6 +77,9 @@ const Templates: React.FC = () => {
     const [showClientModal, setShowClientModal] = useState(false);
     const [pendingTemplateForUse, setPendingTemplateForUse] = useState<ReportTemplate | null>(null);
     const [showInfoModal, setShowInfoModal] = useState(false);
+
+    // Clients for logo display
+    const [clients, setClients] = useState<Client[]>([]);
 
     const loadTemplates = async () => {
         if (!currentUser) return;
@@ -157,6 +162,8 @@ const Templates: React.FC = () => {
     useEffect(() => {
         if (currentUser) {
             loadTemplates();
+            // Load clients for logo display
+            clientService.getClients(currentUser.uid).then(setClients).catch(console.error);
         }
     }, [currentUser]);
 
@@ -486,6 +493,7 @@ const Templates: React.FC = () => {
                                     onDelete={handleDeleteTemplate}
                                     isGoogleAdsConnected={isConnected}
                                     accounts={accounts}
+                                    clients={clients}
                                 />
                             ))}
                         </div>

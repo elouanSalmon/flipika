@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { Client } from '../../types/client';
 import { Edit2, Trash2, MoreVertical, Mail, Palette, Layout, Calendar, Building, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import ClientLogoAvatar from '../common/ClientLogoAvatar';
 // No specific CSS needed, generic listing-card styles from index.css are used
 
 interface ClientCardProps {
@@ -39,13 +40,16 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete
         <div className="listing-card group">
             {/* Header Section */}
             <div className="listing-card-header">
-                <div className="listing-card-title-group">
-                    <h3 className="listing-card-title" title={client.name}>
-                        {client.name}
-                    </h3>
-                    <div className="listing-card-subtitle">
-                        <Calendar size={12} />
-                        <span>{t('card.createdOn', { date: getFormattedDate(client.createdAt), defaultValue: `Créé le ${getFormattedDate(client.createdAt)}` })}</span>
+                <div className="flex items-center gap-3">
+                    <ClientLogoAvatar logo={client.logoUrl} name={client.name} size="lg" />
+                    <div className="listing-card-title-group">
+                        <h3 className="listing-card-title" title={client.name}>
+                            {client.name}
+                        </h3>
+                        <div className="listing-card-subtitle">
+                            <Calendar size={12} />
+                            <span>{t('card.createdOn', { date: getFormattedDate(client.createdAt), defaultValue: `Créé le ${getFormattedDate(client.createdAt)}` })}</span>
+                        </div>
                     </div>
                 </div>
                 {/* Status Badge */}

@@ -76,7 +76,8 @@ export const clientService = {
                 updatedAt: serverTimestamp(),
                 ...(input.emailPreset && { emailPreset: input.emailPreset }),
                 ...(input.defaultTemplateId && { defaultTemplateId: input.defaultTemplateId }),
-                ...(input.defaultThemeId && { defaultThemeId: input.defaultThemeId })
+                ...(input.defaultThemeId && { defaultThemeId: input.defaultThemeId }),
+                ...(input.linkedThemeIds && { linkedThemeIds: input.linkedThemeIds })
             });
 
             return clientId;
@@ -191,6 +192,10 @@ export const clientService = {
 
             if (input.defaultThemeId !== undefined) {
                 updates.defaultThemeId = input.defaultThemeId;
+            }
+
+            if (input.linkedThemeIds !== undefined) {
+                updates.linkedThemeIds = input.linkedThemeIds;
             }
 
             if (input.emailPreset) {
