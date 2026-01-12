@@ -60,3 +60,7 @@
 - `npm run build` - Build for production
 - `firebase deploy --only firestore:rules` - **Deploy rules (Do this after editing rules!)**
 - `firebase deploy --only functions` - Deploy functions
+
+7.  **Firestore Indexes**:
+    - ALWAYS check `firestore.indexes.json` when writing complex queries.
+    - **Action**: Run `firebase deploy --only firestore:indexes` (for both dev/prod) if you add a new composite index.

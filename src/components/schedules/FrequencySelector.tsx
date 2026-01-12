@@ -10,11 +10,20 @@ interface FrequencySelectorProps {
 
 const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }) => {
     const [frequency, setFrequency] = useState<ScheduleFrequency>(value.frequency || 'daily');
-    const [hour, setHour] = useState<number>(value.hour || 9);
+    const [hour, setHour] = useState<number>(value.hour ?? 9);
     const [dayOfWeek, setDayOfWeek] = useState<DayOfWeek>(value.dayOfWeek || 'monday');
     const [dayOfMonth, setDayOfMonth] = useState<number>(value.dayOfMonth || 1);
     const [cronExpression, setCronExpression] = useState<string>(value.cronExpression || '');
     const [error, setError] = useState<string>('');
+
+    // Sync local state when incoming value prop changes (e.g., when editing a different schedule)
+    useEffect(() => {
+        setFrequency(value.frequency || 'daily');
+        setHour(value.hour ?? 9);
+        setDayOfWeek(value.dayOfWeek || 'monday');
+        setDayOfMonth(value.dayOfMonth || 1);
+        setCronExpression(value.cronExpression || '');
+    }, [value.frequency, value.hour, value.dayOfWeek, value.dayOfMonth, value.cronExpression]);
 
     useEffect(() => {
         const config: ScheduleConfig = {

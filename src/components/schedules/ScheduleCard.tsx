@@ -29,6 +29,29 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
     const [showMenu, setShowMenu] = React.useState(false);
     const navigate = useNavigate();
 
+    // Helper to robustly convert various date formats (Date, Firestore Timestamp, ISO string)
+    const toDate = (value: any): Date | null => {
+        if (!value) return null;
+        // Already a valid Date
+        if (value instanceof Date && !isNaN(value.getTime())) {
+            return value;
+        }
+        // Firestore Timestamp (has toDate method)
+        if (typeof value?.toDate === 'function') {
+            return value.toDate();
+        }
+        // Firestore Timestamp-like object with seconds
+        if (typeof value?.seconds === 'number') {
+            return new Date(value.seconds * 1000);
+        }
+        // ISO string or other parseable format
+        if (typeof value === 'string' || typeof value === 'number') {
+            const parsed = new Date(value);
+            return isNaN(parsed.getTime()) ? null : parsed;
+        }
+        return null;
+    };
+
     const handleMenuClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         setShowMenu(!showMenu);
@@ -55,8 +78,8 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
         return <span className="status-badge active"><Power size={10} /> {t('card.status.active')}</span>;
     };
 
-    const nextRun = schedule.nextRun ? new Date(schedule.nextRun) : null;
-    const lastRun = schedule.lastRun ? new Date(schedule.lastRun) : null;
+    const nextRun = toDate(schedule.nextRun);
+    const lastRun = toDate(schedule.lastRun);
     const timeUntil = nextRun ? getTimeUntilNextRun(nextRun) : null;
 
     return (
