@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     LayoutDashboard,
     TrendingUp,
-    FileText,
+    Zap,
     Settings,
     LogOut,
     X,
@@ -57,7 +57,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     const navItems = [
         enableDashboard && { path: '/app/dashboard', label: t('appNavigation.dashboard'), icon: LayoutDashboard },
         enableAudit && { path: '/app/audit', label: t('appNavigation.audit'), icon: TrendingUp },
-        enableReports && { path: '/app/reports', label: t('appNavigation.reports'), icon: FileText },
+        enableReports && { path: '/app/reports', label: t('appNavigation.reports'), icon: Zap },
         enableReports && { path: '/app/schedules', label: t('appNavigation.schedules'), icon: Clock },
         enableReports && { path: '/app/templates', label: t('appNavigation.templates'), icon: LayoutTemplate },
         { path: '/app/themes', label: t('appNavigation.themes'), icon: Palette },

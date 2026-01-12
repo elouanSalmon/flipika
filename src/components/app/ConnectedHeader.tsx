@@ -3,10 +3,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
     LayoutDashboard,
-    FileText,
+    Zap,
     LogOut,
     Settings,
-    Zap,
     Sun,
     Moon,
     TrendingUp,
@@ -60,7 +59,7 @@ const ConnectedHeader = () => {
     const navItems = [
         enableDashboard && { path: "/app/dashboard", label: t('appNavigation.dashboard'), icon: LayoutDashboard },
         enableAudit && { path: "/app/audit", label: t('appNavigation.audit'), icon: TrendingUp },
-        enableReports && { path: "/app/reports", label: t('appNavigation.reports'), icon: FileText },
+        enableReports && { path: "/app/reports", label: t('appNavigation.reports'), icon: Zap },
         enableReports && { path: "/app/schedules", label: t('appNavigation.schedules'), icon: Clock },
         enableReports && { path: "/app/templates", label: t('appNavigation.templates'), icon: LayoutTemplate },
         { path: "/app/themes", label: t('appNavigation.themes'), icon: Palette },
