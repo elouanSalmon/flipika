@@ -9,7 +9,7 @@ import './ThemeSelector.css';
 
 interface ThemeSelectorProps {
     userId: string;
-    accountId?: string;
+    clientId?: string;
     selectedTheme: ReportTheme | null;
     onThemeSelect: (theme: ReportTheme | null) => void;
     onCreateTheme?: () => void;
@@ -17,7 +17,7 @@ interface ThemeSelectorProps {
 
 const ThemeSelector: React.FC<ThemeSelectorProps> = ({
     userId,
-    accountId,
+    clientId,
     selectedTheme,
     onThemeSelect,
     onCreateTheme,
@@ -32,16 +32,16 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
     }, [userId]);
 
     useEffect(() => {
-        // Auto-select theme linked to the account
-        if (accountId && themes.length > 0) {
+        // Auto-select theme linked to the client
+        if (clientId && themes.length > 0) {
             const linkedTheme = themes.find(theme =>
-                theme.linkedAccountIds.includes(accountId)
+                theme.linkedClientIds?.includes(clientId)
             );
             if (linkedTheme && linkedTheme.id !== selectedTheme?.id) {
                 onThemeSelect(linkedTheme);
             }
         }
-    }, [accountId, themes]);
+    }, [clientId, themes]);
 
     const loadThemes = async () => {
         try {
@@ -129,7 +129,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
                                         <div className="theme-selector-option-name">
                                             {theme.name}
                                             {theme.isDefault && <span className="theme-selector-badge">{t('selector.defaultBadge')}</span>}
-                                            {accountId && theme.linkedAccountIds.includes(accountId) && (
+                                            {clientId && theme.linkedClientIds?.includes(clientId) && (
                                                 <span className="theme-selector-badge linked">{t('selector.linkedBadge')}</span>
                                             )}
                                         </div>

@@ -561,8 +561,8 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
             <div className="report-editor-content">
                 <SlideLibrary
                     onAddSlide={handleAddSlide}
-                    userId={currentUser.uid}
-                    accountId={report.accountId}
+                    userId={currentUser?.uid}
+                    clientId={report?.clientId}
                     selectedTheme={selectedTheme}
                     onThemeSelect={handleThemeSelect}
                     onCreateTheme={() => setShowThemeManager(true)}

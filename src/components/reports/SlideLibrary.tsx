@@ -17,7 +17,7 @@ interface SlideLibraryProps {
     onAddSlide: (type: SlideType) => void;
     // Theme props (optional for Template context)
     userId?: string;
-    accountId?: string;
+    clientId?: string;
     selectedTheme?: ReportTheme | null;
     onThemeSelect?: (theme: ReportTheme | null) => void;
     onCreateTheme?: () => void;
@@ -103,7 +103,7 @@ const SLIDE_TEMPLATES: SlideTemplate[] = [
 const SlideLibrary: React.FC<SlideLibraryProps> = ({
     onAddSlide,
     userId,
-    accountId,
+    clientId,
     selectedTheme,
     onThemeSelect,
     onCreateTheme,
@@ -122,11 +122,11 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
     return (
         <div className="slide-library">
             {/* Theme Selector Section - Only show if props are provided */}
-            {userId && accountId && onThemeSelect && onCreateTheme && (
+            {userId && clientId && onThemeSelect && onCreateTheme && (
                 <div className="slide-library-theme-section">
                     <ThemeSelector
                         userId={userId}
-                        accountId={accountId}
+                        clientId={clientId}
                         selectedTheme={selectedTheme || null}
                         onThemeSelect={onThemeSelect}
                         onCreateTheme={onCreateTheme}

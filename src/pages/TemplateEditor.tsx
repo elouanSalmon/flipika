@@ -382,8 +382,8 @@ const TemplateEditor: React.FC = () => {
             <div className="report-editor-content">
                 <SlideLibrary
                     onAddSlide={handleAddSlide}
-                    userId={currentUser.uid}
-                    accountId={template.accountId || ''}
+                    userId={currentUser?.uid}
+                    clientId={template?.clientId}
                     selectedTheme={selectedTheme}
                     onThemeSelect={handleThemeSelect}
                     onCreateTheme={() => setShowThemeManager(true)}

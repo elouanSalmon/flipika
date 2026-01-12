@@ -2,32 +2,31 @@ import { useState } from 'react';
 import { Palette, Plus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../contexts/AuthContext';
-import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import ThemeManager from '../themes/ThemeManager';
-import dataService from '../../services/dataService';
-import type { Account } from '../../types/business';
+import { clientService } from '../../services/clientService';
+import type { Client } from '../../types/client';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const ThemesCard = () => {
     const { t } = useTranslation('settings');
     const { currentUser } = useAuth();
-    const { isConnected } = useGoogleAds();
     const [showThemeManager, setShowThemeManager] = useState(false);
-    const [accounts, setAccounts] = useState<Account[]>([]);
+    const [clients, setClients] = useState<Client[]>([]);
 
     useEffect(() => {
-        if (isConnected) {
-            loadAccounts();
+        if (currentUser) {
+            loadClients();
         }
-    }, [isConnected]);
+    }, [currentUser]);
 
-    const loadAccounts = async () => {
+    const loadClients = async () => {
+        if (!currentUser) return;
         try {
-            const data = await dataService.getAccounts();
-            setAccounts(data);
+            const data = await clientService.getClients(currentUser.uid);
+            setClients(data);
         } catch (error) {
-            console.error('Error loading accounts:', error);
+            console.error('Error loading clients:', error);
         }
     };
 
@@ -77,7 +76,7 @@ const ThemesCard = () => {
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
                     <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
                         <div className="p-6">
-                            <ThemeManager accounts={accounts} />
+                            <ThemeManager clients={clients} />
                             <button
                                 onClick={() => setShowThemeManager(false)}
                                 className="btn btn-secondary w-full"
