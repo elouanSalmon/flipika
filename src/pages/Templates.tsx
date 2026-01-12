@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, FileStack, Search, AlertCircle, Grid, List as ListIcon, Info } from 'lucide-react';
+import { Plus, LayoutTemplate, Search, AlertCircle, Grid, List as ListIcon, Info } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
@@ -375,7 +375,7 @@ const Templates: React.FC = () => {
             <div className="templates-header">
                 <div className="header-content">
                     <div className="header-title-row" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <FileStack size={32} className="header-icon" />
+                        <LayoutTemplate size={32} className="header-icon" />
                         <h1>{t('title')}</h1>
                         <button
                             onClick={() => setShowInfoModal(true)}
@@ -512,7 +512,7 @@ const Templates: React.FC = () => {
                     </>
                 ) : (
                     <div className="empty-state">
-                        <FileStack size={64} className="empty-icon" />
+                        <LayoutTemplate size={64} className="empty-icon" />
                         <h2>{t('emptyState.noTemplates')}</h2>
                         <p>
                             {searchQuery
