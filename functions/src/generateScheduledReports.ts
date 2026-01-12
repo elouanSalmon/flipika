@@ -109,6 +109,8 @@ async function generateReportFromSchedule(
 
     const templateData = templateDoc.data()!;
 
+    console.log(`Template ${templateId} has ${templateData.slideConfigs?.length || 0} slide configs`);
+
     // Get account name from cached accounts
     let accountName = accountId;
     try {
@@ -197,7 +199,7 @@ async function createReportFromTemplateInFunction(
         campaignNames: campaignNames || [],
         status: "draft",
         sections: [],
-        widgetIds: [],
+        slideIds: [],
         design: templateData.design || {},
         startDate: dateRange.start.toISOString(),
         endDate: dateRange.end.toISOString(),
@@ -211,13 +213,13 @@ async function createReportFromTemplateInFunction(
 
     // Create widgets from template widget configs
     const batch = db.batch();
-    const widgetIds: string[] = [];
+    const slideIds: string[] = [];
 
-    for (const widgetConfig of templateData.widgetConfigs || []) {
+    for (const widgetConfig of templateData.slideConfigs || []) {
         const widgetRef = db
             .collection("reports")
             .doc(reportId)
-            .collection("widgets")
+            .collection("slides")
             .doc();
 
         const widgetData = {
@@ -234,11 +236,11 @@ async function createReportFromTemplateInFunction(
         };
 
         batch.set(widgetRef, widgetData);
-        widgetIds.push(widgetRef.id);
+        slideIds.push(widgetRef.id);
     }
 
     // Update report with widget IDs
-    batch.update(reportRef, { widgetIds });
+    batch.update(reportRef, { slideIds });
 
     await batch.commit();
 

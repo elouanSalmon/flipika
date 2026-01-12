@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import { X, Loader2 } from 'lucide-react';
 import type { ScheduledReport, ScheduleConfig } from '../../types/scheduledReportTypes';
 import type { ReportTemplate } from '../../types/templateTypes';
@@ -36,6 +37,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
     accounts,
     editingSchedule,
 }) => {
+    const { t } = useTranslation('schedules');
     const [formData, setFormData] = useState<ScheduleFormData>({
         name: '',
         description: '',
@@ -83,11 +85,11 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
         const newErrors: Record<string, string> = {};
 
         if (!formData.name.trim()) {
-            newErrors.name = 'Le nom est requis';
+            newErrors.name = t('config.name.required');
         }
 
         if (!formData.templateId) {
-            newErrors.templateId = 'Veuillez sélectionner un template';
+            newErrors.templateId = t('config.template.required');
         }
 
 
@@ -141,7 +143,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
             <div className="modal-overlay" onClick={handleCloseAttempt}>
                 <div className="schedule-config-modal" onClick={(e) => e.stopPropagation()}>
                     <div className="modal-header">
-                        <h2>{editingSchedule ? 'Modifier le schedule' : 'Nouveau schedule'}</h2>
+                        <h2>{editingSchedule ? t('config.editTitle') : t('config.title')}</h2>
                         <button className="close-btn" onClick={handleCloseAttempt} disabled={isSubmitting}>
                             <X size={24} />
                         </button>
@@ -150,17 +152,17 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                     <form onSubmit={handleSubmit}>
                         <div className="modal-body">
                             <div className="form-section">
-                                <h3>Informations générales</h3>
+                                <h3>{t('config.generalInfo')}</h3>
 
                                 <div className="form-group">
                                     <label htmlFor="name">
-                                        <span className="label-text">Nom du schedule *</span>
+                                        <span className="label-text">{t('config.name.label')} *</span>
                                         <input
                                             id="name"
                                             type="text"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            placeholder="Ex: Rapport hebdomadaire"
+                                            placeholder={t('config.name.placeholder')}
                                             className={errors.name ? 'error' : ''}
                                             disabled={isSubmitting}
                                         />
@@ -170,12 +172,12 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
 
                                 <div className="form-group">
                                     <label htmlFor="description">
-                                        <span className="label-text">Description (optionnel)</span>
+                                        <span className="label-text">{t('config.description.label')} {t('config.description.optional')}</span>
                                         <textarea
                                             id="description"
                                             value={formData.description}
                                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                            placeholder="Description du schedule..."
+                                            placeholder={t('config.description.placeholder')}
                                             rows={3}
                                             disabled={isSubmitting}
                                         />
@@ -184,11 +186,11 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                             </div>
 
                             <div className="form-section">
-                                <h3>Configuration</h3>
+                                <h3>{t('config.configuration')}</h3>
 
                                 <div className="form-group">
                                     <label htmlFor="template">
-                                        <span className="label-text">Template *</span>
+                                        <span className="label-text">{t('config.template.label')} *</span>
                                         <select
                                             id="template"
                                             value={formData.templateId}
@@ -196,7 +198,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                             className={errors.templateId ? 'error' : ''}
                                             disabled={isSubmitting}
                                         >
-                                            <option value="">Sélectionner un template</option>
+                                            <option value="">{t('config.template.placeholder')}</option>
                                             {templates.map((template) => (
                                                 <option key={template.id} value={template.id}>
                                                     {template.name}
@@ -210,11 +212,11 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                 {selectedTemplate && (
                                     <div className="template-preview">
                                         <div className="preview-item">
-                                            <span className="preview-label">Période:</span>
+                                            <span className="preview-label">{t('config.preview.period')}:</span>
                                             <span className="preview-value">{selectedTemplate?.periodPreset}</span>
                                         </div>
                                         <div className="preview-item">
-                                            <span className="preview-label">Slides:</span>
+                                            <span className="preview-label">{t('config.preview.slides')}:</span>
                                             <span className="preview-value">{selectedTemplate?.slideConfigs?.length}</span>
                                         </div>
                                     </div>
@@ -224,7 +226,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                             </div>
 
                             <div className="form-section">
-                                <h3>Fréquence de génération</h3>
+                                <h3>{t('config.frequency')}</h3>
                                 <FrequencySelector
                                     value={formData.scheduleConfig}
                                     onChange={handleScheduleConfigChange}
@@ -234,7 +236,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
 
                         <div className="modal-footer">
                             <button type="button" className="btn-secondary" onClick={handleCloseAttempt} disabled={isSubmitting}>
-                                Annuler
+                                {t('config.actions.cancel')}
                             </button>
                             <button
                                 type="submit"
@@ -242,7 +244,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                 disabled={isSubmitting}
                             >
                                 {isSubmitting && <Loader2 size={18} className="animate-spin" />}
-                                {editingSchedule ? 'Enregistrer' : 'Créer le schedule'}
+                                {editingSchedule ? t('config.actions.save') : t('config.actions.create')}
                             </button>
                         </div>
                     </form>
@@ -253,9 +255,9 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                 isOpen={showUnsavedModal}
                 onClose={() => setShowUnsavedModal(false)}
                 onConfirm={resetAndClose}
-                title="Modifications non enregistrées"
-                message="Vous avez des modifications en cours. Êtes-vous sûr de vouloir fermer sans enregistrer ?"
-                confirmLabel="Fermer sans enregistrer"
+                title={t('config.unsavedChanges.title')}
+                message={t('config.unsavedChanges.message')}
+                confirmLabel={t('config.unsavedChanges.confirm')}
                 isDestructive={true}
             />
         </>,

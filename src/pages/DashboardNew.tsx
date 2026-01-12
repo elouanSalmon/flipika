@@ -228,7 +228,6 @@ const DashboardNew = () => {
                 <DateRangePicker value={dateRange} onChange={setDateRange} />
             </div>
 
-
             {/* KPIs Grid */}
             <MetricsGrid data={metricsData} loading={loading} />
 

@@ -42,6 +42,7 @@ import {
   handleStripeWebhook,
   syncUserBilling,
   syncUserBillingByCount,
+  stripe
 } from "./stripe";
 import { onSchedule } from "firebase-functions/v2/scheduler";
 import { onCall } from "firebase-functions/v2/https";
@@ -260,9 +261,9 @@ export const getAccessibleCustomers = onRequest({
 
             // Check if descriptive_name is valid and not just the ID
             if (descriptiveName &&
-                descriptiveName !== customerId &&
-                descriptiveName !== `customers/${customerId}` &&
-                descriptiveName.trim() !== '') {
+              descriptiveName !== customerId &&
+              descriptiveName !== `customers/${customerId}` &&
+              descriptiveName.trim() !== '') {
               accountName = descriptiveName.trim();
             } else {
               // Fallback to a readable format

@@ -306,14 +306,12 @@ export const getWidgetMetrics = onRequest({
         }
 
         // 6. Execute Query
+        // Normalize query: trim and collapse multiple whitespace to fix parsing issues
+        const normalizedQuery = query.trim().replace(/\s+/g, ' ');
         console.log('🔍 Executing Google Ads query for widget type:', widgetType);
-        console.log('📝 GAQL Query:', query.trim());
-        console.log('📏 Query length:', query.trim().length);
-        console.log('🔤 Query preview:', {
-            first100: query.trim().substring(0, 100),
-            last100: query.trim().substring(query.trim().length - 100)
-        });
-        const results = await customer.query(query.trim());
+        console.log('📝 Normalized GAQL Query:', normalizedQuery);
+        console.log('📏 Query length:', normalizedQuery.length);
+        const results = await customer.query(normalizedQuery);
         console.log('✅ Query executed successfully, rows returned:', results.length);
 
         // 7. Format response based on widget type
@@ -331,9 +329,9 @@ export const getWidgetMetrics = onRequest({
                 return {
                     impressions: (acc.impressions || 0) + (row.metrics?.impressions || 0),
                     clicks: (acc.clicks || 0) + (row.metrics?.clicks || 0),
-                    cost_micros: (acc.cost_micros || 0) + (row.metrics?.cost_micros || 0),
+                    cost_micros: (acc.cost_micros || 0) + (row.metrics?.costMicros || 0),
                     conversions: (acc.conversions || 0) + (row.metrics?.conversions || 0),
-                    conversions_value: (acc.conversions_value || 0) + (row.metrics?.conversions_value || 0),
+                    conversions_value: (acc.conversions_value || 0) + (row.metrics?.conversionsValue || 0),
                 };
             }, {
                 impressions: 0,
@@ -364,7 +362,11 @@ export const getWidgetMetrics = onRequest({
 
             res.status(200).json({
                 success: true,
-                metrics
+                metrics,
+                debug: {
+                    query: normalizedQuery,
+                    rowsReturned: results.length
+                }
             });
 
         } else if (widgetType === 'campaign_chart') {
@@ -407,7 +409,11 @@ export const getWidgetMetrics = onRequest({
             res.status(200).json({
                 success: true,
                 chartData,
-                campaigns
+                campaigns,
+                debug: {
+                    query: normalizedQuery,
+                    rowsReturned: results.length
+                }
             });
 
         } else if (widgetType === 'device_platform_split') {
@@ -478,7 +484,11 @@ export const getWidgetMetrics = onRequest({
             res.status(200).json({
                 success: true,
                 deviceData,
-                platformData
+                platformData,
+                debug: {
+                    query: normalizedQuery,
+                    rowsReturned: results.length
+                }
             });
 
         } else if (widgetType === 'top_performers') {
@@ -508,7 +518,11 @@ export const getWidgetMetrics = onRequest({
 
             res.status(200).json({
                 success: true,
-                data
+                data,
+                debug: {
+                    query: normalizedQuery,
+                    rowsReturned: results.length
+                }
             });
 
         } else if (widgetType === 'heatmap') {
@@ -573,7 +587,11 @@ export const getWidgetMetrics = onRequest({
 
             res.status(200).json({
                 success: true,
-                heatmapData
+                heatmapData,
+                debug: {
+                    query: normalizedQuery,
+                    rowsReturned: results.length
+                }
             });
 
         } else {

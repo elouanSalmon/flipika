@@ -121,18 +121,20 @@ export const getAdCreatives = onRequest({
                 metrics.cost_micros,
                 metrics.conversions
             FROM ad_group_ad
-            WHERE ad_group_ad.status = 'ENABLED'
+            WHERE ad_group_ad.status IN ('ENABLED', 'PAUSED')
                 ${campaignFilter}
-                AND metrics.impressions > 0
             ORDER BY metrics.impressions DESC
             LIMIT 50
         `;
 
-        console.log('🔍 Executing Ad Creatives query');
-        console.log('📝 GAQL Query:', query.trim());
-
         // 6. Execute Query
-        const results = await customer.query(query);
+        // Normalize query: trim and collapse multiple whitespace to fix parsing issues
+        const normalizedQuery = query.trim().replace(/\s+/g, ' ');
+
+        console.log('🔍 Executing Ad Creatives query');
+        console.log('📝 Normalized GAQL Query:', normalizedQuery);
+
+        const results = await customer.query(normalizedQuery);
         console.log('✅ Query executed successfully, ads returned:', results.length);
 
         // 7. Transform Data for Frontend
@@ -159,15 +161,15 @@ export const getAdCreatives = onRequest({
         }
 
         const adCreatives: AdCreative[] = results.map((row: any) => {
-            const ad = row.ad_group_ad?.ad;
+            const ad = row.adGroupAd?.ad;
             const adType = ad?.type || 'UNKNOWN';
 
             console.log('🔍 Processing ad:', {
                 adId: ad?.id,
                 adType,
-                hasRSA: !!ad?.responsive_search_ad,
-                hasDisplay: !!ad?.responsive_display_ad,
-                hasETA: !!ad?.expanded_text_ad,
+                hasRSA: !!ad?.responsiveSearchAd,
+                hasDisplay: !!ad?.responsiveDisplayAd,
+                hasETA: !!ad?.expandedTextAd,
             });
 
             let headlines: string[] = [];
@@ -179,49 +181,57 @@ export const getAdCreatives = onRequest({
             // 3 = EXPANDED_TEXT_AD
             // 10 = RESPONSIVE_SEARCH_AD  
             // 12 = RESPONSIVE_DISPLAY_AD
+            // Note: The google-ads-api Node library returns properties in camelCase!
 
             // Handle Responsive Search Ads (type 10 or string 'RESPONSIVE_SEARCH_AD')
-            if ((adType === 10 || adType === 'RESPONSIVE_SEARCH_AD') && ad?.responsive_search_ad) {
+            if ((adType === 10 || adType === 'RESPONSIVE_SEARCH_AD') && ad?.responsiveSearchAd) {
                 type = 'SEARCH';
-                headlines = ad.responsive_search_ad.headlines?.map((h: any) => h.text || '') || [];
-                descriptions = ad.responsive_search_ad.descriptions?.map((d: any) => d.text || '') || [];
+                headlines = ad.responsiveSearchAd.headlines?.map((h: any) => h.text || '') || [];
+                descriptions = ad.responsiveSearchAd.descriptions?.map((d: any) => d.text || '') || [];
                 console.log('✅ RSA ad:', { headlines: headlines.length, descriptions: descriptions.length });
             }
             // Handle Responsive Display Ads (type 12 or string 'RESPONSIVE_DISPLAY_AD')
-            else if ((adType === 12 || adType === 'RESPONSIVE_DISPLAY_AD') && ad?.responsive_display_ad) {
+            else if ((adType === 12 || adType === 'RESPONSIVE_DISPLAY_AD') && ad?.responsiveDisplayAd) {
                 type = 'DISPLAY';
-                headlines = ad.responsive_display_ad.headlines?.map((h: any) => h.text || '') || [];
-                descriptions = ad.responsive_display_ad.descriptions?.map((d: any) => d.text || '') || [];
+                headlines = ad.responsiveDisplayAd.headlines?.map((h: any) => h.text || '') || [];
+                descriptions = ad.responsiveDisplayAd.descriptions?.map((d: any) => d.text || '') || [];
 
                 // Get first marketing image if available
-                const marketingImages = ad.responsive_display_ad.marketing_images;
+                const marketingImages = ad.responsiveDisplayAd.marketingImages;
                 if (marketingImages && marketingImages.length > 0) {
                     imageUrl = marketingImages[0].asset || null;
                 }
                 console.log('✅ Display ad:', { headlines: headlines.length, descriptions: descriptions.length });
             }
             // Handle Legacy Expanded Text Ads (type 3 or string 'EXPANDED_TEXT_AD')
-            else if ((adType === 3 || adType === 'EXPANDED_TEXT_AD') && ad?.expanded_text_ad) {
+            else if ((adType === 3 || adType === 'EXPANDED_TEXT_AD') && ad?.expandedTextAd) {
                 type = 'SEARCH';
-                const eta = ad.expanded_text_ad;
+                const eta = ad.expandedTextAd;
                 headlines = [
-                    eta.headline_part1 || '',
-                    eta.headline_part2 || ''
+                    eta.headlinePart1 || '',
+                    eta.headlinePart2 || ''
                 ].filter(h => h);
                 descriptions = [eta.description || ''].filter(d => d);
                 console.log('✅ ETA ad:', { headlines: headlines.length, descriptions: descriptions.length });
             } else {
-                console.warn('⚠️ Unknown ad type or missing data:', adType);
+                console.warn('⚠️ Unknown ad type or missing data:', adType, 'Available keys:', Object.keys(ad || {}));
             }
 
             // Extract final URL and create display URL
-            const finalUrls = ad?.final_urls || [];
+            const finalUrls = ad?.finalUrls || [];
             const finalUrl = finalUrls[0] || '';
-            const displayUrl = finalUrl ? new URL(finalUrl).hostname.replace('www.', '') : '';
+            let displayUrl = '';
+            try {
+                if (finalUrl) {
+                    displayUrl = new URL(finalUrl).hostname.replace('www.', '');
+                }
+            } catch (e) {
+                displayUrl = finalUrl;
+            }
 
-            // Extract metrics
+            // Extract metrics (also use camelCase)
             const metrics = row.metrics || {};
-            const costMicros = metrics.cost_micros || 0;
+            const costMicros = metrics.costMicros || 0;
 
             return {
                 id: ad?.id?.toString() || '',
@@ -234,8 +244,8 @@ export const getAdCreatives = onRequest({
                 displayUrl,
                 campaignId: row.campaign?.id?.toString() || '',
                 campaignName: row.campaign?.name || '',
-                adGroupId: row.ad_group?.id?.toString() || '',
-                adGroupName: row.ad_group?.name || '',
+                adGroupId: row.adGroup?.id?.toString() || '',
+                adGroupName: row.adGroup?.name || '',
                 metrics: {
                     impressions: metrics.impressions || 0,
                     clicks: metrics.clicks || 0,
@@ -260,7 +270,11 @@ export const getAdCreatives = onRequest({
 
         res.status(200).json({
             success: true,
-            ads: adCreatives
+            ads: adCreatives,
+            debug: {
+                query: normalizedQuery,
+                rowsReturned: results.length
+            }
         });
 
     } catch (error: any) {

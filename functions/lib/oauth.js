@@ -52,7 +52,8 @@ const getOAuth2Client = async (origin) => {
 };
 // Generate a random state for CSRF protection
 const generateState = () => {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    // Generate a sufficiently long random string (approx 40-50 chars)
+    return Array(4).fill(0).map(() => Math.random().toString(36).substring(2)).join('');
 };
 /**
  * Initiates the OAuth flow by generating an authorization URL
@@ -104,8 +105,10 @@ exports.initiateOAuth = (0, https_1.onRequest)({ memory: '512MiB' }, async (req,
             const authUrl = oauth2Client.generateAuthUrl({
                 access_type: 'offline',
                 scope: [
-                    'https://www.googleapis.com/auth/adwords',
-                    'https://www.googleapis.com/auth/analytics.readonly'
+                    'openid',
+                    'https://www.googleapis.com/auth/userinfo.email',
+                    'https://www.googleapis.com/auth/userinfo.profile',
+                    'https://www.googleapis.com/auth/adwords'
                 ],
                 state,
                 prompt: 'consent' // Force consent to get refresh token
