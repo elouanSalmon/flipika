@@ -723,6 +723,7 @@
   "filters": {
     "title": "Filtres",
     "allAccounts": "Tous les comptes",
+    "allClients": "Tous les clients",
     "allCampaigns": "Toutes les campagnes"
   },
   "actions": {

@@ -45,6 +45,7 @@ import NotFound from './pages/NotFound';
 import ClientsPage from './pages/ClientsPage';
 import ClientEditPage from './pages/ClientEditPage';
 import ReportPreview from './pages/ReportPreview';
+import TemplateEditor from './pages/TemplateEditor';
 // ... (existing imports, but cleaner to just add route and import at top separately)
 // Actually, relying on AllowMultiple=false means ONE block. 
 // I'll do two replace calls. One for import, one for route.
@@ -173,6 +174,15 @@ const AppRoutes = () => {
         <Route path="/app/reports/:reportId/preview" element={
           <ProtectedRoute>
             <ReportPreview />
+          </ProtectedRoute>
+        } />
+      )}
+
+      {/* Template Editor - Full Page (No AppLayout) */}
+      {enableReports && (
+        <Route path="/app/templates/editor/:id" element={
+          <ProtectedRoute>
+            <TemplateEditor />
           </ProtectedRoute>
         } />
       )}

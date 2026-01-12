@@ -6,7 +6,7 @@ import { HexColorPicker } from 'react-colorful';
 import themeService from '../../services/themeService';
 import { getAllThemePresets } from '../../data/defaultThemes';
 import type { ReportTheme, ThemePreset, CreateThemeDTO } from '../../types/reportThemes';
-import type { Account } from '../../types/business';
+import type { Client } from '../../types/client';
 import ThemePreview from './ThemePreview';
 import { useTranslation } from 'react-i18next';
 import './ThemeEditor.css';
@@ -14,7 +14,7 @@ import './ThemeEditor.css';
 interface ThemeEditorProps {
     userId: string;
     theme?: ReportTheme | null;
-    accounts?: Account[];
+    clients?: Client[];
     onSave: (theme: ReportTheme) => void;
     onClose: () => void;
 }
@@ -22,7 +22,7 @@ interface ThemeEditorProps {
 const ThemeEditor: React.FC<ThemeEditorProps> = ({
     userId,
     theme,
-    accounts = [],
+    clients = [],
     onSave,
     onClose,
 }) => {
@@ -53,10 +53,23 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
     const [name, setName] = useState(theme?.name || '');
     const [description, setDescription] = useState(theme?.description || '');
     const [design, setDesign] = useState(theme?.design || defaultDesign);
-    const [linkedAccountIds, setLinkedAccountIds] = useState<string[]>(theme?.linkedAccountIds || []);
+    const [linkedClientIds, setLinkedClientIds] = useState<string[]>(theme?.linkedClientIds || []);
     const [isDefault, setIsDefault] = useState(theme?.isDefault || false);
     const [saving, setSaving] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState<string | null>(null);
+
+    // Load clients that have this theme as defaultThemeId when editing
+    React.useEffect(() => {
+        const loadLinkedClients = async () => {
+            if (theme?.id && clients.length > 0) {
+                const linkedIds = clients
+                    .filter(client => client.defaultThemeId === theme.id)
+                    .map(client => client.id);
+                setLinkedClientIds(linkedIds);
+            }
+        };
+        loadLinkedClients();
+    }, [theme?.id, clients]);
 
     const handleApplyPreset = (preset: ThemePreset) => {
         setDesign(preset.design);
@@ -66,11 +79,11 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
         toast.success(t('editor.presetApplied', { name: preset.name }));
     };
 
-    const toggleAccountLink = (accountId: string) => {
-        setLinkedAccountIds(prev =>
-            prev.includes(accountId)
-                ? prev.filter(id => id !== accountId)
-                : [...prev, accountId]
+    const toggleClientLink = (clientId: string) => {
+        setLinkedClientIds(prev =>
+            prev.includes(clientId)
+                ? prev.filter(id => id !== clientId)
+                : [...prev, clientId]
         );
     };
 
@@ -136,9 +149,16 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                     name,
                     description,
                     design,
-                    linkedAccountIds,
+                    linkedClientIds,
                     isDefault,
                 });
+
+                // Update all linked clients' defaultThemeId
+                const { clientService } = await import('../../services/clientService');
+                const updatePromises = linkedClientIds.map(clientId =>
+                    clientService.updateClient(userId, clientId, { defaultThemeId: theme.id })
+                );
+                await Promise.all(updatePromises);
 
                 const updatedTheme = await themeService.getTheme(theme.id);
                 if (updatedTheme) {
@@ -151,11 +171,19 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                     name,
                     description,
                     design,
-                    linkedAccountIds,
+                    linkedClientIds,
                     isDefault,
                 };
 
                 const newTheme = await themeService.createTheme(userId, themeData);
+
+                // Update all linked clients' defaultThemeId
+                const { clientService } = await import('../../services/clientService');
+                const updatePromises = linkedClientIds.map(clientId =>
+                    clientService.updateClient(userId, clientId, { defaultThemeId: newTheme.id })
+                );
+                await Promise.all(updatePromises);
+
                 onSave(newTheme);
                 toast.success(t('editor.successCreate'));
             }
@@ -347,23 +375,23 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                             </div>
                         </div>
 
-                        {/* Linked Accounts */}
-                        {accounts.length > 0 && (
+                        {/* Linked Clients */}
+                        {clients.length > 0 && (
                             <div className="theme-editor-section">
                                 <div className="theme-editor-section-header">
-                                    <h3>{t('editor.linkedAccountsTitle')}</h3>
-                                    <p>{t('editor.linkedAccountsDesc')}</p>
+                                    <h3>{t('editor.linkedClientsTitle')}</h3>
+                                    <p>{t('editor.linkedClientsDesc')}</p>
                                 </div>
                                 <div className="theme-editor-accounts-list">
-                                    {accounts.map(account => (
-                                        <label key={account.id} className="theme-editor-checkbox-label">
+                                    {clients.map(client => (
+                                        <label key={client.id} className="theme-editor-checkbox-label">
                                             <input
                                                 type="checkbox"
-                                                checked={linkedAccountIds.includes(account.id)}
-                                                onChange={() => toggleAccountLink(account.id)}
+                                                checked={linkedClientIds.includes(client.id)}
+                                                onChange={() => toggleClientLink(client.id)}
                                                 className="theme-editor-checkbox-input"
                                             />
-                                            <span>{account.name}</span>
+                                            <span>{client.name}</span>
                                         </label>
                                     ))}
                                 </div>
@@ -397,7 +425,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                                     description,
                                     design,
                                     userId,
-                                    linkedAccountIds,
+                                    linkedClientIds,
                                     isDefault,
                                     createdAt: new Date(),
                                     updatedAt: new Date()

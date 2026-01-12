@@ -178,6 +178,8 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                 email,
                 googleAdsCustomerId: cleanAdsId,
                 logoFile: logoFile || undefined,
+                defaultTemplateId: defaultTemplateId || undefined,
+                defaultThemeId: defaultThemeId || undefined,
                 emailPreset: {
                     subject: emailSubject,
                     body: emailBody
@@ -314,73 +316,71 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             </div>
 
             {/* Preset Configuration Section */}
-            {initialData && (
-                <div className="client-form-section">
-                    <div className="client-form-section-header">
-                        <div>
-                            <h3 className="client-form-section-title">
-                                <Palette />
-                                {t('form.presets.title')}
-                            </h3>
-                            <p className="client-form-section-description">
-                                {t('form.presets.description')}
-                            </p>
-                        </div>
-                        {(defaultTemplateId || defaultThemeId) && (
-                            <button
-                                type="button"
-                                onClick={handleClearPreset}
-                                className="client-form-preset-clear"
-                            >
-                                <X />
-                                {t('form.presets.clear')}
-                            </button>
-                        )}
+            <div className="client-form-section">
+                <div className="client-form-section-header">
+                    <div>
+                        <h3 className="client-form-section-title">
+                            <Palette />
+                            {t('form.presets.title')}
+                        </h3>
+                        <p className="client-form-section-description">
+                            {t('form.presets.description')}
+                        </p>
                     </div>
-
-                    <div className="client-form-group">
-                        <label htmlFor="defaultTemplate" className="client-form-label">
-                            {t('form.presets.template.label')}
-                        </label>
-                        <select
-                            id="defaultTemplate"
-                            value={defaultTemplateId}
-                            onChange={(e) => setDefaultTemplateId(e.target.value)}
-                            disabled={loadingPresets}
-                            className="client-form-select"
+                    {(defaultTemplateId || defaultThemeId) && (
+                        <button
+                            type="button"
+                            onClick={handleClearPreset}
+                            className="client-form-preset-clear"
                         >
-                            <option value="">{t('form.presets.template.placeholder')}</option>
-                            {templates.map((template) => (
-                                <option key={template.id} value={template.id}>
-                                    {template.name}
-                                </option>
-                            ))}
-                        </select>
-                        {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
-                    </div>
-
-                    <div className="client-form-group">
-                        <label htmlFor="defaultTheme" className="client-form-label">
-                            {t('form.presets.theme.label')}
-                        </label>
-                        <select
-                            id="defaultTheme"
-                            value={defaultThemeId}
-                            onChange={(e) => setDefaultThemeId(e.target.value)}
-                            disabled={loadingPresets}
-                            className="client-form-select"
-                        >
-                            <option value="">{t('form.presets.theme.placeholder')}</option>
-                            {themes.map((theme) => (
-                                <option key={theme.id} value={theme.id}>
-                                    {theme.name}
-                                </option>
-                            ))}
-                        </select>
-                        {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
-                    </div>
+                            <X />
+                            {t('form.presets.clear')}
+                        </button>
+                    )}
                 </div>
-            )}
+
+                <div className="client-form-group">
+                    <label htmlFor="defaultTemplate" className="client-form-label">
+                        {t('form.presets.template.label')}
+                    </label>
+                    <select
+                        id="defaultTemplate"
+                        value={defaultTemplateId}
+                        onChange={(e) => setDefaultTemplateId(e.target.value)}
+                        disabled={loadingPresets}
+                        className="client-form-select"
+                    >
+                        <option value="">{t('form.presets.template.placeholder')}</option>
+                        {templates.map((template) => (
+                            <option key={template.id} value={template.id}>
+                                {template.name}
+                            </option>
+                        ))}
+                    </select>
+                    {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
+                </div>
+
+                <div className="client-form-group">
+                    <label htmlFor="defaultTheme" className="client-form-label">
+                        {t('form.presets.theme.label')}
+                    </label>
+                    <select
+                        id="defaultTheme"
+                        value={defaultThemeId}
+                        onChange={(e) => setDefaultThemeId(e.target.value)}
+                        disabled={loadingPresets}
+                        className="client-form-select"
+                    >
+                        <option value="">{t('form.presets.theme.placeholder')}</option>
+                        {themes.map((theme) => (
+                            <option key={theme.id} value={theme.id}>
+                                {theme.name}
+                            </option>
+                        ))}
+                    </select>
+                    {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
+                </div>
+            </div>
 
             {/* Email Configuration Section */}
             <div className="client-form-section">

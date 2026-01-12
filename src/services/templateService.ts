@@ -347,3 +347,74 @@ export async function createTemplateFromReport(
         throw new Error('Failed to create template from report');
     }
 }
+
+/**
+ * Get template with its slide configurations (for template editor)
+ */
+export async function getTemplateWithSlides(templateId: string): Promise<{
+    template: ReportTemplate;
+    slides: TemplateSlideConfig[];
+} | null> {
+    try {
+        const template = await getTemplate(templateId);
+
+        if (!template) {
+            return null;
+        }
+
+        return {
+            template,
+            slides: template.slideConfigs || [],
+        };
+    } catch (error) {
+        console.error('Error getting template with slides:', error);
+        throw new Error('Failed to get template with slides');
+    }
+}
+
+/**
+ * Save template with slides (for template editor)
+ */
+export async function saveTemplateWithSlides(
+    templateId: string,
+    updates: {
+        name?: string;
+        description?: string;
+        design?: any;
+    },
+    slideConfigs: TemplateSlideConfig[]
+): Promise<void> {
+    try {
+        const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
+        const firestoreUpdates: any = {
+            ...updates,
+            slideConfigs,
+            updatedAt: serverTimestamp(),
+        };
+
+        await updateDoc(docRef, firestoreUpdates);
+    } catch (error) {
+        console.error('Error saving template with slides:', error);
+        throw new Error('Failed to save template with slides');
+    }
+}
+
+/**
+ * Update template slides only (for template editor)
+ */
+export async function updateTemplateSlides(
+    templateId: string,
+    slideConfigs: TemplateSlideConfig[]
+): Promise<void> {
+    try {
+        const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
+        await updateDoc(docRef, {
+            slideConfigs,
+            updatedAt: serverTimestamp(),
+        });
+    } catch (error) {
+        console.error('Error updating template slides:', error);
+        throw new Error('Failed to update template slides');
+    }
+}
+

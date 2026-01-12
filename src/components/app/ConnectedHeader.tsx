@@ -6,7 +6,7 @@ import {
     Presentation,
     LogOut,
     Settings,
-    Zap,
+    Sparkles,
     Sun,
     Moon,
     TrendingUp,
@@ -84,7 +84,7 @@ const ConnectedHeader = () => {
                         onClick={() => navigate('/app/reports')}
                     >
                         <div className="logo-icon">
-                            <Zap size={24} />
+                            <Sparkles size={24} />
                         </div>
                         <div className="logo-content">
                             <span className="logo-text gradient-text">Flipika</span>

@@ -190,10 +190,11 @@ const Templates: React.FC = () => {
         if (!currentUser) return;
 
         try {
-            await createTemplate(currentUser.uid, config);
+            const templateId = await createTemplate(currentUser.uid, config);
             toast.success(t('toast.created'));
             setShowCreateModal(false);
-            loadTemplates();
+            // Redirect to template editor
+            navigate(`/app/templates/editor/${templateId}`);
         } catch (error) {
             console.error('Error creating template:', error);
             toast.error(t('toast.createError'));

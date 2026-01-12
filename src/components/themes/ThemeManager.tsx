@@ -10,7 +10,7 @@ import FeatureAccessGuard from '../common/FeatureAccessGuard';
 import Spinner from '../common/Spinner';
 import { useTranslation } from 'react-i18next';
 import type { ReportTheme } from '../../types/reportThemes';
-import type { Account } from '../../types/business';
+import type { Client } from '../../types/client';
 import ThemePreview from './ThemePreview';
 import ThemeEditor from './ThemeEditor';
 import { useTutorial } from '../../contexts/TutorialContext';
@@ -20,11 +20,11 @@ import FilterBar from '../common/FilterBar';
 import './ThemeManager.css'; // Keeping for potential specific tweaks
 
 interface ThemeManagerProps {
-    accounts?: Account[];
+    clients?: Client[];
     compact?: boolean;
 }
 
-const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = false }) => {
+const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = false }) => {
     const { currentUser } = useAuth();
     const { isConnected } = useGoogleAds();
     const { canAccess } = useSubscription();
@@ -40,13 +40,13 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
     const [showInfoModal, setShowInfoModal] = useState(false);
 
     // Filters
-    const [selectedAccountId, setSelectedAccountId] = useState<string>('');
+    const [selectedClientId, setSelectedClientId] = useState<string>('');
 
     const hasAccess = (canAccess && isConnected) || isDemoMode;
     const canCreateTheme = hasAccess; // Harmonized naming
 
-    const filteredThemes = selectedAccountId
-        ? themes.filter(theme => theme.linkedAccountIds.includes(selectedAccountId))
+    const filteredThemes = selectedClientId
+        ? themes.filter(theme => clients.find(c => c.id === selectedClientId)?.defaultThemeId === theme.id)
         : themes;
 
     useEffect(() => {
@@ -186,7 +186,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                     <ThemeEditor
                         userId={currentUser.uid}
                         theme={editingTheme}
-                        accounts={accounts}
+                        clients={clients}
                         onSave={handleSaveTheme}
                         onClose={() => setShowEditor(false)}
                     />
@@ -248,12 +248,12 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
 
             <FeatureAccessGuard featureName="les thèmes">
                 {
-                    accounts.length > 0 && (
+                    clients.length > 0 && (
                         <div className="mb-6">
                             <FilterBar
-                                accounts={accounts.map(a => ({ id: a.id, name: a.name }))}
-                                selectedAccountId={selectedAccountId}
-                                onAccountChange={setSelectedAccountId}
+                                clients={clients.map(c => ({ id: c.id, name: c.name }))}
+                                selectedClientId={selectedClientId}
+                                onClientChange={setSelectedClientId}
                             />
                         </div>
                     )
@@ -267,7 +267,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                             <p>{t('emptyState.notFoundDescription')}</p>
                             <button
                                 className="btn-secondary"
-                                onClick={() => setSelectedAccountId('')}
+                                onClick={() => setSelectedClientId('')}
                             >
                                 {t('emptyState.viewAllButton')}
                             </button>
@@ -318,16 +318,19 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
 
                                         {/* Footer / Stats */}
                                         <div className="flex items-center justify-between mt-4">
-                                            {theme.linkedAccountIds.length > 0 ? (
-                                                <div className="flex items-center gap-1.5 text-xs text-primary bg-primary/5 px-2 py-1 rounded-md border border-primary/10">
-                                                    <LinkIcon size={12} />
-                                                    <span>
-                                                        {t('card.linkedAccounts_plural', { count: theme.linkedAccountIds.length })}
-                                                    </span>
-                                                </div>
-                                            ) : (
-                                                <span className="text-xs text-gray-400">{t('card.noLinkedAccounts')}</span>
-                                            )}
+                                            {(() => {
+                                                const linkedCount = clients.filter(c => c.defaultThemeId === theme.id).length;
+                                                return linkedCount > 0 ? (
+                                                    <div className="flex items-center gap-1.5 text-xs text-primary bg-primary/5 px-2 py-1 rounded-md border border-primary/10">
+                                                        <LinkIcon size={12} />
+                                                        <span>
+                                                            {t('card.linkedClients_plural', { count: linkedCount })}
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <span className="text-xs text-gray-400">{t('card.noLinkedClients')}</span>
+                                                );
+                                            })()}
                                         </div>
                                     </div>
 
@@ -367,7 +370,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ accounts = [], compact = fa
                     <ThemeEditor
                         userId={currentUser.uid}
                         theme={editingTheme}
-                        accounts={accounts}
+                        clients={clients}
                         onSave={handleSaveTheme}
                         onClose={() => setShowEditor(false)}
                     />

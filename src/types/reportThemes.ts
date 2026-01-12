@@ -1,7 +1,7 @@
 import type { ReportDesign } from './reportTypes';
 
 /**
- * Report Theme - Custom design template that can be linked to Google Ads accounts
+ * Report Theme - Custom design template that can be linked to clients
  */
 export interface ReportTheme {
     id: string;
@@ -20,8 +20,8 @@ export interface ReportTheme {
         recommendations: boolean;
     };
 
-    // Linked Google Ads accounts
-    linkedAccountIds: string[];
+    // Linked Clients
+    linkedClientIds: string[];
 
     // Metadata
     isDefault: boolean;

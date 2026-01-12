@@ -74,7 +74,9 @@ export const clientService = {
                 logoUrl: logoUrl,
                 createdAt: serverTimestamp(), // Use server timestamp
                 updatedAt: serverTimestamp(),
-                ...(input.emailPreset && { emailPreset: input.emailPreset })
+                ...(input.emailPreset && { emailPreset: input.emailPreset }),
+                ...(input.defaultTemplateId && { defaultTemplateId: input.defaultTemplateId }),
+                ...(input.defaultThemeId && { defaultThemeId: input.defaultThemeId })
             });
 
             return clientId;

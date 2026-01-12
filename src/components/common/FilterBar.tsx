@@ -4,31 +4,38 @@ import { useTranslation } from 'react-i18next';
 import type { Campaign } from '../../types/business';
 
 interface FilterBarProps {
-    accounts: { id: string; name: string }[];
+    accounts?: { id: string; name: string }[];
+    clients?: { id: string; name: string }[];
     campaigns?: Campaign[];
-    selectedAccountId: string;
+    selectedAccountId?: string;
+    selectedClientId?: string;
     selectedCampaignId?: string;
-    onAccountChange: (accountId: string) => void;
+    onAccountChange?: (accountId: string) => void;
+    onClientChange?: (clientId: string) => void;
     onCampaignChange?: (campaignId: string) => void;
     loadingCampaigns?: boolean;
     className?: string;
 }
 
 const FilterBar: React.FC<FilterBarProps> = ({
-    accounts,
+    accounts = [],
+    clients = [],
     campaigns = [],
-    selectedAccountId,
+    selectedAccountId = '',
+    selectedClientId = '',
     selectedCampaignId = '',
     onAccountChange,
+    onClientChange,
     onCampaignChange,
     loadingCampaigns = false,
     className = '',
 }) => {
     const { t } = useTranslation('common');
-    const hasActiveFilters = selectedAccountId || selectedCampaignId;
+    const hasActiveFilters = selectedAccountId || selectedClientId || selectedCampaignId;
 
     const handleClearFilters = () => {
-        onAccountChange('');
+        if (onAccountChange) onAccountChange('');
+        if (onClientChange) onClientChange('');
         if (onCampaignChange) onCampaignChange('');
     };
 
@@ -41,20 +48,40 @@ const FilterBar: React.FC<FilterBarProps> = ({
 
             <div className="flex flex-wrap gap-4 flex-1 w-full sm:w-auto">
                 {/* Account Selector */}
-                <div className="flex-1 sm:flex-none sm:min-w-[200px]">
-                    <select
-                        className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
-                        value={selectedAccountId}
-                        onChange={(e) => onAccountChange(e.target.value)}
-                    >
-                        <option value="">{t('filters.allAccounts')}</option>
-                        {accounts.map((account) => (
-                            <option key={account.id} value={account.id}>
-                                {account.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                {accounts.length > 0 && onAccountChange && (
+                    <div className="flex-1 sm:flex-none sm:min-w-[200px]">
+                        <select
+                            className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                            value={selectedAccountId}
+                            onChange={(e) => onAccountChange(e.target.value)}
+                        >
+                            <option value="">{t('filters.allAccounts')}</option>
+                            {accounts.map((account) => (
+                                <option key={account.id} value={account.id}>
+                                    {account.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
+
+                {/* Client Selector */}
+                {clients.length > 0 && onClientChange && (
+                    <div className="flex-1 sm:flex-none sm:min-w-[200px]">
+                        <select
+                            className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                            value={selectedClientId}
+                            onChange={(e) => onClientChange(e.target.value)}
+                        >
+                            <option value="">{t('filters.allClients')}</option>
+                            {clients.map((client) => (
+                                <option key={client.id} value={client.id}>
+                                    {client.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                )}
 
                 {/* Campaign Selector - Only show if onCampaignChange provided and account selected */}
                 {onCampaignChange && selectedAccountId && (

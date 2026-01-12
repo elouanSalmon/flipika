@@ -12,6 +12,8 @@ import { fetchCampaigns } from '../services/googleAds';
 
 import type { EditableReport } from '../types/reportTypes';
 import type { Campaign } from '../types/business';
+import type { Client } from '../types/client';
+import { clientService } from '../services/clientService';
 import ReportCard from '../components/reports/ReportCard/ReportCard';
 import FilterBar from '../components/common/FilterBar';
 import InfoModal from '../components/common/InfoModal';
@@ -42,6 +44,7 @@ const ReportsList: React.FC = () => {
     const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [statusCounts, setStatusCounts] = useState({ draft: 0, published: 0, archived: 0 });
+    const [clients, setClients] = useState<Client[]>([]);
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -75,6 +78,16 @@ const ReportsList: React.FC = () => {
             setStatusCounts(counts);
         } catch (error) {
             console.error('Error loading status counts:', error);
+        }
+    };
+
+    const loadClients = async () => {
+        if (!currentUser) return;
+        try {
+            const data = await clientService.getClients(currentUser.uid);
+            setClients(data);
+        } catch (error) {
+            console.error('Error loading clients:', error);
         }
     };
 
@@ -133,6 +146,7 @@ const ReportsList: React.FC = () => {
         if (currentUser) {
             loadReports();
             loadStatusCounts();
+            loadClients();
         }
     }, [currentUser]);
 
@@ -357,6 +371,7 @@ const ReportsList: React.FC = () => {
                                         onClick={() => handleReportClick(report.id)}
                                         onDeleted={handleReportDeleted}
                                         accounts={accounts}
+                                        clients={clients}
                                     />
                                 ))}
                             </div>

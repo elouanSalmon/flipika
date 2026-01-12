@@ -381,53 +381,6 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
 
                             </div>
 
-                            {/* Slides Configuration */}
-                            <div className="form-section">
-                                <div className="section-header">
-                                    <div>
-                                        <h3>{t('configModal.slides.title')}</h3>
-                                        <p className="section-description">
-                                            {t('configModal.slides.description')}
-                                        </p>
-                                    </div>
-                                    <button
-                                        type="button"
-                                        className="add-widget-btn"
-                                        onClick={() => setShowSlideLibrary(true)}
-                                        disabled={isSubmitting}
-                                    >
-                                        <Plus size={16} /> {t('configModal.slides.addFirst')}
-                                    </button>
-                                </div>
-
-                                {slideConfigs.length === 0 ? (
-                                    <div className="empty-slides" onClick={() => setShowSlideLibrary(true)}>
-                                        <div className="empty-icon"><Grid size={32} /></div>
-                                        <p>{t('configModal.slides.emptyTitle')}</p>
-                                        <span>{t('configModal.slides.emptyDesc')}</span>
-                                    </div>
-                                ) : (
-                                    <div className="widgets-list">
-                                        {slideConfigs.map((config, index) => (
-                                            <div key={index} className="widget-preview-item">
-                                                <div className="widget-info">
-                                                    {/* <span className="widget-type">{config.type}</span> */}
-                                                    <span className="widget-title">{getSlideTitle(config.type)}</span>
-                                                </div>
-                                                <button
-                                                    type="button"
-                                                    className="remove-widget-btn"
-                                                    onClick={() => handleRemoveSlide(index)}
-                                                    disabled={isSubmitting}
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-
                             {/* Actions */}
                             <div className="modal-footer">
                                 <button type="button" className="btn-secondary" onClick={handleCloseAttempt} disabled={isSubmitting}>
@@ -436,7 +389,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                 <button
                                     type="submit"
                                     className="btn-primary"
-                                    disabled={!name.trim() || slideConfigs.length === 0 || isSubmitting}
+                                    disabled={!name.trim() || !selectedClientId || !accountId || selectedCampaigns.length === 0 || isSubmitting}
                                 >
                                     {isSubmitting ? (
                                         <>
@@ -449,24 +402,8 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                 </button>
                             </div>
                         </form>
-
-                        {/* Slide Library Modal (Nested) */}
-                        {showSlideLibrary && (
-                            <div className="nested-modal-overlay">
-                                <div className="nested-modal-content">
-                                    <div className="nested-modal-header">
-                                        <h3>{t('configModal.slides.addFirst')}</h3>
-                                        <button onClick={() => setShowSlideLibrary(false)}><X size={20} /></button>
-                                    </div>
-                                    <SlideLibrary
-                                        onAddSlide={handleAddSlide}
-                                        onClose={() => setShowSlideLibrary(false)}
-                                    />
-                                </div>
-                            </div>
-                        )}
-                    </div >
-                </div >,
+                    </div>
+                </div>,
                 document.body
             )}
 

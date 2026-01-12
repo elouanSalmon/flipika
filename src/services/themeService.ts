@@ -109,41 +109,41 @@ class ThemeService {
     }
 
     /**
-     * Link a theme to a Google Ads account
+     * Link a theme to a client
      */
-    async linkThemeToAccount(themeId: string, accountId: string): Promise<void> {
+    async linkThemeToClient(themeId: string, clientId: string): Promise<void> {
         const theme = await this.getTheme(themeId);
         if (!theme) {
             throw new Error('Theme not found');
         }
 
-        const linkedAccountIds = theme.linkedAccountIds || [];
-        if (!linkedAccountIds.includes(accountId)) {
-            linkedAccountIds.push(accountId);
-            await this.updateTheme(themeId, { linkedAccountIds });
+        const linkedClientIds = theme.linkedClientIds || [];
+        if (!linkedClientIds.includes(clientId)) {
+            linkedClientIds.push(clientId);
+            await this.updateTheme(themeId, { linkedClientIds });
         }
     }
 
     /**
-     * Unlink a theme from a Google Ads account
+     * Unlink a theme from a client
      */
-    async unlinkThemeFromAccount(themeId: string, accountId: string): Promise<void> {
+    async unlinkThemeFromClient(themeId: string, clientId: string): Promise<void> {
         const theme = await this.getTheme(themeId);
         if (!theme) {
             throw new Error('Theme not found');
         }
 
-        const linkedAccountIds = theme.linkedAccountIds.filter(id => id !== accountId);
-        await this.updateTheme(themeId, { linkedAccountIds });
+        const linkedClientIds = theme.linkedClientIds.filter(id => id !== clientId);
+        await this.updateTheme(themeId, { linkedClientIds });
     }
 
     /**
-     * Get the theme linked to a specific Google Ads account
+     * Get the theme linked to a specific client
      */
-    async getThemeForAccount(userId: string, accountId: string): Promise<ReportTheme | null> {
+    async getThemeForClient(userId: string, clientId: string): Promise<ReportTheme | null> {
         const themes = await this.getUserThemes(userId);
         const linkedTheme = themes.find(theme =>
-            theme.linkedAccountIds.includes(accountId)
+            theme.linkedClientIds.includes(clientId)
         );
 
         return linkedTheme || null;
@@ -202,7 +202,7 @@ class ThemeService {
             description: description || preset.description,
             design: preset.design,
             defaultModules: preset.defaultModules,
-            linkedAccountIds: [],
+            linkedClientIds: [],
             isDefault: false,
         };
 
@@ -224,7 +224,7 @@ class ThemeService {
             description: originalTheme.description,
             design: { ...originalTheme.design },
             defaultModules: originalTheme.defaultModules ? { ...originalTheme.defaultModules } : undefined,
-            linkedAccountIds: [], // Don't copy linked accounts
+            linkedClientIds: [], // Don't copy linked clients
             isDefault: false, // Don't copy default status
             thumbnail: originalTheme.thumbnail,
         };

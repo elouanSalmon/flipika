@@ -30,6 +30,8 @@ export interface CreateClientInput {
     googleAdsCustomerId: string;
     logoFile?: File;
     emailPreset?: EmailPreset;
+    defaultTemplateId?: string;
+    defaultThemeId?: string;
 }
 
 export interface UpdateClientInput {

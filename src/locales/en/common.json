@@ -27,9 +27,18 @@
     "cta": "Try for free",
     "ctaSecondary": "See a sample report",
     "stats": {
-      "reportTime": { "value": "2 min", "label": "per report" },
-      "reportsGenerated": { "value": "+2,500", "label": "reports generated" },
-      "zeroFormatting": { "value": "0", "label": "manual formatting" }
+      "reportTime": {
+        "value": "2 min",
+        "label": "per report"
+      },
+      "reportsGenerated": {
+        "value": "+2,500",
+        "label": "reports generated"
+      },
+      "zeroFormatting": {
+        "value": "0",
+        "label": "manual formatting"
+      }
     }
   },
   "problem": {
@@ -336,6 +345,7 @@
   "filters": {
     "title": "Filters",
     "allAccounts": "All Accounts",
+    "allClients": "All Clients",
     "allCampaigns": "All Campaigns"
   },
   "actions": {

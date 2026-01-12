@@ -191,5 +191,24 @@
     "buttonLabel": "Information",
     "modalTitle": "Qu'est-ce qu'un template ?",
     "modalContent": "Les templates sont des configurations de rapports réutilisables qui vous permettent de générer des rapports Google Ads cohérents en un seul clic.\n\nAvec les templates, vous pouvez :\n• Définir un ensemble standard de slides et de métriques pour les rapports récurrents\n• Pré-configurer les comptes et campagnes Google Ads à analyser\n• Définir des périodes d'analyse par défaut (7 derniers jours, mois dernier, etc.)\n• Créer des rapports instantanément sans reconfigurer les paramètres à chaque fois\n• Utiliser les templates comme base pour les rapports programmés automatisés\n\nLes templates sont parfaits pour standardiser votre processus de reporting et garantir la cohérence de vos livrables clients."
+  },
+  "editor": {
+    "backToTemplates": "Retour aux templates",
+    "namePlaceholder": "Nom du template",
+    "templateBadge": "Template",
+    "settings": "Paramètres",
+    "loading": "Chargement...",
+    "saveTemplate": "Sauvegarder le template",
+    "close": "Fermer",
+    "notFound": "Template introuvable",
+    "unauthorized": "Vous n'êtes pas autorisé à modifier ce template",
+    "loadError": "Erreur lors du chargement du template",
+    "messages": {
+      "saved": "Template sauvegardé !",
+      "saveError": "Erreur lors de la sauvegarde du template",
+      "campaignsLoadError": "Erreur lors du chargement des campagnes",
+      "settingsUpdated": "Paramètres mis à jour !",
+      "settingsUpdateError": "Erreur lors de la mise à jour des paramètres"
+    }
   }
 }

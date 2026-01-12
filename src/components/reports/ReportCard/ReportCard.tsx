@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone, Calendar, Send } from 'lucide-react';
+import { MoreVertical, Edit, Copy, Archive, Trash2, ExternalLink, Building, Megaphone, Calendar, Send, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { deleteReport, duplicateReport, archiveReport } from '../../../services/reportService';
 import { useAuth } from '../../../contexts/AuthContext';
 import type { EditableReport } from '../../../types/reportTypes';
+import type { Client } from '../../../types/client';
 import toast from 'react-hot-toast';
 import ConfirmationModal from '../../common/ConfirmationModal';
 import './ReportCard.css'; // Keeping for potential specific overrides, but content will be minimized
@@ -15,9 +16,10 @@ interface ReportCardProps {
     onClick: () => void;
     onDeleted: () => void;
     accounts?: { id: string; name: string }[];
+    clients?: Client[];
 }
 
-const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, accounts = [] }) => {
+const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, accounts = [], clients = [] }) => {
     const { t } = useTranslation('reports');
     const navigate = useNavigate();
     const { currentUser } = useAuth();
@@ -114,8 +116,26 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
         return <span className={`status-badge ${config.className}`}>{config.label}</span>;
     };
 
-    // Resolve account name - same logic as ReportConfigModal
-    const accountName = accounts.find(a => a.id === report.accountId)?.name || report.accountId || t('card.noAccount');
+    // Resolve display name: Prioritize Linked Client > Account Name > Client ID > Account ID > Fallback
+    const getDisplayName = () => {
+        // 1. Try explicit report.clientId
+        if (report.clientId) {
+            const client = clients.find(c => c.id === report.clientId);
+            if (client) return client.name;
+        }
+
+        // 2. Try matching by Google Ads Customer ID
+        // Note: accountId in report is usually the Google Ads Customer ID
+        const linkedClient = clients.find(c => c.googleAdsCustomerId === report.accountId);
+        if (linkedClient) return linkedClient.name;
+
+        // 3. Fallback to account name
+        const account = accounts.find(a => a.id === report.accountId);
+        return account?.name || report.accountName || report.accountId || t('card.noAccount');
+    };
+
+    const displayName = getDisplayName();
+    const isClient = !!(report.clientId || clients.find(c => c.googleAdsCustomerId === report.accountId));
 
     // Resolve campaigns text
     const campaignsText = report.campaignNames?.length
@@ -142,9 +162,9 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
 
             <div className="listing-card-body">
                 <div className="listing-card-row mb-2">
-                    <div className="listing-card-info-item" title={accountName}>
-                        <Building size={14} />
-                        <span>{accountName}</span>
+                    <div className="listing-card-info-item" title={displayName}>
+                        {isClient ? <Users size={14} /> : <Building size={14} />}
+                        <span>{displayName}</span>
                     </div>
                 </div>
                 <div className="listing-card-row">
@@ -158,10 +178,6 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
             <div className="listing-card-footer">
                 <div className="listing-card-stats">
                     <div className="listing-card-stat">
-                        <span className="listing-card-stat-value">{report.sections.length}</span>
-                        <span className="listing-card-stat-label">{t('card.sections')}</span>
-                    </div>
-                    <div className="listing-card-stat border-l border-gray-200 dark:border-gray-700 pl-4">
                         <span className="listing-card-stat-value">{report.slideIds?.length || 0}</span>
                         <span className="listing-card-stat-label">{t('card.slides')}</span>
                     </div>

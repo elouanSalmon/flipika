@@ -27,6 +27,8 @@ import type { EditableReport, SlideConfig } from '../types/reportTypes';
 import { SlideType } from '../types/reportTypes';
 import type { ReportTheme } from '../types/reportThemes';
 import type { Account, Campaign } from '../types/business';
+import type { Client } from '../types/client';
+import { clientService } from '../services/clientService';
 import PreFlightModal from '../components/reports/PreFlightModal';
 import './ReportEditor.css';
 
@@ -53,6 +55,7 @@ const ReportEditor: React.FC = () => {
     // Theme manager state
     const [showThemeManager, setShowThemeManager] = useState(false);
     const [accounts, setAccounts] = useState<Account[]>([]);
+    const [clients, setClients] = useState<Client[]>([]);
 
     // Settings modal state
     const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -115,8 +118,13 @@ const ReportEditor: React.FC = () => {
         try {
             const data = await dataService.getAccounts();
             setAccounts(data);
+
+            if (currentUser) {
+                const clientsData = await clientService.getClients(currentUser.uid);
+                setClients(clientsData);
+            }
         } catch (error) {
-            console.error('Error loading accounts:', error);
+            console.error('Error loading accounts/clients:', error);
         }
     };
 
@@ -582,7 +590,7 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
                     <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
                         <div className="p-6">
-                            <ThemeManager accounts={accounts} />
+                            <ThemeManager clients={clients} />
                             <button
                                 onClick={() => setShowThemeManager(false)}
                                 className="mt-6 w-full px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"

@@ -17,9 +17,9 @@
     },
     "card": {
         "defaultBadge": "Défaut",
-        "linkedAccounts": "{{count}} compte lié",
-        "linkedAccounts_plural": "{{count}} comptes liés",
-        "noLinkedAccounts": "Aucun compte lié",
+        "linkedClients": "{{count}} client lié",
+        "linkedClients_plural": "{{count}} clients liés",
+        "noLinkedClients": "Aucun client lié",
         "actions": {
             "edit": "Modifier",
             "duplicate": "Dupliquer",
@@ -70,8 +70,8 @@
         "secondaryColor": "Couleur secondaire",
         "typographyTitle": "Typographie",
         "fontLabel": "Police de caractères",
-        "linkedAccountsTitle": "Comptes Google Ads liés",
-        "linkedAccountsDesc": "Application automatique pour ces comptes",
+        "linkedClientsTitle": "Clients liés",
+        "linkedClientsDesc": "Application automatique pour ces clients",
         "setAsDefault": "Définir comme thème par défaut",
         "previewTitle": "Aperçu en direct",
         "cancel": "Annuler",
