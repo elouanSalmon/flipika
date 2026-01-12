@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useClients } from '../hooks/useClients';
 import { ClientList } from '../components/clients/ClientList';
-import { Plus, Users, Info } from 'lucide-react';
+import { Plus, Users, Info, Grid, List as ListIcon } from 'lucide-react';
 import InfoModal from '../components/common/InfoModal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import type { Client } from '../types/client';
@@ -14,6 +14,7 @@ export default function ClientsPage() {
     const navigate = useNavigate();
     const { clients, isLoading, deleteClient } = useClients();
     const [showInfoModal, setShowInfoModal] = useState(false);
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
     // Deletion Modal State
     const [clientToDelete, setClientToDelete] = useState<Client | null>(null);
@@ -83,12 +84,39 @@ export default function ClientsPage() {
                 </button>
             </div>
 
+            {/* Controls Bar with View Toggle */}
+            <div className="flex justify-end mb-6">
+                <div className="view-controls flex gap-2">
+                    <button
+                        className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'grid'
+                            ? 'bg-primary text-white border-primary'
+                            : 'bg-white dark:bg-gray-800 text-gray-500 border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary'
+                            }`}
+                        onClick={() => setViewMode('grid')}
+                        title={t('gridView', { defaultValue: 'Vue grille' })}
+                    >
+                        <Grid size={18} />
+                    </button>
+                    <button
+                        className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'list'
+                            ? 'bg-primary text-white border-primary'
+                            : 'bg-white dark:bg-gray-800 text-gray-500 border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary'
+                            }`}
+                        onClick={() => setViewMode('list')}
+                        title={t('listView', { defaultValue: 'Vue liste' })}
+                    >
+                        <ListIcon size={18} />
+                    </button>
+                </div>
+            </div>
+
             <ClientList
                 clients={clients}
                 isLoading={isLoading}
                 onEdit={handleEdit}
                 onDelete={handleDeleteRequest}
                 onAdd={handleAdd}
+                viewMode={viewMode}
             />
 
             <InfoModal

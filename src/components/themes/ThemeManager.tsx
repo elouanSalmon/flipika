@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Copy, Trash2, Link as LinkIcon, Palette, Info } from 'lucide-react';
+import { Plus, Edit2, Copy, Trash2, Link as LinkIcon, Palette, Info, Grid, List as ListIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
@@ -38,6 +38,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [themeToDelete, setThemeToDelete] = useState<ReportTheme | null>(null);
     const [showInfoModal, setShowInfoModal] = useState(false);
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
     // Filters
     const [selectedClientId, setSelectedClientId] = useState<string>('');
@@ -247,17 +248,40 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
             </div>
 
             <FeatureAccessGuard featureName="les thèmes">
-                {
-                    clients.length > 0 && (
-                        <div className="mb-6">
+                <div className="controls-section mb-6">
+                    {clients.length > 0 && (
+                        <div className="mb-4">
                             <FilterBar
                                 clients={clients.map(c => ({ id: c.id, name: c.name }))}
                                 selectedClientId={selectedClientId}
                                 onClientChange={setSelectedClientId}
                             />
                         </div>
-                    )
-                }
+                    )}
+
+                    <div className="view-controls flex justify-end gap-2">
+                        <button
+                            className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'grid'
+                                ? 'bg-primary text-white border-primary'
+                                : 'bg-white dark:bg-gray-800 text-gray-500 border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary'
+                                }`}
+                            onClick={() => setViewMode('grid')}
+                            title={t('gridView', { defaultValue: 'Vue grille' })}
+                        >
+                            <Grid size={18} />
+                        </button>
+                        <button
+                            className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'list'
+                                ? 'bg-primary text-white border-primary'
+                                : 'bg-white dark:bg-gray-800 text-gray-500 border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary'
+                                }`}
+                            onClick={() => setViewMode('list')}
+                            title={t('listView', { defaultValue: 'Vue liste' })}
+                        >
+                            <ListIcon size={18} />
+                        </button>
+                    </div>
+                </div>
 
                 {
                     filteredThemes.length === 0 && themes.length > 0 ? (
@@ -295,29 +319,58 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                             </button>
                         </div>
                     ) : (
-                        <div className="themes-grid">
+                        <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "flex flex-col gap-4"}>
                             {filteredThemes.map(theme => (
-                                <div key={theme.id} className="listing-card p-0 group">
+                                <div key={theme.id} className={`listing-card group ${viewMode === 'list' ? 'flex flex-row p-0 overflow-hidden' : 'p-0'}`}>
                                     {/* Preview Area */}
-                                    <div className="relative bg-gray-5 dark:bg-gray-900/50 p-4 border-b border-gray-100 dark:border-gray-700">
-                                        <ThemePreview theme={theme} size="medium" />
+                                    <div className={`relative bg-gray-5 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-700 ${viewMode === 'list' ? 'w-48 border-b-0 border-r shrink-0 p-2 flex items-center justify-center' : 'p-4'}`}>
+                                        <ThemePreview theme={theme} size={viewMode === 'list' ? 'small' : 'medium'} />
                                         {theme.isDefault && (
-                                            <div className="absolute top-3 right-3 px-2 py-1 bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
-                                                {t('card.defaultBadge')}
+                                            <div className={`absolute bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm ${viewMode === 'list' ? 'top-2 right-2 px-1.5 py-0.5 text-[10px]' : 'top-3 right-3 px-2 py-1'}`}>
+                                                {viewMode === 'list' ? 'Défaut' : t('card.defaultBadge')}
                                             </div>
                                         )}
                                     </div>
 
-                                    <div className="p-5">
-                                        <div className="mb-4">
-                                            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 truncate">{theme.name}</h3>
-                                            {theme.description && (
-                                                <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 h-10">{theme.description}</p>
+                                    <div className={`flex flex-col ${viewMode === 'list' ? 'flex-1 p-4 justify-between' : 'p-5'}`}>
+                                        <div className={viewMode === 'list' ? 'flex justify-between items-start' : 'mb-4'}>
+                                            <div>
+                                                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 truncate">{theme.name}</h3>
+                                                {theme.description && (
+                                                    <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{theme.description}</p>
+                                                )}
+                                            </div>
+
+                                            {/* List View Actions - Always visible */}
+                                            {viewMode === 'list' && (
+                                                <div className="flex items-center gap-2">
+                                                    <button
+                                                        onClick={() => handleDuplicateTheme(theme)}
+                                                        className="p-2 text-gray-500 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                                                        title={t('card.actions.duplicate')}
+                                                    >
+                                                        <Copy size={18} />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleEditTheme(theme)}
+                                                        className="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                                                        title={t('card.actions.edit')}
+                                                    >
+                                                        <Edit2 size={18} />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDeleteTheme(theme)}
+                                                        className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                                        title={t('card.actions.delete')}
+                                                    >
+                                                        <Trash2 size={18} />
+                                                    </button>
+                                                </div>
                                             )}
                                         </div>
 
                                         {/* Footer / Stats */}
-                                        <div className="flex items-center justify-between mt-4">
+                                        <div className={`flex items-center justify-between ${viewMode === 'list' ? 'mt-2' : 'mt-4'}`}>
                                             {(() => {
                                                 const linkedCount = clients.filter(c => c.defaultThemeId === theme.id).length;
                                                 return linkedCount > 0 ? (
@@ -334,36 +387,38 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                                         </div>
                                     </div>
 
-                                    {/* Hover Actions */}
-                                    <div className="listing-card-actions">
-                                        <button
-                                            onClick={() => handleDuplicateTheme(theme)}
-                                            className="action-btn-icon"
-                                            title={t('card.actions.duplicate')}
-                                        >
-                                            <Copy size={16} />
-                                        </button>
-                                        <button
-                                            onClick={() => handleEditTheme(theme)}
-                                            className="action-btn-icon text-primary hover:bg-primary/10"
-                                            title={t('card.actions.edit')}
-                                        >
-                                            <Edit2 size={16} />
-                                        </button>
-                                        <button
-                                            onClick={() => handleDeleteTheme(theme)}
-                                            className="action-btn-icon destructive"
-                                            title={t('card.actions.delete')}
-                                        >
-                                            <Trash2 size={16} />
-                                        </button>
-                                    </div>
+                                    {/* Grid View Hover Actions */}
+                                    {viewMode === 'grid' && (
+                                        <div className="listing-card-actions">
+                                            <button
+                                                onClick={() => handleDuplicateTheme(theme)}
+                                                className="action-btn-icon"
+                                                title={t('card.actions.duplicate')}
+                                            >
+                                                <Copy size={16} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleEditTheme(theme)}
+                                                className="action-btn-icon text-primary hover:bg-primary/10"
+                                                title={t('card.actions.edit')}
+                                            >
+                                                <Edit2 size={16} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDeleteTheme(theme)}
+                                                className="action-btn-icon destructive"
+                                                title={t('card.actions.delete')}
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
                     )
                 }
-            </FeatureAccessGuard>
+            </FeatureAccessGuard >
 
             {
                 showEditor && currentUser && (

@@ -222,12 +222,10 @@ class PDFGenerationService {
         overlay.innerHTML = `
             <div class="pdf-overlay-content">
                 <div class="pdf-overlay-icon">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h20"/>
+                        <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/>
+                        <path d="m7 21 5-5 5 5"/>
                     </svg>
                 </div>
                 <h3 class="pdf-overlay-title">${t.title}</h3>
@@ -247,62 +245,118 @@ class PDFGenerationService {
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: rgba(15, 23, 42, 0.95);
+                background: rgba(15, 23, 42, 0.6);
                 backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 z-index: 999999;
-                animation: fadeIn 0.2s ease-out;
+                animation: fadeIn 0.3s ease-out;
             }
             @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
+                from { opacity: 0; transform: scale(0.98); }
+                to { opacity: 1; transform: scale(1); }
             }
             .pdf-overlay-content {
                 text-align: center;
-                color: white;
-                max-width: 400px;
+                color: var(--color-text-primary);
+                width: 400px;
                 padding: 40px;
+                background: var(--glass-bg);
+                backdrop-filter: var(--glass-backdrop);
+                -webkit-backdrop-filter: var(--glass-backdrop);
+                border: 1px solid var(--glass-border);
+                box-shadow: var(--glass-shadow);
+                border-radius: var(--radius-2xl);
+                animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
             }
             .pdf-overlay-icon {
                 margin-bottom: 24px;
-                color: #3b82f6;
+                color: var(--color-primary);
+                background: var(--color-primary-light);
+                background: rgba(0, 102, 255, 0.1);
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+                border: 1px solid var(--color-primary-light);
                 animation: pulse 2s ease-in-out infinite;
             }
+            .pdf-overlay-icon svg {
+                width: 40px;
+                height: 40px;
+            }
             @keyframes pulse {
-                0%, 100% { opacity: 1; transform: scale(1); }
-                50% { opacity: 0.7; transform: scale(1.05); }
+                0%, 100% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.4); }
+                70% { box-shadow: 0 0 0 10px rgba(0, 102, 255, 0); }
             }
             .pdf-overlay-title {
                 font-size: 24px;
-                font-weight: 600;
+                font-family: 'Inter', sans-serif;
+                font-weight: 700;
                 margin: 0 0 8px 0;
+                background: var(--gradient-primary);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             }
             .pdf-overlay-status {
                 font-size: 16px;
-                color: #94a3b8;
-                margin: 0 0 24px 0;
+                color: var(--color-text-secondary);
+                margin: 0 0 32px 0;
+                font-weight: 500;
             }
             .pdf-overlay-progress-container {
                 width: 100%;
-                height: 6px;
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 3px;
+                height: 8px;
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 4px;
                 overflow: hidden;
                 margin-bottom: 16px;
+                position: relative;
             }
             .pdf-overlay-progress-bar {
                 height: 100%;
                 width: 0%;
-                background: linear-gradient(90deg, #3b82f6, #93c5fd);
-                border-radius: 3px;
-                transition: width 0.3s ease-out;
+                background: var(--gradient-primary);
+                border-radius: 4px;
+                transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                overflow: hidden;
+            }
+            .pdf-overlay-progress-bar::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                background: linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.3) 50%,
+                    rgba(255, 255, 255, 0) 100%
+                );
+                transform: translateX(-100%);
+                animation: shimmer 1.5s infinite;
+            }
+            @keyframes shimmer {
+                100% { transform: translateX(100%); }
             }
             .pdf-overlay-hint {
                 font-size: 13px;
-                color: #64748b;
+                color: var(--color-text-muted);
                 margin: 0;
+                font-style: italic;
             }
         `;
         overlay.appendChild(style);

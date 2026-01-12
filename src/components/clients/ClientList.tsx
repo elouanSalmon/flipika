@@ -11,6 +11,7 @@ interface ClientListProps {
     onEdit: (client: Client) => void;
     onDelete: (client: Client) => void;
     onAdd: () => void;
+    viewMode?: 'grid' | 'list';
 }
 
 export const ClientList: React.FC<ClientListProps> = ({
@@ -18,7 +19,8 @@ export const ClientList: React.FC<ClientListProps> = ({
     isLoading,
     onEdit,
     onDelete,
-    onAdd
+    onAdd,
+    viewMode = 'grid'
 }) => {
     const { t } = useTranslation('clients');
 
@@ -57,14 +59,25 @@ export const ClientList: React.FC<ClientListProps> = ({
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className={viewMode === 'grid' ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : "flex flex-col gap-4"}>
             {clients.map((client) => (
-                <ClientCard
-                    key={client.id}
-                    client={client}
-                    onEdit={onEdit}
-                    onDelete={onDelete}
-                />
+                <div key={client.id} className={viewMode === 'list' ? 'bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700' : ''}>
+                    {viewMode === 'list' ? (
+                        /* Simple wrapper for list view - relying on ClientCard's internal flexibility or just wrapping it */
+                        /* ClientCard is designed as a card. For list view we might want to pass viewMode to it if we want distinct styling inside */
+                        <ClientCard
+                            client={client}
+                            onEdit={onEdit}
+                            onDelete={onDelete}
+                        />
+                    ) : (
+                        <ClientCard
+                            client={client}
+                            onEdit={onEdit}
+                            onDelete={onDelete}
+                        />
+                    )}
+                </div>
             ))}
         </div>
     );
