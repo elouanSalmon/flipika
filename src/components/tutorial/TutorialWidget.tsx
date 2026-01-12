@@ -140,7 +140,7 @@ export const TutorialWidget = () => {
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`fixed right-4 bottom-24 z-40 flex flex-col items-end gap-2 transition-all duration-300 ${isExpanded ? 'w-96' : 'w-auto'}`}
+                className={`fixed right-4 bottom-24 z-40 flex flex-col items-end gap-2 transition-all duration-300 ${isExpanded ? 'w-[480px]' : 'w-auto'}`}
             >
                 {/* Minimized State Button */}
                 {!isExpanded && (
@@ -168,8 +168,8 @@ export const TutorialWidget = () => {
                             className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden w-full backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95"
                         >
                             {/* Header */}
-                            <div className="p-4 bg-gradient-to-r from-primary/5 to-transparent border-b border-gray-100 dark:border-gray-700">
-                                <div className="flex justify-between items-start mb-3">
+                            <div className="px-4 py-3 bg-gradient-to-r from-primary/5 to-transparent border-b border-gray-100 dark:border-gray-700">
+                                <div className="flex justify-between items-start mb-2">
                                     <div className="flex-1">
                                         <h3 className="font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
                                             <Rocket size={18} className="text-primary" />
@@ -206,10 +206,10 @@ export const TutorialWidget = () => {
                                     <motion.div
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="flex items-center gap-2 bg-white dark:bg-gray-700 px-3 py-2 rounded-lg shadow-sm border border-primary/20"
+                                        className="flex items-center gap-2 bg-white dark:bg-gray-700 px-3 py-1.5 rounded-lg shadow-sm border border-primary/20"
                                     >
-                                        <Clock className="text-primary flex-shrink-0" size={16} />
-                                        <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        <Clock className="text-primary flex-shrink-0" size={14} />
+                                        <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                                             Encore {remainingMinutes} min pour terminer
                                         </span>
                                     </motion.div>
@@ -242,8 +242,8 @@ export const TutorialWidget = () => {
                             </div>
 
                             {/* Steps List */}
-                            <div className="max-h-[75vh] overflow-y-auto custom-scrollbar">
-                                <div className="p-3 space-y-2">
+                            <div className="max-h-[60vh] overflow-y-auto custom-scrollbar">
+                                <div className="p-2 space-y-1.5">
                                     {steps.map((step) => {
                                         const isCompleted = currentStatus.steps[step.statusKey as keyof typeof currentStatus.steps];
                                         return (
@@ -251,7 +251,7 @@ export const TutorialWidget = () => {
                                                 key={step.id}
                                                 initial={{ opacity: 0, x: -20 }}
                                                 animate={{ opacity: 1, x: 0 }}
-                                                className={`p-4 rounded-xl flex items-center gap-3 transition-colors ${isCompleted
+                                                className={`px-3 py-2.5 rounded-xl flex items-center gap-3 transition-colors ${isCompleted
                                                     ? 'bg-green-50/50 dark:bg-green-900/10'
                                                     : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
                                                     }`}
@@ -350,7 +350,7 @@ export const TutorialWidget = () => {
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10 text-center border-t border-green-100 dark:border-green-900/20"
+                                    className="px-4 py-3 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10 text-center border-t border-green-100 dark:border-green-900/20"
                                 >
                                     <motion.div
                                         animate={{
@@ -374,7 +374,7 @@ export const TutorialWidget = () => {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ delay: 0.5 }}
-                                        className="text-xs text-gray-600 dark:text-gray-400 mt-2"
+                                        className="text-xs text-gray-600 dark:text-gray-400 mt-1"
                                     >
                                         Vous êtes maintenant un expert Flipika! 🚀
                                     </motion.p>

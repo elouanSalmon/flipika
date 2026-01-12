@@ -93,7 +93,7 @@
     margin: 32px 0;
 }
 
-.empty-state svg {
+.empty-state>svg {
     color: var(--color-text-secondary);
     margin-bottom: 24px;
     opacity: 0.5;
@@ -140,6 +140,10 @@
     box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
     line-height: 1;
     /* Fix vertical alignment */
+}
+
+.btn-primary svg {
+    flex-shrink: 0;
 }
 
 .btn-primary:hover {
