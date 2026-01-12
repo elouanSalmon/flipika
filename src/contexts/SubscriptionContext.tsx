@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import { auth, db } from '../firebase/config';
+import { db } from '../firebase/config';
+import { useAuth } from './AuthContext';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import type { Subscription } from '../types/subscriptionTypes';
@@ -18,19 +19,22 @@ interface SubscriptionContextType {
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
 
 export function SubscriptionProvider({ children }: { children: ReactNode }) {
+    const { currentUser } = useAuth();
     const [subscription, setSubscription] = useState<Subscription | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const user = auth.currentUser;
-        if (!user) {
+        if (!currentUser) {
+            setSubscription(null);
             setLoading(false);
             return;
         }
 
+        setLoading(true);
+
         // Listen to subscription changes in real-time
         const unsubscribe = onSnapshot(
-            doc(db, 'subscriptions', user.uid),
+            doc(db, 'subscriptions', currentUser.uid),
             (docSnapshot) => {
                 if (docSnapshot.exists()) {
                     const data = docSnapshot.data();
@@ -60,7 +64,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         );
 
         return () => unsubscribe();
-    }, []);
+    }, [currentUser]);
 
     const createCheckout = async (priceId: string): Promise<string> => {
         const functions = getFunctions();

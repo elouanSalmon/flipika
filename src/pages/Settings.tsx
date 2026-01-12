@@ -7,7 +7,6 @@ import ConnectionsCard from '../components/settings/ConnectionsCard';
 import SubscriptionCard from '../components/settings/SubscriptionCard';
 import DemoModeCard from '../components/settings/DemoModeCard';
 import AppearanceCard from '../components/settings/AppearanceCard';
-import ThemesCard from '../components/settings/ThemesCard';
 import LanguageCard from '../components/settings/LanguageCard';
 import { motion } from 'framer-motion';
 import { Settings as SettingsIcon } from 'lucide-react';
@@ -18,7 +17,7 @@ const Settings = () => {
     const { t } = useTranslation('settings');
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-    const { syncBilling } = useSubscription();
+    const { syncBilling, isActive } = useSubscription();
 
     useEffect(() => {
         const fromStripePortal = searchParams.get('from');
@@ -58,6 +57,8 @@ const Settings = () => {
         }
     }, [searchParams, syncBilling, navigate]);
 
+    const subscriptionCard = <SubscriptionCard />;
+
     return (
         <div className="p-4 md:p-8 max-w-6xl mx-auto">
             {/* Header */}
@@ -78,14 +79,20 @@ const Settings = () => {
             </motion.div>
 
             <div className="space-y-6">
+                {/* Subscription first if NOT active */}
+                {!isActive && subscriptionCard}
+
                 {/* Profile Section */}
                 <ProfileCard />
 
                 {/* Security Section */}
                 <SecurityCard />
 
-                {/* Subscription & Billing */}
-                <SubscriptionCard />
+                {/* Subscription middle if we wanted default? No, user said last or first. */}
+                {/* But originally it was here.
+                    User: "active -> last", "not active -> first".
+                    So if active, it goes to the bottom.
+                */}
 
                 {/* Google Ads Connection */}
                 <ConnectionsCard />
@@ -101,8 +108,8 @@ const Settings = () => {
                     <DemoModeCard />
                 </div>
 
-                {/* Report Themes */}
-                <ThemesCard />
+                {/* Subscription last if active */}
+                {isActive && subscriptionCard}
             </div>
         </div>
     );
