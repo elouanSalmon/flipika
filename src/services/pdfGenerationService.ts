@@ -244,7 +244,7 @@ class PDFGenerationService {
             .pdf-overlay-progress-bar {
                 height: 100%;
                 width: 0%;
-                background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+                background: linear-gradient(90deg, #3b82f6, #93c5fd);
                 border-radius: 3px;
                 transition: width 0.3s ease-out;
             }

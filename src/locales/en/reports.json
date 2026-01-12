@@ -362,12 +362,20 @@
     },
     "actions": {
       "cancel": "Cancel",
-      "send": "Send by Email",
+      "send": "Generate PDF & Send",
       "edit": "Edit",
       "back": "Back to Reports",
       "viewPreview": "View Preview",
       "downloadPdf": "Download PDF",
       "copy": "Copy"
+    },
+    "steps": {
+      "preview": "Verification",
+      "send": "Send"
+    },
+    "reassurance": {
+      "title": "Everything is ready!",
+      "description": "The report is ready. Click above to generate it as a PDF and prepare the email for your client."
     },
     "pdf": {
       "success": "PDF generated successfully",
@@ -387,15 +395,49 @@
       }
     },
     "postSend": {
-      "title": "Email App Opened",
-      "description": "Your native email application should have opened with a pre-filled email. You can also download the PDF and copy the information below.",
+      "title": "PDF document downloaded & email app opened",
+      "description": "Your PDF report has already been downloaded. Your native email application should have opened with a prepared message.",
       "recipientLabel": "Recipient",
       "subjectLabel": "Subject",
-      "bodyLabel": "Email Body",
+      "bodyLabel": "Email Message",
       "emailOpened": "Email app opened!",
       "copied": "{{label}} copied!",
       "copyError": "Error copying",
-      "pdfTodo": "PDF download to be implemented"
+      "pdfTodo": "PDF download to be implemented",
+      "troubleshoot": {
+        "button": "Having trouble?",
+        "title": "Email didn't open?",
+        "description": "If your email application didn't launch automatically, here's how to fix it:",
+        "steps": {
+          "desktop": {
+            "title": "On desktop",
+            "mac": "macOS: Mail > Settings > General > Default email reader.",
+            "windows": "Windows: Settings > Apps > Default apps > Email."
+          },
+          "mobile": {
+            "title": "On mobile",
+            "ios": "iOS: Settings > [Mail App] > Default Mail App.",
+            "android": "Android: Settings > Apps > Choose default apps > Email app."
+          }
+        },
+        "fallback": "MANUAL ACTIONS",
+        "editEmail": "Edit email template"
+      },
+      "instructions": {
+        "title": "How to finalize sending?",
+        "step1": {
+          "title": "Get the PDF",
+          "description": "The PDF file has been automatically downloaded to your device."
+        },
+        "step2": {
+          "title": "Drag and drop",
+          "description": "Drag the downloaded file into your email window."
+        },
+        "step3": {
+          "title": "Send it!",
+          "description": "Review one last time and click send."
+        }
+      }
     }
   },
   "info": {

@@ -371,13 +371,21 @@
     },
     "actions": {
       "cancel": "Annuler",
-      "send": "Envoyer par Email",
+      "send": "Générer PDF & Envoyer",
       "edit": "Éditer",
       "back": "Retour aux rapports",
       "viewPreview": "Voir la preview",
       "downloadPdf": "Télécharger le PDF",
       "generating": "Génération en cours...",
       "copy": "Copier"
+    },
+    "steps": {
+      "preview": "Vérification",
+      "send": "Envoi"
+    },
+    "reassurance": {
+      "title": "Tout est prêt !",
+      "description": "Le rapport est prêt. Cliquez ci-dessus pour le générer au format PDF et préparer l'email pour votre client."
     },
     "pdf": {
       "success": "PDF généré avec succès",
@@ -397,15 +405,49 @@
       }
     },
     "postSend": {
-      "title": "Application email ouverte",
-      "description": "Votre application email native devrait s'être ouverte avec un email pré-rempli. Vous pouvez également télécharger le PDF et copier les informations ci-dessous.",
+      "title": "Document PDF téléchargé & application email ouverte",
+      "description": "Votre rapport PDF a déjà été téléchargé. Votre application email devrait s'être ouverte avec un message préparé.",
       "recipientLabel": "Destinataire",
       "subjectLabel": "Objet",
-      "bodyLabel": "Corps de l'email",
+      "bodyLabel": "Message de l'email",
       "emailOpened": "Application email ouverte !",
       "copied": "{{label}} copié !",
       "copyError": "Erreur lors de la copie",
-      "pdfTodo": "Téléchargement PDF à implémenter"
+      "pdfTodo": "Téléchargement PDF à implémenter",
+      "troubleshoot": {
+        "button": "Un problème ?",
+        "title": "L'email ne s'est pas ouvert ?",
+        "description": "Si votre application mail ne s'est pas lancée automatiquement, voici comment corriger cela :",
+        "steps": {
+          "desktop": {
+            "title": "Sur ordinateur",
+            "mac": "macOS : Mail > Réglages > Général > Application de messagerie par défaut.",
+            "windows": "Windows : Paramètres > Applications > Applications par défaut > Messagerie."
+          },
+          "mobile": {
+            "title": "Sur mobile",
+            "ios": "iOS : Réglages > [App Mail] > App de messagerie par défaut.",
+            "android": "Android : Paramètres > Applis > Choisir applis par défaut > Appli de messagerie."
+          }
+        },
+        "fallback": "ACTIONS MANUELLES",
+        "editEmail": "Modifier le modèle d'email"
+      },
+      "instructions": {
+        "title": "Comment finaliser l'envoi ?",
+        "step1": {
+          "title": "Récupérez le PDF",
+          "description": "Le fichier PDF a été automatiquement téléchargé sur votre appareil."
+        },
+        "step2": {
+          "title": "Glissez-déposez",
+          "description": "Faites glisser le fichier téléchargé dans la fenêtre de votre email."
+        },
+        "step3": {
+          "title": "Envoyez !",
+          "description": "Vérifiez une dernière fois et cliquez sur envoyer."
+        }
+      }
     }
   },
   "info": {
