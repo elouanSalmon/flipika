@@ -33,6 +33,41 @@ interface PDFGenerationOptions {
 const SLIDE_WIDTH_MM = 338.67;  // ~13.33 inches
 const SLIDE_HEIGHT_MM = 190.5;  // ~7.5 inches
 
+/**
+ * Sanitize text for PDF - replace accented characters with ASCII equivalents
+ * jsPDF's default Helvetica font doesn't support French accents properly
+ */
+function sanitizeTextForPDF(text: string): string {
+    if (!text) return '';
+
+    const accentMap: Record<string, string> = {
+        'à': 'a', 'â': 'a', 'ä': 'a', 'á': 'a', 'ã': 'a',
+        'è': 'e', 'é': 'e', 'ê': 'e', 'ë': 'e',
+        'ì': 'i', 'î': 'i', 'ï': 'i', 'í': 'i',
+        'ò': 'o', 'ô': 'o', 'ö': 'o', 'ó': 'o', 'õ': 'o',
+        'ù': 'u', 'û': 'u', 'ü': 'u', 'ú': 'u',
+        'ÿ': 'y', 'ý': 'y',
+        'ñ': 'n',
+        'ç': 'c',
+        'œ': 'oe', 'æ': 'ae',
+        'À': 'A', 'Â': 'A', 'Ä': 'A', 'Á': 'A', 'Ã': 'A',
+        'È': 'E', 'É': 'E', 'Ê': 'E', 'Ë': 'E',
+        'Ì': 'I', 'Î': 'I', 'Ï': 'I', 'Í': 'I',
+        'Ò': 'O', 'Ô': 'O', 'Ö': 'O', 'Ó': 'O', 'Õ': 'O',
+        'Ù': 'U', 'Û': 'U', 'Ü': 'U', 'Ú': 'U',
+        'Ÿ': 'Y', 'Ý': 'Y',
+        'Ñ': 'N',
+        'Ç': 'C',
+        'Œ': 'OE', 'Æ': 'AE',
+    };
+
+    return text
+        .split('')
+        .map(char => accentMap[char] || char)
+        .join('')
+        .replace(/[^\x00-\x7F]/g, ''); // Remove any remaining non-ASCII characters
+}
+
 // Default translations (French)
 const DEFAULT_TRANSLATIONS: PDFTranslations = {
     title: 'Génération du PDF',
@@ -76,11 +111,21 @@ class PDFGenerationService {
         document.body.appendChild(overlay);
 
         try {
+            console.log('[PDF] Starting PDF generation...');
+            console.log('[PDF] Options received:', {
+                filename: options.filename,
+                reportTitle: options.reportTitle,
+                hasDesign: !!options.design,
+                hasClient: !!options.client,
+                hasUser: !!options.user
+            });
+
             options.onProgress?.(5);
             this.updateOverlayProgress(overlay, 5, t.preparing);
 
             // Find all slide items in the element
             const slideElements = element.querySelectorAll('.slide-item');
+            console.log('[PDF] Found slides:', slideElements.length);
 
             if (slideElements.length === 0) {
                 throw new Error('No slides found in the report');
@@ -90,14 +135,18 @@ class PDFGenerationService {
             this.updateOverlayProgress(overlay, 10, t.creatingDocument);
 
             // Create PDF document with PowerPoint 16:9 dimensions
+            console.log('[PDF] Creating jsPDF document...');
             const pdf = new jsPDF({
                 orientation: 'landscape',
                 unit: 'mm',
                 format: [SLIDE_WIDTH_MM, SLIDE_HEIGHT_MM],
             });
+            console.log('[PDF] jsPDF document created, internal page size:', pdf.internal.pageSize.getWidth(), 'x', pdf.internal.pageSize.getHeight());
 
             // Add cover page
+            console.log('[PDF] Adding cover page...');
             await this.addCoverPage(pdf, options);
+            console.log('[PDF] Cover page added');
             options.onProgress?.(20);
             this.updateOverlayProgress(overlay, 20, t.coverPage);
 
@@ -134,13 +183,15 @@ class PDFGenerationService {
             options.onProgress?.(95);
             this.updateOverlayProgress(overlay, 95, t.saving);
 
-            // Save the PDF
-            const finalFilename = options.filename.toLowerCase().endsWith('.pdf')
-                ? options.filename
-                : `${options.filename}.pdf`;
+            // Save the PDF with a simple, safe filename
+            const timestamp = new Date().toISOString().split('T')[0];
+            const safeName = 'Rapport_' + timestamp + '.pdf';
 
-            console.log('Saving PDF to:', finalFilename);
-            pdf.save(finalFilename);
+            console.log('[PDF] Final filename:', safeName);
+            console.log('[PDF] PDF pages:', pdf.getNumberOfPages());
+
+            // Use jsPDF's native save method which handles the download properly
+            pdf.save(safeName);
             options.onProgress?.(100);
             this.updateOverlayProgress(overlay, 100, t.complete);
 
@@ -308,8 +359,9 @@ class PDFGenerationService {
         pdf.setFontSize(42);
         pdf.setFont('helvetica', 'bold');
 
-        // Word wrap for long titles
-        const titleLines = pdf.splitTextToSize(reportTitle, SLIDE_WIDTH_MM - 60);
+        // Word wrap for long titles - sanitize text for PDF compatibility
+        const safeTitle = sanitizeTextForPDF(reportTitle);
+        const titleLines = pdf.splitTextToSize(safeTitle, SLIDE_WIDTH_MM - 60);
         pdf.text(titleLines, SLIDE_WIDTH_MM / 2, contentY, { align: 'center' });
 
         // Date range
@@ -328,9 +380,9 @@ class PDFGenerationService {
         if (client?.name) {
             pdf.setFontSize(12);
             pdf.setFont('helvetica', 'bold');
-            pdf.text('Préparé pour :', 20, bottomY - 6);
+            pdf.text('Prepare pour :', 20, bottomY - 6);
             pdf.setFont('helvetica', 'normal');
-            pdf.text(client.name, 20, bottomY);
+            pdf.text(sanitizeTextForPDF(client.name), 20, bottomY);
         }
 
         // "Prepared by [User]" (Right bottom)
@@ -340,12 +392,11 @@ class PDFGenerationService {
 
             pdf.setFontSize(12);
             pdf.setFont('helvetica', 'bold');
-            const preparedByLabel = 'Préparé par :';
-            pdf.text(preparedByLabel, SLIDE_WIDTH_MM - 20, bottomY - 6, { align: 'right' });
+            pdf.text('Prepare par :', SLIDE_WIDTH_MM - 20, bottomY - 6, { align: 'right' });
 
             pdf.setFont('helvetica', 'normal');
-            let userText = userName;
-            if (company) userText += ` - ${company}`;
+            let userText = sanitizeTextForPDF(userName);
+            if (company) userText += ` - ${sanitizeTextForPDF(company)}`;
             pdf.text(userText, SLIDE_WIDTH_MM - 20, bottomY, { align: 'right' });
         }
     }
@@ -378,14 +429,14 @@ class PDFGenerationService {
             pdf.setFontSize(16);
             pdf.setFont('helvetica', 'normal');
 
-            const contactText = "Pour toute question, n'hésitez pas à nous contacter :";
+            const contactText = "Pour toute question, n'hesitez pas a nous contacter :";
             pdf.text(contactText, centerX, centerY + 20, { align: 'center' });
 
             const email = user.email || '';
             if (email) {
                 pdf.setFontSize(18);
                 pdf.setFont('helvetica', 'bold');
-                pdf.text(email, centerX, centerY + 35, { align: 'center' });
+                pdf.text(sanitizeTextForPDF(email), centerX, centerY + 35, { align: 'center' });
             }
         }
 

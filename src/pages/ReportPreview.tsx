@@ -173,25 +173,29 @@ const ReportPreview: React.FC = () => {
             const { profile, clientData, campaignNames } = await fetchReportContext(report);
 
             // Step 2: Generate PDF
-            // Sanitize filename: allow alphanumeric, accents, and basic separators
-            let safeTitle = (report.title || 'Untitled_Report')
-                .trim()
-                .replace(/[^a-zA-Z0-9àâçéèêëîïôûùüÿñæoe\-_ ]/g, '') // Remove special chars but keep accents
-                .replace(/\s+/g, '_'); // Replace spaces with underscores
+            // Build a simple, predictable filename: Rapport_[ClientName]_YYYY-MM-DD.pdf
+            const dateStr = new Date().toISOString().split('T')[0];
+            const clientName = clientData?.name
+                ? clientData.name
+                    .trim()
+                    .replace(/[^a-zA-Z0-9àâçéèêëîïôûùüÿñæoeÀÂÇÉÈÊËÎÏÔÛÙÜŸÑÆŒ\s]/g, '')
+                    .replace(/\s+/g, '_')
+                    .substring(0, 50)
+                : '';
 
-            // Ensure the title is not empty after sanitization
-            if (!safeTitle || safeTitle.length === 0) {
-                safeTitle = 'Untitled_Report';
-            }
+            const filename = clientName
+                ? `Rapport_${clientName}_${dateStr}.pdf`
+                : `Rapport_${dateStr}.pdf`;
 
-            // Sanitize the report title for PDF content (remove problematic characters)
-            const sanitizedReportTitle = (report.title || 'Untitled Report')
-                .trim()
-                .replace(/[^\w\s\-àâçéèêëîïôûùüÿñæoeÀÂÇÉÈÊËÎÏÔÛÙÜŸÑÆŒ]/g, '') // Keep only alphanumeric, spaces, hyphens, and accents
-                .substring(0, 100); // Limit length to prevent issues
-
-            const filename = `${safeTitle}_${new Date().toISOString().split('T')[0]}.pdf`;
             console.log('Generating PDF for email:', filename);
+
+            // For PDF cover page title: use report title if valid, else client name, else generic
+            const isValidTitle = report.title &&
+                !report.title.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i) &&
+                report.title.trim().length > 0;
+            const pdfTitle = isValidTitle
+                ? report.title.trim().substring(0, 100)
+                : (clientData?.name ? `Rapport ${clientData.name}` : 'Rapport de Performance');
 
             if (!reportPreviewRef.current) {
                 throw new Error('Report preview not found');
@@ -201,7 +205,7 @@ const ReportPreview: React.FC = () => {
                 reportPreviewRef.current,
                 {
                     filename,
-                    reportTitle: report.title,
+                    reportTitle: pdfTitle,
                     startDate: report.startDate,
                     endDate: report.endDate,
                     design: report.design,
@@ -319,14 +323,29 @@ const ReportPreview: React.FC = () => {
             const { profile, clientData } = await fetchReportContext(report);
 
             // Step 2: Generate PDF
-            // Sanitize filename: allow alphanumeric, accents, and basic separators
-            const safeTitle = (report.title || 'Untitled_Report')
-                .trim()
-                .replace(/[^a-zA-Z0-9àâçéèêëîïôûùüÿñæoe\-_ ]/g, '') // Remove special chars but keep accents
-                .replace(/\s+/g, '_'); // Replace spaces with underscores
+            // Build a simple, predictable filename: Rapport_[ClientName]_YYYY-MM-DD.pdf
+            const dateStr = new Date().toISOString().split('T')[0];
+            const clientName = clientData?.name
+                ? clientData.name
+                    .trim()
+                    .replace(/[^a-zA-Z0-9àâçéèêëîïôûùüÿñæoeÀÂÇÉÈÊËÎÏÔÛÙÜŸÑÆŒ\s]/g, '')
+                    .replace(/\s+/g, '_')
+                    .substring(0, 50)
+                : '';
 
-            const filename = `${safeTitle}_${new Date().toISOString().split('T')[0]}.pdf`;
+            const filename = clientName
+                ? `Rapport_${clientName}_${dateStr}.pdf`
+                : `Rapport_${dateStr}.pdf`;
+
             console.log('Generating PDF for download:', filename);
+
+            // For PDF cover page title: use report title if valid, else client name, else generic
+            const isValidTitle = report.title &&
+                !report.title.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i) &&
+                report.title.trim().length > 0;
+            const pdfTitle = isValidTitle
+                ? report.title.trim().substring(0, 100)
+                : (clientData?.name ? `Rapport ${clientData.name}` : 'Rapport de Performance');
 
             if (!reportPreviewRef.current) {
                 throw new Error('Report preview not found');
@@ -336,7 +355,7 @@ const ReportPreview: React.FC = () => {
                 reportPreviewRef.current,
                 {
                     filename,
-                    reportTitle: report.title,
+                    reportTitle: pdfTitle,
                     startDate: report.startDate,
                     endDate: report.endDate,
                     design: report.design,
