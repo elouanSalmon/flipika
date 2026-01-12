@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Search, Grid, List as ListIcon, Zap, Info } from 'lucide-react';
+import { Plus, Search, Grid, List as ListIcon, Presentation, Info } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
@@ -183,7 +183,7 @@ const ReportsList: React.FC = () => {
             <div className="page-header">
                 <div className="header-content">
                     <div className="header-title-row" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <Zap size={32} className="header-icon" />
+                        <Presentation size={32} className="header-icon" />
                         <h1>{t('list.title')}</h1>
                         <button
                             onClick={() => setShowInfoModal(true)}
@@ -323,7 +323,7 @@ const ReportsList: React.FC = () => {
                     filteredReports.length === 0 ? (
                         <div className="empty-state">
                             <div className="empty-icon">
-                                <Zap size={64} strokeWidth={1.5} />
+                                <Presentation size={64} strokeWidth={1.5} />
                             </div>
                             <h3>{t('list.emptyState.noReports')}</h3>
                             <p>

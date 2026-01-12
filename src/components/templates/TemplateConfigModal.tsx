@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Loader2, Plus, Grid, Trash2, Users } from 'lucide-react';
+import { X, Loader2, Users } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { Campaign } from '../../types/business';
 import type { PeriodPreset, TemplateSlideConfig } from '../../types/templateTypes';
 import { PERIOD_PRESETS } from '../../types/templateTypes';
-import { SlideType } from '../../types/reportTypes';
 import ConfirmationModal from '../common/ConfirmationModal';
 import './TemplateConfigModal.css';
-import SlideLibrary from '../reports/SlideLibrary';
 import { useTutorial } from '../../contexts/TutorialContext';
 import { useTranslation } from 'react-i18next';
 import { useClients } from '../../hooks/useClients';
@@ -65,9 +63,6 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
 
     const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>(initialConfig?.campaignIds || []);
     const [periodPreset, setPeriodPreset] = useState<PeriodPreset>(initialConfig?.periodPreset || 'last_30_days');
-    const [slideConfigs, setSlideConfigs] = useState<TemplateSlideConfig[]>(initialConfig?.slideConfigs || []);
-    // selectAll state removed as it was unused and replaced by derived state
-    const [showSlideLibrary, setShowSlideLibrary] = useState(false);
     const { t } = useTranslation('templates');
 
     // Effect: When client selection changes, update account ID
@@ -109,18 +104,6 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
         // Effect will handle accountId update and campaign reset
     };
 
-    const getSlideTitle = (type: string) => {
-        switch (type) {
-            case SlideType.PERFORMANCE_OVERVIEW: return t('configModal.slideTitles.performance');
-            case SlideType.KEY_METRICS: return t('configModal.slideTitles.metrics');
-            case SlideType.CAMPAIGN_CHART: return t('configModal.slideTitles.chart');
-            case SlideType.AD_CREATIVE: return t('configModal.slideTitles.creative');
-            case SlideType.TEXT_BLOCK: return t('configModal.slideTitles.text');
-            case SlideType.CUSTOM: return t('configModal.slideTitles.custom');
-            default: return type;
-        }
-    };
-
     // Safeguards
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { refresh: refreshTutorial } = useTutorial();
@@ -134,8 +117,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
             description: initialConfig?.description || '',
             accountId: selectedAccountId || initialConfig?.accountId || '',
             campaignIds: initialConfig?.campaignIds || [],
-            periodPreset: initialConfig?.periodPreset || 'last_30_days',
-            slideConfigs: initialConfig?.slideConfigs || []
+            periodPreset: initialConfig?.periodPreset || 'last_30_days'
         };
         setInitialStateStr(JSON.stringify(state));
     }, [initialConfig, selectedAccountId]);
@@ -162,20 +144,6 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
         }
     };
 
-    const handleAddSlide = (type: SlideType) => {
-        const newSlide: TemplateSlideConfig = {
-            type,
-            order: slideConfigs.length,
-            settings: {} // Initialize with empty settings
-        };
-        setSlideConfigs(prev => [...prev, newSlide]);
-        setShowSlideLibrary(false);
-    };
-
-    const handleRemoveSlide = (indexToRemove: number) => {
-        setSlideConfigs(prev => prev.filter((_, index) => index !== indexToRemove));
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -199,11 +167,6 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
             return;
         }
 
-        if (slideConfigs.length === 0) {
-            toast.error(t('configModal.validation.slidesRequired'));
-            return;
-        }
-
         try {
             setIsSubmitting(true);
             const client = clients.find(c => c.id === selectedClientId);
@@ -220,7 +183,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                     .filter(c => selectedCampaigns.includes(c.id))
                     .map(c => c.name),
                 periodPreset,
-                slideConfigs,
+                slideConfigs: [], // Empty array - slides will be configured in editor
             });
             await refreshTutorial();
         } catch (error) {
@@ -237,8 +200,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
             clientId: selectedClientId,
             accountId,
             campaignIds: selectedCampaigns,
-            periodPreset,
-            slideConfigs
+            periodPreset
         };
         return JSON.stringify(currentState) !== initialStateStr;
     };
