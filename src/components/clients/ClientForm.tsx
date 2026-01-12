@@ -12,6 +12,7 @@ import { useTutorial } from '../../contexts/TutorialContext';
 import { EmailPresetEditor } from './EmailPresetEditor';
 import { EMAIL_PRESET_KEYS } from '../../constants/emailDefaults';
 import './ClientForm.css';
+import { motion } from 'framer-motion';
 
 interface ClientFormProps {
     initialData?: Client;
@@ -194,13 +195,20 @@ export const ClientForm: React.FC<ClientFormProps> = ({
     return (
         <form onSubmit={handleSubmit} className="client-form-container">
             {/* Basic Information Section */}
-            <div className="client-form-section">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="client-form-section"
+            >
                 <div className="client-form-section-header">
-                    <div>
-                        <h3 className="client-form-section-title">
-                            <Building2 />
+                    <div className="flex flex-col gap-1">
+                        <div className="client-form-section-title">
+                            <div className="client-form-section-icon">
+                                <Building2 />
+                            </div>
                             {t('form.sections.basicInfo')}
-                        </h3>
+                        </div>
                         <p className="client-form-section-description">
                             {t('form.sections.basicInfoDescription')}
                         </p>
@@ -313,16 +321,23 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     />
                     {errors.email && <p className="client-form-error">{errors.email}</p>}
                 </div>
-            </div>
+            </motion.div>
 
             {/* Preset Configuration Section */}
-            <div className="client-form-section">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="client-form-section"
+            >
                 <div className="client-form-section-header">
-                    <div>
-                        <h3 className="client-form-section-title">
-                            <Palette />
+                    <div className="flex flex-col gap-1">
+                        <div className="client-form-section-title">
+                            <div className="client-form-section-icon">
+                                <Palette />
+                            </div>
                             {t('form.presets.title')}
-                        </h3>
+                        </div>
                         <p className="client-form-section-description">
                             {t('form.presets.description')}
                         </p>
@@ -380,16 +395,23 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     </select>
                     {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
                 </div>
-            </div>
+            </motion.div>
 
             {/* Email Configuration Section */}
-            <div className="client-form-section">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+                className="client-form-section"
+            >
                 <div className="client-form-section-header">
-                    <div>
-                        <h3 className="client-form-section-title">
-                            <Mail />
+                    <div className="flex flex-col gap-1">
+                        <div className="client-form-section-title">
+                            <div className="client-form-section-icon">
+                                <Mail />
+                            </div>
                             {t('form.emailConfig.title')}
-                        </h3>
+                        </div>
                         <p className="client-form-section-description">
                             {t('form.emailConfig.description')}
                         </p>
@@ -402,7 +424,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     onBodyChange={setEmailBody}
                     clientName={name}
                 />
-            </div>
+            </motion.div>
 
             {/* Form Footer */}
             <div className="client-form-footer">
