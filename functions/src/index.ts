@@ -27,6 +27,9 @@ export { getWidgetMetrics } from "./widgetMetrics";
 // Re-export Ad Creatives function
 export { getAdCreatives } from "./adCreatives";
 
+// Re-export Query Playground
+export { googleAdsQuery } from "./queryPlayground";
+
 // Re-export Scheduled Reports function
 import { generateScheduledReports, processScheduledReports } from "./generateScheduledReports";
 export { generateScheduledReports, processScheduledReports };

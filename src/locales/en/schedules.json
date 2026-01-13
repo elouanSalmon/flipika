@@ -121,6 +121,10 @@
       "title": "Unsaved changes",
       "message": "You have unsaved changes. Are you sure you want to close without saving?",
       "confirm": "Close without saving"
+    },
+    "reassurance": {
+      "firstRun": "The first execution will occur at the date and time defined below. You will receive a notification.",
+      "frequency": "Reports will be automatically generated according to this frequency and will wait for your validation before sending."
     }
   }
 }

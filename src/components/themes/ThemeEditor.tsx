@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Save } from 'lucide-react';
+import { X, Save, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { HexColorPicker } from 'react-colorful';
 import themeService from '../../services/themeService';
@@ -464,6 +464,10 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                     <div className="theme-editor-preview">
                         <div className="theme-editor-preview-header">
                             <h3>{t('editor.previewTitle')}</h3>
+                        </div>
+                        <div className="reassurance-hint" style={{ marginTop: '0', marginBottom: '12px' }}>
+                            <Info className="reassurance-hint-icon" />
+                            <span className="reassurance-hint-text">{t('editor.reassurance.preview')}</span>
                         </div>
                         <div className="theme-editor-preview-content">
                             <ThemePreview

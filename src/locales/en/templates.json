@@ -140,6 +140,10 @@
       "message": "You have unsaved changes. Are you sure you want to close without saving?",
       "confirm": "Close without saving"
     },
+    "reassurance": {
+      "slides": "After creation, you can configure the slides of your template in the dedicated editor.",
+      "campaigns": "You can select multiple campaigns. All will be included in reports generated with this template."
+    },
     "slideTitles": {
       "performance": "Performance Overview",
       "metrics": "Key Metrics",

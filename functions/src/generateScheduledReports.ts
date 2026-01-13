@@ -571,17 +571,27 @@ function calculateNextRunTime(config: any): Date {
     switch (config.frequency) {
         case "daily":
             // Set to the target hour in Paris time (converted to UTC)
+            // config.hour = 0 (midnight Paris) = 23:00 UTC previous day
             const targetHourUTC = (config.hour || 0) - parisOffsetHours;
-            next.setUTCHours(targetHourUTC < 0 ? targetHourUTC + 24 : targetHourUTC, 0, 0, 0);
 
-            // If we've wrapped to previous day, adjust
-            if (targetHourUTC < 0) {
-                next.setUTCDate(next.getUTCDate() + 1);
-            }
+            // Start from today at midnight UTC
+            next.setUTCHours(0, 0, 0, 0);
 
-            // If the time has already passed today, move to tomorrow
-            if (next <= now) {
-                next.setUTCDate(next.getUTCDate() + 1);
+            if (targetHourUTC >= 0) {
+                // Target hour is same day in UTC (e.g., 9h Paris = 8h UTC)
+                next.setUTCHours(targetHourUTC, 0, 0, 0);
+                // If this time has passed today, move to tomorrow
+                if (next <= now) {
+                    next.setUTCDate(next.getUTCDate() + 1);
+                }
+            } else {
+                // Target hour wraps to previous day in UTC (e.g., 0h Paris = 23h UTC previous day)
+                // This means "midnight Paris tomorrow" = "23:00 UTC today"
+                next.setUTCHours(targetHourUTC + 24, 0, 0, 0);
+                // If this time has passed today, move to tomorrow
+                if (next <= now) {
+                    next.setUTCDate(next.getUTCDate() + 1);
+                }
             }
             break;
 

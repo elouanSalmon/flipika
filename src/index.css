@@ -1648,3 +1648,98 @@ iframe {
 [data-theme="dark"] #cc-main button:not(.cm__btn--primary):not(.pm__btn--primary):not([data-role="all"]) {
   background: rgba(17, 24, 39, 0.8) !important;
 }
+
+/* ========================================
+   Reassurance Elements
+   ======================================== */
+
+/* Reassurance Banner - Subtle info banner for forms */
+.reassurance-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.06) 0%, rgba(var(--primary-rgb), 0.02) 100%);
+  border: 1px solid rgba(var(--primary-rgb), 0.15);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.reassurance-banner-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-primary);
+  opacity: 0.85;
+}
+
+.reassurance-banner-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.reassurance-banner-title {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+}
+
+.reassurance-banner-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .reassurance-banner {
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.12) 0%, rgba(var(--primary-rgb), 0.04) 100%);
+  border-color: rgba(var(--primary-rgb), 0.25);
+}
+
+/* Reassurance Hint - Small contextual help text */
+.reassurance-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(var(--surface-rgb), 0.5);
+  border: 1px solid rgba(var(--border-rgb), 0.5);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-sm);
+}
+
+.reassurance-hint-icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: var(--color-primary);
+  opacity: 0.7;
+  margin-top: 1px;
+}
+
+.reassurance-hint-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .reassurance-hint {
+  background: rgba(var(--surface-rgb), 0.3);
+  border-color: rgba(var(--border-rgb), 0.4);
+}
+
+/* Success State Banner */
+.reassurance-banner.success {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.02) 100%);
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+.reassurance-banner.success .reassurance-banner-icon {
+  color: #22c55e;
+}
+
+[data-theme="dark"] .reassurance-banner.success {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%);
+  border-color: rgba(34, 197, 94, 0.3);
+}

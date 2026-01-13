@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Loader2, Users } from 'lucide-react';
+import { X, Loader2, Users, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { Campaign } from '../../types/business';
 import type { PeriodPreset, TemplateSlideConfig } from '../../types/templateTypes';
@@ -298,6 +298,10 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                         <span className="text-xs font-medium text-red-500 bg-red-50 px-2 py-0.5 rounded-full dark:bg-red-900/30 dark:text-red-400 ml-2">{t('configModal.account.requiredBadge')}</span>
                                     )}
                                 </h3>
+                                <div className="reassurance-hint" style={{ marginTop: '-8px', marginBottom: '16px' }}>
+                                    <Info className="reassurance-hint-icon" />
+                                    <span className="reassurance-hint-text">{t('configModal.reassurance.campaigns')}</span>
+                                </div>
                                 <p className="section-description">
                                     {t('configModal.account.description')}
                                 </p>

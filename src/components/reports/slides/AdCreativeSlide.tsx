@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AdCreativeCard from './AdCreativeCard';
+import PerformanceMaxSlide from './PerformanceMaxSlide';
+import SearchAdSlide from './SearchAdSlide';
 import type { AdCreativeData, AdMetrics } from './AdCreativeCard';
 import Spinner from '../../common/Spinner';
 import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
@@ -32,6 +34,9 @@ interface RealAdCreative {
         cost: number;
         conversions: number;
     };
+    images: { url: string; ratio: 'SQUARE' | 'PORTRAIT' | 'LANDSCAPE' }[];
+    campaignName?: string; // Add optional campaign name
+    adGroupName?: string;  // Add optional asset group name
 }
 
 const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
@@ -187,7 +192,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
         if (selectedAd) {
             // Transform real ad to AdCreativeData format
             adData = {
-                type: selectedAd.type === 'SEARCH' ? 'search' : 'display',
+                type: selectedAd.type === 'SEARCH' ? 'search' : selectedAd.type === 'PMAX' ? 'PMAX' : 'display', // Handle PMAX type
                 headline: selectedAd.headlines[0] || 'No headline',
                 description: selectedAd.descriptions[0] || 'No description',
                 displayUrl: selectedAd.displayUrl,
@@ -224,6 +229,44 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
         adMetrics = mockMetrics;
     }
 
+    // If it's a PMax ad (check type or if it has images array structure suited for PMax)
+    // The backend now returns type='PMAX' for asset groups
+    if (adData.type === 'PMAX' || (selectedAd?.type === 'PMAX')) {
+        return (
+            <div className="h-full rounded-xl overflow-hidden shadow-sm border border-gray-200" style={{ backgroundColor: design.colorScheme.background }}>
+                <PerformanceMaxSlide
+                    data={{
+                        headlines: selectedAd?.headlines || [],
+                        descriptions: selectedAd?.descriptions || [],
+                        images: selectedAd?.images || [], // The backend now provides this specialized array
+                        finalUrl: selectedAd?.finalUrl,
+                        campaignName: selectedAd?.campaignName || 'Campaign',
+                        assetGroupName: selectedAd?.name || 'Asset Group'
+                    }}
+                    design={design}
+                />
+            </div>
+        );
+    }
+
+    // If it's a Search ad, use the new SearchAdSlide for better visualization
+    if (adData.type === 'search' || selectedAd?.type === 'SEARCH') {
+        return (
+            <div className="h-full rounded-xl overflow-hidden shadow-sm border border-gray-200" style={{ backgroundColor: design.colorScheme.background }}>
+                <SearchAdSlide
+                    data={{
+                        headlines: selectedAd?.headlines || [adData.headline],
+                        descriptions: selectedAd?.descriptions || [adData.description],
+                        displayUrl: adData.displayUrl,
+                        finalUrl: adData.finalUrl
+                    }}
+                    design={design}
+                />
+            </div>
+        );
+    }
+
+    // Default Fallback (Display Ads or other types using the Card view)
     return (
         <div
             className="ad-creative-widget"

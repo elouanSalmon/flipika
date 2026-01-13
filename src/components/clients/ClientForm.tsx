@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { Client, CreateClientInput, UpdateClientInput } from '../../types/client';
 import type { ReportTemplate } from '../../types/templateTypes';
 import type { ReportTheme } from '../../types/reportThemes';
-import { Upload, Loader2, X, Building2, Mail, Palette, AlertTriangle } from 'lucide-react';
+import { Upload, Loader2, X, Building2, Mail, Palette, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { listUserTemplates } from '../../services/templateService';
 import themeService from '../../services/themeService';
@@ -194,6 +194,14 @@ export const ClientForm: React.FC<ClientFormProps> = ({
 
     return (
         <form onSubmit={handleSubmit} className="client-form-container">
+            {/* Reassurance Banner */}
+            <div className="reassurance-banner">
+                <ShieldCheck className="reassurance-banner-icon" />
+                <div className="reassurance-banner-content">
+                    <span className="reassurance-banner-text">{t('form.reassurance.banner')}</span>
+                </div>
+            </div>
+
             {/* Basic Information Section */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}

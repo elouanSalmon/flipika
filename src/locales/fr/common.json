@@ -659,6 +659,7 @@
       "title": "Activez votre essai gratuit",
       "description": "Profitez de <1>14 jours d'essai gratuit</1>, puis une licence de 10€ par compte Google Ads connecté. Sans engagement.",
       "cta": "Commencer l'essai gratuit",
+      "redirecting": "Redirection vers Stripe...",
       "details": "Voir les détails de l'offre",
       "skip": "Passer et découvrir en mode démo",
       "skipping": "Finalisation..."
@@ -667,6 +668,8 @@
       "title": "Connectez vos comptes",
       "description": "Connectez votre compte pour permettre à Flipika de récupérer vos statistiques et générer vos rapports en un clic.",
       "cta": "Connecter Google Ads",
+      "connecting": "Connexion en cours...",
+      "retry": "Cliquer pour réessayer",
       "secure": "Connexion chiffrée et sécurisée via l'API Google"
     }
   },

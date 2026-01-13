@@ -81,7 +81,11 @@
         "errorNameRequired": "Veuillez entrer un nom pour le thème",
         "successUpdate": "Thème mis à jour",
         "successCreate": "Thème créé",
-        "errorSave": "Erreur lors de la sauvegarde du thème"
+        "errorSave": "Erreur lors de la sauvegarde du thème",
+        "reassurance": {
+            "preview": "L'aperçu reflète vos modifications en temps réel. Le résultat final sera identique à ce que vous voyez ici.",
+            "linkedClients": "Les comptes sélectionnés utiliseront automatiquement ce thème pour leurs rapports."
+        }
     },
     "info": {
         "buttonLabel": "Information",

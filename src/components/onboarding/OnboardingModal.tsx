@@ -173,16 +173,19 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
     const [retryAvailable, setRetryAvailable] = useState(false);
     const pollingInterval = React.useRef<ReturnType<typeof setInterval> | null>(null);
 
-    // Watch for connection success
+    // Watch for connection success - transition to next step when connected
     useEffect(() => {
-        if (loading && isConnected) {
+        if (currentStep === 'googleAds' && isConnected) {
+            // Connected! Clean up and move to next step
             if (pollingInterval.current) clearInterval(pollingInterval.current);
-            setLoading(false);
-            toast.dismiss();
-            toast.success('Google Ads connected successfully!');
+            if (loading) {
+                setLoading(false);
+                toast.dismiss();
+                toast.success('Google Ads connected successfully!');
+            }
             setCurrentStep('subscription');
         }
-    }, [isConnected, loading]);
+    }, [isConnected, currentStep, loading]);
 
     // Cleanup polling on unmount
     useEffect(() => {
@@ -514,9 +517,10 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                     {loading ? (
                                         <>
                                             <Loader2 className="animate-spin text-white" size={20} />
+                                            <span>{t('common:onboarding.googleAds.connecting')}</span>
                                             {retryAvailable && (
-                                                <span className="ml-2 text-sm font-medium">
-                                                    (Cliquer pour réessayer)
+                                                <span className="text-sm font-medium opacity-75">
+                                                    ({t('common:onboarding.googleAds.retry')})
                                                 </span>
                                             )}
                                         </>
@@ -569,8 +573,14 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                 disabled={loading}
                                 className="btn btn-primary w-full shadow-lg shadow-primary/30 h-14 flex items-center justify-center text-lg gap-2"
                             >
-                                {loading && <Loader2 className="animate-spin" size={20} />}
-                                {t('common:onboarding.subscription.cta')}
+                                {loading ? (
+                                    <>
+                                        <Loader2 className="animate-spin" size={20} />
+                                        <span>{t('common:onboarding.subscription.redirecting')}</span>
+                                    </>
+                                ) : (
+                                    t('common:onboarding.subscription.cta')
+                                )}
                             </button>
 
                             <button

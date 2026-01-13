@@ -282,6 +282,7 @@
       "title": "Start your free trial",
       "description": "Enjoy <1>14 days free trial</1>, then a license of $10 per connected Google Ads account. No commitment.",
       "cta": "Start free trial",
+      "redirecting": "Redirecting to Stripe...",
       "details": "See offer details",
       "skip": "Skip and explore in demo mode",
       "skipping": "Finalizing..."
@@ -290,6 +291,8 @@
       "title": "Connect your accounts",
       "description": "Connect your account to allow Flipika to retrieve your statistics and generate your reports in one click.",
       "cta": "Connect Google Ads",
+      "connecting": "Connecting...",
+      "retry": "Click to retry",
       "secure": "Encrypted and secure connection via Google API"
     }
   },

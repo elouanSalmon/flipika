@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import { X, Loader2 } from 'lucide-react';
+import { X, Loader2, Info } from 'lucide-react';
 import type { ScheduledReport, ScheduleConfig } from '../../types/scheduledReportTypes';
 import type { ReportTemplate } from '../../types/templateTypes';
 import FrequencySelector from './FrequencySelector';
@@ -187,6 +187,10 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
 
                             <div className="form-section">
                                 <h3>{t('config.configuration')}</h3>
+                                <div className="reassurance-hint" style={{ marginBottom: '16px' }}>
+                                    <Info className="reassurance-hint-icon" />
+                                    <span className="reassurance-hint-text">{t('config.reassurance.frequency')}</span>
+                                </div>
 
                                 <div className="form-group">
                                     <label htmlFor="template">

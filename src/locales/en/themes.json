@@ -81,7 +81,11 @@
         "errorNameRequired": "Please enter a theme name",
         "successUpdate": "Theme updated",
         "successCreate": "Theme created",
-        "errorSave": "Error saving theme"
+        "errorSave": "Error saving theme",
+        "reassurance": {
+            "preview": "The preview reflects your changes in real time. The final result will be identical to what you see here.",
+            "linkedClients": "Selected accounts will automatically use this theme for their reports."
+        }
     },
     "info": {
         "buttonLabel": "Information",

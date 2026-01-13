@@ -89,6 +89,11 @@
             "update": "Update",
             "creating": "Creating...",
             "updating": "Updating..."
+        },
+        "reassurance": {
+            "banner": "Your changes will be saved only after clicking the save button.",
+            "logo": "Your logo will be automatically optimized for optimal display in reports.",
+            "emailConfig": "These settings customize the email sent with reports. Use variables in brackets to dynamically insert information."
         }
     },
     "info": {

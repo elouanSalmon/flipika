@@ -89,6 +89,11 @@
             "update": "Mettre à jour",
             "creating": "Création...",
             "updating": "Mise à jour..."
+        },
+        "reassurance": {
+            "banner": "Vos modifications seront enregistrées uniquement après avoir cliqué sur le bouton de sauvegarde.",
+            "logo": "Votre logo sera automatiquement optimisé pour un affichage optimal dans les rapports.",
+            "emailConfig": "Ces paramètres personnalisent l'email envoyé avec les rapports. Utilisez les variables entre crochets pour insérer dynamiquement les informations."
         }
     },
     "info": {

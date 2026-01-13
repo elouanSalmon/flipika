@@ -140,6 +140,10 @@
       "message": "Vous avez des modifications en cours. Êtes-vous sûr de vouloir fermer sans enregistrer ?",
       "confirm": "Fermer sans enregistrer"
     },
+    "reassurance": {
+      "slides": "Après la création, vous pourrez configurer les slides de votre modèle dans l'éditeur dédié.",
+      "campaigns": "Vous pouvez sélectionner plusieurs campagnes. Toutes seront incluses dans les rapports générés avec ce modèle."
+    },
     "slideTitles": {
       "performance": "Vue d'ensemble",
       "metrics": "Métriques Clés",

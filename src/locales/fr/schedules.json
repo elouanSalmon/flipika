@@ -121,6 +121,10 @@
       "title": "Modifications non enregistrées",
       "message": "Vous avez des modifications en cours. Êtes-vous sûr de vouloir fermer sans enregistrer ?",
       "confirm": "Fermer sans enregistrer"
+    },
+    "reassurance": {
+      "firstRun": "La première exécution aura lieu à la date et l'heure définies ci-dessous. Vous recevrez une notification.",
+      "frequency": "Les rapports seront générés automatiquement selon cette fréquence et attendront votre validation avant envoi."
     }
   }
 }

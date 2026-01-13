@@ -3,7 +3,7 @@ import { TrendingUp, TrendingDown, MousePointer, Target, DollarSign } from 'luci
 import type { ReportDesign } from '../../../types/reportTypes';
 import './AdCreativeCard.css';
 
-export type AdType = 'search' | 'display';
+export type AdType = 'search' | 'display' | 'PMAX';
 
 export interface AdCreativeData {
     type: AdType;

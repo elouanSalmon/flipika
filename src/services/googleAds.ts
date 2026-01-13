@@ -189,3 +189,34 @@ export const fetchAdCreatives = async (
     }
 };
 
+
+/**
+ * Execute arbitrary GAQL query
+ */
+export const executeQuery = async (
+    customerId: string,
+    query: string
+) => {
+    try {
+        const headers = await getAuthHeaders();
+
+        const response = await fetch(`${FUNCTIONS_BASE_URL}/googleAdsQuery`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                customerId,
+                query
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${await response.text()}`);
+        }
+
+        const data = await response.json();
+        return data; // { success: true, results: [], info: {} }
+    } catch (error) {
+        console.error("Failed to execute query:", error);
+        return { success: false, error: 'Failed to execute query' };
+    }
+};

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.googleAdsQuery = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -29,6 +29,9 @@ Object.defineProperty(exports, "getWidgetMetrics", { enumerable: true, get: func
 // Re-export Ad Creatives function
 var adCreatives_1 = require("./adCreatives");
 Object.defineProperty(exports, "getAdCreatives", { enumerable: true, get: function () { return adCreatives_1.getAdCreatives; } });
+// Re-export Query Playground
+var queryPlayground_1 = require("./queryPlayground");
+Object.defineProperty(exports, "googleAdsQuery", { enumerable: true, get: function () { return queryPlayground_1.googleAdsQuery; } });
 // Re-export Scheduled Reports function
 const generateScheduledReports_1 = require("./generateScheduledReports");
 Object.defineProperty(exports, "generateScheduledReports", { enumerable: true, get: function () { return generateScheduledReports_1.generateScheduledReports; } });
