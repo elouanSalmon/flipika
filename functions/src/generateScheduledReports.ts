@@ -8,7 +8,7 @@ import { Timestamp } from "firebase-admin/firestore";
  * Checks for schedules that are due and generates reports from templates
  */
 export const generateScheduledReports = onSchedule({
-    schedule: "every 15 minutes",
+    schedule: "0,15,30,45 * * * *", // Run exactly on the hour and every 15 mins
     timeZone: "Europe/Paris",
     memory: "1GiB",
 }, async () => {
