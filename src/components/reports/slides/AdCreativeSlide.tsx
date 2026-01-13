@@ -20,7 +20,7 @@ interface AdCreativeSlideProps {
 
 interface RealAdCreative {
     id: string;
-    type: 'SEARCH' | 'DISPLAY' | 'UNKNOWN';
+    type: 'SEARCH' | 'DISPLAY' | 'UNKNOWN' | 'PMAX';
     name: string;
     headlines: string[];
     descriptions: string[];
@@ -180,12 +180,13 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     // Determine which ad to display
     let adData: AdCreativeData;
     let adMetrics: AdMetrics;
+    let selectedAd: RealAdCreative | undefined;
 
     if (!isMockData && realAds.length > 0) {
         // Use real ad data
         // Get selected ad ID from widget settings, or use first ad
         const selectedAdId = config.settings?.selectedAdId;
-        const selectedAd = selectedAdId
+        selectedAd = selectedAdId
             ? realAds.find(ad => ad.id === selectedAdId)
             : realAds[0];
 
@@ -258,7 +259,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
                         headlines: selectedAd?.headlines || [adData.headline],
                         descriptions: selectedAd?.descriptions || [adData.description],
                         displayUrl: adData.displayUrl,
-                        finalUrl: adData.finalUrl
+                        finalUrl: adData.finalUrl || ''
                     }}
                     design={design}
                 />

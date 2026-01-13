@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ReportDesign } from '../../../types/reportTypes';
-import { Search, Globe, MoreVertical } from 'lucide-react';
+import { Globe, MoreVertical } from 'lucide-react';
 
 interface SearchAdSlideProps {
     data: {
