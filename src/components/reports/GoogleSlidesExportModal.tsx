@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { X } from 'lucide-react';
+import { X, FileText } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { ExportToGoogleSlidesButton } from './ExportToGoogleSlidesButton';
 import type { FlipikaSlideData } from '../../types/googleSlides';
+import type { SlideConfig } from '../../types/reportTypes';
+import { extractSlidesDataForExport } from '../../services/slideDataExtractor';
+import toast from 'react-hot-toast';
+import './GoogleSlidesExportModal.css';
 
 interface GoogleSlidesExportModalProps {
     isOpen: boolean;
     onClose: () => void;
     reportId: string;
     reportTitle: string;
-    slides: FlipikaSlideData[];
+    slides: SlideConfig[];
+    accountId: string;
+    campaignIds: string[];
+    startDate?: Date;
+    endDate?: Date;
 }
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -25,71 +34,135 @@ export const GoogleSlidesExportModal: React.FC<GoogleSlidesExportModalProps> = (
     reportId,
     reportTitle,
     slides,
+    accountId,
+    campaignIds,
+    startDate,
+    endDate,
 }) => {
+    const { t } = useTranslation('reports');
+    const [isExtracting, setIsExtracting] = useState(false);
+    const [extractedSlides, setExtractedSlides] = useState<FlipikaSlideData[] | null>(null);
+
     if (!isOpen) return null;
+
+    // Extract data when modal opens (only once)
+    React.useEffect(() => {
+        if (isOpen && !extractedSlides && !isExtracting) {
+            extractData();
+        }
+    }, [isOpen]);
+
+    const extractData = async () => {
+        setIsExtracting(true);
+        toast.loading(t('header.export.extracting'), { id: 'extract' });
+
+        try {
+            const data = await extractSlidesDataForExport(
+                slides,
+                accountId,
+                campaignIds,
+                startDate,
+                endDate,
+                reportId
+            );
+            setExtractedSlides(data);
+            toast.success(
+                t(`header.export.ready_${data.length === 1 ? 'one' : 'other'}`, { count: data.length }),
+                { id: 'extract' }
+            );
+        } catch (error) {
+            console.error('Error extracting slide data:', error);
+            toast.error(t('header.export.error'), { id: 'extract' });
+            // Fallback to basic data
+            setExtractedSlides(slides.map(slide => ({
+                type: slide.type as FlipikaSlideData['type'],
+                title: slide.title || slide.type.replace(/_/g, ' ').toUpperCase(),
+                data: {},
+            })));
+        } finally {
+            setIsExtracting(false);
+        }
+    };
 
     return (
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-            <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+            <div className="modal-overlay" onClick={onClose}>
+                <div className="modal-container export-modal" onClick={(e) => e.stopPropagation()}>
                     {/* Header */}
-                    <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-                        <div>
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                                Exporter vers Google Slides
-                            </h2>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                {reportTitle}
-                            </p>
+                    <div className="modal-header">
+                        <div className="modal-header-content">
+                            <div className="modal-icon">
+                                <FileText size={24} />
+                            </div>
+                            <div>
+                                <h2 className="modal-title">{t('header.export.title')}</h2>
+                                <p className="modal-subtitle">{reportTitle}</p>
+                            </div>
                         </div>
                         <button
                             onClick={onClose}
-                            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-                            aria-label="Fermer"
+                            className="modal-close-btn"
+                            aria-label={t('editor.close')}
                         >
-                            <X size={24} />
+                            <X size={20} />
                         </button>
                     </div>
 
-                    {/* Content */}
-                    <div className="p-6">
-                        <div className="mb-6">
-                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                                <p className="text-sm text-blue-800 dark:text-blue-200">
-                                    <strong>📊 {slides.length} slide{slides.length > 1 ? 's' : ''}</strong> seront exportées vers Google Slides
+                    {/* Body */}
+                    <div className="modal-body">
+                        {/* Info Card */}
+                        <div className="export-info-card">
+                            <div className="export-info-content">
+                                <p className="export-info-title">
+                                    <strong>
+                                        {t(`header.export.slideCount_${slides.length === 1 ? 'one' : 'other'}`, {
+                                            count: slides.length
+                                        })}
+                                    </strong>
                                 </p>
-                                <p className="text-xs text-blue-600 dark:text-blue-300 mt-2">
-                                    La présentation sera créée dans votre Google Drive et s'ouvrira automatiquement.
+                                <p className="export-info-description">
+                                    {t('header.export.info')}
                                 </p>
                             </div>
                         </div>
 
                         {/* Export Button */}
-                        <div className="flex justify-center">
-                            <ExportToGoogleSlidesButton
-                                reportId={reportId}
-                                reportTitle={reportTitle}
-                                slides={slides}
-                                className="w-full"
-                            />
+                        <div className="export-button-container">
+                            {isExtracting ? (
+                                <div className="export-loading">
+                                    <div className="export-loading-spinner" />
+                                    <span>{t('header.export.extracting')}</span>
+                                </div>
+                            ) : extractedSlides ? (
+                                <ExportToGoogleSlidesButton
+                                    reportId={reportId}
+                                    reportTitle={reportTitle}
+                                    slides={extractedSlides}
+                                    className="w-full"
+                                />
+                            ) : (
+                                <button
+                                    onClick={extractData}
+                                    className="btn btn-primary w-full"
+                                >
+                                    {t('header.export.preparing')}
+                                </button>
+                            )}
                         </div>
 
-                        {/* Info */}
-                        <div className="mt-6 text-xs text-gray-500 dark:text-gray-400">
-                            <p>
-                                <strong>Note :</strong> Vous devrez autoriser Flipika à accéder à votre Google Drive
-                                lors de la première utilisation.
-                            </p>
-                        </div>
+                        {/* Note */}
+                        <p className="export-note">
+                            <strong>{t('header.export.noteLabel')}</strong> {t('header.export.note')}
+                        </p>
                     </div>
 
                     {/* Footer */}
-                    <div className="flex justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+                    <div className="modal-actions">
                         <button
                             onClick={onClose}
-                            className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                            className="btn btn-secondary"
                         >
-                            Annuler
+                            {t('header.export.cancel')}
                         </button>
                     </div>
                 </div>

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
+import { useTranslation } from 'react-i18next';
+import { FileText, Loader2 } from 'lucide-react';
 import { createGoogleSlidesService } from '../../services/googleSlidesService';
 import type { FlipikaSlideData } from '../../types/googleSlides';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
@@ -25,6 +27,7 @@ export const ExportToGoogleSlidesButton = ({
     slides,
     className = '',
 }: ExportToGoogleSlidesButtonProps) => {
+    const { t } = useTranslation('reports');
     const { currentUser } = useAuth();
     const [isExporting, setIsExporting] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(
@@ -36,11 +39,11 @@ export const ExportToGoogleSlidesButton = ({
         onSuccess: (tokenResponse) => {
             localStorage.setItem('google_access_token', tokenResponse.access_token);
             setIsAuthenticated(true);
-            toast.success('Authentifié avec Google !');
+            toast.success(t('header.export.success'));
         },
         onError: (error) => {
             console.error('OAuth Error:', error);
-            toast.error('Erreur d\'authentification Google');
+            toast.error(t('header.export.error'));
         },
     });
 
@@ -65,9 +68,9 @@ export const ExportToGoogleSlidesButton = ({
             console.log('✅ Service created');
 
             // Create presentation
-            toast.loading('Création de la présentation...', { id: 'export' });
-            console.log('📊 Creating presentation:', reportTitle);
-            console.log('📊 Slides to export:', slides.length);
+            toast.loading(t('header.export.creating'), { id: 'export' });
+            console.log('Creating presentation:', reportTitle);
+            console.log('Slides to export:', slides.length);
 
             const presentation = await service.createPresentationFromReport(
                 reportTitle,
@@ -92,7 +95,7 @@ export const ExportToGoogleSlidesButton = ({
             await setDoc(exportRef, exportData);
             console.log('✅ Saved to Firestore');
 
-            toast.success('Présentation créée !', { id: 'export' });
+            toast.success(t('header.export.success'), { id: 'export' });
 
             // Open presentation in new tab
             window.open(presentation.presentationUrl, '_blank');
@@ -107,7 +110,7 @@ export const ExportToGoogleSlidesButton = ({
                 console.log('🔑 Token expired, clearing and requesting re-authentication...');
                 localStorage.removeItem('google_access_token');
                 setIsAuthenticated(false);
-                toast.error('Session Google expirée. Veuillez vous reconnecter.', { id: 'export' });
+                toast.error(t('header.export.sessionExpired'), { id: 'export' });
                 // Automatically trigger login
                 setTimeout(() => login(), 500);
                 return;
@@ -115,11 +118,11 @@ export const ExportToGoogleSlidesButton = ({
 
             // More specific error messages
             if (error.code === 'permission-denied') {
-                toast.error('Erreur de permissions Firestore', { id: 'export' });
+                toast.error(t('header.export.errorFirestore'), { id: 'export' });
             } else if (error.message?.includes('presentations')) {
-                toast.error('Erreur API Google Slides', { id: 'export' });
+                toast.error(t('header.export.errorAPI'), { id: 'export' });
             } else {
-                toast.error(`Erreur d'export: ${error.message}`, { id: 'export' });
+                toast.error(`${t('header.export.error')}: ${error.message}`, { id: 'export' });
             }
         } finally {
             setIsExporting(false);
@@ -134,7 +137,7 @@ export const ExportToGoogleSlidesButton = ({
                     className={`btn-secondary ${className}`}
                     disabled={isExporting}
                 >
-                    🔐 Se connecter à Google
+                    {t('header.export.connect')}
                 </button>
             )}
 
@@ -145,12 +148,13 @@ export const ExportToGoogleSlidesButton = ({
             >
                 {isExporting ? (
                     <>
-                        <span className="animate-spin mr-2">⏳</span>
-                        Export en cours...
+                        <Loader2 size={16} className="animate-spin mr-2" />
+                        {t('header.export.creating')}
                     </>
                 ) : (
                     <>
-                        📊 Exporter vers Google Slides
+                        <FileText size={16} className="mr-2" />
+                        {t('header.export.export')}
                     </>
                 )}
             </button>

@@ -84,12 +84,48 @@ export interface Image {
  * Flipika-specific types for slide mapping
  */
 
-export type FlipikaSlideType = 'performance' | 'chart' | 'metrics' | 'creative';
+export type FlipikaSlideType =
+    | 'section_title'
+    | 'performance_overview'
+    | 'key_metrics'
+    | 'campaign_chart'
+    | 'ad_creative'
+    | 'funnel_analysis'
+    | 'device_platform_split'
+    | 'heatmap'
+    | 'top_performers'
+    | 'rich_text'
+    | 'custom';
+
+// Specific data types for each slide
+export interface SectionTitleData {
+    title: string;
+    subtitle?: string;
+}
+
+export interface PerformanceMetric {
+    name: string;
+    label: string;
+    value: number;
+    formatted: string;
+    change?: number;
+}
+
+export interface PerformanceOverviewData {
+    metrics: PerformanceMetric[];
+}
+
+export interface KeyMetricsData {
+    cost: PerformanceMetric;
+    revenue: PerformanceMetric;
+    roas: PerformanceMetric;
+    cpa: PerformanceMetric;
+}
 
 export interface FlipikaSlideData {
     type: FlipikaSlideType;
     title: string;
-    data: Record<string, any>;
+    data: SectionTitleData | PerformanceOverviewData | KeyMetricsData | Record<string, any>;
 }
 
 export interface GoogleSlidesExportMetadata {
