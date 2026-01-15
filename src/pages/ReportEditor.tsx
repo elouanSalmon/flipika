@@ -553,6 +553,11 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                 onOpenSettings={handleOpenSettings}
                 onOpenSecurity={() => setShowSecurityModal(true)}
                 onShareByEmail={handleOpenPreFlight}
+                onExportToGoogleSlides={() => {
+                    // TODO: Implement export handler
+                    console.log('Export to Google Slides clicked');
+                    toast.info('Export Google Slides - En cours de développement');
+                }}
                 isSaving={isSaving}
                 isLoadingSettings={isLoadingSettings}
                 canPublish={slides.length > 0}

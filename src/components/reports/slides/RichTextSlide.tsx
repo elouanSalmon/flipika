@@ -25,19 +25,19 @@ const RichTextSlide: React.FC<RichTextSlideProps> = ({
         <div
             className="rich-text-slide w-full h-full p-8 md:p-12 overflow-y-auto"
             style={{
-                backgroundColor: design.colorScheme.background,
-                color: design.colorScheme.text,
+                backgroundColor: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#000000',
             }}
         >
             <div
                 className="prose max-w-none"
                 style={{
-                    fontFamily: design.typography.fontFamily,
-                    fontSize: design.typography.fontSize,
-                    lineHeight: design.typography.lineHeight,
-                    '--tw-prose-body': design.colorScheme.text,
-                    '--tw-prose-headings': design.colorScheme.secondary,
-                    '--tw-prose-links': design.colorScheme.primary,
+                    fontFamily: design?.typography?.fontFamily || 'system-ui',
+                    fontSize: design?.typography?.fontSize || '16px',
+                    lineHeight: design?.typography?.lineHeight || '1.5',
+                    '--tw-prose-body': design?.colorScheme?.text || '#000000',
+                    '--tw-prose-headings': design?.colorScheme?.secondary || '#333333',
+                    '--tw-prose-links': design?.colorScheme?.primary || '#0066cc',
                 } as React.CSSProperties}
             >
                 <div
