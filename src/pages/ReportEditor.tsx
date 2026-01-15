@@ -30,6 +30,8 @@ import type { Account, Campaign } from '../types/business';
 import type { Client } from '../types/client';
 import { clientService } from '../services/clientService';
 import PreFlightModal from '../components/reports/PreFlightModal';
+import { GoogleSlidesExportModal } from '../components/reports/GoogleSlidesExportModal';
+import type { FlipikaSlideData } from '../types/googleSlides';
 import './ReportEditor.css';
 
 const ReportEditor: React.FC = () => {
@@ -70,6 +72,9 @@ const ReportEditor: React.FC = () => {
     const [showPreFlightModal, setShowPreFlightModal] = useState(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [tempPassword, _setTempPassword] = useState<string>(''); // Temporary password storage for email sharing
+
+    // Google Slides export modal state
+    const [showGoogleSlidesModal, setShowGoogleSlidesModal] = useState(false);
 
 
 
@@ -554,11 +559,11 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                 onOpenSecurity={() => setShowSecurityModal(true)}
                 onShareByEmail={handleOpenPreFlight}
                 onExportToGoogleSlides={() => {
-                    // TODO: Implement export handler
-                    console.log('Export to Google Slides clicked');
-                    toast('Export Google Slides - En cours de développement', {
-                        icon: '📊',
-                    });
+                    if (!report || !slides.length) {
+                        toast.error('Aucune slide à exporter');
+                        return;
+                    }
+                    setShowGoogleSlidesModal(true);
                 }}
                 isSaving={isSaving}
                 isLoadingSettings={isLoadingSettings}
@@ -651,6 +656,21 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     onClose={() => setShowPreFlightModal(false)}
                     onSendEmail={handlePreFlightDownload}
                     reportId={report.id}
+                />
+            )}
+
+            {/* Google Slides Export Modal */}
+            {showGoogleSlidesModal && report && (
+                <GoogleSlidesExportModal
+                    isOpen={showGoogleSlidesModal}
+                    onClose={() => setShowGoogleSlidesModal(false)}
+                    reportId={report.id}
+                    reportTitle={report.title}
+                    slides={slides.map(slide => ({
+                        type: slide.type as FlipikaSlideData['type'],
+                        title: slide.type.replace(/_/g, ' ').toUpperCase(),
+                        data: slide.settings || {},
+                    }))}
                 />
             )}
 
