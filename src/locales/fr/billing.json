@@ -7,13 +7,13 @@
     "trialActive": "Essai Gratuit Actif",
     "subscriptionActive": "Abonnement Actif",
     "noSubscription": "Aucun Abonnement",
-    "accessUntil": "Accès conservé jusqu'au {date}",
-    "trialUntil": "Période d'essai jusqu'au {date}",
+    "accessUntil": "Accès conservé jusqu'au {{date}}",
+    "trialUntil": "Période d'essai jusqu'au {{date}}",
     "activeRenewing": "Abonnement actif et renouvellement automatique activé",
     "trialCanceledBadge": "Essai annulé",
     "canceledBadge": "Annulé",
-    "activeUntil": "Actif jusqu'au {date}",
-    "trialDaysLeft": "Essai gratuit - {days} jours restants",
+    "activeUntil": "Actif jusqu'au {{date}}",
+    "trialDaysLeft": "Essai gratuit - {{days}} jours restants",
     "active": "Actif",
     "inactive": "Inactif",
     "pricingInfo": "Information sur la tarification"
@@ -24,7 +24,7 @@
     "simpleTransparent": "Tarification simple et transparente",
     "perMonth": "€/mois",
     "perAccount": "par compte Google Ads connecté",
-    "accountsCount": "{seats} compte{s}",
+    "accountsCount": "{{seats}} compte{s}",
     "monthly": "/mois",
     "seeAllPricing": "Voir tous les niveaux de tarification →",
     "features": {
@@ -39,7 +39,7 @@
   "subscription": {
     "googleAdsAccounts": "Comptes Google Ads",
     "monthlyAmount": "Montant mensuel",
-    "priceFormula": "€ × {seats} compte{s}",
+    "priceFormula": "€ × {{seats}} compte{s}",
     "nextPayment": "Prochain paiement",
     "manage": "Gérer l'abonnement",
     "redirecting": "Redirection...",
@@ -57,9 +57,10 @@
       "paymentFailed": "Échec du paiement",
       "subscriptionUpdated": "Abonnement mis à jour",
       "subscriptionCreated": "Abonnement créé",
-      "subscriptionCanceled": "Abonnement annulé"
+      "subscriptionCanceled": "Abonnement annulé",
+      "trialWillEnd": "Essai se termine bientôt"
     },
-    "seatsChange": "{count} → {count} compte{s}"
+    "seatsChange": "{{previous}} → {{new}} compte{s}"
   },
   "toast": {
     "subscriptionCreated": "Abonnement créé avec succès ! Bienvenue à bord",
@@ -67,6 +68,24 @@
     "checkoutError": "Erreur lors de la création du paiement",
     "portalError": "Erreur lors de l'ouverture du portail",
     "syncSuccess": "Facturation synchronisée avec succès",
-    "syncError": "Erreur lors de la synchronisation"
+    "syncError": "Erreur lors de la synchronisation",
+    "syncing": "Synchronisation en cours...",
+    "syncErrorRetry": "Erreur de synchronisation. Rafraîchissez la page."
+  },
+  "lifetime": {
+    "title": "Accès à vie",
+    "badge": "EARLY ADOPTER",
+    "price": "100€",
+    "oneTime": "un seul paiement, pour toujours",
+    "description": "Comptes illimités. Fonctionnalités futures incluses. Zéro abonnement.",
+    "cta": "Passez en accès à vie",
+    "statusTitle": "Membre Fondateur",
+    "statusDescription": "Accès permanent à toutes les fonctionnalités, présentes et futures",
+    "purchaseSuccess": "Bienvenue parmi les fondateurs ! Votre accès à vie est activé",
+    "purchaseEvent": "Achat accès à vie",
+    "upgradeBadge": "OFFRE LIMITÉE",
+    "upgradeTitle": "Passez en accès à vie",
+    "upgradeDescription": "Fini les mensualités. Un paiement, accès à vie.",
+    "upgradeCta": "Débloquer"
   }
 }

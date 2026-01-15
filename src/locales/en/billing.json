@@ -7,13 +7,13 @@
     "trialActive": "Free Trial Active",
     "subscriptionActive": "Subscription Active",
     "noSubscription": "No Subscription",
-    "accessUntil": "Access retained until {date}",
-    "trialUntil": "Trial period until {date}",
+    "accessUntil": "Access retained until {{date}}",
+    "trialUntil": "Trial period until {{date}}",
     "activeRenewing": "Subscription active with automatic renewal enabled",
     "trialCanceledBadge": "Trial canceled",
     "canceledBadge": "Canceled",
-    "activeUntil": "Active until {date}",
-    "trialDaysLeft": "Free trial - {days} days remaining",
+    "activeUntil": "Active until {{date}}",
+    "trialDaysLeft": "Free trial - {{days}} days remaining",
     "active": "Active",
     "inactive": "Inactive",
     "pricingInfo": "Pricing information"
@@ -24,7 +24,7 @@
     "simpleTransparent": "Simple and transparent pricing",
     "perMonth": "€/month",
     "perAccount": "per connected Google Ads account",
-    "accountsCount": "{seats} account{s}",
+    "accountsCount": "{{seats}} account{s}",
     "monthly": "/month",
     "seeAllPricing": "See all pricing tiers →",
     "features": {
@@ -39,7 +39,7 @@
   "subscription": {
     "googleAdsAccounts": "Google Ads Accounts",
     "monthlyAmount": "Monthly amount",
-    "priceFormula": "€ × {seats} account{s}",
+    "priceFormula": "€ × {{seats}} account{s}",
     "nextPayment": "Next payment",
     "manage": "Manage subscription",
     "redirecting": "Redirecting...",
@@ -57,9 +57,10 @@
       "paymentFailed": "Payment failed",
       "subscriptionUpdated": "Subscription updated",
       "subscriptionCreated": "Subscription created",
-      "subscriptionCanceled": "Subscription canceled"
+      "subscriptionCanceled": "Subscription canceled",
+      "trialWillEnd": "Trial ending soon"
     },
-    "seatsChange": "{count} → {count} account{s}"
+    "seatsChange": "{{previous}} → {{new}} account{s}"
   },
   "toast": {
     "subscriptionCreated": "Subscription created successfully! Welcome aboard",
@@ -67,6 +68,24 @@
     "checkoutError": "Error creating payment",
     "portalError": "Error opening portal",
     "syncSuccess": "Billing synchronized successfully",
-    "syncError": "Error synchronizing"
+    "syncError": "Error synchronizing",
+    "syncing": "Syncing...",
+    "syncErrorRetry": "Sync error. Please refresh the page."
+  },
+  "lifetime": {
+    "title": "Lifetime Plan",
+    "badge": "EARLY ADOPTER",
+    "price": "€100",
+    "oneTime": "one payment, forever yours",
+    "description": "Unlimited accounts. Future features included. Zero subscription.",
+    "cta": "Switch to Lifetime Plan",
+    "statusTitle": "Founding Member",
+    "statusDescription": "Permanent access to all features, present and future",
+    "purchaseSuccess": "Welcome to the founders! Your lifetime access is now active",
+    "purchaseEvent": "Lifetime Plan purchase",
+    "upgradeBadge": "LIMITED OFFER",
+    "upgradeTitle": "Switch to Lifetime Plan",
+    "upgradeDescription": "No more monthly fees. One payment, lifetime access.",
+    "upgradeCta": "Unlock"
   }
 }

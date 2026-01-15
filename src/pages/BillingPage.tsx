@@ -12,21 +12,24 @@ import PricingInfoModal from '../components/billing/PricingInfoModal';
 import CanceledSubscriptionNotice from '../components/billing/CanceledSubscriptionNotice';
 
 export default function BillingPage() {
-    const { t } = useTranslation('billing');
+    const { t, i18n } = useTranslation('billing');
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const { currentUser } = useAuth();
-    const { subscription, loading, isActive, createCheckout, openCustomerPortal, syncBilling } = useSubscription();
+    const { subscription, loading, isActive, isLifetime, createCheckout, createLifetimeCheckout, openCustomerPortal, syncBilling } = useSubscription();
     const [billingHistory, setBillingHistory] = useState<BillingEvent[]>([]);
     const [loadingHistory, setLoadingHistory] = useState(true);
     const [syncing, setSyncing] = useState(false);
     const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
+    const [isCreatingLifetimeCheckout, setIsCreatingLifetimeCheckout] = useState(false);
     const [isOpeningPortal, setIsOpeningPortal] = useState(false);
     const [showPricingModal, setShowPricingModal] = useState(false);
 
     // Default price ID from environment or hardcoded
     const STRIPE_PRICE_ID = import.meta.env.VITE_STRIPE_PRICE_ID || 'price_1234567890';
+    const STRIPE_LIFETIME_PRICE_ID = import.meta.env.VITE_STRIPE_LIFETIME_PRICE_ID || 'price_lifetime';
     const PRICE_PER_SEAT = 10; // €10 per seat per month
+    const LIFETIME_PRICE = 100; // €100 one-time
 
     useEffect(() => {
         if (!currentUser) {
@@ -39,7 +42,7 @@ export default function BillingPage() {
         const fromStripePortal = searchParams.get('from');
 
         const syncWithRetry = async (maxRetries = 3, delayMs = 2000) => {
-            const loadingToast = toast.loading('Synchronisation en cours...');
+            const loadingToast = toast.loading(t('toast.syncing'));
 
             for (let attempt = 1; attempt <= maxRetries; attempt++) {
                 try {
@@ -52,13 +55,13 @@ export default function BillingPage() {
 
                     await syncBilling();
                     toast.dismiss(loadingToast);
-                    toast.success('Abonnement synchronisé !');
+                    toast.success(t('toast.syncSuccess'));
                     return;
                 } catch (err) {
                     console.error(`Sync attempt ${attempt} failed:`, err);
                     if (attempt === maxRetries) {
                         toast.dismiss(loadingToast);
-                        toast.error('Erreur de synchronisation. Rafraîchissez la page.');
+                        toast.error(t('toast.syncErrorRetry'));
                     }
                 }
             }
@@ -69,6 +72,12 @@ export default function BillingPage() {
             // Sync billing data from Stripe to refresh subscription status with retry logic
             syncWithRetry();
             // Remove query param
+            searchParams.delete('session');
+            navigate({ search: searchParams.toString() }, { replace: true });
+        } else if (session === 'lifetime_success') {
+            toast.success(t('lifetime.purchaseSuccess', 'Accès à vie activé ! Bienvenue parmi les membres lifetime'));
+            // Sync billing data to get the new lifetime status
+            syncWithRetry();
             searchParams.delete('session');
             navigate({ search: searchParams.toString() }, { replace: true });
         } else if (session === 'canceled') {
@@ -158,6 +167,18 @@ export default function BillingPage() {
         }
     };
 
+    const handleLifetimePurchase = async () => {
+        try {
+            setIsCreatingLifetimeCheckout(true);
+            const url = await createLifetimeCheckout(STRIPE_LIFETIME_PRICE_ID);
+            window.location.href = url;
+        } catch (error: any) {
+            console.error('Error creating lifetime checkout:', error);
+            toast.error(t('errors.creatingCheckout'));
+            setIsCreatingLifetimeCheckout(false);
+        }
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen bg-[var(--color-bg-primary)] flex items-center justify-center">
@@ -189,19 +210,22 @@ export default function BillingPage() {
                             <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                                 {subscription
                                     ? (subscription.cancelAtPeriodEnd
-                                        ? (subscription.status === 'trialing' ? 'Essai Gratuit Annulé' : 'Abonnement Résilié')
-                                        : (subscription.status === 'trialing' ? 'Essai Gratuit Actif' : 'Abonnement Actif'))
-                                    : 'Aucun Abonnement'}
+                                        ? (subscription.status === 'trialing' ? t('status.trialCanceled') : t('status.subscriptionCanceled'))
+                                        : (subscription.status === 'trialing' ? t('status.trialActive')
+                                            : (isLifetime ? t('lifetime.statusTitle') : t('status.subscriptionActive'))))
+                                    : t('status.noSubscription')}
                             </h2>
                             {subscription && (
                                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                    {subscription.status === 'trialing'
-                                        ? (subscription.cancelAtPeriodEnd
-                                            ? `Accès conservé jusqu'au ${subscription.trialEndsAt ? new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR') : 'fin de la période'}`
-                                            : `Période d'essai jusqu'au ${subscription.trialEndsAt ? new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR') : ''}`)
-                                        : (subscription.cancelAtPeriodEnd
-                                            ? `Accès conservé jusqu'au ${subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR') : 'fin de la période'}`
-                                            : 'Abonnement actif et renouvellement automatique activé')
+                                    {isLifetime
+                                        ? t('lifetime.statusDescription')
+                                        : subscription.status === 'trialing'
+                                            ? (subscription.cancelAtPeriodEnd
+                                                ? t('status.accessUntil', { date: subscription.trialEndsAt ? new Date(subscription.trialEndsAt).toLocaleDateString(i18n.language) : t('status.periodEnd') })
+                                                : t('status.trialUntil', { date: subscription.trialEndsAt ? new Date(subscription.trialEndsAt).toLocaleDateString(i18n.language) : '' }))
+                                            : (subscription.cancelAtPeriodEnd
+                                                ? t('status.accessUntil', { date: subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString(i18n.language) : t('status.periodEnd') })
+                                                : t('status.activeRenewing'))
                                     }
                                 </p>
                             )}
@@ -219,20 +243,25 @@ export default function BillingPage() {
                                     <>
                                         <AlertCircle className="w-4 h-4" />
                                         <span>
-                                            {subscription.status === 'trialing' ? 'Essai annulé' : 'Annulé'} - Actif jusqu'au {subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : ''}
+                                            {subscription.status === 'trialing' ? t('status.trialCanceledBadge') : t('status.canceledBadge')} - {t('status.activeUntil', { date: subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd).toLocaleDateString(i18n.language, { day: 'numeric', month: 'short' }) : '' })}
                                         </span>
+                                    </>
+                                ) : isLifetime ? (
+                                    <>
+                                        <CheckCircle className="w-4 h-4" />
+                                        <span>{t('lifetime.badge')}</span>
                                     </>
                                 ) : subscription?.status === 'trialing' && subscription.trialEndsAt ? (
                                     <>
                                         <CheckCircle className="w-4 h-4" />
                                         <span>
-                                            Essai gratuit - {Math.max(0, Math.ceil((new Date(subscription.trialEndsAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))} jours restants
+                                            {t('status.trialDaysLeft', { days: Math.max(0, Math.ceil((new Date(subscription.trialEndsAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24))) })}
                                         </span>
                                     </>
                                 ) : (
                                     <>
                                         {isActive && <CheckCircle className="w-4 h-4" />}
-                                        <span>{isActive ? 'Actif' : 'Inactif'}</span>
+                                        <span>{isActive ? t('status.active') : t('status.inactive')}</span>
                                     </>
                                 )}
                             </div>
@@ -240,7 +269,7 @@ export default function BillingPage() {
                                 <button
                                     onClick={() => setShowPricingModal(true)}
                                     className="p-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-                                    aria-label="Information sur la tarification"
+                                    aria-label={t('status.pricingInfo')}
                                 >
                                     <Info className="w-5 h-5 text-primary dark:text-primary-light" />
                                 </button>
@@ -265,7 +294,7 @@ export default function BillingPage() {
                             <div className="flex items-start space-x-3">
                                 <Users className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">Comptes Google Ads</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">{t('subscription.googleAdsAccounts')}</p>
                                     <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{subscription.currentSeats}</p>
                                 </div>
                             </div>
@@ -273,19 +302,19 @@ export default function BillingPage() {
                             <div className="flex items-start space-x-3">
                                 <CreditCard className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">Montant mensuel</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">{t('subscription.monthlyAmount')}</p>
                                     <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{totalMonthly} €</p>
-                                    <p className="text-xs text-gray-600 dark:text-gray-400">{PRICE_PER_SEAT}€ × {subscription.currentSeats} compte{subscription.currentSeats > 1 ? 's' : ''}</p>
+                                    <p className="text-xs text-gray-600 dark:text-gray-400">{t('subscription.priceFormula', { seats: subscription.currentSeats })}</p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-3">
                                 <Calendar className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">Prochain paiement</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">{t('subscription.nextPayment')}</p>
                                     <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                                         {subscription.currentPeriodEnd
-                                            ? new Date(subscription.currentPeriodEnd).toLocaleDateString('fr-FR')
+                                            ? new Date(subscription.currentPeriodEnd).toLocaleDateString(i18n.language)
                                             : '-'}
                                     </p>
                                 </div>
@@ -295,18 +324,18 @@ export default function BillingPage() {
                         <div className="mb-6 space-y-4">
                             {/* Header */}
                             <div className="text-center">
-                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Commencez votre essai gratuit</h3>
+                                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{t('pricing.title')}</h3>
                                 <p className="text-gray-600 dark:text-gray-400">
-                                    14 jours d'essai gratuit, puis facturation automatique selon vos besoins
+                                    {t('pricing.subtitle')}
                                 </p>
                             </div>
 
                             {/* Pricing Grid */}
                             <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-600 p-6">
                                 <div className="text-center mb-4">
-                                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Tarification simple et transparente</p>
-                                    <p className="text-3xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}€<span className="text-lg text-gray-600 dark:text-gray-400">/mois</span></p>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">par compte Google Ads connecté</p>
+                                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">{t('pricing.simpleTransparent')}</p>
+                                    <p className="text-3xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}{t('pricing.perMonth')}</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{t('pricing.perAccount')}</p>
                                 </div>
 
                                 {/* Pricing Examples Grid */}
@@ -316,9 +345,9 @@ export default function BillingPage() {
                                             key={seats}
                                             className="p-3 bg-gradient-to-br from-white to-gray-50 dark:from-gray-600 dark:to-gray-700 rounded-lg border border-gray-200 dark:border-gray-500 text-center hover:border-primary-light dark:hover:border-primary hover:shadow-md transition-all duration-200"
                                         >
-                                            <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">{seats} compte{seats > 1 ? 's' : ''}</p>
+                                            <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">{t('pricing.accountsCount', { seats })}</p>
                                             <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{PRICE_PER_SEAT * seats}€</p>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">/mois</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">{t('pricing.monthly')}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -327,29 +356,29 @@ export default function BillingPage() {
                                     onClick={() => setShowPricingModal(true)}
                                     className="btn-link w-full justify-center text-sm"
                                 >
-                                    Voir tous les niveaux de tarification →
+                                    {t('pricing.seeAllPricing')}
                                 </button>
                             </div>
 
                             {/* Features */}
                             <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-600 p-6">
-                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Fonctionnalités incluses</p>
+                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">{t('pricing.features.title')}</p>
                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
-                                        <span>Rapports illimités</span>
+                                        <span>{t('pricing.features.unlimitedReports')}</span>
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
-                                        <span>Synchronisation automatique</span>
+                                        <span>{t('pricing.features.autoSync')}</span>
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
-                                        <span>Slides personnalisables</span>
+                                        <span>{t('pricing.features.customWidgets')}</span>
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
-                                        <span>Support prioritaire</span>
+                                        <span>{t('pricing.features.prioritySupport')}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -359,7 +388,38 @@ export default function BillingPage() {
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
-                                <span>Paiement sécurisé par <span className="font-semibold text-[#635BFF]">Stripe</span></span>
+                                <span>{t('pricing.securePayment')}</span>
+                            </div>
+
+                            {/* Lifetime Deal Card - Golden Ticket */}
+                            <div className="bg-gradient-to-br from-yellow-50 via-[#FFF8E1] to-yellow-100 dark:from-yellow-900/20 dark:via-yellow-800/15 dark:to-yellow-900/25 backdrop-blur-sm rounded-2xl border-2 border-yellow-400 dark:border-yellow-500/50 p-6 relative overflow-hidden shadow-lg shadow-yellow-300/40 dark:shadow-yellow-900/30">
+                                {/* Decorative sparkle */}
+                                <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-yellow-300/40 to-transparent rounded-full blur-2xl"></div>
+                                <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl">
+                                    {t('lifetime.badge')}
+                                </div>
+                                <div className="text-center relative">
+                                    <h4 className="text-xl font-bold text-yellow-900 dark:text-yellow-200 mb-2">
+                                        {t('lifetime.title')}
+                                    </h4>
+                                    <p className="text-4xl font-bold text-yellow-600 dark:text-yellow-400 mb-1">
+                                        {LIFETIME_PRICE}€
+                                    </p>
+                                    <p className="text-sm text-yellow-700/80 dark:text-yellow-400/80 mb-3">
+                                        {t('lifetime.oneTime')}
+                                    </p>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 mb-5">
+                                        {t('lifetime.description')}
+                                    </p>
+                                    <button
+                                        onClick={handleLifetimePurchase}
+                                        disabled={isCreatingLifetimeCheckout}
+                                        className="btn w-full py-3.5 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-semibold border-none shadow-[0_4px_12px_rgba(234,179,8,0.4)] hover:shadow-[0_6px_16px_rgba(234,179,8,0.5)] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2 group"
+                                    >
+                                        {isCreatingLifetimeCheckout && <Loader2 className="w-4 h-4 animate-spin" />}
+                                        <span>{isCreatingLifetimeCheckout ? t('subscription.redirecting') : t('lifetime.cta')}</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -377,20 +437,20 @@ export default function BillingPage() {
                                     ) : (
                                         <ExternalLink className="w-4 h-4" />
                                     )}
-                                    <span>{isOpeningPortal ? 'Redirection...' : 'Gérer l\'abonnement'}</span>
+                                    <span>{isOpeningPortal ? t('subscription.redirecting') : t('subscription.manage')}</span>
                                 </button>
                                 <button
                                     onClick={handleSyncBilling}
                                     disabled={syncing}
                                     className="btn btn-secondary"
-                                    title="Actualise les informations de facturation depuis votre compte de paiement"
+                                    title={t('subscription.refreshDescription')}
                                 >
                                     {syncing ? (
                                         <Loader2 className="w-4 h-4 animate-spin" />
                                     ) : (
                                         <RefreshCw className="w-4 h-4" />
                                     )}
-                                    <span>Actualiser la facturation</span>
+                                    <span>{t('subscription.refreshBilling')}</span>
                                 </button>
                             </>
                         ) : (
@@ -400,22 +460,56 @@ export default function BillingPage() {
                                 className="btn btn-primary"
                             >
                                 {isCreatingCheckout && <Loader2 className="w-4 h-4 animate-spin" />}
-                                <span>{isCreatingCheckout ? 'Redirection vers Stripe...' : 'Commencer l\'essai gratuit'}</span>
+                                <span>{isCreatingCheckout ? t('subscription.redirectingStripe') : t('subscription.startFreeTrial')}</span>
                             </button>
                         )}
                     </div>
+
+                    {/* Lifetime Upgrade Card - shown for non-lifetime subscribers */}
+                    {subscription && !isLifetime && (
+                        <div className="mt-6 bg-gradient-to-r from-yellow-50 via-[#FFF8E1] to-yellow-100 dark:from-yellow-900/15 dark:via-yellow-800/10 dark:to-yellow-900/20 backdrop-blur-sm rounded-2xl border border-yellow-400/60 dark:border-yellow-500/40 p-5 pt-8 relative overflow-hidden">
+                            <div className="absolute -top-2 -right-2 w-16 h-16 bg-gradient-to-br from-yellow-300/30 to-transparent rounded-full blur-xl"></div>
+                            <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg z-10">
+                                {t('lifetime.upgradeBadge')}
+                            </div>
+                            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                <div className="flex-1">
+                                    <h4 className="text-base font-bold text-yellow-900 dark:text-yellow-200 mb-1">
+                                        {t('lifetime.upgradeTitle')}
+                                    </h4>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                                        {t('lifetime.upgradeDescription')}
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div className="text-right">
+                                        <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{LIFETIME_PRICE}€</p>
+                                        <p className="text-xs text-yellow-700/70 dark:text-yellow-400/70">{t('lifetime.oneTime')}</p>
+                                    </div>
+                                    <button
+                                        onClick={handleLifetimePurchase}
+                                        disabled={isCreatingLifetimeCheckout}
+                                        className="btn px-5 py-2.5 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-semibold border-none shadow-[0_4px_12px_rgba(234,179,8,0.4)] hover:shadow-[0_6px_16px_rgba(234,179,8,0.5)] hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+                                    >
+                                        {isCreatingLifetimeCheckout && <Loader2 className="w-4 h-4 animate-spin" />}
+                                        <span>{isCreatingLifetimeCheckout ? '...' : t('lifetime.upgradeCta')}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Billing History */}
                 <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Historique de facturation</h2>
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">{t('history.title')}</h2>
 
                     {loadingHistory ? (
                         <div className="flex justify-center py-8">
                             <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
                         </div>
                     ) : billingHistory.length === 0 ? (
-                        <p className="text-gray-600 dark:text-gray-400 text-center py-8">Aucun événement de facturation</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-center py-8">{t('history.noEvents')}</p>
                     ) : (
                         <div className="space-y-3">
                             {billingHistory.map((event, index) => {
@@ -433,6 +527,10 @@ export default function BillingPage() {
                                             return <XCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />;
                                         case 'sync':
                                             return <RefreshCw className="w-5 h-5 text-gray-600 dark:text-gray-400" />;
+                                        case 'lifetime_purchase':
+                                            return <CheckCircle className="w-5 h-5 text-amber-600 dark:text-amber-400" />;
+                                        case 'trial_will_end':
+                                            return <AlertCircle className="w-5 h-5 text-orange-600 dark:text-orange-400" />;
                                         default:
                                             return <AlertCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />;
                                     }
@@ -441,17 +539,21 @@ export default function BillingPage() {
                                 const getEventLabel = () => {
                                     switch (event.eventType) {
                                         case 'sync':
-                                            return 'Synchronisation de facturation';
+                                            return t('history.events.sync');
                                         case 'payment_succeeded':
-                                            return 'Paiement réussi';
+                                            return t('history.events.paymentSuccess');
                                         case 'payment_failed':
-                                            return 'Échec du paiement';
+                                            return t('history.events.paymentFailed');
                                         case 'subscription_updated':
-                                            return 'Abonnement mis à jour';
+                                            return t('history.events.subscriptionUpdated');
                                         case 'subscription_created':
-                                            return 'Abonnement créé';
+                                            return t('history.events.subscriptionCreated');
                                         case 'subscription_canceled':
-                                            return 'Abonnement annulé';
+                                            return t('history.events.subscriptionCanceled');
+                                        case 'lifetime_purchase':
+                                            return t('history.events.lifetimePurchase', { defaultValue: t('lifetime.purchaseEvent') });
+                                        case 'trial_will_end':
+                                            return t('history.events.trialWillEnd');
                                         default:
                                             return event.eventType;
                                     }
@@ -471,11 +573,11 @@ export default function BillingPage() {
                                                     {getEventLabel()}
                                                 </p>
                                                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">
-                                                    {event.timestamp ? new Date(event.timestamp).toLocaleString('fr-FR') : '-'}
+                                                    {event.timestamp ? new Date(event.timestamp).toLocaleString(i18n.language) : '-'}
                                                 </p>
                                                 {event.previousSeats !== undefined && event.newSeats !== undefined && (
                                                     <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                                                        {event.previousSeats} → {event.newSeats} compte{event.newSeats > 1 ? 's' : ''}
+                                                        {t('history.seatsChange', { previous: event.previousSeats, new: event.newSeats })}
                                                     </p>
                                                 )}
                                             </div>
