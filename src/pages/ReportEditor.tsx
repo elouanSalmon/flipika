@@ -556,7 +556,9 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                 onExportToGoogleSlides={() => {
                     // TODO: Implement export handler
                     console.log('Export to Google Slides clicked');
-                    toast.info('Export Google Slides - En cours de développement');
+                    toast('Export Google Slides - En cours de développement', {
+                        icon: '📊',
+                    });
                 }}
                 isSaving={isSaving}
                 isLoadingSettings={isLoadingSettings}
