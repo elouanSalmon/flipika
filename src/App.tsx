@@ -47,9 +47,8 @@ import ClientEditPage from './pages/ClientEditPage';
 import ReportPreview from './pages/ReportPreview';
 import TemplateEditor from './pages/TemplateEditor';
 import GoogleAdsPlayground from './pages/GoogleAdsPlayground';
-// ... (existing imports, but cleaner to just add route and import at top separately)
-// Actually, relying on AllowMultiple=false means ONE block. 
-// I'll do two replace calls. One for import, one for route.
+import { GoogleSlidesSpikeApp } from './spike/GoogleSlidesSpikeApp';
+import { TipTapSpikeApp } from './spike/TipTapSpikeApp';
 import './App.css';
 
 // Protected Route Component
@@ -160,6 +159,8 @@ const AppRoutes = () => {
         <Route path="billing" element={<BillingPage />} />
         <Route path="settings" element={<Settings />} />
         <Route path="playground" element={<GoogleAdsPlayground />} />
+        <Route path="spike/google-slides" element={<GoogleSlidesSpikeApp />} />
+        <Route path="spike/tiptap" element={<TipTapSpikeApp />} />
       </Route>
 
       {/* Report Editor - Full Page (No AppLayout) */}
