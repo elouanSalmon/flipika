@@ -31,7 +31,6 @@ import type { Client } from '../types/client';
 import { clientService } from '../services/clientService';
 import PreFlightModal from '../components/reports/PreFlightModal';
 import { GoogleSlidesExportModal } from '../components/reports/GoogleSlidesExportModal';
-import type { FlipikaSlideData } from '../types/googleSlides';
 import './ReportEditor.css';
 
 const ReportEditor: React.FC = () => {
@@ -666,11 +665,11 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     onClose={() => setShowGoogleSlidesModal(false)}
                     reportId={report.id}
                     reportTitle={report.title}
-                    slides={slides.map(slide => ({
-                        type: slide.type as FlipikaSlideData['type'],
-                        title: slide.type.replace(/_/g, ' ').toUpperCase(),
-                        data: slide.settings || {},
-                    }))}
+                    slides={slides}
+                    accountId={report.accountId}
+                    campaignIds={report.campaignIds}
+                    startDate={report.startDate}
+                    endDate={report.endDate}
                 />
             )}
 

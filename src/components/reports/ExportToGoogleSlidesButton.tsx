@@ -102,6 +102,17 @@ export const ExportToGoogleSlidesButton = ({
             console.error('❌ Error message:', error.message);
             console.error('❌ Error stack:', error.stack);
 
+            // Check if it's a 401 authentication error
+            if (error.message?.includes('401') || error.message?.includes('UNAUTHENTICATED')) {
+                console.log('🔑 Token expired, clearing and requesting re-authentication...');
+                localStorage.removeItem('google_access_token');
+                setIsAuthenticated(false);
+                toast.error('Session Google expirée. Veuillez vous reconnecter.', { id: 'export' });
+                // Automatically trigger login
+                setTimeout(() => login(), 500);
+                return;
+            }
+
             // More specific error messages
             if (error.code === 'permission-denied') {
                 toast.error('Erreur de permissions Firestore', { id: 'export' });
