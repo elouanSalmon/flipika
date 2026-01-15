@@ -419,8 +419,7 @@ service cloud.firestore {
         && request.resource.data.title.size() >= 1
         && request.resource.data.title.size() <= 200
         && request.resource.data.slideCount is int
-        && request.resource.data.slideCount >= 0
-        && request.resource.data.createdAt is timestamp;
+        && request.resource.data.slideCount >= 0;
       
       // Update: not allowed (exports are immutable)
       allow update: if false;
