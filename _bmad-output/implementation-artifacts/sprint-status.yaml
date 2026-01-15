@@ -53,11 +53,11 @@ development_status:
   epic-2-retrospective: optional
 
   # Epic 3
-  epic-3: in-progress
-  3-1-le-pre-flight-check-state-machine-ui: review
-  3-2-moteur-de-generation-pdf-client-side: ready-for-dev
-  3-3-gestion-des-erreurs-et-etats-vides: review
-  3-4-snapshot-historique: backlog
+  epic-3: done
+  3-1-le-pre-flight-check-state-machine-ui: done
+  3-2-moteur-de-generation-pdf-client-side: done
+  3-3-gestion-des-erreurs-et-etats-vides: done
+  3-4-snapshot-historique: done
   epic-3-retrospective: optional
 
   # Epic 4
@@ -84,11 +84,11 @@ development_status:
   epic-6-retrospective: optional
 
   # Epic 7
-  epic-7: in-progress
-  7-1-configuration-des-email-presets-par-client: review
-  7-2-editeur-dynamique-avec-variables-tags: review
-  7-3-application-automatique-lors-de-lenvoi-report-preview: review
-  7-4-migration-initialisation-des-defaults: review
+  epic-7: done
+  7-1-configuration-des-email-presets-par-client: done
+  7-2-editeur-dynamique-avec-variables-tags: done
+  7-3-application-automatique-lors-de-lenvoi-report-preview: done
+  7-4-migration-initialisation-des-defaults: done
   epic-7-retrospective: optional
 
   # Epic 9
@@ -118,8 +118,8 @@ development_status:
   epic-11-retrospective: optional
 
   # Epic 12
-  epic-12: backlog
+  epic-12: in-progress
   12-1-service-de-generation-pptx-backend: backlog
-  12-2-integration-google-slides-api: backlog
+  12-2-integration-google-slides-api: done
   12-3-mapping-de-fidelite-visuelle-css-to-shape: backlog
   epic-12-retrospective: optional

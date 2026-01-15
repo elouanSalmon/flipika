@@ -283,6 +283,12 @@ const ReportPreview: React.FC = () => {
             // Step 6: Show post-send step
             setShowEmailSent(true);
             toast.success(t('preFlight.postSend.emailOpened'));
+
+            // Track history
+            addToHistory('email', {
+                recipientEmail: clientEmail,
+                subject
+            });
         } catch (error) {
             console.error('Error in send email flow:', error);
             toast.error(error instanceof Error ? error.message : t('preFlight.pdf.error'));
@@ -387,6 +393,30 @@ const ReportPreview: React.FC = () => {
             setPdfGenerating(false);
             setPdfProgress(0);
         }
+    };
+
+    const addToHistory = async (action: 'download' | 'email', metadata?: any) => {
+        if (!state.report || !state.report.clientId || !currentUser) return;
+
+        const { historyService } = await import('../services/historyService');
+
+        await historyService.addToHistory({
+            reportId: state.report.id,
+            clientId: state.report.clientId,
+            reportTitle: state.report.title,
+            period: {
+                startDate: state.report.startDate.toISOString(),
+                endDate: state.report.endDate.toISOString()
+            },
+            action,
+            metadata: {
+                ...metadata,
+                user: {
+                    uid: currentUser.uid,
+                    displayName: currentUser.displayName || 'User'
+                }
+            }
+        });
     };
 
     const formatDate = (date?: Date): string => {

@@ -428,5 +428,13 @@ service cloud.firestore {
       // Seulement accessible par les Cloud Functions
       allow read, write: if false;
     }
+    // ========================================
+    // REPORT HISTORY (Snapshots)
+    // ========================================
+    match /reportHistory/{historyId} {
+      allow read: if request.auth != null && resource.data.user.uid == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.user.uid == request.auth.uid;
+    }
+
   }
 }
