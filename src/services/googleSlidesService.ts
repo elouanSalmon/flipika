@@ -1,10 +1,9 @@
-import {
+import type {
     GoogleSlidesPresentation,
     FlipikaSlideData,
     CreatePresentationRequest,
     BatchUpdateRequest,
     PredefinedLayout,
-    GoogleSlidesExportMetadata,
 } from '../types/googleSlides';
 
 /**

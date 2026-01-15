@@ -84,7 +84,7 @@ export interface Image {
  * Flipika-specific types for slide mapping
  */
 
-export type FlipikaSli type = 'performance' | 'chart' | 'metrics' | 'creative';
+export type FlipikaSlideType = 'performance' | 'chart' | 'metrics' | 'creative';
 
 export interface FlipikaSlideData {
     type: FlipikaSlideType;

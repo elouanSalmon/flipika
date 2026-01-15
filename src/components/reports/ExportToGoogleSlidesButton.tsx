@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { createGoogleSlidesService } from '../../services/googleSlidesService';
-import { FlipikaSlideData } from '../../types/googleSlides';
+import type { FlipikaSlideData } from '../../types/googleSlides';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
+import { db } from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 
