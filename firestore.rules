@@ -409,17 +409,9 @@ service cloud.firestore {
         && request.query.limit <= 100
         && resource.data.userId == request.auth.uid;
       
-      // Create: authenticated user with valid data
+      // Create: authenticated user owns the export
       allow create: if isAuthenticated() 
-        && request.resource.data.userId == request.auth.uid
-        && request.resource.data.reportId is string
-        && request.resource.data.presentationId is string
-        && request.resource.data.presentationUrl is string
-        && request.resource.data.title is string
-        && request.resource.data.title.size() >= 1
-        && request.resource.data.title.size() <= 200
-        && request.resource.data.slideCount is int
-        && request.resource.data.slideCount >= 0;
+        && request.resource.data.userId == request.auth.uid;
       
       // Update: not allowed (exports are immutable)
       allow update: if false;
