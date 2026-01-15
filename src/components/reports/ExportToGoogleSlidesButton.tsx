@@ -60,18 +60,25 @@ export const ExportToGoogleSlidesButton = ({
 
         try {
             // Create Google Slides service
+            console.log('🔧 Creating Google Slides service...');
             const service = await createGoogleSlidesService();
+            console.log('✅ Service created');
 
             // Create presentation
             toast.loading('Création de la présentation...', { id: 'export' });
+            console.log('📊 Creating presentation:', reportTitle);
+            console.log('📊 Slides to export:', slides.length);
+
             const presentation = await service.createPresentationFromReport(
                 reportTitle,
                 slides
             );
+            console.log('✅ Presentation created:', presentation);
 
             // Save export metadata to Firestore
+            console.log('💾 Saving to Firestore...');
             const exportRef = doc(db, 'googleSlidesExports', `${reportId}_${Date.now()}`);
-            await setDoc(exportRef, {
+            const exportData = {
                 reportId,
                 presentationId: presentation.presentationId,
                 presentationUrl: presentation.presentationUrl,
@@ -79,15 +86,30 @@ export const ExportToGoogleSlidesButton = ({
                 createdAt: serverTimestamp(),
                 userId: currentUser.uid,
                 slideCount: slides.length,
-            });
+            };
+            console.log('💾 Export data:', exportData);
+
+            await setDoc(exportRef, exportData);
+            console.log('✅ Saved to Firestore');
 
             toast.success('Présentation créée !', { id: 'export' });
 
             // Open presentation in new tab
             window.open(presentation.presentationUrl, '_blank');
         } catch (error: any) {
-            console.error('Export error:', error);
-            toast.error(`Erreur d'export: ${error.message}`, { id: 'export' });
+            console.error('❌ Export error:', error);
+            console.error('❌ Error code:', error.code);
+            console.error('❌ Error message:', error.message);
+            console.error('❌ Error stack:', error.stack);
+
+            // More specific error messages
+            if (error.code === 'permission-denied') {
+                toast.error('Erreur de permissions Firestore', { id: 'export' });
+            } else if (error.message?.includes('presentations')) {
+                toast.error('Erreur API Google Slides', { id: 'export' });
+            } else {
+                toast.error(`Erreur d'export: ${error.message}`, { id: 'export' });
+            }
         } finally {
             setIsExporting(false);
         }
