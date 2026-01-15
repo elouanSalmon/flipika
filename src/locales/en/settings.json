@@ -156,6 +156,11 @@
       },
       "securePayment": "Secure payment by",
       "startTrial": "Start free trial"
+    },
+    "lifetime": {
+      "title": "Switch to Lifetime Plan",
+      "description": "One payment, permanent access",
+      "cta": "Unlock"
     }
   },
   "appearance": {

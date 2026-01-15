@@ -41,6 +41,7 @@ export { migrateReportsWithAccountNames } from "./migrateReports";
 // Import Stripe functions
 import {
   createCheckoutSession,
+  createLifetimeCheckoutSession,
   createCustomerPortalSession,
   handleStripeWebhook,
   syncUserBilling,
@@ -431,6 +432,37 @@ export const createStripePortal = onCall({ memory: '512MiB' }, async (request) =
   }
 
   const result = await createCustomerPortalSession(userId, returnUrl);
+  return result;
+});
+
+/**
+ * Creates a Stripe Checkout session for lifetime deal (one-time payment)
+ * Callable function from frontend
+ */
+export const createLifetimeCheckout = onCall({ memory: '512MiB' }, async (request) => {
+  const userId = request.auth?.uid;
+  if (!userId) {
+    throw new Error('Unauthorized');
+  }
+
+  const { priceId, successUrl, cancelUrl } = request.data;
+
+  if (!priceId || !successUrl || !cancelUrl) {
+    throw new Error('Missing required parameters');
+  }
+
+  // Get user email
+  const userRecord = await admin.auth().getUser(userId);
+  const email = userRecord.email || '';
+
+  const result = await createLifetimeCheckoutSession(
+    userId,
+    email,
+    priceId,
+    successUrl,
+    cancelUrl
+  );
+
   return result;
 });
 

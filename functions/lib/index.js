@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.googleAdsQuery = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createLifetimeCheckout = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.googleAdsQuery = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -361,6 +361,25 @@ exports.createStripePortal = (0, https_2.onCall)({ memory: '512MiB' }, async (re
         throw new Error('Missing returnUrl parameter');
     }
     const result = await (0, stripe_1.createCustomerPortalSession)(userId, returnUrl);
+    return result;
+});
+/**
+ * Creates a Stripe Checkout session for lifetime deal (one-time payment)
+ * Callable function from frontend
+ */
+exports.createLifetimeCheckout = (0, https_2.onCall)({ memory: '512MiB' }, async (request) => {
+    const userId = request.auth?.uid;
+    if (!userId) {
+        throw new Error('Unauthorized');
+    }
+    const { priceId, successUrl, cancelUrl } = request.data;
+    if (!priceId || !successUrl || !cancelUrl) {
+        throw new Error('Missing required parameters');
+    }
+    // Get user email
+    const userRecord = await admin.auth().getUser(userId);
+    const email = userRecord.email || '';
+    const result = await (0, stripe_1.createLifetimeCheckoutSession)(userId, email, priceId, successUrl, cancelUrl);
     return result;
 });
 /**

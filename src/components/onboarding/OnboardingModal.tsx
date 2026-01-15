@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslation, Trans } from 'react-i18next';
-import { User, Building, FileText, Check, Loader2, Lock, CreditCard, ChevronLeft, ChevronRight, Info } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { User, Building, FileText, Check, Loader2, Lock, CreditCard, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { useSubscription } from '../../contexts/SubscriptionContext';
@@ -21,11 +21,12 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
     const { t } = useTranslation();
     const { currentUser, userProfile, refreshProfile } = useAuth();
     const { isConnected, refreshConnectionStatus } = useGoogleAds();
-    const { createCheckout } = useSubscription();
+    const { createCheckout, createLifetimeCheckout } = useSubscription();
 
     // State
     const [currentStep, setCurrentStep] = useState<Step>('welcome');
     const [loading, setLoading] = useState(false);
+    const [isCreatingLifetimeCheckout, setIsCreatingLifetimeCheckout] = useState(false);
 
     // Initial logic to determine step based on profile state
     useEffect(() => {
@@ -236,6 +237,19 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
 
     // Quick fix: Since I don't have the exact price ID handy in context without looking, 
     // and to be safe, I'll implement the "Skip" logic which is the critical requested path for Demo.
+
+    const handleLifetimePurchase = async () => {
+        const lifetimePriceId = import.meta.env.VITE_STRIPE_LIFETIME_PRICE_ID;
+        try {
+            setIsCreatingLifetimeCheckout(true);
+            const url = await createLifetimeCheckout(lifetimePriceId);
+            window.location.href = url;
+        } catch (error) {
+            console.error('Error creating lifetime checkout:', error);
+            toast.error('Erreur lors de la création du paiement');
+            setIsCreatingLifetimeCheckout(false);
+        }
+    };
 
     const handleSkipSubscription = async () => {
         if (!currentUser) return;
@@ -545,68 +559,129 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                 );
 
             case 'subscription':
+                const PRICE_PER_SEAT = 10;
+                const LIFETIME_PRICE = 100;
+
                 return (
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
-                        className="py-6 text-center"
+                        className="py-6"
                     >
-                        <div className="mb-6">
-                            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center shadow-lg shadow-primary/20">
+                        <div className="text-center mb-8">
+                            <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center shadow-lg shadow-primary/20">
                                 <CreditCard size={40} className="text-white" />
                             </div>
+                            <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">
+                                Choisissez votre formule
+                            </h2>
+                            <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                                Démarrez avec un essai gratuit ou optez pour l'accès à vie
+                            </p>
                         </div>
-                        <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">
-                            {t('common:onboarding.subscription.title')}
-                        </h2>
-                        <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
-                            <Trans
-                                i18nKey="common:onboarding.subscription.description"
-                                components={{ 1: <strong className="text-primary" /> }}
-                            />
-                        </p>
 
-                        <div className="space-y-4 max-w-sm mx-auto">
-                            <button
-                                onClick={handleSubscribe}
-                                disabled={loading}
-                                className="btn btn-primary w-full shadow-lg shadow-primary/30 h-14 flex items-center justify-center text-lg gap-2"
-                            >
-                                {loading ? (
-                                    <>
-                                        <Loader2 className="animate-spin" size={20} />
-                                        <span>{t('common:onboarding.subscription.redirecting')}</span>
-                                    </>
-                                ) : (
-                                    t('common:onboarding.subscription.cta')
-                                )}
-                            </button>
-
-                            <button
-                                onClick={() => window.location.href = '/app/billing'}
-                                className="w-full px-6 h-14 text-primary dark:text-primary-light font-medium transition-colors flex items-center justify-center gap-2 hover:bg-primary/5 rounded-xl border-2 border-transparent hover:border-primary/10"
-                            >
-                                <Info size={20} />
-                                {t('common:onboarding.subscription.details')}
-                            </button>
-
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={() => setCurrentStep('googleAds')}
-                                    className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 flex items-center gap-2"
-                                >
-                                    <ChevronLeft size={20} />
-                                    {t('common:onboarding.back')}
-                                </button>
-                                <button
-                                    onClick={handleSkipSubscription}
-                                    disabled={loading}
-                                    className="flex-1 px-4 py-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-medium transition-colors text-sm"
-                                >
-                                    {loading ? t('common:onboarding.subscription.skipping') : t('common:onboarding.subscription.skip')}
-                                </button>
+                        {/* Two payment options */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            {/* Trial Subscription Card */}
+                            <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-xl border-2 border-primary/30 dark:border-primary/40 p-6 hover:border-primary hover:shadow-lg transition-all duration-300">
+                                <div className="text-center">
+                                    <div className="inline-block px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light text-xs font-bold rounded-full mb-3">
+                                        ESSAI GRATUIT
+                                    </div>
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                        Formule Mensuelle
+                                    </h3>
+                                    <div className="mb-4">
+                                        <p className="text-3xl font-bold text-primary dark:text-primary-light">
+                                            {PRICE_PER_SEAT}€
+                                            <span className="text-base text-gray-600 dark:text-gray-400">/mois</span>
+                                        </p>
+                                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                                            par compte Google Ads
+                                        </p>
+                                    </div>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                        14 jours d'essai gratuit, puis facturation automatique. Sans engagement.
+                                    </p>
+                                    <button
+                                        onClick={handleSubscribe}
+                                        disabled={loading}
+                                        className="btn btn-primary w-full h-12 shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
+                                    >
+                                        {loading ? (
+                                            <>
+                                                <Loader2 className="animate-spin" size={18} />
+                                                <span>Redirection...</span>
+                                            </>
+                                        ) : (
+                                            "Démarrer l'essai gratuit"
+                                        )}
+                                    </button>
+                                </div>
                             </div>
+
+                            {/* Lifetime Deal Card */}
+                            <div className="bg-gradient-to-br from-yellow-50 via-[#FFF8E1] to-yellow-100 dark:from-yellow-900/20 dark:via-yellow-800/15 dark:to-yellow-900/25 backdrop-blur-sm rounded-xl border-2 border-yellow-400 dark:border-yellow-500/50 p-6 relative overflow-hidden hover:shadow-xl hover:shadow-yellow-300/40 transition-all duration-300">
+                                {/* Decorative elements */}
+                                <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-yellow-300/40 to-transparent rounded-full blur-2xl"></div>
+                                <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl z-10">
+                                    OFFRE LIMITÉE
+                                </div>
+
+                                <div className="text-center relative">
+                                    <div className="inline-block px-3 py-1 bg-yellow-500/20 dark:bg-yellow-500/30 text-yellow-900 dark:text-yellow-200 text-xs font-bold rounded-full mb-3">
+                                        EARLY ADOPTER
+                                    </div>
+                                    <h3 className="text-xl font-bold text-yellow-900 dark:text-yellow-200 mb-2">
+                                        Accès à Vie
+                                    </h3>
+                                    <div className="mb-4">
+                                        <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">
+                                            {LIFETIME_PRICE}€
+                                        </p>
+                                        <p className="text-xs text-yellow-700/80 dark:text-yellow-400/80 mt-1">
+                                            un seul paiement
+                                        </p>
+                                    </div>
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+                                        Comptes illimités. Fonctionnalités futures incluses. Zéro abonnement.
+                                    </p>
+                                    <button
+                                        onClick={handleLifetimePurchase}
+                                        disabled={isCreatingLifetimeCheckout}
+                                        className="btn w-full h-12 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white border-none shadow-[0_4px_12px_rgba(234,179,8,0.4)] hover:shadow-[0_6px_16px_rgba(234,179,8,0.5)] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2"
+                                    >
+                                        {isCreatingLifetimeCheckout ? (
+                                            <>
+                                                <Loader2 className="animate-spin" size={18} />
+                                                <span>Redirection...</span>
+                                            </>
+                                        ) : (
+                                            "Acheter l'accès à vie"
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Navigation buttons */}
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setCurrentStep('googleAds')}
+                                disabled={loading || isCreatingLifetimeCheckout}
+                                className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 transition-all duration-200 flex items-center gap-2"
+                            >
+                                <ChevronLeft size={20} />
+                                Retour
+                            </button>
+                            <button
+                                onClick={handleSkipSubscription}
+                                disabled={loading || isCreatingLifetimeCheckout}
+                                className="flex-1 px-4 py-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-medium transition-colors text-sm disabled:opacity-50"
+                            >
+                                {loading ? 'Finalisation...' : 'Passer et découvrir en mode démo'}
+                            </button>
                         </div>
                     </motion.div>
                 );

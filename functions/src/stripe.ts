@@ -356,6 +356,67 @@ export async function createCheckoutSession(
 }
 
 /**
+ * Creates a Stripe Checkout session for lifetime deal (one-time payment)
+ */
+export async function createLifetimeCheckoutSession(
+    userId: string,
+    email: string,
+    priceId: string,
+    successUrl: string,
+    cancelUrl: string
+): Promise<{ sessionId: string; url: string }> {
+    try {
+        // Check if user already has a Stripe customer ID
+        const userDoc = await db.collection('users').doc(userId).get();
+        let customerId = userDoc.data()?.stripeCustomerId;
+
+        // Create Stripe customer if doesn't exist
+        if (!customerId) {
+            const customer = await stripe.customers.create({
+                email,
+                metadata: {
+                    userId,
+                },
+            });
+            customerId = customer.id;
+
+            // Save customer ID to Firestore
+            await db.collection('users').doc(userId).update({
+                stripeCustomerId: customerId,
+            });
+        }
+
+        // Create checkout session for one-time payment
+        const session = await stripe.checkout.sessions.create({
+            customer: customerId,
+            mode: 'payment', // One-time payment, not subscription
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price: priceId,
+                    quantity: 1,
+                },
+            ],
+            metadata: {
+                userId,
+                purchaseType: 'lifetime', // Mark as lifetime purchase
+            },
+            success_url: successUrl,
+            cancel_url: cancelUrl,
+            allow_promotion_codes: true,
+        });
+
+        return {
+            sessionId: session.id,
+            url: session.url || '',
+        };
+    } catch (error: any) {
+        console.error('Error creating lifetime checkout session:', error);
+        throw new functions.https.HttpsError('internal', error.message);
+    }
+}
+
+/**
  * Creates a Stripe Customer Portal session for subscription management
  */
 export async function createCustomerPortalSession(
@@ -463,6 +524,75 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     const userId = session.metadata?.userId;
     if (!userId) {
         console.error('No userId in checkout session metadata');
+        return;
+    }
+
+    // Check if this is a lifetime purchase (one-time payment)
+    if (session.mode === 'payment' && session.metadata?.purchaseType === 'lifetime') {
+        console.log(`Lifetime purchase completed for user ${userId}`);
+
+        // Check if user has an existing active subscription and cancel it
+        const existingSubscriptionDoc = await db.collection('subscriptions').doc(userId).get();
+        if (existingSubscriptionDoc.exists) {
+            const existingData = existingSubscriptionDoc.data();
+            if (existingData?.stripeSubscriptionId &&
+                !existingData.stripeSubscriptionId.startsWith('lifetime_') &&
+                ['active', 'trialing'].includes(existingData.status)) {
+                try {
+                    // Cancel the existing Stripe subscription immediately
+                    await stripe.subscriptions.cancel(existingData.stripeSubscriptionId);
+                    console.log(`Canceled existing subscription ${existingData.stripeSubscriptionId} for user ${userId}`);
+
+                    // Log the cancellation
+                    await db.collection('billingHistory').add({
+                        userId,
+                        subscriptionId: existingData.stripeSubscriptionId,
+                        eventType: 'subscription_canceled',
+                        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+                        metadata: {
+                            reason: 'upgraded_to_lifetime',
+                        },
+                    });
+                } catch (cancelError: any) {
+                    console.error(`Failed to cancel existing subscription: ${cancelError.message}`);
+                    // Continue anyway - the lifetime purchase should still be processed
+                }
+            }
+        }
+
+        // Create subscription document with lifetime status
+        const subscriptionData = {
+            userId,
+            stripeCustomerId: session.customer as string,
+            stripeSubscriptionId: `lifetime_${session.id}`, // Use session ID as pseudo-subscription ID
+            stripePriceId: session.metadata?.priceId || '',
+            status: 'lifetime',
+            isLifetime: true,
+            currentSeats: -1, // Unlimited for lifetime
+            currentPeriodStart: admin.firestore.FieldValue.serverTimestamp(),
+            currentPeriodEnd: null, // No end date for lifetime
+            cancelAtPeriodEnd: false,
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        };
+
+        await db.collection('subscriptions').doc(userId).set(subscriptionData);
+
+        // Log billing event
+        await db.collection('billingHistory').add({
+            userId,
+            subscriptionId: `lifetime_${session.id}`,
+            eventType: 'lifetime_purchase',
+            amount: (session.amount_total || 0) / 100, // Convert from cents
+            currency: session.currency || 'eur',
+            timestamp: admin.firestore.FieldValue.serverTimestamp(),
+            metadata: {
+                sessionId: session.id,
+                purchaseType: 'lifetime',
+            },
+        });
+
+        console.log(`Lifetime subscription created for user ${userId}`);
         return;
     }
 

@@ -5,7 +5,8 @@ export type SubscriptionStatus =
     | 'canceled'
     | 'incomplete'
     | 'incomplete_expired'
-    | 'unpaid';
+    | 'unpaid'
+    | 'lifetime';
 
 export interface Subscription {
     userId: string;
@@ -13,10 +14,11 @@ export interface Subscription {
     stripeSubscriptionId: string;
     stripePriceId: string;
     status: SubscriptionStatus;
-    currentSeats: number; // Number of active Google Ads accounts
+    isLifetime?: boolean; // True for lifetime deal purchases
+    currentSeats: number; // Number of active Google Ads accounts (-1 for lifetime)
     trialEndsAt?: Date;
     currentPeriodStart: Date;
-    currentPeriodEnd: Date;
+    currentPeriodEnd?: Date | null; // Null for lifetime
     cancelAtPeriodEnd: boolean;
     canceledAt?: Date;
     createdAt: Date;
@@ -26,7 +28,7 @@ export interface Subscription {
 export interface BillingEvent {
     userId: string;
     subscriptionId: string;
-    eventType: 'sync' | 'payment_succeeded' | 'payment_failed' | 'subscription_updated' | 'subscription_created' | 'subscription_canceled';
+    eventType: 'sync' | 'payment_succeeded' | 'payment_failed' | 'subscription_updated' | 'subscription_created' | 'subscription_canceled' | 'lifetime_purchase' | 'trial_will_end';
     previousSeats?: number;
     newSeats?: number;
     amount?: number;
@@ -53,7 +55,7 @@ export interface SubscriptionSyncResult {
 // Helper functions
 export const isSubscriptionActive = (subscription: Subscription | null): boolean => {
     if (!subscription) return false;
-    return subscription.status === 'active' || subscription.status === 'trialing';
+    return subscription.status === 'active' || subscription.status === 'trialing' || subscription.status === 'lifetime';
 };
 
 export const isInTrialPeriod = (subscription: Subscription | null): boolean => {
@@ -73,6 +75,8 @@ export const getDaysUntilTrialEnd = (subscription: Subscription | null): number 
 
 export const canAccessPaidFeatures = (subscription: Subscription | null): boolean => {
     if (!subscription) return false;
+    // Lifetime members always have access
+    if (subscription.status === 'lifetime') return true;
     return isSubscriptionActive(subscription) && subscription.status !== 'past_due';
 };
 

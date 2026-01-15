@@ -156,6 +156,11 @@
       },
       "securePayment": "Paiement sécurisé par",
       "startTrial": "Commencer l'essai gratuit"
+    },
+    "lifetime": {
+      "title": "Passez en accès à vie",
+      "description": "Un paiement, accès permanent",
+      "cta": "Débloquer"
     }
   },
   "appearance": {

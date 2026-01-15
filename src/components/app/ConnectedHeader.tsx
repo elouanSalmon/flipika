@@ -88,7 +88,7 @@ const ConnectedHeader = () => {
                         </div>
                         <div className="logo-content">
                             <span className="logo-text gradient-text">Flipika</span>
-                            <span className="logo-subtitle">IA</span>
+                            <span className="logo-subtitle">bêta</span>
                         </div>
                     </motion.div>
 

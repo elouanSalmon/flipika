@@ -30,7 +30,7 @@ const SimpleHeader = () => {
                     </div>
                     <div className="logo-content">
                         <span className="logo-text gradient-text">Flipika</span>
-                        <span className="logo-subtitle">AI</span>
+                        <span className="logo-subtitle">bêta</span>
                     </div>
                 </div>
 

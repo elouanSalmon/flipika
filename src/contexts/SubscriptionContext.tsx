@@ -10,8 +10,10 @@ interface SubscriptionContextType {
     subscription: Subscription | null;
     loading: boolean;
     isActive: boolean;
+    isLifetime: boolean;
     canAccess: boolean;
     createCheckout: (priceId: string) => Promise<string>;
+    createLifetimeCheckout: (priceId: string) => Promise<string>;
     openCustomerPortal: (returnUrl?: string) => Promise<string>;
     syncBilling: () => Promise<void>;
 }
@@ -44,10 +46,11 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
                         stripeSubscriptionId: data.stripeSubscriptionId,
                         stripePriceId: data.stripePriceId,
                         status: data.status,
+                        isLifetime: data.isLifetime || false,
                         currentSeats: data.currentSeats,
                         trialEndsAt: data.trialEndsAt?.toDate(),
                         currentPeriodStart: data.currentPeriodStart?.toDate(),
-                        currentPeriodEnd: data.currentPeriodEnd?.toDate(),
+                        currentPeriodEnd: data.currentPeriodEnd?.toDate() || null,
                         cancelAtPeriodEnd: data.cancelAtPeriodEnd,
                         createdAt: data.createdAt?.toDate(),
                         updatedAt: data.updatedAt?.toDate(),
@@ -81,6 +84,20 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         return data.url;
     };
 
+    const createLifetimeCheckout = async (priceId: string): Promise<string> => {
+        const functions = getFunctions();
+        const createLifetimeCheckoutFn = httpsCallable(functions, 'createLifetimeCheckout');
+
+        const result = await createLifetimeCheckoutFn({
+            priceId,
+            successUrl: `${window.location.origin}/app/billing?session=lifetime_success`,
+            cancelUrl: `${window.location.origin}/app/billing?session=canceled`,
+        });
+
+        const data = result.data as { url: string };
+        return data.url;
+    };
+
     const openCustomerPortal = async (returnUrl?: string): Promise<string> => {
         const functions = getFunctions();
         const createPortalFn = httpsCallable(functions, 'createStripePortal');
@@ -106,8 +123,10 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         subscription,
         loading,
         isActive: isSubscriptionActive(subscription),
+        isLifetime: subscription?.status === 'lifetime' || false,
         canAccess: canAccessPaidFeatures(subscription),
         createCheckout,
+        createLifetimeCheckout,
         openCustomerPortal,
         syncBilling,
     };
