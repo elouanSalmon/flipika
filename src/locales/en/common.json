@@ -279,11 +279,28 @@
     },
     "back": "Back",
     "subscription": {
-      "title": "Start your free trial",
-      "description": "Enjoy <1>14 days free trial</1>, then a license of $10 per connected Google Ads account. No commitment.",
-      "cta": "Start free trial",
-      "redirecting": "Redirecting to Stripe...",
-      "details": "See offer details",
+      "title": "Choose your plan",
+      "description": "Start with a free trial or opt for lifetime access",
+      "trial": {
+        "badge": "FREE TRIAL",
+        "title": "Monthly Plan",
+        "price": "$10",
+        "period": "/month",
+        "perAccount": "per Google Ads account",
+        "description": "14 days free trial, then automatic billing. No commitment.",
+        "cta": "Start free trial"
+      },
+      "lifetime": {
+        "limitedBadge": "LIMITED OFFER",
+        "earlyBadge": "EARLY ADOPTER",
+        "title": "Lifetime Access",
+        "price": "$100",
+        "oneTime": "one-time payment",
+        "description": "Unlimited accounts. Future features included. Zero subscription.",
+        "cta": "Buy lifetime access"
+      },
+      "redirecting": "Redirecting...",
+      "back": "Back",
       "skip": "Skip and explore in demo mode",
       "skipping": "Finalizing..."
     },

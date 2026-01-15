@@ -574,10 +574,10 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                 <CreditCard size={40} className="text-white" />
                             </div>
                             <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">
-                                Choisissez votre formule
+                                {t('common:onboarding.subscription.title')}
                             </h2>
                             <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-                                Démarrez avec un essai gratuit ou optez pour l'accès à vie
+                                {t('common:onboarding.subscription.description')}
                             </p>
                         </div>
 
@@ -587,22 +587,22 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-xl border-2 border-primary/30 dark:border-primary/40 p-6 hover:border-primary hover:shadow-lg transition-all duration-300">
                                 <div className="text-center">
                                     <div className="inline-block px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light text-xs font-bold rounded-full mb-3">
-                                        ESSAI GRATUIT
+                                        {t('common:onboarding.subscription.trial.badge')}
                                     </div>
                                     <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                                        Formule Mensuelle
+                                        {t('common:onboarding.subscription.trial.title')}
                                     </h3>
                                     <div className="mb-4">
                                         <p className="text-3xl font-bold text-primary dark:text-primary-light">
                                             {PRICE_PER_SEAT}€
-                                            <span className="text-base text-gray-600 dark:text-gray-400">/mois</span>
+                                            <span className="text-base text-gray-600 dark:text-gray-400">{t('common:onboarding.subscription.trial.period')}</span>
                                         </p>
                                         <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                                            par compte Google Ads
+                                            {t('common:onboarding.subscription.trial.perAccount')}
                                         </p>
                                     </div>
                                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                        14 jours d'essai gratuit, puis facturation automatique. Sans engagement.
+                                        {t('common:onboarding.subscription.trial.description')}
                                     </p>
                                     <button
                                         onClick={handleSubscribe}
@@ -612,10 +612,10 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                         {loading ? (
                                             <>
                                                 <Loader2 className="animate-spin" size={18} />
-                                                <span>Redirection...</span>
+                                                <span>{t('common:onboarding.subscription.redirecting')}</span>
                                             </>
                                         ) : (
-                                            "Démarrer l'essai gratuit"
+                                            t('common:onboarding.subscription.trial.cta')
                                         )}
                                     </button>
                                 </div>
@@ -626,26 +626,26 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                 {/* Decorative elements */}
                                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-yellow-300/40 to-transparent rounded-full blur-2xl"></div>
                                 <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl z-10">
-                                    OFFRE LIMITÉE
+                                    {t('common:onboarding.subscription.lifetime.limitedBadge')}
                                 </div>
 
                                 <div className="text-center relative">
                                     <div className="inline-block px-3 py-1 bg-yellow-500/20 dark:bg-yellow-500/30 text-yellow-900 dark:text-yellow-200 text-xs font-bold rounded-full mb-3">
-                                        EARLY ADOPTER
+                                        {t('common:onboarding.subscription.lifetime.earlyBadge')}
                                     </div>
                                     <h3 className="text-xl font-bold text-yellow-900 dark:text-yellow-200 mb-2">
-                                        Accès à Vie
+                                        {t('common:onboarding.subscription.lifetime.title')}
                                     </h3>
                                     <div className="mb-4">
                                         <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">
                                             {LIFETIME_PRICE}€
                                         </p>
                                         <p className="text-xs text-yellow-700/80 dark:text-yellow-400/80 mt-1">
-                                            un seul paiement
+                                            {t('common:onboarding.subscription.lifetime.oneTime')}
                                         </p>
                                     </div>
                                     <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-                                        Comptes illimités. Fonctionnalités futures incluses. Zéro abonnement.
+                                        {t('common:onboarding.subscription.lifetime.description')}
                                     </p>
                                     <button
                                         onClick={handleLifetimePurchase}
@@ -655,10 +655,10 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                         {isCreatingLifetimeCheckout ? (
                                             <>
                                                 <Loader2 className="animate-spin" size={18} />
-                                                <span>Redirection...</span>
+                                                <span>{t('common:onboarding.subscription.redirecting')}</span>
                                             </>
                                         ) : (
-                                            "Acheter l'accès à vie"
+                                            t('common:onboarding.subscription.lifetime.cta')
                                         )}
                                     </button>
                                 </div>
@@ -673,14 +673,14 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                 className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 transition-all duration-200 flex items-center gap-2"
                             >
                                 <ChevronLeft size={20} />
-                                Retour
+                                {t('common:onboarding.subscription.back')}
                             </button>
                             <button
                                 onClick={handleSkipSubscription}
                                 disabled={loading || isCreatingLifetimeCheckout}
                                 className="flex-1 px-4 py-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-medium transition-colors text-sm disabled:opacity-50"
                             >
-                                {loading ? 'Finalisation...' : 'Passer et découvrir en mode démo'}
+                                {loading ? t('common:onboarding.subscription.skipping') : t('common:onboarding.subscription.skip')}
                             </button>
                         </div>
                     </motion.div>

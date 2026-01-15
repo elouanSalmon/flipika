@@ -656,11 +656,28 @@
     },
     "back": "Retour",
     "subscription": {
-      "title": "Activez votre essai gratuit",
-      "description": "Profitez de <1>14 jours d'essai gratuit</1>, puis une licence de 10€ par compte Google Ads connecté. Sans engagement.",
-      "cta": "Commencer l'essai gratuit",
-      "redirecting": "Redirection vers Stripe...",
-      "details": "Voir les détails de l'offre",
+      "title": "Choisissez votre formule",
+      "description": "Démarrez avec un essai gratuit ou optez pour l'accès à vie",
+      "trial": {
+        "badge": "ESSAI GRATUIT",
+        "title": "Formule Mensuelle",
+        "price": "10€",
+        "period": "/mois",
+        "perAccount": "par compte Google Ads",
+        "description": "14 jours d'essai gratuit, puis facturation automatique. Sans engagement.",
+        "cta": "Démarrer l'essai gratuit"
+      },
+      "lifetime": {
+        "limitedBadge": "OFFRE LIMITÉE",
+        "earlyBadge": "EARLY ADOPTER",
+        "title": "Accès à Vie",
+        "price": "100€",
+        "oneTime": "un seul paiement",
+        "description": "Comptes illimités. Fonctionnalités futures incluses. Zéro abonnement.",
+        "cta": "Acheter l'accès à vie"
+      },
+      "redirecting": "Redirection...",
+      "back": "Retour",
       "skip": "Passer et découvrir en mode démo",
       "skipping": "Finalisation..."
     },
