@@ -587,3 +587,149 @@ So that I can reuse them easily.
 **When** I choose a Template
 **Then** I see only templates relevant (or all, but the instantiation applies Client A's data)
 **And** The new report uses Client A's Google Ads account automatically
+
+### Epic 10: Intégration Meta Ads ("L'Omnicanalité")
+Étendre les capacités de Flipika pour inclure les données de Facebook & Instagram Ads, permettant des rapports multicanaux unifiés.
+**FRs covered:** New FRs (Meta Ads API, Cross-Channel Data)
+**Dependencies:** Epic 6 (Slides Engine) DOIT être terminé pour supporter le modèle de données agnostique.
+**Notes:** Nécessite un App Review Meta (long process). Architecture: "AdPlatforms" abstraction layer.
+
+### Story 10.1: Connexion Compte Meta (OAuth & Scopes)
+
+As a User,
+I want to log in with my Facebook account and grant access to my Ads,
+So that Flipika can fetch my Instagram/FB campaign data.
+
+**Acceptance Criteria:**
+
+**Given** I am on the Integrations page
+**When** I click "Connect Meta Ads"
+**Then** I am redirected to Facebook Login
+**And** I grant `ads_read` and `read_insights` permissions
+**And** My Meta Ad Accounts are listed and can be bound to a Client (similar to Google Ads)
+
+### Story 10.2: Fetch Meta Campaigns & Metrics
+
+As a System,
+I want to fetch Campaigns, AdSets, and Insights from the Meta Marketing API,
+So that I can display them in the slides.
+
+**Acceptance Criteria:**
+
+**Given** A bound Meta Account
+**When** I request data for a specific period
+**Then** The system fetches Campaigns and AdSets
+**And** The system maps Meta metrics to Flipika's unified model:
+  - Spend -> Cost
+  - Impressions -> Impressions
+  - Clicks (All) -> Clicks
+**And** I can see these stats in a "Performance Slide" set to "Meta" scope.
+
+### Story 10.3: Fetch Meta Creatives (Visuals)
+
+As a User,
+I want to see the actual images/posts used in my FB/Insta ads,
+So that I can show my client what the audience sees.
+
+**Acceptance Criteria:**
+
+**Given** A "Creative Slide" sourcing from Meta
+**When** It renders
+**Then** It displays the Ad Image or Video Thumbnail
+**And** It displays the Ad Body text and Headline
+**And** It handles the complex "Dynamic Creative" format gracefully (showing a representative asset).
+
+### Epic 11: Analyse IA ("Le Cerveau Connecté")
+Ajouter une couche d'intelligence qui analyse les données des slides pour générer automatiquement des commentaires, des alertes de performance, et des comparaisons cross-canal.
+**FRs covered:** New FRs (AI Insight Generation)
+**Dependencies:** Epic 6 (Structured Data) et Google/Meta integration.
+**Notes:** Utilisation de LLM (Gemini/OpenAI/Anthropic via API). Nécessite un prompt engineering rigoureux.
+
+### Story 11.1: Moteur d'Insights IA (Backend Service)
+
+As a System,
+I want to send structured data to an LLM and receive a text analysis,
+So that I can generate "Smart Comments".
+
+**Acceptance Criteria:**
+
+**Given** A set of aggregated metrics (Previous Month vs Current Month)
+**When** The "Generate Insight" function is called
+**Then** The system formats a prompt with context ("You are a Senior Media Buyer...")
+**And** Sends it to the AI Provider API
+**And** Returns a JSON response with "Summary", "Good News", "Bad News", "Recommendation".
+
+### Story 11.2: Slide "Smart Commentary"
+
+As a User,
+I want a text box that writes itself based on the chart above it,
+So that I save time writing the analysis manually.
+
+**Acceptance Criteria:**
+
+**Given** A "Performance Slide" with data
+**When** I click "Auto-Analyze" on a linked Text Slide
+**Then** The text fills with a coherent 3-sentence summary of the performance
+**And** It correctly identifies trends (e.g., "CPA dropped by 20%")
+**And** I can edit the text afterwards.
+
+### Story 11.3: Analyse Cross-Canal (Google vs Meta)
+
+As a User,
+I want the AI to tell me which platform performed better this month,
+So that I can advise my client on budget allocation.
+
+**Acceptance Criteria:**
+
+**Given** A report with BOTH Google and Meta data
+**When** I use the "Global Analysis" slide
+**Then** The AI compares the efficiency (CPC/CPA) of both platforms
+**And** Outputs a recommendation (e.g., "Meta drove cheaper traffic, but Google had better conversion rate").
+
+### Epic 12: Export Avancé (PPT/GSlides) ("La Flexibilité")
+Permettre l'export des rapports non plus seulement en PDF figé, mais en présentations éditables (PowerPoint .pptx ou Google Slides).
+**FRs covered:** New FRs (Editable Export)
+**Dependencies:** Epic 6 (Slide concept).
+**Notes:** Très complexe. Nécessite de mapper le CSS/HTML vers des objets natifs XML (OpenXML) ou JSON (GSlides API).
+
+### Story 12.1: Service de Génération PPTX (Backend)
+
+As a User,
+I want to download a .pptx file,
+So that I can tweak the design or add slides manually before sending.
+
+**Acceptance Criteria:**
+
+**Given** A generated report
+**When** I click "Export to PowerPoint"
+**Then** A .pptx file is generated
+**And** Each "Slide" in Flipika becomes a Slide in PPT
+**And** Charts are rendered as **Images** (easier MVP) or Native Charts (Advanced)
+**And** Text is editable text boxes.
+
+### Story 12.2: Intégration Google Slides API
+
+As a User,
+I want to push the report directly to my Google Drive as a Slides presentation,
+So that I can collaborate on it with my team.
+
+**Acceptance Criteria:**
+
+**Given** I have authorized Google Drive scope
+**When** I click "Export to Google Slides"
+**Then** The system creates a new presentation in my Drive
+**And** Populates it with the report slides
+**And** Opens the link to the editable presentation in a new tab.
+
+### Story 12.3: Mapping de Fidélité Visuelle (CSS to Shape)
+
+As a Developer,
+I want the exported slides to respect the "Flipika Theme" (Colors, Fonts) as much as possible,
+So that the export doesn't look broken.
+
+**Acceptance Criteria:**
+
+**Given** A Theme with a specific "Primary Color" (e.g., #FF0000)
+**When** Exported to PPT/GSlides
+**Then** Titles and Accents use this #FF0000 color
+**And** The layout roughly matches the web view (Grid -> Grid, List -> List).

@@ -35,7 +35,7 @@
 generated: 2026-01-10T00:00:00Z
 project: flipika
 tracking_system: file-system
-story_location: {project-root}/_bmad-output/implementation-artifacts
+story_location: "{project-root}/_bmad-output/implementation-artifacts"
 
 development_status:
   # Epic 1
@@ -95,11 +95,31 @@ development_status:
   epic-9: in-progress
   9-1-enforce-client-selection: done
 
+  # Epic 8
+  epic-8: backlog
   8-1-gestion-intelligente-des-sauts-de-page-page-breaks: backlog
   8-2-rendu-haute-definition-fidelite-visuelle: backlog
   8-3-optimisation-de-la-taille-performance: backlog
   8-4-metadonnees-accessibilite-pdf: backlog
   epic-8-retrospective: optional
 
+  # Epic 10
+  epic-10: backlog
+  10-1-connexion-compte-meta-oauth-scopes: backlog
+  10-2-fetch-meta-campaigns-metrics: backlog
+  10-3-fetch-meta-creatives-visuals: backlog
+  epic-10-retrospective: optional
 
+  # Epic 11
+  epic-11: backlog
+  11-1-moteur-insights-ia-backend-service: backlog
+  11-2-slide-smart-commentary: backlog
+  11-3-analyse-cross-canal-google-vs-meta: backlog
+  epic-11-retrospective: optional
 
+  # Epic 12
+  epic-12: backlog
+  12-1-service-de-generation-pptx-backend: backlog
+  12-2-integration-google-slides-api: backlog
+  12-3-mapping-de-fidelite-visuelle-css-to-shape: backlog
+  epic-12-retrospective: optional
