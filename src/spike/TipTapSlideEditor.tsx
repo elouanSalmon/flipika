@@ -1,7 +1,16 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { SlideExtension } from './extensions/SlideExtension';
+import { SlideExtension, type SlideAttributes } from './extensions/SlideExtension';
 import { useState } from 'react';
+
+// Extend TipTap commands type
+declare module '@tiptap/core' {
+    interface Commands<ReturnType> {
+        slide: {
+            insertSlide: (attributes?: Partial<SlideAttributes>) => ReturnType;
+        };
+    }
+}
 
 /**
  * POC 2: TipTap Slide Editor

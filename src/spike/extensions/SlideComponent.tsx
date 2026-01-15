@@ -1,5 +1,4 @@
-import { NodeViewWrapper, NodeViewContent } from '@tiptap/react';
-import { NodeViewProps } from '@tiptap/core';
+import { NodeViewWrapper, NodeViewContent, type NodeViewProps } from '@tiptap/react';
 
 /**
  * React Component for Slide NodeView
