@@ -84,6 +84,7 @@
     "managePassword": "Manage password",
     "protectPassword": "Password protect",
     "shareEmail": "Share by email",
+    "exportGoogleSlides": "Export to Google Slides",
     "autoSave": {
       "saved": "Saved",
       "saving": "Saving...",

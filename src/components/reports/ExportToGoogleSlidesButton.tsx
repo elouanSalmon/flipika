@@ -3,7 +3,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { createGoogleSlidesService } from '../../services/googleSlidesService';
 import type { FlipikaSlideData } from '../../types/googleSlides';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../config/firebase';
+import { db } from '../../firebase/config';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 

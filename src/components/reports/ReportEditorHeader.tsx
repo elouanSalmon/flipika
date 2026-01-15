@@ -25,6 +25,7 @@ interface ReportEditorHeaderProps {
     onOpenSettings: () => void;
     onOpenSecurity?: () => void; // Open security modal
     onShareByEmail?: () => void; // Share by email
+    onExportToGoogleSlides?: () => void; // Export to Google Slides
 
     // State
     isSaving: boolean;
@@ -47,6 +48,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
     onOpenSettings,
     onOpenSecurity,
     onShareByEmail,
+    onExportToGoogleSlides,
     isSaving,
     isLoadingSettings = false,
     canPublish,
@@ -211,6 +213,22 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
                                         >
                                             <Mail size={18} />
                                             <span>{t('header.shareEmail')}</span>
+                                        </button>
+                                    )}
+
+                                    {onExportToGoogleSlides && (
+                                        <button
+                                            onClick={() => {
+                                                console.log('📊 Google Slides export button clicked');
+                                                onExportToGoogleSlides();
+                                                setShowShareMenu(false);
+                                            }}
+                                            className="actions-menu-item"
+                                        >
+                                            <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6zm10-10H8v2h8v-2zm0 4H8v2h8v-2z" />
+                                            </svg>
+                                            <span>{t('header.exportGoogleSlides')}</span>
                                         </button>
                                     )}
                                 </div>
