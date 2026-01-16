@@ -2,6 +2,7 @@ import React from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
+import { DataBlockExtension } from './extensions/DataBlockExtension';
 import { TiptapToolbar } from './TiptapToolbar';
 import './TiptapEditor.css';
 
@@ -37,6 +38,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                 placeholder,
                 emptyEditorClass: 'is-editor-empty',
             }),
+            DataBlockExtension, // Add custom data block extension
         ],
         content,
         editable,
