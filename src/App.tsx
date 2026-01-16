@@ -30,6 +30,7 @@ import DashboardNew from './pages/DashboardNew';
 import AuditPage from './pages/AuditPage';
 import Copilot from './pages/Copilot';
 import ReportEditor from './pages/ReportEditor';
+import TiptapReportEditorPage from './pages/TiptapReportEditorPage';
 import NewReport from './pages/NewReport';
 import ReportsList from './pages/ReportsList';
 import Templates from './pages/Templates';
@@ -168,6 +169,15 @@ const AppRoutes = () => {
         <Route path="/app/reports/:id" element={
           <ProtectedRoute>
             <ReportEditor />
+          </ProtectedRoute>
+        } />
+      )}
+
+      {/* Tiptap Report Editor - Full Page (Epic 13 - Testing) */}
+      {enableReports && (
+        <Route path="/app/reports/:id/tiptap" element={
+          <ProtectedRoute>
+            <TiptapReportEditorPage />
           </ProtectedRoute>
         } />
       )}
