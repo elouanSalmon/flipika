@@ -5,6 +5,7 @@ import { DataBlockExtension } from './extensions/DataBlockExtension';
 import { SlashCommandExtension } from './extensions/SlashCommandExtension';
 import { SlideExtension } from './extensions/SlideExtension';
 import { SlideDocument } from './extensions/SlideDocument';
+import { SlideNavigation } from './components/SlideNavigation';
 import { TiptapToolbar } from './TiptapToolbar';
 import type { ReportDesign } from '../../types/reportTypes';
 import './TiptapEditor.css';
@@ -63,20 +64,16 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     }
 
     return (
-        <div className="tiptap-editor-container slide-editor-container">
-            <TiptapToolbar editor={editor} />
-            <div className="tiptap-editor-content">
-                <EditorContent editor={editor} />
-            </div>
+        <div className="tiptap-slide-editor-layout">
+            {/* Left Sidebar - Slide Navigation */}
+            <SlideNavigation editor={editor} />
 
-            {/* Add Slide Button */}
-            <div className="add-slide-container">
-                <button
-                    onClick={() => editor.commands.insertSlide()}
-                    className="add-slide-btn"
-                >
-                    + Ajouter une slide
-                </button>
+            {/* Main Editor Area */}
+            <div className="tiptap-editor-main">
+                <TiptapToolbar editor={editor} />
+                <div className="tiptap-editor-content slide-editor-container">
+                    <EditorContent editor={editor} />
+                </div>
             </div>
         </div>
     );
