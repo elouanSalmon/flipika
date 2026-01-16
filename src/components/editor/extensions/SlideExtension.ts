@@ -7,6 +7,9 @@ import { SlideComponent } from '../components/SlideComponent';
  * 
  * Each slide is a ProseMirror node with fixed dimensions (16:9 aspect ratio).
  * Slides are stacked vertically in the editor and can contain rich content.
+ * 
+ * IMPORTANT: Slides can only contain inline content and specific block types,
+ * NOT other slides.
  */
 
 declare module '@tiptap/core' {
@@ -20,9 +23,11 @@ declare module '@tiptap/core' {
 export const SlideExtension = Node.create({
     name: 'slide',
 
-    group: 'block',
+    // Slides are NOT blocks - they're a special top-level group
+    group: 'slide',
 
-    content: 'block+',
+    // Slides can contain paragraphs, headings, lists, and dataBlocks - but NOT other slides
+    content: '(paragraph | heading | bulletList | orderedList | dataBlock)+',
 
     defining: true,
 
@@ -77,18 +82,24 @@ export const SlideExtension = Node.create({
 
     addCommands() {
         return {
-            insertSlide: () => ({ commands }) => {
-                return commands.insertContent({
-                    type: this.name,
-                    attrs: {
-                        id: `slide-${Date.now()}`,
-                        layout: 'content',
-                        backgroundColor: '#ffffff',
-                    },
-                    content: [
-                        { type: 'paragraph' },
-                    ],
-                });
+            insertSlide: () => ({ chain, state }) => {
+                // Find the end of the document to insert the new slide
+                const endPos = state.doc.content.size;
+
+                return chain()
+                    .insertContentAt(endPos, {
+                        type: this.name,
+                        attrs: {
+                            id: `slide-${Date.now()}`,
+                            layout: 'content',
+                            backgroundColor: '#ffffff',
+                        },
+                        content: [
+                            { type: 'paragraph' },
+                        ],
+                    })
+                    .focus()
+                    .run();
             },
         };
     },

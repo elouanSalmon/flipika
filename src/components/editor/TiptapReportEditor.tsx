@@ -4,6 +4,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
 import { SlashCommandExtension } from './extensions/SlashCommandExtension';
 import { SlideExtension } from './extensions/SlideExtension';
+import { SlideDocument } from './extensions/SlideDocument';
 import { TiptapToolbar } from './TiptapToolbar';
 import type { ReportDesign } from '../../types/reportTypes';
 import './TiptapEditor.css';
@@ -35,7 +36,11 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
 
     const editor = useEditor({
         extensions: [
+            // Custom document that only accepts slides at top level
+            SlideDocument,
+            // StarterKit but disable document (we use SlideDocument)
             StarterKit.configure({
+                document: false,
                 heading: { levels: [1, 2, 3] },
             }),
             Placeholder.configure({
