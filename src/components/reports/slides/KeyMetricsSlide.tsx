@@ -153,15 +153,15 @@ const KeyMetricsSlide: React.FC<KeyMetricsSlideProps> = ({
         <div
             className="key-metrics-widget"
             style={{
-                '--widget-primary': design.colorScheme.primary,
-                '--widget-text': design.colorScheme.text,
-                '--widget-background': design.colorScheme.background,
-                background: design.colorScheme.background,
-                color: design.colorScheme.text,
+                '--widget-primary': design?.colorScheme?.primary || '#3b82f6',
+                '--widget-text': design?.colorScheme?.text || '#111827',
+                '--widget-background': design?.colorScheme?.background || '#ffffff',
+                background: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#111827',
             } as React.CSSProperties}
         >
             <div className="widget-header">
-                <h3 style={{ color: design.colorScheme.secondary }}>Métriques Clés</h3>
+                <h3 style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>Métriques Clés</h3>
                 {isMockData && (
                     <span className="mock-data-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
                         <AlertTriangle size={14} />
