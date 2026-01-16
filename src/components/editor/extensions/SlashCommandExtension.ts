@@ -2,7 +2,8 @@ import { Extension } from '@tiptap/core';
 import { ReactRenderer } from '@tiptap/react';
 import Suggestion from '@tiptap/suggestion';
 import { SlashCommandMenu } from '../components/SlashCommandMenu';
-import tippy, { Instance as TippyInstance } from 'tippy.js';
+import tippy from 'tippy.js';
+import type { Instance as TippyInstance } from 'tippy.js';
 
 /**
  * Slash Command Extension (Epic 13 - Story 13.2)
