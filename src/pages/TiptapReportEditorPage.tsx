@@ -63,7 +63,7 @@ const TiptapReportEditorPage: React.FC = () => {
             const result = await getReportWithSlides(id);
             if (result) {
                 setReport(result.report);
-                setEditorContent(result.report.tiptapContent || result.report.content || { type: 'doc', content: [] });
+                setEditorContent(result.report.content || { type: 'doc', content: [] });
             }
         } catch (error) {
             console.error('Error loading report:', error);
