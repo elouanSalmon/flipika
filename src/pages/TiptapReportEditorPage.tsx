@@ -21,6 +21,7 @@ const TiptapReportEditorPage: React.FC = () => {
     const { currentUser } = useAuth();
 
     const [report, setReport] = useState<EditableReport | null>(null);
+    const [editorContent, setEditorContent] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [lastSaved, setLastSaved] = useState<Date | undefined>();
@@ -59,8 +60,11 @@ const TiptapReportEditorPage: React.FC = () => {
     const loadReport = async (id: string) => {
         try {
             setIsLoading(true);
-            const loadedReport = await getReportWithSlides(id);
-            setReport(loadedReport);
+            const result = await getReportWithSlides(id);
+            if (result) {
+                setReport(result.report);
+                setEditorContent(result.report.tiptapContent || result.report.content || { type: 'doc', content: [] });
+            }
         } catch (error) {
             console.error('Error loading report:', error);
             toast.error('Erreur de chargement du rapport');
@@ -71,14 +75,12 @@ const TiptapReportEditorPage: React.FC = () => {
     };
 
     const handleAutoSave = useCallback(async () => {
-        if (!report || !currentUser) return;
+        if (!report || !currentUser || !editorContent) return;
 
         try {
-            await saveReportWithSlides(report.id, {
-                title: report.title,
-                design: report.design,
-                content: report.content, // Save Tiptap JSON
-            }, []);
+            await updateReport(report.id, {
+                content: editorContent,
+            });
             setLastSaved(new Date());
             setIsDirty(false);
         } catch (error) {
@@ -93,7 +95,6 @@ const TiptapReportEditorPage: React.FC = () => {
             setIsSaving(true);
             await updateReport(report.id, {
                 content: editorContent,
-                tiptapContent: editorContent,
                 editorVersion: 'v2-tiptap',
             });
             setLastSaved(new Date());
