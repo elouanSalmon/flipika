@@ -1,5 +1,6 @@
 import React from 'react';
 import { NodeViewWrapper } from '@tiptap/react';
+import { Settings, Trash2 } from 'lucide-react';
 import { PerformanceBlock } from './PerformanceBlock';
 import { ChartBlock } from './ChartBlock';
 import { KeyMetricsBlock } from './KeyMetricsBlock';
@@ -56,25 +57,29 @@ export const DataBlockComponent: React.FC<DataBlockComponentProps> = ({
                 {/* Block content */}
                 {renderBlock()}
 
-                {/* Toolbar (visible on hover/select) */}
+                {/* Toolbar (visible on select) - SlideItem inspired */}
                 {selected && (
-                    <div className="absolute top-2 right-2 flex gap-2 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-2 border border-gray-200 dark:border-gray-700">
+                    <div className="data-block-actions">
                         <button
-                            onClick={() => {
+                            onClick={(e) => {
+                                e.stopPropagation();
                                 // TODO: Open settings modal
                                 console.log('Configure block:', blockType);
                             }}
-                            className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                            className="data-block-action-btn"
                             title="Configure"
                         >
-                            ⚙️ Settings
+                            <Settings size={16} />
                         </button>
                         <button
-                            onClick={deleteNode}
-                            className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                deleteNode();
+                            }}
+                            className="data-block-action-btn danger"
                             title="Delete"
                         >
-                            🗑️ Delete
+                            <Trash2 size={16} />
                         </button>
                     </div>
                 )}

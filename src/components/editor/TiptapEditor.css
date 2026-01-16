@@ -224,8 +224,48 @@
     border-radius: 0.5rem;
 }
 
-.data-block-wrapper .group:hover .absolute {
+/* Data Block Actions (SlideItem-inspired) */
+.data-block-actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+    background: rgba(var(--glass-rgb), 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(var(--border-rgb), 0.3);
+    border-radius: 10px;
+    padding: 6px;
+    box-shadow: var(--shadow-md);
+    z-index: 10;
     opacity: 1;
+    transition: all 0.2s ease;
+}
+
+.data-block-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--color-text-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.data-block-action-btn:hover {
+    background: rgba(var(--primary-rgb), 0.1);
+    color: var(--color-primary);
+    transform: scale(1.05);
+}
+
+.data-block-action-btn.danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
 }
 
 /* Data Block Component Animations */
