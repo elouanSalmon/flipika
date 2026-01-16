@@ -489,10 +489,12 @@
 .slide-navigation {
     width: 200px;
     min-width: 200px;
-    height: 100vh;
+    height: calc(100vh - 65px);
+    /* Account for header */
     position: fixed;
     left: 0;
-    top: 0;
+    top: 65px;
+    /* Below the header */
     background: var(--color-bg-primary, #ffffff);
     border-right: 1px solid var(--color-border, #e5e7eb);
     display: flex;
