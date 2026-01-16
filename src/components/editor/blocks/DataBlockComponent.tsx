@@ -5,6 +5,7 @@ import { PerformanceBlock } from './PerformanceBlock';
 import { ChartBlock } from './ChartBlock';
 import { KeyMetricsBlock } from './KeyMetricsBlock';
 import type { DataBlockAttributes } from '../extensions/DataBlockExtension';
+import type { ReportDesign } from '../../../types/reportTypes';
 
 interface DataBlockComponentProps {
     node: {
@@ -13,6 +14,11 @@ interface DataBlockComponentProps {
     updateAttributes: (attrs: Partial<DataBlockAttributes>) => void;
     deleteNode: () => void;
     selected: boolean;
+    extension: {
+        storage: {
+            design?: ReportDesign;
+        };
+    };
 }
 
 /**
@@ -26,17 +32,19 @@ export const DataBlockComponent: React.FC<DataBlockComponentProps> = ({
     updateAttributes,
     deleteNode,
     selected,
+    extension,
 }) => {
     const { blockType, config } = node.attrs;
+    const design = extension?.storage?.design;
 
     const renderBlock = () => {
         switch (blockType) {
             case 'performance':
-                return <PerformanceBlock config={config} />;
+                return <PerformanceBlock config={config} design={design} />;
             case 'chart':
-                return <ChartBlock config={config} />;
+                return <ChartBlock config={config} design={design} />;
             case 'keyMetrics':
-                return <KeyMetricsBlock config={config} />;
+                return <KeyMetricsBlock config={config} design={design} />;
             default:
                 return (
                     <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">

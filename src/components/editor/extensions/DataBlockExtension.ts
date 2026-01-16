@@ -1,6 +1,7 @@
 import { Node, mergeAttributes } from '@tiptap/core';
 import { ReactNodeViewRenderer } from '@tiptap/react';
 import { DataBlockComponent } from '../blocks/DataBlockComponent';
+import type { ReportDesign } from '../../../types/reportTypes';
 
 /**
  * Data Block Extension for Tiptap (Epic 13 - Story 13.2)
@@ -38,6 +39,18 @@ export const DataBlockExtension = Node.create({
     atom: true, // Cannot contain other nodes
 
     draggable: true,
+
+    addOptions() {
+        return {
+            design: undefined as ReportDesign | undefined,
+        };
+    },
+
+    addStorage() {
+        return {
+            design: this.options.design,
+        };
+    },
 
     addAttributes() {
         return {
@@ -78,7 +91,10 @@ export const DataBlockExtension = Node.create({
     },
 
     addNodeView() {
-        return ReactNodeViewRenderer(DataBlockComponent);
+        return ReactNodeViewRenderer(DataBlockComponent, {
+            // Pass design from storage to component
+            as: 'div',
+        });
     },
 
     addCommands() {

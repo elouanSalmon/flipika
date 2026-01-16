@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { useAuth } from '../contexts/AuthContext';
 import { TiptapReportEditor } from '../components/editor';
-import { getReportWithSlides, saveReportWithSlides } from '../services/reportService';
+import { getReportWithSlides, updateReport } from '../services/reportService';
 import type { EditableReport } from '../types/reportTypes';
 import { Save, ArrowLeft } from 'lucide-react';
 
@@ -84,36 +84,33 @@ const TiptapReportEditorPage: React.FC = () => {
         } catch (error) {
             console.error('Auto-save error:', error);
         }
-    }, [report, currentUser]);
+    }, [report, currentUser, editorContent]);
 
     const handleSave = async () => {
-        if (!report || !currentUser) return;
+        if (!report || !currentUser || !editorContent) return;
 
         try {
             setIsSaving(true);
-            await saveReportWithSlides(report.id, {
-                title: report.title,
-                design: report.design,
-                content: report.content,
-            }, []);
+            await updateReport(report.id, {
+                content: editorContent,
+                tiptapContent: editorContent,
+                editorVersion: 'v2-tiptap',
+            });
             setLastSaved(new Date());
             setIsDirty(false);
             toast.success('Rapport sauvegardé');
         } catch (error) {
-            console.error('Save error:', error);
-            toast.error('Erreur de sauvegarde');
+            console.error('Error saving report:', error);
+            toast.error('Erreur lors de la sauvegarde');
         } finally {
             setIsSaving(false);
         }
     };
 
-    const handleContentChange = (newContent: any) => {
+    const handleEditorChange = (newContent: any) => {
         if (!report) return;
 
-        setReport({
-            ...report,
-            content: newContent,
-        });
+        setEditorContent(newContent);
         setIsDirty(true);
     };
 
@@ -129,7 +126,7 @@ const TiptapReportEditorPage: React.FC = () => {
         );
     }
 
-    if (!report) {
+    if (!report || editorContent === null) { // Ensure editorContent is not null before rendering editor
         return null;
     }
 
@@ -180,9 +177,10 @@ const TiptapReportEditorPage: React.FC = () => {
             <main className="flex-1 overflow-hidden p-6">
                 <div className="max-w-5xl mx-auto h-full">
                     <TiptapReportEditor
-                        content={report.content}
-                        onChange={handleContentChange}
-                        placeholder="Commencez à écrire votre rapport..."
+                        content={editorContent}
+                        onChange={handleEditorChange}
+                        placeholder="Commencez à écrire votre rapport... (tapez '/' pour insérer un bloc)"
+                        design={report.design}
                     />
                 </div>
             </main>
