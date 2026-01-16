@@ -142,7 +142,8 @@
       "passwordDisabled": "Password protection disabled",
       "passwordError": "Error updating password",
       "emailOpened": "Pre-filled email opened!",
-      "emailError": "Error generating email"
+      "emailError": "Error generating email",
+      "presetThemeApplied": "Theme \"{{themeName}}\" applied from client preferences"
     },
     "email": {
       "subject": "Google Ads Report - {{title}}",

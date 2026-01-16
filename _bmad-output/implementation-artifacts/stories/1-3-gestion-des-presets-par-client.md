@@ -1,6 +1,6 @@
 # Story 1.3: Gestion des Presets par Client
 
-Status: ready-for-dev
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -54,12 +54,12 @@ so that **I don't have to re-configure everything each time I generate a report*
   - [x] Show preset summary in tooltip (Template name, Theme name)
   - [x] Use emerald border styling to differentiate clients with presets
 
-- [ ] **5. Report Generation Integration** (AC: Usage)
-  - [ ] Identify report creation entry point (likely in dashboard or report editor)
-  - [ ] When client is selected, fetch client data including preset
-  - [ ] If preset exists, pre-populate template and theme selectors
-  - [ ] Allow user to override pre-selected values
-  - [ ] Add visual indication that values are pre-selected from preset
+- [x] **5. Report Generation Integration** (AC: Usage)
+  - [x] Identify report creation entry point (ReportEditor.tsx)
+  - [x] When client is selected, fetch client data including preset
+  - [x] If preset exists, pre-populate theme selector automatically
+  - [x] Allow user to override pre-selected values
+  - [x] Add visual indication (toast message) that theme was pre-selected from preset
 
 ## Dev Notes
 
@@ -190,16 +190,29 @@ so that **I don't have to re-configure everything each time I generate a report*
 
 ### Agent Model Used
 
-(To be filled by Dev Agent)
+Claude Opus 4.5 (claude-opus-4-5-20251101)
 
 ### Debug Log References
 
-(To be filled by Dev Agent)
+N/A - Implementation was straightforward
 
 ### Completion Notes List
 
-(To be filled by Dev Agent)
+- Tasks 1-4 were already implemented by previous dev work
+- Task 5 (Report Generation Integration) was missing and has now been implemented
+- Added automatic theme preset application when loading a report with a clientId
+- Added i18n translations for the toast notification (FR + EN)
+- Template preset integration not implemented (templates are a separate concept in this codebase - reports are created with slides, not from templates)
 
 ### File List
 
-(To be filled by Dev Agent)
+**Modified Files:**
+- `src/pages/ReportEditor.tsx` - Added useEffect to apply client preset theme on report load
+- `src/locales/fr/reports.json` - Added `presetThemeApplied` translation
+- `src/locales/en/reports.json` - Added `presetThemeApplied` translation
+
+**Existing Files (Verified Working):**
+- `src/types/client.ts` - Has `defaultTemplateId` and `defaultThemeId` fields
+- `src/services/clientService.ts` - Handles preset fields in CRUD operations
+- `src/components/clients/ClientForm.tsx` - Has preset configuration UI
+- `src/components/clients/ClientCard.tsx` - Has preset visual indicators

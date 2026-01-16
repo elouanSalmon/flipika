@@ -140,7 +140,8 @@
       "passwordDisabled": "Protection par mot de passe désactivée",
       "passwordError": "Erreur lors de la mise à jour du mot de passe",
       "emailOpened": "Email pré-rempli ouvert !",
-      "emailError": "Erreur lors de la génération de l'email"
+      "emailError": "Erreur lors de la génération de l'email",
+      "presetThemeApplied": "Thème \"{{themeName}}\" appliqué depuis les préférences du client"
     },
     "email": {
       "subject": "Rapport Google Ads - {{title}}",

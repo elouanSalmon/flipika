@@ -1,7 +1,7 @@
 # Story 5.2: Widget d'Onboarding (UI & Navigation)
 
 **Epic:** 5 - Onboarding & Gamification
-**Status:** ready-for-dev
+**Status:** done
 
 ## Description
 Créer un composant React "Getting Started" affiché sur le Dashboard. Il doit lister les étapes d'onboarding, leur statut, et fournir un bouton d'action direct pour les étapes incomplètes.

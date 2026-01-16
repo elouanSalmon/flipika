@@ -29,6 +29,7 @@ import type { ReportTheme } from '../types/reportThemes';
 import type { Account, Campaign } from '../types/business';
 import type { Client } from '../types/client';
 import { clientService } from '../services/clientService';
+import themeService from '../services/themeService';
 import PreFlightModal from '../components/reports/PreFlightModal';
 import { GoogleSlidesExportModal } from '../components/reports/GoogleSlidesExportModal';
 import './ReportEditor.css';
@@ -117,6 +118,37 @@ const ReportEditor: React.FC = () => {
             loadAccounts();
         }
     }, [currentUser]);
+
+    // Apply client preset theme when report loads
+    useEffect(() => {
+        const applyClientPresetTheme = async () => {
+            // Only apply if: report exists, has clientId, no theme selected yet, and clients loaded
+            if (!report?.clientId || selectedTheme || !currentUser || clients.length === 0) {
+                return;
+            }
+
+            const client = clients.find(c => c.id === report.clientId);
+            if (!client?.defaultThemeId) {
+                return;
+            }
+
+            try {
+                const presetTheme = await themeService.getTheme(client.defaultThemeId);
+                if (presetTheme) {
+                    setSelectedTheme(presetTheme);
+                    setReport(prev => prev ? { ...prev, design: presetTheme.design } : prev);
+                    toast.success(t('editor.messages.presetThemeApplied', {
+                        themeName: presetTheme.name,
+                        defaultValue: `Thème "${presetTheme.name}" appliqué depuis les préférences du client`
+                    }));
+                }
+            } catch (error) {
+                console.error('Error loading client preset theme:', error);
+            }
+        };
+
+        applyClientPresetTheme();
+    }, [report?.clientId, clients, selectedTheme, currentUser]);
 
     const loadAccounts = async () => {
         try {

@@ -1,7 +1,7 @@
 # Story 5.1: Moteur d'Onboarding (Checklist Logic)
 
 **Epic:** 5 - Onboarding & Gamification
-**Status:** ready-for-dev
+**Status:** done
 
 ## Description
 Implémenter la logique backend/frontend pour suivre l'état d'avancement de l'onboarding pour chaque utilisateur. Le système doit pouvoir déterminer si chacune des 6 étapes clés a été réalisée.

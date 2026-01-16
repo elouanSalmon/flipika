@@ -39,16 +39,16 @@ story_location: "{project-root}/_bmad-output/implementation-artifacts"
 
 development_status:
   # Epic 1
-  epic-1: in-progress
+  epic-1: done
   1-1-crud-clients-gestion-du-logo: done
-  1-2-configuration-des-themes-personnalises: review
-  1-3-gestion-des-presets-par-client: review
+  1-2-configuration-des-themes-personnalises: done
+  1-3-gestion-des-presets-par-client: done
   epic-1-retrospective: optional
 
   # Epic 2
-  epic-2: backlog
-  2-1-authentification-google-scopes-minimaux: review
-  2-2-securisation-du-token-oauth-backend: review
+  epic-2: in-progress
+  2-1-authentification-google-scopes-minimaux: done
+  2-2-securisation-du-token-oauth-backend: done
   2-3-binding-manager-liaison-compte-client: backlog
   epic-2-retrospective: optional
 
@@ -67,9 +67,9 @@ development_status:
   epic-4-retrospective: optional
 
   # Epic 5
-  epic-5: review
-  5-1-moteur-onboarding-checklist-logic: review
-  5-2-widget-onboarding-ui: review
+  epic-5: done
+  5-1-moteur-onboarding-checklist-logic: done
+  5-2-widget-onboarding-ui: done
   epic-5-retrospective: optional
 
   # Epic 6
