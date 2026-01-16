@@ -35,7 +35,7 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
     return (
         <div className="h-full flex flex-col p-8 bg-white" style={{
             fontFamily: design.typography.fontFamily,
-            color: design.colorScheme.text
+            color: design?.colorScheme?.text || '#111827'
         }}>
             {/* Header / Badge */}
             <div className="flex items-center justify-between mb-6">

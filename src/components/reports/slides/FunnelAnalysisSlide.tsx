@@ -69,7 +69,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                         id: 'impressions',
                         label: 'Impressions',
                         value: impressions,
-                        color: design.colorScheme.primary,
+                        color: design?.colorScheme?.primary || '#3b82f6',
                         percentage: 100, // Always full width
                         conversionRate: undefined, // First step
                     },
@@ -77,7 +77,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                         id: 'clicks',
                         label: 'Clics',
                         value: clicks,
-                        color: design.colorScheme.secondary,
+                        color: design?.colorScheme?.secondary || '#6b7280',
                         percentage: (clicks / maxVal) * 100,
                         conversionRate: impressions > 0 ? (clicks / impressions) * 100 : 0,
                     },
@@ -169,8 +169,8 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
         <div
             className={`funnel-analysis-widget ${design.mode === 'dark' ? 'dark-mode' : ''}`}
             style={{
-                backgroundColor: design.colorScheme.background,
-                color: design.colorScheme.text,
+                backgroundColor: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#111827',
                 padding: '24px',
                 height: '100%',
                 borderRadius: '12px',
@@ -180,7 +180,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
         >
             <div className="flex items-center justify-between mb-8">
                 <h3 style={{
-                    color: design.colorScheme.text,
+                    color: design?.colorScheme?.text || '#111827',
                     fontSize: '18px',
                     fontWeight: 600,
                     margin: 0
@@ -213,10 +213,10 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                     {funnelData.map((step) => (
                         <div key={step.id} className="funnel-step relative">
                             <div className="flex items-center justify-between mb-2">
-                                <div className="funnel-label font-medium" style={{ color: design.colorScheme.text, fontSize: '14px' }}>
+                                <div className="funnel-label font-medium" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '14px' }}>
                                     {step.label}
                                 </div>
-                                <div className="funnel-value font-bold" style={{ color: design.colorScheme.text, fontSize: '14px' }}>
+                                <div className="funnel-value font-bold" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '14px' }}>
                                     {formatNumber(step.value)}
                                 </div>
                             </div>
@@ -241,7 +241,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                                         className="text-xs font-medium px-2 py-1 rounded-full shadow-sm flex items-center gap-1"
                                         style={{
                                             backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'white',
-                                            color: design.colorScheme.text,
+                                            color: design?.colorScheme?.text || '#111827',
                                             border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`
                                         }}
                                     >

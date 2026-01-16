@@ -234,7 +234,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     // The backend now returns type='PMAX' for asset groups
     if (adData.type === 'PMAX' || (selectedAd?.type === 'PMAX')) {
         return (
-            <div className="h-full rounded-xl overflow-hidden shadow-sm border border-gray-200" style={{ backgroundColor: design.colorScheme.background }}>
+            <div className="h-full rounded-xl overflow-hidden shadow-sm border border-gray-200" style={{ backgroundColor: design?.colorScheme?.background || '#ffffff' }}>
                 <PerformanceMaxSlide
                     data={{
                         headlines: selectedAd?.headlines || [],
@@ -253,7 +253,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     // If it's a Search ad, use the new SearchAdSlide for better visualization
     if (adData.type === 'search' || selectedAd?.type === 'SEARCH') {
         return (
-            <div className="h-full rounded-xl overflow-hidden shadow-sm border border-gray-200" style={{ backgroundColor: design.colorScheme.background }}>
+            <div className="h-full rounded-xl overflow-hidden shadow-sm border border-gray-200" style={{ backgroundColor: design?.colorScheme?.background || '#ffffff' }}>
                 <SearchAdSlide
                     data={{
                         headlines: selectedAd?.headlines || [adData.headline],
@@ -272,11 +272,11 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
         <div
             className="ad-creative-widget"
             style={{
-                '--widget-primary': design.colorScheme.primary,
-                '--widget-text': design.colorScheme.text,
-                '--widget-background': design.colorScheme.background,
-                backgroundColor: design.colorScheme.background,
-                color: design.colorScheme.text,
+                '--widget-primary': design?.colorScheme?.primary || '#3b82f6',
+                '--widget-text': design?.colorScheme?.text || '#111827',
+                '--widget-background': design?.colorScheme?.background || '#ffffff',
+                backgroundColor: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#111827',
                 padding: '24px',
                 height: '100%',
                 borderRadius: '12px',
@@ -286,7 +286,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
         >
             <div className="flex items-center justify-between mb-6">
                 <h3 style={{
-                    color: design.colorScheme.text,
+                    color: design?.colorScheme?.text || '#111827',
                     margin: 0,
                     fontSize: '18px',
                     fontWeight: 600,

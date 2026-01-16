@@ -68,10 +68,10 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 <div className="ad-url" style={{ color: design.mode === 'dark' ? '#34d399' : '#059669' }}>
                     {adData.displayUrl}
                 </div>
-                <h3 className="ad-headline" style={{ color: design.colorScheme.primary }}>
+                <h3 className="ad-headline" style={{ color: design?.colorScheme?.primary || '#3b82f6' }}>
                     {adData.headline}
                 </h3>
-                <p className="ad-description" style={{ color: design.colorScheme.secondary }}>
+                <p className="ad-description" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
                     {adData.description}
                 </p>
             </div>
@@ -93,7 +93,7 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 <div
                     className="ad-image-placeholder"
                     style={{
-                        background: design.colorScheme.primary,
+                        background: design?.colorScheme?.primary || '#3b82f6',
                         color: '#ffffff'
                     }}
                 >
@@ -101,13 +101,13 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 </div>
             )}
             <div className="ad-content">
-                <h3 className="ad-headline" style={{ color: design.colorScheme.text }}>
+                <h3 className="ad-headline" style={{ color: design?.colorScheme?.text || '#111827' }}>
                     {adData.headline}
                 </h3>
-                <p className="ad-description" style={{ color: design.colorScheme.secondary }}>
+                <p className="ad-description" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
                     {adData.description}
                 </p>
-                <div className="ad-url" style={{ color: design.colorScheme.secondary }}>
+                <div className="ad-url" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
                     {adData.displayUrl}
                 </div>
             </div>
@@ -125,16 +125,16 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 <span
                     className="metric-icon"
                     style={{
-                        background: design.colorScheme.primary,
+                        background: design?.colorScheme?.primary || '#3b82f6',
                         color: '#ffffff'
                     }}
                 >
                     {icon}
                 </span>
-                <span style={{ color: design.colorScheme.secondary }}>{label}</span>
+                <span style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>{label}</span>
             </div>
             <div className="metric-value-container">
-                <span className="metric-value" style={{ color: design.colorScheme.text }}>
+                <span className="metric-value" style={{ color: design?.colorScheme?.text || '#111827' }}>
                     {value}
                 </span>
                 {change !== undefined && (
@@ -164,7 +164,7 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
             </div>
 
             <div className="ad-creative-right">
-                <h4 className="metrics-title" style={{ color: design.colorScheme.secondary }}>
+                <h4 className="metrics-title" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
                     Performances
                 </h4>
                 <div className="metrics-table">

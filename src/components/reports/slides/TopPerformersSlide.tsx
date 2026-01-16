@@ -81,11 +81,11 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
 
     const getIcon = () => {
         switch (config.settings?.dimension) {
-            case 'KEYWORDS': return <Search size={20} color={design.colorScheme.primary} />;
-            case 'SEARCH_TERMS': return <Search size={20} color={design.colorScheme.secondary} />;
+            case 'KEYWORDS': return <Search size={20} color={design?.colorScheme?.primary || '#3b82f6'} />;
+            case 'SEARCH_TERMS': return <Search size={20} color={design?.colorScheme?.secondary || '#6b7280'} />;
             case 'LOCATIONS': return <MapPin size={20} color={design.colorScheme.accent} />;
-            case 'ADS': return <Layout size={20} color={design.colorScheme.primary} />;
-            default: return <Trophy size={20} color={design.colorScheme.primary} />;
+            case 'ADS': return <Layout size={20} color={design?.colorScheme?.primary || '#3b82f6'} />;
+            default: return <Trophy size={20} color={design?.colorScheme?.primary || '#3b82f6'} />;
         }
     };
 
@@ -101,7 +101,7 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
 
     const tableHeaderStyle = {
         backgroundColor: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)',
-        color: design.colorScheme.text,
+        color: design?.colorScheme?.text || '#111827',
         fontSize: '11px',
         textTransform: 'uppercase' as const,
         letterSpacing: '0.05em',
@@ -114,7 +114,7 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
     const tableCellStyle = {
         padding: '12px 16px',
         fontSize: '13px',
-        color: design.colorScheme.text,
+        color: design?.colorScheme?.text || '#111827',
         borderBottom: `1px solid ${design.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
     };
 
@@ -139,20 +139,20 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
         <div
             className="h-full flex flex-col p-6 rounded-xl overflow-hidden"
             style={{
-                backgroundColor: design.colorScheme.background,
-                color: design.colorScheme.text
+                backgroundColor: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#111827'
             }}
         >
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                     <div
                         className="p-2 rounded-lg"
-                        style={{ backgroundColor: `${design.colorScheme.primary}15` }}
+                        style={{ backgroundColor: `${design?.colorScheme?.primary || '#3b82f6'}15` }}
                     >
                         {getIcon()}
                     </div>
                     <div>
-                        <h3 className="text-lg font-semibold" style={{ color: design.colorScheme.text }}>
+                        <h3 className="text-lg font-semibold" style={{ color: design?.colorScheme?.text || '#111827' }}>
                             {getTitle()}
                         </h3>
                         <p className="text-sm opacity-70">
@@ -219,7 +219,7 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
                                 <td style={{ ...tableCellStyle, textAlign: 'right' }}>
                                     {formatNumber(item.clicks)}
                                 </td>
-                                <td style={{ ...tableCellStyle, textAlign: 'right', color: design.colorScheme.primary, fontWeight: 500 }}>
+                                <td style={{ ...tableCellStyle, textAlign: 'right', color: design?.colorScheme?.primary || '#3b82f6', fontWeight: 500 }}>
                                     {formatPercent(item.ctr)}
                                 </td>
                                 <td style={{ ...tableCellStyle, textAlign: 'right' }}>
@@ -228,7 +228,7 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
                                 <td style={{ ...tableCellStyle, textAlign: 'right', fontWeight: 500 }}>
                                     {formatCurrency(item.cost)}
                                 </td>
-                                <td style={{ ...tableCellStyle, textAlign: 'right', color: design.colorScheme.secondary, fontWeight: 600 }}>
+                                <td style={{ ...tableCellStyle, textAlign: 'right', color: design?.colorScheme?.secondary || '#6b7280', fontWeight: 600 }}>
                                     {formatNumber(item.conversions)}
                                 </td>
                                 <td style={{ ...tableCellStyle, textAlign: 'right' }}>

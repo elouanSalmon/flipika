@@ -59,8 +59,8 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
     };
 
     const COLORS = [
-        design.colorScheme.primary,
-        design.colorScheme.secondary,
+        design?.colorScheme?.primary || '#3b82f6',
+        design?.colorScheme?.secondary || '#6b7280',
         design.colorScheme.accent,
         '#10b981',
         '#f59e0b',
@@ -97,7 +97,7 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
         return (
             <div className="device-platform-split-slide error">
                 <div className="error-container">
-                    <AlertTriangle size={32} color={design.colorScheme.text} />
+                    <AlertTriangle size={32} color={design?.colorScheme?.text || '#111827'} />
                     <p>{error}</p>
                 </div>
             </div>
@@ -108,8 +108,8 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
         <div
             className="device-platform-split-slide"
             style={{
-                color: design.colorScheme.text,
-                backgroundColor: design.colorScheme.background,
+                color: design?.colorScheme?.text || '#111827',
+                backgroundColor: design?.colorScheme?.background || '#ffffff',
                 padding: '24px',
                 height: '100%',
                 borderRadius: '12px',
@@ -119,7 +119,7 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
         >
             <div className="slide-header flex items-center justify-between mb-6">
                 <h3 style={{
-                    color: design.colorScheme.text,
+                    color: design?.colorScheme?.text || '#111827',
                     fontSize: '18px',
                     fontWeight: 600,
                     margin: 0
@@ -169,7 +169,7 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
                                         border: 'none',
                                         boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                                         backgroundColor: design.mode === 'dark' ? '#1e293b' : '#fff',
-                                        color: design.colorScheme.text
+                                        color: design?.colorScheme?.text || '#111827'
                                     }}
                                 />
                                 <Legend wrapperStyle={{ fontSize: '12px', marginTop: '10px' }} />
@@ -186,7 +186,7 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
                             <BarChart data={platformData} layout="vertical" margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
                                 <XAxis type="number" hide />
-                                <YAxis type="category" dataKey="name" width={80} tick={{ fontSize: 11, fill: design.colorScheme.text }} />
+                                <YAxis type="category" dataKey="name" width={80} tick={{ fontSize: 11, fill: design?.colorScheme?.text || '#111827' }} />
                                 <RechartsTooltip
                                     formatter={(value: number) => formatCurrency(value)}
                                     contentStyle={{
@@ -194,10 +194,10 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
                                         border: 'none',
                                         boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                                         backgroundColor: design.mode === 'dark' ? '#1e293b' : '#fff',
-                                        color: design.colorScheme.text
+                                        color: design?.colorScheme?.text || '#111827'
                                     }}
                                 />
-                                <Bar dataKey="cost" fill={design.colorScheme.primary} radius={[0, 4, 4, 0]} barSize={20}>
+                                <Bar dataKey="cost" fill={design?.colorScheme?.primary || '#3b82f6'} radius={[0, 4, 4, 0]} barSize={20}>
                                     {platformData.map((_, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
@@ -238,10 +238,10 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
                                 </td>
                                 <td className="py-2 px-3 text-right">{formatNumber(row.impressions)}</td>
                                 <td className="py-2 px-3 text-right">{formatNumber(row.clicks)}</td>
-                                <td className="py-2 px-3 text-right font-medium" style={{ color: design.colorScheme.primary }}>{formatPercentage(row.ctr)}</td>
+                                <td className="py-2 px-3 text-right font-medium" style={{ color: design?.colorScheme?.primary || '#3b82f6' }}>{formatPercentage(row.ctr)}</td>
                                 <td className="py-2 px-3 text-right">{formatCurrency(row.cpc)}</td>
                                 <td className="py-2 px-3 text-right font-medium">{formatCurrency(row.cost)}</td>
-                                <td className="py-2 px-3 text-right font-bold" style={{ color: design.colorScheme.secondary }}>{formatNumber(row.conversions)}</td>
+                                <td className="py-2 px-3 text-right font-bold" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>{formatNumber(row.conversions)}</td>
                                 <td className="py-2 px-3 text-right">{formatCurrency(row.cpa)}</td>
                                 <td className="py-2 px-3 text-right font-bold">{row.roas.toFixed(2)}x</td>
                             </tr>

@@ -19,7 +19,7 @@ const SectionTitleSlide: React.FC<SectionTitleSlideProps> = ({
         <div
             className="section-title-slide flex flex-col items-center justify-center h-full min-h-[300px] w-full p-12 text-center"
             style={{
-                backgroundColor: design.colorScheme.primary, // Use primary color as background for impact
+                backgroundColor: design?.colorScheme?.primary || '#3b82f6', // Use primary color as background for impact
                 color: '#ffffff', // Always white text on primary background
             }}
         >

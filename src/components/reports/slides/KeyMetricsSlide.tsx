@@ -190,17 +190,17 @@ const KeyMetricsSlide: React.FC<KeyMetricsSlideProps> = ({
                                 <div
                                     className="metric-icon"
                                     style={{
-                                        background: design.colorScheme.primary,
+                                        background: design?.colorScheme?.primary || '#3b82f6',
                                         color: '#ffffff',
                                     }}
                                 >
                                     {metric.icon}
                                 </div>
                                 <div className="metric-info">
-                                    <div className="widget-metric-label" style={{ color: design.colorScheme.secondary }}>
+                                    <div className="widget-metric-label" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
                                         {metric.label}
                                     </div>
-                                    <div className="widget-metric-value" style={{ color: design.colorScheme.text }}>
+                                    <div className="widget-metric-value" style={{ color: design?.colorScheme?.text || '#111827' }}>
                                         {metric.formatted}
                                     </div>
                                     {metric.change !== undefined && (

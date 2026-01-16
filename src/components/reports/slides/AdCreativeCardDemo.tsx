@@ -82,7 +82,7 @@ const AdCreativeCardDemo: React.FC = () => {
     return (
         <div style={{
             padding: '40px',
-            background: design.colorScheme.background,
+            background: design?.colorScheme?.background || '#ffffff',
             minHeight: '100vh',
         }}>
             <div style={{
@@ -96,7 +96,7 @@ const AdCreativeCardDemo: React.FC = () => {
                     marginBottom: '32px',
                 }}>
                     <h1 style={{
-                        color: design.colorScheme.text,
+                        color: design?.colorScheme?.text || '#111827',
                         fontSize: '32px',
                         fontWeight: '700',
                         margin: 0,
@@ -107,7 +107,7 @@ const AdCreativeCardDemo: React.FC = () => {
                         onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
                         style={{
                             padding: '8px 16px',
-                            background: design.colorScheme.primary,
+                            background: design?.colorScheme?.primary || '#3b82f6',
                             color: '#ffffff',
                             border: 'none',
                             borderRadius: '6px',
@@ -127,7 +127,7 @@ const AdCreativeCardDemo: React.FC = () => {
                 }}>
                     <div>
                         <h2 style={{
-                            color: design.colorScheme.text,
+                            color: design?.colorScheme?.text || '#111827',
                             fontSize: '20px',
                             fontWeight: '600',
                             marginBottom: '16px',
@@ -143,7 +143,7 @@ const AdCreativeCardDemo: React.FC = () => {
 
                     <div>
                         <h2 style={{
-                            color: design.colorScheme.text,
+                            color: design?.colorScheme?.text || '#111827',
                             fontSize: '20px',
                             fontWeight: '600',
                             marginBottom: '16px',

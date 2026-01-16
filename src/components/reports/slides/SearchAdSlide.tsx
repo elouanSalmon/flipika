@@ -22,7 +22,7 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
     return (
         <div className="h-full flex flex-col items-center justify-center p-8 bg-gray-50" style={{
             fontFamily: design.typography.fontFamily,
-            color: design.colorScheme.text
+            color: design?.colorScheme?.text || '#111827'
         }}>
             {/* Google Search Result Mockup Card */}
             <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg border border-gray-100 p-6">

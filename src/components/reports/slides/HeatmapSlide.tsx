@@ -100,7 +100,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
         // Or cleaner: use HSL if available, or just opacity of the primary color.
 
         // Simpler approach: use style with opacity
-        return design.colorScheme.primary;
+        return design?.colorScheme?.primary || '#3b82f6';
         // We will apply opacity in the style attribute directly
     };
 
@@ -140,8 +140,8 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
         <div
             className="heatmap-container"
             style={{
-                backgroundColor: design.colorScheme.background,
-                color: design.colorScheme.text,
+                backgroundColor: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#111827',
                 padding: '24px',
                 height: '100%',
                 borderRadius: '12px',
@@ -152,7 +152,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
                     <h3 style={{
-                        color: design.colorScheme.text,
+                        color: design?.colorScheme?.text || '#111827',
                         fontSize: '18px',
                         fontWeight: 600,
                         margin: 0
@@ -166,7 +166,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                         style={{
                             borderColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
                             backgroundColor: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : '#fff',
-                            color: design.colorScheme.text,
+                            color: design?.colorScheme?.text || '#111827',
                             padding: '4px 8px',
                             borderRadius: '6px',
                             fontSize: '13px',

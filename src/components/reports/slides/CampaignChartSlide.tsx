@@ -66,8 +66,8 @@ const CampaignChartSlide: React.FC<CampaignChartSlideProps> = ({
 
     // Generate chart colors based on theme
     const chartColors = [
-        design.colorScheme.primary,
-        design.colorScheme.secondary,
+        design?.colorScheme?.primary || '#3b82f6',
+        design?.colorScheme?.secondary || '#6b7280',
         design.colorScheme.accent,
         '#10b981',
         '#f59e0b',
@@ -90,25 +90,25 @@ const CampaignChartSlide: React.FC<CampaignChartSlideProps> = ({
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
                         <XAxis
                             dataKey="date"
-                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
-                            stroke={design.colorScheme.text}
+                            tick={{ fontSize: 12, fill: design?.colorScheme?.text || '#111827' }}
+                            stroke={design?.colorScheme?.text || '#111827'}
                         />
                         <YAxis
-                            label={{ value: 'Clics', angle: -90, position: 'insideLeft', style: { fill: design.colorScheme.text, fontSize: 12 } }}
-                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
-                            stroke={design.colorScheme.text}
+                            label={{ value: 'Clics', angle: -90, position: 'insideLeft', style: { fill: design?.colorScheme?.text || '#111827', fontSize: 12 } }}
+                            tick={{ fontSize: 12, fill: design?.colorScheme?.text || '#111827' }}
+                            stroke={design?.colorScheme?.text || '#111827'}
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: design.colorScheme.background,
+                                backgroundColor: design?.colorScheme?.background || '#ffffff',
                                 border: `1px solid ${design.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
                                 borderRadius: '8px',
                                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                                color: design.colorScheme.text,
+                                color: design?.colorScheme?.text || '#111827',
                             }}
                         />
                         <Legend
-                            formatter={(value) => <span style={{ color: design.colorScheme.text }}>{value}</span>}
+                            formatter={(value) => <span style={{ color: design?.colorScheme?.text || '#111827' }}>{value}</span>}
                             iconType="line"
                         />
                         {campaigns.map((campaign, index) => (
@@ -129,25 +129,25 @@ const CampaignChartSlide: React.FC<CampaignChartSlideProps> = ({
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
                         <XAxis
                             dataKey="date"
-                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
-                            stroke={design.colorScheme.text}
+                            tick={{ fontSize: 12, fill: design?.colorScheme?.text || '#111827' }}
+                            stroke={design?.colorScheme?.text || '#111827'}
                         />
                         <YAxis
-                            label={{ value: 'Clics', angle: -90, position: 'insideLeft', style: { fill: design.colorScheme.text, fontSize: 12 } }}
-                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
-                            stroke={design.colorScheme.text}
+                            label={{ value: 'Clics', angle: -90, position: 'insideLeft', style: { fill: design?.colorScheme?.text || '#111827', fontSize: 12 } }}
+                            tick={{ fontSize: 12, fill: design?.colorScheme?.text || '#111827' }}
+                            stroke={design?.colorScheme?.text || '#111827'}
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: design.colorScheme.background,
+                                backgroundColor: design?.colorScheme?.background || '#ffffff',
                                 border: `1px solid ${design.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
                                 borderRadius: '8px',
                                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                                color: design.colorScheme.text,
+                                color: design?.colorScheme?.text || '#111827',
                             }}
                         />
                         <Legend
-                            formatter={(value) => <span style={{ color: design.colorScheme.text }}>{value}</span>}
+                            formatter={(value) => <span style={{ color: design?.colorScheme?.text || '#111827' }}>{value}</span>}
                             iconType="line"
                         />
                         {campaigns.map((campaign, index) => (
@@ -172,25 +172,25 @@ const CampaignChartSlide: React.FC<CampaignChartSlideProps> = ({
                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
                         <XAxis
                             dataKey="date"
-                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
-                            stroke={design.colorScheme.text}
+                            tick={{ fontSize: 12, fill: design?.colorScheme?.text || '#111827' }}
+                            stroke={design?.colorScheme?.text || '#111827'}
                         />
                         <YAxis
-                            label={{ value: 'Clics', angle: -90, position: 'insideLeft', style: { fill: design.colorScheme.text, fontSize: 12 } }}
-                            tick={{ fontSize: 12, fill: design.colorScheme.text }}
-                            stroke={design.colorScheme.text}
+                            label={{ value: 'Clics', angle: -90, position: 'insideLeft', style: { fill: design?.colorScheme?.text || '#111827', fontSize: 12 } }}
+                            tick={{ fontSize: 12, fill: design?.colorScheme?.text || '#111827' }}
+                            stroke={design?.colorScheme?.text || '#111827'}
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: design.colorScheme.background,
+                                backgroundColor: design?.colorScheme?.background || '#ffffff',
                                 border: `1px solid ${design.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
                                 borderRadius: '8px',
                                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                                color: design.colorScheme.text,
+                                color: design?.colorScheme?.text || '#111827',
                             }}
                         />
                         <Legend
-                            formatter={(value) => <span style={{ color: design.colorScheme.text }}>{value}</span>}
+                            formatter={(value) => <span style={{ color: design?.colorScheme?.text || '#111827' }}>{value}</span>}
                             iconType="line"
                         />
                         {campaigns.map((campaign, index) => (
@@ -266,15 +266,15 @@ const CampaignChartSlide: React.FC<CampaignChartSlideProps> = ({
         <div
             className="campaign-chart-widget"
             style={{
-                '--widget-primary': design.colorScheme.primary,
-                '--widget-text': design.colorScheme.text,
-                '--widget-background': design.colorScheme.background,
-                background: design.colorScheme.background,
-                color: design.colorScheme.text,
+                '--widget-primary': design?.colorScheme?.primary || '#3b82f6',
+                '--widget-text': design?.colorScheme?.text || '#111827',
+                '--widget-background': design?.colorScheme?.background || '#ffffff',
+                background: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#111827',
             } as React.CSSProperties}
         >
             <div className="widget-header">
-                <h3 style={{ color: design.colorScheme.secondary }}>Évolution des Clics par Campagne</h3>
+                <h3 style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>Évolution des Clics par Campagne</h3>
                 {isMockData && (
                     <span className="mock-data-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
                         <AlertTriangle size={14} />

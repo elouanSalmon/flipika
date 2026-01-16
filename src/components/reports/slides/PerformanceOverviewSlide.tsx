@@ -134,17 +134,18 @@ const PerformanceOverviewSlide: React.FC<PerformanceOverviewSlideProps> = ({
 
     return (
         <div
-            className="performance-overview-widget"
+            className="performance-widget"
             style={{
-                '--widget-primary': design.colorScheme.primary,
-                '--widget-text': design.colorScheme.text,
-                '--widget-background': design.colorScheme.background,
-                background: design.colorScheme.background,
-                color: design.colorScheme.text,
+                '--widget-primary': design?.colorScheme?.primary || '#3b82f6',
+                '--widget-secondary': design?.colorScheme?.secondary || '#6b7280',
+                '--widget-text': design?.colorScheme?.text || '#111827',
+                '--widget-background': design?.colorScheme?.background || '#ffffff',
+                background: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#111827',
             } as React.CSSProperties}
         >
             <div className="widget-header">
-                <h3 style={{ color: design.colorScheme.secondary }}>Vue d'ensemble des performances</h3>
+                <h3 style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>Vue d'ensemble des performances</h3>
                 {isMockData && (
                     <span className="mock-data-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
                         <AlertTriangle size={14} />
@@ -173,16 +174,16 @@ const PerformanceOverviewSlide: React.FC<PerformanceOverviewSlideProps> = ({
                             <div
                                 className="metric-icon"
                                 style={{
-                                    background: design.colorScheme.primary,
+                                    background: design?.colorScheme?.primary || '#3b82f6',
                                 }}
                             >
                                 {METRIC_ICONS[metric.name] || <BarChart3 size={20} />}
                             </div>
                             <div className="metric-info">
-                                <div className="widget-metric-label" style={{ color: design.colorScheme.secondary }}>
+                                <div className="widget-metric-label" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
                                     {METRIC_LABELS[metric.name] || metric.name}
                                 </div>
-                                <div className="widget-metric-value" style={{ color: design.colorScheme.text }}>
+                                <div className="widget-metric-value" style={{ color: design?.colorScheme?.text || '#111827' }}>
                                     {metric.formatted}
                                 </div>
                                 {metric.change !== undefined && (
