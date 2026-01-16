@@ -5,10 +5,12 @@ import { useAuth } from '../contexts/AuthContext';
 import { TiptapReportEditor } from '../components/editor';
 import { getReportWithSlides, updateReport } from '../services/reportService';
 import type { EditableReport } from '../types/reportTypes';
-import { Save, ArrowLeft } from 'lucide-react';
+import { Save, ArrowLeft, Clock, CheckCircle } from 'lucide-react';
 
 /**
  * Tiptap Report Editor Page (Epic 13)
+ * 
+ * Full-page slide editor with fixed header, fixed toolbar, and slide navigation.
  */
 const TiptapReportEditorPage: React.FC = () => {
     const navigate = useNavigate();
@@ -104,7 +106,7 @@ const TiptapReportEditorPage: React.FC = () => {
 
     if (isLoading) {
         return (
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center h-screen bg-gray-50 dark:bg-gray-900">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
             </div>
         );
@@ -115,55 +117,54 @@ const TiptapReportEditorPage: React.FC = () => {
     }
 
     return (
-        <div className="h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-            <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={handleBack}
-                            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition"
-                            title="Retour"
-                        >
-                            <ArrowLeft size={20} />
-                        </button>
-                        <div>
-                            <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                {report.title}
-                            </h1>
-                            {lastSaved && (
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    Dernière sauvegarde : {lastSaved.toLocaleTimeString()}
-                                </p>
-                            )}
+        <div className="tiptap-page-layout">
+            {/* Fixed Header Bar */}
+            <header className="tiptap-page-header">
+                <div className="tiptap-header-left">
+                    <button
+                        onClick={handleBack}
+                        className="tiptap-header-btn"
+                        title="Retour aux rapports"
+                    >
+                        <ArrowLeft size={20} />
+                    </button>
+                    <div className="tiptap-header-title-group">
+                        <h1 className="tiptap-header-title">{report.title}</h1>
+                        <div className="tiptap-header-status">
+                            {isDirty ? (
+                                <span className="tiptap-status-unsaved">
+                                    <Clock size={14} />
+                                    Modifications non sauvegardées
+                                </span>
+                            ) : lastSaved ? (
+                                <span className="tiptap-status-saved">
+                                    <CheckCircle size={14} />
+                                    Sauvegardé à {lastSaved.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                            ) : null}
                         </div>
                     </div>
+                </div>
 
-                    <div className="flex items-center gap-3">
-                        {isDirty && (
-                            <span className="text-sm text-orange-600 dark:text-orange-400">
-                                Non sauvegardé
-                            </span>
-                        )}
-                        <button
-                            onClick={handleSave}
-                            disabled={isSaving}
-                            className="btn btn-primary flex items-center gap-2 disabled:opacity-50"
-                        >
-                            <Save size={18} />
-                            {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
-                        </button>
-                    </div>
+                <div className="tiptap-header-right">
+                    <button
+                        onClick={handleSave}
+                        disabled={isSaving}
+                        className="tiptap-save-btn"
+                    >
+                        <Save size={18} />
+                        {isSaving ? 'Sauvegarde...' : 'Sauvegarder'}
+                    </button>
                 </div>
             </header>
 
-            <main className="flex-1 overflow-auto p-6">
-                <div className="max-w-5xl mx-auto">
-                    <TiptapReportEditor
-                        content={editorContent}
-                        onChange={handleEditorChange}
-                        design={report.design}
-                    />
-                </div>
+            {/* Editor with Sidebar */}
+            <main className="tiptap-page-main">
+                <TiptapReportEditor
+                    content={editorContent}
+                    onChange={handleEditorChange}
+                    design={report.design}
+                />
             </main>
         </div>
     );
