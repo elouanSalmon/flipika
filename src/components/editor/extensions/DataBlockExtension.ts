@@ -1,32 +1,17 @@
 import { Node, mergeAttributes } from '@tiptap/core';
 import { ReactNodeViewRenderer } from '@tiptap/react';
 import { DataBlockComponent } from '../blocks/DataBlockComponent';
-import type { ReportDesign } from '../../../types/reportTypes';
 
 /**
  * Data Block Extension for Tiptap (Epic 13 - Story 13.2)
  * 
  * Base extension for inserting dynamic data blocks (metrics, charts, etc.)
- * into Tiptap documents. Each block can fetch and display Google Ads data.
  */
-
-export interface DataBlockAttributes {
-    blockType: 'performance' | 'chart' | 'keyMetrics';
-    config: {
-        accountId?: string;
-        campaignIds?: string[];
-        startDate?: string;
-        endDate?: string;
-        chartType?: 'line' | 'bar' | 'area';
-        metrics?: string[];
-        [key: string]: any;
-    };
-}
 
 declare module '@tiptap/core' {
     interface Commands<ReturnType> {
         dataBlock: {
-            insertDataBlock: (attributes?: Partial<DataBlockAttributes>) => ReturnType;
+            insertDataBlock: (blockType: string) => ReturnType;
         };
     }
 }
@@ -36,21 +21,9 @@ export const DataBlockExtension = Node.create({
 
     group: 'block',
 
-    atom: true, // Cannot contain other nodes
+    atom: true,
 
     draggable: true,
-
-    addOptions() {
-        return {
-            design: undefined as ReportDesign | undefined,
-        };
-    },
-
-    addStorage() {
-        return {
-            design: this.options.design,
-        };
-    },
 
     addAttributes() {
         return {
@@ -79,11 +52,7 @@ export const DataBlockExtension = Node.create({
     },
 
     parseHTML() {
-        return [
-            {
-                tag: 'div[data-block]',
-            },
-        ];
+        return [{ tag: 'div[data-block]' }];
     },
 
     renderHTML({ HTMLAttributes }) {
@@ -91,21 +60,15 @@ export const DataBlockExtension = Node.create({
     },
 
     addNodeView() {
-        return ReactNodeViewRenderer(DataBlockComponent, {
-            // Pass design from storage to component
-            as: 'div',
-        });
+        return ReactNodeViewRenderer(DataBlockComponent);
     },
 
     addCommands() {
         return {
-            insertDataBlock: (attributes?: Partial<DataBlockAttributes>) => ({ commands }) => {
+            insertDataBlock: (blockType: string) => ({ commands }) => {
                 return commands.insertContent({
                     type: this.name,
-                    attrs: attributes || {
-                        blockType: 'performance',
-                        config: {},
-                    },
+                    attrs: { blockType, config: {} },
                 });
             },
         };

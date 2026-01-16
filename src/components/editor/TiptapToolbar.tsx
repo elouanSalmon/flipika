@@ -12,7 +12,7 @@ import {
     Redo,
     BarChart3,
     TrendingUp,
-    Target,
+    Hash,
 } from 'lucide-react';
 
 interface TiptapToolbarProps {
@@ -110,33 +110,29 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor }) => {
 
             <div className="tiptap-toolbar-separator" />
 
-            {/* Data Block Buttons */}
-            <div className="tiptap-toolbar-group">
-                <ToolbarButton
-                    onClick={() => editor.chain().focus().insertDataBlock({
-                        blockType: 'performance',
-                        config: {}
-                    }).run()}
-                    icon={<TrendingUp size={18} />}
-                    title="Insérer bloc Performance"
-                />
-                <ToolbarButton
-                    onClick={() => editor.chain().focus().insertDataBlock({
-                        blockType: 'chart',
-                        config: { chartType: 'line' }
-                    }).run()}
-                    icon={<BarChart3 size={18} />}
-                    title="Insérer graphique"
-                />
-                <ToolbarButton
-                    onClick={() => editor.chain().focus().insertDataBlock({
-                        blockType: 'keyMetrics',
-                        config: {}
-                    }).run()}
-                    icon={<Target size={18} />}
-                    title="Insérer métriques clés"
-                />
-            </div>
+            {/* Data Block Dropdowns */}
+            <div className="tiptap-toolbar-divider" />
+            <button
+                onClick={() => editor.chain().focus().insertDataBlock('performance').run()}
+                className="tiptap-toolbar-btn"
+                title="Insert Performance Block"
+            >
+                <TrendingUp size={18} />
+            </button>
+            <button
+                onClick={() => editor.chain().focus().insertDataBlock('chart').run()}
+                className="tiptap-toolbar-btn"
+                title="Insert Chart Block"
+            >
+                <BarChart3 size={18} />
+            </button>
+            <button
+                onClick={() => editor.chain().focus().insertDataBlock('keyMetrics').run()}
+                className="tiptap-toolbar-btn"
+                title="Insert Key Metrics Block"
+            >
+                <Hash size={18} />
+            </button>
         </div>
     );
 };

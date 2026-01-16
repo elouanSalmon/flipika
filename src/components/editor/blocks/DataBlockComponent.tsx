@@ -1,50 +1,24 @@
-import React from 'react';
 import { NodeViewWrapper } from '@tiptap/react';
+import type { NodeViewProps } from '@tiptap/react';
 import { Settings, Trash2 } from 'lucide-react';
 import { PerformanceBlock } from './PerformanceBlock';
 import { ChartBlock } from './ChartBlock';
 import { KeyMetricsBlock } from './KeyMetricsBlock';
-import type { DataBlockAttributes } from '../extensions/DataBlockExtension';
-import type { ReportDesign } from '../../../types/reportTypes';
-
-interface DataBlockComponentProps {
-    node: {
-        attrs: DataBlockAttributes;
-    };
-    updateAttributes: (attrs: Partial<DataBlockAttributes>) => void;
-    deleteNode: () => void;
-    selected: boolean;
-    extension: {
-        storage: {
-            design?: ReportDesign;
-        };
-    };
-}
 
 /**
  * Data Block Component (Epic 13 - Story 13.2)
- * 
- * React component that renders different types of data blocks
- * based on the blockType attribute.
  */
-export const DataBlockComponent: React.FC<DataBlockComponentProps> = ({
-    node,
-    updateAttributes,
-    deleteNode,
-    selected,
-    extension,
-}) => {
+export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps) => {
     const { blockType, config } = node.attrs;
-    const design = extension?.storage?.design;
 
     const renderBlock = () => {
         switch (blockType) {
             case 'performance':
-                return <PerformanceBlock config={config} design={design} />;
+                return <PerformanceBlock config={config || {}} />;
             case 'chart':
-                return <ChartBlock config={config} design={design} />;
+                return <ChartBlock config={config || {}} />;
             case 'keyMetrics':
-                return <KeyMetricsBlock config={config} design={design} />;
+                return <KeyMetricsBlock config={config || {}} />;
             default:
                 return (
                     <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
@@ -62,16 +36,13 @@ export const DataBlockComponent: React.FC<DataBlockComponentProps> = ({
             data-block-type={blockType}
         >
             <div className="relative group">
-                {/* Block content */}
                 {renderBlock()}
 
-                {/* Toolbar (visible on select) - SlideItem inspired */}
                 {selected && (
                     <div className="data-block-actions">
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
-                                // TODO: Open settings modal
                                 console.log('Configure block:', blockType);
                             }}
                             className="data-block-action-btn"
