@@ -89,13 +89,12 @@ const TiptapReportEditorPage: React.FC = () => {
     }, [report, currentUser, editorContent]);
 
     const handleSave = async () => {
-        if (!report || !currentUser || !editorContent) return;
+        if (!report || !currentUser) return;
 
         try {
             setIsSaving(true);
             await updateReport(report.id, {
-                content: editorContent,
-                editorVersion: 'v2-tiptap',
+                content: editorContent || { type: 'doc', content: [] },
             });
             setLastSaved(new Date());
             setIsDirty(false);
@@ -164,7 +163,7 @@ const TiptapReportEditorPage: React.FC = () => {
                         )}
                         <button
                             onClick={handleSave}
-                            disabled={isSaving || !isDirty}
+                            disabled={isSaving}
                             className="btn btn-primary flex items-center gap-2 disabled:opacity-50"
                         >
                             <Save size={18} />

@@ -1,19 +1,24 @@
 import React from 'react';
 import { TrendingUp, DollarSign, Target, Zap } from 'lucide-react';
+import type { ReportDesign } from '../../../types/reportTypes';
 
 interface KeyMetricsBlockProps {
     config: {
         [key: string]: any;
     };
+    design?: ReportDesign;
 }
 
 /**
  * Key Metrics Block Component (Epic 13 - Story 13.2)
  * 
  * Displays a 2x2 grid of key KPIs.
+ * Uses report design colors when available.
  * TODO: Connect to Google Ads API
  */
-export const KeyMetricsBlock: React.FC<KeyMetricsBlockProps> = ({ config }) => {
+export const KeyMetricsBlock: React.FC<KeyMetricsBlockProps> = ({ design }) => {
+    // Use report design colors or fallback to defaults
+    const primaryColor = design?.colorScheme?.primary || '#3b82f6';
     const metrics = [
         { label: 'ROAS', value: '4.2x', icon: <TrendingUp size={28} />, color: 'text-green-600 dark:text-green-400', bgGradient: 'from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20' },
         { label: 'CPA', value: '12.50€', icon: <Target size={28} />, color: 'text-blue-600 dark:text-blue-400', bgGradient: 'from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20' },
@@ -24,7 +29,7 @@ export const KeyMetricsBlock: React.FC<KeyMetricsBlockProps> = ({ config }) => {
     return (
         <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                <Target size={20} className="text-blue-600 dark:text-blue-400" />
+                <Target size={20} style={{ color: primaryColor }} />
                 Key Metrics
             </h3>
             <div className="grid grid-cols-2 gap-4">

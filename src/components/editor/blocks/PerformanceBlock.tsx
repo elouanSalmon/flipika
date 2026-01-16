@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, DollarSign, MousePointerClick, Eye } from 'lucide-react';
+import type { ReportDesign } from '../../../types/reportTypes';
 
 interface PerformanceBlockProps {
     config: {
@@ -9,6 +10,7 @@ interface PerformanceBlockProps {
         endDate?: string;
         metrics?: string[];
     };
+    design?: ReportDesign;
 }
 
 interface MetricData {
@@ -23,11 +25,16 @@ interface MetricData {
  * Performance Block Component (Epic 13 - Story 13.2)
  * 
  * Displays a grid of performance metrics from Google Ads.
+ * Uses report design colors when available.
  * TODO: Connect to actual Google Ads API
  */
-export const PerformanceBlock: React.FC<PerformanceBlockProps> = ({ config }) => {
+export const PerformanceBlock: React.FC<PerformanceBlockProps> = ({ config, design }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [metrics, setMetrics] = useState<MetricData[]>([]);
+
+    // Use report design colors or fallback to defaults
+    const primaryColor = design?.colorScheme?.primary || '#3b82f6';
+    const accentColor = design?.colorScheme?.accent || '#10b981';
 
     useEffect(() => {
         // TODO: Fetch real data from Google Ads API
@@ -85,7 +92,7 @@ export const PerformanceBlock: React.FC<PerformanceBlockProps> = ({ config }) =>
     return (
         <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                <TrendingUp size={20} className="text-blue-600 dark:text-blue-400" />
+                <TrendingUp size={20} style={{ color: primaryColor }} />
                 Performance Overview
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -101,8 +108,8 @@ export const PerformanceBlock: React.FC<PerformanceBlockProps> = ({ config }) =>
                             {metric.change && (
                                 <span
                                     className={`text-xs font-medium px-2 py-1 rounded-full ${metric.change.startsWith('+')
-                                            ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                                            : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                                        : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                                         }`}
                                 >
                                     {metric.change}
