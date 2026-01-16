@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
 import { SlashCommandExtension } from './extensions/SlashCommandExtension';
+import { SlideExtension } from './extensions/SlideExtension';
+import { SlideDocument } from './extensions/SlideDocument';
 import { TiptapToolbar } from './TiptapToolbar';
 import type { ReportDesign } from '../../types/reportTypes';
 import './TiptapEditor.css';
@@ -25,7 +27,9 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
 }) => {
     const editor = useEditor({
         extensions: [
+            SlideDocument, // Custom document that only accepts slides
             StarterKit.configure({
+                document: false, // Disable default document
                 heading: {
                     levels: [1, 2, 3],
                 },
@@ -41,6 +45,9 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             Placeholder.configure({
                 placeholder,
                 emptyEditorClass: 'is-editor-empty',
+            }),
+            SlideExtension.configure({
+                design, // Pass design to slides
             }),
             DataBlockExtension.configure({
                 design, // Pass design to extension
@@ -60,6 +67,29 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             }
         },
     });
+
+    // Initialize with one slide if editor is empty
+    useEffect(() => {
+        if (editor && !content) {
+            editor.commands.setContent({
+                type: 'doc',
+                content: [
+                    {
+                        type: 'slide',
+                        attrs: {
+                            layout: 'content',
+                            backgroundColor: '#ffffff',
+                        },
+                        content: [
+                            {
+                                type: 'paragraph',
+                            },
+                        ],
+                    },
+                ],
+            });
+        }
+    }, [editor, content]);
 
     if (!editor) {
         return null;
