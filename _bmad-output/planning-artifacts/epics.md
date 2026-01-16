@@ -76,10 +76,85 @@ FR-11: Epic 4 - Génération lien Mailto pré-rempli
 
 ## Epic List
 
+> [!IMPORTANT]
+> **Strategic Pivot (2026-01)**: The product direction has shifted from a widget-based slide editor to a **document-first approach** using Tiptap/ProseMirror. Epic priorities have been reordered to reflect this change.
+
+### Epic 12: Export Avancé (Google Slides) ("La Flexibilité") - **IN PROGRESS**
+Permettre l'export des rapports en présentations éditables Google Slides avec mapping fidèle des données et du design.
+**FRs covered:** New FRs (Editable Export)
+**Status:** Phase 1 complete (OAuth, basic export, data extraction)
+**Notes:** Core strategic feature. Enables collaboration and customization post-generation.
+
+### Epic 13: Éditeur Tiptap/ProseMirror ("Le Document Vivant") - **NEW PRIORITY**
+Remplacer le système actuel de slides/widgets par un éditeur de document riche basé sur Tiptap, permettant une expérience d'édition fluide et naturelle.
+**FRs covered:** New FRs (Rich Text Editing, Document Structure)
+**Dependencies:** Epic 1 (Client data), Epic 3 (Report generation)
+**Notes:** Strategic pivot. Document-first approach replaces widget-based system. Enables better content flow and editing experience.
+
 ### Epic 1: Gestion des Clients & Configuration ("La Fondation")
 Permettre à l'utilisateur de configurer son environnement de travail (Clients, Templates, Thèmes) pour que le système soit prêt pour le "Binding".
 **FRs covered:** FR-04, FR-05, FR-06
 **Notes:** Feature critique pour préparer le terrain. Gestion CRUD standard + upload logo. Stockage Firestore.
+
+### Epic 7: Email Presets & Custom Messaging ("La Personnalisation")
+Permettre à chaque Client d'avoir un template d'email personnalisé (Sujet + Corps) avec des variables dynamiques qui se remplissent automatiquement lors de l'envoi.
+**FRs covered:** New FRs (Email Customization)
+**Status:** COMPLETE
+**Notes:** Améliore la productivité. Variables: `[client_name]`, `[period]`, `[campaigns]`, etc.
+
+### Epic 3: Moteur de Génération & Pre-Flight ("Le Décollage")
+L'expérience centrale du "Lundi Matin" : Sélectionner, Valider (Pre-Flight) et Générer. Cœur de la valeur ajoutée "Sérénité".
+**FRs covered:** FR-07, FR-08, FR-09, FR-10, NFR-01, NFR-02, NFR-05, NFR-06
+**Status:** COMPLETE
+**Notes:** UX critique (Modale "Protective Friction"). Performance critique (PDF generation). Gestion des loading states.
+
+### Epic 2: Authentification & Binding Google Ads ("La Connexion")
+Permettre à l'utilisateur de connecter son compte Google Ads de manière sécurisée et de lier (Bind) un Customer ID à un Client Flipika.
+**FRs covered:** FR-01, FR-02, FR-03, NFR-03, NFR-04, NFR-07
+**Notes:** OAuth critique. Scopes minimaux. Token refresh géré backend. Binding 1:1 strict.
+
+### Epic 5: Onboarding Intelligent ("Le Premier Pas")
+Guider l'utilisateur nouveau à travers les étapes critiques (Connexion Google Ads, Création du premier Client, Génération du premier rapport) avec une UX "Magic Link" et des checks de progression.
+**FRs covered:** New FRs (User Onboarding)
+**Notes:** UX différenciante. Checklist persistante. Auto-fetch via API.
+
+### Epic 9: Enforce Client Selection ("La Clarté")
+Forcer la sélection d'un Client avant d'accéder à l'éditeur de rapport pour éviter les rapports "orphelins" et garantir la cohérence des données.
+**FRs covered:** New FRs (Data Integrity)
+**Status:** COMPLETE
+**Notes:** Améliore la cohérence. Évite les bugs de binding.
+
+### Epic 4: Livraison & Fin de Flux ("L'Atterrissage")
+Finaliser le workflow de génération en permettant l'envoi du rapport via email (mailto) et la confirmation de livraison.
+**FRs covered:** FR-11
+**Notes:** Dernière étape du flow. Génération mailto pré-rempli. Historique d'envoi.
+
+### Epic 8: Optimisation PDF ("La Qualité")
+Améliorer la qualité visuelle et technique des PDFs générés (Gestion des sauts de page, Haute définition, Compression, Métadonnées).
+**FRs covered:** New FRs (PDF Quality)
+**Notes:** Enhancement. Nécessite fine-tuning de html2pdf.js.
+
+### Epic 6: Slides Avancées ("La Richesse") - **DEPRECATED**
+> [!WARNING]
+> **DEPRECATED**: This epic is being replaced by Epic 13 (Tiptap Editor). The widget-based slide system is being phased out in favor of a document-first approach.
+
+~~Étendre le système de slides avec des types avancés (Funnel, Heatmap, Device Split, Top Performers) et un système de scoping granulaire.~~
+**FRs covered:** New FRs (Advanced Visualizations)
+**Status:** DEPRECATED - Replaced by Tiptap document editor
+**Notes:** Original widget-based approach. Being replaced by document-first editing with Tiptap.
+
+### Epic 10: Intégration Meta Ads ("Le Multi-Canal")
+Ajouter le support de Facebook/Instagram Ads en parallèle de Google Ads pour permettre des rapports cross-platform.
+**FRs covered:** New FRs (Meta Ads Integration)
+**Notes:** Nouvelle source de données. OAuth Meta. Mapping des métriques.
+
+### Epic 11: Analyse IA ("Le Cerveau Connecté")
+Ajouter une couche d'intelligence qui analyse les données des slides pour générer automatiquement des commentaires, des alertes de performance, et des comparaisons cross-canal.
+**FRs covered:** New FRs (AI Insight Generation)
+**Dependencies:** Epic 13 (Document structure) et Google/Meta integration.
+**Notes:** Utilisation de LLM (Gemini/OpenAI/Anthropic via API). Nécessite un prompt engineering rigoureux.
+
+---
 
 ### Story 1.1: CRUD Clients & Gestion du Logo
 
@@ -733,3 +808,69 @@ So that the export doesn't look broken.
 **When** Exported to PPT/GSlides
 **Then** Titles and Accents use this #FF0000 color
 **And** The layout roughly matches the web view (Grid -> Grid, List -> List).
+
+---
+
+### Epic 13: Éditeur Tiptap/ProseMirror (\"Le Document Vivant\")
+
+Remplacer le système actuel de slides/widgets par un éditeur de document riche basé sur Tiptap, permettant une expérience d'édition fluide et naturelle avec des blocs de données dynamiques.
+
+### Story 13.1: Setup Tiptap Core & Basic Formatting
+
+As a User,
+I want to edit report content in a rich-text editor,
+So that I can format text naturally without dealing with complex widget configurations.
+
+**Acceptance Criteria:**
+
+**Given** I am creating or editing a report
+**When** I open the editor
+**Then** I see a Tiptap editor instance with basic formatting tools (Bold, Italic, Headings, Lists)
+**And** I can type and format text fluidly
+**And** The content is saved as JSON (Tiptap document format)
+**And** The editor respects the Flipika design system (colors, fonts)
+
+### Story 13.2: Custom Extensions - Data Blocks
+
+As a User,
+I want to insert dynamic data blocks (metrics, charts) into my document,
+So that I can mix narrative text with live data visualizations.
+
+**Acceptance Criteria:**
+
+**Given** I am editing a document
+**When** I type `/metric` or click "Insert Data Block"
+**Then** A menu appears with available block types (Performance Overview, Key Metrics, Chart, etc.)
+**And** I can select a block type and configure its data source (campaigns, date range)
+**And** The block renders inline with the text
+**And** The block updates when the underlying data changes
+
+### Story 13.3: Migration from Slide System
+
+As a Developer,
+I want to migrate existing reports from the slide/widget system to Tiptap documents,
+So that users don't lose their existing content.
+
+**Acceptance Criteria:**
+
+**Given** An existing report with slides
+**When** The migration script runs
+**Then** Each slide is converted to a Tiptap block or section
+**And** Widget configurations are mapped to data block settings
+**And** The visual output remains consistent
+**And** Users can edit the migrated content in Tiptap
+
+### Story 13.4: Export Tiptap to Google Slides
+
+As a User,
+I want to export my Tiptap document to Google Slides,
+So that I can present my report in a familiar format.
+
+**Acceptance Criteria:**
+
+**Given** A completed Tiptap document with text and data blocks
+**When** I click "Export to Google Slides"
+**Then** The system converts the document structure to slides
+**And** Text blocks become text boxes in slides
+**And** Data blocks (charts, metrics) are rendered as images or native shapes
+**And** The presentation opens in Google Slides with editable content

@@ -72,17 +72,6 @@ development_status:
   5-2-widget-onboarding-ui: done
   epic-5-retrospective: optional
 
-  # Epic 6
-  epic-6: backlog
-  6-1-rename-refactor-widget-to-slide: backlog
-  6-2-slide-scoping-logic-granular-control: backlog
-  6-3-retrofit-existing-slides: backlog
-  6-4-new-slide-funnel-analysis: backlog
-  6-5-new-slide-day-hour-heatmap: backlog
-  6-6-new-slide-device-platform-split: backlog
-  6-7-new-slide-top-performers: backlog
-  epic-6-retrospective: optional
-
   # Epic 7
   epic-7: done
   7-1-configuration-des-email-presets-par-client: done
@@ -123,3 +112,22 @@ development_status:
   12-2-integration-google-slides-api: done
   12-3-mapping-de-fidelite-visuelle-css-to-shape: backlog
   epic-12-retrospective: optional
+
+  # Epic 13 (NEW - Strategic Priority)
+  epic-13: backlog
+  13-1-setup-tiptap-core-basic-formatting: backlog
+  13-2-custom-extensions-data-blocks: backlog
+  13-3-migration-from-slide-system: backlog
+  13-4-export-tiptap-to-google-slides: backlog
+  epic-13-retrospective: optional
+
+  # Epic 6 (DEPRECATED)
+  epic-6: deprecated
+  6-1-rename-refactor-widget-to-slide: deprecated
+  6-2-slide-scoping-logic-granular-control: deprecated
+  6-3-retrofit-existing-slides: deprecated
+  6-4-new-slide-funnel-analysis: deprecated
+  6-5-new-slide-day-hour-heatmap: deprecated
+  6-6-new-slide-device-platform-split: deprecated
+  6-7-new-slide-top-performers: deprecated
+  epic-6-retrospective: deprecated

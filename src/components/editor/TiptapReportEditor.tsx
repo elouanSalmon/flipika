@@ -3,6 +3,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
+import { SlashCommandExtension } from './extensions/SlashCommandExtension';
 import { TiptapToolbar } from './TiptapToolbar';
 import './TiptapEditor.css';
 
@@ -17,7 +18,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     content,
     onChange,
     editable = true,
-    placeholder = 'Commencez à écrire votre rapport...',
+    placeholder = 'Commencez à écrire votre rapport... (tapez "/" pour insérer un bloc)',
 }) => {
     const editor = useEditor({
         extensions: [
@@ -38,7 +39,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                 placeholder,
                 emptyEditorClass: 'is-editor-empty',
             }),
-            DataBlockExtension, // Add custom data block extension
+            DataBlockExtension, // Custom data block extension
+            SlashCommandExtension, // Slash command menu
         ],
         content,
         editable,
