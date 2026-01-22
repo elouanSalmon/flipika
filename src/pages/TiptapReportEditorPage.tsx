@@ -22,7 +22,7 @@ import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Tras
 import ThemeToggle from '../components/ThemeToggle';
 import Logo from '../components/Logo';
 import AutoSaveIndicator from '../components/reports/AutoSaveIndicator';
-import DesignPanel from '../components/reports/DesignPanel';
+import { ThemeSelector } from '../components/editor/ThemeSelector';
 import ReportConfigModal, { type ReportConfig } from '../components/reports/ReportConfigModal';
 import ReportSecurityModal from '../components/reports/ReportSecurityModal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
@@ -47,7 +47,7 @@ const TiptapReportEditorPage: React.FC = () => {
     const [autoSaveStatus, setAutoSaveStatus] = useState<'saved' | 'saving' | 'error'>('saved');
     const [lastSaved, setLastSaved] = useState<Date | undefined>();
     const [isDirty, setIsDirty] = useState(false);
-    const [showDesignPanel, setShowDesignPanel] = useState(false);
+    const [showThemeSelector, setShowThemeSelector] = useState(false);
 
     // Settings modal state
     const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -474,14 +474,23 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     <ThemeToggle />
 
                     {/* Design/Theme Button for Report Slides */}
-                    <button
-                        className={`tiptap-header-btn ${showDesignPanel ? 'active' : ''}`}
-                        title="Thème du Rapport"
-                        onClick={() => setShowDesignPanel(!showDesignPanel)}
-                        style={showDesignPanel ? { color: 'var(--color-primary)', background: 'var(--color-bg-tertiary)' } : {}}
-                    >
-                        <Palette size={18} />
-                    </button>
+                    {/* Design/Theme Button for Report Slides */}
+                    <div className="theme-selector-wrapper relative">
+                        <button
+                            className={`tiptap-header-btn ${showThemeSelector ? 'active' : ''}`}
+                            title="Thème du Rapport"
+                            onClick={() => setShowThemeSelector(!showThemeSelector)}
+                            style={showThemeSelector ? { color: 'var(--color-primary)', background: 'var(--color-bg-tertiary)' } : {}}
+                        >
+                            <Palette size={18} />
+                        </button>
+                        <ThemeSelector
+                            design={report.design}
+                            onChange={handleDesignChange}
+                            isOpen={showThemeSelector}
+                            onClose={() => setShowThemeSelector(false)}
+                        />
+                    </div>
 
                     {/* Settings button */}
                     <button
@@ -642,19 +651,6 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     campaignIds={report.campaignIds}
                     reportId={report.id}
                 />
-
-                {/* Design Panel Overlay */}
-                {showDesignPanel && (
-                    <div className="absolute top-0 right-0 h-full z-40 w-80 border-l border-[var(--color-border)] bg-[var(--color-bg-primary)] shadow-xl overflow-y-auto">
-                        <div className="p-4">
-                            <DesignPanel
-                                design={report.design}
-                                onChange={handleDesignChange}
-                                onClose={() => setShowDesignPanel(false)}
-                            />
-                        </div>
-                    </div>
-                )}
             </main>
 
             {/* Settings Modal */}

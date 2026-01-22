@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import type { Editor } from '@tiptap/react';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 import { Plus, Trash2 } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
+import { DataBlockExtension } from '../extensions/DataBlockExtension';
 
 interface SlideInfo {
     id: string;
@@ -9,57 +12,66 @@ interface SlideInfo {
     pos: number;
     backgroundColor: string;
     layout: string;
+    content: any; // Store the slide's JSON content
 }
 
 interface SlideNavigationProps {
     editor: Editor;
 }
 
-const renderThumbnailContent = (slide: SlideInfo, editor: Editor) => {
-    // Find the slide node
-    let slideNode: any = null;
-    editor.state.doc.forEach((node, pos) => {
-        if (pos === slide.pos) {
-            slideNode = node;
-        }
-    });
+// Component to render a single thumbnail with its own mini editor
+const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, design }) => {
+    const isDarkMode = design?.mode === 'dark';
+    const themeBg = isDarkMode ? 'rgba(30, 41, 59, 0.6)' : 'rgba(249, 250, 251, 0.9)';
+    const themeTextColor = design?.colorScheme?.text || (isDarkMode ? '#f1f5f9' : '#0f172a');
 
-    if (!slideNode) return null;
+    const finalBackgroundColor = slide.backgroundColor || themeBg;
 
-    // Helper to extract text from a node
-    const getTexts = (node: any, limit = 5): string[] => {
-        const texts: string[] = [];
-        const traverse = (n: any) => {
-            if (texts.length >= limit) return;
-            if (n.text) {
-                texts.push(n.text);
-            } else if (n.content && n.content.forEach) {
-                n.content.forEach(traverse);
-            } else if (Array.isArray(n.content)) {
-                n.content.forEach(traverse);
-            }
-        };
-        traverse(node);
-        return texts;
+    // Create a read-only mini editor for this thumbnail
+    // Wrap the slide content in a proper doc structure
+    const editorContent = {
+        type: 'doc',
+        content: slide.content || [{ type: 'paragraph' }],
     };
 
-    const texts = getTexts(slideNode);
-    const title = texts[0] || '';
-    const body = texts.slice(1);
+    const thumbnailEditor = useEditor({
+        extensions: [
+            StarterKit.configure({
+                heading: { levels: [1, 2, 3] },
+            }),
+            DataBlockExtension,
+        ],
+        content: editorContent,
+        editable: false,
+        editorProps: {
+            attributes: {
+                class: 'slide-thumbnail-editor',
+            },
+        },
+    });
+
+    // Style for the scaled slide
+    const slideStyle = {
+        width: '960px',
+        height: '540px',
+        backgroundColor: finalBackgroundColor,
+        color: themeTextColor,
+        '--color-primary': design?.colorScheme?.primary || '#0066ff',
+        '--color-secondary': design?.colorScheme?.secondary || '#3385ff',
+        '--color-accent': design?.colorScheme?.accent || '#00d4ff',
+        '--color-bg-primary': themeBg,
+        '--color-text-primary': themeTextColor,
+    } as React.CSSProperties;
 
     return (
-        <div style={{ padding: '4px', height: '100%', overflow: 'hidden', fontSize: '2px', lineHeight: '1.2' }}>
-            {title && (
-                <div style={{ fontWeight: 700, marginBottom: '2px', fontSize: '3px', color: '#111827' }}>
-                    {title.substring(0, 30)}
-                </div>
-            )}
-            {body.map((text, i) => (
-                <div key={i} style={{ color: '#6b7280', marginBottom: '1px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {text.substring(0, 40)}
-                </div>
-            ))}
-            {texts.length === 0 && <div style={{ width: '100%', height: '2px', background: '#e5e7eb', marginTop: '2px' }} />}
+        <div className="slide-thumbnail-scaler">
+            <div
+                className={`slide-thumbnail-content-wrapper slide-layout-${slide.layout}`}
+                style={slideStyle}
+                data-theme={isDarkMode ? 'dark' : 'light'}
+            >
+                {thumbnailEditor && <EditorContent editor={thumbnailEditor} />}
+            </div>
         </div>
     );
 };
@@ -87,6 +99,7 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
                         pos,
                         backgroundColor: node.attrs.backgroundColor || themeBg,
                         layout: node.attrs.layout || 'content',
+                        content: node.toJSON().content || [], // Get the slide's content as JSON
                     });
                     index++;
                 }
@@ -103,7 +116,7 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
         return () => {
             editor.off('update', updateSlides);
         };
-    }, [editor, themeBg]); // Add themeBg dependency so thumbnails update when theme changes
+    }, [editor, themeBg]);
 
     // Track active slide based on cursor position
     useEffect(() => {
@@ -181,9 +194,7 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
                             className="slide-nav-thumbnail"
                             style={{ backgroundColor: slide.backgroundColor }}
                         >
-                            <div className="slide-nav-thumbnail-content">
-                                {renderThumbnailContent(slide, editor)}
-                            </div>
+                            <SlideThumbnail slide={slide} design={design} />
                         </div>
                         {slides.length > 1 && (
                             <button
