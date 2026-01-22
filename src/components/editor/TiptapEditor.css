@@ -1271,3 +1271,8 @@
     color: var(--color-text-secondary, #6b7280);
     font-size: 0.875rem;
 }
+/* Slide Side Delete Button */
+.slide-side-delete-btn { position: absolute; right: -60px; top: 20px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background-color: white; border: 1px solid #e5e7eb; border-radius: 50%; color: #9ca3af; cursor: pointer; transition: all 0.2s; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.slide-side-delete-btn:hover { background-color: #fee2e2; color: #ef4444; border-color: #fecaca; transform: scale(1.1); }
+[data-theme='dark'] .slide-side-delete-btn { background-color: #1e293b; border-color: #475569; color: #94a3b8; }
+[data-theme='dark'] .slide-side-delete-btn:hover { background-color: #7f1d1d; color: #fca5a5; border-color: #7f1d1d; }

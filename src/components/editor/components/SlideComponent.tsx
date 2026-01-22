@@ -49,29 +49,36 @@ export const SlideComponent = ({ node, updateAttributes, deleteNode, selected }:
                 </div>
 
                 {selected && (
-                    <div className="slide-actions">
-                        <button
-                            onClick={() => {
-                                const layouts = ['content', 'title', 'two-column', 'blank'];
-                                const currentIndex = layouts.indexOf(layout || 'content');
-                                const nextLayout = layouts[(currentIndex + 1) % layouts.length];
-                                updateAttributes({ layout: nextLayout });
-                            }}
-                            className="slide-action-btn"
-                            title="Layout"
-                        >
-                            <Settings size={16} />
-                        </button>
-                        <button
-                            onClick={() => deleteNode()}
-                            className="slide-action-btn danger"
-                            title="Delete"
-                        >
-                            <Trash2 size={16} />
-                        </button>
-                    </div>
+                    <>
+                        <div className="slide-actions">
+                            <button
+                                onClick={() => {
+                                    const layouts = ['content', 'title', 'two-column', 'blank'];
+                                    const currentIndex = layouts.indexOf(layout || 'content');
+                                    const nextLayout = layouts[(currentIndex + 1) % layouts.length];
+                                    updateAttributes({ layout: nextLayout });
+                                }}
+                                className="slide-action-btn"
+                                title="Layout"
+                            >
+                                <Settings size={16} />
+                            </button>
+                        </div>
+
+
+                    </>
                 )}
             </div>
+
+            {selected && (
+                <button
+                    onClick={() => deleteNode()}
+                    className="slide-side-delete-btn"
+                    title="Supprimer la slide"
+                >
+                    <Trash2 size={20} />
+                </button>
+            )}
 
             <div className="slide-separator" />
         </NodeViewWrapper>
