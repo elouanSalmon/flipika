@@ -845,19 +845,42 @@
     transform-origin: top left;
     pointer-events: none;
     /* Prevent interaction with thumbnail content */
-    display: block !important;
-    /* Override any flex/grid from layout classes */
 }
 
-/* Override layout classes in thumbnails to preserve dimensions */
-.slide-thumbnail-content-wrapper.slide-layout-content,
-.slide-thumbnail-content-wrapper.slide-layout-title,
-.slide-thumbnail-content-wrapper.slide-layout-two-column,
+/* Override layout classes in thumbnails to preserve dimensions but keep their display properties */
+.slide-thumbnail-content-wrapper.slide-layout-content {
+    width: 960px !important;
+    height: 540px !important;
+    max-width: none !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide-thumbnail-content-wrapper.slide-layout-title {
+    width: 960px !important;
+    height: 540px !important;
+    max-width: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.slide-thumbnail-content-wrapper.slide-layout-two-column {
+    width: 960px !important;
+    height: 540px !important;
+    max-width: none !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
 .slide-thumbnail-content-wrapper.slide-layout-blank {
     width: 960px !important;
     height: 540px !important;
     max-width: none !important;
-    display: block !important;
+    display: block;
 }
 
 /* Ensure all children in thumbnails ignore global max-width */
