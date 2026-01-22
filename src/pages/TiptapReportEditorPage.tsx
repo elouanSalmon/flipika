@@ -18,7 +18,7 @@ import dataService from '../services/dataService';
 import { fetchCampaigns } from '../services/googleAds';
 import type { EditableReport, ReportDesign } from '../types/reportTypes';
 import type { Account, Campaign } from '../types/business';
-import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Trash2, Link, ExternalLink, Lock, Unlock, Mail } from 'lucide-react';
+import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Trash2, Link, ExternalLink, Lock, Unlock, Mail, Presentation } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 import Logo from '../components/Logo';
 import AutoSaveIndicator from '../components/reports/AutoSaveIndicator';
@@ -26,7 +26,10 @@ import { ThemeSelector } from '../components/editor/ThemeSelector';
 import ReportConfigModal, { type ReportConfig } from '../components/reports/ReportConfigModal';
 import ReportSecurityModal from '../components/reports/ReportSecurityModal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
+import { GoogleSlidesExportModal } from '../components/reports/GoogleSlidesExportModal';
 import '../components/reports/ReportEditorHeader.css';
+import { extractSlidesFromTiptapContent } from '../utils/slidesExtraction';
+
 
 /**
  * Tiptap Report Editor Page (Epic 13)
@@ -58,6 +61,9 @@ const TiptapReportEditorPage: React.FC = () => {
 
     // Security modal state
     const [showSecurityModal, setShowSecurityModal] = useState(false);
+
+    // Google Slides export modal state
+    const [showGoogleSlidesModal, setShowGoogleSlidesModal] = useState(false);
 
     // Actions menu state
     const [showActionsMenu, setShowActionsMenu] = useState(false);
@@ -589,6 +595,17 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                                                 <span>{t('header.shareEmail')}</span>
                                             </button>
                                         )}
+
+                                        <button
+                                            onClick={() => {
+                                                setShowGoogleSlidesModal(true);
+                                                setShowShareMenu(false);
+                                            }}
+                                            className="actions-menu-item"
+                                        >
+                                            <Presentation size={18} />
+                                            <span>Exporter vers Google Slides</span>
+                                        </button>
                                     </div>
                                 </>
                             )}
@@ -698,6 +715,25 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                 cancelLabel={t('common.cancel')}
                 isDestructive
             />
+
+            {/* Google Slides Export Modal */}
+            {showGoogleSlidesModal && report && (
+                <GoogleSlidesExportModal
+                    isOpen={showGoogleSlidesModal}
+                    onClose={() => setShowGoogleSlidesModal(false)}
+                    reportId={report.id}
+                    reportTitle={title}
+                    slides={extractSlidesFromTiptapContent(
+                        editorContent,
+                        report.accountId,
+                        report.campaignIds
+                    )}
+                    accountId={report.accountId}
+                    campaignIds={report.campaignIds}
+                    startDate={report.startDate}
+                    endDate={report.endDate}
+                />
+            )}
         </div>
     );
 };
