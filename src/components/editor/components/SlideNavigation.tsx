@@ -14,6 +14,55 @@ interface SlideNavigationProps {
     editor: Editor;
 }
 
+const renderThumbnailContent = (slide: SlideInfo, editor: Editor) => {
+    // Find the slide node
+    let slideNode: any = null;
+    editor.state.doc.forEach((node, pos) => {
+        if (pos === slide.pos) {
+            slideNode = node;
+        }
+    });
+
+    if (!slideNode) return null;
+
+    // Helper to extract text from a node
+    const getTexts = (node: any, limit = 5): string[] => {
+        const texts: string[] = [];
+        const traverse = (n: any) => {
+            if (texts.length >= limit) return;
+            if (n.text) {
+                texts.push(n.text);
+            } else if (n.content && n.content.forEach) {
+                n.content.forEach(traverse);
+            } else if (Array.isArray(n.content)) {
+                n.content.forEach(traverse);
+            }
+        };
+        traverse(node);
+        return texts;
+    };
+
+    const texts = getTexts(slideNode);
+    const title = texts[0] || '';
+    const body = texts.slice(1);
+
+    return (
+        <div style={{ padding: '4px', height: '100%', overflow: 'hidden', fontSize: '2px', lineHeight: '1.2' }}>
+            {title && (
+                <div style={{ fontWeight: 700, marginBottom: '2px', fontSize: '3px', color: '#111827' }}>
+                    {title.substring(0, 30)}
+                </div>
+            )}
+            {body.map((text, i) => (
+                <div key={i} style={{ color: '#6b7280', marginBottom: '1px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {text.substring(0, 40)}
+                </div>
+            ))}
+            {texts.length === 0 && <div style={{ width: '100%', height: '2px', background: '#e5e7eb', marginTop: '2px' }} />}
+        </div>
+    );
+};
+
 export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
     const [slides, setSlides] = useState<SlideInfo[]>([]);
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -126,11 +175,8 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
                             className="slide-nav-thumbnail"
                             style={{ backgroundColor: slide.backgroundColor }}
                         >
-                            <div className="slide-nav-layout-indicator">
-                                {slide.layout === 'title' && 'T'}
-                                {slide.layout === 'content' && 'C'}
-                                {slide.layout === 'two-column' && '2C'}
-                                {slide.layout === 'blank' && '—'}
+                            <div className="slide-nav-thumbnail-content">
+                                {renderThumbnailContent(slide, editor)}
                             </div>
                         </div>
                         {slides.length > 1 && (

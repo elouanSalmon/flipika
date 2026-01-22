@@ -11,7 +11,7 @@ import { DataBlockComponent } from '../blocks/DataBlockComponent';
 declare module '@tiptap/core' {
     interface Commands<ReturnType> {
         dataBlock: {
-            insertDataBlock: (blockType: string) => ReturnType;
+            insertDataBlock: (options: { blockType: string; config?: any }) => ReturnType;
         };
     }
 }
@@ -65,10 +65,13 @@ export const DataBlockExtension = Node.create({
 
     addCommands() {
         return {
-            insertDataBlock: (blockType: string) => ({ commands }) => {
+            insertDataBlock: (options: { blockType: string; config?: any }) => ({ commands }) => {
                 return commands.insertContent({
                     type: this.name,
-                    attrs: { blockType, config: {} },
+                    attrs: {
+                        blockType: options.blockType,
+                        config: options.config || {}
+                    },
                 });
             },
         };

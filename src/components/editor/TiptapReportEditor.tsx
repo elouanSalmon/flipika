@@ -7,6 +7,7 @@ import { SlideExtension } from './extensions/SlideExtension';
 import { SlideDocument } from './extensions/SlideDocument';
 import { SlideNavigation } from './components/SlideNavigation';
 import { TiptapToolbar } from './TiptapToolbar';
+import { ReportEditorProvider } from '../../contexts/ReportEditorContext';
 import type { ReportDesign } from '../../types/reportTypes';
 import './TiptapEditor.css';
 
@@ -16,6 +17,9 @@ interface TiptapReportEditorProps {
     editable?: boolean;
     placeholder?: string;
     design?: ReportDesign;
+    accountId?: string;
+    campaignIds?: string[];
+    reportId?: string;
 }
 
 export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
@@ -23,6 +27,10 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     onChange,
     editable = true,
     placeholder = 'Commencez à écrire... (tapez "/" pour insérer un bloc)',
+    design,
+    accountId = '',
+    campaignIds = [],
+    reportId,
 }) => {
     const defaultContent = {
         type: 'doc',
@@ -34,6 +42,17 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             },
         ],
     };
+
+    const editorDesignStyle = (design && design.colorScheme && design.typography) ? {
+        '--color-primary': design.colorScheme.primary,
+        '--color-secondary': design.colorScheme.secondary,
+        '--color-accent': design.colorScheme.accent,
+        '--color-bg-primary': design.colorScheme.background,
+        '--color-text-primary': design.colorScheme.text,
+        '--font-sans': design.typography.fontFamily,
+        '--font-size-base': `${design.typography.fontSize}px`,
+        '--line-height-base': design.typography.lineHeight,
+    } as React.CSSProperties : {};
 
     const editor = useEditor({
         extensions: [
@@ -64,17 +83,24 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     }
 
     return (
-        <div className="tiptap-slide-editor-layout">
-            {/* Left Sidebar - Slide Navigation */}
-            <SlideNavigation editor={editor} />
+        <ReportEditorProvider
+            design={design || null}
+            accountId={accountId}
+            campaignIds={campaignIds}
+            reportId={reportId}
+        >
+            <div className="tiptap-slide-editor-layout" style={editorDesignStyle}>
+                {/* Left Sidebar - Slide Navigation */}
+                <SlideNavigation editor={editor} />
 
-            {/* Main Editor Area */}
-            <div className="tiptap-editor-main">
-                <TiptapToolbar editor={editor} />
-                <div className="tiptap-editor-content slide-editor-container">
-                    <EditorContent editor={editor} />
+                {/* Main Editor Area */}
+                <div className="tiptap-editor-main">
+                    <TiptapToolbar editor={editor} />
+                    <div className="tiptap-editor-content slide-editor-container">
+                        <EditorContent editor={editor} />
+                    </div>
                 </div>
             </div>
-        </div>
+        </ReportEditorProvider>
     );
 };

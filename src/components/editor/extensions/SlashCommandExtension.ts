@@ -4,6 +4,8 @@ import Suggestion from '@tiptap/suggestion';
 import { SlashCommandMenu } from '../components/SlashCommandMenu';
 import tippy from 'tippy.js';
 import type { Instance as TippyInstance } from 'tippy.js';
+import { BarChart3, Target, TrendingUp, Filter, Image, Layout, PieChart, Trophy, FileText } from 'lucide-react';
+
 
 /**
  * Slash Command Extension (Epic 13 - Story 13.2)
@@ -17,7 +19,7 @@ import type { Instance as TippyInstance } from 'tippy.js';
 export interface SlashCommandItem {
     title: string;
     description: string;
-    icon: string;
+    icon: any;
     command: ({ editor, range }: any) => void;
 }
 
@@ -46,14 +48,14 @@ export const SlashCommandExtension = Extension.create({
                         {
                             title: 'Performance Overview',
                             description: 'Insert a performance metrics grid',
-                            icon: '📊',
+                            icon: TrendingUp,
                             command: ({ editor, range }) => {
                                 editor
                                     .chain()
                                     .focus()
                                     .deleteRange(range)
                                     .insertDataBlock({
-                                        blockType: 'performance',
+                                        blockType: 'performance_overview',
                                         config: {},
                                     })
                                     .run();
@@ -62,14 +64,14 @@ export const SlashCommandExtension = Extension.create({
                         {
                             title: 'Chart',
                             description: 'Insert a line, bar, or area chart',
-                            icon: '📈',
+                            icon: BarChart3,
                             command: ({ editor, range }) => {
                                 editor
                                     .chain()
                                     .focus()
                                     .deleteRange(range)
                                     .insertDataBlock({
-                                        blockType: 'chart',
+                                        blockType: 'campaign_chart',
                                         config: { chartType: 'line' },
                                     })
                                     .run();
@@ -78,16 +80,86 @@ export const SlashCommandExtension = Extension.create({
                         {
                             title: 'Key Metrics',
                             description: 'Insert a 2x2 grid of key KPIs',
-                            icon: '🎯',
+                            icon: Target,
                             command: ({ editor, range }) => {
                                 editor
                                     .chain()
                                     .focus()
                                     .deleteRange(range)
                                     .insertDataBlock({
-                                        blockType: 'keyMetrics',
+                                        blockType: 'key_metrics',
                                         config: {},
                                     })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Ad Creative',
+                            description: 'Show top performing ad creatives',
+                            icon: Image,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range)
+                                    .insertDataBlock({ blockType: 'ad_creative', config: {} })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Funnel Analysis',
+                            description: 'Visualize conversion funnel',
+                            icon: Filter,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range)
+                                    .insertDataBlock({ blockType: 'funnel_analysis', config: {} })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Heatmap',
+                            description: 'View performance heatmap',
+                            icon: Layout,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range)
+                                    .insertDataBlock({ blockType: 'heatmap', config: {} })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Device Platform Split',
+                            description: 'Breakdown by device/platform',
+                            icon: PieChart,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range)
+                                    .insertDataBlock({ blockType: 'device_platform_split', config: {} })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Top Performers',
+                            description: 'List of top campaigns/ad groups',
+                            icon: Trophy,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range)
+                                    .insertDataBlock({ blockType: 'top_performers', config: {} })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Section Title',
+                            description: 'Large section header',
+                            icon: Layout,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range)
+                                    .insertDataBlock({ blockType: 'section_title', config: {} })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Rich Text',
+                            description: 'Rich text content block',
+                            icon: FileText,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range)
+                                    .insertDataBlock({ blockType: 'rich_text', config: {} })
                                     .run();
                             },
                         },

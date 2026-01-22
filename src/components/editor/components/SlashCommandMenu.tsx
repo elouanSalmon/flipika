@@ -78,7 +78,9 @@ export const SlashCommandMenu = forwardRef((props: SlashCommandMenuProps, ref) =
                     onClick={() => selectItem(index)}
                     type="button"
                 >
-                    <span className="slash-command-icon">{item.icon}</span>
+                    <span className="slash-command-icon">
+                        {item.icon && <item.icon size={18} />}
+                    </span>
                     <div className="slash-command-content">
                         <div className="slash-command-title">{item.title}</div>
                         <div className="slash-command-description">{item.description}</div>

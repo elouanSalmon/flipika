@@ -136,7 +136,7 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                         <h4 className="design-section-title">Couleurs</h4>
                     </div>
                     <div className="color-controls">
-                        {Object.entries(design.colorScheme).map(([key, value]) => (
+                        {Object.entries(design?.colorScheme || {}).map(([key, value]) => (
                             <div key={key} className="color-control">
                                 <label className="color-control-label">
                                     {key === 'primary' && 'Primaire'}
@@ -187,7 +187,7 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                         <div className="control-group">
                             <label className="control-label">Police</label>
                             <select
-                                value={design.typography.fontFamily}
+                                value={design?.typography?.fontFamily || 'Inter, sans-serif'}
                                 onChange={(e) => updateTypography('fontFamily', e.target.value)}
                                 className="control-select"
                             >
@@ -201,26 +201,26 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                             </select>
                         </div>
                         <div className="control-group">
-                            <label className="control-label">Taille: {design.typography.fontSize}px</label>
+                            <label className="control-label">Taille: {design?.typography?.fontSize || 16}px</label>
                             <input
                                 type="range"
                                 min="12"
                                 max="20"
-                                value={design.typography.fontSize}
+                                value={design?.typography?.fontSize || 16}
                                 onChange={(e) => updateTypography('fontSize', parseInt(e.target.value))}
                                 className="control-range"
                             />
                         </div>
                         <div className="control-group">
                             <label className="control-label">
-                                Hauteur de ligne: {design.typography.lineHeight}
+                                Hauteur de ligne: {design?.typography?.lineHeight || 1.5}
                             </label>
                             <input
                                 type="range"
                                 min="1.2"
                                 max="2"
                                 step="0.1"
-                                value={design.typography.lineHeight}
+                                value={design?.typography?.lineHeight || 1.5}
                                 onChange={(e) => updateTypography('lineHeight', parseFloat(e.target.value))}
                                 className="control-range"
                             />
@@ -236,35 +236,35 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                     </div>
                     <div className="layout-controls">
                         <div className="control-group">
-                            <label className="control-label">Marges: {design.layout.margins}px</label>
+                            <label className="control-label">Marges: {design?.layout?.margins || 40}px</label>
                             <input
                                 type="range"
                                 min="20"
                                 max="80"
-                                value={design.layout.margins}
+                                value={design?.layout?.margins || 40}
                                 onChange={(e) => updateLayout('margins', parseInt(e.target.value))}
                                 className="control-range"
                             />
                         </div>
                         <div className="control-group">
-                            <label className="control-label">Espacement: {design.layout.spacing}px</label>
+                            <label className="control-label">Espacement: {design?.layout?.spacing || 24}px</label>
                             <input
                                 type="range"
                                 min="12"
                                 max="48"
-                                value={design.layout.spacing}
+                                value={design?.layout?.spacing || 24}
                                 onChange={(e) => updateLayout('spacing', parseInt(e.target.value))}
                                 className="control-range"
                             />
                         </div>
                         <div className="control-group">
-                            <label className="control-label">Largeur max: {design.layout.maxWidth}px</label>
+                            <label className="control-label">Largeur max: {design?.layout?.maxWidth || 1200}px</label>
                             <input
                                 type="range"
                                 min="600"
                                 max="1200"
                                 step="50"
-                                value={design.layout.maxWidth}
+                                value={design?.layout?.maxWidth || 1200}
                                 onChange={(e) => updateLayout('maxWidth', parseInt(e.target.value))}
                                 className="control-range"
                             />
