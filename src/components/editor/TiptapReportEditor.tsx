@@ -6,6 +6,7 @@ import { SlashCommandExtension } from './extensions/SlashCommandExtension';
 import { SlideExtension } from './extensions/SlideExtension';
 import { SlideDocument } from './extensions/SlideDocument';
 import { SlideNavigation } from './components/SlideNavigation';
+import { ChartBlockSelector } from './ChartBlockSelector';
 import { TiptapToolbar } from './TiptapToolbar';
 import { ReportEditorProvider } from '../../contexts/ReportEditorContext';
 import type { ReportDesign } from '../../types/reportTypes';
@@ -56,6 +57,9 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             Placeholder.configure({
                 placeholder,
                 emptyEditorClass: 'is-editor-empty',
+                emptyNodeClass: 'is-node-empty',
+                includeChildren: true,
+                showOnlyCurrent: false,
             }),
             SlideExtension,
             DataBlockExtension,
@@ -89,6 +93,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                     <div className="tiptap-editor-content slide-editor-container">
                         <EditorContent editor={editor} />
                     </div>
+                    {/* Floating Chart Selector */}
+                    <ChartBlockSelector editor={editor} />
                 </div>
             </div>
         </ReportEditorProvider>

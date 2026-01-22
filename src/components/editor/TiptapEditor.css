@@ -377,21 +377,14 @@
     margin-bottom: 0.25rem;
 }
 
-/* Placeholder */
+/* Placeholder - HIDDEN at root level (slides handle their own placeholders) */
+/* When using SlideDocument, the root placeholder overflows outside slide bounds */
 .tiptap-editor-content.is-editor-empty::before {
-    content: attr(data-placeholder);
-    float: left;
-    color: var(--color-text-tertiary, #9ca3af);
-    pointer-events: none;
-    height: 0;
+    display: none !important;
 }
 
 .tiptap-editor-content .is-editor-empty::before {
-    content: attr(data-placeholder);
-    float: left;
-    color: var(--color-text-tertiary, #9ca3af);
-    pointer-events: none;
-    height: 0;
+    display: none !important;
 }
 
 /* Focus State */
@@ -599,23 +592,12 @@
 }
 
 /* Placeholder text styling - inside slides only */
-.slide-content .is-empty::before,
-.slide-content-editable .is-empty::before,
-.slide-content-editable>p.is-empty::before {
-    content: attr(data-placeholder);
-    color: var(--color-text-primary, #9ca3af);
-    opacity: 0.4;
-    pointer-events: none;
-    position: absolute;
-    left: 48px;
-    top: 48px;
-}
-
-/* Fix for Tiptap placeholder - must be inside slide */
+.slide-content-editable>p.is-node-empty:first-child::before,
+.slide-content-editable>p.is-empty:first-child::before,
 .ProseMirror .node-slide p.is-node-empty:first-child::before {
     content: attr(data-placeholder);
     color: var(--color-text-primary, #9ca3af);
-    opacity: 0.4;
+    opacity: 0.5;
     pointer-events: none;
     float: left;
     height: 0;
