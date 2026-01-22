@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { motion } from "framer-motion";
-import { AlertCircle, Zap } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import "../components/Header.css"; // Ensure we have access to logo styles if needed, or we rely on index.css
 import Footer from "../components/Footer";
+import Logo from "../components/Logo";
 
 const Login = () => {
   const { loginWithGoogle, currentUser } = useAuth();
@@ -49,15 +50,7 @@ const Login = () => {
       {/* Page Header */}
       <header className="h-16 glass border-b border-[var(--color-border)] backdrop-blur-md">
         <div className="content-container h-full flex items-center justify-between">
-          <Link to="/" className="logo">
-            <div className="logo-icon">
-              <Zap size={20} />
-            </div>
-            <div className="logo-content">
-              <span className="logo-text gradient-text text-xl">Flipika</span>
-              <span className="logo-subtitle text-xs">Access</span>
-            </div>
-          </Link>
+          <Logo subtitle="Access" onClick={() => navigate('/')} />
           <span className="text-xs text-[var(--color-text-muted)]">
             Secure Environment
           </span>

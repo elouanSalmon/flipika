@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Zap, Settings, Link, Lock, Unlock, Mail, ExternalLink } from 'lucide-react';
+import { Save, Share2, Archive, Trash2, MoreVertical, ArrowLeft, Settings, Link, Lock, Unlock, Mail, ExternalLink } from 'lucide-react';
 import toast from 'react-hot-toast';
 import AutoSaveIndicator from './AutoSaveIndicator';
 import ThemeToggle from '../ThemeToggle';
+import Logo from '../Logo';
 import ConfirmationModal from '../common/ConfirmationModal';
 import './ReportEditorHeader.css';
 
@@ -63,13 +64,7 @@ const ReportEditorHeader: React.FC<ReportEditorHeaderProps> = ({
         <div className="report-editor-header">
             <div className="report-editor-header-left">
                 <div className="report-editor-logo">
-                    <div className="logo-icon">
-                        <Zap size={24} />
-                    </div>
-                    <div className="logo-content">
-                        <span className="logo-text gradient-text">Flipika</span>
-                        <span className="logo-subtitle">IA</span>
-                    </div>
+                    <Logo subtitle="IA" onClick={() => navigate('/app/reports')} />
                 </div>
                 <button
                     onClick={() => navigate('/app/reports')}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import type { Editor } from '@tiptap/react';
 import { Plus, Trash2 } from 'lucide-react';
+import { useReportEditor } from '../../../contexts/ReportEditorContext';
 
 interface SlideInfo {
     id: string;
@@ -66,6 +67,11 @@ const renderThumbnailContent = (slide: SlideInfo, editor: Editor) => {
 export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
     const [slides, setSlides] = useState<SlideInfo[]>([]);
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+    const { design } = useReportEditor();
+
+    // Slides follow the REPORT's theme (design.mode), not the app's UI theme
+    const isDarkMode = design?.mode === 'dark';
+    const themeBg = isDarkMode ? 'rgba(30, 41, 59, 0.6)' : 'rgba(249, 250, 251, 0.9)';
 
     // Extract slides from editor content
     useEffect(() => {
@@ -79,7 +85,7 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
                         id: node.attrs.id || `slide-${index}`,
                         index,
                         pos,
-                        backgroundColor: node.attrs.backgroundColor || '#ffffff',
+                        backgroundColor: node.attrs.backgroundColor || themeBg,
                         layout: node.attrs.layout || 'content',
                     });
                     index++;
@@ -97,7 +103,7 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
         return () => {
             editor.off('update', updateSlides);
         };
-    }, [editor]);
+    }, [editor, themeBg]); // Add themeBg dependency so thumbnails update when theme changes
 
     // Track active slide based on cursor position
     useEffect(() => {

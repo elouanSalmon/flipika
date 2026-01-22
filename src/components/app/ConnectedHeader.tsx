@@ -6,7 +6,6 @@ import {
     Presentation,
     LogOut,
     Settings,
-    Zap,
     Sun,
     Moon,
     TrendingUp,
@@ -23,6 +22,7 @@ import { useTheme } from "../../hooks/useTheme";
 import { useFeatureFlags } from "../../contexts/FeatureFlagsContext";
 import { useTranslation } from "react-i18next";
 import MobileMenu from "../MobileMenu";
+import Logo from "../Logo";
 import "../Header.css";
 
 const ConnectedHeader = () => {
@@ -77,20 +77,8 @@ const ConnectedHeader = () => {
             >
                 <div className="header-container">
                     {/* Logo */}
-                    <motion.div
-                        className="logo"
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.2 }}
-                        onClick={() => navigate('/app/reports')}
-                    >
-                        <div className="logo-icon">
-                            <Zap size={24} />
-                        </div>
-                        <div className="logo-content">
-                            <span className="logo-text gradient-text">Flipika</span>
-                            <span className="logo-subtitle">bêta</span>
-                        </div>
-                    </motion.div>
+                    {/* Logo */}
+                    <Logo onClick={() => navigate('/app/reports')} />
 
                     {/* Burger Menu Button - Mobile Only */}
                     <motion.button

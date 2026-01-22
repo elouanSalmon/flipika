@@ -37,22 +37,12 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         content: [
             {
                 type: 'slide',
-                attrs: { id: 'slide-1', layout: 'content', backgroundColor: '#ffffff' },
+                attrs: { id: 'slide-1', layout: 'content' },
+                // backgroundColor is null by default = use theme color
                 content: [{ type: 'paragraph' }],
             },
         ],
     };
-
-    const editorDesignStyle = (design && design.colorScheme && design.typography) ? {
-        '--color-primary': design.colorScheme.primary,
-        '--color-secondary': design.colorScheme.secondary,
-        '--color-accent': design.colorScheme.accent,
-        '--color-bg-primary': design.colorScheme.background,
-        '--color-text-primary': design.colorScheme.text,
-        '--font-sans': design.typography.fontFamily,
-        '--font-size-base': `${design.typography.fontSize}px`,
-        '--line-height-base': design.typography.lineHeight,
-    } as React.CSSProperties : {};
 
     const editor = useEditor({
         extensions: [
@@ -89,7 +79,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             campaignIds={campaignIds}
             reportId={reportId}
         >
-            <div className="tiptap-slide-editor-layout" style={editorDesignStyle}>
+            <div className="tiptap-slide-editor-layout">
                 {/* Left Sidebar - Slide Navigation */}
                 <SlideNavigation editor={editor} />
 

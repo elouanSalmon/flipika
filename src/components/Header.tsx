@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggle from './ThemeToggle';
+import Logo from './Logo';
 import './Header.css';
 
 const Header: React.FC = () => {
@@ -51,19 +51,10 @@ const Header: React.FC = () => {
     >
       <div className="header-container">
         {/* Logo */}
-        <motion.div
-          className="logo"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.2 }}
-        >
-          <div className="logo-icon">
-            <Zap size={24} />
-          </div>
-          <div className="logo-content">
-            <span className="logo-text gradient-text">Flipika</span>
-            <span className="logo-subtitle">bêta</span>
-          </div>
-        </motion.div>
+        {/* Logo */}
+        <div className="logo-wrapper">
+          <Logo />
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="nav-desktop">

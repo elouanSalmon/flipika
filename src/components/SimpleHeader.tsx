@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Zap } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggle from './ThemeToggle';
+import Logo from './Logo';
 import '../components/Header.css'; // Reuse existing header styles
 
 const SimpleHeader = () => {
@@ -24,15 +24,8 @@ const SimpleHeader = () => {
         <header className={`header ${scrolled ? 'scrolled' : ''}`}>
             <div className="header-container">
                 {/* Logo */}
-                <div className="logo" onClick={() => navigate('/')}>
-                    <div className="logo-icon">
-                        <Zap size={24} />
-                    </div>
-                    <div className="logo-content">
-                        <span className="logo-text gradient-text">Flipika</span>
-                        <span className="logo-subtitle">bêta</span>
-                    </div>
-                </div>
+                {/* Logo */}
+                <Logo onClick={() => navigate('/')} />
 
                 {/* No Middle Navigation for Simple Header */}
 

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { HexColorPicker } from 'react-colorful';
-import { Palette, Type, Layout, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Palette, X, ExternalLink } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
+import themeService from '../../services/themeService';
 import type { ReportDesign } from '../../types/reportTypes';
+import type { ReportTheme } from '../../types/reportThemes';
 import './DesignPanel.css';
 
 interface DesignPanelProps {
@@ -11,76 +13,52 @@ interface DesignPanelProps {
 }
 
 const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) => {
-    const [activeColorPicker, setActiveColorPicker] = useState<string | null>(null);
+    const { currentUser } = useAuth();
+    const [userThemes, setUserThemes] = useState<ReportTheme[]>([]);
+    const [loadingThemes, setLoadingThemes] = useState(true);
 
-    const updateColor = (key: keyof ReportDesign['colorScheme'], color: string) => {
-        onChange({
-            ...design,
+    useEffect(() => {
+        loadUserThemes();
+    }, [currentUser]);
+
+    const loadUserThemes = async () => {
+        if (!currentUser) {
+            setLoadingThemes(false);
+            return;
+        }
+
+        try {
+            const themes = await themeService.getUserThemes(currentUser.uid);
+            setUserThemes(themes);
+        } catch (error) {
+            console.error('Error loading themes:', error);
+        } finally {
+            setLoadingThemes(false);
+        }
+    };
+
+    const applyTheme = (theme: ReportTheme) => {
+        // Vérifier que le thème a un design valide
+        if (!theme.design || !theme.design.colorScheme) {
+            console.error('Theme is missing design or colorScheme:', theme);
+            return;
+        }
+
+        // Appliquer le design du thème (ReportTheme.design est déjà un ReportDesign)
+        const newDesign: ReportDesign = {
+            mode: theme.design.mode || 'light',
             colorScheme: {
-                ...design.colorScheme,
-                [key]: color,
+                primary: theme.design.colorScheme.primary || '#3b82f6',
+                secondary: theme.design.colorScheme.secondary || '#60a5fa',
+                accent: theme.design.colorScheme.accent || '#93c5fd',
+                background: theme.design.colorScheme.background || '#ffffff',
+                text: theme.design.colorScheme.text || '#0f172a',
             },
-        });
-    };
-
-    const updateTypography = (key: keyof ReportDesign['typography'], value: any) => {
-        onChange({
-            ...design,
-            typography: {
-                ...design.typography,
-                [key]: value,
-            },
-        });
-    };
-
-    const updateLayout = (key: keyof ReportDesign['layout'], value: number) => {
-        onChange({
-            ...design,
-            layout: {
-                ...design.layout,
-                [key]: value,
-            },
-        });
-    };
-
-    const applyTheme = (themeName: string) => {
-        const themes: Record<string, Partial<ReportDesign>> = {
-            professional: {
-                colorScheme: {
-                    primary: '#1e40af',
-                    secondary: '#3b82f6',
-                    accent: '#60a5fa',
-                    background: '#ffffff',
-                    text: '#0f172a',
-                },
-            },
-            modern: {
-                colorScheme: {
-                    primary: '#7c3aed',
-                    secondary: '#a78bfa',
-                    accent: '#c4b5fd',
-                    background: '#ffffff',
-                    text: '#1e1b4b',
-                },
-            },
-            minimalist: {
-                colorScheme: {
-                    primary: '#0f172a',
-                    secondary: '#475569',
-                    accent: '#94a3b8',
-                    background: '#ffffff',
-                    text: '#0f172a',
-                },
-            },
+            typography: theme.design.typography || design.typography, // Utiliser la typo du thème ou garder l'existante
+            layout: theme.design.layout || design.layout, // Utiliser le layout du thème ou garder l'existant
         };
 
-        const theme = themes[themeName];
-        if (theme) {
-            onChange({
-                ...design,
-                ...theme,
-            });
-        }
+        onChange(newDesign);
     };
 
     return (
@@ -95,181 +73,64 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
             </div>
 
             <div className="design-panel-content">
-                {/* Theme Presets */}
+                {/* Theme Selector */}
                 <div className="design-section">
                     <div className="design-section-header">
                         <Palette size={18} />
-                        <h4 className="design-section-title">Thèmes</h4>
+                        <h4 className="design-section-title">Thème du Rapport</h4>
                     </div>
-                    <div className="theme-presets">
-                        <button className="theme-preset" onClick={() => applyTheme('professional')}>
-                            <div className="theme-preset-colors">
-                                <span style={{ background: '#1e40af' }} />
-                                <span style={{ background: '#3b82f6' }} />
-                                <span style={{ background: '#60a5fa' }} />
-                            </div>
-                            <span className="theme-preset-name">Professionnel</span>
-                        </button>
-                        <button className="theme-preset" onClick={() => applyTheme('modern')}>
-                            <div className="theme-preset-colors">
-                                <span style={{ background: '#7c3aed' }} />
-                                <span style={{ background: '#a78bfa' }} />
-                                <span style={{ background: '#c4b5fd' }} />
-                            </div>
-                            <span className="theme-preset-name">Moderne</span>
-                        </button>
-                        <button className="theme-preset" onClick={() => applyTheme('minimalist')}>
-                            <div className="theme-preset-colors">
-                                <span style={{ background: '#0f172a' }} />
-                                <span style={{ background: '#475569' }} />
-                                <span style={{ background: '#94a3b8' }} />
-                            </div>
-                            <span className="theme-preset-name">Minimaliste</span>
-                        </button>
-                    </div>
-                </div>
-
-                {/* Color Scheme */}
-                <div className="design-section">
-                    <div className="design-section-header">
-                        <Palette size={18} />
-                        <h4 className="design-section-title">Couleurs</h4>
-                    </div>
-                    <div className="color-controls">
-                        {Object.entries(design?.colorScheme || {}).map(([key, value]) => (
-                            <div key={key} className="color-control">
-                                <label className="color-control-label">
-                                    {key === 'primary' && 'Primaire'}
-                                    {key === 'secondary' && 'Secondaire'}
-                                    {key === 'accent' && 'Accent'}
-                                    {key === 'background' && 'Fond'}
-                                    {key === 'text' && 'Texte'}
-                                </label>
-                                <div className="color-control-input">
-                                    <button
-                                        className="color-swatch"
-                                        style={{ background: value }}
-                                        onClick={() =>
-                                            setActiveColorPicker(activeColorPicker === key ? null : key)
-                                        }
-                                    />
-                                    <input
-                                        type="text"
-                                        value={value}
-                                        onChange={(e) =>
-                                            updateColor(key as keyof ReportDesign['colorScheme'], e.target.value)
-                                        }
-                                        className="color-input"
-                                    />
-                                </div>
-                                {activeColorPicker === key && (
-                                    <div className="color-picker-popover">
-                                        <HexColorPicker
-                                            color={value}
-                                            onChange={(color) =>
-                                                updateColor(key as keyof ReportDesign['colorScheme'], color)
-                                            }
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Typography */}
-                <div className="design-section">
-                    <div className="design-section-header">
-                        <Type size={18} />
-                        <h4 className="design-section-title">Typographie</h4>
-                    </div>
-                    <div className="typography-controls">
-                        <div className="control-group">
-                            <label className="control-label">Police</label>
-                            <select
-                                value={design?.typography?.fontFamily || 'Inter, sans-serif'}
-                                onChange={(e) => updateTypography('fontFamily', e.target.value)}
-                                className="control-select"
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                        Sélectionnez un thème pour définir les couleurs et le style du rapport (y compris le mode clair/sombre).
+                    </p>
+                    {loadingThemes ? (
+                        <div className="text-center py-4 text-gray-500">Chargement...</div>
+                    ) : userThemes.length === 0 ? (
+                        <div className="empty-themes">
+                            <p className="text-sm text-gray-500 mb-2">Aucun thème créé</p>
+                            <a
+                                href="/app/themes"
+                                className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
-                                <option value="Inter, sans-serif">Inter</option>
-                                <option value="Roboto, sans-serif">Roboto</option>
-                                <option value="'Open Sans', sans-serif">Open Sans</option>
-                                <option value="'Lato', sans-serif">Lato</option>
-                                <option value="'Montserrat', sans-serif">Montserrat</option>
-                                <option value="Georgia, serif">Georgia</option>
-                                <option value="'Times New Roman', serif">Times New Roman</option>
-                            </select>
+                                Créer un thème <ExternalLink size={14} />
+                            </a>
                         </div>
-                        <div className="control-group">
-                            <label className="control-label">Taille: {design?.typography?.fontSize || 16}px</label>
-                            <input
-                                type="range"
-                                min="12"
-                                max="20"
-                                value={design?.typography?.fontSize || 16}
-                                onChange={(e) => updateTypography('fontSize', parseInt(e.target.value))}
-                                className="control-range"
-                            />
+                    ) : (
+                        <div className="theme-presets">
+                            {userThemes
+                                .filter((theme) => theme.design && theme.design.colorScheme)
+                                .map((theme) => (
+                                    <button
+                                        key={theme.id}
+                                        className={`theme-preset ${design.colorScheme.primary === theme.design.colorScheme.primary ? 'active' : ''}`}
+                                        onClick={() => applyTheme(theme)}
+                                    >
+                                        <div className="theme-preset-colors">
+                                            <span style={{ background: theme.design.colorScheme.primary || '#3b82f6' }} />
+                                            <span style={{ background: theme.design.colorScheme.secondary || '#60a5fa' }} />
+                                            <span style={{ background: theme.design.colorScheme.accent || '#93c5fd' }} />
+                                        </div>
+                                        <div className="flex flex-col flex-1">
+                                            <span className="theme-preset-name">{theme.name}</span>
+                                            <span className="text-xs text-gray-500">
+                                                {theme.design.mode === 'dark' ? '🌙 Sombre' : '☀️ Clair'}
+                                            </span>
+                                        </div>
+                                    </button>
+                                ))}
                         </div>
-                        <div className="control-group">
-                            <label className="control-label">
-                                Hauteur de ligne: {design?.typography?.lineHeight || 1.5}
-                            </label>
-                            <input
-                                type="range"
-                                min="1.2"
-                                max="2"
-                                step="0.1"
-                                value={design?.typography?.lineHeight || 1.5}
-                                onChange={(e) => updateTypography('lineHeight', parseFloat(e.target.value))}
-                                className="control-range"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Layout */}
-                <div className="design-section">
-                    <div className="design-section-header">
-                        <Layout size={18} />
-                        <h4 className="design-section-title">Mise en page</h4>
-                    </div>
-                    <div className="layout-controls">
-                        <div className="control-group">
-                            <label className="control-label">Marges: {design?.layout?.margins || 40}px</label>
-                            <input
-                                type="range"
-                                min="20"
-                                max="80"
-                                value={design?.layout?.margins || 40}
-                                onChange={(e) => updateLayout('margins', parseInt(e.target.value))}
-                                className="control-range"
-                            />
-                        </div>
-                        <div className="control-group">
-                            <label className="control-label">Espacement: {design?.layout?.spacing || 24}px</label>
-                            <input
-                                type="range"
-                                min="12"
-                                max="48"
-                                value={design?.layout?.spacing || 24}
-                                onChange={(e) => updateLayout('spacing', parseInt(e.target.value))}
-                                className="control-range"
-                            />
-                        </div>
-                        <div className="control-group">
-                            <label className="control-label">Largeur max: {design?.layout?.maxWidth || 1200}px</label>
-                            <input
-                                type="range"
-                                min="600"
-                                max="1200"
-                                step="50"
-                                value={design?.layout?.maxWidth || 1200}
-                                onChange={(e) => updateLayout('maxWidth', parseInt(e.target.value))}
-                                className="control-range"
-                            />
-                        </div>
-                    </div>
+                    )}
+                    {!loadingThemes && userThemes.length > 0 && (
+                        <a
+                            href="/app/themes"
+                            className="text-sm text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 flex items-center gap-1 mt-3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Gérer les thèmes <ExternalLink size={14} />
+                        </a>
+                    )}
                 </div>
             </div>
         </div>

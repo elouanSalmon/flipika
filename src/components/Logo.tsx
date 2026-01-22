@@ -1,0 +1,63 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Zap } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+interface LogoProps {
+    className?: string;
+    onClick?: () => void;
+    scale?: number;
+    subtitle?: string;
+}
+
+export const Logo: React.FC<LogoProps> = ({ className = '', onClick, scale = 1.05, subtitle = 'bêta' }) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        if (onClick) {
+            onClick();
+        } else {
+            navigate('/');
+        }
+    };
+
+    return (
+        <motion.div
+            className={`logo ${className}`}
+            whileHover={{ scale }}
+            transition={{ duration: 0.2 }}
+            onClick={handleClick}
+            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+        >
+            <div className="logo-icon" style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '32px',
+                height: '32px',
+                background: 'var(--color-primary, #3b82f6)',
+                borderRadius: '8px',
+                color: 'white'
+            }}>
+                <Zap size={24} />
+            </div>
+            <div className="logo-content" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+                <span className="logo-text" style={{
+                    fontWeight: 700,
+                    fontSize: '1.125rem',
+                    color: 'var(--color-primary, #3b82f6)',
+                    background: 'none',
+                    WebkitTextFillColor: 'initial',
+                    backgroundClip: 'border-box'
+                }}>Flipika</span>
+                <span className="logo-subtitle" style={{
+                    fontSize: '0.75rem',
+                    fontWeight: 500,
+                    color: 'var(--color-text-secondary, #6b7280)'
+                }}>{subtitle}</span>
+            </div>
+        </motion.div>
+    );
+};
+
+export default Logo;

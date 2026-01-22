@@ -51,12 +51,16 @@ export const SlideExtension = Node.create({
                 }),
             },
             backgroundColor: {
-                default: '#ffffff',
-                parseHTML: element => element.getAttribute('data-bg-color') || '#ffffff',
-                renderHTML: attributes => ({
-                    'data-bg-color': attributes.backgroundColor,
-                    style: `background-color: ${attributes.backgroundColor}`,
-                }),
+                default: null, // null = use theme color, explicit value = custom override
+                parseHTML: element => element.getAttribute('data-bg-color') || null,
+                renderHTML: attributes => {
+                    // Only render style if explicitly set (not using theme default)
+                    if (!attributes.backgroundColor) return {};
+                    return {
+                        'data-bg-color': attributes.backgroundColor,
+                        style: `background-color: ${attributes.backgroundColor}`,
+                    };
+                },
             },
         };
     },
@@ -92,7 +96,7 @@ export const SlideExtension = Node.create({
                         attrs: {
                             id: `slide-${Date.now()}`,
                             layout: 'content',
-                            backgroundColor: '#ffffff',
+                            // backgroundColor is null by default = use theme color
                         },
                         content: [
                             { type: 'paragraph' },

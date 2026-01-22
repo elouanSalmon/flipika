@@ -415,6 +415,25 @@
 .data-block-wrapper {
     margin: 1.5rem 0;
     position: relative;
+    /* Constrain to slide content area */
+    max-width: 100%;
+    width: 100%;
+}
+
+/* Ensure data blocks fit within slide dimensions */
+.slide-content .data-block-wrapper {
+    /* Account for slide padding (48px on each side = 864px available width, 444px height) */
+    max-width: 864px;
+    max-height: 444px;
+    overflow: hidden;
+}
+
+/* Inner content should also respect dimensions */
+.data-block-wrapper>div {
+    max-width: 100%;
+    max-height: 100%;
+    /* Allow scrolling if content is too large (edge case) */
+    overflow: auto;
 }
 
 .data-block-wrapper.selected {
@@ -511,7 +530,7 @@
     overflow: hidden;
     position: relative;
     transition: all 0.2s ease;
-    background: #ffffff;
+    /* Background color is set via inline style from SlideComponent based on theme */
 }
 
 .slide-container:hover {
@@ -539,28 +558,44 @@
     padding: 48px;
     position: relative;
     z-index: 1;
-    /* Force dark text on slides for readability */
-    color: #1f2937;
+    /* Use theme colors from slide container */
+    color: inherit;
 }
 
 .slide-content-editable {
     width: 100%;
     height: 100%;
     outline: none;
-    /* Ensure text is always readable */
-    color: #1f2937;
+    color: inherit;
 }
 
-/* Text styling inside slides - ensure dark text */
+/* Text styling inside slides - use theme colors */
 .slide-content h1,
 .slide-content h2,
 .slide-content h3 {
-    color: #111827;
+    color: var(--color-text-primary, inherit);
 }
 
 .slide-content p,
 .slide-content li {
-    color: #374151;
+    color: var(--color-text-primary, inherit);
+    opacity: 0.9;
+}
+
+/* Links should use primary color */
+.slide-content a {
+    color: var(--color-primary, #3b82f6);
+    text-decoration: underline;
+}
+
+.slide-content a:hover {
+    color: var(--color-secondary, #3385ff);
+}
+
+/* Strong/bold text */
+.slide-content strong {
+    color: var(--color-text-primary, inherit);
+    font-weight: 600;
 }
 
 /* Placeholder text styling - inside slides only */
@@ -568,7 +603,8 @@
 .slide-content-editable .is-empty::before,
 .slide-content-editable>p.is-empty::before {
     content: attr(data-placeholder);
-    color: #9ca3af;
+    color: var(--color-text-primary, #9ca3af);
+    opacity: 0.4;
     pointer-events: none;
     position: absolute;
     left: 48px;
@@ -578,7 +614,8 @@
 /* Fix for Tiptap placeholder - must be inside slide */
 .ProseMirror .node-slide p.is-node-empty:first-child::before {
     content: attr(data-placeholder);
-    color: #9ca3af;
+    color: var(--color-text-primary, #9ca3af);
+    opacity: 0.4;
     pointer-events: none;
     float: left;
     height: 0;
@@ -692,9 +729,17 @@
     height: 1px;
     background: linear-gradient(to right,
             transparent,
-            var(--color-border),
+            #d1d5db,
             transparent);
     margin: 2rem 0;
+}
+
+/* Dark mode: darker separator for contrast */
+[data-theme="dark"] .slide-separator {
+    background: linear-gradient(to right,
+            transparent,
+            #4b5563,
+            transparent);
 }
 
 /* Slide Editor Container */
@@ -797,7 +842,7 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    background: white;
+    /* Background color is set via inline style from SlideNavigation based on theme */
 }
 
 /* Thumbnail Layout Previews */

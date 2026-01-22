@@ -327,12 +327,13 @@ function generateMockPerformanceData(
 } {
     console.log('🔄 Generating mock performance data');
 
+    // Réduire à 6 métriques maximum pour qu'elles rentrent dans une slide (2x3 grid)
     const selectedMetrics = settings?.metrics || [
         'impressions',
         'clicks',
         'ctr',
-        'cpc',
         'conversions',
+        'cost',
         'roas'
     ];
 
