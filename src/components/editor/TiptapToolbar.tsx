@@ -10,9 +10,6 @@ import {
     Heading3,
     Undo,
     Redo,
-    BarChart3,
-    TrendingUp,
-    Hash,
 } from 'lucide-react';
 
 interface TiptapToolbarProps {
@@ -110,29 +107,7 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor }) => {
 
             <div className="tiptap-toolbar-separator" />
 
-            {/* Data Block Dropdowns */}
-            <div className="tiptap-toolbar-divider" />
-            <button
-                onClick={() => editor.chain().focus().insertDataBlock('performance').run()}
-                className="tiptap-toolbar-btn"
-                title="Insert Performance Block"
-            >
-                <TrendingUp size={18} />
-            </button>
-            <button
-                onClick={() => editor.chain().focus().insertDataBlock('chart').run()}
-                className="tiptap-toolbar-btn"
-                title="Insert Chart Block"
-            >
-                <BarChart3 size={18} />
-            </button>
-            <button
-                onClick={() => editor.chain().focus().insertDataBlock('keyMetrics').run()}
-                className="tiptap-toolbar-btn"
-                title="Insert Key Metrics Block"
-            >
-                <Hash size={18} />
-            </button>
+
         </div>
     );
 };
