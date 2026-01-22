@@ -134,7 +134,7 @@
     border-radius: 0.5rem;
 }
 
-/* Toolbar - Sticky below header */
+/* Toolbar - Fixed below page header */
 .tiptap-toolbar {
     display: flex;
     align-items: center;
@@ -143,9 +143,13 @@
     background: var(--color-bg-primary, #ffffff);
     border-bottom: 1px solid var(--color-border, #e5e7eb);
     flex-wrap: wrap;
-    position: sticky;
-    top: 0;
-    z-index: 20;
+    position: fixed;
+    top: 56px;
+    /* Below page header */
+    left: 200px;
+    /* After sidebar */
+    right: 0;
+    z-index: 35;
 }
 
 .tiptap-toolbar-group {
@@ -492,9 +496,38 @@
     color: #374151;
 }
 
-/* Placeholder text styling */
-.slide-content .is-empty::before {
+/* Placeholder text styling - inside slides only */
+.slide-content .is-empty::before,
+.slide-content-editable .is-empty::before,
+.slide-content-editable>p.is-empty::before {
+    content: attr(data-placeholder);
     color: #9ca3af;
+    pointer-events: none;
+    position: absolute;
+    left: 48px;
+    top: 48px;
+}
+
+/* Fix for Tiptap placeholder - must be inside slide */
+.ProseMirror .node-slide p.is-node-empty:first-child::before {
+    content: attr(data-placeholder);
+    color: #9ca3af;
+    pointer-events: none;
+    float: left;
+    height: 0;
+}
+
+/* Selection styling - contained within slides */
+.node-slide.ProseMirror-selectednode {
+    outline: 3px solid var(--color-primary, #3b82f6);
+    outline-offset: 4px;
+}
+
+/* Ensure slide wrapper contains all content */
+.slide-wrapper .node-slide,
+.slide-wrapper .react-renderer {
+    width: 100%;
+    max-width: 960px;
 }
 
 /* Slide Layouts */
@@ -535,7 +568,8 @@
 }
 
 .slide-layout-blank {
-    /* No specific layout */
+    /* No specific layout - uses default block flow */
+    display: block;
 }
 
 /* Slide Actions */
@@ -755,27 +789,103 @@
     overflow: hidden;
     margin-left: 200px;
     /* Account for fixed sidebar */
-    min-height: 100vh;
+    min-height: calc(100vh - 56px);
 }
 
 .tiptap-editor-main .tiptap-editor-content {
     flex: 1;
     overflow-y: auto;
+    padding-top: 52px;
+    /* Account for fixed toolbar */
 }
 
 /* Dark mode support */
+
+/* Page Header */
+[data-theme="dark"] .tiptap-page-header {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+[data-theme="dark"] .tiptap-header-title {
+    color: #f9fafb;
+}
+
+[data-theme="dark"] .tiptap-header-btn {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .tiptap-header-btn:hover {
+    background: #374151;
+    color: #f9fafb;
+}
+
+/* Toolbar */
+[data-theme="dark"] .tiptap-toolbar {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+[data-theme="dark"] .tiptap-toolbar-btn {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .tiptap-toolbar-btn:hover {
+    background: #374151;
+    color: #f9fafb;
+}
+
+[data-theme="dark"] .tiptap-toolbar-separator {
+    background: #374151;
+}
+
+/* Slide Navigation */
 [data-theme="dark"] .slide-navigation {
-    background: var(--color-bg-primary-dark, #1f2937);
-    border-color: var(--color-border-dark, #374151);
+    background: #1f2937;
+    border-color: #374151;
+}
+
+[data-theme="dark"] .slide-nav-header {
+    border-color: #374151;
 }
 
 [data-theme="dark"] .slide-nav-title {
-    color: var(--color-text-primary-dark, #f9fafb);
+    color: #f9fafb;
+}
+
+[data-theme="dark"] .slide-nav-count {
+    background: #374151;
+    color: #9ca3af;
 }
 
 [data-theme="dark"] .slide-nav-item:hover {
-    background: var(--color-bg-tertiary-dark, #374151);
+    background: #374151;
 }
+
+[data-theme="dark"] .slide-nav-item.active {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="dark"] .slide-nav-number {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .slide-nav-thumbnail {
+    border-color: #374151;
+}
+
+/* Editor Content Area */
+[data-theme="dark"] .slide-editor-container {
+    background: #111827;
+}
+
+[data-theme="dark"] .tiptap-editor-main {
+    background: #111827;
+}
+
+/* Note: Slides keep their own background color (white by default) 
+   to maintain WYSIWYG accuracy for export */
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
