@@ -57,7 +57,7 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
         if (design.mode === 'dark') {
             return 'rgba(255, 255, 255, 0.1)';
         } else {
-            return 'rgba(0, 0, 0, 0.06)';
+            return 'transparent'; // Clean look
         }
     };
 

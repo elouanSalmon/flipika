@@ -279,7 +279,10 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
                 minHeight: '300px',
                 borderRadius: '12px',
                 display: 'flex',
-                flexDirection: 'column'
+                gap: '16px',
+                flexDirection: 'column',
+                // Border only in dark mode
+                border: design?.mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
             } as React.CSSProperties}
         >
             <div className="flex items-center justify-between mb-6">

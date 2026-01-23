@@ -305,6 +305,14 @@
     color: var(--color-text-primary, #111827);
 }
 
+/* Highlight styling - Report Theme */
+.tiptap-editor-content mark {
+    background-color: var(--highlight-color, #fef08a);
+    color: var(--highlight-text-color, inherit);
+    padding: 0.1em 0.2em;
+    border-radius: 0.2em;
+}
+
 /* Typography */
 .tiptap-editor-content h1 {
     font-size: 2.25rem;

@@ -32,7 +32,7 @@ const KeyMetricsSlide: React.FC<KeyMetricsSlideProps> = ({
     campaignIds,
     startDate,
     endDate,
-    editable = false,
+    // editable prop removed as unused
     reportId,
 }) => {
     const [metrics, setMetrics] = useState<MetricData[]>([]);
@@ -137,7 +137,8 @@ const KeyMetricsSlide: React.FC<KeyMetricsSlideProps> = ({
         <div className="chart-block-card" style={{
             '--widget-primary': design?.colorScheme?.primary || 'var(--color-primary)',
             backgroundColor: design?.colorScheme?.background || '#ffffff',
-            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+            // Border color based on report theme mode
+            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
             color: design?.colorScheme?.text || '#111827',
         } as React.CSSProperties}>
             <div className="chart-block-header">
@@ -159,7 +160,7 @@ const KeyMetricsSlide: React.FC<KeyMetricsSlideProps> = ({
                     {metrics.map((metric) => (
                         <div key={metric.name} className="chart-metric-card" style={{
                             backgroundColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
-                            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+                            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
                         }}>
                             <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                                 <div className="chart-icon-container" style={{ background: 'var(--widget-primary)' }}>

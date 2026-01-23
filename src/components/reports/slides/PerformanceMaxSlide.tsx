@@ -32,10 +32,19 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
         ...organizedImages.portrait.slice(0, 1)
     ].filter(img => img !== mainImage).slice(0, 3);
 
+    // Theme helpers
+    const isDark = design?.mode === 'dark';
+    const bgColor = design?.colorScheme?.background || '#ffffff';
+    const textColor = design?.colorScheme?.text || '#111827';
+    const cardBg = isDark ? 'rgba(255, 255, 255, 0.05)' : '#f9fafb';
+    const borderColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'transparent';
+    // Removed shadows as requested
+
     return (
-        <div className="h-full flex flex-col p-8 bg-white" style={{
+        <div className="h-full flex flex-col p-8" style={{
             fontFamily: design?.typography?.fontFamily || 'Inter, sans-serif',
-            color: design?.colorScheme?.text || '#111827'
+            color: textColor,
+            backgroundColor: bgColor,
         }}>
             {/* Header / Badge */}
             <div className="flex items-center justify-between mb-6">
@@ -45,7 +54,7 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
                     </div>
                     <div>
                         <h3 className="font-bold text-lg leading-tight">Performance Max</h3>
-                        <p className="text-xs text-gray-500 font-medium tracking-wide uppercase">
+                        <p className="text-xs font-medium tracking-wide uppercase" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
                             {data.campaignName} • {data.assetGroupName}
                         </p>
                     </div>
@@ -57,12 +66,15 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
                 {/* Visual Assets Column (Left - 7 cols) */}
                 <div className="col-span-7 flex flex-col gap-4 min-h-0">
                     <div className="flex items-center gap-2 mb-1">
-                        <LayoutGrid size={14} className="text-gray-400" />
-                        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Top Visual Assets</span>
+                        <LayoutGrid size={14} style={{ color: design?.colorScheme?.secondary || '#9ca3af' }} />
+                        <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: design?.colorScheme?.secondary || '#9ca3af' }}>Top Visual Assets</span>
                     </div>
 
                     {/* Main Hero Image */}
-                    <div className="relative aspect-video w-full rounded-xl overflow-hidden shadow-sm border border-gray-100 bg-gray-50 group">
+                    <div className="relative aspect-video w-full rounded-xl overflow-hidden group" style={{
+                        backgroundColor: cardBg,
+                        border: `1px solid ${borderColor}`,
+                    }}>
                         {mainImage ? (
                             <img
                                 src={mainImage.url}
@@ -83,7 +95,10 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
                     {/* Secondary Images Grid */}
                     <div className="grid grid-cols-3 gap-4 grow">
                         {secondaryImages.map((img, idx) => (
-                            <div key={idx} className="relative rounded-lg overflow-hidden shadow-sm border border-gray-100 bg-gray-50 group aspect-square">
+                            <div key={idx} className="relative rounded-lg overflow-hidden group aspect-square" style={{
+                                backgroundColor: cardBg,
+                                border: `1px solid ${borderColor}`,
+                            }}>
                                 <img
                                     src={img.url}
                                     alt={`Asset ${idx}`}
@@ -94,8 +109,12 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
                         ))}
                         {/* Fillers if not enough images */}
                         {Array.from({ length: 3 - secondaryImages.length }).map((_, idx) => (
-                            <div key={`empty-${idx}`} className="rounded-lg bg-gray-50 border border-gray-100 border-dashed flex items-center justify-center">
-                                <ImageIcon size={20} className="text-gray-300" />
+                            <div key={`empty-${idx}`} className="rounded-lg border-dashed flex items-center justify-center" style={{
+                                backgroundColor: cardBg,
+                                borderColor: borderColor,
+                                border: `1px dashed ${borderColor || 'var(--color-border)'}`
+                            }}>
+                                <ImageIcon size={20} style={{ opacity: 0.3 }} />
                             </div>
                         ))}
                     </div>
@@ -107,17 +126,21 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
                     {/* Headlines */}
                     <div>
                         <div className="flex items-center gap-2 mb-3">
-                            <TypeIcon size={14} className="text-gray-400" />
-                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Top Headlines</span>
+                            <TypeIcon size={14} style={{ color: design?.colorScheme?.secondary || '#9ca3af' }} />
+                            <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: design?.colorScheme?.secondary || '#9ca3af' }}>Top Headlines</span>
                         </div>
                         <div className="space-y-2">
                             {data.headlines.slice(0, 5).map((headline, idx) => (
-                                <div key={idx} className="p-3 bg-gray-50 rounded-lg border-l-4 border-blue-500 text-sm font-medium text-gray-800 shadow-sm">
+                                <div key={idx} className="p-3 rounded-lg border-l-4 border-blue-500 text-sm font-medium" style={{
+                                    backgroundColor: cardBg,
+                                    color: textColor,
+                                    boxShadow: 'none'
+                                }}>
                                     {headline}
                                 </div>
                             ))}
                             {data.headlines.length === 0 && (
-                                <div className="text-sm text-gray-400 italic">No headlines found</div>
+                                <div className="text-sm italic" style={{ color: design?.colorScheme?.secondary || '#9ca3af' }}>No headlines found</div>
                             )}
                         </div>
                     </div>
@@ -125,25 +148,29 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
                     {/* Descriptions */}
                     <div>
                         <div className="flex items-center gap-2 mb-3">
-                            <TypeIcon size={14} className="text-gray-400" />
-                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Top Descriptions</span>
+                            <TypeIcon size={14} style={{ color: design?.colorScheme?.secondary || '#9ca3af' }} />
+                            <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: design?.colorScheme?.secondary || '#9ca3af' }}>Top Descriptions</span>
                         </div>
                         <div className="space-y-2">
                             {data.descriptions.slice(0, 3).map((desc, idx) => (
-                                <div key={idx} className="p-3 bg-gray-50 rounded-lg border-l-4 border-purple-500 text-sm text-gray-600 shadow-sm">
+                                <div key={idx} className="p-3 rounded-lg border-l-4 border-purple-500 text-sm" style={{
+                                    backgroundColor: cardBg,
+                                    color: design?.colorScheme?.secondary || '#4b5563',
+                                    boxShadow: 'none'
+                                }}>
                                     {desc}
                                 </div>
                             ))}
                             {data.descriptions.length === 0 && (
-                                <div className="text-sm text-gray-400 italic">No descriptions found</div>
+                                <div className="text-sm italic" style={{ color: design?.colorScheme?.secondary || '#9ca3af' }}>No descriptions found</div>
                             )}
                         </div>
                     </div>
 
                     {/* Final URL */}
                     {data.finalUrl && (
-                        <div className="mt-auto pt-4 border-t border-gray-100">
-                            <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Destination</div>
+                        <div className="mt-auto pt-4 border-t" style={{ borderColor: borderColor || 'rgba(0,0,0,0.05)' }}>
+                            <div className="text-xs uppercase tracking-wider mb-1" style={{ color: design?.colorScheme?.secondary || '#9ca3af' }}>Destination</div>
                             <div className="text-xs text-blue-600 truncate font-mono bg-blue-50 px-2 py-1 rounded inline-block max-w-full">
                                 {data.finalUrl}
                             </div>
@@ -155,5 +182,6 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
         </div>
     );
 };
+
 
 export default PerformanceMaxSlide;

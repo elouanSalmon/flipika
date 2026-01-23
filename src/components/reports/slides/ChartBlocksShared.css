@@ -10,17 +10,12 @@
     padding: 24px;
     min-height: auto;
 
-    /* Border from inline styles */
-    border: 1px solid;
-
     /* Transitions */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .chart-block-card:hover {
     background: rgba(var(--glass-rgb), 0.75);
-    border-color: rgba(var(--primary-rgb), 0.3);
-    box-shadow: var(--shadow-lg);
     transform: translateY(-2px);
 }
 
@@ -75,7 +70,6 @@
 .chart-metric-card {
     border-radius: var(--radius-lg);
     padding: 16px;
-    border: 1px solid;
     transition: all 0.2s ease;
 }
 

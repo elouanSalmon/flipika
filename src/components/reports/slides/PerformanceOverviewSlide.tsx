@@ -52,7 +52,7 @@ const PerformanceOverviewSlide: React.FC<PerformanceOverviewSlideProps> = ({
     campaignIds,
     startDate,
     endDate,
-    editable = false,
+    // editable prop removed as unused
     reportId,
 }) => {
     const [metrics, setMetrics] = useState<MetricData[]>([]);
@@ -114,7 +114,8 @@ const PerformanceOverviewSlide: React.FC<PerformanceOverviewSlideProps> = ({
             '--widget-primary': design?.colorScheme?.primary || 'var(--color-primary)',
             '--widget-secondary': design?.colorScheme?.secondary || 'var(--color-text-secondary)',
             backgroundColor: design?.colorScheme?.background || '#ffffff',
-            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+            // Border color based on report theme mode, NOT app theme
+            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
             color: design?.colorScheme?.text || '#111827',
         } as React.CSSProperties}>
             <div className="chart-block-header">
@@ -131,8 +132,10 @@ const PerformanceOverviewSlide: React.FC<PerformanceOverviewSlideProps> = ({
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                     {metrics.map((metric) => (
                         <div key={metric.name} className="chart-metric-card" style={{
+                            // Background based on report theme mode
                             backgroundColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
-                            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+                            // Border purely for dark mode separation if needed, otherwise clean
+                            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
                         }}>
                             <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                                 <div className="chart-icon-container" style={{ background: 'var(--widget-primary)' }}>

@@ -108,14 +108,23 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
         <div
             className="device-platform-split-slide"
             style={{
+                // Inject local theme variables
+                '--text-primary': design?.colorScheme?.text || '#111827',
+                '--text-secondary': design?.colorScheme?.secondary || '#6b7280',
+                '--bg-primary': design?.colorScheme?.background || '#ffffff',
+                '--bg-secondary': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : '#f9fafb',
+                '--border-color': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+
                 color: design?.colorScheme?.text || '#111827',
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 padding: '24px',
                 minHeight: '200px',
                 borderRadius: '12px',
                 display: 'flex',
-                flexDirection: 'column'
-            }}
+                flexDirection: 'column',
+                // Border only in dark mode
+                border: design?.mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+            } as React.CSSProperties}
         >
             <div className="slide-header flex items-center justify-between mb-6">
                 <h3 style={{
@@ -144,7 +153,10 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
 
             <div className="split-charts-container grid grid-cols-2 gap-6 mb-6 h-64">
                 {/* Device Chart (Pie) */}
-                <div className="chart-section flex flex-col items-center justify-center p-4 rounded-lg bg-gray-50 dark:bg-gray-800/50 h-full">
+                <div
+                    className="chart-section flex flex-col items-center justify-center p-4 rounded-lg h-full"
+                    style={{ backgroundColor: 'var(--bg-secondary)' }}
+                >
                     <h4 className="mb-4 text-sm font-semibold opacity-70">Par Appareil (Clics)</h4>
                     <div className="chart-wrapper w-full h-full">
                         <ResponsiveContainer width="100%" height="100%">
@@ -179,7 +191,10 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
                 </div>
 
                 {/* Platform Chart (Bar) */}
-                <div className="chart-section flex flex-col items-center justify-center p-4 rounded-lg bg-gray-50 dark:bg-gray-800/50 h-full">
+                <div
+                    className="chart-section flex flex-col items-center justify-center p-4 rounded-lg h-full"
+                    style={{ backgroundColor: 'var(--bg-secondary)' }}
+                >
                     <h4 className="mb-4 text-sm font-semibold opacity-70">Par Plateforme (Coût)</h4>
                     <div className="chart-wrapper w-full h-full">
                         <ResponsiveContainer width="100%" height="100%">
@@ -210,7 +225,10 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
 
             <div className="metrics-table-container flex-1 overflow-auto">
                 <table className="metrics-table w-full text-sm">
-                    <thead className="sticky top-0 bg-white dark:bg-gray-900 z-10">
+                    <thead
+                        className="sticky top-0 z-10"
+                        style={{ backgroundColor: 'var(--bg-primary)' }}
+                    >
                         <tr style={{
                             borderBottom: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
                             fontSize: '11px',
@@ -228,10 +246,10 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
                             <th className="py-2 px-3 text-right font-semibold opacity-70">ROAS</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                    <tbody className="">
                         {/* Devices */}
                         {deviceData.map((row, index) => (
-                            <tr key={`device-${index}`} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                            <tr key={`device-${index}`} style={{ borderBottom: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}` }}>
                                 <td className="py-2 px-3 font-medium flex items-center gap-2">
                                     <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }}></span>
                                     {row.name}

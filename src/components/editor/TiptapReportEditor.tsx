@@ -26,6 +26,8 @@ interface TiptapReportEditorProps {
     campaignIds?: string[];
     reportId?: string;
     clientId?: string;
+    userId?: string;
+    onOpenSettings?: () => void;
 }
 
 export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
@@ -38,6 +40,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     campaignIds = [],
     reportId,
     clientId,
+    userId,
+    onOpenSettings,
 }) => {
     const defaultContent = {
         type: 'doc',
@@ -98,6 +102,15 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         return null;
     }
 
+    // Calculate highlight colors based on theme
+    const highlightColor = design?.mode === 'dark'
+        ? (design?.colorScheme?.accent ? `${design.colorScheme.accent}4D` : 'rgba(253, 224, 71, 0.3)') // Yellow-300 with opacity or accent
+        : (design?.colorScheme?.accent ? `${design.colorScheme.accent}33` : '#fef08a'); // Yellow-200 or accent light
+
+    const highlightTextColor = design?.mode === 'dark'
+        ? (design?.colorScheme?.text || '#f8fafc')
+        : '#1e293b'; // Dark text on light highlight usually better
+
     return (
         <ReportEditorProvider
             design={design || null}
@@ -105,8 +118,16 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             campaignIds={campaignIds}
             reportId={reportId}
             clientId={clientId}
+            userId={userId}
+            onOpenSettings={onOpenSettings}
         >
-            <div className="tiptap-slide-editor-layout">
+            <div
+                className="tiptap-slide-editor-layout"
+                style={{
+                    '--highlight-color': highlightColor,
+                    '--highlight-text-color': highlightTextColor,
+                } as React.CSSProperties}
+            >
                 {/* Left Sidebar - Slide Navigation */}
                 <SlideNavigation editor={editor} />
 

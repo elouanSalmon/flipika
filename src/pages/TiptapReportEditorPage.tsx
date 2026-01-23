@@ -668,6 +668,8 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     campaignIds={report.campaignIds}
                     reportId={report.id}
                     clientId={report.clientId}
+                    userId={report.userId}
+                    onOpenSettings={handleOpenSettings}
                 />
             </main>
 

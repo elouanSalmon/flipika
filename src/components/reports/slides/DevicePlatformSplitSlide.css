@@ -109,8 +109,3 @@
     font-weight: 500;
     margin-left: 0.5rem;
 }
-
-.dark .mock-data-badge {
-    background-color: rgba(245, 158, 11, 0.2);
-    color: #fbbf24;
-}

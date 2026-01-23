@@ -151,14 +151,23 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
         <div
             className="heatmap-container"
             style={{
+                // Inject local theme variables to override global app theme
+                '--text-primary': design?.colorScheme?.text || '#111827',
+                '--text-secondary': design?.colorScheme?.secondary || '#6b7280',
+                '--bg-surface': design?.colorScheme?.background || '#ffffff',
+                '--border-color': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 color: design?.colorScheme?.text || '#111827',
                 padding: '24px',
                 minHeight: '300px',
                 borderRadius: '12px',
                 display: 'flex',
-                flexDirection: 'column'
-            }}
+                gap: '16px',
+                flexDirection: 'column',
+                // Border only in dark mode
+                border: design?.mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+            } as React.CSSProperties}
         >
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">

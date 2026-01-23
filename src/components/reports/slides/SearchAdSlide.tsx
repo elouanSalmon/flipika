@@ -22,6 +22,10 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
             className="chart-block-card"
             style={{
                 fontFamily: design?.typography?.fontFamily || 'Inter, sans-serif',
+                // Explicitly set background and color from design
+                backgroundColor: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#111827',
+                borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
             }}
         >
             {/* Header */}
@@ -32,18 +36,18 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
             {/* Google Search Result Mockup */}
             <div className="chart-block-content">
                 <div style={{
-                    background: 'rgba(var(--surface-rgb), 0.3)',
+                    background: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
                     borderRadius: 'var(--radius-lg)',
                     padding: '20px',
-                    border: '1px solid rgba(var(--border-rgb), 0.15)',
+                    border: design?.mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
                 }}>
                     {/* Ad Label & URL */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-text-primary)' }}>Sponsorisé</span>
-                        <span style={{ color: 'var(--color-text-muted)', fontSize: '10px' }}>•</span>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: design?.colorScheme?.text || 'var(--color-text-primary)' }}>Sponsorisé</span>
+                        <span style={{ color: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontSize: '10px' }}>•</span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                             <Globe size={14} style={{ color: design?.colorScheme?.primary || 'var(--color-primary)' }} />
-                            <span style={{ fontSize: '14px', color: 'var(--color-text-secondary)' }}>
+                            <span style={{ fontSize: '14px', color: design?.colorScheme?.secondary || 'var(--color-text-secondary)' }}>
                                 {data.displayUrl}
                             </span>
                         </div>
