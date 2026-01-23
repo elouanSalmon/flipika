@@ -1,3 +1,20 @@
+/* Base widget styles - used in Tiptap editor */
+.performance-widget {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.performance-widget:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+/* Legacy class name - for backwards compatibility */
 .performance-overview-widget {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -159,7 +176,7 @@
 /* Loading State */
 .performance-overview-widget.loading,
 .performance-overview-widget.error {
-    min-height: 200px;
+    min-height: 100px;
 }
 
 .loading-spinner {
@@ -192,6 +209,11 @@
 }
 
 /* Dark Mode Support - Using data-theme attribute from slide container */
+[data-theme="dark"] .performance-widget {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
 [data-theme="dark"] .performance-overview-widget {
     background: rgba(15, 23, 42, 0.95);
     border-color: rgba(255, 255, 255, 0.1);

@@ -4,6 +4,7 @@ import { Settings, Trash2 } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { SlideType } from '../../../types/reportTypes';
 import type { SlideConfig } from '../../../types/reportTypes';
+import { ChartBlockErrorBoundary } from './ChartBlockErrorBoundary';
 
 // Import real slide components
 import PerformanceOverviewSlide from '../../reports/slides/PerformanceOverviewSlide';
@@ -14,8 +15,6 @@ import FunnelAnalysisSlide from '../../reports/slides/FunnelAnalysisSlide';
 import HeatmapSlide from '../../reports/slides/HeatmapSlide';
 import DevicePlatformSplitSlide from '../../reports/slides/DevicePlatformSplitSlide';
 import TopPerformersSlide from '../../reports/slides/TopPerformersSlide';
-import SectionTitleSlide from '../../reports/slides/SectionTitleSlide';
-import RichTextSlide from '../../reports/slides/RichTextSlide';
 
 /**
  * Data Block Component (Epic 13 - Story 13.2)
@@ -132,22 +131,6 @@ export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps
                         reportId={reportId}
                     />
                 );
-            case SlideType.SECTION_TITLE:
-                return (
-                    <SectionTitleSlide
-                        config={slideConfig}
-                        design={design}
-                        editable={selected} // Allow inline editing if selected?
-                    />
-                );
-            case SlideType.RICH_TEXT:
-                return (
-                    <RichTextSlide
-                        config={slideConfig}
-                        design={design}
-                        editable={selected}
-                    />
-                );
             default:
                 return (
                     <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-dashed border-gray-300">
@@ -165,7 +148,9 @@ export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps
             data-block-type={blockType}
         >
             <div className="relative group">
-                {renderBlock()}
+                <ChartBlockErrorBoundary blockType={blockType}>
+                    {renderBlock()}
+                </ChartBlockErrorBoundary>
 
                 {selected && (
                     <div className="data-block-actions">

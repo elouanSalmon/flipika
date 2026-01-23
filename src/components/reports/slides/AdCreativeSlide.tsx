@@ -253,17 +253,15 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     // If it's a Search ad, use the new SearchAdSlide for better visualization
     if (adData.type === 'search' || selectedAd?.type === 'SEARCH') {
         return (
-            <div className="h-full rounded-xl overflow-hidden shadow-sm border border-gray-200" style={{ backgroundColor: design?.colorScheme?.background || '#ffffff' }}>
-                <SearchAdSlide
-                    data={{
-                        headlines: selectedAd?.headlines || [adData.headline],
-                        descriptions: selectedAd?.descriptions || [adData.description],
-                        displayUrl: adData.displayUrl,
-                        finalUrl: adData.finalUrl || ''
-                    }}
-                    design={design}
-                />
-            </div>
+            <SearchAdSlide
+                data={{
+                    headlines: selectedAd?.headlines || [adData.headline],
+                    descriptions: selectedAd?.descriptions || [adData.description],
+                    displayUrl: adData.displayUrl,
+                    finalUrl: adData.finalUrl || ''
+                }}
+                design={design}
+            />
         );
     }
 
@@ -278,7 +276,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 color: design?.colorScheme?.text || '#111827',
                 padding: '24px',
-                height: '100%',
+                minHeight: '300px',
                 borderRadius: '12px',
                 display: 'flex',
                 flexDirection: 'column'

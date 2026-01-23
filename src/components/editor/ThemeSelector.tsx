@@ -102,7 +102,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ design, onChange, 
                             {userThemes
                                 .filter((theme) => theme.design && theme.design.colorScheme)
                                 .map((theme) => {
-                                    const isActive = design.colorScheme.primary === theme.design.colorScheme.primary;
+                                    const isActive = design?.colorScheme?.primary === theme.design?.colorScheme?.primary;
                                     return (
                                         <button
                                             key={theme.id}

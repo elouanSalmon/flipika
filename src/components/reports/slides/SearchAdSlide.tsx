@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ReportDesign } from '../../../types/reportTypes';
-import { Globe, MoreVertical } from 'lucide-react';
+import { Globe } from 'lucide-react';
 
 interface SearchAdSlideProps {
     data: {
@@ -20,74 +20,48 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
     const description = data.descriptions.slice(0, 2).join(' ');
 
     return (
-        <div className="h-full flex flex-col items-center justify-center p-8 bg-gray-50" style={{
-            fontFamily: design.typography.fontFamily,
-            color: design?.colorScheme?.text || '#111827'
-        }}>
-            {/* Google Search Result Mockup Card */}
-            <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+        <div
+            className="h-full p-6 rounded-xl"
+            style={{
+                fontFamily: design?.typography?.fontFamily || 'Inter, sans-serif',
+                backgroundColor: design?.colorScheme?.background || '#ffffff',
+                color: design?.colorScheme?.text || '#111827'
+            }}
+        >
+            {/* Header */}
+            <h3 className="text-lg font-semibold mb-4" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
+                Aperçu d'annonce
+            </h3>
 
-                {/* Mobile Header Mockup (Optional, adds realism) */}
-                <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-50">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                        <Globe size={16} />
-                    </div>
-                </div>
-
+            {/* Google Search Result Mockup */}
+            <div className="bg-gray-50 rounded-lg p-5 border border-gray-100">
                 {/* Ad Label & URL */}
-                <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[11px] font-bold text-gray-900">Sponsoris&eacute;</span>
-                    <span className="text-gray-400 text-[10px]">&bull;</span>
+                <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[11px] font-bold text-gray-900">Sponsorisé</span>
+                    <span className="text-gray-400 text-[10px]">•</span>
                     <div className="flex items-center gap-1 text-sm text-gray-700">
-                        <div className="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center text-xs text-gray-500 overflow-hidden">
-                            {/* Favicon placeholder */}
-                            {data.displayUrl.charAt(0).toUpperCase()}
-                        </div>
+                        <Globe size={14} className="text-blue-600" />
                         <span className="truncate">{data.displayUrl}</span>
-                        <MoreVertical size={12} className="text-gray-400 ml-1" />
                     </div>
                 </div>
 
                 {/* Ad Title */}
-                <h3 className="text-xl text-[#1a0dab] hover:underline cursor-pointer font-normal mb-1">
+                <h4 className="text-lg text-[#1a0dab] font-normal mb-1 hover:underline cursor-pointer">
                     {title || 'Titre de l\'annonce manquant'}
-                </h3>
+                </h4>
 
                 {/* Ad Description */}
-                <p className="text-sm text-[#4d5156] leading-relaxed max-w-2xl">
+                <p className="text-sm text-[#4d5156] leading-relaxed">
                     {description || 'Description de l\'annonce manquante...'}
                 </p>
 
-                {/* Sitelinks Mockup (Visual decoration) */}
-                <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+                {/* Sitelinks */}
+                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                     {['Contactez-nous', 'Nos Services', 'Demander un Devis'].map((link, i) => (
                         <span key={i} className="text-sm text-[#1a0dab] hover:underline cursor-pointer">
                             {link}
                         </span>
                     ))}
-                </div>
-            </div>
-
-            <div className="mt-8 grid grid-cols-2 gap-8 w-full max-w-3xl">
-                <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Headlines Pool</h4>
-                    <div className="space-y-2">
-                        {data.headlines.map((h, i) => (
-                            <div key={i} className="text-sm text-gray-700 py-1 border-b border-gray-50 last:border-0 border-dashed">
-                                {h}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Descriptions Pool</h4>
-                    <div className="space-y-2">
-                        {data.descriptions.map((d, i) => (
-                            <div key={i} className="text-sm text-gray-700 py-1 border-b border-gray-50 last:border-0 border-dashed">
-                                {d}
-                            </div>
-                        ))}
-                    </div>
                 </div>
             </div>
         </div>

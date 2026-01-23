@@ -61,7 +61,7 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
     const COLORS = [
         design?.colorScheme?.primary || '#3b82f6',
         design?.colorScheme?.secondary || '#6b7280',
-        design.colorScheme.accent,
+        design?.colorScheme?.accent || '#93c5fd',
         '#10b981',
         '#f59e0b',
         '#ef4444',
@@ -111,7 +111,7 @@ const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({
                 color: design?.colorScheme?.text || '#111827',
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 padding: '24px',
-                height: '100%',
+                minHeight: '200px',
                 borderRadius: '12px',
                 display: 'flex',
                 flexDirection: 'column'

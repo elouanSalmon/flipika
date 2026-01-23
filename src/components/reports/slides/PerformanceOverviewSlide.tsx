@@ -75,7 +75,14 @@ const PerformanceOverviewSlide: React.FC<PerformanceOverviewSlideProps> = ({
             setError(null);
 
             const data = await getSlideData(config, effectiveAccountId, effectiveCampaignIds, startDate, endDate, reportId);
-            setMetrics(data.metrics || []);
+
+            // Remove duplicates and limit to 6 metrics max
+            const rawMetrics = data.metrics || [];
+            const uniqueMetrics = Array.from(
+                new Map(rawMetrics.map((m: MetricData) => [m.name, m])).values()
+            ).slice(0, 6); // Limit to 6 for better layout
+
+            setMetrics(uniqueMetrics as MetricData[]);
             setIsMockData(data.isMockData || false);
         } catch (err) {
             console.error('Error loading widget data:', err);

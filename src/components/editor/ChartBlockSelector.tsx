@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Editor } from '@tiptap/react';
 import {
     BarChart3, TrendingUp, PieChart, Target,
-    Image, Filter, Layout, Trophy, FileText, X, Search
+    Image, Filter, Layout, Trophy, X, Search
 } from 'lucide-react';
 import './ChartBlockSelector.css';
 
@@ -81,20 +81,6 @@ const CHARTS_ITEMS: ChartOption[] = [
 ];
 
 const CONTENT_ITEMS: ChartOption[] = [
-    {
-        type: 'section_title',
-        label: 'Titre de Section',
-        description: 'Grand en-tête de section',
-        icon: Layout,
-        config: {}
-    },
-    {
-        type: 'rich_text',
-        label: 'Texte Riche',
-        description: 'Bloc de contenu textuel',
-        icon: FileText,
-        config: {}
-    },
     {
         type: 'ad_creative',
         label: 'Créatifs Pub',

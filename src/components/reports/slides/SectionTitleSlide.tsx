@@ -26,7 +26,7 @@ const SectionTitleSlide: React.FC<SectionTitleSlideProps> = ({
             <h1
                 className="text-4xl md:text-5xl font-bold mb-6"
                 style={{
-                    fontFamily: design.typography.headingFontFamily,
+                    fontFamily: design?.typography?.headingFontFamily || design?.typography?.fontFamily || 'Inter, sans-serif',
                 }}
             >
                 {title}
@@ -35,7 +35,7 @@ const SectionTitleSlide: React.FC<SectionTitleSlideProps> = ({
                 <div
                     className="text-xl md:text-2xl opacity-90 max-w-3xl"
                     style={{
-                        fontFamily: design.typography.fontFamily,
+                        fontFamily: design?.typography?.fontFamily || 'Inter, sans-serif',
                     }}
                 >
                     {subtitle}

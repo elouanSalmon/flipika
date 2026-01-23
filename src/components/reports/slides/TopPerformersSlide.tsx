@@ -83,7 +83,7 @@ const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({
         switch (config.settings?.dimension) {
             case 'KEYWORDS': return <Search size={20} color={design?.colorScheme?.primary || '#3b82f6'} />;
             case 'SEARCH_TERMS': return <Search size={20} color={design?.colorScheme?.secondary || '#6b7280'} />;
-            case 'LOCATIONS': return <MapPin size={20} color={design.colorScheme.accent} />;
+            case 'LOCATIONS': return <MapPin size={20} color={design?.colorScheme?.accent || '#93c5fd'} />;
             case 'ADS': return <Layout size={20} color={design?.colorScheme?.primary || '#3b82f6'} />;
             default: return <Trophy size={20} color={design?.colorScheme?.primary || '#3b82f6'} />;
         }

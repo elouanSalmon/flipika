@@ -408,25 +408,8 @@
 .data-block-wrapper {
     margin: 1.5rem 0;
     position: relative;
-    /* Constrain to slide content area */
     max-width: 100%;
     width: 100%;
-}
-
-/* Ensure data blocks fit within slide dimensions */
-.slide-content .data-block-wrapper {
-    /* Account for slide padding (48px on each side = 864px available width, 444px height) */
-    max-width: 864px;
-    max-height: 444px;
-    overflow: hidden;
-}
-
-/* Inner content should also respect dimensions */
-.data-block-wrapper>div {
-    max-width: 100%;
-    max-height: 100%;
-    /* Allow scrolling if content is too large (edge case) */
-    overflow: auto;
 }
 
 .data-block-wrapper.selected {

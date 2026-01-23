@@ -4,7 +4,7 @@ import Suggestion from '@tiptap/suggestion';
 import { SlashCommandMenu } from '../components/SlashCommandMenu';
 import tippy from 'tippy.js';
 import type { Instance as TippyInstance } from 'tippy.js';
-import { BarChart3, Target, TrendingUp, Filter, Image, Layout, PieChart, Trophy, FileText } from 'lucide-react';
+import { BarChart3, Target, TrendingUp, Filter, Image, Layout, PieChart, Trophy } from 'lucide-react';
 
 
 /**
@@ -140,26 +140,6 @@ export const SlashCommandExtension = Extension.create({
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
                                     .insertDataBlock({ blockType: 'top_performers', config: {} })
-                                    .run();
-                            },
-                        },
-                        {
-                            title: 'Section Title',
-                            description: 'Large section header',
-                            icon: Layout,
-                            command: ({ editor, range }) => {
-                                editor.chain().focus().deleteRange(range)
-                                    .insertDataBlock({ blockType: 'section_title', config: {} })
-                                    .run();
-                            },
-                        },
-                        {
-                            title: 'Rich Text',
-                            description: 'Rich text content block',
-                            icon: FileText,
-                            command: ({ editor, range }) => {
-                                editor.chain().focus().deleteRange(range)
-                                    .insertDataBlock({ blockType: 'rich_text', config: {} })
                                     .run();
                             },
                         },

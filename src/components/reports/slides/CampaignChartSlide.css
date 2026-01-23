@@ -63,7 +63,7 @@
 
 .widget-content {
     position: relative;
-    min-height: 400px;
+    min-height: 250px;
     width: 100%;
 }
 
@@ -71,7 +71,7 @@
 .campaign-chart-widget.loading,
 .campaign-chart-widget.error,
 .campaign-chart-widget.empty {
-    min-height: 400px;
+    min-height: 250px;
 }
 
 .loading-spinner {

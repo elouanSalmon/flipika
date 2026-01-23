@@ -85,7 +85,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                         id: 'conversions',
                         label: 'Conversions',
                         value: conversions,
-                        color: design.colorScheme.accent,
+                        color: design?.colorScheme?.accent || '#93c5fd',
                         percentage: (conversions / maxVal) * 100, // Relative to Impressions visually might be too small, key off previous? 
                         // Visualizing funnel usually keeps first bar 100%, but if dropoff is huge, bars become invisible.
                         // Better visualization: Scaled relative to previous? Or Log scale? 
@@ -146,20 +146,23 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
 
     if (!hasData) {
         return (
-            <div className="funnel-analysis-widget empty">
-                <div className="widget-header">
-                    <h3>Analyse de conversion</h3>
-                    {editable && (
-                        <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
-                            ⚙️
-                        </button>
-                    )}
-                </div>
-                <div className="widget-content">
-                    <div className="empty-state">
-                        <p>Aucune donnée disponible pour le tunnel</p>
-                        <p className="empty-hint">Sélectionnez des campagnes pour afficher le graphique</p>
-                    </div>
+            <div
+                className="funnel-analysis-widget empty"
+                style={{
+                    minHeight: '100px',
+                    padding: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: design?.colorScheme?.background || '#ffffff',
+                    color: design?.colorScheme?.text || '#111827',
+                    borderRadius: '12px'
+                }}
+            >
+                <div className="empty-state">
+                    <p>Aucune donnée disponible pour le tunnel</p>
+                    <p className="empty-hint">Sélectionnez des campagnes pour afficher le graphique</p>
                 </div>
             </div>
         );
@@ -172,7 +175,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 color: design?.colorScheme?.text || '#111827',
                 padding: '24px',
-                height: '100%',
+                minHeight: '250px',
                 borderRadius: '12px',
                 display: 'flex',
                 flexDirection: 'column'

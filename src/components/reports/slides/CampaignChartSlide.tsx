@@ -68,7 +68,7 @@ const CampaignChartSlide: React.FC<CampaignChartSlideProps> = ({
     const chartColors = [
         design?.colorScheme?.primary || '#3b82f6',
         design?.colorScheme?.secondary || '#6b7280',
-        design.colorScheme.accent,
+        design?.colorScheme?.accent || '#93c5fd',
         '#10b981',
         '#f59e0b',
         '#ef4444',

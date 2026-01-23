@@ -120,18 +120,29 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
 
     if (loading) {
         return (
-            <div className="heatmap-container loading">
-                <div className="flex justify-center items-center h-full">
-                    <Spinner size={32} />
-                </div>
+            <div className="heatmap-container loading" style={{
+                minHeight: '100px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '24px'
+            }}>
+                <Spinner size={32} />
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="heatmap-container error">
-                <div className="error-message p-4 text-center">{error}</div>
+            <div className="heatmap-container error" style={{
+                minHeight: '100px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '24px',
+                color: '#ef4444'
+            }}>
+                {error}
             </div>
         );
     }
@@ -143,7 +154,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 color: design?.colorScheme?.text || '#111827',
                 padding: '24px',
-                height: '100%',
+                minHeight: '300px',
                 borderRadius: '12px',
                 display: 'flex',
                 flexDirection: 'column'

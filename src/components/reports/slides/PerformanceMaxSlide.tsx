@@ -34,7 +34,7 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
 
     return (
         <div className="h-full flex flex-col p-8 bg-white" style={{
-            fontFamily: design.typography.fontFamily,
+            fontFamily: design?.typography?.fontFamily || 'Inter, sans-serif',
             color: design?.colorScheme?.text || '#111827'
         }}>
             {/* Header / Badge */}

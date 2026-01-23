@@ -176,7 +176,12 @@ const KeyMetricsSlide: React.FC<KeyMetricsSlideProps> = ({
             </div>
 
             <div className="widget-content">
-                <div className="key-metrics-grid">
+                <div
+                    className="key-metrics-grid"
+                    style={{
+                        gridTemplateColumns: metrics.length <= 2 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)'
+                    }}
+                >
                     {metrics.map((metric) => (
                         <div
                             key={metric.name}
