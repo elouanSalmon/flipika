@@ -187,7 +187,7 @@ async function generateReportFromSchedule(
 
 /**
  * Create a report from a template (Cloud Function version)
- * This is a simplified version that works in the Cloud Functions context
+ * Supports both legacy templates (slideConfigs) and new Tiptap templates (content)
  */
 async function createReportFromTemplateInFunction(
     userId: string,
@@ -205,8 +205,11 @@ async function createReportFromTemplateInFunction(
     // Calculate date range from period preset
     const dateRange = calculateDateRangeFromPreset(templateData.periodPreset);
 
+    // Check if template uses new Tiptap format
+    const usesTiptapFormat = !!templateData.content;
+
     // Create the report document
-    const reportData = {
+    const reportData: any = {
         userId,
         title,
         accountId,
@@ -220,111 +223,106 @@ async function createReportFromTemplateInFunction(
         startDate: dateRange.start.toISOString(),
         endDate: dateRange.end.toISOString(),
         dateRangePreset: templateData.periodPreset,
+        templateId, // Reference to source template
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
+    // If template uses Tiptap format, copy content directly
+    if (usesTiptapFormat) {
+        reportData.content = templateData.content;
+        console.log(`Template ${templateId} uses Tiptap format - copying content directly`);
+    }
+
     const reportRef = await db.collection("reports").add(reportData);
     const reportId = reportRef.id;
 
-    // Create widgets from template widget configs
-    const batch = db.batch();
-    const slideIds: string[] = [];
+    // Only create slides subcollection for legacy templates
+    if (!usesTiptapFormat) {
+        const batch = db.batch();
+        const slideIds: string[] = [];
 
-    // 1. Insert Cover Slide if content provided
-    if (coverContent) {
-        const coverRef = db
-            .collection("reports")
-            .doc(reportId)
-            .collection("slides")
-            .doc();
+        // 1. Insert Cover Slide if content provided
+        if (coverContent) {
+            const coverRef = db
+                .collection("reports")
+                .doc(reportId)
+                .collection("slides")
+                .doc();
 
-        slideIds.push(coverRef.id);
-        batch.set(coverRef, {
-            reportId,
-            type: "rich_text", // Using rich_text for custom HTML
-            order: -1, // Ensure it's first (will reorder later)
-            body: coverContent, // Using body field as expected by RichTextSlide
-            settings: {},
-            accountId,
-            campaignIds: templateData.campaignIds || [],
-            startDate: dateRange.start.toISOString(),
-            endDate: dateRange.end.toISOString(),
-            createdAt: admin.firestore.FieldValue.serverTimestamp(),
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-        });
+            slideIds.push(coverRef.id);
+            batch.set(coverRef, {
+                reportId,
+                type: "rich_text",
+                order: -1,
+                body: coverContent,
+                settings: {},
+                accountId,
+                campaignIds: templateData.campaignIds || [],
+                startDate: dateRange.start.toISOString(),
+                endDate: dateRange.end.toISOString(),
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            });
+        }
+
+        // 2. Insert Template Slides
+        for (const widgetConfig of templateData.slideConfigs || []) {
+            const widgetRef = db
+                .collection("reports")
+                .doc(reportId)
+                .collection("slides")
+                .doc();
+
+            const widgetData: any = {
+                reportId,
+                type: widgetConfig.type,
+                order: widgetConfig.order,
+                settings: widgetConfig.settings || {},
+                accountId,
+                campaignIds: templateData.campaignIds || [],
+                startDate: dateRange.start.toISOString(),
+                endDate: dateRange.end.toISOString(),
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            };
+
+            if (widgetConfig.body) Object.assign(widgetData, { body: widgetConfig.body });
+            if (widgetConfig.title) Object.assign(widgetData, { title: widgetConfig.title });
+            if (widgetConfig.subtitle) Object.assign(widgetData, { subtitle: widgetConfig.subtitle });
+
+            batch.set(widgetRef, widgetData);
+            slideIds.push(widgetRef.id);
+        }
+
+        // 3. Insert Conclusion Slide if content provided
+        if (conclusionContent) {
+            const conclusionRef = db
+                .collection("reports")
+                .doc(reportId)
+                .collection("slides")
+                .doc();
+
+            slideIds.push(conclusionRef.id);
+            batch.set(conclusionRef, {
+                reportId,
+                type: "rich_text",
+                order: 9999,
+                body: conclusionContent,
+                settings: {},
+                accountId,
+                campaignIds: templateData.campaignIds || [],
+                startDate: dateRange.start.toISOString(),
+                endDate: dateRange.end.toISOString(),
+                createdAt: admin.firestore.FieldValue.serverTimestamp(),
+                updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            });
+        }
+
+        // Update report with slide IDs
+        batch.update(reportRef, { slideIds });
+        await batch.commit();
     }
-
-    // 2. Insert Template Slides
-    for (const widgetConfig of templateData.slideConfigs || []) {
-        const widgetRef = db
-            .collection("reports")
-            .doc(reportId)
-            .collection("slides")
-            .doc();
-
-        const widgetData = {
-            reportId,
-            type: widgetConfig.type,
-            order: widgetConfig.order,
-            settings: widgetConfig.settings || {},
-            accountId,
-            campaignIds: templateData.campaignIds || [],
-            startDate: dateRange.start.toISOString(),
-            endDate: dateRange.end.toISOString(),
-            createdAt: admin.firestore.FieldValue.serverTimestamp(),
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-        };
-
-        // Also copy body/title/subtitle if they exist in template config
-        if (widgetConfig.body) Object.assign(widgetData, { body: widgetConfig.body });
-        if (widgetConfig.title) Object.assign(widgetData, { title: widgetConfig.title });
-        if (widgetConfig.subtitle) Object.assign(widgetData, { subtitle: widgetConfig.subtitle });
-
-        batch.set(widgetRef, widgetData);
-        slideIds.push(widgetRef.id);
-    }
-
-    // 3. Insert Conclusion Slide if content provided
-    if (conclusionContent) {
-        const conclusionRef = db
-            .collection("reports")
-            .doc(reportId)
-            .collection("slides")
-            .doc();
-
-        slideIds.push(conclusionRef.id);
-        batch.set(conclusionRef, {
-            reportId,
-            type: "rich_text",
-            order: 9999, // Ensure it's last
-            body: conclusionContent, // Using body field as expected by RichTextSlide
-            settings: {},
-            accountId,
-            campaignIds: templateData.campaignIds || [],
-            startDate: dateRange.start.toISOString(),
-            endDate: dateRange.end.toISOString(),
-            createdAt: admin.firestore.FieldValue.serverTimestamp(),
-            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-        });
-    }
-
-    // 4. Update orders to be sequential (0, 1, 2...)
-    // Warning: We already pushed IDs in order, but the individual docs have 'order' fields.
-    // Ideally we should update the docs with new order, but for now we just rely on slideIds array order
-    // if the frontend uses that. However, frontend might sort by 'order' field.
-    // Let's re-write the order in a separate loop if needed, OR just trust the slideIds array?
-    // The previous implementation used `widgetConfig.order`.
-    // Let's rely on slideIds array for order generally, but to be safe for queries:
-    // We already set order -1 and 9999.
-    // If we want perfect 0-index:
-    // But we can't easily update the batched writes we just made without re-iterating or complex logic.
-    // `slideIds` array on report doc is the source of truth for order in many places.
-
-    // Update report with widget IDs
-    batch.update(reportRef, { slideIds });
-
-    await batch.commit();
 
     // Update template usage statistics
     await db.collection("reportTemplates").doc(templateId).update({

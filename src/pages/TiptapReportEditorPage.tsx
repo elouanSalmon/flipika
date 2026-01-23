@@ -18,6 +18,8 @@ import dataService from '../services/dataService';
 import { fetchCampaigns } from '../services/googleAds';
 import type { EditableReport, ReportDesign } from '../types/reportTypes';
 import type { Account, Campaign } from '../types/business';
+import type { Client } from '../types/client';
+import { clientService } from '../services/clientService';
 import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Trash2, Link, ExternalLink, Lock, Unlock, Mail, Presentation } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 import Logo from '../components/Logo';
@@ -70,6 +72,9 @@ const TiptapReportEditorPage: React.FC = () => {
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+    // Client for context
+    const [client, setClient] = useState<Client | null>(null);
+
     const autoSaveTimerRef = useRef<number | null>(null);
 
     useEffect(() => {
@@ -120,6 +125,19 @@ const TiptapReportEditorPage: React.FC = () => {
                 setReport(result.report);
                 setTitle(result.report.title);
                 setEditorContent(result.report.content || null);
+
+                // Load client if linked
+                if (result.report.clientId && currentUser) {
+                    try {
+                        const clients = await clientService.getClients(currentUser.uid);
+                        const linkedClient = clients.find(c => c.id === result.report.clientId);
+                        if (linkedClient) {
+                            setClient(linkedClient);
+                        }
+                    } catch (err) {
+                        console.error('Error loading client:', err);
+                    }
+                }
             }
         } catch (error) {
             console.error('Error loading report:', error);
@@ -674,6 +692,7 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     campaignIds={report.campaignIds}
                     reportId={report.id}
                     clientId={report.clientId}
+                    client={client}
                     userId={report.userId}
                     onOpenSettings={handleOpenSettings}
                 />

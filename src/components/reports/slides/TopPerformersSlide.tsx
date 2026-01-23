@@ -12,6 +12,7 @@ interface TopPerformersSlideProps {
     startDate?: Date;
     endDate?: Date;
     reportId?: string;
+    isTemplateMode?: boolean;
 }
 
 const TopPerformersSlide: React.FC<TopPerformersSlideProps> = ({

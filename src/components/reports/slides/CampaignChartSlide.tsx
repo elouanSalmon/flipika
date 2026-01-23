@@ -15,6 +15,7 @@ interface CampaignChartSlideProps {
     endDate?: Date;
     editable?: boolean;
     reportId?: string;
+    isTemplateMode?: boolean;
 }
 
 interface ChartDataPoint {

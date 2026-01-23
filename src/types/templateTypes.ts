@@ -45,6 +45,15 @@ export interface TemplateSlideConfig {
     };
 }
 
+// JSONContent type for Tiptap editor content
+export interface TiptapJSONContent {
+    type?: string;
+    attrs?: Record<string, any>;
+    content?: TiptapJSONContent[];
+    marks?: { type: string; attrs?: Record<string, any> }[];
+    text?: string;
+}
+
 // Report Template
 export interface ReportTemplate {
     id: string;
@@ -63,8 +72,11 @@ export interface ReportTemplate {
     // Period preset (no fixed dates)
     periodPreset: PeriodPreset;
 
-    // Widgets to include
+    // Legacy: Widgets to include (old editor format)
     slideConfigs: TemplateSlideConfig[];
+
+    // New: Tiptap editor content (new editor format)
+    content?: TiptapJSONContent;
 
     // Design (optional)
     design?: Partial<ReportDesign>;

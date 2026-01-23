@@ -75,7 +75,10 @@ export const SlashCommandMenu = forwardRef((props: SlashCommandMenuProps, ref) =
                 <button
                     key={index}
                     className={`slash-command-item ${index === selectedIndex ? 'selected' : ''}`}
-                    onClick={() => selectItem(index)}
+                    onMouseDown={(e) => {
+                        e.preventDefault(); // Prevent focus loss
+                        selectItem(index);
+                    }}
                     type="button"
                 >
                     <span className="slash-command-icon">

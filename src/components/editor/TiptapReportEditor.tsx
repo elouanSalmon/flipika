@@ -14,6 +14,7 @@ import { ChartBlockSelector } from './ChartBlockSelector';
 import { TiptapToolbar } from './TiptapToolbar';
 import { ReportEditorProvider } from '../../contexts/ReportEditorContext';
 import type { ReportDesign } from '../../types/reportTypes';
+import type { Client } from '../../types/client';
 import './TiptapEditor.css';
 
 interface TiptapReportEditorProps {
@@ -26,7 +27,9 @@ interface TiptapReportEditorProps {
     campaignIds?: string[];
     reportId?: string;
     clientId?: string;
+    client?: Client | null;
     userId?: string;
+    isTemplateMode?: boolean;
     onOpenSettings?: () => void;
 }
 
@@ -40,7 +43,9 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     campaignIds = [],
     reportId,
     clientId,
+    client,
     userId,
+    isTemplateMode = false,
     onOpenSettings,
 }) => {
     const defaultContent = {
@@ -118,7 +123,9 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             campaignIds={campaignIds}
             reportId={reportId}
             clientId={clientId}
+            client={client}
             userId={userId}
+            isTemplateMode={isTemplateMode}
             onOpenSettings={onOpenSettings}
         >
             <div

@@ -123,11 +123,20 @@ class PDFGenerationService {
             options.onProgress?.(5);
             this.updateOverlayProgress(overlay, 5, t.preparing);
 
-            // Find all slide items in the element
-            const slideElements = element.querySelectorAll('.slide-item');
-            console.log('[PDF] Found slides:', slideElements.length);
+            // Find all slide items in the element (Legacy: .slide-item, Tiptap: .slide-container)
+            // We specifically look for .slide-container to respect the user's request for slide-by-slide export
+            const slideElements = element.querySelectorAll('.slide-item, .slide-container');
+
+            console.log('[PDF] Found items to render:', slideElements.length);
 
             if (slideElements.length === 0) {
+                // Check if we have raw content to give a better error
+                const hasTiptapContent = element.querySelector('.tiptap-editor-content');
+
+                if (hasTiptapContent) {
+                    console.warn('[PDF] Tiptap content found but no slides (.slide-container). Ensure the report uses Slide nodes.');
+                }
+
                 throw new Error('No slides found in the report');
             }
 
@@ -185,13 +194,14 @@ class PDFGenerationService {
 
             // Save the PDF with a simple, safe filename
             const timestamp = new Date().toISOString().split('T')[0];
-            const safeName = 'Rapport_' + timestamp + '.pdf';
+            const finalFilename = options.filename || 'Rapport_' + timestamp + '.pdf';
+            const safeName = 'Rapport_' + timestamp + '.pdf'; // Keep safeName for logging if needed or remove it
 
-            console.log('[PDF] Final filename:', safeName);
+            console.log('[PDF] Final filename:', finalFilename);
             console.log('[PDF] PDF pages:', pdf.getNumberOfPages());
 
             // Use jsPDF's native save method which handles the download properly
-            pdf.save(safeName);
+            pdf.save(finalFilename);
             options.onProgress?.(100);
             this.updateOverlayProgress(overlay, 100, t.complete);
 

@@ -25,6 +25,9 @@ export const DataBlockExtension = Node.create({
 
     draggable: true,
 
+    defining: true,
+    isolating: true,
+
     addAttributes() {
         return {
             blockType: {
@@ -66,6 +69,8 @@ export const DataBlockExtension = Node.create({
     addCommands() {
         return {
             insertDataBlock: (options: { blockType: string; config?: any }) => ({ commands }) => {
+                console.log('Attempting to insert data block:', options);
+
                 return commands.insertContent({
                     type: this.name,
                     attrs: {

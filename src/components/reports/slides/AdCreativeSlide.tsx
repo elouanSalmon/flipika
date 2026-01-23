@@ -16,6 +16,7 @@ interface AdCreativeSlideProps {
     endDate?: Date;
     editable?: boolean;
     reportId?: string;
+    isTemplateMode?: boolean;
 }
 
 interface RealAdCreative {

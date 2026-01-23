@@ -11,6 +11,7 @@ interface ReportEditorContextType {
     client?: Client | null;
     userId?: string;
     isPublicView?: boolean;
+    isTemplateMode?: boolean; // When true, blocks always show demo data
     onOpenSettings?: () => void;
 }
 
@@ -19,6 +20,7 @@ const ReportEditorContext = createContext<ReportEditorContextType>({
     accountId: '',
     campaignIds: [],
     client: null,
+    isTemplateMode: false,
 });
 
 export const useReportEditor = () => useContext(ReportEditorContext);
@@ -33,6 +35,7 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
     client,
     userId,
     isPublicView,
+    isTemplateMode,
     onOpenSettings,
 }) => {
     return (
@@ -45,6 +48,7 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
             client,
             userId,
             isPublicView,
+            isTemplateMode,
             onOpenSettings
         }}>
             {children}

@@ -15,7 +15,7 @@ import {
     writeBatch
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
-import type { ReportTemplate, TemplateSlideConfig, PeriodPreset } from '../types/templateTypes';
+import type { ReportTemplate, TemplateSlideConfig, PeriodPreset, TiptapJSONContent } from '../types/templateTypes';
 import { getDateRangeFromPreset as calculateDateRange } from '../types/templateTypes';
 import { createReport, addSlide } from './reportService';
 
@@ -36,7 +36,8 @@ export async function createTemplate(
         campaignIds?: string[];
         campaignNames?: string[];
         periodPreset: PeriodPreset;
-        slideConfigs: TemplateSlideConfig[];
+        slideConfigs?: TemplateSlideConfig[];
+        content?: TiptapJSONContent;
         design?: any;
     }
 ): Promise<string> {
@@ -52,7 +53,8 @@ export async function createTemplate(
             campaignIds: config.campaignIds || [],
             campaignNames: config.campaignNames || [],
             periodPreset: config.periodPreset,
-            slideConfigs: config.slideConfigs,
+            slideConfigs: config.slideConfigs || [],
+            content: config.content || null,
             design: config.design || null,
             usageCount: 0,
             lastUsedAt: null,
@@ -94,6 +96,7 @@ export async function getTemplate(templateId: string): Promise<ReportTemplate | 
             campaignNames: data.campaignNames || [],
             periodPreset: data.periodPreset,
             slideConfigs: data.slideConfigs || [],
+            content: data.content || null,
             design: data.design,
             usageCount: data.usageCount || 0,
             lastUsedAt: data.lastUsedAt?.toDate(),
@@ -136,6 +139,7 @@ export async function listUserTemplates(userId: string): Promise<ReportTemplate[
                 campaignNames: data.campaignNames || [],
                 periodPreset: data.periodPreset,
                 slideConfigs: data.slideConfigs || [],
+                content: data.content || null,
                 design: data.design,
                 usageCount: data.usageCount || 0,
                 lastUsedAt: data.lastUsedAt?.toDate(),
@@ -212,6 +216,7 @@ export async function duplicateTemplate(
             campaignNames: template.campaignNames,
             periodPreset: template.periodPreset,
             slideConfigs: template.slideConfigs,
+            content: template.content,
             design: template.design,
         });
     } catch (error) {
@@ -238,6 +243,7 @@ export async function incrementTemplateUsage(templateId: string): Promise<void> 
 
 /**
  * Create a report from a template
+ * Supports both legacy templates (slideConfigs) and new Tiptap templates (content)
  */
 export async function createReportFromTemplate(
     templateId: string,
@@ -264,8 +270,6 @@ export async function createReportFromTemplate(
 
         // Use overrides or template values
         const clientId = overrides?.clientId || template.clientId;
-        // If client overrides account, account MUST be re-verified or passed in overrides.
-        // Assuming overrides contains matching account info if clientId is passed.
         const accountId = overrides?.accountId || template.accountId;
         const accountName = overrides?.accountName || template.accountName;
         const campaignIds = overrides?.campaignIds || template.campaignIds;
@@ -289,28 +293,32 @@ export async function createReportFromTemplate(
             },
             accountName,
             campaignNames,
-            clientId // Pass clientId
+            clientId
         );
 
-        // Add widgets from template
         const batch = writeBatch(db);
-
-        for (const widgetConfig of template.slideConfigs) {
-            await addSlide(reportId, {
-                type: widgetConfig.type,
-                accountId,
-                campaignIds,
-                order: widgetConfig.order,
-                settings: widgetConfig.settings,
-            });
-        }
-
-        // Update report with template reference and design
         const reportRef = doc(db, 'reports', reportId);
         const reportUpdates: any = {
             templateId,
             updatedAt: serverTimestamp(),
         };
+
+        // Check if template uses new Tiptap format or legacy slideConfigs
+        if (template.content) {
+            // New Tiptap format: copy content directly to report
+            reportUpdates.content = template.content;
+        } else {
+            // Legacy format: add slides from slideConfigs
+            for (const widgetConfig of template.slideConfigs) {
+                await addSlide(reportId, {
+                    type: widgetConfig.type,
+                    accountId,
+                    campaignIds,
+                    order: widgetConfig.order,
+                    settings: widgetConfig.settings,
+                });
+            }
+        }
 
         if (template.design) {
             reportUpdates.design = template.design;
@@ -415,6 +423,52 @@ export async function updateTemplateSlides(
     } catch (error) {
         console.error('Error updating template slides:', error);
         throw new Error('Failed to update template slides');
+    }
+}
+
+/**
+ * Save template with Tiptap content (for new Tiptap template editor)
+ */
+export async function saveTemplateContent(
+    templateId: string,
+    updates: {
+        name?: string;
+        description?: string;
+        design?: any;
+    },
+    content: TiptapJSONContent
+): Promise<void> {
+    try {
+        const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
+        const firestoreUpdates: any = {
+            ...updates,
+            content,
+            updatedAt: serverTimestamp(),
+        };
+
+        await updateDoc(docRef, firestoreUpdates);
+    } catch (error) {
+        console.error('Error saving template content:', error);
+        throw new Error('Failed to save template content');
+    }
+}
+
+/**
+ * Update template Tiptap content only
+ */
+export async function updateTemplateContent(
+    templateId: string,
+    content: TiptapJSONContent
+): Promise<void> {
+    try {
+        const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
+        await updateDoc(docRef, {
+            content,
+            updatedAt: serverTimestamp(),
+        });
+    } catch (error) {
+        console.error('Error updating template content:', error);
+        throw new Error('Failed to update template content');
     }
 }
 

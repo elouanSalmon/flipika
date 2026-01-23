@@ -19,17 +19,26 @@ import ClientLogoBlock from './ClientLogoBlock';
 
 /**
  * Data Block Component (Epic 13 - Story 13.2)
- * 
+ *
  * Renders the appropriate slide component based on the block type.
  * Uses ReportEditorContext to provide design and data context.
+ * In template mode, blocks always show demo data.
  */
 export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps) => {
     const { blockType, config } = node.attrs;
-    const { design, accountId, campaignIds, reportId } = useReportEditor();
+    const { design, accountId, campaignIds, reportId, isTemplateMode } = useReportEditor();
 
     if (!design) {
-        return <div className="p-4 text-red-500">Error: Missing design context</div>;
+        return (
+            <NodeViewWrapper className="data-block-wrapper error">
+                <div className="p-4 text-red-500">Error: Missing design context</div>
+            </NodeViewWrapper>
+        );
     }
+
+    // In template mode, use empty values to force demo data
+    const effectiveAccountId = isTemplateMode ? '' : accountId;
+    const effectiveCampaignIds = isTemplateMode ? [] : campaignIds;
 
     // Synthesize a SlideConfig-like object for the component
     // We use a stable ID from the node or generate one if needed (though node ID is best if available)
@@ -37,8 +46,8 @@ export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps
     const slideConfig: SlideConfig = {
         id: node.attrs.id || `block-${Date.now()}`,
         type: blockType as SlideType,
-        accountId,
-        campaignIds,
+        accountId: effectiveAccountId,
+        campaignIds: effectiveCampaignIds,
         order: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -52,84 +61,92 @@ export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps
             case 'performance': // Legacy/Alias
                 return (
                     <PerformanceOverviewSlide
-                        accountId={accountId}
-                        campaignIds={campaignIds}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
                         editable={false} // Block view is usually "preview" mode, editing happens via settings
+                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.CAMPAIGN_CHART:
             case 'chart': // Legacy/Alias
                 return (
                     <CampaignChartSlide
-                        accountId={accountId}
-                        campaignIds={campaignIds}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
+                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.KEY_METRICS:
             case 'keyMetrics': // Legacy/Alias
                 return (
                     <KeyMetricsSlide
-                        accountId={accountId}
-                        campaignIds={campaignIds}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
+                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.AD_CREATIVE:
                 return (
                     <AdCreativeSlide
-                        accountId={accountId}
-                        campaignIds={campaignIds}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
+                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.FUNNEL_ANALYSIS:
                 return (
                     <FunnelAnalysisSlide
-                        accountId={accountId}
-                        campaignIds={campaignIds}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
+                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.HEATMAP:
                 return (
                     <HeatmapSlide
-                        accountId={accountId}
-                        campaignIds={campaignIds}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
+                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.DEVICE_PLATFORM_SPLIT:
                 return (
                     <DevicePlatformSplitSlide
-                        accountId={accountId}
-                        campaignIds={campaignIds}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
+                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.TOP_PERFORMERS:
                 return (
                     <TopPerformersSlide
-                        accountId={accountId}
-                        campaignIds={campaignIds}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
+                        isTemplateMode={isTemplateMode}
                     />
                 );
             case 'clientLogo':

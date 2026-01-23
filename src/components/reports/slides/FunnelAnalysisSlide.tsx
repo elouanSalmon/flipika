@@ -14,6 +14,7 @@ interface FunnelAnalysisSlideProps {
     endDate?: Date;
     editable?: boolean;
     reportId?: string;
+    isTemplateMode?: boolean;
 }
 
 interface FunnelStep {

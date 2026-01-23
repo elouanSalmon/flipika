@@ -14,6 +14,7 @@ interface PerformanceOverviewSlideProps {
     endDate?: Date;
     editable?: boolean;
     reportId?: string;
+    isTemplateMode?: boolean;
 }
 
 interface MetricData {

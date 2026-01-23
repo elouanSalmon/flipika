@@ -102,8 +102,10 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
             }
         };
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
+        // Use 'click' instead of 'mousedown' to avoid race condition
+        // where flyout closes before the button click is processed
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
     // Combine all charts into one master list
@@ -115,10 +117,14 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
     ];
 
     const handleInsertChart = (chart: ChartOption) => {
+        // Focus editor first, then insert block, then close flyout
         editor.chain().focus().insertDataBlock({
             blockType: chart.type,
             config: chart.config
         }).run();
+
+        // Close the flyout after insertion
+        setActiveCategory(null);
     };
 
     const isSearchActive = activeCategory === 'search';

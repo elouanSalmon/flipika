@@ -46,7 +46,7 @@ import NotFound from './pages/NotFound';
 import ClientsPage from './pages/ClientsPage';
 import ClientEditPage from './pages/ClientEditPage';
 import ReportPreview from './pages/ReportPreview';
-import TemplateEditor from './pages/TemplateEditor';
+import TiptapTemplateEditorPage from './pages/TiptapTemplateEditorPage';
 import GoogleAdsPlayground from './pages/GoogleAdsPlayground';
 import './App.css';
 
@@ -187,11 +187,11 @@ const AppRoutes = () => {
         } />
       )}
 
-      {/* Template Editor - Full Page (No AppLayout) */}
+      {/* Template Editor - Full Page (No AppLayout) - Using new Tiptap Editor */}
       {enableReports && (
         <Route path="/app/templates/editor/:id" element={
           <ProtectedRoute>
-            <TemplateEditor />
+            <TiptapTemplateEditorPage />
           </ProtectedRoute>
         } />
       )}

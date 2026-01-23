@@ -15,6 +15,7 @@ interface DevicePlatformSplitSlideProps {
     endDate?: Date;
     editable?: boolean;
     reportId?: string;
+    isTemplateMode?: boolean;
 }
 
 const DevicePlatformSplitSlide: React.FC<DevicePlatformSplitSlideProps> = ({

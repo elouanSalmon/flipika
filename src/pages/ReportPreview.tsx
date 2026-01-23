@@ -80,8 +80,11 @@ const ReportPreview: React.FC = () => {
                 return;
             }
 
-            // Check for empty slides (no data state)
-            if (!result.slides || result.slides.length === 0) {
+            // Check for empty slides or Tiptap content
+            const hasTiptap = isTiptapContent(result.report.content);
+            const hasSlides = result.slides && result.slides.length > 0;
+
+            if (!hasSlides && !hasTiptap) {
                 setState({
                     status: 'empty',
                     report: result.report,
@@ -405,17 +408,21 @@ const ReportPreview: React.FC = () => {
     };
 
     const addToHistory = async (action: 'download' | 'email', metadata?: any) => {
-        if (!state.report || !state.report.clientId || !currentUser) return;
+        // Guard clause to ensure we have a report and user context
+        if ((state.status !== 'success' && state.status !== 'empty') || !currentUser) return;
+
+        const report = state.report;
+        if (!report.clientId) return;
 
         const { historyService } = await import('../services/historyService');
 
         await historyService.addToHistory({
-            reportId: state.report.id,
-            clientId: state.report.clientId,
-            reportTitle: state.report.title,
+            reportId: report.id,
+            clientId: report.clientId,
+            reportTitle: report.title,
             period: {
-                startDate: state.report.startDate.toISOString(),
-                endDate: state.report.endDate.toISOString()
+                startDate: (report.startDate || new Date()).toISOString(),
+                endDate: (report.endDate || new Date()).toISOString()
             },
             action,
             metadata: {
@@ -519,7 +526,7 @@ const ReportPreview: React.FC = () => {
     const { report, slides } = state;
 
     // Check if generation buttons should be disabled
-    const canGenerate = slides.length > 0;
+    const canGenerate = slides.length > 0 || isTiptapContent(report.content);
 
     return (
         <ErrorBoundary>

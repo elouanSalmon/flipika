@@ -7,9 +7,10 @@ import { Building2 } from 'lucide-react';
  *
  * Displays the logo of the client associated with the report.
  * Fetches client data using the clientId from ReportEditorContext.
+ * In template mode, shows a demo placeholder.
  */
 export const ClientLogoBlock: React.FC = () => {
-    const { client, design, onOpenSettings } = useReportEditor();
+    const { client, design, onOpenSettings, isTemplateMode } = useReportEditor();
 
     // Debug
     useEffect(() => {
@@ -19,6 +20,26 @@ export const ClientLogoBlock: React.FC = () => {
     }, [client]);
 
     const isDarkMode = design?.mode === 'dark';
+
+    // In template mode, show a demo placeholder
+    if (isTemplateMode) {
+        return (
+            <div className="client-logo-block">
+                <div className="client-logo-placeholder flex flex-col items-center justify-center p-4 text-center">
+                    <Building2
+                        size={48}
+                        className={`mb-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}
+                    />
+                    <p className={`text-lg font-semibold mt-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+                        Logo du Client
+                    </p>
+                    <span className="mt-2 px-2 py-1 text-xs font-medium text-amber-700 bg-amber-100 dark:text-amber-300 dark:bg-amber-900/30 rounded">
+                        Apercu - Sera remplace par le logo du client
+                    </span>
+                </div>
+            </div>
+        );
+    }
 
     // If no client is linked or client doesn't exist
     if (!client) {
