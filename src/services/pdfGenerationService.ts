@@ -195,8 +195,6 @@ class PDFGenerationService {
             // Save the PDF with a simple, safe filename
             const timestamp = new Date().toISOString().split('T')[0];
             const finalFilename = options.filename || 'Rapport_' + timestamp + '.pdf';
-            const safeName = 'Rapport_' + timestamp + '.pdf'; // Keep safeName for logging if needed or remove it
-
             console.log('[PDF] Final filename:', finalFilename);
             console.log('[PDF] PDF pages:', pdf.getNumberOfPages());
 

@@ -383,72 +383,7 @@ const TiptapReportEditorPage: React.FC = () => {
         navigate(`/app/reports/${report.id}/preview`);
     };
 
-    const handleShareByEmail = async () => {
-        if (!report || !currentUser) return;
 
-        try {
-            const profile = await getUserProfile(currentUser.uid);
-
-            const campaignNames: string[] = [];
-            try {
-                const response = await fetchCampaigns(report.accountId);
-                if (response.success && response.campaigns) {
-                    const campaigns = Array.isArray(response.campaigns) ? response.campaigns : [];
-                    report.campaignIds.forEach(id => {
-                        const campaign = campaigns.find((c: Campaign) => c.id === id);
-                        if (campaign) {
-                            campaignNames.push(campaign.name);
-                        }
-                    });
-                }
-            } catch (err) {
-                console.warn('Could not load campaign names for email:', err);
-            }
-
-            const formatDate = (date?: Date) => {
-                if (!date) return 'N/A';
-                return new Date(date).toLocaleDateString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                });
-            };
-
-            const subject = t('editor.email.subject', { title: report.title });
-            const passwordPart = report.isPasswordProtected ? t('editor.email.passwordProtected') : '';
-
-            const emailBody = `${t('editor.email.greeting')}
-
-${t('editor.email.intro')}
-
-${t('editor.email.reportTitle', { title: report.title })}
-${t('editor.email.period', { startDate: formatDate(report.startDate), endDate: formatDate(report.endDate) })}
-${campaignNames.length > 0 ? t('editor.email.campaigns', { names: campaignNames.join(', ') }) : ''}
-
-${t('editor.email.accessLink', { url: window.location.origin + report.shareUrl })}
-${passwordPart}
-
-${t('editor.email.questions')}
-
-${t('editor.email.signature')}
-${t('editor.email.signatureName', { name: `${profile?.firstName || ''} ${profile?.lastName || ''}`.trim() })}
-${profile?.company ? t('editor.email.signatureCompany', { company: profile.company }) : ''}`;
-
-            const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-            const link = document.createElement('a');
-            link.href = mailtoLink;
-            link.target = '_self';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            toast.success(t('editor.messages.emailOpened'));
-            setShowShareMenu(false);
-        } catch (error) {
-            console.error('Error generating email:', error);
-            toast.error(t('editor.messages.emailError'));
-        }
-    };
 
     if (isLoading) {
         return (
