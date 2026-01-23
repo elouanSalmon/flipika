@@ -15,6 +15,7 @@ import { SlideExtension } from './extensions/SlideExtension';
 import { SlideDocument } from './extensions/SlideDocument';
 import { SlideNavigation } from './components/SlideNavigation';
 import { TableBubbleMenu } from './components/TableBubbleMenu';
+import { TextBubbleMenu } from './components/TextBubbleMenu';
 import { ChartBlockSelector } from './ChartBlockSelector';
 import { TiptapToolbar } from './TiptapToolbar';
 import { ReportEditorProvider } from '../../contexts/ReportEditorContext';
@@ -157,6 +158,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                     <div className="tiptap-editor-content slide-editor-container">
                         <EditorContent editor={editor} />
                         <TableBubbleMenu editor={editor} />
+                        <TextBubbleMenu editor={editor} />
                     </div>
                     {/* Floating Chart Selector */}
                     <ChartBlockSelector editor={editor} />
