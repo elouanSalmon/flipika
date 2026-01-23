@@ -667,6 +667,7 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                     accountId={report.accountId}
                     campaignIds={report.campaignIds}
                     reportId={report.id}
+                    clientId={report.clientId}
                 />
             </main>
 

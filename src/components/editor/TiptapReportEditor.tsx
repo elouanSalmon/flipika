@@ -25,6 +25,7 @@ interface TiptapReportEditorProps {
     accountId?: string;
     campaignIds?: string[];
     reportId?: string;
+    clientId?: string;
 }
 
 export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
@@ -36,6 +37,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     accountId = '',
     campaignIds = [],
     reportId,
+    clientId,
 }) => {
     const defaultContent = {
         type: 'doc',
@@ -102,6 +104,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             accountId={accountId}
             campaignIds={campaignIds}
             reportId={reportId}
+            clientId={clientId}
         >
             <div className="tiptap-slide-editor-layout">
                 {/* Left Sidebar - Slide Navigation */}

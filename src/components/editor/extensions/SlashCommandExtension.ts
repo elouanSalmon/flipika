@@ -4,7 +4,7 @@ import Suggestion from '@tiptap/suggestion';
 import { SlashCommandMenu } from '../components/SlashCommandMenu';
 import tippy from 'tippy.js';
 import type { Instance as TippyInstance } from 'tippy.js';
-import { BarChart3, Target, TrendingUp, Filter, Image, Layout, PieChart, Trophy } from 'lucide-react';
+import { BarChart3, Target, TrendingUp, Filter, Image, Layout, PieChart, Trophy, Building2 } from 'lucide-react';
 
 
 /**
@@ -140,6 +140,16 @@ export const SlashCommandExtension = Extension.create({
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
                                     .insertDataBlock({ blockType: 'top_performers', config: {} })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Logo Client',
+                            description: 'Affiche le logo du client du rapport',
+                            icon: Building2,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range)
+                                    .insertDataBlock({ blockType: 'clientLogo', config: {} })
                                     .run();
                             },
                         },

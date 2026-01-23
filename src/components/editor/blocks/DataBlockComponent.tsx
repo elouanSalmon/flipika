@@ -15,6 +15,7 @@ import FunnelAnalysisSlide from '../../reports/slides/FunnelAnalysisSlide';
 import HeatmapSlide from '../../reports/slides/HeatmapSlide';
 import DevicePlatformSplitSlide from '../../reports/slides/DevicePlatformSplitSlide';
 import TopPerformersSlide from '../../reports/slides/TopPerformersSlide';
+import ClientLogoBlock from './ClientLogoBlock';
 
 /**
  * Data Block Component (Epic 13 - Story 13.2)
@@ -131,6 +132,8 @@ export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps
                         reportId={reportId}
                     />
                 );
+            case 'clientLogo':
+                return <ClientLogoBlock />;
             default:
                 return (
                     <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-dashed border-gray-300">

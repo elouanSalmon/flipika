@@ -6,6 +6,7 @@ interface ReportEditorContextType {
     accountId: string;
     campaignIds: string[];
     reportId?: string;
+    clientId?: string;
     isPublicView?: boolean;
 }
 
@@ -23,10 +24,11 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
     accountId,
     campaignIds,
     reportId,
+    clientId,
     isPublicView,
 }) => {
     return (
-        <ReportEditorContext.Provider value={{ design, accountId, campaignIds, reportId, isPublicView }}>
+        <ReportEditorContext.Provider value={{ design, accountId, campaignIds, reportId, clientId, isPublicView }}>
             {children}
         </ReportEditorContext.Provider>
     );
