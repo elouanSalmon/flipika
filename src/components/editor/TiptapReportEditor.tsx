@@ -12,6 +12,7 @@ import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
 import { SlashCommandExtension } from './extensions/SlashCommandExtension';
+import { ColumnGroup, Column } from './extensions/ColumnsExtension';
 import { SlideExtension } from './extensions/SlideExtension';
 import { SlideDocument } from './extensions/SlideDocument';
 import { SlideNavigation } from './components/SlideNavigation';
@@ -106,6 +107,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             SlideExtension,
             DataBlockExtension,
             SlashCommandExtension,
+            ColumnGroup,
+            Column,
             Table.configure({
                 resizable: true,
             }),

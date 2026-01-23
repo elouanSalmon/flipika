@@ -1634,3 +1634,39 @@
 .ProseMirror.resize-cursor {
     cursor: col-resize;
 }
+/* Columns Extension */
+.column-group {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.column {
+    flex: 1;
+    min-width: 0;
+    border: 1px dashed transparent;
+    border-radius: 4px;
+    padding: 4px;
+    transition: border-color 0.2s;
+}
+
+.ProseMirror-editable .column:hover {
+    border-color: var(--color-border);
+}
+
+.column > *:first-child {
+    margin-top: 0;
+}
+
+.column > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive adjustment if needed, but for slides we want to keep columns usually */
+@media (max-width: 640px) {
+    .column-group {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

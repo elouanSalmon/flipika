@@ -11,6 +11,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import { SlideDocument } from './extensions/SlideDocument';
 import { SlideExtension } from './extensions/SlideExtension';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
+import { ColumnGroup, Column } from './extensions/ColumnsExtension';
 import { ReportEditorProvider } from '../../contexts/ReportEditorContext';
 import type { ReportDesign } from '../../types/reportTypes';
 import type { JSONContent } from '@tiptap/react';
@@ -69,6 +70,8 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
             TableRow,
             TableHeader,
             TableCell,
+            ColumnGroup,
+            Column,
         ],
         content,
         editable: false,

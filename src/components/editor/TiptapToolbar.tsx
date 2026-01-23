@@ -20,6 +20,7 @@ import {
     Undo,
     Redo,
     Table as TableIcon,
+    Columns2,
 } from 'lucide-react';
 
 interface TiptapToolbarProps {
@@ -217,12 +218,22 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor }) => {
 
             <div className="tiptap-toolbar-separator" />
 
-            {/* Tables */}
             <div className="tiptap-toolbar-group">
                 <ToolbarButton
                     onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
                     icon={<TableIcon size={18} />}
                     title="Insérer un tableau"
+                />
+                <ToolbarButton
+                    onClick={() => editor.chain().focus().insertContent({
+                        type: 'columnGroup',
+                        content: [
+                            { type: 'column', content: [{ type: 'paragraph' }] },
+                            { type: 'column', content: [{ type: 'paragraph' }] },
+                        ],
+                    }).run()}
+                    icon={<Columns2 size={18} />}
+                    title="Colonnes (2)"
                 />
             </div>
 

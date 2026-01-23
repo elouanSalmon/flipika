@@ -4,7 +4,7 @@ import Suggestion from '@tiptap/suggestion';
 import { SlashCommandMenu } from '../components/SlashCommandMenu';
 import tippy from 'tippy.js';
 import type { Instance as TippyInstance } from 'tippy.js';
-import { BarChart3, Target, TrendingUp, Filter, Image, Layout, PieChart, Trophy, Building2, Table as TableIcon } from 'lucide-react';
+import { BarChart3, Target, TrendingUp, Filter, Image, Columns2, Layout, PieChart, Trophy, Building2, Table as TableIcon } from 'lucide-react';
 
 
 /**
@@ -160,6 +160,22 @@ export const SlashCommandExtension = Extension.create({
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
                                     .insertDataBlock({ blockType: 'clientLogo', config: {} })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Colonnes',
+                            description: 'Diviser la slide en 2 colonnes',
+                            icon: Columns2,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range)
+                                    .insertContent({
+                                        type: 'columnGroup',
+                                        content: [
+                                            { type: 'column', content: [{ type: 'paragraph' }] },
+                                            { type: 'column', content: [{ type: 'paragraph' }] },
+                                        ],
+                                    })
                                     .run();
                             },
                         },
