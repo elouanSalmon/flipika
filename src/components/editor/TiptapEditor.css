@@ -299,7 +299,7 @@
     padding: 2rem;
     min-height: 100%;
     outline: none;
-    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+    font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
     font-size: 1rem;
     line-height: 1.75;
     color: var(--color-text-primary, #111827);
@@ -315,6 +315,7 @@
 
 /* Typography */
 .tiptap-editor-content h1 {
+    font-family: var(--heading-font-family, var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif));
     font-size: 2.25rem;
     font-weight: 700;
     line-height: 1.2;
@@ -328,6 +329,7 @@
 }
 
 .tiptap-editor-content h2 {
+    font-family: var(--heading-font-family, var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif));
     font-size: 1.875rem;
     font-weight: 600;
     line-height: 1.3;
@@ -337,6 +339,7 @@
 }
 
 .tiptap-editor-content h3 {
+    font-family: var(--heading-font-family, var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif));
     font-size: 1.5rem;
     font-weight: 600;
     line-height: 1.4;
@@ -544,6 +547,7 @@
     z-index: 1;
     /* Use theme colors from slide container */
     color: inherit;
+    font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
 }
 
 .slide-content-editable {
@@ -551,6 +555,7 @@
     height: 100%;
     outline: none;
     color: inherit;
+    font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
 }
 
 /* Text styling inside slides - use theme colors */
@@ -558,6 +563,7 @@
 .slide-content h2,
 .slide-content h3 {
     color: var(--color-text-primary, inherit);
+    font-family: var(--heading-font-family, var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif));
 }
 
 .slide-content p,
@@ -617,6 +623,7 @@
 }
 
 .slide-layout-title h1 {
+    font-family: var(--heading-font-family, var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif));
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
@@ -633,6 +640,7 @@
 }
 
 .slide-layout-content h2 {
+    font-family: var(--heading-font-family, var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif));
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
@@ -899,6 +907,7 @@
 .slide-thumbnail-editor .ProseMirror h2,
 .slide-thumbnail-editor .ProseMirror h3 {
     color: var(--color-text-primary, inherit);
+    font-family: var(--heading-font-family, var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif));
 }
 
 .slide-thumbnail-editor .ProseMirror h1 {
@@ -922,6 +931,7 @@
 .slide-thumbnail-editor .ProseMirror p,
 .slide-thumbnail-editor .ProseMirror li {
     color: var(--color-text-primary, inherit);
+    font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
     opacity: 0.9;
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;

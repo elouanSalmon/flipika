@@ -5,6 +5,7 @@ import StarterKit from '@tiptap/starter-kit';
 import { Plus, Trash2 } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { DataBlockExtension } from '../extensions/DataBlockExtension';
+import { ColumnGroup, Column } from '../extensions/ColumnsExtension';
 import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
@@ -46,6 +47,8 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, de
             heading: { levels: [1, 2, 3] },
         }),
         DataBlockExtension,
+        ColumnGroup,
+        Column,
         Table.configure({
             resizable: false,
         }),

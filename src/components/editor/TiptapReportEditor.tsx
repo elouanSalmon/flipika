@@ -4,6 +4,15 @@ import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
+import { Underline } from '@tiptap/extension-underline';
+import { Link } from '@tiptap/extension-link';
+import { Image } from '@tiptap/extension-image';
+import { TextStyle } from '@tiptap/extension-text-style';
+import { Color } from '@tiptap/extension-color';
+import { Typography } from '@tiptap/extension-typography';
+import { Subscript } from '@tiptap/extension-subscript';
+import { Superscript } from '@tiptap/extension-superscript';
+import { CharacterCount } from '@tiptap/extension-character-count';
 import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
@@ -69,10 +78,13 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     const extensions = useMemo(() => [
         // Custom document that only accepts slides at top level
         SlideDocument,
-        // StarterKit but disable document (we use SlideDocument)
+        // StarterKit but disable document (we use SlideDocument) and extensions we add manually
         StarterKit.configure({
             document: false,
             heading: { levels: [1, 2, 3] },
+            // Disable extensions that we configure separately below
+            link: false,
+            underline: false,
         }),
         Placeholder.configure({
             placeholder: ({ node }) => {
@@ -86,7 +98,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             includeChildren: true,
             showOnlyCurrent: false,
         }),
-        // Additional text formatting extensions
+        // Text formatting extensions
+        Underline,
         Highlight.configure({
             multicolor: false,
         }),
@@ -95,11 +108,37 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             alignments: ['left', 'center', 'right'],
             defaultAlignment: 'left',
         }),
+        Subscript,
+        Superscript,
+        // Text styling (required for Color)
+        TextStyle,
+        Color,
+        // Link extension
+        Link.configure({
+            openOnClick: false,
+            HTMLAttributes: {
+                class: 'tiptap-link',
+            },
+        }),
+        // Image extension
+        Image.configure({
+            inline: true,
+            allowBase64: true,
+            HTMLAttributes: {
+                class: 'tiptap-image',
+            },
+        }),
+        // Typography improvements (smart quotes, dashes, etc.)
+        Typography,
+        // Character count
+        CharacterCount,
+        // Custom extensions
         SlideExtension,
         DataBlockExtension,
         SlashCommandExtension,
         ColumnGroup,
         Column,
+        // Table extensions
         Table.configure({
             resizable: true,
         }),
@@ -130,6 +169,10 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         ? (design?.colorScheme?.text || '#f8fafc')
         : '#1e293b'; // Dark text on light highlight usually better
 
+    // Get fonts from theme
+    const fontFamily = design?.typography?.fontFamily || 'Inter, sans-serif';
+    const headingFontFamily = design?.typography?.headingFontFamily || fontFamily;
+
     return (
         <ReportEditorProvider
             design={design || null}
@@ -147,6 +190,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                 style={{
                     '--highlight-color': highlightColor,
                     '--highlight-text-color': highlightTextColor,
+                    '--font-family': fontFamily,
+                    '--heading-font-family': headingFontFamily,
                 } as React.CSSProperties}
             >
                 {/* Left Sidebar - Slide Navigation */}
