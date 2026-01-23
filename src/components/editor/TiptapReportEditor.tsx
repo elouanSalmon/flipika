@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
-import Underline from '@tiptap/extension-underline';
-import Link from '@tiptap/extension-link';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
 import { Table } from '@tiptap/extension-table';
@@ -67,55 +65,50 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         ],
     };
 
+    const extensions = useMemo(() => [
+        // Custom document that only accepts slides at top level
+        SlideDocument,
+        // StarterKit but disable document (we use SlideDocument)
+        StarterKit.configure({
+            document: false,
+            heading: { levels: [1, 2, 3] },
+        }),
+        Placeholder.configure({
+            placeholder: ({ node }) => {
+                if (node.type.name === 'tableCell' || node.type.name === 'tableHeader') {
+                    return '';
+                }
+                return placeholder;
+            },
+            emptyEditorClass: 'is-editor-empty',
+            emptyNodeClass: 'is-node-empty',
+            includeChildren: true,
+            showOnlyCurrent: false,
+        }),
+        // Additional text formatting extensions
+        Highlight.configure({
+            multicolor: false,
+        }),
+        TextAlign.configure({
+            types: ['heading', 'paragraph'],
+            alignments: ['left', 'center', 'right'],
+            defaultAlignment: 'left',
+        }),
+        SlideExtension,
+        DataBlockExtension,
+        SlashCommandExtension,
+        ColumnGroup,
+        Column,
+        Table.configure({
+            resizable: true,
+        }),
+        TableRow,
+        TableHeader,
+        TableCell,
+    ], [placeholder]);
+
     const editor = useEditor({
-        extensions: [
-            // Custom document that only accepts slides at top level
-            SlideDocument,
-            // StarterKit but disable document (we use SlideDocument)
-            StarterKit.configure({
-                document: false,
-                heading: { levels: [1, 2, 3] },
-            }),
-            Placeholder.configure({
-                placeholder: ({ node }) => {
-                    if (node.type.name === 'tableCell' || node.type.name === 'tableHeader') {
-                        return '';
-                    }
-                    return placeholder;
-                },
-                emptyEditorClass: 'is-editor-empty',
-                emptyNodeClass: 'is-node-empty',
-                includeChildren: true,
-                showOnlyCurrent: false,
-            }),
-            // Additional text formatting extensions
-            Underline,
-            Highlight.configure({
-                multicolor: false,
-            }),
-            Link.configure({
-                openOnClick: false,
-                HTMLAttributes: {
-                    class: 'tiptap-link',
-                },
-            }),
-            TextAlign.configure({
-                types: ['heading', 'paragraph'],
-                alignments: ['left', 'center', 'right'],
-                defaultAlignment: 'left',
-            }),
-            SlideExtension,
-            DataBlockExtension,
-            SlashCommandExtension,
-            ColumnGroup,
-            Column,
-            Table.configure({
-                resizable: true,
-            }),
-            TableRow,
-            TableHeader,
-            TableCell,
-        ],
+        extensions,
         content: content || defaultContent,
         editable,
         onUpdate: ({ editor }) => {

@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Plus, Trash2 } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { DataBlockExtension } from '../extensions/DataBlockExtension';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
+
 
 interface SlideInfo {
     id: string;
@@ -36,13 +41,21 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, de
         content: slide.content || [{ type: 'paragraph' }],
     };
 
+    const extensions = useMemo(() => [
+        StarterKit.configure({
+            heading: { levels: [1, 2, 3] },
+        }),
+        DataBlockExtension,
+        Table.configure({
+            resizable: false,
+        }),
+        TableRow,
+        TableHeader,
+        TableCell,
+    ], []);
+
     const thumbnailEditor = useEditor({
-        extensions: [
-            StarterKit.configure({
-                heading: { levels: [1, 2, 3] },
-            }),
-            DataBlockExtension,
-        ],
+        extensions,
         content: editorContent,
         editable: false,
         editorProps: {

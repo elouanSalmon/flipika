@@ -1,11 +1,10 @@
 import { useEditor, EditorContent } from '@tiptap/react';
+import React, { useMemo } from 'react';
 import StarterKit from '@tiptap/starter-kit';
 import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
-import Underline from '@tiptap/extension-underline';
-import Link from '@tiptap/extension-link';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
 import { SlideDocument } from './extensions/SlideDocument';
@@ -40,39 +39,34 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
     clientId,
     userId,
 }) => {
+    const extensions = useMemo(() => [
+        SlideDocument,
+        StarterKit.configure({
+            document: false,
+            heading: { levels: [1, 2, 3] },
+        }),
+        Highlight.configure({
+            multicolor: false,
+        }),
+        TextAlign.configure({
+            types: ['heading', 'paragraph'],
+            alignments: ['left', 'center', 'right'],
+            defaultAlignment: 'left',
+        }),
+        SlideExtension,
+        DataBlockExtension,
+        Table.configure({
+            resizable: false, // Read-only
+        }),
+        TableRow,
+        TableHeader,
+        TableCell,
+        ColumnGroup,
+        Column,
+    ], []);
+
     const editor = useEditor({
-        extensions: [
-            SlideDocument,
-            StarterKit.configure({
-                document: false,
-                heading: { levels: [1, 2, 3] },
-            }),
-            Underline,
-            Highlight.configure({
-                multicolor: false,
-            }),
-            Link.configure({
-                openOnClick: true, // Allow clicking links in read-only mode
-                HTMLAttributes: {
-                    class: 'tiptap-link',
-                },
-            }),
-            TextAlign.configure({
-                types: ['heading', 'paragraph'],
-                alignments: ['left', 'center', 'right'],
-                defaultAlignment: 'left',
-            }),
-            SlideExtension,
-            DataBlockExtension,
-            Table.configure({
-                resizable: false, // Read-only
-            }),
-            TableRow,
-            TableHeader,
-            TableCell,
-            ColumnGroup,
-            Column,
-        ],
+        extensions,
         content,
         editable: false,
     });

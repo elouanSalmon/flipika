@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import AdCreativeCard from './AdCreativeCard';
 import PerformanceMaxSlide from './PerformanceMaxSlide';
 import SearchAdSlide from './SearchAdSlide';
@@ -56,7 +56,11 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
 
     // Compute effective scope (per-slide override or report-level default)
     const effectiveAccountId = config.scope?.accountId || accountId || '';
-    const effectiveCampaignIds = config.scope?.campaignIds || campaignIds || [];
+
+    // Memoize campaign IDs to prevent re-render loops due to array reference changes
+    const effectiveCampaignIds = useMemo(() => {
+        return config.scope?.campaignIds || campaignIds || [];
+    }, [config.scope?.campaignIds, campaignIds]);
 
     // DEMO DATA - Mock ad examples for demonstration
     // In production, these would be fetched from Google Ads API based on user selection
@@ -97,7 +101,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
 
     useEffect(() => {
         loadData();
-    }, [config, effectiveAccountId, effectiveCampaignIds, startDate, endDate]);
+    }, [config?.id, effectiveAccountId, effectiveCampaignIds, startDate, endDate]);
 
     const loadData = async () => {
         try {
