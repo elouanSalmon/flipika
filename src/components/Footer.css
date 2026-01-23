@@ -54,19 +54,19 @@
   .footer-simple {
     padding: var(--spacing-lg) 0;
   }
-  
+
   .footer-simple-container {
     padding: 0 var(--spacing-md);
   }
-  
+
   .footer-simple-links {
     gap: var(--spacing-lg);
   }
-  
+
   .footer-simple-link {
     font-size: var(--font-size-xs);
   }
-  
+
   .footer-simple-copyright {
     font-size: var(--font-size-xs);
   }
@@ -80,7 +80,23 @@
 }
 
 /* Support du thème sombre */
+/* Support du thème sombre */
 [data-theme="dark"] .footer-simple {
   background: var(--color-bg-secondary);
   border-top-color: var(--color-border);
+}
+
+[data-theme="dark"] .footer-simple-copyright {
+  color: var(--color-text-secondary) !important;
+  opacity: 1 !important;
+}
+
+[data-theme="dark"] .footer-simple-link {
+  color: var(--color-text-secondary) !important;
+  text-decoration-color: currentColor !important;
+}
+
+[data-theme="dark"] .footer-simple-link:hover {
+  color: var(--color-primary-light) !important;
+  text-decoration-color: var(--color-primary-light) !important;
 }

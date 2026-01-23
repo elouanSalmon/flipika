@@ -11,6 +11,28 @@
     "problem": "Issues",
     "login": "Login"
   },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Google Ads Reporting, Reinvented.",
+      "subtitle2": "Fast, reliable, and secure.",
+      "google": "Continue with Google",
+      "error": "An error occurred during login.",
+      "configError": "Missing Firebase configuration.",
+      "popupError": "Login popup was closed.",
+      "disabledError": "Google login is not enabled."
+    },
+    "benefits": {
+      "title": "Why Flipika?",
+      "reports": "Google Ads Reports in 1 click",
+      "ai": "Contextual AI Analysis",
+      "security": "Enterprise-grade security"
+    },
+    "footer": {
+      "rights": "All rights reserved.",
+      "terms": "Terms of Service"
+    }
+  },
   "meta": {
     "title": "Flipika - Google Ads Reports for Media Buyers",
     "description": "Generate automated, clear, and professional Google Ads reports for your clients. The ideal solution for demanding media buyers.",

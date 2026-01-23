@@ -8,7 +8,7 @@ import { TutorialWidget } from "../components/tutorial/TutorialWidget";
 
 const AppLayout = () => {
   return (
-    <div className="min-h-dvh bg-[var(--color-bg-secondary)] flex flex-col">
+    <div className="min-h-dvh flex flex-col">
       <ConnectedHeader />
 
       {/* Main Content */}

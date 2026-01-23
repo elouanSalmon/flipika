@@ -11,6 +11,28 @@
     "problem": "Problèmes",
     "login": "Connexion"
   },
+  "auth": {
+    "login": {
+      "title": "Accédez à votre espace",
+      "subtitle": "Le reporting Google Ads réinventé.",
+      "subtitle2": "Rapide, fiable et sécurisé.",
+      "google": "Continuer avec Google",
+      "error": "Une erreur est survenue lors de la connexion.",
+      "configError": "Configuration Firebase manquante.",
+      "popupError": "La fenêtre de connexion a été fermée.",
+      "disabledError": "La connexion Google n'est pas activée."
+    },
+    "benefits": {
+      "title": "Pourquoi Flipika ?",
+      "reports": "Rapports Google Ads en 1 clic",
+      "ai": "Analyses IA contextuelles",
+      "security": "Sécurité niveau entreprise"
+    },
+    "footer": {
+      "rights": "Tous droits réservés.",
+      "terms": "Conditions d'utilisation"
+    }
+  },
   "meta": {
     "title": "Flipika - Rapports Google Ads pour Media Buyers",
     "description": "Générez des rapports Google Ads automatisés, clairs et professionnels pour vos clients. La solution idéale pour les media buyers exigeants.",
