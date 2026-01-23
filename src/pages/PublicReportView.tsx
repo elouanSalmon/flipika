@@ -8,6 +8,7 @@ import ReportCanvas from '../components/reports/ReportCanvas';
 import { TiptapReadOnlyRenderer } from '../components/editor';
 import PasswordPrompt from '../components/reports/PasswordPrompt';
 import Spinner from '../components/common/Spinner';
+import Logo from '../components/Logo';
 import type { EditableReport, SlideConfig } from '../types/reportTypes';
 import type { UserProfile } from '../types/userProfile';
 import type { JSONContent } from '@tiptap/react';
@@ -161,15 +162,7 @@ const PublicReportView: React.FC = () => {
             {/* Header */}
             <header className="public-report-header">
                 <div className="public-report-header-content">
-                    <div className="public-report-logo" onClick={() => navigate('/')}>
-                        <div className="logo-icon">
-                            <Zap size={24} />
-                        </div>
-                        <div className="logo-content">
-                            <span className="logo-text gradient-text">Flipika</span>
-                            <span className="logo-subtitle">IA</span>
-                        </div>
-                    </div>
+                    <Logo className="origin-left" />
 
                     {author && (
                         <div className="public-report-author">

@@ -22,7 +22,9 @@ interface SlideNavigationProps {
 // Component to render a single thumbnail with its own mini editor
 const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, design }) => {
     const isDarkMode = design?.mode === 'dark';
-    const themeBg = isDarkMode ? 'rgba(30, 41, 59, 0.6)' : 'rgba(249, 250, 251, 0.9)';
+
+    // Use OPAQUE background from report theme, not app theme (matches SlideComponent.tsx)
+    const themeBg = design?.colorScheme?.background || (isDarkMode ? '#1e293b' : '#f9fafb');
     const themeTextColor = design?.colorScheme?.text || (isDarkMode ? '#f1f5f9' : '#0f172a');
 
     const finalBackgroundColor = slide.backgroundColor || themeBg;
@@ -83,7 +85,8 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
 
     // Slides follow the REPORT's theme (design.mode), not the app's UI theme
     const isDarkMode = design?.mode === 'dark';
-    const themeBg = isDarkMode ? 'rgba(30, 41, 59, 0.6)' : 'rgba(249, 250, 251, 0.9)';
+    // Use OPAQUE background from report theme (matches SlideComponent.tsx)
+    const themeBg = design?.colorScheme?.background || (isDarkMode ? '#1e293b' : '#f9fafb');
 
     // Extract slides from editor content
     useEffect(() => {

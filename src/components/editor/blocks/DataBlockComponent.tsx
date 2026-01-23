@@ -1,5 +1,6 @@
 import { NodeViewWrapper } from '@tiptap/react';
 import type { NodeViewProps } from '@tiptap/react';
+import { useMemo } from 'react';
 import { Settings, Trash2 } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { SlideType } from '../../../types/reportTypes';
@@ -24,7 +25,7 @@ import ClientLogoBlock from './ClientLogoBlock';
  * Uses ReportEditorContext to provide design and data context.
  * In template mode, blocks always show demo data.
  */
-export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps) => {
+export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeViewProps) => {
     const { blockType, config } = node.attrs;
     const { design, accountId, campaignIds, reportId, isTemplateMode } = useReportEditor();
 
@@ -43,7 +44,7 @@ export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps
     // Synthesize a SlideConfig-like object for the component
     // We use a stable ID from the node or generate one if needed (though node ID is best if available)
     // Tiptap nodes don't inherently have IDs unless configured. We'll use a dummy ID or a generated property if saved.
-    const slideConfig: SlideConfig = {
+    const slideConfig: SlideConfig = useMemo(() => ({
         id: node.attrs.id || `block-${Date.now()}`,
         type: blockType as SlideType,
         accountId: effectiveAccountId,
@@ -53,7 +54,7 @@ export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps
         updatedAt: new Date(),
         settings: config || {},
         ...config // Spread config directly as well in case component uses top-level props (mocking full SlideConfig properties)
-    };
+    }), [node.attrs.id, blockType, config, effectiveAccountId, effectiveCampaignIds]);
 
     const renderBlock = () => {
         switch (blockType) {
@@ -172,7 +173,7 @@ export const DataBlockComponent = ({ node, deleteNode, selected }: NodeViewProps
                     {renderBlock()}
                 </ChartBlockErrorBoundary>
 
-                {selected && (
+                {selected && editor.isEditable && (
                     <div className="data-block-actions">
                         <button
                             onClick={(e) => {

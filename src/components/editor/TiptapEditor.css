@@ -886,7 +886,7 @@
     max-width: none !important;
 }
 
-.slide-thumbnail-editor .ProseMirror {
+.slide-thumbnail-editor.ProseMirror {
     width: 960px !important;
     min-height: 540px !important;
     max-width: none !important;
