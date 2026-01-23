@@ -1,6 +1,10 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
+import Underline from '@tiptap/extension-underline';
+import Link from '@tiptap/extension-link';
+import Highlight from '@tiptap/extension-highlight';
+import TextAlign from '@tiptap/extension-text-align';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
 import { SlashCommandExtension } from './extensions/SlashCommandExtension';
 import { SlideExtension } from './extensions/SlideExtension';
@@ -60,6 +64,22 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                 emptyNodeClass: 'is-node-empty',
                 includeChildren: true,
                 showOnlyCurrent: false,
+            }),
+            // Additional text formatting extensions
+            Underline,
+            Highlight.configure({
+                multicolor: false,
+            }),
+            Link.configure({
+                openOnClick: false,
+                HTMLAttributes: {
+                    class: 'tiptap-link',
+                },
+            }),
+            TextAlign.configure({
+                types: ['heading', 'paragraph'],
+                alignments: ['left', 'center', 'right'],
+                defaultAlignment: 'left',
             }),
             SlideExtension,
             DataBlockExtension,

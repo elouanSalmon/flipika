@@ -15,10 +15,12 @@ export const SlideComponent = ({ node, updateAttributes, deleteNode, selected }:
 
     // Slides follow the REPORT's theme (design.mode), not the app's UI theme
     const isDarkMode = design?.mode === 'dark';
-    const themeBg = isDarkMode ? 'rgba(30, 41, 59, 0.6)' : 'rgba(249, 250, 251, 0.9)';
+
+    // Use OPAQUE background from report theme, not app theme
+    const themeBg = design?.colorScheme?.background || (isDarkMode ? '#1e293b' : '#f9fafb');
     const themeTextColor = design?.colorScheme?.text || (isDarkMode ? '#f1f5f9' : '#0f172a');
 
-    // Use theme background (no custom colors)
+    // Use theme background (opaque, not transparent)
     const finalBackgroundColor = backgroundColor || themeBg;
 
     // Apply CSS variables for theme colors at slide level

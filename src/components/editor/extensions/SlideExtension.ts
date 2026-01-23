@@ -26,8 +26,8 @@ export const SlideExtension = Node.create({
     // Slides are NOT blocks - they're a special top-level group
     group: 'slide',
 
-    // Slides can contain paragraphs, headings, lists, and dataBlocks - but NOT other slides
-    content: '(paragraph | heading | bulletList | orderedList | dataBlock)+',
+    // Slides can contain paragraphs, headings, lists, quotes, code blocks, and dataBlocks - but NOT other slides
+    content: '(paragraph | heading | bulletList | orderedList | blockquote | codeBlock | horizontalRule | dataBlock)+',
 
     defining: true,
 

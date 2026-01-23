@@ -1,0 +1,208 @@
+/* ========================================
+   CHART BLOCKS UNIFIED FRAMEWORK
+   Note: Colors set via inline styles from design prop
+   ======================================== */
+
+/* Base Chart Block Card */
+.chart-block-card {
+    /* Layout */
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    min-height: auto;
+
+    /* Border from inline styles */
+    border: 1px solid;
+
+    /* Transitions */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chart-block-card:hover {
+    background: rgba(var(--glass-rgb), 0.75);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+/* Header Section */
+.chart-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(var(--border-rgb), 0.1);
+}
+
+.chart-block-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+/* Mock Data Badge */
+.chart-mock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: rgba(251, 191, 36, 0.15);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #f59e0b;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+}
+
+.chart-mock-badge:hover {
+    background: rgba(251, 191, 36, 0.2);
+    border-color: rgba(251, 191, 36, 0.4);
+}
+
+/* Content Area */
+.chart-block-content {
+    position: relative;
+    width: 100%;
+}
+
+/* Metric Cards Inside Charts */
+/* Colors set via inline styles from design prop */
+.chart-metric-card {
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    border: 1px solid;
+    transition: all 0.2s ease;
+}
+
+.chart-metric-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Icon Containers */
+.chart-icon-container {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.25);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.chart-icon-container:hover {
+    transform: scale(1.05);
+}
+
+/* Loading/Empty States */
+.chart-block-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    padding: 24px;
+    color: var(--color-text-muted);
+    text-align: center;
+    background: rgba(var(--surface-rgb), 0.3);
+    border-radius: var(--radius-lg);
+    border: 1px dashed rgba(var(--border-rgb), 0.3);
+}
+
+.chart-block-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    padding: 24px;
+}
+
+/* Metric Info Containers */
+.chart-metric-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.chart-metric-label {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chart-metric-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+.chart-metric-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+}
+
+.chart-metric-change.positive {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.chart-metric-change.negative {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .chart-block-card {
+        padding: 16px;
+    }
+
+    .chart-block-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .chart-icon-container {
+        width: 40px;
+        height: 40px;
+    }
+
+    .chart-metric-value {
+        font-size: var(--font-size-xl);
+    }
+}
+
+/* Animation */
+@keyframes chart-card-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chart-block-card {
+    animation: chart-card-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -3,7 +3,7 @@ import { TrendingUp, TrendingDown, DollarSign, Target, BarChart3, AlertTriangle 
 import { getSlideData } from '../../../services/slideService';
 import Spinner from '../../common/Spinner';
 import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
-import './KeyMetricsSlide.css';
+import './ChartBlocksShared.css';
 
 interface KeyMetricsSlideProps {
     config: SlideConfig;
@@ -105,22 +105,6 @@ const KeyMetricsSlide: React.FC<KeyMetricsSlideProps> = ({
         }
     };
 
-    const getCardBackground = () => {
-        if (design.mode === 'dark') {
-            return 'rgba(30, 41, 59, 0.6)';
-        } else {
-            return 'rgba(249, 250, 251, 0.9)';
-        }
-    };
-
-    const getCardBorder = () => {
-        if (design.mode === 'dark') {
-            return 'rgba(255, 255, 255, 0.1)';
-        } else {
-            return 'rgba(0, 0, 0, 0.06)';
-        }
-    };
-
     if (loading) {
         return (
             <div className="key-metrics-widget loading">
@@ -150,71 +134,47 @@ const KeyMetricsSlide: React.FC<KeyMetricsSlideProps> = ({
     }
 
     return (
-        <div
-            className="key-metrics-widget"
-            style={{
-                '--widget-primary': design?.colorScheme?.primary || '#3b82f6',
-                '--widget-text': design?.colorScheme?.text || '#111827',
-                '--widget-background': design?.colorScheme?.background || '#ffffff',
-                background: design?.colorScheme?.background || '#ffffff',
-                color: design?.colorScheme?.text || '#111827',
-            } as React.CSSProperties}
-        >
-            <div className="widget-header">
-                <h3 style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>Métriques Clés</h3>
+        <div className="chart-block-card" style={{
+            '--widget-primary': design?.colorScheme?.primary || 'var(--color-primary)',
+            backgroundColor: design?.colorScheme?.background || '#ffffff',
+            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+            color: design?.colorScheme?.text || '#111827',
+        } as React.CSSProperties}>
+            <div className="chart-block-header">
+                <h3 className="chart-block-title">Métriques Clés</h3>
                 {isMockData && (
-                    <span className="mock-data-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
-                        <AlertTriangle size={14} />
+                    <span className="chart-mock-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
+                        <AlertTriangle size={12} />
                         Démo
                     </span>
                 )}
-                {editable && (
-                    <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
-                        ⚙️
-                    </button>
-                )}
             </div>
 
-            <div className="widget-content">
-                <div
-                    className="key-metrics-grid"
-                    style={{
-                        gridTemplateColumns: metrics.length <= 2 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)'
-                    }}
-                >
+            <div className="chart-block-content">
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: metrics.length <= 2 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+                    gap: '16px'
+                }}>
                     {metrics.map((metric) => (
-                        <div
-                            key={metric.name}
-                            className="key-metric-card"
-                            style={{
-                                background: getCardBackground(),
-                                borderColor: getCardBorder(),
-                            }}
-                        >
-                            <div className="metric-header">
-                                <div
-                                    className="metric-icon"
-                                    style={{
-                                        background: design?.colorScheme?.primary || '#3b82f6',
-                                        color: '#ffffff',
-                                    }}
-                                >
+                        <div key={metric.name} className="chart-metric-card" style={{
+                            backgroundColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
+                            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+                        }}>
+                            <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                                <div className="chart-icon-container" style={{ background: 'var(--widget-primary)' }}>
                                     {metric.icon}
                                 </div>
-                                <div className="metric-info">
-                                    <div className="widget-metric-label" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
+                                <div className="chart-metric-info">
+                                    <div className="chart-metric-label">
                                         {metric.label}
                                     </div>
-                                    <div className="widget-metric-value" style={{ color: design?.colorScheme?.text || '#111827' }}>
+                                    <div className="chart-metric-value">
                                         {metric.formatted}
                                     </div>
                                     {metric.change !== undefined && (
-                                        <div className={`metric-change ${metric.change >= 0 ? 'positive' : 'negative'}`}>
-                                            {metric.change >= 0 ? (
-                                                <TrendingUp size={14} />
-                                            ) : (
-                                                <TrendingDown size={14} />
-                                            )}
+                                        <div className={`chart-metric-change ${metric.change >= 0 ? 'positive' : 'negative'}`}>
+                                            {metric.change >= 0 ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
                                             <span>{Math.abs(metric.change).toFixed(1)}%</span>
                                         </div>
                                     )}

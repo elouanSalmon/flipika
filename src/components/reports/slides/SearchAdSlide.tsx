@@ -1,6 +1,7 @@
 import React from 'react';
 import type { ReportDesign } from '../../../types/reportTypes';
 import { Globe } from 'lucide-react';
+import './ChartBlocksShared.css';
 
 interface SearchAdSlideProps {
     data: {
@@ -13,55 +14,78 @@ interface SearchAdSlideProps {
 }
 
 const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
-    // Construct mockup titles
-    // Google Ads usually combines up to 3 headlines separated by pipes " | " or dashes " - "
-    // We'll simulate this behavior
     const title = data.headlines.slice(0, 3).join(' | ');
     const description = data.descriptions.slice(0, 2).join(' ');
 
     return (
         <div
-            className="h-full p-6 rounded-xl"
+            className="chart-block-card"
             style={{
                 fontFamily: design?.typography?.fontFamily || 'Inter, sans-serif',
-                backgroundColor: design?.colorScheme?.background || '#ffffff',
-                color: design?.colorScheme?.text || '#111827'
             }}
         >
             {/* Header */}
-            <h3 className="text-lg font-semibold mb-4" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
-                Aperçu d'annonce
-            </h3>
+            <div className="chart-block-header">
+                <h3 className="chart-block-title">Aperçu d'annonce</h3>
+            </div>
 
             {/* Google Search Result Mockup */}
-            <div className="bg-gray-50 rounded-lg p-5 border border-gray-100">
-                {/* Ad Label & URL */}
-                <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[11px] font-bold text-gray-900">Sponsorisé</span>
-                    <span className="text-gray-400 text-[10px]">•</span>
-                    <div className="flex items-center gap-1 text-sm text-gray-700">
-                        <Globe size={14} className="text-blue-600" />
-                        <span className="truncate">{data.displayUrl}</span>
+            <div className="chart-block-content">
+                <div style={{
+                    background: 'rgba(var(--surface-rgb), 0.3)',
+                    borderRadius: 'var(--radius-lg)',
+                    padding: '20px',
+                    border: '1px solid rgba(var(--border-rgb), 0.15)',
+                }}>
+                    {/* Ad Label & URL */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--color-text-primary)' }}>Sponsorisé</span>
+                        <span style={{ color: 'var(--color-text-muted)', fontSize: '10px' }}>•</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <Globe size={14} style={{ color: design?.colorScheme?.primary || 'var(--color-primary)' }} />
+                            <span style={{ fontSize: '14px', color: 'var(--color-text-secondary)' }}>
+                                {data.displayUrl}
+                            </span>
+                        </div>
                     </div>
-                </div>
 
-                {/* Ad Title */}
-                <h4 className="text-lg text-[#1a0dab] font-normal mb-1 hover:underline cursor-pointer">
-                    {title || 'Titre de l\'annonce manquant'}
-                </h4>
+                    {/* Ad Title */}
+                    <h4 style={{
+                        fontSize: '18px',
+                        color: design?.colorScheme?.primary || '#1a0dab',
+                        fontWeight: 'normal',
+                        marginBottom: '6px',
+                        cursor: 'pointer',
+                    }}>
+                        {title || 'Titre de l\'annonce manquant'}
+                    </h4>
 
-                {/* Ad Description */}
-                <p className="text-sm text-[#4d5156] leading-relaxed">
-                    {description || 'Description de l\'annonce manquante...'}
-                </p>
+                    {/* Ad Description */}
+                    <p style={{
+                        fontSize: '14px',
+                        color: 'var(--color-text-secondary)',
+                        lineHeight: '1.6',
+                        marginBottom: '12px',
+                    }}>
+                        {description || 'Description de l\'annonce manquante...'}
+                    </p>
 
-                {/* Sitelinks */}
-                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
-                    {['Contactez-nous', 'Nos Services', 'Demander un Devis'].map((link, i) => (
-                        <span key={i} className="text-sm text-[#1a0dab] hover:underline cursor-pointer">
-                            {link}
-                        </span>
-                    ))}
+                    {/* Sitelinks */}
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+                        {['Contactez-nous', 'Nos Services', 'Demander un Devis'].map((link, i) => (
+                            <span
+                                key={i}
+                                style={{
+                                    fontSize: '13px',
+                                    color: design?.colorScheme?.primary || '#1a0dab',
+                                    cursor: 'pointer',
+                                    textDecoration: 'none',
+                                }}
+                            >
+                                {link}
+                            </span>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

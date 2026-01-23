@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import type { Editor } from '@tiptap/react';
 import {
     Bold,
     Italic,
+    Underline,
+    Strikethrough,
+    Code,
+    Highlighter,
+    Link,
+    Link2Off,
     List,
     ListOrdered,
     Heading1,
     Heading2,
     Heading3,
+    AlignLeft,
+    AlignCenter,
+    AlignRight,
     Undo,
     Redo,
 } from 'lucide-react';
@@ -17,15 +26,28 @@ interface TiptapToolbarProps {
 }
 
 export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor }) => {
+    const [linkUrl, setLinkUrl] = useState('');
+    const [showLinkInput, setShowLinkInput] = useState(false);
+
     const ToolbarButton: React.FC<{
         onClick: () => void;
         isActive?: boolean;
+        disabled?: boolean;
         icon: React.ReactNode;
         title: string;
-    }> = ({ onClick, isActive, icon, title }) => (
+    }> = ({ onClick, isActive, disabled, icon, title }) => (
         <button
-            onClick={onClick}
-            className={`tiptap-toolbar-btn ${isActive ? 'is-active' : ''}`}
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onClick();
+            }}
+            onMouseDown={(e) => {
+                // Prevent losing focus from editor
+                e.preventDefault();
+            }}
+            disabled={disabled}
+            className={`tiptap-toolbar-btn ${isActive ? 'is-active' : ''} ${disabled ? 'is-disabled' : ''}`}
             title={title}
             type="button"
         >
@@ -33,23 +55,60 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor }) => {
         </button>
     );
 
+    const setLink = useCallback(() => {
+        if (!linkUrl) {
+            editor.chain().focus().extendMarkRange('link').unsetLink().run();
+            return;
+        }
+
+        const url = linkUrl.startsWith('http://') || linkUrl.startsWith('https://')
+            ? linkUrl
+            : `https://${linkUrl}`;
+
+        editor
+            .chain()
+            .focus()
+            .extendMarkRange('link')
+            .setLink({ href: url })
+            .run();
+
+        setLinkUrl('');
+        setShowLinkInput(false);
+    }, [editor, linkUrl]);
+
+    const handleLinkClick = () => {
+        const previousUrl = editor.getAttributes('link').href || '';
+        setLinkUrl(previousUrl);
+        setShowLinkInput(true);
+    };
+
+    const removeLink = () => {
+        editor.chain().focus().unsetLink().run();
+        setShowLinkInput(false);
+        setLinkUrl('');
+    };
+
     return (
         <div className="tiptap-toolbar">
+            {/* Undo/Redo */}
             <div className="tiptap-toolbar-group">
                 <ToolbarButton
                     onClick={() => editor.chain().focus().undo().run()}
+                    disabled={!editor.can().undo()}
                     icon={<Undo size={18} />}
-                    title="Annuler"
+                    title="Annuler (Ctrl+Z)"
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().redo().run()}
+                    disabled={!editor.can().redo()}
                     icon={<Redo size={18} />}
-                    title="Rétablir"
+                    title="Retablir (Ctrl+Y)"
                 />
             </div>
 
             <div className="tiptap-toolbar-separator" />
 
+            {/* Headings */}
             <div className="tiptap-toolbar-group">
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
@@ -73,41 +132,143 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor }) => {
 
             <div className="tiptap-toolbar-separator" />
 
+            {/* Text Formatting */}
             <div className="tiptap-toolbar-group">
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleBold().run()}
                     isActive={editor.isActive('bold')}
                     icon={<Bold size={18} />}
-                    title="Gras (Cmd+B)"
+                    title="Gras (Ctrl+B)"
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleItalic().run()}
                     isActive={editor.isActive('italic')}
                     icon={<Italic size={18} />}
-                    title="Italique (Cmd+I)"
+                    title="Italique (Ctrl+I)"
+                />
+                <ToolbarButton
+                    onClick={() => editor.chain().focus().toggleUnderline().run()}
+                    isActive={editor.isActive('underline')}
+                    icon={<Underline size={18} />}
+                    title="Souligne (Ctrl+U)"
+                />
+                <ToolbarButton
+                    onClick={() => editor.chain().focus().toggleStrike().run()}
+                    isActive={editor.isActive('strike')}
+                    icon={<Strikethrough size={18} />}
+                    title="Barre"
+                />
+                <ToolbarButton
+                    onClick={() => editor.chain().focus().toggleCode().run()}
+                    isActive={editor.isActive('code')}
+                    icon={<Code size={18} />}
+                    title="Code inline"
+                />
+                <ToolbarButton
+                    onClick={() => editor.chain().focus().toggleHighlight().run()}
+                    isActive={editor.isActive('highlight')}
+                    icon={<Highlighter size={18} />}
+                    title="Surligner"
                 />
             </div>
 
             <div className="tiptap-toolbar-separator" />
 
+            {/* Text Alignment */}
+            <div className="tiptap-toolbar-group">
+                <ToolbarButton
+                    onClick={() => editor.chain().focus().setTextAlign('left').run()}
+                    isActive={editor.isActive({ textAlign: 'left' })}
+                    icon={<AlignLeft size={18} />}
+                    title="Aligner a gauche (Ctrl+Shift+L)"
+                />
+                <ToolbarButton
+                    onClick={() => editor.chain().focus().setTextAlign('center').run()}
+                    isActive={editor.isActive({ textAlign: 'center' })}
+                    icon={<AlignCenter size={18} />}
+                    title="Centrer (Ctrl+Shift+E)"
+                />
+                <ToolbarButton
+                    onClick={() => editor.chain().focus().setTextAlign('right').run()}
+                    isActive={editor.isActive({ textAlign: 'right' })}
+                    icon={<AlignRight size={18} />}
+                    title="Aligner a droite (Ctrl+Shift+R)"
+                />
+            </div>
+
+            <div className="tiptap-toolbar-separator" />
+
+            {/* Lists */}
             <div className="tiptap-toolbar-group">
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleBulletList().run()}
                     isActive={editor.isActive('bulletList')}
                     icon={<List size={18} />}
-                    title="Liste à puces"
+                    title="Liste a puces"
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleOrderedList().run()}
                     isActive={editor.isActive('orderedList')}
                     icon={<ListOrdered size={18} />}
-                    title="Liste numérotée"
+                    title="Liste numerotee"
                 />
             </div>
 
             <div className="tiptap-toolbar-separator" />
 
+            {/* Link */}
+            <div className="tiptap-toolbar-group relative">
+                <ToolbarButton
+                    onClick={handleLinkClick}
+                    isActive={editor.isActive('link')}
+                    icon={<Link size={18} />}
+                    title="Ajouter un lien"
+                />
+                {editor.isActive('link') && (
+                    <ToolbarButton
+                        onClick={removeLink}
+                        icon={<Link2Off size={18} />}
+                        title="Supprimer le lien"
+                    />
+                )}
 
+                {/* Link Input Popup */}
+                {showLinkInput && (
+                    <>
+                        <div
+                            className="fixed inset-0 z-40"
+                            onClick={() => setShowLinkInput(false)}
+                        />
+                        <div className="absolute left-0 top-full mt-2 z-50 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-3 min-w-[280px]">
+                            <div className="flex gap-2">
+                                <input
+                                    type="url"
+                                    value={linkUrl}
+                                    onChange={(e) => setLinkUrl(e.target.value)}
+                                    placeholder="https://exemple.com"
+                                    className="flex-1 px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            setLink();
+                                        }
+                                        if (e.key === 'Escape') {
+                                            setShowLinkInput(false);
+                                        }
+                                    }}
+                                    autoFocus
+                                />
+                                <button
+                                    onClick={setLink}
+                                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                                >
+                                    OK
+                                </button>
+                            </div>
+                        </div>
+                    </>
+                )}
+            </div>
         </div>
     );
 };

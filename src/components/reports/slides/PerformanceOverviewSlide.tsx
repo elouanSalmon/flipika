@@ -3,7 +3,7 @@ import { TrendingUp, TrendingDown, Eye, MousePointer, Target, DollarSign, Percen
 import { getSlideData } from '../../../services/slideService';
 import Spinner from '../../common/Spinner';
 import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
-import './PerformanceOverviewSlide.css';
+import './ChartBlocksShared.css';
 
 interface PerformanceOverviewSlideProps {
     config: SlideConfig;
@@ -92,117 +92,66 @@ const PerformanceOverviewSlide: React.FC<PerformanceOverviewSlideProps> = ({
         }
     };
 
-    // Helper function to get card background color based on mode
-    const getCardBackground = () => {
-        if (design.mode === 'dark') {
-            // Dark mode: slightly lighter than background
-            return 'rgba(30, 41, 59, 0.6)';
-        } else {
-            // Light mode: slightly darker than white
-            return 'rgba(249, 250, 251, 0.9)';
-        }
-    };
-
-    const getCardBorder = () => {
-        if (design.mode === 'dark') {
-            return 'rgba(255, 255, 255, 0.1)';
-        } else {
-            return 'rgba(0, 0, 0, 0.06)';
-        }
-    };
 
     if (loading) {
         return (
-            <div className="performance-overview-widget loading">
-                <div className="widget-header">
-                    <h3>Vue d'ensemble des performances</h3>
-                </div>
-                <div className="widget-content">
-                    <div className="flex justify-center py-8">
-                        <Spinner size={32} />
-                    </div>
-                </div>
+            <div className="chart-block-loading">
+                <Spinner size={32} />
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="performance-overview-widget error">
-                <div className="widget-header">
-                    <h3>Vue d'ensemble des performances</h3>
-                </div>
-                <div className="widget-content">
-                    <div className="error-message">{error}</div>
-                </div>
+            <div className="chart-block-empty">
+                {error}
             </div>
         );
     }
 
     return (
-        <div
-            className="performance-widget"
-            style={{
-                '--widget-primary': design?.colorScheme?.primary || '#3b82f6',
-                '--widget-secondary': design?.colorScheme?.secondary || '#6b7280',
-                '--widget-text': design?.colorScheme?.text || '#111827',
-                '--widget-background': design?.colorScheme?.background || '#ffffff',
-                background: design?.colorScheme?.background || '#ffffff',
-                color: design?.colorScheme?.text || '#111827',
-            } as React.CSSProperties}
-        >
-            <div className="widget-header">
-                <h3 style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>Vue d'ensemble des performances</h3>
+        <div className="chart-block-card" style={{
+            '--widget-primary': design?.colorScheme?.primary || 'var(--color-primary)',
+            '--widget-secondary': design?.colorScheme?.secondary || 'var(--color-text-secondary)',
+            backgroundColor: design?.colorScheme?.background || '#ffffff',
+            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+            color: design?.colorScheme?.text || '#111827',
+        } as React.CSSProperties}>
+            <div className="chart-block-header">
+                <h3 className="chart-block-title">Vue d'ensemble des performances</h3>
                 {isMockData && (
-                    <span className="mock-data-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
-                        <AlertTriangle size={14} />
+                    <span className="chart-mock-badge" title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies données">
+                        <AlertTriangle size={12} />
                         Démo
                     </span>
                 )}
-                {editable && (
-                    <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
-                        ⚙️
-                    </button>
-                )}
             </div>
 
-            <div className="widget-content">
-                <div className="metrics-grid">
+            <div className="chart-block-content">
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                     {metrics.map((metric) => (
-                        <div
-                            key={metric.name}
-                            className="metric-card"
-                            style={{
-                                background: getCardBackground(),
-                                borderColor: getCardBorder(),
-                                backgroundImage: 'none',
-                            }}
-                        >
-                            <div
-                                className="metric-icon"
-                                style={{
-                                    background: design?.colorScheme?.primary || '#3b82f6',
-                                }}
-                            >
-                                {METRIC_ICONS[metric.name] || <BarChart3 size={20} />}
-                            </div>
-                            <div className="metric-info">
-                                <div className="widget-metric-label" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
-                                    {METRIC_LABELS[metric.name] || metric.name}
+                        <div key={metric.name} className="chart-metric-card" style={{
+                            backgroundColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
+                            borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)',
+                        }}>
+                            <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                                <div className="chart-icon-container" style={{ background: 'var(--widget-primary)' }}>
+                                    {METRIC_ICONS[metric.name] || <BarChart3 size={20} />}
                                 </div>
-                                <div className="widget-metric-value" style={{ color: design?.colorScheme?.text || '#111827' }}>
-                                    {metric.formatted}
-                                </div>
-                                {metric.change !== undefined && (
-                                    <div className={`metric-change ${metric.change >= 0 ? 'positive' : 'negative'}`}>
-                                        {metric.change >= 0 ? (
-                                            <TrendingUp size={14} />
-                                        ) : (
-                                            <TrendingDown size={14} />
-                                        )}
-                                        <span>{Math.abs(metric.change).toFixed(1)}%</span>
+                                <div className="chart-metric-info">
+                                    <div className="chart-metric-label">
+                                        {METRIC_LABELS[metric.name] || metric.name}
                                     </div>
-                                )}
+                                    <div className="chart-metric-value">
+                                        {metric.formatted}
+                                    </div>
+                                    {metric.change !== undefined && (
+                                        <div className={`chart-metric-change ${metric.change >= 0 ? 'positive' : 'negative'}`}>
+                                            {metric.change >= 0 ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+                                            <span>{Math.abs(metric.change).toFixed(1)}%</span>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     ))}
