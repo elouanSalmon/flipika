@@ -14,7 +14,6 @@
 .header.scrolled {
   background: var(--color-bg-overlay);
   backdrop-filter: var(--glass-backdrop);
-  border-bottom: 1px solid var(--color-border);
   box-shadow: var(--shadow-lg);
   padding: var(--spacing-md) 0;
 }

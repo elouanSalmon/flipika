@@ -1,7 +1,7 @@
 /* Footer simple et minimaliste */
 .footer-simple {
   background: var(--color-bg-secondary);
-  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
   padding: var(--spacing-xl) 0;
   margin-top: auto;
 }
@@ -83,7 +83,7 @@
 /* Support du thème sombre */
 [data-theme="dark"] .footer-simple {
   background: var(--color-bg-secondary);
-  border-top-color: var(--color-border);
+  background: var(--color-bg-secondary);
 }
 
 [data-theme="dark"] .footer-simple-copyright {
