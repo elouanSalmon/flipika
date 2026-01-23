@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Editor } from '@tiptap/react';
 import {
     BarChart3, TrendingUp, PieChart, Target,
-    Image, Filter, Layout, Trophy, X, Search
+    Image, Filter, Layout, Trophy, X, Search, Grid3x3
 } from 'lucide-react';
 import './ChartBlockSelector.css';
 
@@ -16,6 +16,7 @@ interface ChartOption {
     description: string;
     icon: React.ElementType;
     config: any;
+    category: 'analytics' | 'charts' | 'content';
 }
 
 interface Category {
@@ -25,27 +26,36 @@ interface Category {
     items: ChartOption[];
 }
 
+interface Section {
+    id: string;
+    label: string;
+    items: ChartOption[];
+}
+
 const ANALYTICS_ITEMS: ChartOption[] = [
     {
         type: 'performance_overview',
         label: 'Vue d\'ensemble',
         description: 'Métriques clés & comparaisons',
         icon: TrendingUp,
-        config: {}
+        config: {},
+        category: 'analytics'
     },
     {
         type: 'key_metrics',
         label: 'Métriques Clés',
         description: 'Grille 2x2 de KPIs',
         icon: Target,
-        config: {}
+        config: {},
+        category: 'analytics'
     },
     {
         type: 'top_performers',
         label: 'Meilleurs Éléments',
         description: 'Top campagnes/groupes',
         icon: Trophy,
-        config: {}
+        config: {},
+        category: 'analytics'
     },
 ];
 
@@ -55,28 +65,32 @@ const CHARTS_ITEMS: ChartOption[] = [
         label: 'Graphique',
         description: 'Ligne, barre, aire',
         icon: BarChart3,
-        config: { chartType: 'line' }
+        config: { chartType: 'line' },
+        category: 'charts'
     },
     {
         type: 'funnel_analysis',
         label: 'Entonnoir',
         description: 'Taux de conversion',
         icon: Filter,
-        config: {}
+        config: {},
+        category: 'charts'
     },
     {
         type: 'heatmap',
         label: 'Heatmap',
         description: 'Carte de chaleur',
         icon: Layout,
-        config: {}
+        config: {},
+        category: 'charts'
     },
     {
         type: 'device_platform_split',
         label: 'Répartition',
         description: 'Par appareil/plateforme',
         icon: PieChart,
-        config: {}
+        config: {},
+        category: 'charts'
     },
 ];
 
@@ -86,112 +100,174 @@ const CONTENT_ITEMS: ChartOption[] = [
         label: 'Créatifs Pub',
         description: 'Aperçu des visuels',
         icon: Image,
-        config: {}
+        config: {},
+        category: 'content'
     },
 ];
 
 export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }) => {
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
+    const [searchTerm, setSearchTerm] = useState('');
     const containerRef = useRef<HTMLDivElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>(null);
 
     // Close flyout when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
                 setActiveCategory(null);
+                setSearchTerm('');
             }
         };
 
-        // Use 'click' instead of 'mousedown' to avoid race condition
-        // where flyout closes before the button click is processed
         document.addEventListener('click', handleClickOutside);
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
-    // Combine all charts into one master list
+    // Combine all items into one master list
     const ALL_ITEMS = [...ANALYTICS_ITEMS, ...CHARTS_ITEMS, ...CONTENT_ITEMS];
 
+    // Define categories for the sidebar
     const categories: Category[] = [
-        { id: 'search', label: 'Recherche', icon: Search, items: ALL_ITEMS }, // Items will be filtered by search
-        { id: 'all_charts', label: 'Graphiques', icon: BarChart3, items: ALL_ITEMS },
+        { id: 'all', label: 'Tout', icon: Grid3x3, items: ALL_ITEMS },
+        { id: 'analytics', label: 'Analytics', icon: TrendingUp, items: ANALYTICS_ITEMS },
+        { id: 'charts', label: 'Graphiques', icon: BarChart3, items: CHARTS_ITEMS },
+        { id: 'content', label: 'Contenu', icon: Image, items: CONTENT_ITEMS },
     ];
 
     const handleInsertChart = (chart: ChartOption) => {
-        // Focus editor first, then insert block, then close flyout
         editor.chain().focus().insertDataBlock({
             blockType: chart.type,
             config: chart.config
         }).run();
 
-        // Close the flyout after insertion
         setActiveCategory(null);
+        setSearchTerm('');
     };
 
-    const isSearchActive = activeCategory === 'search';
-    const activeItems = isSearchActive ? ALL_ITEMS : (categories.find(c => c.id === activeCategory)?.items || []);
+    // Get items to display based on active category
+    const getActiveItems = (): ChartOption[] => {
+        if (!activeCategory) return [];
+        const category = categories.find(c => c.id === activeCategory);
+        return category?.items || [];
+    };
 
-    // Filter items if search is active
-    const [searchTerm, setSearchTerm] = useState('');
-    const displayedItems = activeItems.filter(item => {
-        if (!isSearchActive && !searchTerm) return true;
-        const term = isSearchActive ? searchTerm : ''; // Only filter if in search mode OR if we add search to main list later
-        return item.label.toLowerCase().includes(term.toLowerCase()) ||
-            item.description.toLowerCase().includes(term.toLowerCase());
-    });
+    // Filter items based on search term
+    const getFilteredItems = (): ChartOption[] => {
+        const items = getActiveItems();
+        if (!searchTerm.trim()) return items;
 
-    // Auto-focus search input when search category is activated
-    const searchInputRef = useRef<HTMLInputElement>(null);
-    useEffect(() => {
-        if (isSearchActive && searchInputRef.current) {
-            setTimeout(() => searchInputRef.current?.focus(), 50);
-        } else {
-            setSearchTerm(''); // Reset search when closing
+        const term = searchTerm.toLowerCase();
+        return items.filter(item =>
+            item.label.toLowerCase().includes(term) ||
+            item.description.toLowerCase().includes(term)
+        );
+    };
+
+    // Group items by section for "all" category
+    const getSections = (): Section[] => {
+        const filteredItems = getFilteredItems();
+
+        if (activeCategory !== 'all') {
+            // Single section for specific categories
+            return [{
+                id: activeCategory || 'default',
+                label: categories.find(c => c.id === activeCategory)?.label || '',
+                items: filteredItems
+            }];
         }
-    }, [isSearchActive]);
+
+        // Multiple sections for "all" category
+        const sections: Section[] = [];
+
+        const analyticsFiltered = filteredItems.filter(i => i.category === 'analytics');
+        if (analyticsFiltered.length > 0) {
+            sections.push({ id: 'analytics', label: 'Analytics', items: analyticsFiltered });
+        }
+
+        const chartsFiltered = filteredItems.filter(i => i.category === 'charts');
+        if (chartsFiltered.length > 0) {
+            sections.push({ id: 'charts', label: 'Graphiques', items: chartsFiltered });
+        }
+
+        const contentFiltered = filteredItems.filter(i => i.category === 'content');
+        if (contentFiltered.length > 0) {
+            sections.push({ id: 'content', label: 'Contenu', items: contentFiltered });
+        }
+
+        return sections;
+    };
+
+    const sections = getSections();
+    const hasResults = sections.some(s => s.items.length > 0);
+
+    // Auto-focus search when flyout opens
+    useEffect(() => {
+        if (activeCategory && searchInputRef.current) {
+            setTimeout(() => searchInputRef.current?.focus(), 50);
+        }
+    }, [activeCategory]);
 
     return (
         <div className="chart-selector-container" ref={containerRef}>
             {/* Flyout Menu */}
             <div className={`chart-flyout ${activeCategory ? 'is-open' : ''}`}>
                 <div className="chart-flyout-header">
-                    {activeCategory === 'search' ? (
-                        <div className="flyout-search-wrapper">
-                            <Search size={16} className="flyout-search-icon" />
-                            <input
-                                ref={searchInputRef}
-                                type="text"
-                                placeholder="Rechercher un bloc..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="flyout-search-input"
-                            />
-                        </div>
-                    ) : (
-                        <h4>{categories.find(c => c.id === activeCategory)?.label}</h4>
-                    )}
-                    <button className="close-flyout" onClick={() => setActiveCategory(null)}>
+                    <div className="flyout-search-wrapper">
+                        <Search size={16} className="flyout-search-icon" />
+                        <input
+                            ref={searchInputRef}
+                            type="text"
+                            placeholder="Rechercher un bloc..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="flyout-search-input"
+                        />
+                    </div>
+                    <button className="close-flyout" onClick={() => { setActiveCategory(null); setSearchTerm(''); }}>
                         <X size={16} />
                     </button>
                 </div>
-                <div className="chart-flyout-grid">
-                    {displayedItems.map((item, index) => {
-                        const Icon = item.icon;
-                        return (
-                            <button
-                                key={index}
-                                className="chart-flyout-item"
-                                onClick={() => handleInsertChart(item)}
-                            >
-                                <div className="flyout-item-icon">
-                                    <Icon size={20} />
+
+                <div className="chart-flyout-content">
+                    {!hasResults ? (
+                        <div className="flyout-empty-state">
+                            <Search size={32} className="empty-state-icon" />
+                            <p className="empty-state-text">Aucun résultat trouvé</p>
+                            <p className="empty-state-subtext">Essayez un autre terme de recherche</p>
+                        </div>
+                    ) : (
+                        sections.map((section) => (
+                            <div key={section.id} className="chart-section">
+                                {activeCategory === 'all' && (
+                                    <div className="section-header">
+                                        <h5 className="section-title">{section.label}</h5>
+                                        <span className="section-count">{section.items.length}</span>
+                                    </div>
+                                )}
+                                <div className="chart-flyout-grid">
+                                    {section.items.map((item, index) => {
+                                        const Icon = item.icon;
+                                        return (
+                                            <button
+                                                key={index}
+                                                className="chart-flyout-item"
+                                                onClick={() => handleInsertChart(item)}
+                                            >
+                                                <div className="flyout-item-icon">
+                                                    <Icon size={20} />
+                                                </div>
+                                                <div className="flyout-item-content">
+                                                    <span className="flyout-item-label">{item.label}</span>
+                                                    <span className="flyout-item-desc">{item.description}</span>
+                                                </div>
+                                            </button>
+                                        );
+                                    })}
                                 </div>
-                                <div className="flyout-item-content">
-                                    <span className="flyout-item-label">{item.label}</span>
-                                    <span className="flyout-item-desc">{item.description}</span>
-                                </div>
-                            </button>
-                        );
-                    })}
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
 
@@ -208,6 +284,9 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
                             title={category.label}
                         >
                             <Icon size={20} />
+                            {category.items.length > 0 && (
+                                <span className="sidebar-badge">{category.items.length}</span>
+                            )}
                         </button>
                     );
                 })}
