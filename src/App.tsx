@@ -160,20 +160,20 @@ const AppRoutes = () => {
         <Route path="playground" element={<GoogleAdsPlayground />} />
       </Route>
 
-      {/* Report Editor - Full Page (No AppLayout) */}
+      {/* Report Editor - Full Page (No AppLayout) - Tiptap is now default */}
       {enableReports && (
         <Route path="/app/reports/:id" element={
           <ProtectedRoute>
-            <ReportEditor />
+            <TiptapReportEditorPage />
           </ProtectedRoute>
         } />
       )}
 
-      {/* Tiptap Report Editor - Full Page (Epic 13 - Testing) */}
+      {/* Legacy Report Editor - Fallback for old slide-based reports */}
       {enableReports && (
-        <Route path="/app/reports/:id/tiptap" element={
+        <Route path="/app/reports/legacy/:id" element={
           <ProtectedRoute>
-            <TiptapReportEditorPage />
+            <ReportEditor />
           </ProtectedRoute>
         } />
       )}

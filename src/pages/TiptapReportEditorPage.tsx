@@ -359,6 +359,12 @@ const TiptapReportEditorPage: React.FC = () => {
         setShowShareMenu(false);
     };
 
+    // Navigate to preview page for email sharing (like old editor)
+    const handleOpenPreFlight = () => {
+        if (!report) return;
+        navigate(`/app/reports/${report.id}/preview`);
+    };
+
     const handleShareByEmail = async () => {
         if (!report || !currentUser) return;
 
@@ -588,7 +594,7 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
 
                                         {report.shareUrl && (
                                             <button
-                                                onClick={handleShareByEmail}
+                                                onClick={handleOpenPreFlight}
                                                 className="actions-menu-item"
                                             >
                                                 <Mail size={18} />

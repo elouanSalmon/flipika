@@ -9,6 +9,8 @@ import { fetchCampaigns } from '../services/googleAds';
 import pdfGenerationService from '../services/pdfGenerationService';
 import { useAuth } from '../contexts/AuthContext';
 import ReportCanvas from '../components/reports/ReportCanvas';
+import { TiptapReadOnlyRenderer } from '../components/editor';
+import type { JSONContent } from '@tiptap/react';
 import Spinner from '../components/common/Spinner';
 import ErrorState from '../components/common/ErrorState';
 import EmptyState from '../components/common/EmptyState';
@@ -21,6 +23,13 @@ import type { Campaign } from '../types/business';
 import { EMAIL_PRESET_KEYS, getFullKey } from '../constants/emailDefaults';
 import TroubleshootModal from '../components/reports/TroubleshootModal';
 import '../components/Header.css';
+
+/**
+ * Helper to detect if content is Tiptap JSON format
+ */
+const isTiptapContent = (content: unknown): content is JSONContent => {
+    return !!content && typeof content === 'object' && (content as any).type === 'doc';
+};
 
 type PreviewState =
     | { status: 'loading' }
@@ -816,14 +825,26 @@ const ReportPreview: React.FC = () => {
                         ref={reportPreviewRef}
                         className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700/50"
                     >
-                        <ReportCanvas
-                            slides={slides}
-                            design={report.design}
-                            startDate={report.startDate}
-                            endDate={report.endDate}
-                            isPublicView={true}
-                            reportId={report.id}
-                        />
+                        {isTiptapContent(report.content) ? (
+                            <TiptapReadOnlyRenderer
+                                content={report.content}
+                                design={report.design}
+                                accountId={report.accountId}
+                                campaignIds={report.campaignIds}
+                                reportId={report.id}
+                                clientId={report.clientId}
+                                userId={report.userId}
+                            />
+                        ) : (
+                            <ReportCanvas
+                                slides={slides}
+                                design={report.design}
+                                startDate={report.startDate}
+                                endDate={report.endDate}
+                                isPublicView={true}
+                                reportId={report.id}
+                            />
+                        )}
                     </motion.div>
                 </main>
                 {/* Troubleshoot Modal */}

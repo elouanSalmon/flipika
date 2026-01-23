@@ -5,11 +5,21 @@ import { getPublicReport } from '../services/reportService';
 import { getUserProfileByUsername } from '../services/userProfileService';
 import { verifyPassword, storeReportAccess, hasReportAccess } from '../utils/passwordUtils';
 import ReportCanvas from '../components/reports/ReportCanvas';
+import { TiptapReadOnlyRenderer } from '../components/editor';
 import PasswordPrompt from '../components/reports/PasswordPrompt';
 import Spinner from '../components/common/Spinner';
 import type { EditableReport, SlideConfig } from '../types/reportTypes';
 import type { UserProfile } from '../types/userProfile';
+import type { JSONContent } from '@tiptap/react';
 import './PublicReportView.css';
+
+/**
+ * Helper to detect if content is Tiptap JSON format
+ */
+const isTiptapContent = (content: any): content is JSONContent => {
+    return content && typeof content === 'object' && content.type === 'doc';
+};
+
 
 const PublicReportView: React.FC = () => {
     const { username, reportId } = useParams<{ username: string; reportId: string }>();
@@ -177,14 +187,26 @@ const PublicReportView: React.FC = () => {
 
             {/* Report Content */}
             <main className="public-report-main">
-                <ReportCanvas
-                    slides={slides}
-                    design={report.design}
-                    startDate={report.startDate}
-                    endDate={report.endDate}
-                    isPublicView={true}
-                    reportId={report.id}
-                />
+                {isTiptapContent(report.content) ? (
+                    <TiptapReadOnlyRenderer
+                        content={report.content}
+                        design={report.design}
+                        accountId={report.accountId}
+                        campaignIds={report.campaignIds}
+                        reportId={report.id}
+                        clientId={report.clientId}
+                        userId={report.userId}
+                    />
+                ) : (
+                    <ReportCanvas
+                        slides={slides}
+                        design={report.design}
+                        startDate={report.startDate}
+                        endDate={report.endDate}
+                        isPublicView={true}
+                        reportId={report.id}
+                    />
+                )}
             </main>
 
             {/* Footer */}
