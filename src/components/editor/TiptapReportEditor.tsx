@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -5,11 +6,16 @@ import Underline from '@tiptap/extension-underline';
 import Link from '@tiptap/extension-link';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
 import { SlashCommandExtension } from './extensions/SlashCommandExtension';
 import { SlideExtension } from './extensions/SlideExtension';
 import { SlideDocument } from './extensions/SlideDocument';
 import { SlideNavigation } from './components/SlideNavigation';
+import { TableBubbleMenu } from './components/TableBubbleMenu';
 import { ChartBlockSelector } from './ChartBlockSelector';
 import { TiptapToolbar } from './TiptapToolbar';
 import { ReportEditorProvider } from '../../contexts/ReportEditorContext';
@@ -70,7 +76,12 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                 heading: { levels: [1, 2, 3] },
             }),
             Placeholder.configure({
-                placeholder,
+                placeholder: ({ node }) => {
+                    if (node.type.name === 'tableCell' || node.type.name === 'tableHeader') {
+                        return '';
+                    }
+                    return placeholder;
+                },
                 emptyEditorClass: 'is-editor-empty',
                 emptyNodeClass: 'is-node-empty',
                 includeChildren: true,
@@ -95,6 +106,12 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             SlideExtension,
             DataBlockExtension,
             SlashCommandExtension,
+            Table.configure({
+                resizable: true,
+            }),
+            TableRow,
+            TableHeader,
+            TableCell,
         ],
         content: content || defaultContent,
         editable,
@@ -143,6 +160,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                     <TiptapToolbar editor={editor} />
                     <div className="tiptap-editor-content slide-editor-container">
                         <EditorContent editor={editor} />
+                        <TableBubbleMenu editor={editor} />
                     </div>
                     {/* Floating Chart Selector */}
                     <ChartBlockSelector editor={editor} />

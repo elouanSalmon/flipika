@@ -19,6 +19,7 @@ import {
     AlignRight,
     Undo,
     Redo,
+    Table as TableIcon,
 } from 'lucide-react';
 
 interface TiptapToolbarProps {
@@ -211,6 +212,17 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor }) => {
                     isActive={editor.isActive('orderedList')}
                     icon={<ListOrdered size={18} />}
                     title="Liste numerotee"
+                />
+            </div>
+
+            <div className="tiptap-toolbar-separator" />
+
+            {/* Tables */}
+            <div className="tiptap-toolbar-group">
+                <ToolbarButton
+                    onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
+                    icon={<TableIcon size={18} />}
+                    title="Insérer un tableau"
                 />
             </div>
 

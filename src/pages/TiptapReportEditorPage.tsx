@@ -423,6 +423,7 @@ const TiptapReportEditorPage: React.FC = () => {
                         onChange={(e) => handleTitleChange(e.target.value)}
                         className="tiptap-title-input"
                         placeholder={t('header.titlePlaceholder')}
+                        style={{ width: `${Math.max(12, title.length + 2)}ch` }}
                     />
 
                     {/* Auto-save indicator */}
