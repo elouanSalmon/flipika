@@ -76,6 +76,7 @@
     "copyLink": "Copier le lien",
     "openInNewTab": "Ouvrir dans un nouvel onglet",
     "linkCopied": "Lien copié dans le presse-papier !",
+    "present": "Présenter",
     "deleteModal": {
       "title": "Supprimer le rapport",
       "message": "Êtes-vous sûr de vouloir supprimer ce rapport ?",
