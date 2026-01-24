@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useReportEditor, ReportEditorProvider } from '../../../contexts/ReportEditorContext';
 import { Settings, Loader2, X, Info } from 'lucide-react';
+import type { ReportDesign } from '../../../types/reportTypes';
 import { executeQuery } from '../../../services/googleAds';
 import { buildFlexibleQuery } from '../../../services/gaql';
 import {
@@ -34,6 +35,7 @@ export interface FlexibleDataBlockProps {
     campaignIds?: string[];
     startDate?: Date;
     endDate?: Date;
+    design?: ReportDesign;
 }
 
 // Internal component for the Preview section to share data fetching logic
@@ -45,8 +47,16 @@ const DataRenderer: React.FC<{
     endDate: Date | string;
     height?: number | string;
     showRawData?: boolean;
-}> = ({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false }) => {
+    design?: ReportDesign;
+}> = ({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false, design }) => {
     const { t } = useTranslation('reports');
+
+    // Generate colors based on design or fallback to defaults
+    const chartColors = useMemo(() => {
+        if (!design?.colorScheme) return COLORS;
+        const { primary, secondary, accent } = design.colorScheme;
+        return [primary, secondary, accent, '#FFBB28', '#FF8042', '#8884d8'];
+    }, [design]);
     const [data, setData] = useState<any[]>([]);
     const [rawResults, setRawResults] = useState<any[]>([]);
     const [generatedQuery, setGeneratedQuery] = useState<string>('');
@@ -163,20 +173,20 @@ const DataRenderer: React.FC<{
     };
 
     return (
-        <div className="h-full w-full overflow-hidden">
+        <div className="h-full w-full overflow-hidden" style={{ fontFamily: design?.typography?.fontFamily }}>
             {(() => {
                 switch (config.visualization) {
                     case 'table':
                         return (
                             <div className="overflow-x-auto h-full custom-scrollbar">
                                 <table className="w-full text-xs">
-                                    <thead className="sticky top-0 bg-[var(--color-bg-primary)]">
+                                    <thead className="sticky top-0" style={{ backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)' }}>
                                         <tr className="border-b border-[var(--color-border)]">
-                                            <th className="text-left p-3 font-semibold text-[var(--color-text-muted)]">
+                                            <th className="text-left p-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: design?.colorScheme?.primary || 'var(--color-text-muted)' }}>
                                                 {config.dimension ? t(`flexibleBlock.dimensions.${config.dimension.split('.')[1]}`) : t('flexibleBlock.fields.none')}
                                             </th>
                                             {config.metrics.map((m: string) => (
-                                                <th key={m} className="text-right p-3 font-semibold text-[var(--color-text-muted)]">
+                                                <th key={m} className="text-right p-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: design?.colorScheme?.primary || 'var(--color-text-muted)' }}>
                                                     {t(`flexibleBlock.metricsList.${m.split('.')[1]}`)}
                                                 </th>
                                             ))}
@@ -200,12 +210,12 @@ const DataRenderer: React.FC<{
                             <ResponsiveContainer width="100%" height={height as any}>
                                 <BarChart data={data}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
-                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={false} tickLine={false} />
-                                    <Tooltip contentStyle={tooltipStyle} />
-                                    <Legend wrapperStyle={{ fontSize: '10px' }} />
+                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
+                                    <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
+                                    <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
                                     {config.metrics.map((m: string, i: number) => (
-                                        <Bar key={m} dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} />
+                                        <Bar key={m} dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={chartColors[i % chartColors.length]} radius={[4, 4, 0, 0]} />
                                     ))}
                                 </BarChart>
                             </ResponsiveContainer>
@@ -215,12 +225,12 @@ const DataRenderer: React.FC<{
                             <ResponsiveContainer width="100%" height={height as any}>
                                 <LineChart data={data}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
-                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={false} tickLine={false} />
-                                    <Tooltip contentStyle={tooltipStyle} />
-                                    <Legend wrapperStyle={{ fontSize: '10px' }} />
+                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
+                                    <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
+                                    <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
                                     {config.metrics.map((m: string, i: number) => (
-                                        <Line key={m} type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={COLORS[i % COLORS.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                        <Line key={m} type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={chartColors[i % chartColors.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
                                     ))}
                                 </LineChart>
                             </ResponsiveContainer>
@@ -236,16 +246,17 @@ const DataRenderer: React.FC<{
                                         cy="50%"
                                         labelLine={false}
                                         outerRadius={pieRadius}
-                                        fill="#8884d8"
+                                        fill={chartColors[0]}
                                         dataKey={config.metrics[0]}
                                         nameKey={config.dimension}
                                         label={({ name, percent }: any) => `${name} ${(percent * 100).toFixed(0)}%`}
                                         fontSize={10}
+                                        fontFamily={design?.typography?.fontFamily}
                                     >
-                                        {data.map((_, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+                                        {data.map((_, index) => <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />)}
                                     </Pie>
-                                    <Tooltip contentStyle={tooltipStyle} />
-                                    <Legend wrapperStyle={{ fontSize: '10px' }} />
+                                    <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
                                 </PieChart>
                             </ResponsiveContainer>
                         );
@@ -255,11 +266,11 @@ const DataRenderer: React.FC<{
                                 {config.metrics.map((m: string) => {
                                     const total = data.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
                                     return (
-                                        <div key={m} className="p-5 glass rounded-2xl text-center border shadow-sm">
+                                        <div key={m} className="p-5 glass rounded-2xl text-center border shadow-sm" style={{ borderColor: design?.colorScheme?.primary + '20' }}>
                                             <div className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-1">
                                                 {t(`flexibleBlock.metricsList.${m.split('.')[1]}`)}
                                             </div>
-                                            <div className="text-2xl font-bold text-[var(--color-text-primary)]">{total.toLocaleString()}</div>
+                                            <div className="text-2xl font-bold" style={{ color: design?.colorScheme?.primary || 'var(--color-text-primary)' }}>{total.toLocaleString()}</div>
                                         </div>
                                     );
                                 })}
@@ -281,6 +292,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
     campaignIds: propCampaignIds,
     startDate: propStartDate,
     endDate: propEndDate,
+    design: propDesign,
 }) => {
     const { t } = useTranslation('reports');
     const context = useReportEditor();
@@ -290,6 +302,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
     const campaignIds = propCampaignIds || context.campaignIds || [];
     const startDate = propStartDate || context.startDate;
     const endDate = propEndDate || context.endDate;
+    const design = propDesign || context.design;
 
     const [isConfigOpen, setIsConfigOpen] = useState(false);
 
@@ -500,6 +513,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                 endDate={endDate || ''}
                                                 height="100%"
                                                 showRawData={showRawData}
+                                                design={design || undefined}
                                             />
                                         </div>
                                     </div>
@@ -523,8 +537,8 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
     return (
         <div className="flexible-data-block relative group">
             <div className="app-card overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-primary)] transition-all hover:shadow-xl hover:border-primary/30">
-                <div className="px-5 py-4 border-b border-[var(--color-border)] flex justify-between items-center bg-[var(--color-bg-secondary)]/50">
-                    <h3 className="font-bold text-[var(--color-text-primary)]">{activeConfig.title}</h3>
+                <div className="px-5 py-4 border-b border-[var(--color-border)] flex justify-between items-center bg-[var(--color-bg-secondary)]/50" style={{ borderColor: design?.colorScheme?.primary + '20' }}>
+                    <h3 className="font-bold" style={{ color: design?.colorScheme?.primary || 'var(--color-text-primary)' }}>{activeConfig.title}</h3>
                     {editable && (
                         <button
                             onClick={() => setIsConfigOpen(true)}
@@ -542,6 +556,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                         campaignIds={campaignIds}
                         startDate={startDate || ''}
                         endDate={endDate || ''}
+                        design={design || undefined}
                     />
                 </div>
             </div>

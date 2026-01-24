@@ -185,6 +185,7 @@ export const DataBlockComponent = (props: NodeViewProps) => {
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
                         endDate={endDate}
+                        design={design}
                     />
                 );
             default:
