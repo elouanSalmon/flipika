@@ -53,56 +53,72 @@ const DataRenderer: React.FC<{
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    // Debounced fetch
     useEffect(() => {
-        const fetchData = async () => {
-            if (!accountId || !startDate || !endDate) return;
-            setLoading(true);
-            setError(null);
-            try {
-                const sDate = typeof startDate === 'string' ? new Date(startDate) : startDate;
-                const eDate = typeof endDate === 'string' ? new Date(endDate) : endDate;
+        const timer = setTimeout(() => {
+            fetchData();
+        }, 300);
+        return () => clearTimeout(timer);
+    }, [
+        accountId,
+        JSON.stringify(campaignIds),
+        startDate?.toString(),
+        endDate?.toString(),
+        config.dimension,
+        config.visualization,
+        config.limit,
+        config.sortBy,
+        config.sortOrder,
+        JSON.stringify(config.metrics)
+    ]);
 
-                if (isNaN(sDate.getTime()) || isNaN(eDate.getTime())) {
-                    throw new Error('Invalid date range');
-                }
+    const fetchData = async () => {
+        if (!accountId || !startDate || !endDate) return;
+        setLoading(true);
+        setError(null);
+        try {
+            const sDate = typeof startDate === 'string' ? new Date(startDate) : startDate;
+            const eDate = typeof endDate === 'string' ? new Date(endDate) : endDate;
 
-                const formatDate = (d: Date) => d.toISOString().split('T')[0];
-                const query = buildFlexibleQuery(config, {
-                    startDate: formatDate(sDate),
-                    endDate: formatDate(eDate),
-                    campaignIds: campaignIds
-                });
-                setGeneratedQuery(query);
-                const result = await executeQuery(accountId, query);
-                if (!result.success) throw new Error(result.error || 'Failed to fetch data');
-
-                setRawResults(result.results || []);
-
-                const flatData = (result.results || []).map((row: any) => {
-                    const flatRow: any = {};
-                    if (config.dimension) {
-                        const dimParts = config.dimension.split('.');
-                        if (dimParts.length === 2 && row[dimParts[0]]) {
-                            flatRow[config.dimension] = row[dimParts[0]][dimParts[1]];
-                        } else if (dimParts[0] === 'segments' && row.segments) {
-                            flatRow[config.dimension] = row.segments[dimParts[1]];
-                        }
-                    }
-                    config.metrics.forEach((m: string) => {
-                        const parts = m.split('.');
-                        if (row[parts[0]]) flatRow[m] = row[parts[0]][parts[1]];
-                    });
-                    return flatRow;
-                });
-                setData(flatData);
-            } catch (err: any) {
-                setError(err.message || 'Failed to fetch data');
-            } finally {
-                setLoading(false);
+            if (isNaN(sDate.getTime()) || isNaN(eDate.getTime())) {
+                throw new Error('Invalid date range');
             }
-        };
-        fetchData();
-    }, [accountId, campaignIds, startDate, endDate, config]);
+
+            const formatDate = (d: Date) => d.toISOString().split('T')[0];
+            const query = buildFlexibleQuery(config, {
+                startDate: formatDate(sDate),
+                endDate: formatDate(eDate),
+                campaignIds: campaignIds
+            });
+            setGeneratedQuery(query);
+            const result = await executeQuery(accountId, query);
+            if (!result.success) throw new Error(result.error || 'Failed to fetch data');
+
+            setRawResults(result.results || []);
+
+            const flatData = (result.results || []).map((row: any) => {
+                const flatRow: any = {};
+                if (config.dimension) {
+                    const dimParts = config.dimension.split('.');
+                    if (dimParts.length === 2 && row[dimParts[0]]) {
+                        flatRow[config.dimension] = row[dimParts[0]][dimParts[1]];
+                    } else if (dimParts[0] === 'segments' && row.segments) {
+                        flatRow[config.dimension] = row.segments[dimParts[1]];
+                    }
+                }
+                config.metrics.forEach((m: string) => {
+                    const parts = m.split('.');
+                    if (row[parts[0]]) flatRow[m] = row[parts[0]][parts[1]];
+                });
+                return flatRow;
+            });
+            setData(flatData);
+        } catch (err: any) {
+            setError(err.message || 'Failed to fetch data');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     if (!accountId || !startDate || !endDate) {
         return (
@@ -296,6 +312,15 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
     useEffect(() => {
         if (editable && (config.isNew || config.isConfigActive)) {
             setIsConfigOpen(true);
+
+            // Immediately clear the flags to avoid re-opening on remount or report load
+            if (config.isNew || config.isConfigActive) {
+                onUpdateConfig({
+                    ...config,
+                    isNew: false,
+                    isConfigActive: false
+                });
+            }
         }
     }, [editable, config.isNew, config.isConfigActive]);
 
