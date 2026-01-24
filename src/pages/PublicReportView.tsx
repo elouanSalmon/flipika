@@ -166,31 +166,33 @@ const PublicReportView: React.FC = () => {
             {/* Header */}
             <header className="public-report-header">
                 <div className="public-report-header-content">
-                    <Logo className="origin-left" />
+                    <div className="flex items-center gap-4">
+                        <Logo className="origin-left" />
 
-                    {author && (
-                        <div className="public-report-author">
-                            <span className="author-label">Par</span>
-                            <span className="author-name">
-                                {author.firstName} {author.lastName}
-                            </span>
-                            {author.company && (
-                                <span className="author-company">• {author.company}</span>
-                            )}
-                        </div>
-                    )}
-                </div>
+                        {author && (
+                            <div className="public-report-author">
+                                <span className="author-label">Par</span>
+                                <span className="author-name">
+                                    {author.firstName} {author.lastName}
+                                </span>
+                                {author.company && (
+                                    <span className="author-company">• {author.company}</span>
+                                )}
+                            </div>
+                        )}
+                    </div>
 
-                <div className="flex items-center gap-2">
-                    {/* Presentation Mode Button */}
-                    <button
-                        onClick={() => setShowPresentationMode(true)}
-                        className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                        title={t('header.present')}
-                    >
-                        <Play size={16} className="fill-current" />
-                        <span className="hidden sm:inline">{t('header.present')}</span>
-                    </button>
+                    <div className="flex items-center gap-2">
+                        {/* Presentation Mode Button */}
+                        <button
+                            onClick={() => setShowPresentationMode(true)}
+                            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                            title={t('reports:header.present')}
+                        >
+                            <Play size={16} className="fill-current" />
+                            <span className="hidden sm:inline">{t('reports:header.present')}</span>
+                        </button>
+                    </div>
                 </div>
             </header>
 
