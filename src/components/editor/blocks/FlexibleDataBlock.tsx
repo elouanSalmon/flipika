@@ -331,10 +331,10 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative bg-[var(--color-bg-primary)] rounded-3xl shadow-2xl flex flex-col w-[1400px] max-w-[95vw] h-[90vh] overflow-hidden border border-[var(--color-border)] glass"
+                            className="relative bg-[var(--color-bg-primary)] rounded-3xl shadow-2xl flex flex-col w-[1400px] max-w-[95vw] h-[90vh] overflow-hidden border border-[var(--color-border)]"
                         >
                             {/* Header */}
-                            <div className="flex items-center justify-between px-8 py-6 border-b border-[var(--color-border)] bg-[var(--color-bg-secondary)]/50">
+                            <div className="flex items-center justify-between px-8 py-6 border-b border-[var(--color-border)] bg-[var(--color-bg-secondary)]">
                                 <div>
                                     <h4 className="text-2xl font-bold text-[var(--color-text-primary)]">{t('flexibleBlock.modalTitle')}</h4>
                                     <p className="text-sm text-[var(--color-text-muted)]">{t('flexibleBlock.modalSubtitle')}</p>
@@ -435,7 +435,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                 </div>
 
                                 {/* Live Preview Panel */}
-                                <div className="flex-1 bg-[var(--color-bg-secondary)]/30 p-8 lg:p-12 flex flex-col min-h-0">
+                                <div className="flex-1 bg-[var(--color-bg-secondary)] p-8 lg:p-12 flex flex-col min-h-0">
                                     <div className="flex items-center justify-between gap-3 mb-6">
                                         <div className="flex items-center gap-3 text-[var(--color-text-muted)]">
                                             <div className="p-2 bg-primary/10 rounded-lg"><Info size={20} className="text-primary" /></div>
@@ -448,7 +448,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                             {showRawData ? 'Show Visual' : 'Show RAW JSON (Debug)'}
                                         </button>
                                     </div>
-                                    <div className="flex-1 bg-[var(--color-bg-primary)] rounded-3xl shadow-xl border border-[var(--color-border)] flex flex-col p-8 lg:p-12 overflow-hidden glass">
+                                    <div className="flex-1 bg-[var(--color-bg-primary)] rounded-3xl shadow-xl border border-[var(--color-border)] flex flex-col p-8 lg:p-12 overflow-hidden">
                                         <div className="mb-10 flex justify-between items-end">
                                             <div className="space-y-1">
                                                 <h3 className="text-3xl font-bold text-[var(--color-text-primary)] leading-tight">{editConfig.title || t('flexibleBlock.previewSubtitle')}</h3>
