@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Zap, AlertCircle } from 'lucide-react';
+import { Zap, AlertCircle, Play } from 'lucide-react';
 import { getPublicReport } from '../services/reportService';
 import { getUserProfileByUsername } from '../services/userProfileService';
 import { verifyPassword, storeReportAccess, hasReportAccess } from '../utils/passwordUtils';
 import ReportCanvas from '../components/reports/ReportCanvas';
 import { TiptapReadOnlyRenderer } from '../components/editor';
+import { PresentationOverlay } from '../components/presentation/PresentationOverlay';
 import PasswordPrompt from '../components/reports/PasswordPrompt';
 import Spinner from '../components/common/Spinner';
 import Logo from '../components/Logo';
 import type { EditableReport, SlideConfig } from '../types/reportTypes';
 import type { UserProfile } from '../types/userProfile';
 import type { JSONContent } from '@tiptap/react';
+import { useTranslation } from 'react-i18next';
 import './PublicReportView.css';
 
 /**
@@ -25,6 +27,7 @@ const isTiptapContent = (content: any): content is JSONContent => {
 const PublicReportView: React.FC = () => {
     const { username, reportId } = useParams<{ username: string; reportId: string }>();
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [report, setReport] = useState<EditableReport | null>(null);
     const [slides, setWidgets] = useState<SlideConfig[]>([]);
     const [author, setAuthor] = useState<UserProfile | null>(null);
@@ -32,6 +35,7 @@ const PublicReportView: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [needsPassword, setNeedsPassword] = useState(false);
     const [hasAccess, setHasAccess] = useState(false);
+    const [showPresentationMode, setShowPresentationMode] = useState(false);
 
     useEffect(() => {
         loadPublicReport();
@@ -176,6 +180,18 @@ const PublicReportView: React.FC = () => {
                         </div>
                     )}
                 </div>
+
+                <div className="flex items-center gap-2">
+                    {/* Presentation Mode Button */}
+                    <button
+                        onClick={() => setShowPresentationMode(true)}
+                        className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                        title={t('header.present')}
+                    >
+                        <Play size={16} className="fill-current" />
+                        <span className="hidden sm:inline">{t('header.present')}</span>
+                    </button>
+                </div>
             </header>
 
             {/* Report Content */}
@@ -212,6 +228,14 @@ const PublicReportView: React.FC = () => {
                     </span>
                 </p>
             </footer>
+
+            {/* Presentation Mode Overlay */}
+            {showPresentationMode && report && (
+                <PresentationOverlay
+                    report={report}
+                    onClose={() => setShowPresentationMode(false)}
+                />
+            )}
         </div>
     );
 };
