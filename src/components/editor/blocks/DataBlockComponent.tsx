@@ -17,6 +17,8 @@ import HeatmapSlide from '../../reports/slides/HeatmapSlide';
 import DevicePlatformSplitSlide from '../../reports/slides/DevicePlatformSplitSlide';
 import TopPerformersSlide from '../../reports/slides/TopPerformersSlide';
 import ClientLogoBlock from './ClientLogoBlock';
+import FlexibleDataBlock from './FlexibleDataBlock';
+import type { FlexibleDataConfig } from './FlexibleDataBlock';
 
 /**
  * Data Block Component (Epic 13 - Story 13.2)
@@ -25,9 +27,10 @@ import ClientLogoBlock from './ClientLogoBlock';
  * Uses ReportEditorContext to provide design and data context.
  * In template mode, blocks always show demo data.
  */
-export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeViewProps) => {
+export const DataBlockComponent = (props: NodeViewProps) => {
+    const { node, deleteNode, selected, editor, updateAttributes } = props;
     const { blockType, config } = node.attrs;
-    const { design, accountId, campaignIds, reportId, isTemplateMode } = useReportEditor();
+    const { design, accountId, campaignIds, reportId, isTemplateMode, startDate, endDate } = useReportEditor();
 
     if (!design) {
         return (
@@ -42,41 +45,45 @@ export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeV
     const effectiveCampaignIds = isTemplateMode ? [] : campaignIds;
 
     // Synthesize a SlideConfig-like object for the component
-    // We use a stable ID from the node or generate one if needed (though node ID is best if available)
-    // Tiptap nodes don't inherently have IDs unless configured. We'll use a dummy ID or a generated property if saved.
     const slideConfig: SlideConfig = useMemo(() => ({
         id: node.attrs.id || `block-${Date.now()}`,
         type: blockType as SlideType,
         accountId: effectiveAccountId,
         campaignIds: effectiveCampaignIds,
+        startDate: startDate,
+        endDate: endDate,
         order: 0,
         createdAt: new Date(),
         updatedAt: new Date(),
         settings: config || {},
-        ...config // Spread config directly as well in case component uses top-level props (mocking full SlideConfig properties)
-    }), [node.attrs.id, blockType, config, effectiveAccountId, effectiveCampaignIds]);
+        ...config
+    }), [node.attrs.id, blockType, config, effectiveAccountId, effectiveCampaignIds, startDate, endDate]);
 
     const renderBlock = () => {
         switch (blockType) {
             case SlideType.PERFORMANCE_OVERVIEW:
-            case 'performance': // Legacy/Alias
+            case 'performance':
                 return (
                     <PerformanceOverviewSlide
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
-                        editable={false} // Block view is usually "preview" mode, editing happens via settings
+                        editable={false}
                         isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.CAMPAIGN_CHART:
-            case 'chart': // Legacy/Alias
+            case 'chart':
                 return (
                     <CampaignChartSlide
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
@@ -84,11 +91,13 @@ export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeV
                     />
                 );
             case SlideType.KEY_METRICS:
-            case 'keyMetrics': // Legacy/Alias
+            case 'keyMetrics':
                 return (
                     <KeyMetricsSlide
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
@@ -100,6 +109,8 @@ export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeV
                     <AdCreativeSlide
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
@@ -111,6 +122,8 @@ export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeV
                     <FunnelAnalysisSlide
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
@@ -122,6 +135,8 @@ export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeV
                     <HeatmapSlide
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
@@ -133,6 +148,8 @@ export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeV
                     <DevicePlatformSplitSlide
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
@@ -144,6 +161,8 @@ export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeV
                     <TopPerformersSlide
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
                         config={slideConfig}
                         design={design}
                         reportId={reportId}
@@ -152,6 +171,22 @@ export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeV
                 );
             case 'clientLogo':
                 return <ClientLogoBlock />;
+            case SlideType.FLEXIBLE_DATA:
+                return (
+                    <FlexibleDataBlock
+                        config={config as FlexibleDataConfig}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
+                    />
+                );
             default:
                 return (
                     <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-dashed border-gray-300">
@@ -178,8 +213,13 @@ export const DataBlockComponent = ({ node, deleteNode, selected, editor }: NodeV
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
-                                console.log('Configure block:', blockType);
-                                // Open settings modal/panel here
+                                if (blockType === SlideType.FLEXIBLE_DATA) {
+                                    updateAttributes({
+                                        config: { ...config, isConfigActive: true }
+                                    });
+                                } else {
+                                    console.log('Configure block:', blockType);
+                                }
                             }}
                             className="data-block-action-btn"
                             title="Configure"

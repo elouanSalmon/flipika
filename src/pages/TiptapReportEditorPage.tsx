@@ -877,6 +877,8 @@ const TiptapReportEditorPage: React.FC = () => {
                     clientId={report.clientId}
                     client={client}
                     userId={report.userId}
+                    startDate={report.startDate ? new Date(report.startDate) : undefined}
+                    endDate={report.endDate ? new Date(report.endDate) : undefined}
                     onOpenSettings={handleOpenSettings}
                 />
             </main >

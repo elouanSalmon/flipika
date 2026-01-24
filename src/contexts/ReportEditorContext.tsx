@@ -12,6 +12,8 @@ interface ReportEditorContextType {
     userId?: string;
     isPublicView?: boolean;
     isTemplateMode?: boolean; // When true, blocks always show demo data
+    startDate?: Date;
+    endDate?: Date;
     onOpenSettings?: () => void;
 }
 
@@ -36,6 +38,8 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
     userId,
     isPublicView,
     isTemplateMode,
+    startDate,
+    endDate,
     onOpenSettings,
 }) => {
     return (
@@ -49,6 +53,8 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
             userId,
             isPublicView,
             isTemplateMode,
+            startDate,
+            endDate,
             onOpenSettings
         }}>
             {children}

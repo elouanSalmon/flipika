@@ -30,6 +30,7 @@ export const SlideType = {
     TOP_PERFORMERS: 'top_performers',
     SECTION_TITLE: 'section_title',
     RICH_TEXT: 'rich_text',
+    FLEXIBLE_DATA: 'flexible_data',
 } as const;
 
 export type SlideType = typeof SlideType[keyof typeof SlideType];

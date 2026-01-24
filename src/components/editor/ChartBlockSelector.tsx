@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Editor } from '@tiptap/react';
 import {
     BarChart3, TrendingUp, PieChart, Target,
-    Image, Filter, Layout, Trophy, X, Search, Grid3x3
+    Image, Filter, Layout, Trophy, X, Search, Grid3x3, Settings
 } from 'lucide-react';
 import './ChartBlockSelector.css';
 
@@ -55,6 +55,20 @@ const ANALYTICS_ITEMS: ChartOption[] = [
         description: 'Top campagnes/groupes',
         icon: Trophy,
         config: {},
+        category: 'analytics'
+    },
+    {
+        type: 'flexible_data',
+        label: 'Données Flexibles',
+        description: 'Tableau/Graphique personnalisé',
+        icon: Settings,
+        config: {
+            title: 'Nouveau Bloc',
+            visualization: 'table',
+            metrics: ['metrics.impressions', 'metrics.clicks'],
+            dimension: 'segments.date',
+            isNew: true
+        },
         category: 'analytics'
     },
 ];

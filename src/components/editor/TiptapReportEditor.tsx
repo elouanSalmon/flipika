@@ -45,6 +45,8 @@ interface TiptapReportEditorProps {
     client?: Client | null;
     userId?: string;
     isTemplateMode?: boolean;
+    startDate?: Date;
+    endDate?: Date;
     onOpenSettings?: () => void;
 }
 
@@ -61,6 +63,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     client,
     userId,
     isTemplateMode = false,
+    startDate,
+    endDate,
     onOpenSettings,
 }) => {
     const defaultContent = {
@@ -183,6 +187,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             client={client}
             userId={userId}
             isTemplateMode={isTemplateMode}
+            startDate={startDate}
+            endDate={endDate}
             onOpenSettings={onOpenSettings}
         >
             <div

@@ -28,18 +28,23 @@
   },
   "common": {
     "period": "Period",
-    "client": "Client",
-    "account": "Account",
+    "client": "Account",
+    "account": "Google Ads Account",
     "campaigns": "Campaigns",
     "allCampaigns": "All campaigns",
     "selected": "selected"
   },
   "config": {
-    "title": "Configuration du Rapport",
-    "settings": "Paramètres du Rapport",
-    "reportTitle": "Titre du rapport",
-    "titlePlaceholder": "Ex: Rapport Mensuel Décembre 2024",
-    "googleAdsAccount": "Compte Google Ads",
+    "title": "Report Configuration",
+    "settings": "Report Settings",
+    "reportTitle": "Report Title",
+    "titlePlaceholder": "Ex: Monthly Report December 2024",
+    "clientLabel": "Account",
+    "loadingClients": "Loading accounts...",
+    "noClients": "No accounts found.",
+    "createClient": "Create an account",
+    "selectClient": "Select an account",
+    "googleAdsAccount": "Google Ads Account",
     "analysisPeriod": "Période d'analyse",
     "periods": {
       "last7Days": "Derniers 7 jours",
@@ -486,7 +491,56 @@
   },
   "info": {
     "buttonLabel": "Information",
-    "modalTitle": "Qu'est-ce qu'un rapport ?",
-    "modalContent": "Les rapports sont des documents de performance Google Ads personnalisables que vous créez et partagez avec vos comptes ou parties prenantes.\n\nAvec les rapports, vous pouvez :\n• Combiner plusieurs types de slides (métriques, graphiques, texte, créatives) en présentations complètes\n• Analyser des campagnes et périodes spécifiques\n• Sauvegarder en brouillon, publier ou archiver pour l'organisation\n• Protéger les rapports par mot de passe pour un partage sécurisé\n• Générer des exports PDF pour une distribution hors ligne\n• Partager par email avec du contenu pré-rempli\n\nLes rapports peuvent être créés de zéro ou générés à partir de templates pour des livrables plus rapides et cohérents."
+    "modalTitle": "What is a report?",
+    "modalContent": "Reports are customizable Google Ads performance documents you create and share with your accounts or stakeholders.\n\nWith reports, you can:\n• Combine multiple slide types (metrics, charts, text, creatives) into complete presentations\n• Analyze specific campaigns and time periods\n• Save as draft, publish, or archive for organization\n• Password-protect reports for secure sharing\n• Generate PDF exports for offline distribution\n• Share by email with pre-filled content\n\nReports can be built from scratch or generated from templates for faster, consistent deliverables."
+  },
+  "flexibleBlock": {
+    "modalTitle": "Configure Analytics Block",
+    "modalSubtitle": "Customize metrics, dimensions and visualization",
+    "previewTitle": "Real-time Preview",
+    "previewSubtitle": "Preview",
+    "waitingContext": "Waiting for account context...",
+    "fields": {
+      "title": "Block Title",
+      "titlePlaceholder": "e.g. Performance by Campaign",
+      "visualStyle": "Visual Style",
+      "dimension": "Dimension",
+      "limit": "Limit",
+      "metrics": "Metrics",
+      "none": "None (Totals)"
+    },
+    "visualizations": {
+      "table": "Table",
+      "bar": "Bar",
+      "line": "Line",
+      "pie": "Pie",
+      "scorecard": "Scorecard"
+    },
+    "dimensions": {
+      "date": "Date",
+      "campaign": "Campaign",
+      "adGroup": "Ad Group",
+      "device": "Device"
+    },
+    "metricsList": {
+      "impressions": "Impressions",
+      "clicks": "Clicks",
+      "cost": "Cost",
+      "cost_micros": "Cost",
+      "ctr": "CTR",
+      "cpc": "Average CPC",
+      "average_cpc": "Average CPC",
+      "conversions": "Conversions",
+      "convValue": "Conv. Value",
+      "conversions_value": "Conv. Value",
+      "costPerConv": "Cost / Conv.",
+      "cost_per_conversion": "Cost / Conv."
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "create": "Generate Block",
+      "update": "Update Content"
+    },
+    "emptyState": "Configure an account to display data."
   }
 }

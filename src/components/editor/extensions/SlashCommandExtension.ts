@@ -13,8 +13,12 @@ import { BarChart3, Target, TrendingUp, Filter, Image, Columns2, Layout, PieChar
  * Enables slash commands for inserting data blocks:
  * - /performance - Insert performance metrics block
  * - /chart - Insert chart block
+ * - /chart - Insert chart block
  * - /metrics - Insert key metrics block
+ * - /flexible - Insert flexible data block
  */
+
+import { Settings } from 'lucide-react';
 
 export interface SlashCommandItem {
     title: string;
@@ -57,6 +61,28 @@ export const SlashCommandExtension = Extension.create({
                                     .insertDataBlock({
                                         blockType: 'performance_overview',
                                         config: {},
+                                    })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: 'Flexible Data',
+                            description: 'Customizable data block (Table, Chart, Scorecard)',
+                            icon: Settings,
+                            command: ({ editor, range }) => {
+                                editor
+                                    .chain()
+                                    .focus()
+                                    .deleteRange(range)
+                                    .insertDataBlock({
+                                        blockType: 'flexible_data',
+                                        config: {
+                                            title: 'New Data Block',
+                                            visualization: 'table',
+                                            metrics: ['metrics.impressions', 'metrics.clicks'],
+                                            dimension: 'segments.date',
+                                            isNew: true
+                                        },
                                     })
                                     .run();
                             },
