@@ -22,6 +22,8 @@ import Logo from '../components/Logo';
 import AutoSaveIndicator from '../components/reports/AutoSaveIndicator';
 import { ThemeSelector } from '../components/editor/ThemeSelector';
 import TemplateConfigModal, { type TemplateConfig } from '../components/templates/TemplateConfigModal';
+import themeService from '../services/themeService';
+import { defaultReportDesign } from '../types/reportTypes';
 import '../components/reports/ReportEditorHeader.css';
 
 /**
@@ -107,23 +109,45 @@ const TiptapTemplateEditorPage: React.FC = () => {
                     navigate('/app/templates');
                     return;
                 }
-                setTemplate(result);
-                setName(result.name);
-                setEditorContent(result.content || null);
-                setLastSaved(result.updatedAt);
 
-                // Load client if linked
+                // Initialize design if missing or load from client theme
+                let design = result.design || defaultReportDesign;
+
+                // Load client and its theme if linked
                 if (result.clientId && currentUser) {
                     try {
                         const clients = await clientService.getClients(currentUser.uid);
                         const linkedClient = clients.find(c => c.id === result.clientId);
                         if (linkedClient) {
                             setClient(linkedClient);
+
+                            // Load client's theme
+                            const clientTheme = await themeService.getThemeForClient(currentUser.uid, result.clientId);
+                            if (clientTheme) {
+                                design = clientTheme.design;
+                            }
                         }
                     } catch (err) {
                         console.error('Error loading client:', err);
                     }
                 }
+
+                // If no client theme, try to load default theme
+                if (design === defaultReportDesign && currentUser) {
+                    try {
+                        const defaultTheme = await themeService.getDefaultTheme(currentUser.uid);
+                        if (defaultTheme) {
+                            design = defaultTheme.design;
+                        }
+                    } catch (err) {
+                        console.error('Error loading default theme:', err);
+                    }
+                }
+
+                setTemplate({ ...result, design });
+                setName(result.name);
+                setEditorContent(result.content || null);
+                setLastSaved(result.updatedAt);
             } else {
                 toast.error(t('editor.notFound'));
                 navigate('/app/templates');

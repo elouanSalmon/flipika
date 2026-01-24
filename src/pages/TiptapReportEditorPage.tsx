@@ -29,6 +29,8 @@ import ReportConfigModal, { type ReportConfig } from '../components/reports/Repo
 import ReportSecurityModal from '../components/reports/ReportSecurityModal';
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import { GoogleSlidesExportModal } from '../components/reports/GoogleSlidesExportModal';
+import themeService from '../services/themeService';
+import { defaultReportDesign } from '../types/reportTypes';
 import '../components/reports/ReportEditorHeader.css';
 import { extractSlidesFromTiptapContent } from '../utils/slidesExtraction';
 
@@ -122,22 +124,43 @@ const TiptapReportEditorPage: React.FC = () => {
             setIsLoading(true);
             const result = await getReportWithSlides(id);
             if (result) {
-                setReport(result.report);
-                setTitle(result.report.title);
-                setEditorContent(result.report.content || null);
+                // Initialize design if missing or load from client theme
+                let design = result.report.design || defaultReportDesign;
 
-                // Load client if linked
+                // Load client and its theme if linked
                 if (result.report.clientId && currentUser) {
                     try {
                         const clients = await clientService.getClients(currentUser.uid);
                         const linkedClient = clients.find(c => c.id === result.report.clientId);
                         if (linkedClient) {
                             setClient(linkedClient);
+
+                            // Load client's theme
+                            const clientTheme = await themeService.getThemeForClient(currentUser.uid, result.report.clientId);
+                            if (clientTheme) {
+                                design = clientTheme.design;
+                            }
                         }
                     } catch (err) {
                         console.error('Error loading client:', err);
                     }
                 }
+
+                // If no client theme, try to load default theme
+                if (design === defaultReportDesign && currentUser) {
+                    try {
+                        const defaultTheme = await themeService.getDefaultTheme(currentUser.uid);
+                        if (defaultTheme) {
+                            design = defaultTheme.design;
+                        }
+                    } catch (err) {
+                        console.error('Error loading default theme:', err);
+                    }
+                }
+
+                setReport({ ...result.report, design });
+                setTitle(result.report.title);
+                setEditorContent(result.report.content || null);
             }
         } catch (error) {
             console.error('Error loading report:', error);
