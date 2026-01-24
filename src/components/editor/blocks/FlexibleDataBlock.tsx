@@ -43,9 +43,9 @@ const DataRenderer: React.FC<{
     campaignIds: string[];
     startDate: Date | string;
     endDate: Date | string;
-    height?: number;
+    height?: number | string;
     showRawData?: boolean;
-}> = ({ config, accountId, campaignIds, startDate, endDate, height = 300, showRawData = false }) => {
+}> = ({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false }) => {
     const { t } = useTranslation('reports');
     const [data, setData] = useState<any[]>([]);
     const [rawResults, setRawResults] = useState<any[]>([]);
@@ -162,108 +162,115 @@ const DataRenderer: React.FC<{
         color: 'var(--color-text-primary)'
     };
 
-    switch (config.visualization) {
-        case 'table':
-            return (
-                <div className="overflow-x-auto max-h-full custom-scrollbar">
-                    <table className="w-full text-xs">
-                        <thead className="sticky top-0 bg-[var(--color-bg-primary)]">
-                            <tr className="border-b border-[var(--color-border)]">
-                                <th className="text-left p-3 font-semibold text-[var(--color-text-muted)]">
-                                    {config.dimension ? t(`flexibleBlock.dimensions.${config.dimension.split('.')[1]}`) : t('flexibleBlock.fields.none')}
-                                </th>
-                                {config.metrics.map((m: string) => (
-                                    <th key={m} className="text-right p-3 font-semibold text-[var(--color-text-muted)]">
-                                        {t(`flexibleBlock.metricsList.${m.split('.')[1]}`)}
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map((row, idx) => (
-                                <tr key={idx} className="border-b last:border-0 border-[var(--color-border)] hover:bg-[var(--color-bg-secondary)] transition-colors">
-                                    <td className="p-3 text-[var(--color-text-primary)]">{row[config.dimension || ''] || '-'}</td>
-                                    {config.metrics.map((m: string) => (
-                                        <td key={m} className="text-right p-3 font-medium text-[var(--color-text-primary)]">{Number(row[m])?.toLocaleString()}</td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            );
-        case 'bar':
-            return (
-                <ResponsiveContainer width="100%" height={height}>
-                    <BarChart data={data}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
-                        <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
-                        <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={false} tickLine={false} />
-                        <Tooltip contentStyle={tooltipStyle} />
-                        <Legend wrapperStyle={{ fontSize: '10px' }} />
-                        {config.metrics.map((m: string, i: number) => (
-                            <Bar key={m} dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} />
-                        ))}
-                    </BarChart>
-                </ResponsiveContainer>
-            );
-        case 'line':
-            return (
-                <ResponsiveContainer width="100%" height={height}>
-                    <LineChart data={data}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
-                        <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
-                        <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={false} tickLine={false} />
-                        <Tooltip contentStyle={tooltipStyle} />
-                        <Legend wrapperStyle={{ fontSize: '10px' }} />
-                        {config.metrics.map((m: string, i: number) => (
-                            <Line key={m} type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={COLORS[i % COLORS.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                        ))}
-                    </LineChart>
-                </ResponsiveContainer>
-            );
-        case 'pie':
-            return (
-                <ResponsiveContainer width="100%" height={height}>
-                    <PieChart>
-                        <Pie
-                            data={data}
-                            cx="50%"
-                            cy="50%"
-                            labelLine={false}
-                            outerRadius={height / 3}
-                            fill="#8884d8"
-                            dataKey={config.metrics[0]}
-                            nameKey={config.dimension}
-                            label={({ name, percent }: any) => `${name} ${(percent * 100).toFixed(0)}%`}
-                            fontSize={10}
-                        >
-                            {data.map((_, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
-                        </Pie>
-                        <Tooltip contentStyle={tooltipStyle} />
-                        <Legend wrapperStyle={{ fontSize: '10px' }} />
-                    </PieChart>
-                </ResponsiveContainer>
-            );
-        case 'scorecard':
-            return (
-                <div className="grid grid-cols-2 gap-4 h-full items-center">
-                    {config.metrics.map((m: string) => {
-                        const total = data.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
+    return (
+        <div className="h-full w-full overflow-hidden">
+            {(() => {
+                switch (config.visualization) {
+                    case 'table':
                         return (
-                            <div key={m} className="p-5 glass rounded-2xl text-center border shadow-sm">
-                                <div className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-1">
-                                    {t(`flexibleBlock.metricsList.${m.split('.')[1]}`)}
-                                </div>
-                                <div className="text-2xl font-bold text-[var(--color-text-primary)]">{total.toLocaleString()}</div>
+                            <div className="overflow-x-auto h-full custom-scrollbar">
+                                <table className="w-full text-xs">
+                                    <thead className="sticky top-0 bg-[var(--color-bg-primary)]">
+                                        <tr className="border-b border-[var(--color-border)]">
+                                            <th className="text-left p-3 font-semibold text-[var(--color-text-muted)]">
+                                                {config.dimension ? t(`flexibleBlock.dimensions.${config.dimension.split('.')[1]}`) : t('flexibleBlock.fields.none')}
+                                            </th>
+                                            {config.metrics.map((m: string) => (
+                                                <th key={m} className="text-right p-3 font-semibold text-[var(--color-text-muted)]">
+                                                    {t(`flexibleBlock.metricsList.${m.split('.')[1]}`)}
+                                                </th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {data.map((row, idx) => (
+                                            <tr key={idx} className="border-b last:border-0 border-[var(--color-border)] hover:bg-[var(--color-bg-secondary)] transition-colors">
+                                                <td className="p-3 text-[var(--color-text-primary)]">{row[config.dimension || ''] || '-'}</td>
+                                                {config.metrics.map((m: string) => (
+                                                    <td key={m} className="text-right p-3 font-medium text-[var(--color-text-primary)]">{Number(row[m])?.toLocaleString()}</td>
+                                                ))}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         );
-                    })}
-                </div>
-            );
-        default:
-            return null;
-    }
+                    case 'bar':
+                        return (
+                            <ResponsiveContainer width="100%" height={height as any}>
+                                <BarChart data={data}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
+                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
+                                    <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={false} tickLine={false} />
+                                    <Tooltip contentStyle={tooltipStyle} />
+                                    <Legend wrapperStyle={{ fontSize: '10px' }} />
+                                    {config.metrics.map((m: string, i: number) => (
+                                        <Bar key={m} dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={COLORS[i % COLORS.length]} radius={[4, 4, 0, 0]} />
+                                    ))}
+                                </BarChart>
+                            </ResponsiveContainer>
+                        );
+                    case 'line':
+                        return (
+                            <ResponsiveContainer width="100%" height={height as any}>
+                                <LineChart data={data}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
+                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
+                                    <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)' }} axisLine={false} tickLine={false} />
+                                    <Tooltip contentStyle={tooltipStyle} />
+                                    <Legend wrapperStyle={{ fontSize: '10px' }} />
+                                    {config.metrics.map((m: string, i: number) => (
+                                        <Line key={m} type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={COLORS[i % COLORS.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                    ))}
+                                </LineChart>
+                            </ResponsiveContainer>
+                        );
+                    case 'pie':
+                        const pieRadius = typeof height === 'number' ? height / 3 : 100;
+                        return (
+                            <ResponsiveContainer width="100%" height={height as any}>
+                                <PieChart>
+                                    <Pie
+                                        data={data}
+                                        cx="50%"
+                                        cy="50%"
+                                        labelLine={false}
+                                        outerRadius={pieRadius}
+                                        fill="#8884d8"
+                                        dataKey={config.metrics[0]}
+                                        nameKey={config.dimension}
+                                        label={({ name, percent }: any) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                        fontSize={10}
+                                    >
+                                        {data.map((_, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+                                    </Pie>
+                                    <Tooltip contentStyle={tooltipStyle} />
+                                    <Legend wrapperStyle={{ fontSize: '10px' }} />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        );
+                    case 'scorecard':
+                        return (
+                            <div className="grid grid-cols-2 gap-4 h-full items-center">
+                                {config.metrics.map((m: string) => {
+                                    const total = data.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
+                                    return (
+                                        <div key={m} className="p-5 glass rounded-2xl text-center border shadow-sm">
+                                            <div className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-1">
+                                                {t(`flexibleBlock.metricsList.${m.split('.')[1]}`)}
+                                            </div>
+                                            <div className="text-2xl font-bold text-[var(--color-text-primary)]">{total.toLocaleString()}</div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        );
+                    default:
+                        return null;
+                }
+            })()}
+        </div>
+    );
 };
 
 export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
@@ -491,7 +498,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                 campaignIds={campaignIds}
                                                 startDate={startDate || ''}
                                                 endDate={endDate || ''}
-                                                height={0} // Parent controls height via flex-1
+                                                height="100%"
                                                 showRawData={showRawData}
                                             />
                                         </div>
