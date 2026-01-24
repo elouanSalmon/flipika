@@ -199,31 +199,59 @@ const DataRenderer: React.FC<{
         setError(null);
         setLoading(false);
 
-        const dimensions = {
-            'segments.date': ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'],
+        // Generate last 30 days for date dimension
+        const generateDateRange = (days: number) => {
+            const dates = [];
+            const end = new Date();
+            for (let i = days - 1; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(end.getDate() - i);
+                dates.push(d.toISOString().split('T')[0]);
+            }
+            return dates;
+        };
+
+        const dimensions: Record<string, string[]> = {
+            'segments.date': generateDateRange(30),
             'campaign.name': ['Hiver Promo 2024', 'Search France', 'Display Retargeting', 'Video Awareness', 'Perf Max All'],
             'ad_group.name': ['Groupe A - Premium', 'Groupe B - Eco', 'Annonces Dynamiques', 'Remarketing List', 'Generic Search'],
             'segments.device': ['MOBILE', 'DESKTOP', 'TABLET', 'CONNECTED_TV', 'OTHER']
         };
 
-        const dimValues = dimensions[config.dimension as keyof typeof dimensions] || dimensions['campaign.name'];
-
-
+        const dimKey = config.dimension || 'campaign.name';
+        const dimValues = dimensions[dimKey] || dimensions['campaign.name'];
 
         const currentData: any[] = [];
         const prevData: any[] = [];
 
-        dimValues.forEach(val => {
+        // Seed for consistent pseudo-randomness (optional, but good for demo stability)
+        // For simplicity, we just use Math.random() but smooth it for dates
+
+        let lastVal = 1000;
+        dimValues.forEach((val, i) => {
             const currRow: any = { [config.dimension || '']: val };
             const prevRow: any = { [config.dimension || '']: val };
 
             config.metrics.forEach(m => {
                 const metricKey = m.split('.')[1];
-                const base = Math.random() * 1000 + 500;
-                currRow[m] = metricKey.includes('micros') || ['cost', 'average_cpc', 'cost_per_conversion'].includes(metricKey) ? base * 1000000 : base;
 
-                const prevBase = base * (0.8 + Math.random() * 0.4);
-                prevRow[m] = metricKey.includes('micros') || ['cost', 'average_cpc', 'cost_per_conversion'].includes(metricKey) ? prevBase * 1000000 : prevBase;
+                // Smoother trend for dates
+                let base;
+                if (dimKey === 'segments.date') {
+                    // Random walk
+                    const change = (Math.random() - 0.5) * 200;
+                    lastVal = Math.max(100, lastVal + change);
+                    base = lastVal + Math.sin(i / 3) * 200; // Add some seasonality
+                } else {
+                    base = Math.random() * 1000 + 500;
+                }
+
+                const isMoney = metricKey.includes('micros') || ['cost', 'average_cpc', 'cost_per_conversion'].includes(metricKey);
+                currRow[m] = isMoney ? base * 1000000 : base;
+
+                // N-1 Data
+                const prevBase = base * (0.8 + Math.random() * 0.4); // +/- 20% variation
+                prevRow[m] = isMoney ? prevBase * 1000000 : prevBase;
             });
             currentData.push(currRow);
             prevData.push(prevRow);
@@ -250,7 +278,7 @@ const DataRenderer: React.FC<{
         }
     };
 
-    if (!accountId || !startDate || !endDate) {
+    if ((!accountId || !startDate || !endDate) && !isMockData) {
         return (
             <div className="flex flex-col items-center justify-center p-8 text-[var(--color-text-muted)] italic text-sm">
                 <Info size={24} className="mb-2 opacity-30" />
@@ -364,24 +392,28 @@ const DataRenderer: React.FC<{
                                                 <td className="p-3 text-[var(--color-text-primary)]">{row[config.dimension || ''] || '-'}</td>
                                                 {config.metrics.map((m: string) => {
                                                     const metricName = m.split('.')[1];
-                                                    const delta = row[`${m}_delta`];
-                                                    const isInverse = ['average_cpc', 'cost_per_conversion'].includes(metricName);
-                                                    const formattedDelta = delta.toFixed(1);
-                                                    const isNeutral = formattedDelta === '0.0' || formattedDelta === '-0.0';
-                                                    const isPos = isInverse ? delta < 0 : delta > 0;
-                                                    const trendColor = isNeutral ? 'text-[var(--color-text-muted)]' : (isPos ? 'text-green-500' : 'text-red-500');
 
                                                     return (
                                                         <React.Fragment key={m}>
                                                             <td className="text-right p-3 font-medium text-[var(--color-text-primary)]">{formatValue(row[m], metricName)}</td>
-                                                            {config.showComparison && (
-                                                                <>
-                                                                    <td className="text-right p-3 text-[var(--color-text-muted)] opacity-70 italic">{formatValue(row[`${m}_prev`], metricName)}</td>
-                                                                    <td className={`text-right p-3 font-bold ${trendColor}`}>
-                                                                        {!isNeutral && (delta > 0 ? '+' : '')}{formattedDelta}%
-                                                                    </td>
-                                                                </>
-                                                            )}
+                                                            {config.showComparison && (() => {
+                                                                const delta = row[`${m}_delta`];
+                                                                const isInverse = ['average_cpc', 'cost_per_conversion'].includes(metricName);
+                                                                // Safe access with fallback
+                                                                const formattedDelta = (delta !== undefined && delta !== null) ? delta.toFixed(1) : '0.0';
+                                                                const isNeutral = formattedDelta === '0.0' || formattedDelta === '-0.0';
+                                                                const isPos = isInverse ? delta < 0 : delta > 0;
+                                                                const trendColor = isNeutral ? 'text-[var(--color-text-muted)]' : (isPos ? 'text-green-500' : 'text-red-500');
+
+                                                                return (
+                                                                    <>
+                                                                        <td className="text-right p-3 text-[var(--color-text-muted)] opacity-70 italic">{formatValue(row[`${m}_prev`], metricName)}</td>
+                                                                        <td className={`text-right p-3 font-bold ${trendColor}`}>
+                                                                            {!isNeutral && (delta > 0 ? '+' : '')}{formattedDelta}%
+                                                                        </td>
+                                                                    </>
+                                                                );
+                                                            })()}
                                                         </React.Fragment>
                                                     );
                                                 })}

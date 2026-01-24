@@ -1,4 +1,5 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { SlashCommandItem } from '../extensions/SlashCommandExtension';
 
 interface SlashCommandMenuProps {
@@ -13,6 +14,7 @@ interface SlashCommandMenuProps {
  * Supports keyboard navigation and fuzzy search.
  */
 export const SlashCommandMenu = forwardRef((props: SlashCommandMenuProps, ref) => {
+    const { t } = useTranslation();
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     useEffect(() => {
@@ -63,7 +65,7 @@ export const SlashCommandMenu = forwardRef((props: SlashCommandMenuProps, ref) =
         return (
             <div className="slash-command-menu">
                 <div className="slash-command-empty">
-                    No results found
+                    {t('reports:list.emptyState.noReports', 'No results found')}
                 </div>
             </div>
         );
@@ -85,8 +87,12 @@ export const SlashCommandMenu = forwardRef((props: SlashCommandMenuProps, ref) =
                         {item.icon && <item.icon size={18} />}
                     </span>
                     <div className="slash-command-content">
-                        <div className="slash-command-title">{item.title}</div>
-                        <div className="slash-command-description">{item.description}</div>
+                        <div className="slash-command-title">
+                            {item.titleKey ? t(item.titleKey) : item.title}
+                        </div>
+                        <div className="slash-command-description">
+                            {item.descriptionKey ? t(item.descriptionKey) : item.description}
+                        </div>
                     </div>
                 </button>
             ))}

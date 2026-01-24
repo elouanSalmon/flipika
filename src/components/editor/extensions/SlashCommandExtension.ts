@@ -5,6 +5,7 @@ import { SlashCommandMenu } from '../components/SlashCommandMenu';
 import tippy from 'tippy.js';
 import type { Instance as TippyInstance } from 'tippy.js';
 import { BarChart3, Target, TrendingUp, Filter, Image, Columns2, Layout, PieChart, Trophy, Building2, Table as TableIcon } from 'lucide-react';
+import i18n from '../../../i18n';
 
 
 /**
@@ -22,7 +23,9 @@ import { Settings } from 'lucide-react';
 
 export interface SlashCommandItem {
     title: string;
+    titleKey?: string;
     description: string;
+    descriptionKey?: string;
     icon: any;
     command: ({ editor, range }: any) => void;
 }
@@ -50,8 +53,10 @@ export const SlashCommandExtension = Extension.create({
                 items: ({ query }: { query: string }): SlashCommandItem[] => {
                     const items: SlashCommandItem[] = [
                         {
-                            title: 'Performance Overview',
-                            description: 'Insert a performance metrics grid',
+                            title: i18n.t('reports:slashCommand.performanceOverview.title'),
+                            titleKey: 'reports:slashCommand.performanceOverview.title',
+                            description: i18n.t('reports:slashCommand.performanceOverview.description'),
+                            descriptionKey: 'reports:slashCommand.performanceOverview.description',
                             icon: TrendingUp,
                             command: ({ editor, range }) => {
                                 editor
@@ -66,8 +71,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Flexible Data',
-                            description: 'Customizable data block (Table, Chart, Scorecard)',
+                            title: i18n.t('reports:slashCommand.flexibleData.title'),
+                            titleKey: 'reports:slashCommand.flexibleData.title',
+                            description: i18n.t('reports:slashCommand.flexibleData.description'),
+                            descriptionKey: 'reports:slashCommand.flexibleData.description',
                             icon: Settings,
                             command: ({ editor, range }) => {
                                 editor
@@ -88,8 +95,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Chart',
-                            description: 'Insert a line, bar, or area chart',
+                            title: i18n.t('reports:slashCommand.chart.title'),
+                            titleKey: 'reports:slashCommand.chart.title',
+                            description: i18n.t('reports:slashCommand.chart.description'),
+                            descriptionKey: 'reports:slashCommand.chart.description',
                             icon: BarChart3,
                             command: ({ editor, range }) => {
                                 editor
@@ -104,8 +113,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Key Metrics',
-                            description: 'Insert a 2x2 grid of key KPIs',
+                            title: i18n.t('reports:slashCommand.keyMetrics.title'),
+                            titleKey: 'reports:slashCommand.keyMetrics.title',
+                            description: i18n.t('reports:slashCommand.keyMetrics.description'),
+                            descriptionKey: 'reports:slashCommand.keyMetrics.description',
                             icon: Target,
                             command: ({ editor, range }) => {
                                 editor
@@ -120,8 +131,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Ad Creative',
-                            description: 'Show top performing ad creatives',
+                            title: i18n.t('reports:slashCommand.adCreative.title'),
+                            titleKey: 'reports:slashCommand.adCreative.title',
+                            description: i18n.t('reports:slashCommand.adCreative.description'),
+                            descriptionKey: 'reports:slashCommand.adCreative.description',
                             icon: Image,
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
@@ -130,8 +143,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Funnel Analysis',
-                            description: 'Visualize conversion funnel',
+                            title: i18n.t('reports:slashCommand.funnelAnalysis.title'),
+                            titleKey: 'reports:slashCommand.funnelAnalysis.title',
+                            description: i18n.t('reports:slashCommand.funnelAnalysis.description'),
+                            descriptionKey: 'reports:slashCommand.funnelAnalysis.description',
                             icon: Filter,
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
@@ -140,8 +155,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Heatmap',
-                            description: 'View performance heatmap',
+                            title: i18n.t('reports:slashCommand.heatmap.title'),
+                            titleKey: 'reports:slashCommand.heatmap.title',
+                            description: i18n.t('reports:slashCommand.heatmap.description'),
+                            descriptionKey: 'reports:slashCommand.heatmap.description',
                             icon: Layout,
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
@@ -150,8 +167,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Device Platform Split',
-                            description: 'Breakdown by device/platform',
+                            title: i18n.t('reports:slashCommand.devicePlatformSplit.title'),
+                            titleKey: 'reports:slashCommand.devicePlatformSplit.title',
+                            description: i18n.t('reports:slashCommand.devicePlatformSplit.description'),
+                            descriptionKey: 'reports:slashCommand.devicePlatformSplit.description',
                             icon: PieChart,
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
@@ -160,8 +179,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Table',
-                            description: 'Insérer un tableau',
+                            title: i18n.t('reports:slashCommand.table.title'),
+                            titleKey: 'reports:slashCommand.table.title',
+                            description: i18n.t('reports:slashCommand.table.description'),
+                            descriptionKey: 'reports:slashCommand.table.description',
                             icon: TableIcon, // Need to import this first!
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
@@ -170,8 +191,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Top Performers',
-                            description: 'List of top campaigns/ad groups',
+                            title: i18n.t('reports:slashCommand.topPerformers.title'),
+                            titleKey: 'reports:slashCommand.topPerformers.title',
+                            description: i18n.t('reports:slashCommand.topPerformers.description'),
+                            descriptionKey: 'reports:slashCommand.topPerformers.description',
                             icon: Trophy,
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
@@ -180,8 +203,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Logo Client',
-                            description: 'Affiche le logo du client du rapport',
+                            title: i18n.t('reports:slashCommand.clientLogo.title'),
+                            titleKey: 'reports:slashCommand.clientLogo.title',
+                            description: i18n.t('reports:slashCommand.clientLogo.description'),
+                            descriptionKey: 'reports:slashCommand.clientLogo.description',
                             icon: Building2,
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
@@ -190,8 +215,10 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
-                            title: 'Colonnes',
-                            description: 'Diviser la slide en 2 colonnes',
+                            title: i18n.t('reports:slashCommand.columns.title'),
+                            titleKey: 'reports:slashCommand.columns.title',
+                            description: i18n.t('reports:slashCommand.columns.description'),
+                            descriptionKey: 'reports:slashCommand.columns.description',
                             icon: Columns2,
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
@@ -207,10 +234,12 @@ export const SlashCommandExtension = Extension.create({
                         },
                     ];
 
+
                     // Filter by query
-                    return items.filter(item =>
-                        item.title.toLowerCase().includes(query.toLowerCase())
-                    );
+                    return items.filter(item => {
+                        const title = item.titleKey ? i18n.t(item.titleKey) : item.title;
+                        return title.toLowerCase().includes(query.toLowerCase());
+                    });
                 },
                 render: () => {
                     let component: ReactRenderer;

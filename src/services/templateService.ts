@@ -22,6 +22,32 @@ import { createReport, addSlide } from './reportService';
 const TEMPLATES_COLLECTION = 'reportTemplates';
 
 /**
+ * Helper to recursively remove undefined values
+ * Keeps nulls (to clear fields) but removes undefineds (invalid in Firestore)
+ */
+function removeUndefined(obj: any): any {
+    if (obj === undefined) return undefined;
+    if (obj === null) return null;
+    if (typeof obj !== 'object') return obj;
+    if (obj instanceof Date) return obj;
+
+    // Handle Arrays
+    if (Array.isArray(obj)) {
+        return obj.map(v => removeUndefined(v)).filter(v => v !== undefined);
+    }
+
+    // Handle Objects
+    const newObj: any = {};
+    Object.keys(obj).forEach(key => {
+        const val = removeUndefined(obj[key]);
+        if (val !== undefined) {
+            newObj[key] = val;
+        }
+    });
+    return newObj;
+}
+
+/**
  * Create a new report template
  */
 export async function createTemplate(
@@ -165,13 +191,8 @@ export async function updateTemplate(
     try {
         const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
 
-        // Remove undefined values to prevent Firestore errors
-        const cleanUpdates: any = { ...updates };
-        Object.keys(cleanUpdates).forEach(key => {
-            if (cleanUpdates[key] === undefined) {
-                delete cleanUpdates[key];
-            }
-        });
+        // Deeply clean payload
+        const cleanUpdates = removeUndefined(updates);
 
         const firestoreUpdates: any = {
             ...cleanUpdates,
@@ -403,9 +424,14 @@ export async function saveTemplateWithSlides(
 ): Promise<void> {
     try {
         const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
+
+        // Deeply clean payload
+        const cleanUpdates = removeUndefined(updates);
+        const cleanSlides = removeUndefined(slideConfigs);
+
         const firestoreUpdates: any = {
-            ...updates,
-            slideConfigs,
+            ...cleanUpdates,
+            slideConfigs: cleanSlides,
             updatedAt: serverTimestamp(),
         };
 
@@ -425,8 +451,10 @@ export async function updateTemplateSlides(
 ): Promise<void> {
     try {
         const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
+        const cleanSlides = removeUndefined(slideConfigs);
+
         await updateDoc(docRef, {
-            slideConfigs,
+            slideConfigs: cleanSlides,
             updatedAt: serverTimestamp(),
         });
     } catch (error) {
@@ -449,13 +477,14 @@ export async function saveTemplateContent(
 ): Promise<void> {
     try {
         const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
-        const firestoreUpdates: any = {
-            ...updates,
-            content,
-            updatedAt: serverTimestamp(),
-        };
 
-        await updateDoc(docRef, firestoreUpdates);
+        // Deeply clean payload to remove any undefined values
+        const cleanData = removeUndefined({ ...updates, content });
+
+        await updateDoc(docRef, {
+            ...cleanData,
+            updatedAt: serverTimestamp()
+        });
     } catch (error) {
         console.error('Error saving template content:', error);
         throw new Error('Failed to save template content');
@@ -471,8 +500,11 @@ export async function updateTemplateContent(
 ): Promise<void> {
     try {
         const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
+
+        const cleanContent = removeUndefined(content);
+
         await updateDoc(docRef, {
-            content,
+            content: cleanContent,
             updatedAt: serverTimestamp(),
         });
     } catch (error) {

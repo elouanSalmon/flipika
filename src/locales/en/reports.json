@@ -301,6 +301,56 @@
     "created": "Rapport créé !",
     "createError": "Erreur lors de la création du rapport"
   },
+  "slashCommand": {
+    "performanceOverview": {
+      "title": "Performance Overview",
+      "description": "Insert a performance metrics grid"
+    },
+    "flexibleData": {
+      "title": "Flexible Data",
+      "description": "Customizable data block (Table, Chart, Scorecard)"
+    },
+    "chart": {
+      "title": "Chart",
+      "description": "Insert a line, bar, or area chart"
+    },
+    "keyMetrics": {
+      "title": "Key Metrics",
+      "description": "Insert a 2x2 grid of key KPIs"
+    },
+    "adCreative": {
+      "title": "Ad Creative",
+      "description": "Show top performing ad creatives"
+    },
+    "funnelAnalysis": {
+      "title": "Funnel Analysis",
+      "description": "Visualize conversion funnel"
+    },
+    "heatmap": {
+      "title": "Heatmap",
+      "description": "View performance heatmap"
+    },
+    "devicePlatformSplit": {
+      "title": "Device Platform Split",
+      "description": "Breakdown by device/platform"
+    },
+    "table": {
+      "title": "Table",
+      "description": "Insert a table"
+    },
+    "topPerformers": {
+      "title": "Top Performers",
+      "description": "List of top campaigns/ad groups"
+    },
+    "clientLogo": {
+      "title": "Client Logo",
+      "description": "Displays the report client's logo"
+    },
+    "columns": {
+      "title": "Columns",
+      "description": "Divide slide into 2 columns"
+    }
+  },
   "card": {
     "status": {
       "draft": "Brouillon",

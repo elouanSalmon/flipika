@@ -301,6 +301,56 @@
     "created": "Rapport créé !",
     "createError": "Erreur lors de la création du rapport"
   },
+  "slashCommand": {
+    "performanceOverview": {
+      "title": "Aperçu des performances",
+      "description": "Insérer une grille de métriques de performance"
+    },
+    "flexibleData": {
+      "title": "Données Flexibles",
+      "description": "Bloc de données personnalisable (Tableau, Graphique, Scorecard)"
+    },
+    "chart": {
+      "title": "Graphique",
+      "description": "Insérer un graphique linéaire, à barres ou en aires"
+    },
+    "keyMetrics": {
+      "title": "Métriques Clés",
+      "description": "Insérer une grille 2x2 de KPIs clés"
+    },
+    "adCreative": {
+      "title": "Créative Publicitaire",
+      "description": "Afficher les meilleures créatives publicitaires"
+    },
+    "funnelAnalysis": {
+      "title": "Analyse du Tunnel",
+      "description": "Visualiser le tunnel de conversion"
+    },
+    "heatmap": {
+      "title": "Heatmap",
+      "description": "Voir la heatmap des performances"
+    },
+    "devicePlatformSplit": {
+      "title": "Répartition Appareils/Plateformes",
+      "description": "Répartition par appareil/plateforme"
+    },
+    "table": {
+      "title": "Tableau",
+      "description": "Insérer un tableau"
+    },
+    "topPerformers": {
+      "title": "Top Performers",
+      "description": "Liste des meilleures campagnes/groupes d'annonces"
+    },
+    "clientLogo": {
+      "title": "Logo Client",
+      "description": "Affiche le logo du client du rapport"
+    },
+    "columns": {
+      "title": "Colonnes",
+      "description": "Diviser la slide en 2 colonnes"
+    }
+  },
   "card": {
     "status": {
       "draft": "Brouillon",
