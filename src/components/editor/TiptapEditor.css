@@ -47,6 +47,12 @@
     transition: all 0.15s ease;
 }
 
+.tiptap-header-btn.auto-width {
+    width: auto;
+    padding: 0 12px;
+    gap: 8px;
+}
+
 .tiptap-header-btn:hover {
     background: var(--color-bg-tertiary, #f3f4f6);
     color: var(--color-text-primary, #111827);
@@ -1636,6 +1642,7 @@
 .ProseMirror.resize-cursor {
     cursor: col-resize;
 }
+
 /* Columns Extension */
 .column-group {
     display: flex;
@@ -1657,11 +1664,11 @@
     border-color: var(--color-border);
 }
 
-.column > *:first-child {
+.column>*:first-child {
     margin-top: 0;
 }
 
-.column > *:last-child {
+.column>*:last-child {
     margin-bottom: 0;
 }
 

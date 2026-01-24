@@ -611,7 +611,7 @@ const TiptapReportEditorPage: React.FC = () => {
                     {/* Presentation Mode Button */}
                     <button
                         onClick={() => setShowPresentationMode(true)}
-                        className="tiptap-header-btn group mr-2"
+                        className="tiptap-header-btn auto-width group mr-2"
                         title={t('header.present')}
                     >
                         <Play size={18} className="fill-current" />
