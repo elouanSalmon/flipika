@@ -372,41 +372,41 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                             {/* Body */}
                             <div className="flex-1 overflow-hidden grid grid-cols-1 lg:grid-cols-2">
                                 {/* Settings Panel */}
-                                <div className="border-r border-[var(--color-border)] overflow-y-auto p-8 lg:p-10 bg-transparent custom-scrollbar">
-                                    <div className="space-y-8">
+                                <div className="border-r border-[var(--color-border)] overflow-y-auto p-6 lg:p-8 bg-transparent custom-scrollbar">
+                                    <div className="space-y-5">
                                         <section>
-                                            <label className="block text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-3">{t('flexibleBlock.fields.title')}</label>
+                                            <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.title')}</label>
                                             <input
                                                 type="text"
                                                 value={editConfig.title}
                                                 onChange={(e) => setEditConfig({ ...editConfig, title: e.target.value })}
-                                                className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl text-[var(--color-text-primary)] focus:ring-2 focus:ring-primary outline-none transition-all placeholder:text-[var(--color-text-muted)]/50"
+                                                className="w-full px-3 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm text-[var(--color-text-primary)] focus:ring-2 focus:ring-primary outline-none transition-all placeholder:text-[var(--color-text-muted)]/50"
                                                 placeholder={t('flexibleBlock.fields.titlePlaceholder')}
                                             />
                                         </section>
 
                                         <section>
-                                            <label className="block text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-3">{t('flexibleBlock.fields.visualStyle')}</label>
-                                            <div className="grid grid-cols-3 gap-3">
+                                            <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.visualStyle')}</label>
+                                            <div className="grid grid-cols-3 gap-2">
                                                 {(['table', 'bar', 'line', 'pie', 'scorecard'] as const).map((type) => (
                                                     <button
                                                         key={type}
                                                         onClick={() => setEditConfig({ ...editConfig, visualization: type })}
-                                                        className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all ${editConfig.visualization === type ? 'border-primary bg-primary/10 text-primary shadow-sm shadow-primary/10' : 'border-transparent bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] hover:bg-[var(--color-bg-tertiary)]'}`}
+                                                        className={`flex flex-col items-center justify-center p-2 rounded-xl border transition-all ${editConfig.visualization === type ? 'border-primary bg-primary/10 text-primary shadow-sm shadow-primary/10' : 'border-transparent bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] hover:bg-[var(--color-bg-tertiary)]'}`}
                                                     >
-                                                        <span className="capitalize text-xs font-bold">{t(`flexibleBlock.visualizations.${type}`)}</span>
+                                                        <span className="capitalize text-[10px] font-bold">{t(`flexibleBlock.visualizations.${type}`)}</span>
                                                     </button>
                                                 ))}
                                             </div>
                                         </section>
 
-                                        <section className="grid grid-cols-2 gap-6">
+                                        <section className="grid grid-cols-2 gap-4">
                                             <div>
-                                                <label className="block text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-3">{t('flexibleBlock.fields.dimension')}</label>
+                                                <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.dimension')}</label>
                                                 <select
                                                     value={editConfig.dimension || ''}
                                                     onChange={(e) => setEditConfig({ ...editConfig, dimension: e.target.value || undefined })}
-                                                    className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl text-[var(--color-text-primary)] focus:ring-2 focus:ring-primary outline-none cursor-pointer"
+                                                    className="w-full px-3 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm text-[var(--color-text-primary)] focus:ring-2 focus:ring-primary outline-none cursor-pointer"
                                                 >
                                                     <option value="">{t('flexibleBlock.fields.none')}</option>
                                                     <option value="segments.date">{t('flexibleBlock.dimensions.date')}</option>
@@ -416,21 +416,21 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                 </select>
                                             </div>
                                             <div>
-                                                <label className="block text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-3">{t('flexibleBlock.fields.limit')}</label>
+                                                <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.limit')}</label>
                                                 <input
                                                     type="number"
                                                     value={editConfig.limit}
                                                     min="1"
                                                     max="100"
                                                     onChange={(e) => setEditConfig({ ...editConfig, limit: parseInt(e.target.value) || 10 })}
-                                                    className="w-full px-4 py-3 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl text-[var(--color-text-primary)] focus:ring-2 focus:ring-primary outline-none"
+                                                    className="w-full px-3 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm text-[var(--color-text-primary)] focus:ring-2 focus:ring-primary outline-none"
                                                 />
                                             </div>
                                         </section>
 
                                         <section>
-                                            <label className="block text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-3">{t('flexibleBlock.fields.metrics')}</label>
-                                            <div className="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                                            <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.metrics')}</label>
+                                            <div className="grid grid-cols-1 gap-1.5 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
                                                 {[
                                                     { id: 'metrics.impressions' },
                                                     { id: 'metrics.clicks' },
@@ -447,10 +447,10 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                         <button
                                                             key={m.id}
                                                             onClick={() => setEditConfig({ ...editConfig, metrics: exists ? editConfig.metrics.filter(x => x !== m.id) : [...editConfig.metrics, m.id] })}
-                                                            className={`w-full flex items-center justify-between px-5 py-4 rounded-2xl transition-all ${exists ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-[1.02]' : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}
+                                                            className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all ${exists ? 'bg-primary text-white shadow-md shadow-primary/20 scale-[1.01]' : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}
                                                         >
-                                                            <span className="text-sm font-semibold">{t(`flexibleBlock.metricsList.${metricKey}`)}</span>
-                                                            {exists && <X size={16} className="rotate-45" />}
+                                                            <span className="text-xs font-semibold">{t(`flexibleBlock.metricsList.${metricKey}`)}</span>
+                                                            {exists && <X size={14} className="rotate-45" />}
                                                         </button>
                                                     );
                                                 })}
@@ -460,39 +460,39 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                 </div>
 
                                 {/* Live Preview Panel */}
-                                <div className="flex-1 bg-[var(--color-bg-secondary)] p-8 lg:p-12 flex flex-col min-h-0">
-                                    <div className="flex items-center justify-between gap-3 mb-6">
+                                <div className="flex-1 bg-[var(--color-bg-secondary)] p-6 lg:p-8 flex flex-col min-h-0">
+                                    <div className="flex items-center justify-between gap-3 mb-4">
                                         <div className="flex items-center gap-3 text-[var(--color-text-muted)]">
-                                            <div className="p-2 bg-primary/10 rounded-lg"><Info size={20} className="text-primary" /></div>
-                                            <span className="text-xs font-bold uppercase tracking-[0.2em]">{t('flexibleBlock.previewTitle')}</span>
+                                            <div className="p-1.5 bg-primary/10 rounded-lg"><Info size={16} className="text-primary" /></div>
+                                            <span className="text-[10px] font-bold uppercase tracking-[0.2em]">{t('flexibleBlock.previewTitle')}</span>
                                         </div>
                                         <button
                                             onClick={() => setShowRawData(!showRawData)}
-                                            className={`px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all border ${showRawData ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] border-[var(--color-border)] hover:bg-[var(--color-bg-tertiary)]'}`}
+                                            className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-widest transition-all border ${showRawData ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] border-[var(--color-border)] hover:bg-[var(--color-bg-tertiary)]'}`}
                                         >
-                                            {showRawData ? 'Show Visual' : 'Show RAW JSON (Debug)'}
+                                            {showRawData ? 'Visual' : 'RAW JSON'}
                                         </button>
                                     </div>
-                                    <div className="flex-1 bg-[var(--color-bg-primary)] rounded-3xl shadow-xl border border-[var(--color-border)] flex flex-col p-8 lg:p-12 overflow-hidden">
-                                        <div className="mb-10 flex justify-between items-end">
-                                            <div className="space-y-1">
-                                                <h3 className="text-3xl font-bold text-[var(--color-text-primary)] leading-tight">{editConfig.title || t('flexibleBlock.previewSubtitle')}</h3>
-                                                <p className="text-sm text-[var(--color-text-muted)]">
+                                    <div className="flex-1 bg-[var(--color-bg-primary)] rounded-2xl shadow-xl border border-[var(--color-border)] flex flex-col p-6 lg:p-8 overflow-hidden">
+                                        <div className="mb-6 flex justify-between items-end">
+                                            <div className="space-y-0.5">
+                                                <h3 className="text-xl font-bold text-[var(--color-text-primary)] leading-tight">{editConfig.title || t('flexibleBlock.previewSubtitle')}</h3>
+                                                <p className="text-[10px] text-[var(--color-text-muted)]">
                                                     {accountId ? `Compte ID: ${accountId}` : 'Compte non sélectionné'}
                                                 </p>
                                             </div>
-                                            <div className="text-xs font-bold text-primary bg-primary/10 px-4 py-2 rounded-full uppercase tracking-widest border border-primary/20">
+                                            <div className="text-[9px] font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest border border-primary/20">
                                                 {t(`flexibleBlock.visualizations.${editConfig.visualization}`)}
                                             </div>
                                         </div>
-                                        <div className="flex-1 min-h-0">
+                                        <div className="flex-1 min-h-0 overflow-hidden">
                                             <DataRenderer
                                                 config={editConfig}
                                                 accountId={accountId}
                                                 campaignIds={campaignIds}
                                                 startDate={startDate || ''}
                                                 endDate={endDate || ''}
-                                                height={500}
+                                                height={0} // Parent controls height via flex-1
                                                 showRawData={showRawData}
                                             />
                                         </div>
