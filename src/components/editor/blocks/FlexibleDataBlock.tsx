@@ -549,7 +549,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                     )}
                 </div>
 
-                <div className="p-6 bg-transparent min-h-[150px]">
+                <div className="p-6 bg-transparent h-[320px]">
                     <DataRenderer
                         config={activeConfig}
                         accountId={accountId}
@@ -557,6 +557,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                         startDate={startDate || ''}
                         endDate={endDate || ''}
                         design={design || undefined}
+                        height={280}
                     />
                 </div>
             </div>
