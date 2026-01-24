@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Calendar, Briefcase, Target } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { DataBlockExtension } from '../extensions/DataBlockExtension';
 import { ColumnGroup, Column } from '../extensions/ColumnsExtension';
@@ -23,6 +23,11 @@ interface SlideInfo {
 
 interface SlideNavigationProps {
     editor: Editor;
+    scope?: {
+        period: { start: string; end: string };
+        accountName: string;
+        campaignNames: string[];
+    };
 }
 
 // Component to render a single thumbnail with its own mini editor
@@ -94,7 +99,10 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, de
     );
 };
 
-export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
+export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor, scope }) => {
+    // ... (rest of the component logic)
+
+    // ... skipping state and effects ...
     const [slides, setSlides] = useState<SlideInfo[]>([]);
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
     const { design } = useReportEditor();
@@ -104,12 +112,13 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
     // Use OPAQUE background from report theme (matches SlideComponent.tsx)
     const themeBg = design?.colorScheme?.background || (isDarkMode ? '#1e293b' : '#f9fafb');
 
+    /* ... skipping effects ... */
     // Extract slides from editor content
     useEffect(() => {
         const updateSlides = () => {
+            // ... logic to update slides
             const slideList: SlideInfo[] = [];
             let index = 0;
-
             editor.state.doc.forEach((node, pos) => {
                 if (node.type.name === 'slide') {
                     slideList.push({
@@ -118,31 +127,24 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
                         pos,
                         backgroundColor: node.attrs.backgroundColor || themeBg,
                         layout: node.attrs.layout || 'content',
-                        content: node.toJSON().content || [], // Get the slide's content as JSON
+                        content: node.toJSON().content || [],
                     });
                     index++;
                 }
             });
-
             setSlides(slideList);
         };
-
         updateSlides();
-
-        // Listen for content changes
         editor.on('update', updateSlides);
-
-        return () => {
-            editor.off('update', updateSlides);
-        };
+        return () => { editor.off('update', updateSlides); };
     }, [editor, themeBg]);
 
     // Track active slide based on cursor position
     useEffect(() => {
         const updateActiveSlide = () => {
+            // ... logic to track active slide
             const { from } = editor.state.selection;
             let currentIndex = 0;
-
             editor.state.doc.forEach((node, pos) => {
                 if (node.type.name === 'slide') {
                     if (from >= pos && from <= pos + node.nodeSize) {
@@ -152,50 +154,60 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor }) => {
                 }
             });
         };
-
         updateActiveSlide();
         editor.on('selectionUpdate', updateActiveSlide);
-
-        return () => {
-            editor.off('selectionUpdate', updateActiveSlide);
-        };
+        return () => { editor.off('selectionUpdate', updateActiveSlide); };
     }, [editor]);
 
+    // ... skipping helper functions ...
     const scrollToSlide = (pos: number) => {
-        // Focus the editor at the slide position
         editor.chain().focus().setTextSelection(pos + 1).run();
-
-        // Scroll the slide into view
         setTimeout(() => {
             const slideElements = document.querySelectorAll('.slide-wrapper');
             const targetSlide = Array.from(slideElements).find((el) => {
                 const slidePos = editor.view.posAtDOM(el, 0);
                 return slidePos >= pos && slidePos <= pos + 100;
             });
-
             if (targetSlide) {
                 targetSlide.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }, 50);
     };
 
-    const addNewSlide = () => {
-        editor.commands.insertSlide();
-    };
+    const addNewSlide = () => { editor.commands.insertSlide(); };
 
     const deleteSlide = (pos: number, nodeSize: number) => {
-        if (slides.length <= 1) {
-            return; // Don't delete the last slide
-        }
-
-        editor.chain()
-            .focus()
-            .deleteRange({ from: pos, to: pos + nodeSize })
-            .run();
+        if (slides.length <= 1) return;
+        editor.chain().focus().deleteRange({ from: pos, to: pos + nodeSize }).run();
     };
+
 
     return (
         <div className="slide-navigation">
+            {scope && (
+                <div className="slide-nav-scope-info">
+                    <div className="scope-item" title={`${scope.period.start} - ${scope.period.end}`}>
+                        <Calendar size={12} className="scope-icon" />
+                        <span className="scope-text">{scope.period.start} - {scope.period.end}</span>
+                    </div>
+                    <div className="scope-item" title={scope.accountName}>
+                        <Briefcase size={12} className="scope-icon" />
+                        <span className="scope-text">{scope.accountName}</span>
+                    </div>
+                    <div className="scope-item" title={scope.campaignNames.join(', ')}>
+                        <Target size={12} className="scope-icon" />
+                        <span className="scope-text">
+                            {scope.campaignNames.length === 0
+                                ? 'Toutes les campagnes'
+                                : scope.campaignNames.length <= 1
+                                    ? scope.campaignNames[0]
+                                    : `${scope.campaignNames.length} campagnes`}
+                        </span>
+                    </div>
+                    <div className="scope-separator"></div>
+                </div>
+            )}
+
             <div className="slide-nav-header">
                 <span className="slide-nav-title">Slides</span>
                 <span className="slide-nav-count">{slides.length}</span>

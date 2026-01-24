@@ -1,5 +1,5 @@
 {
-  "featureName": "reports",
+  "featureName": "les rapports",
   "list": {
     "title": "My Reports",
     "description": "Manage and organize your Google Ads reports",
@@ -19,456 +19,474 @@
     "emptyState": {
       "noReports": "No reports found",
       "trySearch": "Try modifying your search",
-      "createFirst": "Create your first report to get started",
+      "createFirst": "Create your first report to start",
       "createButton": "Create a report"
     },
     "gridView": "Grid view",
     "listView": "List view",
     "connectToCreate": "Connect Google Ads to create reports"
   },
+  "common": {
+    "period": "Period",
+    "client": "Client",
+    "account": "Account",
+    "campaigns": "Campaigns",
+    "allCampaigns": "All campaigns",
+    "selected": "selected"
+  },
   "config": {
-    "title": "Report Configuration",
-    "settings": "Report Settings",
-    "reportTitle": "Report title",
-    "titlePlaceholder": "E.g.: Monthly Report December 2024",
-    "googleAdsAccount": "Google Ads Account",
-    "analysisPeriod": "Analysis period",
+    "title": "Configuration du Rapport",
+    "settings": "Paramètres du Rapport",
+    "reportTitle": "Titre du rapport",
+    "titlePlaceholder": "Ex: Rapport Mensuel Décembre 2024",
+    "googleAdsAccount": "Compte Google Ads",
+    "analysisPeriod": "Période d'analyse",
     "periods": {
-      "last7Days": "Last 7 days",
-      "last30Days": "Last 30 days",
-      "last90Days": "Last 90 days",
-      "thisMonth": "This month",
-      "lastMonth": "Last month",
-      "custom": "Custom"
+      "last7Days": "Derniers 7 jours",
+      "last30Days": "Derniers 30 jours",
+      "last90Days": "Derniers 90 jours",
+      "thisMonth": "Ce mois",
+      "lastMonth": "Mois dernier",
+      "custom": "Personnalisé"
     },
     "dateRange": {
-      "from": "From",
-      "to": "To",
-      "display": "From {{start}} to {{end}}"
+      "from": "Du",
+      "to": "Au",
+      "display": "Du {{start}} au {{end}}"
     },
     "campaigns": {
-      "title_one": "Campaign ({{count}} selected)",
-      "title_other": "Campaigns ({{count}} selected)",
-      "selectAll": "Select all",
-      "deselectAll": "Deselect all",
-      "noCampaigns": "No campaigns available",
-      "atLeastOne": "Please select at least one campaign"
+      "title_one": "Campagne ({{count}} sélectionnée)",
+      "title_other": "Campagnes ({{count}} sélectionnées)",
+      "selectAll": "Tout sélectionner",
+      "deselectAll": "Tout désélectionner",
+      "noCampaigns": "Aucune campagne disponible",
+      "atLeastOne": "Veuillez sélectionner au moins une campagne"
     },
     "actions": {
-      "cancel": "Cancel",
-      "create": "Create report",
-      "update": "Update",
-      "updating": "Updating..."
+      "cancel": "Annuler",
+      "create": "Créer le rapport",
+      "update": "Mettre à jour",
+      "updating": "Mise à jour..."
     }
   },
   "header": {
-    "backToReports": "Back to reports",
-    "titlePlaceholder": "Report title",
-    "saving": "Saving...",
-    "loading": "Loading...",
-    "settings": "Settings",
-    "save": "Save",
-    "publish": "Publish",
-    "share": "Share",
-    "moreActions": "More actions",
-    "archive": "Archive",
-    "delete": "Delete",
-    "copyLink": "Copy link",
-    "openInNewTab": "Open in new tab",
-    "linkCopied": "Link copied to clipboard!",
-    "present": "Present",
+    "backToReports": "Retour aux rapports",
+    "titlePlaceholder": "Titre du rapport",
+    "saving": "Enregistrement...",
+    "loading": "Chargement...",
+    "settings": "Paramètres",
+    "save": "Sauvegarder",
+    "publish": "Publier",
+    "share": "Partager",
+    "moreActions": "Plus d'actions",
+    "archive": "Archiver",
+    "delete": "Supprimer",
+    "copyLink": "Copier le lien",
+    "openInNewTab": "Ouvrir dans un nouvel onglet",
+    "linkCopied": "Lien copié dans le presse-papier !",
+    "present": "Présenter",
     "deleteModal": {
-      "title": "Delete report",
-      "message": "Are you sure you want to delete this report?",
-      "confirm": "Delete"
+      "title": "Supprimer le rapport",
+      "message": "Êtes-vous sûr de vouloir supprimer ce rapport ?",
+      "confirm": "Supprimer"
     },
-    "managePassword": "Manage password",
-    "protectPassword": "Password protect",
-    "shareEmail": "Share by email",
-    "exportGoogleSlides": "Export to Google Slides",
+    "managePassword": "Gérer le mot de passe",
+    "protectPassword": "Protéger par mot de passe",
+    "shareEmail": "Partager par email",
+    "exportGoogleSlides": "Exporter vers Google Slides",
     "export": {
-      "title": "Export to Google Slides",
-      "description": "Create a Google Slides presentation from this report",
-      "slideCount_one": "{{count}} slide will be exported",
-      "slideCount_other": "{{count}} slides will be exported",
-      "info": "The presentation will be created in your Google Drive and will open automatically.",
-      "note": "You will need to authorize Flipika to access your Google Drive on first use.",
+      "title": "Exporter vers Google Slides",
+      "description": "Créez une présentation Google Slides à partir de ce rapport",
+      "slideCount_one": "{{count}} slide sera exportée",
+      "slideCount_other": "{{count}} slides seront exportées",
+      "info": "La présentation sera créée dans votre Google Drive et s'ouvrira automatiquement.",
+      "note": "Vous devrez autoriser Flipika à accéder à votre Google Drive lors de la première utilisation.",
       "noteLabel": "Note",
-      "extracting": "Extracting data...",
-      "ready_one": "{{count}} slide ready",
-      "ready_other": "{{count}} slides ready",
-      "preparing": "Preparing export...",
-      "cancel": "Cancel",
-      "export": "Export",
-      "connect": "Connect to Google",
-      "sessionExpired": "Google session expired. Please reconnect.",
-      "creating": "Creating presentation...",
-      "success": "Presentation created!",
-      "error": "Export error",
-      "errorFirestore": "Firestore permissions error",
-      "errorAPI": "Google Slides API error",
-      "noSlides": "No slides to export"
+      "extracting": "Extraction des données...",
+      "ready_one": "{{count}} slide prête",
+      "ready_other": "{{count}} slides prêtes",
+      "preparing": "Préparation de l'export...",
+      "cancel": "Annuler",
+      "export": "Exporter",
+      "connect": "Se connecter à Google",
+      "sessionExpired": "Session Google expirée. Veuillez vous reconnecter.",
+      "creating": "Création de la présentation...",
+      "success": "Présentation créée !",
+      "error": "Erreur lors de l'export",
+      "errorFirestore": "Erreur de permissions Firestore",
+      "errorAPI": "Erreur API Google Slides",
+      "noSlides": "Aucune slide à exporter"
     },
     "autoSave": {
-      "saved": "Saved",
-      "saving": "Saving...",
-      "error": "Save error",
-      "justNow": "just now",
-      "ago_minutes_one": "{{count}} min ago",
-      "ago_minutes_other": "{{count}} mins ago",
-      "ago_hours_one": "{{count}}h ago",
-      "ago_hours_other": "{{count}}h ago"
+      "saved": "Sauvegardé",
+      "saving": "Sauvegarde...",
+      "error": "Erreur de sauvegarde",
+      "justNow": "à l'instant",
+      "ago_minutes": "il y a {{count}} min",
+      "ago_hours": "il y a {{count}}h"
     }
   },
   "editor": {
-    "notFound": "Report not found",
+    "notFound": "Rapport introuvable",
     "notAvailable": "N/A",
-    "unauthorized": "Unauthorized access",
-    "loadError": "Error loading report",
-    "close": "Close",
+    "unauthorized": "Accès non autorisé",
+    "loadError": "Erreur lors du chargement du rapport",
+    "close": "Fermer",
     "messages": {
-      "saved": "Report saved",
-      "saveError": "Error saving",
-      "published": "Report published!",
-      "publishError": "Error publishing",
-      "archived": "Report archived",
-      "archiveError": "Error archiving",
-      "deleted": "Report deleted",
-      "deleteError": "Error deleting",
-      "settingsUpdated": "Settings updated",
-      "settingsUpdateError": "Error updating settings",
-      "campaignsLoadError": "Error loading campaigns",
-      "usernameRequired": "Please configure your username in settings",
-      "passwordEnabled": "Password protection enabled",
-      "passwordDisabled": "Password protection disabled",
-      "passwordError": "Error updating password",
-      "emailOpened": "Pre-filled email opened!",
-      "emailError": "Error generating email",
-      "presetThemeApplied": "Theme \"{{themeName}}\" applied from client preferences"
+      "saved": "Rapport sauvegardé",
+      "saveError": "Erreur lors de la sauvegarde",
+      "published": "Rapport publié !",
+      "publishError": "Erreur lors de la publication",
+      "archived": "Rapport archivé",
+      "archiveError": "Erreur lors de l'archivage",
+      "deleted": "Rapport supprimé",
+      "deleteError": "Erreur lors de la suppression",
+      "settingsUpdated": "Paramètres mis à jour",
+      "settingsUpdateError": "Erreur lors de la mise à jour des paramètres",
+      "campaignsLoadError": "Erreur lors du chargement des campagnes",
+      "usernameRequired": "Veuillez configurer votre nom d'utilisateur dans les paramètres",
+      "passwordEnabled": "Protection par mot de passe activée",
+      "passwordDisabled": "Protection par mot de passe désactivée",
+      "passwordError": "Erreur lors de la mise à jour du mot de passe",
+      "emailOpened": "Email pré-rempli ouvert !",
+      "emailError": "Erreur lors de la génération de l'email",
+      "presetThemeApplied": "Thème \"{{themeName}}\" appliqué depuis les préférences du client"
     },
     "email": {
-      "subject": "Google Ads Report - {{title}}",
-      "greeting": "Hello,",
-      "intro": "I'm sharing the following Google Ads analysis report with you...",
-      "reportTitle": "Report: {{title}}",
-      "period": "Period: {{startDate}} - {{endDate}}",
-      "campaigns": "Campaigns analyzed: {{names}}",
-      "accessLink": "Access link: {{url}}",
-      "password": "Password: {{password}}",
-      "passwordProtected": "This report is password protected (password not available - please share separately)",
-      "questions": "Feel free to reach out if you have any questions.",
-      "signature": "Best regards,",
+      "subject": "Rapport Google Ads - {{title}}",
+      "greeting": "Bonjour,",
+      "intro": "Je vous partage le rapport d'analyse Google Ads suivant...",
+      "reportTitle": "Rapport : {{title}}",
+      "period": "Période : {{startDate}} - {{endDate}}",
+      "campaigns": "Campagnes analysées : {{names}}",
+      "accessLink": "Lien d'accès : {{url}}",
+      "password": "Mot de passe : {{password}}",
+      "passwordProtected": "Ce rapport est protégé par mot de passe (mot de passe non disponible - veuillez le partager séparément)",
+      "questions": "N'hésitez pas si vous avez des questions.",
+      "signature": "Cordialement,",
       "signatureName": "{{name}}",
       "signatureCompany": "{{company}}"
     }
   },
   "slideLibrary": {
-    "title": "Slide Library",
-    "subtitle": "Drag or click to add",
-    "categoryLabel": "Category",
-    "scopeLabel": "Scope",
+    "title": "Bibliothèque de Slides",
+    "subtitle": "Glissez ou cliquez pour ajouter",
+    "categoryLabel": "Catégorie",
+    "scopeLabel": "Portée",
     "categories": {
-      "all": "All",
-      "analytics": "Analytics",
-      "content": "Content"
+      "all": "Toutes",
+      "analytics": "Analytique",
+      "content": "Contenu"
     },
     "scopes": {
-      "all": "All",
+      "all": "Toutes",
       "modifiable": "Modifiable",
-      "multiple_campaigns": "Multiple campaigns",
-      "single_campaign": "Single campaign"
+      "multiple_campaigns": "Campagnes multiples",
+      "single_campaign": "Campagne unique"
     },
-    "add": "Add"
+    "add": "Ajouter"
   },
   "canvas": {
     "empty": {
-      "title": "Start your report",
-      "description": "Drag slides from the library or click to add",
-      "hint": "Drag & Drop from left"
+      "title": "Commencez votre rapport",
+      "description": "Glissez des slides depuis la bibliothèque ou cliquez pour les ajouter",
+      "hint": "Drag & Drop depuis la gauche"
     }
   },
   "slides": {
     "types": {
       "performance_overview": {
-        "title": "Performance Overview",
-        "description": "Key metrics: impressions, clicks, cost, conversions"
+        "title": "Vue d'ensemble des performances",
+        "description": "Métriques clés : impressions, clics, coût, conversions"
       },
       "key_metrics": {
-        "title": "Key Metrics",
-        "description": "Spend, Revenue, ROAS and CPA with variations"
+        "title": "Métriques Clés",
+        "description": "Dépenses, Revenus, ROAS et CPA avec variations"
       },
       "campaign_chart": {
-        "title": "Campaign Chart",
-        "description": "Campaign data visualization"
+        "title": "Graphique de campagne",
+        "description": "Visualisation des données de campagne"
       },
       "ad_creative": {
-        "title": "Ad Preview",
-        "description": "Google Ads mockup with performance data"
+        "title": "Aperçu d'annonce",
+        "description": "Mockup d'annonce Google Ads avec performances"
       },
       "funnel_analysis": {
-        "title": "Funnel Analysis",
-        "description": "Conversion: Impressions → Clicks → Conversions"
+        "title": "Analyse du Tunnel",
+        "description": "Conversion : Impressions → Clicks → Conversions"
       },
       "text_block": {
-        "title": "Text Block",
-        "description": "Rich text with formatting"
+        "title": "Bloc de texte",
+        "description": "Texte riche avec formatage"
       },
       "heatmap": {
-        "title": "Day/Hour Heatmap",
-        "description": "Performance by day and hour"
+        "title": "Heatmap Jour/Heure",
+        "description": "Performance par jour et heure"
       },
       "custom": {
-        "title": "Custom Slide",
-        "description": "Create your own slide"
+        "title": "Slide personnalisé",
+        "description": "Créez votre propre slide"
       },
       "device_platform_split": {
-        "title": "Devices & Platforms",
-        "description": "Split by device and network"
+        "title": "Appareils & Plateformes",
+        "description": "Répartition par appareil et réseau"
       },
       "top_performers": {
         "title": "Top Performers",
-        "description": "Ranking (Keywords, Ads...)"
+        "description": "Classement (Mots-clés, Annonces...)"
       },
       "section_title": {
-        "title": "Section Title",
-        "description": "Separator with title and subtitle"
+        "title": "Titre de Section",
+        "description": "Séparateur avec titre et sous-titre"
       },
       "rich_text": {
-        "title": "Rich Text",
-        "description": "Free text paragraph"
+        "title": "Texte Riche",
+        "description": "Paragraphe de texte libre"
       }
     }
   },
   "security": {
-    "title": "Report Security",
-    "description": "Protect your report with a password",
-    "passwordProtection": "Password protection",
-    "enabledDescription": "Visitors will need to enter a password to access the report",
-    "disabledDescription": "The report is publicly accessible without a password",
-    "passwordLabel": "Password",
-    "passwordPlaceholder": "Minimum 6 characters",
-    "passwordHelp": "This password will be required for visitors to access the report. Share it securely.",
-    "passwordMinLength": "Password must be at least 6 characters",
-    "passwordCopied": "Password copied!",
-    "passwordTooShort": "Password must be at least 6 characters",
-    "updateError": "Error updating security settings",
-    "protectionEnabled": "Password protection enabled",
-    "protectionDisabled": "Password protection disabled",
-    "cancel": "Cancel",
-    "save": "Save",
-    "saving": "Saving...",
+    "title": "Sécurité du rapport",
+    "description": "Protégez votre rapport avec un mot de passe",
+    "passwordProtection": "Protection par mot de passe",
+    "enabledDescription": "Les visiteurs devront entrer un mot de passe pour accéder au rapport",
+    "disabledDescription": "Le rapport est accessible publiquement sans mot de passe",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Minimum 6 caractères",
+    "passwordHelp": "Ce mot de passe sera demandé aux visiteurs pour accéder au rapport. Partagez-le de manière sécurisée.",
+    "passwordMinLength": "Le mot de passe doit contenir au moins 6 caractères",
+    "passwordCopied": "Mot de passe copié !",
+    "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères",
+    "updateError": "Erreur lors de la mise à jour",
+    "protectionEnabled": "Protection par mot de passe activée",
+    "protectionDisabled": "Protection par mot de passe désactivée",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
     "actions": {
-      "save": "Save",
-      "saving": "Saving...",
-      "show": "Show",
-      "hide": "Hide",
-      "copy": "Copy password"
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "show": "Afficher",
+      "hide": "Masquer",
+      "copy": "Copier le mot de passe"
     }
   },
+  "whiteLabelPortal": {
+    "title": "Pre-Flight Check intégré",
+    "subtitle": "Zéro erreur, zéro stress",
+    "description": "Avant chaque envoi, validez visuellement : bon compte, bon logo, bonnes données. Consultation sécurisée par mot de passe ou export PDF. Conformité RGPD.",
+    "benefits": [
+      "Personnalisation de l'interface avec votre logo et couleurs",
+      "Accès sécurisé pour vos comptes avec protection par mot de passe",
+      "Export PDF en marque blanche pour une distribution professionnelle",
+      "Conformité RGPD pour la protection des données"
+    ]
+  },
   "toast": {
-    "created": "Report created!",
-    "createError": "Error creating report"
+    "created": "Rapport créé !",
+    "createError": "Erreur lors de la création du rapport"
   },
   "card": {
     "status": {
-      "draft": "Draft",
-      "published": "Published",
-      "archived": "Archived"
+      "draft": "Brouillon",
+      "published": "Publié",
+      "archived": "Archivé"
     },
-    "noAccount": "Not defined",
-    "campaigns_one": "{{count}} Campaign",
-    "campaigns_other": "{{count}} Campaigns",
-    "noCampaigns": "No campaigns",
-    "modifiedOn": "Modified on {{date}}",
+    "noAccount": "Non défini",
+    "campaigns_one": "{{count}} Campagne",
+    "campaigns_other": "{{count}} Campagnes",
+    "noCampaigns": "Aucune campagne",
+    "modifiedOn": "Modifié le {{date}}",
     "sections": "Sections",
     "slides": "Slides",
     "actions": {
-      "viewPublic": "View public",
-      "shareByEmail": "Share by email",
-      "edit": "Edit",
-      "duplicate": "Duplicate",
-      "archive": "Archive",
-      "delete": "Delete"
+      "viewPublic": "Voir public",
+      "shareByEmail": "Partager par email",
+      "edit": "Éditer",
+      "duplicate": "Dupliquer",
+      "archive": "Archiver",
+      "delete": "Supprimer"
     },
     "toast": {
-      "duplicated": "Report duplicated successfully",
-      "duplicateError": "Error duplicating report",
-      "archived": "Report archived",
-      "archiveError": "Error archiving report",
-      "deleted": "Report deleted",
-      "deleteError": "Error deleting report"
+      "duplicated": "Rapport dupliqué avec succès",
+      "duplicateError": "Erreur lors de la duplication",
+      "archived": "Rapport archivé",
+      "archiveError": "Erreur lors de l'archivage",
+      "deleted": "Rapport supprimé",
+      "deleteError": "Erreur lors de la suppression"
     },
     "deleteConfirm": {
-      "title": "Delete report",
-      "message": "Are you sure you want to delete the report \"{{title}}\"?",
-      "confirm": "Delete"
+      "title": "Supprimer le rapport",
+      "message": "Êtes-vous sûr de vouloir supprimer le rapport \"{{title}}\" ?",
+      "confirm": "Supprimer"
     }
   },
   "preFlight": {
-    "title": "Report Preview",
+    "title": "Aperçu du Rapport",
     "subtitle": "{{clientName}} • {{dateRange}}",
     "loading": {
-      "title": "Loading data...",
-      "subtitle": "Fetching KPIs from Google Ads"
+      "title": "Chargement des données...",
+      "subtitle": "Récupération des KPIs depuis Google Ads"
     },
     "error": {
-      "title": "Loading error",
-      "noData": "No data available for this period",
-      "generic": "Error loading data",
-      "retry": "Retry",
-      "retrying": "Retrying...",
-      "attemptCount": "Attempt {{count}}/{{max}}",
-      "maxAttempts": "Maximum retry attempts reached",
-      "technicalDetails": "Technical details",
+      "title": "Erreur de chargement",
+      "noData": "Aucune donnée disponible pour cette période",
+      "generic": "Erreur lors du chargement des données",
+      "retry": "Réessayer",
+      "retrying": "Nouvelle tentative...",
+      "attemptCount": "Tentative {{count}}/{{max}}",
+      "maxAttempts": "Nombre maximum de tentatives atteint",
+      "technicalDetails": "Détails techniques",
       "types": {
         "AUTHENTICATION_ERROR": {
-          "message": "Your Google Ads connection has expired.",
-          "suggestion": "Please reconnect to Google Ads."
+          "message": "Votre connexion Google Ads a expiré.",
+          "suggestion": "Veuillez vous reconnecter à Google Ads."
         },
         "PERMISSION_ERROR": {
-          "message": "You don't have permission to access this account.",
-          "suggestion": "Check your access rights to the Google Ads account."
+          "message": "Vous n'avez pas les permissions nécessaires pour accéder à ce compte.",
+          "suggestion": "Vérifiez vos droits d'accès au compte Google Ads."
         },
         "RATE_LIMIT_ERROR": {
-          "message": "Too many requests sent.",
-          "suggestion": "Please wait a moment and try again."
+          "message": "Trop de requêtes envoyées.",
+          "suggestion": "Veuillez patienter quelques instants et réessayer."
         },
         "TIMEOUT_ERROR": {
-          "message": "The request took too long.",
-          "suggestion": "Please try again. If the problem persists, try a shorter date range."
+          "message": "La requête a pris trop de temps.",
+          "suggestion": "Veuillez réessayer. Si le problème persiste, essayez avec une période plus courte."
         },
         "NETWORK_ERROR": {
-          "message": "Network connection interrupted.",
-          "suggestion": "Check your internet connection and try again."
+          "message": "Connexion réseau interrompue.",
+          "suggestion": "Vérifiez votre connexion internet et réessayez."
         },
         "NO_DATA": {
-          "message": "No data available for this period.",
-          "suggestion": "Try selecting a different date range."
+          "message": "Aucune donnée disponible pour cette période.",
+          "suggestion": "Essayez de sélectionner une période différente."
         },
         "INVALID_PERIOD": {
-          "message": "The selected date range is invalid.",
-          "suggestion": "Please select valid dates."
+          "message": "La période sélectionnée est invalide.",
+          "suggestion": "Veuillez sélectionner des dates valides."
         },
         "ACCOUNT_NOT_FOUND": {
-          "message": "Google Ads account not found.",
-          "suggestion": "Verify that the account is properly linked to Flipika."
+          "message": "Compte Google Ads introuvable.",
+          "suggestion": "Vérifiez que le compte est bien lié à Flipika."
         },
         "UNKNOWN_ERROR": {
-          "message": "An unexpected error occurred.",
-          "suggestion": "Please try again. If the problem persists, contact support."
+          "message": "Une erreur inattendue est survenue.",
+          "suggestion": "Veuillez réessayer. Si le problème persiste, contactez le support."
         }
       }
     },
     "emptyState": {
-      "title": "No data available",
-      "message": "This report doesn't contain any slides. Add slides to visualize your Google Ads data.",
-      "suggestion": "Return to the editor to add slides to your report.",
-      "editReport": "Edit Report",
-      "backToReports": "Back to Reports"
+      "title": "Aucune donnée disponible",
+      "message": "Ce rapport ne contient pas de slides. Ajoutez des slides pour visualiser vos données Google Ads.",
+      "suggestion": "Retournez à l'éditeur pour ajouter des slides à votre rapport.",
+      "editReport": "Modifier le rapport",
+      "backToReports": "Retour aux rapports"
     },
     "errorBoundary": {
-      "title": "An error occurred",
-      "message": "An unexpected problem occurred. Please try again or go back to home.",
-      "retry": "Retry",
-      "home": "Home"
+      "title": "Une erreur est survenue",
+      "message": "Un problème inattendu s'est produit. Veuillez réessayer ou retourner à l'accueil.",
+      "retry": "Réessayer",
+      "home": "Accueil"
     },
     "warnings": {
-      "title": "Warnings",
-      "noImpressions": "No impressions recorded",
-      "lowCtr": "Low CTR (< 1%) with over 1000 impressions",
-      "noConversions": "No conversions with over 100 clicks"
+      "title": "Avertissements",
+      "noImpressions": "Aucune impression enregistrée",
+      "lowCtr": "CTR faible (< 1%) avec plus de 1000 impressions",
+      "noConversions": "Aucune conversion avec plus de 100 clics"
     },
     "kpis": {
-      "cost": "Total Cost",
-      "clicks": "Clicks",
+      "cost": "Coût Total",
+      "clicks": "Clics",
       "impressions": "Impressions",
       "ctr": "CTR",
-      "cpc": "Avg CPC",
-      "campaigns": "Campaigns"
+      "cpc": "CPC Moyen",
+      "campaigns": "Campagnes"
     },
     "actions": {
-      "cancel": "Cancel",
-      "send": "Generate PDF & Send",
-      "edit": "Edit",
-      "back": "Back to Reports",
-      "viewPreview": "View Preview",
-      "downloadPdf": "Download PDF",
-      "copy": "Copy"
+      "cancel": "Annuler",
+      "send": "Générer PDF & Envoyer",
+      "edit": "Éditer",
+      "back": "Retour aux rapports",
+      "viewPreview": "Voir la preview",
+      "downloadPdf": "Télécharger le PDF",
+      "generating": "Génération en cours...",
+      "copy": "Copier"
     },
     "steps": {
-      "preview": "Verification",
-      "send": "Send"
+      "preview": "Vérification",
+      "send": "Envoi"
     },
     "reassurance": {
-      "title": "Everything is ready!",
-      "description": "The report is ready. Click above to generate it as a PDF and prepare the email for your client."
+      "title": "Tout est prêt !",
+      "description": "Le rapport est prêt. Cliquez ci-dessus pour le générer au format PDF et préparer l'email pour votre client."
     },
     "pdf": {
-      "success": "PDF generated successfully",
-      "error": "Error generating PDF",
-      "progress": "Generating PDF: {{progress}}%",
+      "success": "PDF généré avec succès",
+      "error": "Erreur lors de la génération du PDF",
+      "progress": "Génération du PDF: {{progress}}%",
       "overlay": {
-        "title": "Generating PDF",
-        "preparing": "Preparing...",
-        "creatingDocument": "Creating document...",
-        "coverPage": "Cover page...",
+        "title": "Génération du PDF",
+        "preparing": "Préparation...",
+        "creatingDocument": "Création du document...",
+        "coverPage": "Page de couverture...",
         "slideProgress": "Slide {{current}} / {{total}}...",
-        "finalizing": "Finalizing...",
-        "saving": "Saving...",
-        "complete": "Complete!",
-        "pleaseWait": "Please wait...",
-        "generatedOn": "Generated on {{date}}"
+        "finalizing": "Finalisation...",
+        "saving": "Enregistrement...",
+        "complete": "Terminé !",
+        "pleaseWait": "Veuillez patienter...",
+        "generatedOn": "Généré le {{date}}"
       }
     },
     "postSend": {
-      "title": "PDF document downloaded & email app opened",
-      "description": "Your PDF report has already been downloaded. Your native email application should have opened with a prepared message.",
-      "recipientLabel": "Recipient",
-      "subjectLabel": "Subject",
-      "bodyLabel": "Email Message",
-      "emailOpened": "Email app opened!",
-      "copied": "{{label}} copied!",
-      "copyError": "Error copying",
-      "pdfTodo": "PDF download to be implemented",
+      "title": "Document PDF téléchargé & application email ouverte",
+      "description": "Votre rapport PDF a déjà été téléchargé. Votre application email devrait s'être ouverte avec un message préparé.",
+      "recipientLabel": "Destinataire",
+      "subjectLabel": "Objet",
+      "bodyLabel": "Message de l'email",
+      "emailOpened": "Application email ouverte !",
+      "copied": "{{label}} copié !",
+      "copyError": "Erreur lors de la copie",
+      "pdfTodo": "Téléchargement PDF à implémenter",
       "troubleshoot": {
-        "button": "Having trouble?",
-        "title": "Email didn't open?",
-        "description": "If your email application didn't launch automatically, here's how to fix it:",
+        "button": "Un problème ?",
+        "title": "L'email ne s'est pas ouvert ?",
+        "description": "Si votre application mail ne s'est pas lancée automatiquement, voici comment corriger cela :",
         "steps": {
           "desktop": {
-            "title": "On desktop",
-            "mac": "macOS: Mail > Settings > General > Default email reader.",
-            "windows": "Windows: Settings > Apps > Default apps > Email."
+            "title": "Sur ordinateur",
+            "mac": "macOS : Mail > Réglages > Général > Application de messagerie par défaut.",
+            "windows": "Windows : Paramètres > Applications > Applications par défaut > Messagerie."
           },
           "mobile": {
-            "title": "On mobile",
-            "ios": "iOS: Settings > [Mail App] > Default Mail App.",
-            "android": "Android: Settings > Apps > Choose default apps > Email app."
+            "title": "Sur mobile",
+            "ios": "iOS : Réglages > [App Mail] > App de messagerie par défaut.",
+            "android": "Android : Paramètres > Applis > Choisir applis par défaut > Appli de messagerie."
           }
         },
-        "fallback": "MANUAL ACTIONS",
-        "editEmail": "Edit email template"
+        "fallback": "ACTIONS MANUELLES",
+        "editEmail": "Modifier le modèle d'email"
       },
       "instructions": {
-        "title": "How to finalize sending?",
+        "title": "Comment finaliser l'envoi ?",
         "step1": {
-          "title": "Get the PDF",
-          "description": "The PDF file has been automatically downloaded to your device."
+          "title": "Récupérez le PDF",
+          "description": "Le fichier PDF a été automatiquement téléchargé sur votre appareil."
         },
         "step2": {
-          "title": "Drag and drop",
-          "description": "Drag the downloaded file into your email window."
+          "title": "Glissez-déposez",
+          "description": "Faites glisser le fichier téléchargé dans la fenêtre de votre email."
         },
         "step3": {
-          "title": "Send it!",
-          "description": "Review one last time and click send."
+          "title": "Envoyez !",
+          "description": "Vérifiez une dernière fois et cliquez sur envoyer."
         }
       }
     }
   },
   "info": {
     "buttonLabel": "Information",
-    "modalTitle": "What are Reports?",
-    "modalContent": "Reports are customizable Google Ads performance documents that you create and share with your accounts or stakeholders.\n\nWith reports, you can:\n• Combine multiple slide types (metrics, charts, text, creatives) into comprehensive presentations\n• Analyze specific campaigns and date ranges\n• Save as drafts, publish, or archive for organization\n• Password-protect reports for secure sharing\n• Generate PDF exports for offline distribution\n• Share via email with pre-filled content\n\nReports can be created from scratch or generated from templates for faster, consistent deliverables."
+    "modalTitle": "Qu'est-ce qu'un rapport ?",
+    "modalContent": "Les rapports sont des documents de performance Google Ads personnalisables que vous créez et partagez avec vos comptes ou parties prenantes.\n\nAvec les rapports, vous pouvez :\n• Combiner plusieurs types de slides (métriques, graphiques, texte, créatives) en présentations complètes\n• Analyser des campagnes et périodes spécifiques\n• Sauvegarder en brouillon, publier ou archiver pour l'organisation\n• Protéger les rapports par mot de passe pour un partage sécurisé\n• Générer des exports PDF pour une distribution hors ligne\n• Partager par email avec du contenu pré-rempli\n\nLes rapports peuvent être créés de zéro ou générés à partir de templates pour des livrables plus rapides et cohérents."
   }
 }

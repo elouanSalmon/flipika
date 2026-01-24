@@ -143,7 +143,7 @@ class ThemeService {
     async getThemeForClient(userId: string, clientId: string): Promise<ReportTheme | null> {
         const themes = await this.getUserThemes(userId);
         const linkedTheme = themes.find(theme =>
-            theme.linkedClientIds.includes(clientId)
+            theme.linkedClientIds?.includes(clientId)
         );
 
         return linkedTheme || null;

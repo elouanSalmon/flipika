@@ -4,11 +4,27 @@
    PAGE LAYOUT (Fixed Header + Sidebar + Toolbar)
    ============================================ */
 
+/* ============================================
+   PAGE LAYOUT (Fixed Header + Sidebar + Toolbar)
+   ============================================ */
+
+:root {
+    --page-header-height: 56px;
+}
+
 .tiptap-page-layout {
+    --scope-header-height: 0px;
+    --total-header-height: calc(var(--page-header-height) + var(--scope-header-height));
+
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     background: var(--color-bg-secondary, #f3f4f6);
+}
+
+/* Modifiers for when sub-header is present */
+.tiptap-page-layout.with-scope-header {
+    --scope-header-height: 48px;
 }
 
 /* Fixed Page Header */
@@ -17,7 +33,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 56px;
+    height: var(--page-header-height);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -224,7 +240,7 @@
 /* Main Content Area */
 .tiptap-page-main {
     flex: 1;
-    margin-top: 56px;
+    margin-top: var(--total-header-height);
     /* Account for fixed header */
 }
 
@@ -246,7 +262,7 @@
     border-bottom: 1px solid var(--color-border, #e5e7eb);
     flex-wrap: wrap;
     position: fixed;
-    top: 56px;
+    top: var(--total-header-height);
     /* Below page header */
     left: 200px;
     /* After sidebar */
@@ -740,9 +756,13 @@
    SLIDE NAVIGATION SIDEBAR
    ============================================ */
 
+/* ============================================
+   SLIDE NAVIGATION SIDEBAR
+   ============================================ */
+
 .tiptap-slide-editor-layout {
     display: flex;
-    min-height: calc(100vh - 56px);
+    min-height: calc(100vh - var(--total-header-height));
     /* Account for page header */
     width: 100%;
     position: relative;
@@ -751,11 +771,11 @@
 .slide-navigation {
     width: 200px;
     min-width: 200px;
-    height: calc(100vh - 56px);
+    height: calc(100vh - var(--page-header-height));
     /* Account for fixed page header */
     position: fixed;
     left: 0;
-    top: 56px;
+    top: var(--page-header-height);
     /* Below the fixed page header */
     background: var(--color-bg-primary, #ffffff);
     border-right: 1px solid var(--color-border, #e5e7eb);
@@ -765,12 +785,50 @@
     z-index: 30;
 }
 
+.slide-nav-scope-info {
+    padding: 1rem 1rem 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.scope-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary, #6b7280);
+    overflow: hidden;
+}
+
+.scope-icon {
+    min-width: 12px;
+    opacity: 0.7;
+}
+
+.scope-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.scope-separator {
+    height: 1px;
+    background: var(--color-border, #e5e7eb);
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
 .slide-nav-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid var(--color-border, #e5e7eb);
+    padding: 1rem 1rem 0.5rem 1rem;
+    /* Reduced top padding if scope is present */
+}
+
+.slide-nav-scope-info+.slide-nav-header {
+    padding-top: 0.5rem;
 }
 
 .slide-nav-title {

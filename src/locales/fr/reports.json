@@ -26,6 +26,14 @@
     "listView": "Vue liste",
     "connectToCreate": "Connectez Google Ads pour créer des rapports"
   },
+  "common": {
+    "period": "Période",
+    "client": "Client",
+    "account": "Compte",
+    "campaigns": "Campagnes",
+    "allCampaigns": "Toutes les campagnes",
+    "selected": "sélectionnées"
+  },
   "config": {
     "title": "Configuration du Rapport",
     "settings": "Paramètres du Rapport",
