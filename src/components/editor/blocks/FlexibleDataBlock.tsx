@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useReportEditor, ReportEditorProvider } from '../../../contexts/ReportEditorContext';
-import { Settings, Loader2, X, Info } from 'lucide-react';
+import { Settings, Loader2, X, Info, TrendingUp, TrendingDown } from 'lucide-react';
 import type { ReportDesign } from '../../../types/reportTypes';
 import { executeQuery } from '../../../services/googleAds';
 import { buildFlexibleQuery } from '../../../services/gaql';
@@ -25,6 +25,8 @@ export interface FlexibleDataConfig {
     sortOrder?: 'ASC' | 'DESC';
     isNew?: boolean;
     isConfigActive?: boolean;
+    showComparison?: boolean;
+    comparisonType?: 'previous_period' | 'previous_year';
 }
 
 export interface FlexibleDataBlockProps {
@@ -57,11 +59,28 @@ const DataRenderer: React.FC<{
         const { primary, secondary, accent } = design.colorScheme;
         return [primary, secondary, accent, '#FFBB28', '#FF8042', '#8884d8'];
     }, [design]);
+
     const [data, setData] = useState<any[]>([]);
+    const [comparisonData, setComparisonData] = useState<any[]>([]);
     const [rawResults, setRawResults] = useState<any[]>([]);
     const [generatedQuery, setGeneratedQuery] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const tableData = useMemo(() => {
+        if (!config.showComparison || !config.dimension) return data;
+        return data.map(item => {
+            const joinKey = item[config.dimension!];
+            const prevItem = comparisonData.find(p => p[config.dimension!] === joinKey);
+            const merged = { ...item };
+            config.metrics.forEach(m => {
+                const prevVal = Number(prevItem?.[m]) || 0;
+                merged[`${m}_prev`] = prevVal;
+                merged[`${m}_delta`] = prevVal !== 0 ? ((Number(item[m]) - prevVal) / prevVal) * 100 : 0;
+            });
+            return merged;
+        });
+    }, [data, comparisonData, config.showComparison, config.dimension, config.metrics]);
 
     // Debounced fetch
     useEffect(() => {
@@ -79,6 +98,8 @@ const DataRenderer: React.FC<{
         config.limit,
         config.sortBy,
         config.sortOrder,
+        config.showComparison,
+        config.comparisonType,
         JSON.stringify(config.metrics)
     ]);
 
@@ -95,38 +116,86 @@ const DataRenderer: React.FC<{
             }
 
             const formatDate = (d: Date) => d.toISOString().split('T')[0];
+            const startStr = formatDate(sDate);
+            const endStr = formatDate(eDate);
+
             const query = buildFlexibleQuery(config, {
-                startDate: formatDate(sDate),
-                endDate: formatDate(eDate),
+                startDate: startStr,
+                endDate: endStr,
                 campaignIds: campaignIds
             });
             setGeneratedQuery(query);
-            const result = await executeQuery(accountId, query);
+
+            // Fetch Current Period
+            const currentPromise = executeQuery(accountId, query);
+
+            // Fetch Comparison Period if enabled
+            let comparisonPromise = Promise.resolve({ success: true, results: [] } as any);
+            if (config.showComparison) {
+                const prev = getPreviousPeriod(sDate, eDate, config.comparisonType || 'previous_period');
+                const comparisonQuery = buildFlexibleQuery(config, {
+                    startDate: formatDate(prev.startDate),
+                    endDate: formatDate(prev.endDate),
+                    campaignIds: campaignIds
+                });
+                comparisonPromise = executeQuery(accountId, comparisonQuery);
+            }
+
+            const [result, comparisonResult] = await Promise.all([currentPromise, comparisonPromise]);
+
             if (!result.success) throw new Error(result.error || 'Failed to fetch data');
+            if (config.showComparison && !comparisonResult.success) {
+                console.warn('Comparison fetch failed:', comparisonResult.error);
+            }
 
             setRawResults(result.results || []);
 
-            const flatData = (result.results || []).map((row: any) => {
-                const flatRow: any = {};
-                if (config.dimension) {
-                    const dimParts = config.dimension.split('.');
-                    if (dimParts.length === 2 && row[dimParts[0]]) {
-                        flatRow[config.dimension] = row[dimParts[0]][dimParts[1]];
-                    } else if (dimParts[0] === 'segments' && row.segments) {
-                        flatRow[config.dimension] = row.segments[dimParts[1]];
+            const processResults = (results: any[]) => {
+                return (results || []).map((row: any) => {
+                    const flatRow: any = {};
+                    if (config.dimension) {
+                        const dimParts = config.dimension.split('.');
+                        if (dimParts.length === 2 && row[dimParts[0]]) {
+                            flatRow[config.dimension] = row[dimParts[0]][dimParts[1]];
+                        } else if (dimParts[0] === 'segments' && row.segments) {
+                            flatRow[config.dimension] = row.segments[dimParts[1]];
+                        }
                     }
-                }
-                config.metrics.forEach((m: string) => {
-                    const parts = m.split('.');
-                    if (row[parts[0]]) flatRow[m] = row[parts[0]][parts[1]];
+                    config.metrics.forEach((m: string) => {
+                        const parts = m.split('.');
+                        if (row[parts[0]]) flatRow[m] = row[parts[0]][parts[1]];
+                    });
+                    return flatRow;
                 });
-                return flatRow;
-            });
-            setData(flatData);
+            };
+
+            setData(processResults(result.results));
+            if (config.showComparison) {
+                setComparisonData(processResults(comparisonResult.results));
+            } else {
+                setComparisonData([]);
+            }
         } catch (err: any) {
             setError(err.message || 'Failed to fetch data');
         } finally {
             setLoading(false);
+        }
+    };
+
+    const getPreviousPeriod = (s: Date, e: Date, type: 'previous_period' | 'previous_year') => {
+        const start = new Date(s);
+        const end = new Date(e);
+        if (type === 'previous_year') {
+            const prevStart = new Date(start);
+            prevStart.setFullYear(prevStart.getFullYear() - 1);
+            const prevEnd = new Date(end);
+            prevEnd.setFullYear(prevEnd.getFullYear() - 1);
+            return { startDate: prevStart, endDate: prevEnd };
+        } else {
+            const diff = end.getTime() - start.getTime();
+            const prevStart = new Date(start.getTime() - diff - 86400000);
+            const prevEnd = new Date(start.getTime() - 86400000);
+            return { startDate: prevStart, endDate: prevEnd };
         }
     };
 
@@ -183,22 +252,48 @@ const DataRenderer: React.FC<{
                                     <thead className="sticky top-0" style={{ backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)' }}>
                                         <tr className="border-b border-[var(--color-border)]">
                                             <th className="text-left p-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: design?.colorScheme?.primary || 'var(--color-text-muted)' }}>
-                                                {config.dimension ? t(`flexibleBlock.dimensions.${config.dimension.split('.')[1]}`) : t('flexibleBlock.fields.none')}
+                                                {config.dimension ? t(`flexibleBlock.dimensions.${config.dimension.split('.')[1]} `) : t('flexibleBlock.fields.none')}
                                             </th>
                                             {config.metrics.map((m: string) => (
-                                                <th key={m} className="text-right p-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: design?.colorScheme?.primary || 'var(--color-text-muted)' }}>
-                                                    {t(`flexibleBlock.metricsList.${m.split('.')[1]}`)}
-                                                </th>
+                                                <React.Fragment key={m}>
+                                                    <th className="text-right p-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: design?.colorScheme?.primary || 'var(--color-text-muted)' }}>
+                                                        {t(`flexibleBlock.metricsList.${m.split('.')[1]} `)}
+                                                    </th>
+                                                    {config.showComparison && (
+                                                        <>
+                                                            <th className="text-right p-3 font-bold uppercase tracking-wider text-[10px] opacity-60">N-1</th>
+                                                            <th className="text-right p-3 font-bold uppercase tracking-wider text-[10px] opacity-60">Δ%</th>
+                                                        </>
+                                                    )}
+                                                </React.Fragment>
                                             ))}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data.map((row, idx) => (
+                                        {tableData.map((row, idx) => (
                                             <tr key={idx} className="border-b last:border-0 border-[var(--color-border)] hover:bg-[var(--color-bg-secondary)] transition-colors">
                                                 <td className="p-3 text-[var(--color-text-primary)]">{row[config.dimension || ''] || '-'}</td>
-                                                {config.metrics.map((m: string) => (
-                                                    <td key={m} className="text-right p-3 font-medium text-[var(--color-text-primary)]">{Number(row[m])?.toLocaleString()}</td>
-                                                ))}
+                                                {config.metrics.map((m: string) => {
+                                                    const metricName = m.split('.')[1];
+                                                    const delta = row[`${m} _delta`];
+                                                    const isInverse = ['average_cpc', 'cost_per_conversion'].includes(metricName);
+                                                    const isPos = isInverse ? delta < 0 : delta > 0;
+                                                    const trendColor = delta === 0 ? '' : (isPos ? 'text-green-500' : 'text-red-500');
+
+                                                    return (
+                                                        <React.Fragment key={m}>
+                                                            <td className="text-right p-3 font-medium text-[var(--color-text-primary)]">{Number(row[m])?.toLocaleString()}</td>
+                                                            {config.showComparison && (
+                                                                <>
+                                                                    <td className="text-right p-3 text-[var(--color-text-muted)] opacity-70 italic">{Number(row[`${m} _prev`])?.toLocaleString()}</td>
+                                                                    <td className={`text - right p - 3 font - bold ${trendColor} `}>
+                                                                        {delta > 0 ? '+' : ''}{delta.toFixed(1)}%
+                                                                    </td>
+                                                                </>
+                                                            )}
+                                                        </React.Fragment>
+                                                    );
+                                                })}
                                             </tr>
                                         ))}
                                     </tbody>
@@ -208,14 +303,19 @@ const DataRenderer: React.FC<{
                     case 'bar':
                         return (
                             <ResponsiveContainer width="100%" height={height as any}>
-                                <BarChart data={data}>
+                                <BarChart data={tableData}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
                                     <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
                                     <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
                                     <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
                                     {config.metrics.map((m: string, i: number) => (
-                                        <Bar key={m} dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={chartColors[i % chartColors.length]} radius={[4, 4, 0, 0]} />
+                                        <React.Fragment key={m}>
+                                            <Bar dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={chartColors[i % chartColors.length]} radius={[4, 4, 0, 0]} />
+                                            {config.showComparison && (
+                                                <Bar dataKey={`${m}_prev`} name={`${t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} (N-1)`} fill={chartColors[i % chartColors.length]} opacity={0.3} radius={[4, 4, 0, 0]} />
+                                            )}
+                                        </React.Fragment>
                                     ))}
                                 </BarChart>
                             </ResponsiveContainer>
@@ -223,14 +323,19 @@ const DataRenderer: React.FC<{
                     case 'line':
                         return (
                             <ResponsiveContainer width="100%" height={height as any}>
-                                <LineChart data={data}>
+                                <LineChart data={tableData}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
                                     <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
                                     <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
                                     <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
                                     {config.metrics.map((m: string, i: number) => (
-                                        <Line key={m} type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={chartColors[i % chartColors.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                        <React.Fragment key={m}>
+                                            <Line type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={chartColors[i % chartColors.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                            {config.showComparison && (
+                                                <Line type="monotone" dataKey={`${m}_prev`} name={`${t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} (N-1)`} stroke={chartColors[i % chartColors.length]} strokeDasharray="5 5" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                                            )}
+                                        </React.Fragment>
                                     ))}
                                 </LineChart>
                             </ResponsiveContainer>
@@ -249,11 +354,11 @@ const DataRenderer: React.FC<{
                                         fill={chartColors[0]}
                                         dataKey={config.metrics[0]}
                                         nameKey={config.dimension}
-                                        label={({ name, percent }: any) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                        label={({ name, percent }: any) => `${name} ${(percent * 100).toFixed(0)}% `}
                                         fontSize={10}
                                         fontFamily={design?.typography?.fontFamily}
                                     >
-                                        {data.map((_, index) => <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />)}
+                                        {data.map((_, index) => <Cell key={`cell - ${index} `} fill={chartColors[index % chartColors.length]} />)}
                                     </Pie>
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
                                     <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
@@ -265,12 +370,31 @@ const DataRenderer: React.FC<{
                             <div className="grid grid-cols-2 gap-4 h-full items-center">
                                 {config.metrics.map((m: string) => {
                                     const total = data.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
+                                    const prevTotal = comparisonData.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
+
+                                    const diff = total - prevTotal;
+                                    const percentChange = prevTotal !== 0 ? (diff / prevTotal) * 100 : 0;
+
+                                    const metricName = m.split('.')[1];
+                                    const isInverse = ['average_cpc', 'cost_per_conversion'].includes(metricName);
+                                    const isPositive = isInverse ? diff < 0 : diff > 0;
+                                    const trendColor = diff === 0 ? 'text-[var(--color-text-muted)]' : (isPositive ? 'text-green-500' : 'text-red-500');
+
                                     return (
-                                        <div key={m} className="p-5 glass rounded-2xl text-center border shadow-sm" style={{ borderColor: design?.colorScheme?.primary + '20' }}>
-                                            <div className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-1">
-                                                {t(`flexibleBlock.metricsList.${m.split('.')[1]}`)}
+                                        <div key={m} className="p-5 glass rounded-2xl text-center border shadow-sm flex flex-col justify-center gap-1" style={{ borderColor: design?.colorScheme?.primary + '20' }}>
+                                            <div className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">
+                                                {t(`flexibleBlock.metricsList.${metricName} `)}
                                             </div>
-                                            <div className="text-2xl font-bold" style={{ color: design?.colorScheme?.primary || 'var(--color-text-primary)' }}>{total.toLocaleString()}</div>
+                                            <div className="text-2xl font-bold" style={{ color: design?.colorScheme?.primary || 'var(--color-text-primary)' }}>
+                                                {total.toLocaleString()}
+                                            </div>
+                                            {config.showComparison && (
+                                                <div className={`flex items - center justify - center gap - 1 text - [10px] font - bold ${trendColor} `}>
+                                                    {diff !== 0 && (isPositive ? <TrendingUp size={12} /> : <TrendingDown size={12} />)}
+                                                    <span>{percentChange > 0 ? '+' : ''}{percentChange.toFixed(1)}%</span>
+                                                    <span className="text-[var(--color-text-muted)] font-normal ml-1">vs N-1</span>
+                                                </div>
+                                            )}
                                         </div>
                                     );
                                 })}
@@ -407,7 +531,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
 
                                         <section>
                                             <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.visualStyle')}</label>
-                                            <div className="grid grid-cols-3 gap-2">
+                                            <div className="grid grid-cols-5 gap-2">
                                                 {(['table', 'bar', 'line', 'pie', 'scorecard'] as const).map((type) => (
                                                     <button
                                                         key={type}
@@ -448,6 +572,34 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                             </div>
                                         </section>
 
+                                        <section className="p-4 rounded-2xl border border-primary/20 bg-primary/5 space-y-4">
+                                            <div className="flex items-center justify-between">
+                                                <div>
+                                                    <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">{t('flexibleBlock.fields.comparison')}</label>
+                                                    <p className="text-[10px] text-[var(--color-text-muted)]">{t('flexibleBlock.fields.comparisonDescription')}</p>
+                                                </div>
+                                                <button
+                                                    onClick={() => setEditConfig({ ...editConfig, showComparison: !editConfig.showComparison })}
+                                                    className={`w-10 h-5 rounded-full transition-colors relative ${editConfig.showComparison ? 'bg-primary' : 'bg-[var(--color-bg-tertiary)]'}`}
+                                                >
+                                                    <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${editConfig.showComparison ? 'left-6' : 'left-1'}`} />
+                                                </button>
+                                            </div>
+                                            {editConfig.showComparison && (
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    {(['previous_period', 'previous_year'] as const).map((type) => (
+                                                        <button
+                                                            key={type}
+                                                            onClick={() => setEditConfig({ ...editConfig, comparisonType: type })}
+                                                            className={`p-2 rounded-xl text-[10px] font-bold border transition-all ${editConfig.comparisonType === type ? 'border-primary bg-primary text-white' : 'border-[var(--color-border)] bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)]'}`}
+                                                        >
+                                                            {t(`flexibleBlock.comparisonTypes.${type}`)}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </section>
+
                                         <section>
                                             <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.metrics')}</label>
                                             <div className="grid grid-cols-2 gap-2 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
@@ -467,9 +619,9 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                         <button
                                                             key={m.id}
                                                             onClick={() => setEditConfig({ ...editConfig, metrics: exists ? editConfig.metrics.filter(x => x !== m.id) : [...editConfig.metrics, m.id] })}
-                                                            className={`flex items-center justify-center text-center px-3 py-2.5 rounded-xl border transition-all ${exists ? 'border-primary bg-primary text-white shadow-md shadow-primary/20 scale-[1.01]' : 'border-transparent bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}
+                                                            className={`flex items - center justify - center text - center px - 3 py - 2.5 rounded - xl border transition - all ${exists ? 'border-primary bg-primary text-white shadow-md shadow-primary/20 scale-[1.01]' : 'border-transparent bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'} `}
                                                         >
-                                                            <span className="text-[10px] font-bold">{t(`flexibleBlock.metricsList.${metricKey}`)}</span>
+                                                            <span className="text-[10px] font-bold">{t(`flexibleBlock.metricsList.${metricKey} `)}</span>
                                                         </button>
                                                     );
                                                 })}
@@ -487,7 +639,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                         </div>
                                         <button
                                             onClick={() => setShowRawData(!showRawData)}
-                                            className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-widest transition-all border ${showRawData ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] border-[var(--color-border)] hover:bg-[var(--color-bg-tertiary)]'}`}
+                                            className={`px - 3 py - 1.5 rounded - lg text - [9px] font - bold uppercase tracking - widest transition - all border ${showRawData ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] border-[var(--color-border)] hover:bg-[var(--color-bg-tertiary)]'} `}
                                         >
                                             {showRawData ? 'Visual' : 'RAW JSON'}
                                         </button>
@@ -497,11 +649,11 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                             <div className="space-y-0.5">
                                                 <h3 className="text-xl font-bold text-[var(--color-text-primary)] leading-tight">{editConfig.title || t('flexibleBlock.previewSubtitle')}</h3>
                                                 <p className="text-[10px] text-[var(--color-text-muted)]">
-                                                    {accountId ? `Compte ID: ${accountId}` : 'Compte non sélectionné'}
+                                                    {accountId ? `Compte ID: ${accountId} ` : 'Compte non sélectionné'}
                                                 </p>
                                             </div>
                                             <div className="text-[9px] font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest border border-primary/20">
-                                                {t(`flexibleBlock.visualizations.${editConfig.visualization}`)}
+                                                {t(`flexibleBlock.visualizations.${editConfig.visualization} `)}
                                             </div>
                                         </div>
                                         <div className="flex-1 min-h-0 overflow-hidden">

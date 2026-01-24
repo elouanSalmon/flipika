@@ -507,7 +507,13 @@
       "dimension": "Dimension",
       "limit": "Limite",
       "metrics": "Métriques",
-      "none": "Aucune (Totaux)"
+      "none": "Aucune (Totaux)",
+      "comparison": "Comparer la période",
+      "comparisonDescription": "Activer la comparaison avec N-1"
+    },
+    "comparisonTypes": {
+      "previous_period": "Période Précédente",
+      "previous_year": "Année Précédente"
     },
     "visualizations": {
       "table": "Tableau",
