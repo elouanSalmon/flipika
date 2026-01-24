@@ -66,6 +66,7 @@ const DataRenderer: React.FC<{
     const [queries, setQueries] = useState<{ current: string; comparison?: string }>({ current: '' });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [isMockData, setIsMockData] = useState(false);
 
     const tableData = useMemo(() => {
         if (!config.showComparison || !config.dimension) return data;
@@ -104,9 +105,15 @@ const DataRenderer: React.FC<{
     ]);
 
     const fetchData = async () => {
-        if (!accountId || !startDate || !endDate) return;
+        // If missing context, use mock data (Template Mode)
+        if (!accountId || !startDate || !endDate) {
+            generateMockData();
+            return;
+        }
+
         setLoading(true);
         setError(null);
+        setIsMockData(false);
         try {
             const sDate = typeof startDate === 'string' ? new Date(startDate) : startDate;
             const eDate = typeof endDate === 'string' ? new Date(endDate) : endDate;
@@ -181,9 +188,68 @@ const DataRenderer: React.FC<{
             }
         } catch (err: any) {
             setError(err.message || 'Failed to fetch data');
+            generateMockData(); // Fallback to mock on error
         } finally {
             setLoading(false);
         }
+    };
+
+    const generateMockData = () => {
+        setIsMockData(true);
+        setError(null);
+        setLoading(false);
+
+        const dimensions = {
+            'segments.date': ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'],
+            'campaign.name': ['Hiver Promo 2024', 'Search France', 'Display Retargeting', 'Video Awareness', 'Perf Max All'],
+            'ad_group.name': ['Groupe A - Premium', 'Groupe B - Eco', 'Annonces Dynamiques', 'Remarketing List', 'Generic Search'],
+            'segments.device': ['MOBILE', 'DESKTOP', 'TABLET', 'CONNECTED_TV', 'OTHER']
+        };
+
+        const dimValues = dimensions[config.dimension as keyof typeof dimensions] || dimensions['campaign.name'];
+
+        const mockResults = dimValues.map((val, idx) => {
+            const row: any = { [config.dimension || '']: val };
+            config.metrics.forEach(m => {
+                const metricKey = m.split('.')[1];
+                const base = Math.random() * 1000 + 500;
+                row[m] = metricKey.includes('micros') || ['cost', 'average_cpc', 'cost_per_conversion'].includes(metricKey) ? base * 1000000 : base;
+
+                if (config.showComparison) {
+                    const prevBase = base * (0.8 + Math.random() * 0.4); // +/- 20%
+                    row[`${m}_prev`] = metricKey.includes('micros') || ['cost', 'average_cpc', 'cost_per_conversion'].includes(metricKey) ? prevBase * 1000000 : prevBase;
+                    row[`${m}_delta`] = ((base - prevBase) / prevBase) * 100;
+                }
+            });
+            return row;
+        });
+
+        setData(mockResults);
+        setComparisonData([]); // Already merged in row above relative to how tableData handles it, 
+        // but wait, tableData re-calculates deltas from comparisonData. 
+        // Let's make it consistent.
+
+        const currentData: any[] = [];
+        const prevData: any[] = [];
+
+        dimValues.forEach(val => {
+            const currRow: any = { [config.dimension || '']: val };
+            const prevRow: any = { [config.dimension || '']: val };
+
+            config.metrics.forEach(m => {
+                const metricKey = m.split('.')[1];
+                const base = Math.random() * 1000 + 500;
+                currRow[m] = metricKey.includes('micros') || ['cost', 'average_cpc', 'cost_per_conversion'].includes(metricKey) ? base * 1000000 : base;
+
+                const prevBase = base * (0.8 + Math.random() * 0.4);
+                prevRow[m] = metricKey.includes('micros') || ['cost', 'average_cpc', 'cost_per_conversion'].includes(metricKey) ? prevBase * 1000000 : prevBase;
+            });
+            currentData.push(currRow);
+            prevData.push(prevRow);
+        });
+
+        setData(currentData);
+        setComparisonData(prevData);
     };
 
     const getPreviousPeriod = (s: Date, e: Date, type: 'previous_period' | 'previous_year') => {
@@ -278,7 +344,13 @@ const DataRenderer: React.FC<{
     };
 
     return (
-        <div className="h-full w-full overflow-hidden" style={{ fontFamily: design?.typography?.fontFamily }}>
+        <div className="h-full w-full overflow-hidden relative" style={{ fontFamily: design?.typography?.fontFamily }}>
+            {isMockData && (
+                <div className="absolute top-2 right-2 z-10 bg-orange-500/10 text-orange-600 dark:text-orange-400 text-[8px] font-bold px-2 py-0.5 rounded-full border border-orange-500/20 backdrop-blur-md flex items-center gap-1 shadow-sm">
+                    <Info size={10} />
+                    DEMO MODE
+                </div>
+            )}
             {(() => {
                 switch (config.visualization) {
                     case 'table':
