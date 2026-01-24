@@ -208,26 +208,7 @@ const DataRenderer: React.FC<{
 
         const dimValues = dimensions[config.dimension as keyof typeof dimensions] || dimensions['campaign.name'];
 
-        const mockResults = dimValues.map((val, idx) => {
-            const row: any = { [config.dimension || '']: val };
-            config.metrics.forEach(m => {
-                const metricKey = m.split('.')[1];
-                const base = Math.random() * 1000 + 500;
-                row[m] = metricKey.includes('micros') || ['cost', 'average_cpc', 'cost_per_conversion'].includes(metricKey) ? base * 1000000 : base;
 
-                if (config.showComparison) {
-                    const prevBase = base * (0.8 + Math.random() * 0.4); // +/- 20%
-                    row[`${m}_prev`] = metricKey.includes('micros') || ['cost', 'average_cpc', 'cost_per_conversion'].includes(metricKey) ? prevBase * 1000000 : prevBase;
-                    row[`${m}_delta`] = ((base - prevBase) / prevBase) * 100;
-                }
-            });
-            return row;
-        });
-
-        setData(mockResults);
-        setComparisonData([]); // Already merged in row above relative to how tableData handles it, 
-        // but wait, tableData re-calculates deltas from comparisonData. 
-        // Let's make it consistent.
 
         const currentData: any[] = [];
         const prevData: any[] = [];
