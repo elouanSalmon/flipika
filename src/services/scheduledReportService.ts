@@ -123,10 +123,12 @@ export async function listUserScheduledReports(userId: string): Promise<Schedule
 
 /**
  * Get schedules using a specific template
+ * Requires userId to comply with Firestore security rules
  */
-export async function getSchedulesByTemplateId(templateId: string): Promise<ScheduledReport[]> {
+export async function getSchedulesByTemplateId(templateId: string, userId: string): Promise<ScheduledReport[]> {
     const q = query(
         collection(db, SCHEDULED_REPORTS_COLLECTION),
+        where('userId', '==', userId),
         where('templateId', '==', templateId),
         limit(100)
     );

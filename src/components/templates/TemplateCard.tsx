@@ -5,6 +5,7 @@ import type { ReportTemplate } from '../../types/templateTypes';
 import type { Client } from '../../types/client';
 import ClientLogoAvatar from '../common/ClientLogoAvatar';
 import './TemplateCard.css'; // Minimized
+import { countTiptapSlides } from '../../utils/tiptapUtils';
 
 interface TemplateCardProps {
     template: ReportTemplate;
@@ -74,13 +75,13 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                     </div>
                 </div>
                 {/* Status Badge */}
-                {template.slideConfigs.length > 0 ? (
+                {(template.content || template.slideConfigs.length > 0) ? (
                     <div className="status-badge success ml-auto" title={t('card.status.ready', { defaultValue: 'Prêt à l\'emploi' })}>
                         <CheckCircle2 size={12} />
                         <span>{t('card.status.ready', { defaultValue: 'Prêt' })}</span>
                     </div>
                 ) : (
-                    <div className="status-badge warning ml-auto" title={t('card.status.notReady', { defaultValue: 'Aucune slide configurée' })}>
+                    <div className="status-badge warning ml-auto" title={t('card.status.notReady', { defaultValue: 'Aucun contenu configuré' })}>
                         <FileWarning size={12} />
                         <span>{t('card.status.draft', { defaultValue: 'Brouillon' })}</span>
                     </div>
@@ -121,8 +122,8 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                     </div>
                 </div>
 
-                {/* Slide Badges - Inline */}
-                {template.slideConfigs.length > 0 && (
+                {/* Slide Badges - Inline (only for legacy templates) */}
+                {!template.content && template.slideConfigs.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-3">
                         {template.slideConfigs.slice(0, 3).map((slide, index) => (
                             <span key={index} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded text-xs">
@@ -145,7 +146,9 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                         <span className="listing-card-stat-label">{t('card.uses')}</span>
                     </div>
                     <div className="listing-card-stat border-l border-gray-200 dark:border-gray-700 pl-4">
-                        <span className="listing-card-stat-value">{template.slideConfigs.length}</span>
+                        <span className="listing-card-stat-value">
+                            {template.content ? countTiptapSlides(template.content) : template.slideConfigs.length}
+                        </span>
                         <span className="listing-card-stat-label">{t('card.slides')}</span>
                     </div>
                 </div>

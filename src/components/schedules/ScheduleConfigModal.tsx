@@ -7,6 +7,7 @@ import type { ReportTemplate } from '../../types/templateTypes';
 import FrequencySelector from './FrequencySelector';
 import ConfirmationModal from '../common/ConfirmationModal';
 import './ScheduleConfigModal.css';
+import { countTiptapSlides } from '../../utils/tiptapUtils';
 
 interface GoogleAdsAccount {
     id: string;
@@ -221,7 +222,11 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                         </div>
                                         <div className="preview-item">
                                             <span className="preview-label">{t('config.preview.slides')}:</span>
-                                            <span className="preview-value">{selectedTemplate?.slideConfigs?.length}</span>
+                                            <span className="preview-value">
+                                                {selectedTemplate?.content
+                                                    ? countTiptapSlides(selectedTemplate.content)
+                                                    : selectedTemplate?.slideConfigs?.length || 0}
+                                            </span>
                                         </div>
                                     </div>
                                 )}

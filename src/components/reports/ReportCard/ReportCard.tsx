@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import ConfirmationModal from '../../common/ConfirmationModal';
 import './ReportCard.css'; // Keeping for potential specific overrides, but content will be minimized
 import ClientLogoAvatar from '../../common/ClientLogoAvatar';
+import { countTiptapSlides } from '../../../utils/tiptapUtils';
 
 interface ReportCardProps {
     report: EditableReport;
@@ -185,7 +186,9 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
             <div className="listing-card-footer">
                 <div className="listing-card-stats">
                     <div className="listing-card-stat">
-                        <span className="listing-card-stat-value">{report.slideIds?.length || 0}</span>
+                        <span className="listing-card-stat-value">
+                            {report.content ? countTiptapSlides(report.content) : (report.slideIds?.length || 0)}
+                        </span>
                         <span className="listing-card-stat-label">{t('card.slides')}</span>
                     </div>
                 </div>

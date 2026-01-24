@@ -209,9 +209,11 @@ const Templates: React.FC = () => {
 
 
     const handleDeleteTemplate = async (template: ReportTemplate) => {
+        if (!currentUser) return;
+
         const loadingToast = toast.loading(t('deleteConfirm.checking'), { id: 'check-usage' });
         try {
-            const schedules = await getSchedulesByTemplateId(template.id);
+            const schedules = await getSchedulesByTemplateId(template.id, currentUser.uid);
             toast.dismiss(loadingToast);
 
             setSchedulesToDelete(schedules);
