@@ -63,7 +63,7 @@ const DataRenderer: React.FC<{
     const [data, setData] = useState<any[]>([]);
     const [comparisonData, setComparisonData] = useState<any[]>([]);
     const [rawResults, setRawResults] = useState<any[]>([]);
-    const [generatedQuery, setGeneratedQuery] = useState<string>('');
+    const [queries, setQueries] = useState<{ current: string; comparison?: string }>({ current: '' });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -124,7 +124,8 @@ const DataRenderer: React.FC<{
                 endDate: endStr,
                 campaignIds: campaignIds
             });
-            setGeneratedQuery(query);
+
+            const newQueries: { current: string; comparison?: string } = { current: query };
 
             // Fetch Current Period
             const currentPromise = executeQuery(accountId, query);
@@ -138,8 +139,11 @@ const DataRenderer: React.FC<{
                     endDate: formatDate(prev.endDate),
                     campaignIds: campaignIds
                 });
+                newQueries.comparison = comparisonQuery;
                 comparisonPromise = executeQuery(accountId, comparisonQuery);
             }
+
+            setQueries(newQueries);
 
             const [result, comparisonResult] = await Promise.all([currentPromise, comparisonPromise]);
 
@@ -214,11 +218,24 @@ const DataRenderer: React.FC<{
     if (showRawData) {
         return (
             <div className="h-full overflow-hidden flex flex-col gap-4">
-                <div className="flex-1 overflow-hidden flex flex-col">
-                    <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">GAQL Query</span>
-                    <pre className="bg-gray-800 text-blue-300 p-4 rounded-xl text-[10px] overflow-auto border border-white/5 font-mono">
-                        {generatedQuery}
-                    </pre>
+                <div className="flex-1 overflow-hidden flex flex-col gap-2">
+                    <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">GAQL Queries</span>
+                    <div className="space-y-2 overflow-auto custom-scrollbar">
+                        <div className="space-y-1">
+                            <span className="text-[9px] text-blue-400 font-bold uppercase tracking-tighter">Current Period</span>
+                            <pre className="bg-gray-800 text-blue-200 p-3 rounded-xl text-[10px] border border-white/5 font-mono whitespace-pre-wrap">
+                                {queries.current}
+                            </pre>
+                        </div>
+                        {queries.comparison && (
+                            <div className="space-y-1">
+                                <span className="text-[9px] text-purple-400 font-bold uppercase tracking-tighter">Comparison Period</span>
+                                <pre className="bg-gray-800 text-purple-200 p-3 rounded-xl text-[10px] border border-white/5 font-mono whitespace-pre-wrap">
+                                    {queries.comparison}
+                                </pre>
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <div className="flex-1 overflow-hidden flex flex-col">
                     <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">Raw JSON Output ({rawResults.length} records)</span>
@@ -241,6 +258,25 @@ const DataRenderer: React.FC<{
         color: 'var(--color-text-primary)'
     };
 
+    const formatValue = (val: number, metricName: string) => {
+        if (val === undefined || val === null) return '-';
+        let displayVal = val;
+
+        // Convert micros to units for money fields
+        const moneyFields = ['cost_micros', 'average_cpc', 'cost_per_conversion', 'conversions_value', 'cost'];
+        if (moneyFields.includes(metricName) && Math.abs(val) > 1000) {
+            displayVal = val / 1000000;
+        }
+
+        if (moneyFields.includes(metricName)) {
+            return displayVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        }
+        if (metricName === 'ctr') {
+            return displayVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' %';
+        }
+        return displayVal.toLocaleString();
+    };
+
     return (
         <div className="h-full w-full overflow-hidden" style={{ fontFamily: design?.typography?.fontFamily }}>
             {(() => {
@@ -252,12 +288,12 @@ const DataRenderer: React.FC<{
                                     <thead className="sticky top-0" style={{ backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)' }}>
                                         <tr className="border-b border-[var(--color-border)]">
                                             <th className="text-left p-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: design?.colorScheme?.primary || 'var(--color-text-muted)' }}>
-                                                {config.dimension ? t(`flexibleBlock.dimensions.${config.dimension.split('.')[1]} `) : t('flexibleBlock.fields.none')}
+                                                {config.dimension ? t(`flexibleBlock.dimensions.${config.dimension.split('.')[0] === 'segments' ? config.dimension.split('.')[1] : config.dimension.split('.')[0]}`) : t('flexibleBlock.fields.none')}
                                             </th>
                                             {config.metrics.map((m: string) => (
                                                 <React.Fragment key={m}>
                                                     <th className="text-right p-3 font-bold uppercase tracking-wider text-[10px]" style={{ color: design?.colorScheme?.primary || 'var(--color-text-muted)' }}>
-                                                        {t(`flexibleBlock.metricsList.${m.split('.')[1]} `)}
+                                                        {t(`flexibleBlock.metricsList.${m.split('.')[1]}`)}
                                                     </th>
                                                     {config.showComparison && (
                                                         <>
@@ -275,19 +311,21 @@ const DataRenderer: React.FC<{
                                                 <td className="p-3 text-[var(--color-text-primary)]">{row[config.dimension || ''] || '-'}</td>
                                                 {config.metrics.map((m: string) => {
                                                     const metricName = m.split('.')[1];
-                                                    const delta = row[`${m} _delta`];
+                                                    const delta = row[`${m}_delta`];
                                                     const isInverse = ['average_cpc', 'cost_per_conversion'].includes(metricName);
+                                                    const formattedDelta = delta.toFixed(1);
+                                                    const isNeutral = formattedDelta === '0.0' || formattedDelta === '-0.0';
                                                     const isPos = isInverse ? delta < 0 : delta > 0;
-                                                    const trendColor = delta === 0 ? '' : (isPos ? 'text-green-500' : 'text-red-500');
+                                                    const trendColor = isNeutral ? 'text-[var(--color-text-muted)]' : (isPos ? 'text-green-500' : 'text-red-500');
 
                                                     return (
                                                         <React.Fragment key={m}>
-                                                            <td className="text-right p-3 font-medium text-[var(--color-text-primary)]">{Number(row[m])?.toLocaleString()}</td>
+                                                            <td className="text-right p-3 font-medium text-[var(--color-text-primary)]">{formatValue(row[m], metricName)}</td>
                                                             {config.showComparison && (
                                                                 <>
-                                                                    <td className="text-right p-3 text-[var(--color-text-muted)] opacity-70 italic">{Number(row[`${m} _prev`])?.toLocaleString()}</td>
-                                                                    <td className={`text - right p - 3 font - bold ${trendColor} `}>
-                                                                        {delta > 0 ? '+' : ''}{delta.toFixed(1)}%
+                                                                    <td className="text-right p-3 text-[var(--color-text-muted)] opacity-70 italic">{formatValue(row[`${m}_prev`], metricName)}</td>
+                                                                    <td className={`text-right p-3 font-bold ${trendColor}`}>
+                                                                        {!isNeutral && (delta > 0 ? '+' : '')}{formattedDelta}%
                                                                     </td>
                                                                 </>
                                                             )}
@@ -358,7 +396,7 @@ const DataRenderer: React.FC<{
                                         fontSize={10}
                                         fontFamily={design?.typography?.fontFamily}
                                     >
-                                        {data.map((_, index) => <Cell key={`cell - ${index} `} fill={chartColors[index % chartColors.length]} />)}
+                                        {data.map((_, index) => <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />)}
                                     </Pie>
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
                                     <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
@@ -366,32 +404,35 @@ const DataRenderer: React.FC<{
                             </ResponsiveContainer>
                         );
                     case 'scorecard':
+                        const gridCols = config.metrics.length <= 4 ? 'grid-cols-2' : config.metrics.length <= 6 ? 'grid-cols-3' : 'grid-cols-4';
                         return (
-                            <div className="grid grid-cols-2 gap-4 h-full items-center">
+                            <div className={`grid ${gridCols} gap-4 h-full items-center`}>
                                 {config.metrics.map((m: string) => {
                                     const total = data.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
                                     const prevTotal = comparisonData.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
 
                                     const diff = total - prevTotal;
                                     const percentChange = prevTotal !== 0 ? (diff / prevTotal) * 100 : 0;
+                                    const formattedPercent = percentChange.toFixed(1);
+                                    const isNeutral = formattedPercent === '0.0' || formattedPercent === '-0.0';
 
                                     const metricName = m.split('.')[1];
                                     const isInverse = ['average_cpc', 'cost_per_conversion'].includes(metricName);
                                     const isPositive = isInverse ? diff < 0 : diff > 0;
-                                    const trendColor = diff === 0 ? 'text-[var(--color-text-muted)]' : (isPositive ? 'text-green-500' : 'text-red-500');
+                                    const trendColor = isNeutral ? 'text-[var(--color-text-muted)]' : (isPositive ? 'text-green-500' : 'text-red-500');
 
                                     return (
                                         <div key={m} className="p-5 glass rounded-2xl text-center border shadow-sm flex flex-col justify-center gap-1" style={{ borderColor: design?.colorScheme?.primary + '20' }}>
                                             <div className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">
-                                                {t(`flexibleBlock.metricsList.${metricName} `)}
+                                                {t(`flexibleBlock.metricsList.${metricName}`)}
                                             </div>
                                             <div className="text-2xl font-bold" style={{ color: design?.colorScheme?.primary || 'var(--color-text-primary)' }}>
-                                                {total.toLocaleString()}
+                                                {formatValue(total, metricName)}
                                             </div>
                                             {config.showComparison && (
-                                                <div className={`flex items - center justify - center gap - 1 text - [10px] font - bold ${trendColor} `}>
-                                                    {diff !== 0 && (isPositive ? <TrendingUp size={12} /> : <TrendingDown size={12} />)}
-                                                    <span>{percentChange > 0 ? '+' : ''}{percentChange.toFixed(1)}%</span>
+                                                <div className={`flex items-center justify-center gap-1 text-[10px] font-bold ${trendColor}`}>
+                                                    {!isNeutral && (isPositive ? <TrendingUp size={12} /> : <TrendingDown size={12} />)}
+                                                    <span>{!isNeutral && percentChange > 0 ? '+' : ''}{formattedPercent}%</span>
                                                     <span className="text-[var(--color-text-muted)] font-normal ml-1">vs N-1</span>
                                                 </div>
                                             )}
@@ -441,7 +482,9 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
         sortBy: config.sortBy || 'metrics.impressions',
         sortOrder: config.sortOrder || 'DESC',
         isNew: config.isNew,
-        isConfigActive: config.isConfigActive
+        isConfigActive: config.isConfigActive,
+        showComparison: config.showComparison,
+        comparisonType: config.comparisonType
     }), [config, t]);
 
     const [editConfig, setEditConfig] = useState<FlexibleDataConfig>(activeConfig);
@@ -555,7 +598,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                     <option value="">{t('flexibleBlock.fields.none')}</option>
                                                     <option value="segments.date">{t('flexibleBlock.dimensions.date')}</option>
                                                     <option value="campaign.name">{t('flexibleBlock.dimensions.campaign')}</option>
-                                                    <option value="ad_group.name">{t('flexibleBlock.dimensions.adGroup')}</option>
+                                                    <option value="ad_group.name">{t('flexibleBlock.dimensions.ad_group')}</option>
                                                     <option value="segments.device">{t('flexibleBlock.dimensions.device')}</option>
                                                 </select>
                                             </div>
@@ -619,9 +662,9 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                         <button
                                                             key={m.id}
                                                             onClick={() => setEditConfig({ ...editConfig, metrics: exists ? editConfig.metrics.filter(x => x !== m.id) : [...editConfig.metrics, m.id] })}
-                                                            className={`flex items - center justify - center text - center px - 3 py - 2.5 rounded - xl border transition - all ${exists ? 'border-primary bg-primary text-white shadow-md shadow-primary/20 scale-[1.01]' : 'border-transparent bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'} `}
+                                                            className={`flex items-center justify-center text-center px-3 py-2.5 rounded-xl border transition-all ${exists ? 'border-primary bg-primary text-white shadow-md shadow-primary/20 scale-[1.01]' : 'border-transparent bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}
                                                         >
-                                                            <span className="text-[10px] font-bold">{t(`flexibleBlock.metricsList.${metricKey} `)}</span>
+                                                            <span className="text-[10px] font-bold">{t(`flexibleBlock.metricsList.${metricKey}`)}</span>
                                                         </button>
                                                     );
                                                 })}
@@ -639,7 +682,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                         </div>
                                         <button
                                             onClick={() => setShowRawData(!showRawData)}
-                                            className={`px - 3 py - 1.5 rounded - lg text - [9px] font - bold uppercase tracking - widest transition - all border ${showRawData ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] border-[var(--color-border)] hover:bg-[var(--color-bg-tertiary)]'} `}
+                                            className={`px-3 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-widest transition-all border ${showRawData ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-muted)] border-[var(--color-border)] hover:bg-[var(--color-bg-tertiary)]'}`}
                                         >
                                             {showRawData ? 'Visual' : 'RAW JSON'}
                                         </button>
@@ -649,11 +692,11 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                             <div className="space-y-0.5">
                                                 <h3 className="text-xl font-bold text-[var(--color-text-primary)] leading-tight">{editConfig.title || t('flexibleBlock.previewSubtitle')}</h3>
                                                 <p className="text-[10px] text-[var(--color-text-muted)]">
-                                                    {accountId ? `Compte ID: ${accountId} ` : 'Compte non sélectionné'}
+                                                    {accountId ? `Compte ID: ${accountId}` : 'Compte non sélectionné'}
                                                 </p>
                                             </div>
                                             <div className="text-[9px] font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest border border-primary/20">
-                                                {t(`flexibleBlock.visualizations.${editConfig.visualization} `)}
+                                                {t(`flexibleBlock.visualizations.${editConfig.visualization}`)}
                                             </div>
                                         </div>
                                         <div className="flex-1 min-h-0 overflow-hidden">

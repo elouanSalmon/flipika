@@ -495,8 +495,8 @@
     "modalContent": "Reports are customizable Google Ads performance documents you create and share with your accounts or stakeholders.\n\nWith reports, you can:\n• Combine multiple slide types (metrics, charts, text, creatives) into complete presentations\n• Analyze specific campaigns and time periods\n• Save as draft, publish, or archive for organization\n• Password-protect reports for secure sharing\n• Generate PDF exports for offline distribution\n• Share by email with pre-filled content\n\nReports can be built from scratch or generated from templates for faster, consistent deliverables."
   },
   "flexibleBlock": {
-    "modalTitle": "Configure Analytics Block",
-    "modalSubtitle": "Customize metrics, dimensions and visualization",
+    "modalTitle": "Data Block Configuration",
+    "modalSubtitle": "Customize your metric display",
     "previewTitle": "Real-time Preview",
     "previewSubtitle": "Preview",
     "waitingContext": "Waiting for account context...",
@@ -525,7 +525,7 @@
     "dimensions": {
       "date": "Date",
       "campaign": "Campaign",
-      "adGroup": "Ad Group",
+      "ad_group": "Ad Group",
       "device": "Device"
     },
     "metricsList": {

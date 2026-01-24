@@ -495,8 +495,8 @@
     "modalContent": "Les rapports sont des documents de performance Google Ads personnalisables que vous créez et partagez avec vos comptes ou parties prenantes.\n\nAvec les rapports, vous pouvez :\n• Combiner plusieurs types de slides (métriques, graphiques, texte, créatives) en présentations complètes\n• Analyser des campagnes et périodes spécifiques\n• Sauvegarder en brouillon, publier ou archiver pour l'organisation\n• Protéger les rapports par mot de passe pour un partage sécurisé\n• Générer des exports PDF pour une distribution hors ligne\n• Partager par email avec du contenu pré-rempli\n\nLes rapports peuvent être créés de zéro ou générés à partir de templates pour des livrables plus rapides et cohérents."
   },
   "flexibleBlock": {
-    "modalTitle": "Configurer le bloc d'analyse",
-    "modalSubtitle": "Personnalisez les métriques, dimensions et la visualisation",
+    "modalTitle": "Configuration du bloc de données",
+    "modalSubtitle": "Personnalisez l'affichage de vos indicateurs",
     "previewTitle": "Aperçu en temps réel",
     "previewSubtitle": "Aperçu",
     "waitingContext": "En attente du contexte du compte...",
@@ -525,7 +525,7 @@
     "dimensions": {
       "date": "Date",
       "campaign": "Campagne",
-      "adGroup": "Groupe d'annonces",
+      "ad_group": "Groupe d'annonces",
       "device": "Appareil"
     },
     "metricsList": {
