@@ -48,6 +48,9 @@ const SLIDE_SCOPE_COMPATIBILITY: Record<SlideType, SlideScope['type'][]> = {
     // Structural Slides (No specific data scope needed, default to report)
     section_title: ['report_default'],
     rich_text: ['report_default'],
+
+    // Flexible Data Block
+    flexible_data: ['report_default', 'specific_campaigns', 'single_campaign'],
 };
 
 const SCOPE_LABELS: Record<SlideScope['type'], string> = {
