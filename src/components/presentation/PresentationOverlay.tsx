@@ -99,7 +99,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
     if (totalSlides === 0) return null;
 
     return (
-        <div ref={containerRef} className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center">
+        <div ref={containerRef} className="fixed inset-0 z-[200] bg-black flex flex-col items-center justify-center">
             {/* Header / Controls (visible on hover or always if not fullscreen?) let's keep it visible but subtle */}
             <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-50 opacity-0 hover:opacity-100 transition-opacity bg-gradient-to-b from-black/50 to-transparent">
                 <div className="text-white/80 font-medium">
