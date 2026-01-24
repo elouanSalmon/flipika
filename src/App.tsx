@@ -82,7 +82,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (!currentUser) {
-    return <Navigate to="/secret-login" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   return (
@@ -134,7 +134,7 @@ const AppRoutes = () => {
       <Route path="/conditions-utilisation" element={<Navigate to="/terms-of-service" replace />} />
 
       {/* Auth Pages */}
-      <Route path="/secret-login" element={<Login />} />
+      <Route path="/login" element={<Login />} />
 
       {/* Protected App Routes */}
       <Route path="/app" element={

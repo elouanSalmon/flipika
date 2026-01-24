@@ -290,7 +290,9 @@
         justify-content: flex-end;
     }
 
-    .btn span {
+    .report-editor-header .btn span,
+    .report-editor-header-left .btn span,
+    .report-editor-header-right .btn span {
         display: none;
     }
 }

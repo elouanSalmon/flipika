@@ -3,19 +3,14 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggle from './ThemeToggle';
+import { useNavigate } from 'react-router-dom';
 import Logo from './Logo';
 import './Header.css';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { t } = useTranslation();
-
-  const scrollToEmailForm = () => {
-    const emailSection = document.getElementById('email-capture');
-    if (emailSection) {
-      emailSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const navigate = useNavigate();
 
   const handleNavigation = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -91,7 +86,7 @@ const Header: React.FC = () => {
           {/* CTA Button - Desktop only */}
           <motion.button
             className="btn btn-primary cta-button"
-            onClick={scrollToEmailForm}
+            onClick={() => navigate('/login')}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6 }}

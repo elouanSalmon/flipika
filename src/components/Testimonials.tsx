@@ -2,16 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Star, Quote, Users, FileText, Clock, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const Testimonials: React.FC = () => {
   const { t } = useTranslation();
-
-  const scrollToEmailForm = () => {
-    const emailSection = document.getElementById('email-capture');
-    if (emailSection) {
-      emailSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const navigate = useNavigate();
 
   const testimonials = [
     {
@@ -211,7 +206,7 @@ const Testimonials: React.FC = () => {
         >
           <motion.button
             className="btn btn-primary inline-flex items-center gap-2"
-            onClick={scrollToEmailForm}
+            onClick={() => navigate('/login')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

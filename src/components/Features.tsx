@@ -8,16 +8,11 @@ import {
   Calendar
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const Features: React.FC = () => {
   const { t } = useTranslation();
-
-  const scrollToEmailForm = () => {
-    const emailSection = document.getElementById('email-capture');
-    if (emailSection) {
-      emailSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const navigate = useNavigate();
 
   const solutions = [
     {
@@ -202,7 +197,7 @@ const Features: React.FC = () => {
                 className="mt-6 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-primary border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={scrollToEmailForm}
+                onClick={() => navigate('/login')}
               >
                 <span>Découvrir</span>
                 <ArrowRight size={16} />
@@ -223,7 +218,7 @@ const Features: React.FC = () => {
             className="btn btn-outline inline-flex items-center gap-2"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            onClick={scrollToEmailForm}
+            onClick={() => navigate('/login')}
           >
             <span>Voir comment ça marche</span>
             <ArrowRight size={20} />

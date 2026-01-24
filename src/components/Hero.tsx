@@ -2,16 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Zap, TrendingUp, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   const { t } = useTranslation();
-
-  const scrollToEmailForm = () => {
-    const emailSection = document.getElementById('email-capture');
-    if (emailSection) {
-      emailSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const navigate = useNavigate();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -111,7 +106,7 @@ const Hero: React.FC = () => {
             >
               <motion.button
                 className="btn btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold"
-                onClick={scrollToEmailForm}
+                onClick={() => navigate('/login')}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -121,7 +116,7 @@ const Hero: React.FC = () => {
 
               <motion.button
                 className="btn btn-secondary inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium"
-                onClick={scrollToEmailForm}
+                onClick={() => navigate('/login')}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

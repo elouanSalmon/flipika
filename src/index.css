@@ -451,7 +451,7 @@ body {
   cursor: pointer;
   transition: all 0.2s;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .btn:disabled {
@@ -1130,10 +1130,11 @@ iframe {
     --font-size-section-title: 1.75rem;
   }
 
-  /* Smaller buttons on very small screens */
+  /* Smaller buttons on very small screens - keep readable padding */
   .btn {
     font-size: var(--font-size-sm);
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: 10px 16px;
+    min-height: 44px;
   }
 }
 

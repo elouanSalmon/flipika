@@ -50,7 +50,7 @@ const ConnectedHeader = () => {
     const handleLogout = async () => {
         try {
             await logout();
-            navigate("/secret-login");
+            navigate("/login");
         } catch (error) {
             console.error("Failed to log out", error);
         }

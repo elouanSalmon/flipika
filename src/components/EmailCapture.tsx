@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { subscribeEmail, validateEmail } from '../firebase/emailService';
 
 const EmailCapture: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -36,6 +38,11 @@ const EmailCapture: React.FC = () => {
         setStatus('success');
         setMessage(result.message);
         setEmail('');
+
+        // Redirect to login page after successful submission
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
       } else {
         setStatus('error');
         setMessage(result.message);
@@ -122,9 +129,8 @@ const EmailCapture: React.FC = () => {
                   placeholder={t('common:emailCapture.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-gray-700/50 border-2 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-0 focus:border-primary focus:bg-white dark:focus:bg-gray-700/70 focus:shadow-lg focus:shadow-primary/10 ${
-                    status === 'error' ? 'border-primary' : 'border-gray-200/50 dark:border-gray-600/50'
-                  }`}
+                  className={`w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-gray-700/50 border-2 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-0 focus:border-primary focus:bg-white dark:focus:bg-gray-700/70 focus:shadow-lg focus:shadow-primary/10 ${status === 'error' ? 'border-primary' : 'border-gray-200/50 dark:border-gray-600/50'
+                    }`}
                   disabled={isSubmitting}
                 />
               </div>
@@ -154,11 +160,10 @@ const EmailCapture: React.FC = () => {
             {/* Status Message */}
             {status !== 'idle' && (
               <motion.div
-                className={`flex items-center justify-center gap-2 p-3 rounded-lg text-sm font-medium ${
-                  status === 'success'
-                    ? 'bg-primary/10 text-primary border border-primary/20'
-                    : 'bg-primary/10 text-primary border border-primary/20'
-                }`}
+                className={`flex items-center justify-center gap-2 p-3 rounded-lg text-sm font-medium ${status === 'success'
+                  ? 'bg-primary/10 text-primary border border-primary/20'
+                  : 'bg-primary/10 text-primary border border-primary/20'
+                  }`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}

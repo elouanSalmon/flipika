@@ -38,7 +38,7 @@ const SimpleHeader = () => {
                     <ThemeToggle />
 
                     {/* CTA */}
-                    <button className="btn btn-primary btn-sm" onClick={() => navigate('/secret-login')}>
+                    <button className="btn btn-primary btn-sm" onClick={() => navigate('/login')}>
                         {t('common:header.login')}
                     </button>
                 </div>

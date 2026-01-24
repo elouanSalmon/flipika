@@ -42,7 +42,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     const handleLogout = async () => {
         try {
             await logout();
-            navigate('/secret-login');
+            navigate('/login');
             onClose();
         } catch (error) {
             console.error('Failed to log out', error);
