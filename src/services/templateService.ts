@@ -164,8 +164,17 @@ export async function updateTemplate(
 ): Promise<void> {
     try {
         const docRef = doc(db, TEMPLATES_COLLECTION, templateId);
+
+        // Remove undefined values to prevent Firestore errors
+        const cleanUpdates: any = { ...updates };
+        Object.keys(cleanUpdates).forEach(key => {
+            if (cleanUpdates[key] === undefined) {
+                delete cleanUpdates[key];
+            }
+        });
+
         const firestoreUpdates: any = {
-            ...updates,
+            ...cleanUpdates,
             updatedAt: serverTimestamp(),
         };
 

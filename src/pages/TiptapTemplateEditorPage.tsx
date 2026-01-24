@@ -24,6 +24,7 @@ import { ThemeSelector } from '../components/editor/ThemeSelector';
 import TemplateConfigModal, { type TemplateConfig } from '../components/templates/TemplateConfigModal';
 import themeService from '../services/themeService';
 import { defaultReportDesign } from '../types/reportTypes';
+import ReportScopeHeader from '../components/reports/ReportScopeHeader';
 import '../components/reports/ReportEditorHeader.css';
 
 /**
@@ -53,6 +54,7 @@ const TiptapTemplateEditorPage: React.FC = () => {
     const [settingsCampaigns, setSettingsCampaigns] = useState<Campaign[]>([]);
     const [settingsAccountId, setSettingsAccountId] = useState<string>('');
     const [isLoadingSettings, setIsLoadingSettings] = useState(false);
+    const [scopeCampaigns, setScopeCampaigns] = useState<Campaign[]>([]);
 
     // Client for context
     const [client, setClient] = useState<Client | null>(null);
@@ -82,6 +84,23 @@ const TiptapTemplateEditorPage: React.FC = () => {
             console.error('Error loading accounts:', error);
         }
     };
+
+    // Load campaigns for scope display
+    useEffect(() => {
+        if (template?.accountId) {
+            const loadScopeCampaigns = async () => {
+                try {
+                    const response = await fetchCampaigns(template.accountId);
+                    if (response.success && response.campaigns) {
+                        setScopeCampaigns(Array.isArray(response.campaigns) ? response.campaigns : []);
+                    }
+                } catch (error) {
+                    console.error('Error loading scope campaigns:', error);
+                }
+            };
+            loadScopeCampaigns();
+        }
+    }, [template?.accountId]);
 
     useEffect(() => {
         if (isDirty && template && currentUser) {
@@ -334,7 +353,7 @@ const TiptapTemplateEditorPage: React.FC = () => {
     }
 
     return (
-        <div className="tiptap-page-layout">
+        <div className={`tiptap-page-layout ${template ? 'with-scope-header' : ''}`}>
             {/* Fixed Header Bar */}
             <header className="tiptap-page-header">
                 <div className="tiptap-header-left">
@@ -438,6 +457,17 @@ const TiptapTemplateEditorPage: React.FC = () => {
                     onOpenSettings={handleOpenSettings}
                 />
             </main>
+
+            {template && (
+                <ReportScopeHeader
+                    client={client}
+                    campaignIds={template.campaignIds || []}
+                    scopeCampaigns={scopeCampaigns}
+                    onOpenSettings={handleOpenSettings}
+                    isTemplateMode={true}
+                    periodPreset={template.periodPreset}
+                />
+            )}
 
             {/* Settings Modal */}
             {template && showSettingsModal && (

@@ -21,7 +21,7 @@ import type { EditableReport, ReportDesign } from '../types/reportTypes';
 import type { Account, Campaign } from '../types/business';
 import type { Client } from '../types/client';
 import { clientService } from '../services/clientService';
-import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Trash2, Link, ExternalLink, Lock, Unlock, Mail, Presentation, Download, Loader2, Play, Calendar, Briefcase, Target } from 'lucide-react';
+import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Trash2, Link, ExternalLink, Lock, Unlock, Mail, Presentation, Download, Loader2, Play } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 import Logo from '../components/Logo';
 import AutoSaveIndicator from '../components/reports/AutoSaveIndicator';
@@ -35,6 +35,7 @@ import themeService from '../services/themeService';
 import { defaultReportDesign } from '../types/reportTypes';
 import '../components/reports/ReportEditorHeader.css';
 import { extractSlidesFromTiptapContent } from '../utils/slidesExtraction';
+import ReportScopeHeader from '../components/reports/ReportScopeHeader';
 
 
 /**
@@ -794,75 +795,15 @@ const TiptapReportEditorPage: React.FC = () => {
 
             {/* Sub-header for Report Scope */}
             {report && (
-                <div
-                    className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 flex items-center justify-between text-xs shadow-sm z-30"
-                    style={{
-                        position: 'fixed',
-                        top: 'var(--page-header-height)',
-                        left: '200px', /* Shifted to account for sidebar */
-                        right: 0,
-                        height: 'var(--scope-header-height)',
-                        zIndex: 38
-                    }}
-                >
-                    <div className="flex items-center space-x-6 overflow-x-auto no-scrollbar max-w-full h-full">
-                        {/* Dates */}
-                        <div
-                            className="flex items-center text-gray-600 dark:text-gray-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-colors"
-                            onClick={() => setShowSettingsModal(true)}
-                        >
-                            <Calendar size={12} className="mr-1.5 opacity-70" />
-                            <span className="font-medium mr-1">{t('common.period')}:</span>
-                            <span>
-                                {report.startDate ? new Date(report.startDate).toLocaleDateString() : 'N/A'} - {report.endDate ? new Date(report.endDate).toLocaleDateString() : 'N/A'}
-                            </span>
-                        </div>
-
-                        <div className="h-3 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
-
-                        {/* Client (replaced Account) */}
-                        <div
-                            className="flex items-center text-gray-600 dark:text-gray-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-colors"
-                            onClick={() => setShowSettingsModal(true)}
-                        >
-                            <Briefcase size={12} className="mr-1.5 opacity-70" />
-                            <span className="font-medium mr-1">{t('common.client')}:</span>
-                            <span className="truncate max-w-[200px]" title={client?.name || 'Client introuvable'}>
-                                {client?.name || 'Client introuvable'}
-                            </span>
-                        </div>
-
-                        <div className="h-3 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
-
-                        {/* Campaigns */}
-                        <div
-                            className="flex items-center text-gray-600 dark:text-gray-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-colors"
-                            onClick={() => setShowSettingsModal(true)}
-                        >
-                            <Target size={12} className="mr-1.5 opacity-70" />
-                            <span className="font-medium mr-1">{t('common.campaigns')}:</span>
-                            <span className="truncate max-w-[300px]" title={
-                                !report.campaignIds || report.campaignIds.length === 0
-                                    ? t('common.allCampaigns')
-                                    : scopeCampaigns
-                                        .filter(c => report.campaignIds.includes(c.id.toString()))
-                                        .map(c => c.name)
-                                        .join(', ')
-                            }>
-                                {!report.campaignIds || report.campaignIds.length === 0 ? (
-                                    t('common.allCampaigns')
-                                ) : (
-                                    (() => {
-                                        const selectedCampaigns = scopeCampaigns.filter(c => report.campaignIds.includes(c.id.toString()));
-                                        if (selectedCampaigns.length === 0) return `${report.campaignIds.length} ${t('common.selected')}`;
-                                        if (selectedCampaigns.length <= 2) return selectedCampaigns.map(c => c.name).join(', ');
-                                        return `${selectedCampaigns[0].name}, ${selectedCampaigns[1].name} +${selectedCampaigns.length - 2}`;
-                                    })()
-                                )}
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <ReportScopeHeader
+                    startDate={report.startDate}
+                    endDate={report.endDate}
+                    client={client}
+                    campaignIds={report.campaignIds}
+                    scopeCampaigns={scopeCampaigns}
+                    onOpenSettings={handleOpenSettings}
+                    periodPreset={report.dateRangePreset}
+                />
             )}
 
             {/* Editor with Sidebar */}
@@ -934,12 +875,14 @@ const TiptapReportEditorPage: React.FC = () => {
             />
 
             {/* Presentation Mode Overlay */}
-            {showPresentationMode && report && (
-                <PresentationOverlay
-                    report={report}
-                    onClose={() => setShowPresentationMode(false)}
-                />
-            )}
+            {
+                showPresentationMode && report && (
+                    <PresentationOverlay
+                        report={report}
+                        onClose={() => setShowPresentationMode(false)}
+                    />
+                )
+            }
 
             {/* Google Slides Export Modal */}
             {

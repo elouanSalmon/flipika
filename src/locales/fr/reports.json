@@ -48,10 +48,20 @@
     "analysisPeriod": "Période d'analyse",
     "periods": {
       "last7Days": "Derniers 7 jours",
+      "last_7_days": "Derniers 7 jours",
       "last30Days": "Derniers 30 jours",
+      "last_30_days": "Derniers 30 jours",
       "last90Days": "Derniers 90 jours",
+      "last_90_days": "Derniers 90 jours",
       "thisMonth": "Ce mois",
+      "this_month": "Ce mois",
       "lastMonth": "Mois dernier",
+      "last_month": "Mois dernier",
+      "lastYear": "Dernière année",
+      "last_year": "Dernière année",
+      "this_year": "Cette année",
+      "this_quarter": "Ce trimestre",
+      "last_quarter": "Trimestre dernier",
       "custom": "Personnalisé"
     },
     "dateRange": {
