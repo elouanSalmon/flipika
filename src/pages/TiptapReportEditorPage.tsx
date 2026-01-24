@@ -16,11 +16,12 @@ import {
 import { getUserProfile } from '../services/userProfileService';
 import dataService from '../services/dataService';
 import { fetchCampaigns } from '../services/googleAds';
+import pdfGenerationService from '../services/pdfGenerationService';
 import type { EditableReport, ReportDesign } from '../types/reportTypes';
 import type { Account, Campaign } from '../types/business';
 import type { Client } from '../types/client';
 import { clientService } from '../services/clientService';
-import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Trash2, Link, ExternalLink, Lock, Unlock, Mail, Presentation } from 'lucide-react';
+import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Trash2, Link, ExternalLink, Lock, Unlock, Mail, Presentation, Download, Loader2 } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 import Logo from '../components/Logo';
 import AutoSaveIndicator from '../components/reports/AutoSaveIndicator';
@@ -73,6 +74,11 @@ const TiptapReportEditorPage: React.FC = () => {
     const [showActionsMenu, setShowActionsMenu] = useState(false);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    // PDF Generation state
+    const [pdfGenerating, setPdfGenerating] = useState(false);
+    const [pdfProgress, setPdfProgress] = useState(0);
+    const reportContainerRef = useRef<HTMLDivElement>(null);
 
     // Client for context
     const [client, setClient] = useState<Client | null>(null);
@@ -406,6 +412,89 @@ const TiptapReportEditorPage: React.FC = () => {
         navigate(`/app/reports/${report.id}/preview`);
     };
 
+    const handleDownloadPDF = async () => {
+        if (!report || !currentUser) return;
+
+        try {
+            setPdfGenerating(true);
+            setPdfProgress(0);
+
+            // Fetch extra context if needed (similar to ReportPreview)
+            let profile = null;
+            let clientData = client;
+
+            if (currentUser?.uid) {
+                try {
+                    profile = await getUserProfile(currentUser.uid);
+                } catch (err) {
+                    console.warn('Could not load user profile:', err);
+                }
+            }
+
+            // Build filename
+            const dateStr = new Date().toISOString().split('T')[0];
+            const clientName = clientData?.name
+                ? clientData.name
+                    .trim()
+                    .replace(/[^a-zA-Z0-9àâçéèêëîïôûùüÿñæoeÀÂÇÉÈÊËÎÏÔÛÙÜŸÑÆŒ\s]/g, '')
+                    .replace(/\s+/g, '_')
+                    .substring(0, 50)
+                : '';
+
+            const filename = clientName
+                ? `Rapport_${clientName}_${dateStr}.pdf`
+                : `Rapport_${dateStr}.pdf`;
+
+            // PDF Title
+            const isValidTitle = report.title &&
+                !report.title.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i) &&
+                report.title.trim().length > 0;
+            const pdfTitle = isValidTitle
+                ? report.title.trim().substring(0, 100)
+                : (clientData?.name ? `Rapport ${clientData.name}` : 'Rapport de Performance');
+
+            if (!reportContainerRef.current) {
+                throw new Error('Report container not found');
+            }
+
+            await pdfGenerationService.generateReportPDF(
+                reportContainerRef.current,
+                {
+                    filename,
+                    reportTitle: pdfTitle,
+                    startDate: report.startDate ? new Date(report.startDate) : undefined,
+                    endDate: report.endDate ? new Date(report.endDate) : undefined,
+                    design: report.design,
+                    client: clientData || undefined,
+                    user: profile || undefined,
+                    onProgress: (progress) => {
+                        setPdfProgress(progress);
+                    },
+                    translations: {
+                        title: t('preFlight.pdf.overlay.title'),
+                        preparing: t('preFlight.pdf.overlay.preparing'),
+                        creatingDocument: t('preFlight.pdf.overlay.creatingDocument'),
+                        coverPage: t('preFlight.pdf.overlay.coverPage'),
+                        slideProgress: t('preFlight.pdf.overlay.slideProgress'),
+                        finalizing: t('preFlight.pdf.overlay.finalizing'),
+                        saving: t('preFlight.pdf.overlay.saving'),
+                        complete: t('preFlight.pdf.overlay.complete'),
+                        pleaseWait: t('preFlight.pdf.overlay.pleaseWait'),
+                        generatedOn: t('preFlight.pdf.overlay.generatedOn'),
+                    }
+                }
+            );
+
+            toast.success(t('preFlight.pdf.success'));
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            toast.error(error instanceof Error ? error.message : t('preFlight.pdf.error'));
+        } finally {
+            setPdfGenerating(false);
+            setPdfProgress(0);
+        }
+    };
+
 
 
     if (isLoading) {
@@ -540,13 +629,34 @@ const TiptapReportEditorPage: React.FC = () => {
                                     <div className="actions-menu share-menu">
                                         {report.shareUrl && (
                                             <button
-                                                onClick={handleCopyLink}
+                                                onClick={handleOpenPreFlight}
                                                 className="actions-menu-item"
                                             >
-                                                <Link size={18} />
-                                                <span>{t('header.copyLink')}</span>
+                                                <Mail size={18} />
+                                                <span>{t('header.shareEmail')}</span>
                                             </button>
                                         )}
+
+                                        <button
+                                            onClick={() => {
+                                                handleDownloadPDF();
+                                                setShowShareMenu(false);
+                                            }}
+                                            disabled={pdfGenerating}
+                                            className="actions-menu-item"
+                                        >
+                                            {pdfGenerating ? (
+                                                <>
+                                                    <Loader2 size={18} className="animate-spin" />
+                                                    <span>{Math.round(pdfProgress)}%</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Download size={18} />
+                                                    <span>{t('preFlight.actions.downloadPdf')}</span>
+                                                </>
+                                            )}
+                                        </button>
 
                                         {report.shareUrl && (
                                             <button
@@ -555,6 +665,16 @@ const TiptapReportEditorPage: React.FC = () => {
                                             >
                                                 <ExternalLink size={18} />
                                                 <span>{t('header.openInNewTab')}</span>
+                                            </button>
+                                        )}
+
+                                        {report.shareUrl && (
+                                            <button
+                                                onClick={handleCopyLink}
+                                                className="actions-menu-item"
+                                            >
+                                                <Link size={18} />
+                                                <span>{t('header.copyLink')}</span>
                                             </button>
                                         )}
 
@@ -569,26 +689,18 @@ const TiptapReportEditorPage: React.FC = () => {
                                             <span>{report.isPasswordProtected ? t('header.managePassword') : t('header.protectPassword')}</span>
                                         </button>
 
-                                        {report.shareUrl && (
+                                        {import.meta.env.MODE === 'development' && (
                                             <button
-                                                onClick={handleOpenPreFlight}
+                                                onClick={() => {
+                                                    setShowGoogleSlidesModal(true);
+                                                    setShowShareMenu(false);
+                                                }}
                                                 className="actions-menu-item"
                                             >
-                                                <Mail size={18} />
-                                                <span>{t('header.shareEmail')}</span>
+                                                <Presentation size={18} />
+                                                <span>{t('header.exportGoogleSlides')}</span>
                                             </button>
                                         )}
-
-                                        <button
-                                            onClick={() => {
-                                                setShowGoogleSlidesModal(true);
-                                                setShowShareMenu(false);
-                                            }}
-                                            className="actions-menu-item"
-                                        >
-                                            <Presentation size={18} />
-                                            <span>Exporter vers Google Slides</span>
-                                        </button>
                                     </div>
                                 </>
                             )}
@@ -638,11 +750,11 @@ const TiptapReportEditorPage: React.FC = () => {
                             </>
                         )}
                     </div>
-                </div>
-            </header>
+                </div >
+            </header >
 
             {/* Editor with Sidebar */}
-            <main className="tiptap-page-main relative">
+            <main className="tiptap-page-main relative" ref={reportContainerRef}>
                 <TiptapReportEditor
                     content={editorContent}
                     onChange={handleEditorChange}
@@ -655,41 +767,45 @@ const TiptapReportEditorPage: React.FC = () => {
                     userId={report.userId}
                     onOpenSettings={handleOpenSettings}
                 />
-            </main>
+            </main >
 
             {/* Settings Modal */}
-            {report && showSettingsModal && (
-                <ReportConfigModal
-                    onClose={() => setShowSettingsModal(false)}
-                    onSubmit={handleUpdateSettings}
-                    initialConfig={{
-                        title: report.title,
-                        clientId: report.clientId,
-                        accountId: settingsAccountId || report.accountId,
-                        campaignIds: report.campaignIds,
-                        dateRange: {
-                            start: report.startDate ? new Date(report.startDate).toISOString() : new Date().toISOString(),
-                            end: report.endDate ? new Date(report.endDate).toISOString() : new Date().toISOString(),
-                            preset: (report as any).dateRangePreset || 'custom'
-                        }
-                    }}
-                    selectedAccountId={settingsAccountId || report.accountId}
-                    accounts={accounts}
-                    campaigns={settingsCampaigns}
-                    isLoadingCampaigns={isLoadingSettings}
-                    onAccountChange={handleSettingsAccountChange}
-                    isEditMode={true}
-                />
-            )}
+            {
+                report && showSettingsModal && (
+                    <ReportConfigModal
+                        onClose={() => setShowSettingsModal(false)}
+                        onSubmit={handleUpdateSettings}
+                        initialConfig={{
+                            title: report.title,
+                            clientId: report.clientId,
+                            accountId: settingsAccountId || report.accountId,
+                            campaignIds: report.campaignIds,
+                            dateRange: {
+                                start: report.startDate ? new Date(report.startDate).toISOString() : new Date().toISOString(),
+                                end: report.endDate ? new Date(report.endDate).toISOString() : new Date().toISOString(),
+                                preset: (report as any).dateRangePreset || 'custom'
+                            }
+                        }}
+                        selectedAccountId={settingsAccountId || report.accountId}
+                        accounts={accounts}
+                        campaigns={settingsCampaigns}
+                        isLoadingCampaigns={isLoadingSettings}
+                        onAccountChange={handleSettingsAccountChange}
+                        isEditMode={true}
+                    />
+                )
+            }
 
             {/* Security Modal */}
-            {report && showSecurityModal && (
-                <ReportSecurityModal
-                    isPasswordProtected={report.isPasswordProtected}
-                    onClose={() => setShowSecurityModal(false)}
-                    onUpdate={handleUpdatePassword}
-                />
-            )}
+            {
+                report && showSecurityModal && (
+                    <ReportSecurityModal
+                        isPasswordProtected={report.isPasswordProtected}
+                        onClose={() => setShowSecurityModal(false)}
+                        onUpdate={handleUpdatePassword}
+                    />
+                )
+            }
 
             {/* Delete Confirmation Modal */}
             <ConfirmationModal
@@ -704,24 +820,26 @@ const TiptapReportEditorPage: React.FC = () => {
             />
 
             {/* Google Slides Export Modal */}
-            {showGoogleSlidesModal && report && (
-                <GoogleSlidesExportModal
-                    isOpen={showGoogleSlidesModal}
-                    onClose={() => setShowGoogleSlidesModal(false)}
-                    reportId={report.id}
-                    reportTitle={title}
-                    slides={extractSlidesFromTiptapContent(
-                        editorContent,
-                        report.accountId,
-                        report.campaignIds
-                    )}
-                    accountId={report.accountId}
-                    campaignIds={report.campaignIds}
-                    startDate={report.startDate}
-                    endDate={report.endDate}
-                />
-            )}
-        </div>
+            {
+                showGoogleSlidesModal && report && (
+                    <GoogleSlidesExportModal
+                        isOpen={showGoogleSlidesModal}
+                        onClose={() => setShowGoogleSlidesModal(false)}
+                        reportId={report.id}
+                        reportTitle={title}
+                        slides={extractSlidesFromTiptapContent(
+                            editorContent,
+                            report.accountId,
+                            report.campaignIds
+                        )}
+                        accountId={report.accountId}
+                        campaignIds={report.campaignIds}
+                        startDate={report.startDate}
+                        endDate={report.endDate}
+                    />
+                )
+            }
+        </div >
     );
 };
 
