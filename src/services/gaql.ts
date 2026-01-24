@@ -35,17 +35,18 @@ export const buildFlexibleQuery = (config: FlexibleDataConfig, scope: GAQLScope)
     // - if dimension starts with 'campaign', use 'campaign'
     // - otherwise 'campaign' is generally fine for broad metrics, or 'customer'
 
+    // From clause
     let resource = 'campaign';
     if (dimension?.startsWith('ad_group')) resource = 'ad_group';
-    // Add more resource inference if needed
+    else if (dimension?.startsWith('campaign')) resource = 'campaign';
+    else if (!dimension && scope.campaignIds.length === 0) resource = 'customer';
 
     // Where clause
     const whereConditions = [
         `segments.date BETWEEN '${scope.startDate}' AND '${scope.endDate}'`
     ];
 
-    if (scope.campaignIds.length > 0) {
-        // GAQL IN clause
+    if (scope.campaignIds.length > 0 && resource !== 'customer') {
         const ids = scope.campaignIds.join(',');
         whereConditions.push(`campaign.id IN (${ids})`);
     }
@@ -55,14 +56,13 @@ export const buildFlexibleQuery = (config: FlexibleDataConfig, scope: GAQLScope)
     const orderByClause = `ORDER BY ${orderByField} ${sortOrder}`;
 
     // Construct Query
-    return `
-        SELECT 
-            ${selectFields}
-        FROM 
-            ${resource}
-        WHERE 
-            ${whereClause}
+    const query = `
+        SELECT ${selectFields}
+        FROM ${resource}
+        WHERE ${whereClause}
         ${orderByClause}
         LIMIT ${limit}
     `.replace(/\s+/g, ' ').trim();
+
+    return query;
 };

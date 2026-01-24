@@ -49,6 +49,7 @@ const DataRenderer: React.FC<{
     const { t } = useTranslation('reports');
     const [data, setData] = useState<any[]>([]);
     const [rawResults, setRawResults] = useState<any[]>([]);
+    const [generatedQuery, setGeneratedQuery] = useState<string>('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -71,6 +72,7 @@ const DataRenderer: React.FC<{
                     endDate: formatDate(eDate),
                     campaignIds: campaignIds
                 });
+                setGeneratedQuery(query);
                 const result = await executeQuery(accountId, query);
                 if (!result.success) throw new Error(result.error || 'Failed to fetch data');
 
@@ -116,13 +118,19 @@ const DataRenderer: React.FC<{
 
     if (showRawData) {
         return (
-            <div className="h-full overflow-hidden flex flex-col">
-                <div className="mb-2 flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">Raw JSON Output ({rawResults.length} records)</span>
+            <div className="h-full overflow-hidden flex flex-col gap-4">
+                <div className="flex-1 overflow-hidden flex flex-col">
+                    <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">GAQL Query</span>
+                    <pre className="bg-gray-800 text-blue-300 p-4 rounded-xl text-[10px] overflow-auto border border-white/5 font-mono">
+                        {generatedQuery}
+                    </pre>
                 </div>
-                <pre className="flex-1 bg-gray-900 text-green-400 p-4 rounded-xl text-[10px] overflow-auto custom-scrollbar font-mono border border-white/5">
-                    {JSON.stringify(rawResults, null, 2)}
-                </pre>
+                <div className="flex-1 overflow-hidden flex flex-col">
+                    <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">Raw JSON Output ({rawResults.length} records)</span>
+                    <pre className="flex-1 bg-gray-900 text-green-400 p-4 rounded-xl text-[10px] overflow-auto custom-scrollbar font-mono border border-white/5">
+                        {JSON.stringify(rawResults, null, 2)}
+                    </pre>
+                </div>
             </div>
         );
     }
