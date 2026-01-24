@@ -430,7 +430,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
 
                                         <section>
                                             <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.metrics')}</label>
-                                            <div className="grid grid-cols-1 gap-1.5 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
+                                            <div className="grid grid-cols-2 gap-2 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
                                                 {[
                                                     { id: 'metrics.impressions' },
                                                     { id: 'metrics.clicks' },
@@ -447,10 +447,9 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                         <button
                                                             key={m.id}
                                                             onClick={() => setEditConfig({ ...editConfig, metrics: exists ? editConfig.metrics.filter(x => x !== m.id) : [...editConfig.metrics, m.id] })}
-                                                            className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all ${exists ? 'bg-primary text-white shadow-md shadow-primary/20 scale-[1.01]' : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}
+                                                            className={`flex items-center justify-center text-center px-3 py-2.5 rounded-xl border transition-all ${exists ? 'border-primary bg-primary text-white shadow-md shadow-primary/20 scale-[1.01]' : 'border-transparent bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-tertiary)]'}`}
                                                         >
-                                                            <span className="text-xs font-semibold">{t(`flexibleBlock.metricsList.${metricKey}`)}</span>
-                                                            {exists && <X size={14} className="rotate-45" />}
+                                                            <span className="text-[10px] font-bold">{t(`flexibleBlock.metricsList.${metricKey}`)}</span>
                                                         </button>
                                                     );
                                                 })}
