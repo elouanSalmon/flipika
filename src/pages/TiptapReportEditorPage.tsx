@@ -21,10 +21,11 @@ import type { EditableReport, ReportDesign } from '../types/reportTypes';
 import type { Account, Campaign } from '../types/business';
 import type { Client } from '../types/client';
 import { clientService } from '../services/clientService';
-import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Trash2, Link, ExternalLink, Lock, Unlock, Mail, Presentation, Download, Loader2 } from 'lucide-react';
+import { Save, ArrowLeft, Settings, Palette, Share2, MoreVertical, Archive, Trash2, Link, ExternalLink, Lock, Unlock, Mail, Presentation, Download, Loader2, Play } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 import Logo from '../components/Logo';
 import AutoSaveIndicator from '../components/reports/AutoSaveIndicator';
+import { PresentationOverlay } from '../components/presentation/PresentationOverlay';
 import { ThemeSelector } from '../components/editor/ThemeSelector';
 import ReportConfigModal, { type ReportConfig } from '../components/reports/ReportConfigModal';
 import ReportSecurityModal from '../components/reports/ReportSecurityModal';
@@ -79,6 +80,7 @@ const TiptapReportEditorPage: React.FC = () => {
     const [pdfGenerating, setPdfGenerating] = useState(false);
     const [pdfProgress, setPdfProgress] = useState(0);
     const reportContainerRef = useRef<HTMLDivElement>(null);
+    const [showPresentationMode, setShowPresentationMode] = useState(false);
 
     // Client for context
     const [client, setClient] = useState<Client | null>(null);
@@ -539,7 +541,14 @@ const TiptapReportEditorPage: React.FC = () => {
                     />
 
                     {/* Auto-save indicator */}
-                    <AutoSaveIndicator status={autoSaveStatus} lastSaved={lastSaved} />
+                    <div className="mr-4">
+                        <AutoSaveIndicator status={autoSaveStatus} lastSaved={lastSaved} />
+                    </div>
+
+                    <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
+
+                    {/* Presentation Mode Button */}
+
 
                     {/* Status badge */}
                     <span className={`tiptap-status-badge status-${report.status}`}>
@@ -595,6 +604,18 @@ const TiptapReportEditorPage: React.FC = () => {
                         title={t('header.save')}
                     >
                         <Save size={18} />
+                    </button>
+
+                    <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
+
+                    {/* Presentation Mode Button */}
+                    <button
+                        onClick={() => setShowPresentationMode(true)}
+                        className="tiptap-header-btn group mr-2"
+                        title={t('header.present')}
+                    >
+                        <Play size={18} className="fill-current" />
+                        <span className="hidden sm:inline">{t('header.present')}</span>
                     </button>
 
                     {/* Publish button (for drafts) */}
@@ -818,6 +839,14 @@ const TiptapReportEditorPage: React.FC = () => {
                 cancelLabel={t('common.cancel')}
                 isDestructive
             />
+
+            {/* Presentation Mode Overlay */}
+            {showPresentationMode && report && (
+                <PresentationOverlay
+                    report={report}
+                    onClose={() => setShowPresentationMode(false)}
+                />
+            )}
 
             {/* Google Slides Export Modal */}
             {
