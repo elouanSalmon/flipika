@@ -570,7 +570,7 @@ const TiptapReportEditorPage: React.FC = () => {
 
 
                     {/* Status badge */}
-                    <span className={`tiptap-status-badge status-${report.status}`}>
+                    <span className={`status-badge ${report.status === 'published' ? 'success' : report.status === 'archived' ? 'neutral' : 'warning'}`}>
                         {t(`card.status.${report.status}`)}
                     </span>
                 </div>

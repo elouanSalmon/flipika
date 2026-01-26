@@ -384,7 +384,7 @@ const TiptapTemplateEditorPage: React.FC = () => {
                     <AutoSaveIndicator status={autoSaveStatus} lastSaved={lastSaved} />
 
                     {/* Template badge */}
-                    <span className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-purple-700 bg-purple-100 dark:text-purple-300 dark:bg-purple-900/30 rounded-full">
+                    <span className="status-badge neutral">
                         <LayoutTemplate size={14} />
                         Template
                     </span>
