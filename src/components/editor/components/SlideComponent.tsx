@@ -1,6 +1,6 @@
 import { NodeViewWrapper, NodeViewContent } from '@tiptap/react';
 import type { NodeViewProps } from '@tiptap/react';
-import { Settings, Trash2 } from 'lucide-react';
+import { Settings, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 
 /**
@@ -9,7 +9,7 @@ import { useReportEditor } from '../../../contexts/ReportEditorContext';
  * React NodeView for rendering individual slides with fixed 16:9 dimensions.
  * Applies theme (dark/light mode) and color scheme from ReportDesign context.
  */
-export const SlideComponent = ({ node, updateAttributes, deleteNode, selected }: NodeViewProps) => {
+export const SlideComponent = ({ node, updateAttributes, deleteNode, selected, getPos, editor }: NodeViewProps) => {
     const { layout, backgroundColor } = node.attrs;
     const { design } = useReportEditor();
 
@@ -36,12 +36,128 @@ export const SlideComponent = ({ node, updateAttributes, deleteNode, selected }:
         '--color-text-primary': themeTextColor,
     } as React.CSSProperties;
 
+    // Move slide up
+    const moveSlideUp = () => {
+        const pos = getPos();
+        if (typeof pos !== 'number') return;
+
+        // Get all slides
+        const slides: { node: any; pos: number }[] = [];
+        editor.state.doc.forEach((node, position) => {
+            if (node.type.name === 'slide') {
+                slides.push({ node, pos: position });
+            }
+        });
+
+        const currentIndex = slides.findIndex(s => s.pos === pos);
+        if (currentIndex <= 0) return; // Already at top
+
+        const currentSlide = slides[currentIndex];
+        const previousSlide = slides[currentIndex - 1];
+
+        // Swap positions
+        const { tr } = editor.state;
+
+        // Delete current slide
+        tr.delete(currentSlide.pos, currentSlide.pos + currentSlide.node.nodeSize);
+
+        // Insert current slide before the previous one
+        tr.insert(previousSlide.pos, currentSlide.node);
+
+        editor.view.dispatch(tr);
+    };
+
+    // Move slide down
+    const moveSlideDown = () => {
+        const pos = getPos();
+        if (typeof pos !== 'number') return;
+
+        // Get all slides
+        const slides: { node: any; pos: number }[] = [];
+        editor.state.doc.forEach((node, position) => {
+            if (node.type.name === 'slide') {
+                slides.push({ node, pos: position });
+            }
+        });
+
+        const currentIndex = slides.findIndex(s => s.pos === pos);
+        if (currentIndex === -1 || currentIndex >= slides.length - 1) return; // Already at bottom
+
+        const currentSlide = slides[currentIndex];
+        const nextSlide = slides[currentIndex + 1];
+
+        // Swap positions
+        const { tr } = editor.state;
+
+        // Delete current slide
+        tr.delete(currentSlide.pos, currentSlide.pos + currentSlide.node.nodeSize);
+
+        // Insert current slide after the next one
+        const newPos = nextSlide.pos + nextSlide.node.nodeSize - currentSlide.node.nodeSize;
+        tr.insert(newPos, currentSlide.node);
+
+        editor.view.dispatch(tr);
+    };
+
+    // Check if slide can move up or down
+    const canMoveUp = () => {
+        const pos = getPos();
+        if (typeof pos !== 'number') return false;
+
+        const slides: { pos: number }[] = [];
+        editor.state.doc.forEach((node, position) => {
+            if (node.type.name === 'slide') {
+                slides.push({ pos: position });
+            }
+        });
+
+        const currentIndex = slides.findIndex(s => s.pos === pos);
+        return currentIndex > 0;
+    };
+
+    const canMoveDown = () => {
+        const pos = getPos();
+        if (typeof pos !== 'number') return false;
+
+        const slides: { pos: number }[] = [];
+        editor.state.doc.forEach((node, position) => {
+            if (node.type.name === 'slide') {
+                slides.push({ pos: position });
+            }
+        });
+
+        const currentIndex = slides.findIndex(s => s.pos === pos);
+        return currentIndex !== -1 && currentIndex < slides.length - 1;
+    };
+
     return (
         <NodeViewWrapper
             className={`slide-wrapper ${selected ? 'selected' : ''}`}
             data-layout={layout}
             data-theme={isDarkMode ? 'dark' : 'light'}
         >
+            {/* Move arrows - visible on hover */}
+            {editor.isEditable && (
+                <div className="slide-move-arrows">
+                    <button
+                        onClick={moveSlideUp}
+                        disabled={!canMoveUp()}
+                        className="slide-move-btn"
+                        title="Déplacer vers le haut"
+                    >
+                        <ArrowUp size={18} />
+                    </button>
+                    <button
+                        onClick={moveSlideDown}
+                        disabled={!canMoveDown()}
+                        className="slide-move-btn"
+                        title="Déplacer vers le bas"
+                    >
+                        <ArrowDown size={18} />
+                    </button>
+                </div>
+            )}
+
             <div
                 className="slide-container"
                 style={slideStyle}

@@ -582,6 +582,61 @@
     box-shadow: 0 8px 24px rgba(var(--primary-rgb, 59, 130, 246), 0.2);
 }
 
+/* Slide Move Arrows */
+.slide-move-arrows {
+    position: absolute;
+    left: -48px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 15;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.slide-wrapper:hover .slide-move-arrows {
+    opacity: 1;
+}
+
+.slide-move-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--color-bg-primary, #ffffff);
+    border: 1.5px solid var(--color-secondary, #64748b);
+    border-radius: 6px;
+    color: var(--color-secondary, #64748b);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.slide-move-btn:hover:not(:disabled) {
+    background: var(--color-secondary, #64748b);
+    border-color: var(--color-secondary, #64748b);
+    color: white;
+    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.25);
+    transform: scale(1.08);
+}
+
+.slide-move-btn:active:not(:disabled) {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(100, 116, 139, 0.2);
+}
+
+.slide-move-btn:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    background: var(--color-bg-secondary, #f8fafc);
+    border-color: var(--color-border, #e2e8f0);
+    color: var(--color-text-tertiary, #cbd5e1);
+    box-shadow: none;
+}
+
 /* Slide Container (16:9 fixed dimensions) */
 .slide-container {
     width: 960px;
@@ -1279,6 +1334,24 @@
     background: #374151;
     border-color: #60a5fa;
     color: #60a5fa;
+}
+
+[data-theme="dark"] .slide-move-btn {
+    background: #1f2937;
+    border-color: #64748b;
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .slide-move-btn:hover:not(:disabled) {
+    background: #64748b;
+    border-color: #64748b;
+    color: white;
+}
+
+[data-theme="dark"] .slide-move-btn:disabled {
+    background: #111827;
+    border-color: #374151;
+    color: #475569;
 }
 
 [data-theme="dark"] .slide-nav-number {
