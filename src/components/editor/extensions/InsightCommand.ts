@@ -6,12 +6,7 @@ export const insertInsightSlide = (editor: Editor, insight: Insight) => {
     // Assuming the editor structure is Document -> Slide -> Content
 
     // Map AI Chart Types to our Block Types
-    const blockTypeMap: Record<string, string> = {
-        'bar': 'chart_block', // or specific type
-        'line': 'chart_block',
-        'pie': 'chart_block',
-        'kpi': 'key_metrics' // fallback
-    };
+
 
     // const blockType = blockTypeMap[insight.chartConfig.type] || 'chart_block';
 
@@ -27,27 +22,37 @@ export const insertInsightSlide = (editor: Editor, insight: Insight) => {
             content: [{ type: 'text', text: insight.analysis }]
         },
         {
-            type: blockTypeMap[insight.chartConfig.type] || 'chart_block',
+            type: 'flexible_data', // Use the generic flexible block
             attrs: {
-                // Pass config to the block
+                blockType: 'flexible_data',
                 config: {
                     ...insight.chartConfig,
                     title: insight.chartConfig.title || insight.title,
-                    // The block component will use these metrics to fetch real data
+                    // Map AI 'type' to Block 'visualization'
+                    visualization: insight.chartConfig.type === 'kpi' ? 'scorecard' : insight.chartConfig.type,
+                    // Map AI 'metric' keys if needed (assuming they match for now)
                     metrics: insight.chartConfig.metrics,
-                    dimension: insight.chartConfig.dimension || 'date'
+                    // Map dimension aliases to real field names
+                    dimension: mapDimension(insight.chartConfig.dimension)
                 }
             }
         }
     ];
-
-    // Insert as a new slide
-    // Used "slide" node type if it exists, otherwise just insert content at end
-    // Checking existing schema through prior knowledge or we'd check node types.
-    // Assuming 'slide' node exists as per user description "editors de rapports sous forme de slides"
 
     editor.chain().focus().insertContent({
         type: 'slide',
         content: slideContent
     }).run();
 };
+
+// Helper to map friendly AI dimensions to GAQL fields
+const mapDimension = (dim?: string): string => {
+    switch (dim) {
+        case 'date': return 'segments.date';
+        case 'campaign': return 'campaign.name';
+        case 'ad_group': return 'ad_group.name';
+        case 'device': return 'segments.device';
+        default: return 'segments.date';
+    }
+};
+

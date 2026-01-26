@@ -135,10 +135,12 @@ const DataRenderer: React.FC<{
         setError(null);
         setIsMockData(false);
         try {
-            const sDate = typeof startDate === 'string' ? new Date(startDate) : startDate;
-            const eDate = typeof endDate === 'string' ? new Date(endDate) : endDate;
+            // Ensure dates are parsed correctly, handling both Date objects and strings
+            const sDate = new Date(startDate);
+            const eDate = new Date(endDate);
 
             if (isNaN(sDate.getTime()) || isNaN(eDate.getTime())) {
+                console.warn("Invalid Date detected:", { startDate, endDate });
                 throw new Error('Invalid date range');
             }
 
