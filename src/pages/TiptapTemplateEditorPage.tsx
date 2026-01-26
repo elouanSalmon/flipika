@@ -394,48 +394,14 @@ const TiptapTemplateEditorPage: React.FC = () => {
                     {/* Theme Toggle for Flipika UI */}
                     <ThemeToggle />
 
-                    {/* Design/Theme Button for Template Slides */}
-                    <div className="theme-selector-wrapper relative">
-                        <button
-                            className={`tiptap-header-btn ${showThemeSelector ? 'active' : ''}`}
-                            title="Theme du Template"
-                            onClick={() => setShowThemeSelector(!showThemeSelector)}
-                            style={showThemeSelector ? { color: 'var(--color-primary)', background: 'var(--color-bg-tertiary)' } : {}}
-                        >
-                            <Palette size={18} />
-                        </button>
-                        <ThemeSelector
-                            design={template.design as ReportDesign}
-                            onChange={handleDesignChange}
-                            isOpen={showThemeSelector}
-                            onClose={() => setShowThemeSelector(false)}
-                        />
-                    </div>
-
-                    {/* Settings button */}
-                    <button
-                        onClick={handleOpenSettings}
-                        disabled={isLoadingSettings}
-                        className="tiptap-header-btn"
-                        title={t('editor.settings')}
-                    >
-                        {isLoadingSettings ? (
-                            <svg className="animate-spin h-[18px] w-[18px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                        ) : (
-                            <Settings size={18} />
-                        )}
-                    </button>
-
                     {/* Save button */}
                     <button
                         onClick={handleSave}
                         disabled={isSaving || autoSaveStatus === 'saving'}
-                        className="tiptap-save-btn"
+                        className="tiptap-header-btn auto-width text-sm"
+                        title={t('editor.save')}
                     >
-                        <Save size={18} />
+                        <Save size={16} />
                         {t('editor.save')}
                     </button>
                 </div>
@@ -466,7 +432,44 @@ const TiptapTemplateEditorPage: React.FC = () => {
                     onOpenSettings={handleOpenSettings}
                     isTemplateMode={true}
                     periodPreset={template.periodPreset}
-                />
+                >
+                    {/* Design/Theme Button for Template Slides */}
+                    <div className="theme-selector-wrapper relative">
+                        <button
+                            className={`tiptap-header-btn auto-width text-sm ${showThemeSelector ? 'active' : ''}`}
+                            title="Theme du Template"
+                            onClick={() => setShowThemeSelector(!showThemeSelector)}
+                            style={showThemeSelector ? { borderColor: 'var(--color-primary)', color: 'var(--color-primary)' } : {}}
+                        >
+                            <Palette size={16} />
+                            <span>Thèmes</span>
+                        </button>
+                        <ThemeSelector
+                            design={template.design as ReportDesign}
+                            onChange={handleDesignChange}
+                            isOpen={showThemeSelector}
+                            onClose={() => setShowThemeSelector(false)}
+                        />
+                    </div>
+
+                    {/* Settings button */}
+                    <button
+                        onClick={handleOpenSettings}
+                        disabled={isLoadingSettings}
+                        className="tiptap-header-btn auto-width text-sm"
+                        title={t('editor.settings')}
+                    >
+                        {isLoadingSettings ? (
+                            <svg className="animate-spin h-[16px] w-[16px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        ) : (
+                            <Settings size={16} />
+                        )}
+                        <span>Périmètre</span>
+                    </button>
+                </ReportScopeHeader>
             )}
 
             {/* Settings Modal */}

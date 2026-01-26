@@ -3,6 +3,7 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAnalytics } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
+import { getFunctions } from 'firebase/functions';
 
 // Configuration Firebase - Utilise les variables d'environnement
 const firebaseConfig = {
@@ -24,6 +25,7 @@ export const storage = getStorage(app);
 
 // Initialiser Analytics (optionnel)
 export const auth = getAuth(app);
+export const functions = getFunctions(app, 'us-central1'); // Adjust region if needed
 
 // Only initialize analytics if we have a real measurement ID
 const hasMeasurementId = firebaseConfig.measurementId && firebaseConfig.measurementId !== 'G-DEMO';

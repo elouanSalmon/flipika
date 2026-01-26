@@ -33,6 +33,7 @@ import type { ReportDesign } from '../../types/reportTypes';
 import type { Client } from '../../types/client';
 import './TiptapEditor.css';
 import { MediaManagerModal } from './media/MediaManagerModal';
+import { AiAssistantPanel } from './AiAssistantPanel';
 import { useState } from 'react';
 
 interface TiptapReportEditorProps {
@@ -71,6 +72,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     onOpenSettings,
 }) => {
     const [showMediaManager, setShowMediaManager] = useState(false);
+    const [showAiPanel, setShowAiPanel] = useState(false);
 
     const defaultContent = {
         type: 'doc',
@@ -196,8 +198,15 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     // Using useEffect to bind the event listener
     React.useEffect(() => {
         const handleOpenLibrary = () => setShowMediaManager(true);
+        const handleToggleAi = () => setShowAiPanel(prev => !prev);
+
         window.addEventListener('flipika:open-media-library', handleOpenLibrary);
-        return () => window.removeEventListener('flipika:open-media-library', handleOpenLibrary);
+        window.addEventListener('flipika:toggle-ai-panel', handleToggleAi);
+
+        return () => {
+            window.removeEventListener('flipika:open-media-library', handleOpenLibrary);
+            window.removeEventListener('flipika:toggle-ai-panel', handleToggleAi);
+        };
     }, []);
 
     // Calculate highlight colors based on theme
@@ -258,6 +267,13 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                         isOpen={showMediaManager}
                         onClose={() => setShowMediaManager(false)}
                         onSelectImage={handleInsertImage}
+                    />
+
+                    {/* AI Assistant Panel */}
+                    <AiAssistantPanel
+                        editor={editor}
+                        isOpen={showAiPanel}
+                        onClose={() => setShowAiPanel(false)}
                     />
                 </div>
             </div>

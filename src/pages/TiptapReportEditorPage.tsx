@@ -576,65 +576,34 @@ const TiptapReportEditorPage: React.FC = () => {
                 </div>
 
                 <div className="tiptap-header-right">
+
+
                     {/* Theme Toggle for Flipika UI */}
                     <ThemeToggle />
 
-                    {/* Design/Theme Button for Report Slides */}
-                    {/* Design/Theme Button for Report Slides */}
-                    <div className="theme-selector-wrapper relative">
-                        <button
-                            className={`tiptap-header-btn ${showThemeSelector ? 'active' : ''}`}
-                            title="Thème du Rapport"
-                            onClick={() => setShowThemeSelector(!showThemeSelector)}
-                            style={showThemeSelector ? { color: 'var(--color-primary)', background: 'var(--color-bg-tertiary)' } : {}}
-                        >
-                            <Palette size={18} />
-                        </button>
-                        <ThemeSelector
-                            design={report.design}
-                            onChange={handleDesignChange}
-                            isOpen={showThemeSelector}
-                            onClose={() => setShowThemeSelector(false)}
-                        />
-                    </div>
 
-                    {/* Settings button */}
-                    <button
-                        onClick={handleOpenSettings}
-                        disabled={isLoadingSettings}
-                        className="tiptap-header-btn"
-                        title={t('header.settings')}
-                    >
-                        {isLoadingSettings ? (
-                            <svg className="animate-spin h-[18px] w-[18px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                        ) : (
-                            <Settings size={18} />
-                        )}
-                    </button>
-
-                    {/* Save button */}
-                    <button
-                        onClick={handleSave}
-                        disabled={isSaving || autoSaveStatus === 'saving'}
-                        className="tiptap-header-btn"
-                        title={t('header.save')}
-                    >
-                        <Save size={18} />
-                    </button>
 
                     <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
 
                     {/* Presentation Mode Button */}
                     <button
                         onClick={() => setShowPresentationMode(true)}
-                        className="tiptap-header-btn auto-width group mr-2"
+                        className="tiptap-header-btn auto-width text-sm group mr-2"
                         title={t('header.present')}
                     >
-                        <Play size={18} className="fill-current" />
+                        <Play size={16} className="fill-current" />
                         <span className="hidden sm:inline">{t('header.present')}</span>
+                    </button>
+
+                    {/* Save button */}
+                    <button
+                        onClick={handleSave}
+                        disabled={isSaving || autoSaveStatus === 'saving'}
+                        className="tiptap-header-btn auto-width text-sm"
+                        title={t('header.save')}
+                    >
+                        <Save size={16} />
+                        <span>{t('header.save')}</span>
                     </button>
 
                     {/* Publish button (for drafts) */}
@@ -654,9 +623,9 @@ const TiptapReportEditorPage: React.FC = () => {
                         <div className="actions-menu-wrapper">
                             <button
                                 onClick={() => setShowShareMenu(!showShareMenu)}
-                                className="tiptap-save-btn"
+                                className="tiptap-save-btn text-sm"
                             >
-                                <Share2 size={18} />
+                                <Share2 size={16} />
                                 {t('header.share')}
                             </button>
 
@@ -803,7 +772,41 @@ const TiptapReportEditorPage: React.FC = () => {
                     scopeCampaigns={scopeCampaigns}
                     onOpenSettings={handleOpenSettings}
                     periodPreset={report.dateRangePreset}
-                />
+                >
+                    {/* Design/Theme Button for Report Slides */}
+                    <div className="theme-selector-wrapper relative">
+                        <button
+                            className={`tiptap-header-btn auto-width text-sm ${showThemeSelector ? 'active' : ''}`}
+                            title="Thème du Rapport"
+                            onClick={() => setShowThemeSelector(!showThemeSelector)}
+                            style={showThemeSelector ? { borderColor: 'var(--color-primary)', color: 'var(--color-primary)' } : {}}
+                        >
+                            <Palette size={16} />
+                            <span>Thèmes</span>
+                        </button>
+                        <ThemeSelector
+                            design={report.design}
+                            onChange={handleDesignChange}
+                            isOpen={showThemeSelector}
+                            onClose={() => setShowThemeSelector(false)}
+                        />
+                    </div>
+
+                    {/* Settings button */}
+                    <button
+                        onClick={handleOpenSettings}
+                        disabled={isLoadingSettings}
+                        className="tiptap-header-btn auto-width text-sm"
+                        title={t('header.settings')}
+                    >
+                        {isLoadingSettings ? (
+                            <Loader2 size={16} className="animate-spin" />
+                        ) : (
+                            <Settings size={16} />
+                        )}
+                        <span>Périmètre</span>
+                    </button>
+                </ReportScopeHeader>
             )}
 
             {/* Editor with Sidebar */}

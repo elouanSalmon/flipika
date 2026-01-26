@@ -37,6 +37,9 @@ export { generateScheduledReports, processScheduledReports };
 // Re-export Migration functions
 export { migrateReportsWithAccountNames } from "./migrateReports";
 
+// Re-export AI Analyst functions (Genkit Flow)
+export { analyzeCampaignPerformanceFlow } from "./insights";
+
 
 // Import Stripe functions
 import {

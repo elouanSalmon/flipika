@@ -13,6 +13,7 @@ interface ReportScopeHeaderProps {
     onOpenSettings: () => void;
     isTemplateMode?: boolean;
     periodPreset?: string;
+    children?: React.ReactNode;
 }
 
 const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
@@ -24,6 +25,7 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
     onOpenSettings,
     isTemplateMode = false,
     periodPreset,
+    children, // Add children prop for action buttons
 }) => {
     const { t } = useTranslation('reports');
 
@@ -41,7 +43,7 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
 
     return (
         <div
-            className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 flex items-center justify-between text-xs shadow-sm z-30"
+            className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 flex items-center justify-start text-sm shadow-sm z-30"
             style={{
                 position: 'fixed',
                 top: 'var(--page-header-height)',
@@ -51,13 +53,13 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
                 zIndex: 38
             }}
         >
-            <div className="flex items-center space-x-6 overflow-x-auto no-scrollbar max-w-full h-full">
+            <div className="flex items-center space-x-6 overflow-x-auto no-scrollbar max-w-fit h-full mr-6">
                 {/* Dates */}
                 <div
                     className="flex items-center text-gray-600 dark:text-gray-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-colors"
                     onClick={onOpenSettings}
                 >
-                    <Calendar size={12} className="mr-1.5 opacity-70" />
+                    <Calendar size={16} className="mr-1.5 opacity-70" />
                     <span className="font-medium mr-1">{t('common.period')}:</span>
                     <span>
                         {getPeriodDisplay()}
@@ -71,7 +73,7 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
                     className="flex items-center text-gray-600 dark:text-gray-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-colors"
                     onClick={onOpenSettings}
                 >
-                    <Briefcase size={12} className="mr-1.5 opacity-70" />
+                    <Briefcase size={16} className="mr-1.5 opacity-70" />
                     <span className="font-medium mr-1">{t('common.client')}:</span>
                     <span className="truncate max-w-[200px]" title={isDemo ? 'Demo Client' : (client?.name || 'Client introuvable')}>
                         {isDemo ? 'Demo Client' : (client?.name || 'Client introuvable')}
@@ -85,7 +87,7 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
                     className="flex items-center text-gray-600 dark:text-gray-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-colors"
                     onClick={onOpenSettings}
                 >
-                    <Target size={12} className="mr-1.5 opacity-70" />
+                    <Target size={16} className="mr-1.5 opacity-70" />
                     <span className="font-medium mr-1">{t('common.campaigns')}:</span>
                     <span className="truncate max-w-[300px]" title={
                         isDemo ? t('common.allCampaigns') + ' (Demo)' :
@@ -105,6 +107,13 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
                                     .join(', '))}
                     </span>
                 </div>
+            </div>
+
+            <div className="h-3 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block mr-6"></div>
+
+            {/* Scale Actions (Theme, Settings) */}
+            <div className="flex items-center space-x-2">
+                {children}
             </div>
         </div>
     );

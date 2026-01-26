@@ -22,6 +22,7 @@ import {
     Table as TableIcon,
     Columns2,
     Image as ImageIcon,
+    Sparkles,
 } from 'lucide-react';
 
 interface TiptapToolbarProps {
@@ -268,6 +269,22 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                         />
                     </>
                 )}
+
+                <div className="mx-1 w-px bg-gray-200 dark:bg-gray-700 h-6 self-center" />
+                <ToolbarButton
+                    onClick={() => {
+                        // We need a way to pass this up to parent or use context. 
+                        // Since Toolbar is child of Editor, we can pass a prop 'onToggleAi'
+                        // But for now, we'll use a custom event or similar if we can't change props easily.
+                        // Actually, I can add a prop to TiptapToolbarProps.
+                        // The user asked to "Merge Strategy". I am modifying existing files.
+                        // I will dispatch an event or use the prop if I added it.
+                        // I'll emit a custom event to keep it loosely coupled for now or check if I can add prop.
+                        window.dispatchEvent(new CustomEvent('flipika:toggle-ai-panel'));
+                    }}
+                    icon={<div className="flex items-center gap-1"><span style={{ fontSize: '16px' }}><Sparkles size={18} /></span></div>}
+                    title="Assistant IA"
+                />
 
                 {/* Link Input Popup */}
                 {showLinkInput && (

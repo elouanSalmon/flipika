@@ -2096,3 +2096,49 @@
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     mix-blend-mode: normal;
 }
+/* AI Assistant Panel */
+.ai-assistant-panel {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    width: 350px;
+    height: calc(100vh - 100px);
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.dark .ai-assistant-panel {
+    background-color: #1e293b;
+    border-color: #334155;
+}
+
+.ai-panel-header {
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    background-color: #f8fafc;
+}
+
+.dark .ai-panel-header {
+    background-color: #0f172a;
+    border-color: #334155;
+}
+
+.ai-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.dark .ai-panel-title { color: #f1f5f9; }
+.ai-icon { color: #6366f1; }

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createLifetimeCheckout = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.googleAdsQuery = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createLifetimeCheckout = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.analyzeCampaignPerformanceFlow = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.googleAdsQuery = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -39,6 +39,9 @@ Object.defineProperty(exports, "processScheduledReports", { enumerable: true, ge
 // Re-export Migration functions
 var migrateReports_1 = require("./migrateReports");
 Object.defineProperty(exports, "migrateReportsWithAccountNames", { enumerable: true, get: function () { return migrateReports_1.migrateReportsWithAccountNames; } });
+// Re-export AI Analyst functions (Genkit Flow)
+var insights_1 = require("./insights");
+Object.defineProperty(exports, "analyzeCampaignPerformanceFlow", { enumerable: true, get: function () { return insights_1.analyzeCampaignPerformanceFlow; } });
 // Import Stripe functions
 const stripe_1 = require("./stripe");
 const scheduler_1 = require("firebase-functions/v2/scheduler");
