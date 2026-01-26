@@ -878,7 +878,10 @@ const TiptapReportEditorPage: React.FC = () => {
             {
                 showPresentationMode && report && (
                     <PresentationOverlay
-                        report={report}
+                        report={{
+                            ...report,
+                            content: (editorContent || { type: 'doc', content: [] }) as any
+                        }}
                         onClose={() => setShowPresentationMode(false)}
                     />
                 )

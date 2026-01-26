@@ -99,43 +99,53 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
     if (totalSlides === 0) return null;
 
     return (
-        <div ref={containerRef} className="fixed inset-0 z-[200] bg-black flex flex-col items-center justify-center">
-            {/* Header / Controls (visible on hover or always if not fullscreen?) let's keep it visible but subtle */}
-            <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-50 opacity-0 hover:opacity-100 transition-opacity bg-gradient-to-b from-black/50 to-transparent">
-                <div className="text-white/80 font-medium">
+        <div ref={containerRef} className="fixed inset-0 z-[200] bg-black/95 flex flex-col items-center justify-center overflow-hidden font-sans">
+            {/* Ambient Background Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 pointer-events-none" />
+            <div className="absolute inset-0 backdrop-blur-3xl pointer-events-none" />
+
+            {/* Header Controls - Glassmorphism */}
+            <div className={`absolute top-0 left-0 right-0 p-6 flex justify-between items-start z-50 transition-all duration-300 ${isFullscreen ? 'opacity-0 hover:opacity-100' : 'opacity-100'}`}>
+                {/* Slide Counter Pill */}
+                <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white/90 font-medium text-sm shadow-lg">
                     {currentSlideIndex + 1} / {totalSlides}
                 </div>
-                <div className="flex gap-4">
+
+                {/* Actions Group */}
+                <div className="flex gap-3">
                     <button
                         onClick={toggleFullscreen}
-                        className="p-2 text-white/80 hover:text-white rounded-full hover:bg-white/10 transition-colors"
+                        className="p-3 text-white/80 hover:text-white bg-white/5 hover:bg-white/15 backdrop-blur-md border border-white/10 rounded-full transition-all duration-200 shadow-lg group"
                         title={isFullscreen ? "Quitter plein écran" : "Plein écran"}
                     >
-                        {isFullscreen ? <Minimize2 size={24} /> : <Maximize2 size={24} />}
+                        {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
                     </button>
                     <button
                         onClick={onClose}
-                        className="p-2 text-white/80 hover:text-white rounded-full hover:bg-white/10 transition-colors"
+                        className="p-3 text-white/80 hover:text-red-400 bg-white/5 hover:bg-white/15 backdrop-blur-md border border-white/10 rounded-full transition-all duration-200 shadow-lg"
                         title="Fermer"
                     >
-                        <X size={24} />
+                        <X size={20} />
                     </button>
                 </div>
             </div>
 
-            {/* Slide Container */}
-            <div className="flex-1 w-full h-full flex items-center justify-center p-4 sm:p-8 overflow-hidden">
+            {/* Slide Container - Maximized */}
+            <div className="relative w-full h-full flex items-center justify-center p-0 md:p-4 overflow-hidden">
                 <AnimatePresence mode='wait'>
                     <motion.div
                         key={currentSlideIndex}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.2 }}
-                        className="w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video bg-white shadow-2xl relative overflow-hidden"
+                        initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video shadow-2xl relative overflow-hidden rounded-xl md:rounded-2xl ring-1 ring-white/10"
+                        style={{
+                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                        }}
                     >
-                        {/* We reuse the specific ReadOnlyRenderer, ensuring design props are passed */}
-                        <div className="w-full h-full transform scale-100 origin-top-left">
+                        {/* Scalable Renderer Container */}
+                        <SlideScaler>
                             <TiptapReadOnlyRenderer
                                 content={getCurrentSlideContent()}
                                 design={report.design}
@@ -147,27 +157,89 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                                 startDate={report.startDate}
                                 endDate={report.endDate}
                             />
-                        </div>
+                        </SlideScaler>
                     </motion.div>
                 </AnimatePresence>
             </div>
 
-            {/* Navigation Arrows */}
-            <button
-                onClick={goToPrevSlide}
-                disabled={currentSlideIndex === 0}
-                className={`absolute left-4 top-1/2 -translate-y-1/2 p-4 text-white hover:bg-white/10 rounded-full transition-all ${currentSlideIndex === 0 ? 'opacity-0 pointer-events-none' : 'opacity-50 hover:opacity-100'}`}
-            >
-                <ChevronLeft size={48} />
-            </button>
+            {/* Navigation Arrows - Glassmorphism, Floating */}
+            {/* Previous */}
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 z-40">
+                <button
+                    onClick={goToPrevSlide}
+                    disabled={currentSlideIndex === 0}
+                    className={`p-4 text-white hover:text-white bg-white/5 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-full transition-all duration-300 shadow-lg hover:scale-110 active:scale-95 group ${currentSlideIndex === 0 ? 'opacity-0 pointer-events-none translate-x-10' : 'opacity-100 translate-x-0'}`}
+                >
+                    <ChevronLeft size={32} className="group-hover:-translate-x-0.5 transition-transform" />
+                </button>
+            </div>
 
-            <button
-                onClick={goToNextSlide}
-                disabled={currentSlideIndex === totalSlides - 1}
-                className={`absolute right-4 top-1/2 -translate-y-1/2 p-4 text-white hover:bg-white/10 rounded-full transition-all ${currentSlideIndex === totalSlides - 1 ? 'opacity-0 pointer-events-none' : 'opacity-50 hover:opacity-100'}`}
+            {/* Next */}
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 z-40">
+                <button
+                    onClick={goToNextSlide}
+                    disabled={currentSlideIndex === totalSlides - 1}
+                    className={`p-4 text-white hover:text-white bg-white/5 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-full transition-all duration-300 shadow-lg hover:scale-110 active:scale-95 group ${currentSlideIndex === totalSlides - 1 ? 'opacity-0 pointer-events-none -translate-x-10' : 'opacity-100 translate-x-0'}`}
+                >
+                    <ChevronRight size={32} className="group-hover:translate-x-0.5 transition-transform" />
+                </button>
+            </div>
+
+            {/* Keyboard Hint - Fade out */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/5 text-white/40 text-xs font-medium opacity-0 hover:opacity-100 transition-opacity duration-300 select-none pointer-events-none">
+                Utilisez les flèches ← → pour naviguer
+            </div>
+        </div>
+    );
+};
+
+// Helper component to scale slide content
+const SlideScaler: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const [scale, setScale] = useState(1);
+
+    useEffect(() => {
+        const updateScale = () => {
+            if (containerRef.current) {
+                const { width, height } = containerRef.current.getBoundingClientRect();
+                // We know the slide defines specific dimensions (960x540)
+                // But the container is aspect-ratio locked to 16:9 so we can just scale by width
+                const scaleX = width / 960;
+                const scaleY = height / 540;
+                // Use the smaller scale to ensure fit (though in 16:9 they should be identical)
+                setScale(Math.min(scaleX, scaleY));
+            }
+        };
+
+        // Initial calculate
+        updateScale();
+
+        const observer = new ResizeObserver(updateScale);
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+    return (
+        <div ref={containerRef} className="w-full h-full bg-white relative overflow-hidden">
+            <div
+                style={{
+                    transform: `scale(${scale})`,
+                    transformOrigin: 'top left',
+                    width: '960px',
+                    height: '540px',
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    // Center the scaled content
+                    marginLeft: '-480px', // half of 960
+                    marginTop: '-270px',  // half of 540
+                }}
             >
-                <ChevronRight size={48} />
-            </button>
+                {children}
+            </div>
         </div>
     );
 };
