@@ -772,6 +772,22 @@
     padding: 2rem 0;
 }
 
+/* Read-only / Presentation Mode Overrides */
+.tiptap-readonly-renderer .slide-wrapper {
+    margin: 0 auto;
+}
+
+.tiptap-readonly-renderer .slide-editor-container {
+    padding: 0;
+    min-height: auto;
+    background: transparent;
+}
+
+.tiptap-readonly-renderer .tiptap-editor-content {
+    padding: 0;
+    min-height: 100%;
+}
+
 /* ============================================
    SLIDE NAVIGATION SIDEBAR
    ============================================ */
