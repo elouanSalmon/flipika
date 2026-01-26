@@ -15,8 +15,8 @@ export const defaultThemePresets: ThemePreset[] = [
             ...defaultReportDesign,
             colorScheme: {
                 primary: '#0066ff',
-                secondary: '#3385ff',
-                accent: '#00d4ff',
+                secondary: '#2563eb',
+                accent: '#0369a1',    // Darkened to Sky 700 (> 4.5:1 on white)
                 background: '#ffffff',
                 text: '#0f172a',
             },
@@ -36,9 +36,9 @@ export const defaultThemePresets: ThemePreset[] = [
         design: {
             mode: 'dark',
             colorScheme: {
-                primary: '#8b5cf6',
-                secondary: '#a78bfa',
-                accent: '#c084fc',
+                primary: '#a78bfa',
+                secondary: '#c4b5fd',
+                accent: '#ddd6fe',
                 background: '#0f172a',
                 text: '#f1f5f9',
             },
@@ -63,17 +63,17 @@ export const defaultThemePresets: ThemePreset[] = [
     },
     {
         id: 'vibrant-gradient',
-        name: 'Vibrant Gradient',
-        description: 'Couleurs vives avec dégradés dynamiques',
+        name: 'Vibrant Dark', // Renamed slightly to reflect change, or keep name
+        description: 'Couleurs vives avec dégradés dynamiques (Mode Sombre)',
         isSystemDefault: true,
         design: {
-            mode: 'light',
+            mode: 'dark',
             colorScheme: {
-                primary: '#ec4899',
-                secondary: '#f97316',
-                accent: '#eab308',
-                background: '#ffffff',
-                text: '#1e293b',
+                primary: '#f472b6',   // Pink 400 (Lightened for contrast)
+                secondary: '#fb923c', // Orange 400
+                accent: '#facc15',    // Yellow 400
+                background: '#1e293b', // Slate 800
+                text: '#f8fafc',
             },
             typography: {
                 fontFamily: 'Inter, sans-serif',
@@ -137,7 +137,7 @@ export const defaultThemePresets: ThemePreset[] = [
             colorScheme: {
                 primary: '#475569',
                 secondary: '#64748b',
-                accent: '#94a3b8',
+                accent: '#64748b',   // Darkened (was #94a3b8)
                 background: '#ffffff',
                 text: '#1e293b',
             },

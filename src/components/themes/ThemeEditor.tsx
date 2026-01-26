@@ -9,6 +9,7 @@ import type { ReportTheme, ThemePreset, CreateThemeDTO } from '../../types/repor
 import type { Client } from '../../types/client';
 import ThemePreview from './ThemePreview';
 import { useTranslation } from 'react-i18next';
+import { getContrastRatio, getAccessibleColor, isAccessible, hexToRgb, getLuminance } from '../../utils/colorUtils';
 import './ThemeEditor.css';
 
 interface ThemeEditorProps {
@@ -58,9 +59,6 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
     const [saving, setSaving] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState<string | null>(null);
 
-    // Removed useEffect that was mistakenly overwriting linkedClientIds from client defaultThemeId
-    // We now count linkedClientIds as the source of truth for the local state, which comes from theme prop.
-
     const handleApplyPreset = (preset: ThemePreset) => {
         setDesign(preset.design);
         if (!name) {
@@ -77,28 +75,27 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
         );
     };
 
+    const isColorDark = (hexColor: string): boolean => {
+        const rgb = hexToRgb(hexColor);
+        if (!rgb) return false;
+        return getLuminance(rgb.r, rgb.g, rgb.b) < 0.5;
+    };
+
     const handleModeChange = (mode: 'light' | 'dark') => {
-        // Enforce background color constraints based on mode
         let newBackground = design.colorScheme.background;
         let newText = design.colorScheme.text;
 
         if (mode === 'light') {
-            // Light mode: background must be light (high luminance)
-            // If current background is dark, switch to white
             if (isColorDark(design.colorScheme.background)) {
                 newBackground = '#ffffff';
             }
-            // Ensure text is dark for readability
             if (!isColorDark(design.colorScheme.text)) {
                 newText = '#0f172a';
             }
         } else {
-            // Dark mode: background must be dark (low luminance)
-            // If current background is light, switch to dark
             if (!isColorDark(design.colorScheme.background)) {
                 newBackground = '#0f172a';
             }
-            // Ensure text is light for readability
             if (isColorDark(design.colorScheme.text)) {
                 newText = '#f1f5f9';
             }
@@ -115,16 +112,31 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
         });
     };
 
-    // Helper function to determine if a color is dark
-    const isColorDark = (hexColor: string): boolean => {
-        const hex = hexColor.replace('#', '');
-        const r = parseInt(hex.substr(0, 2), 16);
-        const g = parseInt(hex.substr(2, 2), 16);
-        const b = parseInt(hex.substr(4, 2), 16);
-        // Calculate relative luminance
-        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-        return luminance < 0.5;
+    const fixContrast = (colorKey: 'primary' | 'secondary' | 'accent') => {
+        const currentColor = design.colorScheme[colorKey];
+        const background = design.colorScheme.background;
+        const newColor = getAccessibleColor(currentColor, background);
+
+        setDesign({
+            ...design,
+            colorScheme: {
+                ...design.colorScheme,
+                [colorKey]: newColor
+            }
+        });
+        toast.success(t('editor.contrastFixed'));
     };
+
+    const getIssues = () => {
+        const issues = [];
+        if (!isAccessible(design.colorScheme.primary, design.colorScheme.background)) issues.push('primary');
+        if (!isAccessible(design.colorScheme.secondary, design.colorScheme.background)) issues.push('secondary');
+        if (!isAccessible(design.colorScheme.accent, design.colorScheme.background)) issues.push('accent');
+        return issues;
+    };
+
+    const issues = getIssues();
+    const hasAccessibilityIssues = issues.length > 0;
 
     const handleSave = async () => {
         if (!name.trim()) {
@@ -132,12 +144,17 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
             return;
         }
 
+        if (hasAccessibilityIssues) {
+            toast.error(t('editor.accessibilityError'));
+            return;
+        }
+
         setSaving(true);
         try {
             let savedThemeId: string;
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             let finalTheme: ReportTheme;
 
-            // 1. Save or Create Theme
             if (theme?.id) {
                 await themeService.updateTheme(theme.id, {
                     name,
@@ -160,7 +177,6 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                 savedThemeId = finalTheme.id;
             }
 
-            // 2. Sync Clients (Many-to-Many)
             const { clientService } = await import('../../services/clientService');
 
             const originalLinkedIds = theme?.linkedClientIds || [];
@@ -172,12 +188,10 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
 
             const updatePromises: Promise<void>[] = [];
 
-            // Handle Added: Add to linkedThemeIds and set as default (preserving "assign" behavior)
             for (const clientId of addedIds) {
                 const client = clients.find(c => c.id === clientId);
                 if (client) {
                     const currentLinked = client.linkedThemeIds || [];
-                    // Add only if not present
                     const newLinked = currentLinked.includes(savedThemeId)
                         ? currentLinked
                         : [...currentLinked, savedThemeId];
@@ -189,7 +203,6 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                 }
             }
 
-            // Handle Removed: Remove from linkedThemeIds and unset default if it matches
             for (const clientId of removedIds) {
                 const client = clients.find(c => c.id === clientId);
                 if (client) {
@@ -198,22 +211,12 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
 
                     const updates: any = { linkedThemeIds: newLinked };
                     if (client.defaultThemeId === savedThemeId) {
-                        // If we are removing the default theme, what should happen?
-                        // For now, unset it (create empty string/undefined behavior)
-                        // Note: undefined in updateClient might skip it, so we might need distinct logic if clearing.
-                        // clientService.updateClient handles explicit undefined? check impl.
-                        // impl checks `if (input.defaultThemeId !== undefined)`.
-                        // So to UNSET, we might need to send null or empty string?
-                        // Firestore usually needs deleteField() or null.
-                        // But `updateClient` types are string | undefined. 
-                        // Let's assume empty string is safe enough for "no ID" or handled by UI.
                         updates.defaultThemeId = '';
                     }
                     updatePromises.push(clientService.updateClient(userId, clientId, updates));
                 }
             }
 
-            // Handle Unchanged: Ensure backfill (Migration)
             for (const clientId of unchangedIds) {
                 const client = clients.find(c => c.id === clientId);
                 if (client) {
@@ -229,7 +232,6 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
 
             await Promise.all(updatePromises);
 
-            // 3. Return updated object
             const updatedTheme = await themeService.getTheme(savedThemeId);
             if (updatedTheme) {
                 onSave(updatedTheme);
@@ -245,10 +247,64 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
         }
     };
 
+    const ColorPickerField = ({
+        label,
+        colorKey
+    }: {
+        label: string,
+        colorKey: 'primary' | 'secondary' | 'accent'
+    }) => {
+        const color = design.colorScheme[colorKey];
+        const background = design.colorScheme.background;
+        const contrast = getContrastRatio(color, background);
+        const accessible = contrast >= 4.5;
+
+        return (
+            <div className="theme-editor-color-field">
+                <div className="flex justify-between items-center mb-1">
+                    <label>{label}</label>
+                    <div className={`text-xs px-2 py-0.5 rounded flex items-center gap-1 ${accessible ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                        <span className="font-medium">{contrast.toFixed(2)}:1</span>
+                        {!accessible && (
+                            <button
+                                onClick={() => fixContrast(colorKey)}
+                                className="ml-1 underline hover:text-red-900 cursor-pointer"
+                                title={t('editor.autoFixTooltip')}
+                            >
+                                {t('editor.autoFix')}
+                            </button>
+                        )}
+                    </div>
+                </div>
+                <button
+                    className="theme-editor-color-button"
+                    onClick={() => setShowColorPicker(showColorPicker === colorKey ? null : colorKey)}
+                    style={{ backgroundColor: color }}
+                >
+                    <span>{color}</span>
+                </button>
+                {showColorPicker === colorKey && (
+                    <div className="theme-editor-color-picker-popup" style={{ zIndex: 10 }}>
+                        <div className="theme-editor-color-picker-cover" onClick={() => setShowColorPicker(null)} />
+                        <HexColorPicker
+                            color={color}
+                            onChange={(newColor) => setDesign({
+                                ...design,
+                                colorScheme: {
+                                    ...design.colorScheme,
+                                    [colorKey]: newColor
+                                }
+                            })}
+                        />
+                    </div>
+                )}
+            </div>
+        );
+    };
+
     return createPortal(
         <div className="theme-editor-overlay">
             <div className="theme-editor-modal">
-                {/* Header */}
                 <div className="theme-editor-header">
                     <div className="theme-editor-header-left">
                         <h2>{theme ? t('editor.titleEdit') : t('editor.titleCreate')}</h2>
@@ -259,7 +315,6 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                 </div>
 
                 <div className="theme-editor-body">
-                    {/* Left Column - Form */}
                     <div className="theme-editor-form">
                         {/* Quick Start with Presets */}
                         <div className="theme-editor-section">
@@ -345,16 +400,6 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                                     <span>{t('editor.modeDark')}</span>
                                 </button>
                             </div>
-                            {design.mode === 'light' && (
-                                <p className="theme-editor-mode-hint">
-                                    {t('editor.modeLightHint')}
-                                </p>
-                            )}
-                            {design.mode === 'dark' && (
-                                <p className="theme-editor-mode-hint">
-                                    {t('editor.modeDarkHint')}
-                                </p>
-                            )}
                         </div>
 
                         {/* Colors */}
@@ -363,43 +408,16 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                                 <h3>{t('editor.colorsTitle')}</h3>
                             </div>
                             <div className="theme-editor-colors-grid">
-                                <div className="theme-editor-color-field">
-                                    <label>{t('editor.primaryColor')}</label>
-                                    <button
-                                        className="theme-editor-color-button"
-                                        onClick={() => setShowColorPicker(showColorPicker === 'primary' ? null : 'primary')}
-                                        style={{ backgroundColor: design.colorScheme.primary }}
-                                    >
-                                        <span>{design.colorScheme.primary}</span>
-                                    </button>
-                                    {showColorPicker === 'primary' && (
-                                        <div className="theme-editor-color-picker-popup">
-                                            <HexColorPicker
-                                                color={design.colorScheme.primary}
-                                                onChange={(color) => setDesign({ ...design, colorScheme: { ...design.colorScheme, primary: color } })}
-                                            />
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="theme-editor-color-field">
-                                    <label>{t('editor.secondaryColor')}</label>
-                                    <button
-                                        className="theme-editor-color-button"
-                                        onClick={() => setShowColorPicker(showColorPicker === 'secondary' ? null : 'secondary')}
-                                        style={{ backgroundColor: design.colorScheme.secondary }}
-                                    >
-                                        <span>{design.colorScheme.secondary}</span>
-                                    </button>
-                                    {showColorPicker === 'secondary' && (
-                                        <div className="theme-editor-color-picker-popup">
-                                            <HexColorPicker
-                                                color={design.colorScheme.secondary}
-                                                onChange={(color) => setDesign({ ...design, colorScheme: { ...design.colorScheme, secondary: color } })}
-                                            />
-                                        </div>
-                                    )}
-                                </div>
+                                <ColorPickerField label={t('editor.primaryColor')} colorKey="primary" />
+                                <ColorPickerField label={t('editor.secondaryColor')} colorKey="secondary" />
+                                <ColorPickerField label={t('editor.accentColor')} colorKey="accent" />
                             </div>
+                            {hasAccessibilityIssues && (
+                                <div className="mt-3 text-sm text-red-600 flex items-start gap-2 bg-red-50 p-3 rounded-md">
+                                    <Info className="shrink-0 mt-0.5" size={16} />
+                                    <p>{t('editor.accessibilityWarning')}</p>
+                                </div>
+                            )}
                         </div>
 
                         {/* Typography */}
@@ -446,7 +464,6 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                             </div>
                         )}
 
-                        {/* Default Theme */}
                         <div className="theme-editor-section">
                             <label className="theme-editor-checkbox-label">
                                 <input
@@ -496,7 +513,8 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                     <button
                         className="btn-primary"
                         onClick={handleSave}
-                        disabled={saving || !name.trim()}
+                        disabled={saving || !name.trim() || hasAccessibilityIssues}
+                        title={hasAccessibilityIssues ? t('editor.accessibilityError') : ''}
                     >
                         {saving ? (
                             <>
