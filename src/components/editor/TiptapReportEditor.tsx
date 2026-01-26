@@ -31,6 +31,8 @@ import { ReportEditorProvider } from '../../contexts/ReportEditorContext';
 import type { ReportDesign } from '../../types/reportTypes';
 import type { Client } from '../../types/client';
 import './TiptapEditor.css';
+import { MediaManagerModal } from './media/MediaManagerModal';
+import { useState } from 'react';
 
 interface TiptapReportEditorProps {
     content?: unknown;
@@ -67,6 +69,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     endDate,
     onOpenSettings,
 }) => {
+    const [showMediaManager, setShowMediaManager] = useState(false);
+
     const defaultContent = {
         type: 'doc',
         content: [
@@ -164,6 +168,19 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         return null;
     }
 
+    const handleInsertImage = (url: string) => {
+        editor.chain().focus().setImage({ src: url }).run();
+        setShowMediaManager(false);
+    };
+
+    // Listen for slash command event
+    // Using useEffect to bind the event listener
+    React.useEffect(() => {
+        const handleOpenLibrary = () => setShowMediaManager(true);
+        window.addEventListener('flipika:open-media-library', handleOpenLibrary);
+        return () => window.removeEventListener('flipika:open-media-library', handleOpenLibrary);
+    }, []);
+
     // Calculate highlight colors based on theme
     const highlightColor = design?.mode === 'dark'
         ? (design?.colorScheme?.accent ? `${design.colorScheme.accent}4D` : 'rgba(253, 224, 71, 0.3)') // Yellow-300 with opacity or accent
@@ -205,7 +222,10 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
 
                 {/* Main Editor Area */}
                 <div className="tiptap-editor-main">
-                    <TiptapToolbar editor={editor} />
+                    <TiptapToolbar
+                        editor={editor}
+                        onOpenMediaLibrary={() => setShowMediaManager(true)}
+                    />
                     <div className="tiptap-editor-content slide-editor-container">
                         <EditorContent editor={editor} />
                         <TableBubbleMenu editor={editor} />
@@ -213,6 +233,13 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                     </div>
                     {/* Floating Chart Selector */}
                     <ChartBlockSelector editor={editor} />
+
+                    {/* Media Manager */}
+                    <MediaManagerModal
+                        isOpen={showMediaManager}
+                        onClose={() => setShowMediaManager(false)}
+                        onSelectImage={handleInsertImage}
+                    />
                 </div>
             </div>
         </ReportEditorProvider>

@@ -21,13 +21,15 @@ import {
     Redo,
     Table as TableIcon,
     Columns2,
+    Image as ImageIcon,
 } from 'lucide-react';
 
 interface TiptapToolbarProps {
     editor: Editor;
+    onOpenMediaLibrary?: () => void;
 }
 
-export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor }) => {
+export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMediaLibrary }) => {
     const [linkUrl, setLinkUrl] = useState('');
     const [showLinkInput, setShowLinkInput] = useState(false);
 
@@ -253,6 +255,18 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor }) => {
                         icon={<Link2Off size={18} />}
                         title="Supprimer le lien"
                     />
+                )}
+
+                {/* Media Library Button */}
+                {onOpenMediaLibrary && (
+                    <>
+                        <div className="mx-1 w-px bg-gray-200 dark:bg-gray-700 h-6 self-center" />
+                        <ToolbarButton
+                            onClick={onOpenMediaLibrary}
+                            icon={<ImageIcon size={18} />}
+                            title="Médiathèque (Images)"
+                        />
+                    </>
                 )}
 
                 {/* Link Input Popup */}

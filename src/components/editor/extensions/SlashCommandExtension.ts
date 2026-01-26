@@ -131,6 +131,15 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
+                            title: 'Image (Médiathèque)',
+                            description: 'Insérer une image depuis votre galerie',
+                            icon: Image,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range).run();
+                                window.dispatchEvent(new CustomEvent('flipika:open-media-library'));
+                            },
+                        },
+                        {
                             title: i18n.t('reports:slashCommand.adCreative.title'),
                             titleKey: 'reports:slashCommand.adCreative.title',
                             description: i18n.t('reports:slashCommand.adCreative.description'),

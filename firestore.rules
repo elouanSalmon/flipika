@@ -435,6 +435,25 @@ service cloud.firestore {
       allow read: if request.auth != null && resource.data.user.uid == request.auth.uid;
       allow create: if request.auth != null && request.resource.data.user.uid == request.auth.uid;
     }
+    // ========================================
+    // USER MEDIA (Image Gallery)
+    // ========================================
+    match /user_media/{mediaId} {
+      // Read/List: only owner
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow list: if isAuthenticated() 
+        && request.query.limit <= 100
+        && resource.data.userId == request.auth.uid;
+      
+      // Create: owner only, with validation
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['url', 'path', 'userId', 'createdAt'])
+        && request.resource.data.url is string;
+        
+      // Delete: owner only
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
 
   }
 }

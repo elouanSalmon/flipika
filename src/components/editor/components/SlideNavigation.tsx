@@ -10,6 +10,7 @@ import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
+import { Image } from '@tiptap/extension-image';
 
 
 interface SlideInfo {
@@ -60,6 +61,13 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, de
         TableRow,
         TableHeader,
         TableCell,
+        Image.configure({
+            inline: true,
+            allowBase64: true,
+            HTMLAttributes: {
+                class: 'tiptap-image',
+            },
+        }),
     ], []);
 
     const thumbnailEditor = useEditor({
