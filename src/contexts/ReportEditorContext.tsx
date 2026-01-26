@@ -42,21 +42,36 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
     endDate,
     onOpenSettings,
 }) => {
+    const contextValue = React.useMemo(() => ({
+        design,
+        accountId,
+        campaignIds,
+        reportId,
+        clientId,
+        client,
+        userId,
+        isPublicView,
+        isTemplateMode,
+        startDate,
+        endDate,
+        onOpenSettings
+    }), [
+        design,
+        accountId,
+        campaignIds,
+        reportId,
+        clientId,
+        client,
+        userId,
+        isPublicView,
+        isTemplateMode,
+        startDate,
+        endDate,
+        onOpenSettings
+    ]);
+
     return (
-        <ReportEditorContext.Provider value={{
-            design,
-            accountId,
-            campaignIds,
-            reportId,
-            clientId,
-            client,
-            userId,
-            isPublicView,
-            isTemplateMode,
-            startDate,
-            endDate,
-            onOpenSettings
-        }}>
+        <ReportEditorContext.Provider value={contextValue}>
             {children}
         </ReportEditorContext.Provider>
     );

@@ -1,6 +1,6 @@
 import { NodeViewWrapper } from '@tiptap/react';
 import type { NodeViewProps } from '@tiptap/react';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Settings, Trash2, GripVertical } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { SlideType } from '../../../types/reportTypes';
@@ -69,7 +69,7 @@ const TOP_PERFORMERS_DEFAULT_CONFIG: FlexibleDataConfig = {
  * Uses ReportEditorContext to provide design and data context.
  * In template mode, blocks always show demo data.
  */
-export const DataBlockComponent = (props: NodeViewProps) => {
+export const DataBlockComponent = React.memo((props: NodeViewProps) => {
     const { node, deleteNode, selected, editor, updateAttributes } = props;
     const { blockType, config } = node.attrs;
     const { design, accountId, campaignIds, reportId, isTemplateMode, startDate, endDate } = useReportEditor();
@@ -87,19 +87,22 @@ export const DataBlockComponent = (props: NodeViewProps) => {
     const effectiveCampaignIds = isTemplateMode ? [] : campaignIds;
 
     // Synthesize a SlideConfig-like object for the component
-    const slideConfig: SlideConfig = useMemo(() => ({
-        id: node.attrs.id || `block-${Date.now()}`,
-        type: blockType as SlideType,
-        accountId: effectiveAccountId,
-        campaignIds: effectiveCampaignIds,
-        startDate: startDate,
-        endDate: endDate,
-        order: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        settings: config || {},
-        ...config
-    }), [node.attrs.id, blockType, config, effectiveAccountId, effectiveCampaignIds, startDate, endDate]);
+    const slideConfig: SlideConfig = useMemo(() => {
+        const configToUse = config || {};
+        return {
+            id: node.attrs.id || `block-${Date.now()}`,
+            type: blockType as SlideType,
+            accountId: effectiveAccountId,
+            campaignIds: effectiveCampaignIds,
+            startDate: startDate,
+            endDate: endDate,
+            order: 0,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            settings: configToUse,
+            ...configToUse
+        };
+    }, [node.attrs.id, blockType, JSON.stringify(config), effectiveAccountId, JSON.stringify(effectiveCampaignIds), startDate, endDate]);
 
     const renderBlock = () => {
         switch (blockType) {
@@ -323,4 +326,4 @@ export const DataBlockComponent = (props: NodeViewProps) => {
             </div>
         </NodeViewWrapper>
     );
-};
+});

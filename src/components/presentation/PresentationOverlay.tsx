@@ -22,7 +22,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
     const slides = React.useMemo(() => {
         if (!report.content || !Array.isArray(report.content.content)) return [];
         return report.content.content.filter((node: any) => node.type === 'slide');
-    }, [report.content]);
+    }, [JSON.stringify(report.content)]);
 
     const totalSlides = slides.length;
 
@@ -86,7 +86,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
     }, []);
 
     // Helper to construct a valid document structure for a single slide
-    const getCurrentSlideContent = () => {
+    const currentSlideContent = React.useMemo(() => {
         const currentSlide = slides[currentSlideIndex];
         if (!currentSlide) return { type: 'doc', content: [] };
 
@@ -94,7 +94,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
             type: 'doc',
             content: [currentSlide]
         };
-    };
+    }, [slides, currentSlideIndex]);
 
     if (totalSlides === 0) return null;
 
@@ -154,7 +154,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                         {/* Scalable Renderer Container */}
                         <SlideScaler>
                             <TiptapReadOnlyRenderer
-                                content={getCurrentSlideContent()}
+                                content={currentSlideContent}
                                 design={report.design}
                                 accountId={report.accountId}
                                 campaignIds={report.campaignIds}

@@ -66,7 +66,7 @@ interface SlideNavItemProps extends SortableSlideItemProps {
     isOverlay?: boolean;
 }
 
-const SlideNavItem: React.FC<SlideNavItemProps> = ({
+const SlideNavItem: React.FC<SlideNavItemProps> = React.memo(({
     slide,
     index,
     isActive,
@@ -120,9 +120,9 @@ const SlideNavItem: React.FC<SlideNavItemProps> = ({
             )}
         </motion.div>
     );
-};
+});
 
-const SortableSlideItem: React.FC<SortableSlideItemProps> = (props) => {
+const SortableSlideItem: React.FC<SortableSlideItemProps> = React.memo((props) => {
     const {
         attributes,
         listeners,
@@ -146,10 +146,10 @@ const SortableSlideItem: React.FC<SortableSlideItemProps> = (props) => {
             />
         </div>
     );
-};
+});
 
 // Component to render a single thumbnail with its own mini editor
-const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, design }) => {
+const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = React.memo(({ slide, design }) => {
     const isDarkMode = design?.mode === 'dark';
 
     // Use OPAQUE background from report theme, not app theme (matches SlideComponent.tsx)
@@ -160,10 +160,10 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, de
 
     // Create a read-only mini editor for this thumbnail
     // Wrap the slide content in a proper doc structure
-    const editorContent = {
+    const editorContent = useMemo(() => ({
         type: 'doc',
         content: slide.content || [{ type: 'paragraph' }],
-    };
+    }), [JSON.stringify(slide.content)]);
 
     const extensions = useMemo(() => [
         StarterKit.configure({
@@ -196,10 +196,10 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, de
                 class: 'slide-thumbnail-editor',
             },
         },
-    });
+    }, [editorContent]); // Ensure editor updates when content changes but doesn't recreate every time
 
     // Style for the scaled slide
-    const slideStyle = {
+    const slideStyle = useMemo(() => ({
         width: '960px',
         height: '540px',
         backgroundColor: finalBackgroundColor,
@@ -209,20 +209,20 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, de
         '--color-accent': design?.colorScheme?.accent || '#00d4ff',
         '--color-bg-primary': themeBg,
         '--color-text-primary': themeTextColor,
-    } as React.CSSProperties;
+    }), [finalBackgroundColor, themeTextColor, design?.colorScheme, themeBg]);
 
     return (
         <div className="slide-thumbnail-scaler">
             <div
                 className={`slide-thumbnail-content-wrapper slide-layout-${slide.layout}`}
-                style={slideStyle}
+                style={slideStyle as React.CSSProperties}
                 data-theme={isDarkMode ? 'dark' : 'light'}
             >
                 {thumbnailEditor && <EditorContent editor={thumbnailEditor} />}
             </div>
         </div>
     );
-};
+});
 
 export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor, scope }) => {
     const [slides, setSlides] = useState<SlideInfo[]>([]);

@@ -70,7 +70,7 @@ const DataRenderer: React.FC<{
     height?: number | string;
     showRawData?: boolean;
     design?: ReportDesign;
-}> = ({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false, design }) => {
+}> = React.memo(({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false, design }) => {
     const { t } = useTranslation('reports');
 
     // Generate colors based on design or fallback to defaults
@@ -630,9 +630,9 @@ const DataRenderer: React.FC<{
             })()}
         </div >
     );
-};
+});
 
-export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
+export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
     config,
     onUpdateConfig,
     editable = false,
@@ -976,6 +976,6 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
             {typeof document !== 'undefined' && createPortal(ConfigModal, document.body)}
         </div>
     );
-};
+});
 
 export default FlexibleDataBlock;
