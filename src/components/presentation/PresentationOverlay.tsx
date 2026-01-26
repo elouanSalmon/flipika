@@ -107,7 +107,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
             {/* Header Controls - Glassmorphism */}
             <div className={`absolute top-0 left-0 right-0 p-6 flex justify-between items-start z-50 transition-all duration-300 ${isFullscreen ? 'opacity-0 hover:opacity-100' : 'opacity-100'}`}>
                 {/* Slide Counter Pill */}
-                <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white/90 font-medium text-sm shadow-lg">
+                <div className="px-4 py-2 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white/90 font-medium text-sm shadow-lg">
                     {currentSlideIndex + 1} / {totalSlides}
                 </div>
 
@@ -115,14 +115,14 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                 <div className="flex gap-3">
                     <button
                         onClick={toggleFullscreen}
-                        className="p-3 text-white/80 hover:text-white bg-white/5 hover:bg-white/15 backdrop-blur-md border border-white/10 rounded-full transition-all duration-200 shadow-lg group"
+                        className="p-3 text-white/80 hover:text-white bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 rounded-full transition-all duration-200 shadow-lg group"
                         title={isFullscreen ? "Quitter plein écran" : "Plein écran"}
                     >
                         {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
                     </button>
                     <button
                         onClick={onClose}
-                        className="p-3 text-white/80 hover:text-red-400 bg-white/5 hover:bg-white/15 backdrop-blur-md border border-white/10 rounded-full transition-all duration-200 shadow-lg"
+                        className="p-3 text-white/80 hover:text-red-400 bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 rounded-full transition-all duration-200 shadow-lg"
                         title="Fermer"
                     >
                         <X size={20} />
@@ -131,7 +131,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
             </div>
 
             {/* Slide Container - Maximized */}
-            <div className="relative w-full h-full flex items-center justify-center p-0 overflow-hidden">
+            <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
                 <AnimatePresence mode='wait'>
                     <motion.div
                         key={currentSlideIndex}
@@ -168,7 +168,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                 <button
                     onClick={goToPrevSlide}
                     disabled={currentSlideIndex === 0}
-                    className={`p-4 text-white hover:text-white bg-white/5 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-full transition-all duration-300 shadow-lg hover:scale-110 active:scale-95 group ${currentSlideIndex === 0 ? 'opacity-0 pointer-events-none translate-x-10' : 'opacity-100 translate-x-0'}`}
+                    className={`p-4 text-white hover:text-white bg-black/30 hover:bg-black/50 backdrop-blur-md border border-white/10 rounded-full transition-all duration-300 shadow-lg hover:scale-110 active:scale-95 group ${currentSlideIndex === 0 ? 'opacity-0 pointer-events-none translate-x-10' : 'opacity-100 translate-x-0'}`}
                 >
                     <ChevronLeft size={32} className="group-hover:-translate-x-0.5 transition-transform" />
                 </button>
@@ -179,7 +179,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                 <button
                     onClick={goToNextSlide}
                     disabled={currentSlideIndex === totalSlides - 1}
-                    className={`p-4 text-white hover:text-white bg-white/5 hover:bg-white/20 backdrop-blur-md border border-white/10 rounded-full transition-all duration-300 shadow-lg hover:scale-110 active:scale-95 group ${currentSlideIndex === totalSlides - 1 ? 'opacity-0 pointer-events-none -translate-x-10' : 'opacity-100 translate-x-0'}`}
+                    className={`p-4 text-white hover:text-white bg-black/30 hover:bg-black/50 backdrop-blur-md border border-white/10 rounded-full transition-all duration-300 shadow-lg hover:scale-110 active:scale-95 group ${currentSlideIndex === totalSlides - 1 ? 'opacity-0 pointer-events-none -translate-x-10' : 'opacity-100 translate-x-0'}`}
                 >
                     <ChevronRight size={32} className="group-hover:translate-x-0.5 transition-transform" />
                 </button>
