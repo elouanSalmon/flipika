@@ -381,9 +381,9 @@ const DataRenderer: React.FC<{
         backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)',
         borderRadius: '12px',
         border: `1px solid ${design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)'}`,
-        boxShadow: 'var(--shadow-lg)',
+        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
         fontSize: '12px',
-        color: design?.colorScheme?.text || 'var(--color-text-primary)'
+        color: design?.colorScheme?.text || '#111827'
     };
 
     const formatValue = (val: number, metricName: string) => {
@@ -909,11 +909,12 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
     return (
         <div className="flexible-data-block relative group">
             <div
-                className="overflow-hidden rounded-2xl transition-all hover:shadow-xl hover:border-primary/30"
+                className="overflow-hidden rounded-2xl transition-all"
                 style={{
-                    backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)',
+                    backgroundColor: design?.colorScheme?.background || '#ffffff',
                     border: 'none',
-                    color: design?.colorScheme?.text || 'var(--color-text-primary)'
+                    color: design?.colorScheme?.text || '#111827',
+                    boxShadow: design?.mode === 'dark' ? '0 10px 15px -3px rgba(0, 0, 0, 0.5)' : '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
                 }}
             >
                 <div className="px-5 py-4 border-b flex justify-between items-center" style={{

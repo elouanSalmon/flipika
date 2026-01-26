@@ -225,7 +225,10 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                                 </div>
                             </div>
 
-                            <div className="funnel-bar-container relative h-10 w-full bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                            <div
+                                className="funnel-bar-container relative h-10 w-full rounded-lg overflow-hidden"
+                                style={{ backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}
+                            >
                                 <div
                                     className="funnel-bar h-full rounded-r-lg transition-all duration-1000 ease-out"
                                     style={{
@@ -252,7 +255,10 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                                         <ArrowDown size={10} />
                                         {formatPercent(step.conversionRate)}
                                     </div>
-                                    <div className="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+                                    <div
+                                        className="h-4 w-px"
+                                        style={{ backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }}
+                                    ></div>
                                 </div>
                             )}
                         </div>

@@ -228,29 +228,3 @@
 .metric-change svg {
     flex-shrink: 0;
 }
-
-/* Dark Mode Adjustments */
-@media (prefers-color-scheme: dark) {
-
-    .search-ad-mockup,
-    .display-ad-mockup {
-        background: rgba(255, 255, 255, 0.02);
-        border-color: rgba(255, 255, 255, 0.05);
-    }
-
-    .metrics-title {
-        border-bottom-color: rgba(255, 255, 255, 0.08);
-    }
-
-    .metric-row {
-        background: rgba(255, 255, 255, 0.02);
-    }
-
-    .metric-row:hover {
-        background: rgba(255, 255, 255, 0.04);
-    }
-
-    .ad-image-container {
-        background: rgba(255, 255, 255, 0.05);
-    }
-}
