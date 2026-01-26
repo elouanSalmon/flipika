@@ -489,10 +489,10 @@ const DataRenderer: React.FC<{
                             <ResponsiveContainer width="100%" height={height as any}>
                                 <BarChart data={tableData}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
-                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
+                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
+                                    <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || 'var(--color-text-primary)' }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
                                     {config.metrics.map((m: string, i: number) => (
                                         <React.Fragment key={m}>
                                             <Bar dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={chartColors[i % chartColors.length]} radius={[4, 4, 0, 0]} />
@@ -509,10 +509,10 @@ const DataRenderer: React.FC<{
                             <ResponsiveContainer width="100%" height={height as any}>
                                 <LineChart data={tableData}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
-                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
+                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
+                                    <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || 'var(--color-text-primary)' }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
                                     {config.metrics.map((m: string, i: number) => (
                                         <React.Fragment key={m}>
                                             <Line type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={chartColors[i % chartColors.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
@@ -544,7 +544,7 @@ const DataRenderer: React.FC<{
                                                 y={props.y}
                                                 textAnchor={props.textAnchor}
                                                 dominantBaseline="central"
-                                                fill={design?.colorScheme?.text || 'var(--color-text-primary)'}
+                                                fill={design?.colorScheme?.text || '#111827'}
                                                 style={{ fontSize: 10, fontFamily: design?.typography?.fontFamily }}
                                             >
                                                 {`${props.name} ${(props.percent * 100).toFixed(0)}% `}
@@ -554,7 +554,7 @@ const DataRenderer: React.FC<{
                                         {data.map((_, index) => <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />)}
                                     </Pie>
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || 'var(--color-text-primary)' }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
                                 </PieChart>
                             </ResponsiveContainer>
                         );
@@ -909,7 +909,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
     return (
         <div className="flexible-data-block relative group">
             <div
-                className="app-card overflow-hidden rounded-2xl transition-all hover:shadow-xl hover:border-primary/30"
+                className="overflow-hidden rounded-2xl transition-all hover:shadow-xl hover:border-primary/30"
                 style={{
                     backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)',
                     border: 'none',
