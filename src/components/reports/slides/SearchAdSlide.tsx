@@ -43,11 +43,11 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
                 }}>
                     {/* Ad Label & URL */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 700, color: design?.colorScheme?.text || 'var(--color-text-primary)' }}>Sponsorisé</span>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: design?.colorScheme?.text || (design?.mode === 'dark' ? '#f8fafc' : '#0f172a') }}>Sponsorisé</span>
                         <span style={{ color: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontSize: '10px' }}>•</span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                             <Globe size={14} style={{ color: design?.colorScheme?.primary || 'var(--color-primary)' }} />
-                            <span style={{ fontSize: '14px', color: design?.colorScheme?.secondary || 'var(--color-text-secondary)' }}>
+                            <span style={{ fontSize: '14px', color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(15, 23, 42, 0.5)' }}>
                                 {data.displayUrl}
                             </span>
                         </div>
@@ -67,7 +67,7 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
                     {/* Ad Description */}
                     <p style={{
                         fontSize: '14px',
-                        color: 'var(--color-text-secondary)',
+                        color: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(15, 23, 42, 0.7)',
                         lineHeight: '1.6',
                         marginBottom: '12px',
                     }}>

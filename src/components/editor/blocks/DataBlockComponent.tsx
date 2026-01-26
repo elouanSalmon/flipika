@@ -8,12 +8,10 @@ import type { SlideConfig } from '../../../types/reportTypes';
 import { ChartBlockErrorBoundary } from './ChartBlockErrorBoundary';
 
 // Import real slide components
-import CampaignChartSlide from '../../reports/slides/CampaignChartSlide';
+// Import real slide components
 import AdCreativeSlide from '../../reports/slides/AdCreativeSlide';
 import FunnelAnalysisSlide from '../../reports/slides/FunnelAnalysisSlide';
 import HeatmapSlide from '../../reports/slides/HeatmapSlide';
-import DevicePlatformSplitSlide from '../../reports/slides/DevicePlatformSplitSlide';
-import TopPerformersSlide from '../../reports/slides/TopPerformersSlide';
 import ClientLogoBlock from './ClientLogoBlock';
 import FlexibleDataBlock from './FlexibleDataBlock';
 import type { FlexibleDataConfig } from './FlexibleDataBlock';
@@ -266,6 +264,7 @@ export const DataBlockComponent = (props: NodeViewProps) => {
         <NodeViewWrapper
             className={`data-block-wrapper ${selected ? 'selected' : ''}`}
             data-block-type={blockType}
+            style={{ overflow: 'hidden' }}
         >
             <div className="relative group">
                 <ChartBlockErrorBoundary blockType={blockType}>

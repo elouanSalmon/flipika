@@ -416,7 +416,14 @@ const DataRenderer: React.FC<{
     return (
         <div className="h-full w-full overflow-hidden relative" style={{ fontFamily: design?.typography?.fontFamily }}>
             {isMockData && (
-                <div className="absolute top-2 right-2 z-10 bg-orange-500/10 text-orange-600 dark:text-orange-400 text-[8px] font-bold px-2 py-0.5 rounded-full border border-orange-500/20 backdrop-blur-md flex items-center gap-1 shadow-sm">
+                <div
+                    className="absolute top-2 right-2 z-10 text-[8px] font-bold px-2 py-0.5 rounded-full border backdrop-blur-md flex items-center gap-1 shadow-sm"
+                    style={{
+                        backgroundColor: design?.mode === 'dark' ? 'rgba(249, 115, 22, 0.15)' : 'rgba(234, 88, 12, 0.1)',
+                        borderColor: design?.mode === 'dark' ? 'rgba(249, 115, 22, 0.3)' : 'rgba(234, 88, 12, 0.2)',
+                        color: design?.mode === 'dark' ? '#fb923c' : '#ea580c'
+                    }}
+                >
                     <Info size={10} />
                     DEMO MODE
                 </div>
@@ -425,7 +432,14 @@ const DataRenderer: React.FC<{
                 switch (config.visualization) {
                     case 'table':
                         return (
-                            <div className="overflow-x-auto h-full custom-scrollbar">
+                            <div
+                                className="overflow-x-auto h-full report-scrollbar"
+                                style={{
+                                    '--scrollbar-track': design?.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)',
+                                    '--scrollbar-thumb': design?.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)',
+                                    '--scrollbar-thumb-hover': design?.mode === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)',
+                                } as React.CSSProperties}
+                            >
                                 <table className="w-full text-xs">
                                     <thead className="sticky top-0" style={{ backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)' }}>
                                         <tr className="border-b border-[var(--color-border)]">
@@ -447,7 +461,7 @@ const DataRenderer: React.FC<{
                                             ))}
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className="report-scrollbar">
                                         {tableData.map((row, idx) => (
                                             <tr key={idx} className="border-b last:border-0 transition-colors" style={{ borderColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)', backgroundColor: 'transparent' }}>
                                                 <td className="p-3" style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}>{row[config.dimension || ''] || '-'}</td>
@@ -614,7 +628,7 @@ const DataRenderer: React.FC<{
                         return null;
                 }
             })()}
-        </div>
+        </div >
     );
 };
 
@@ -872,7 +886,14 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                     {accountId ? `Compte ID: ${accountId}` : 'Compte non sélectionné'}
                                                 </p>
                                             </div>
-                                            <div className="text-[9px] font-bold bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest border border-primary/20 text-primary">
+                                            <div
+                                                className="text-[9px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest border"
+                                                style={{
+                                                    backgroundColor: design?.colorScheme?.primary ? `${design.colorScheme.primary}1A` : 'rgba(var(--primary-rgb), 0.1)',
+                                                    borderColor: design?.colorScheme?.primary ? `${design.colorScheme.primary}33` : 'rgba(var(--primary-rgb), 0.2)',
+                                                    color: design?.colorScheme?.primary || 'var(--color-primary)'
+                                                }}
+                                            >
                                                 {t(`flexibleBlock.visualizations.${editConfig.visualization}`)}
                                             </div>
                                         </div>
@@ -932,7 +953,14 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                     )}
                 </div>
 
-                <div className="p-6 bg-transparent h-[320px]">
+                <div
+                    className="p-6 bg-transparent h-[320px] overflow-auto report-scrollbar"
+                    style={{
+                        '--scrollbar-track': design?.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)',
+                        '--scrollbar-thumb': design?.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)',
+                        '--scrollbar-thumb-hover': design?.mode === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)',
+                    } as React.CSSProperties}
+                >
                     <DataRenderer
                         config={activeConfig}
                         accountId={accountId}

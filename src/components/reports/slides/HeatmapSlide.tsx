@@ -157,6 +157,9 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 '--text-secondary': design?.colorScheme?.secondary || '#6b7280',
                 '--bg-surface': design?.colorScheme?.background || '#ffffff',
                 '--border-color': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                '--scrollbar-track': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
+                '--scrollbar-thumb': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)',
+                '--scrollbar-thumb-hover': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.25)',
 
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 color: design?.colorScheme?.text || '#111827',
@@ -166,7 +169,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 display: 'flex',
                 gap: '16px',
                 flexDirection: 'column',
-                border: 'none', // Removed border as requested (similar to other blocks)
+                border: 'none',
             } as React.CSSProperties}
         >
             <div className="flex items-center justify-between mb-6">
@@ -184,18 +187,20 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                         onChange={(e) => setSelectedMetric(e.target.value)}
                         className="heatmap-metric-selector"
                         style={{
-                            borderColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
-                            backgroundColor: design?.colorScheme?.background || '#ffffff',
+                            borderColor: design.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)',
+                            backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)',
                             color: design?.colorScheme?.text || '#111827',
-                            padding: '4px 8px',
-                            borderRadius: '6px',
+                            padding: '4px 12px',
+                            borderRadius: '8px',
                             fontSize: '13px',
+                            fontWeight: 500,
                             outline: 'none',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            border: '1px solid'
                         }}
                     >
                         {METRIC_OPTIONS.map(opt => (
-                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                            <option key={opt.value} value={opt.value} style={{ backgroundColor: design?.colorScheme?.background || '#ffffff' }}>{opt.label}</option>
                         ))}
                     </select>
                 </div>
@@ -203,11 +208,11 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 <div className="flex items-center gap-2">
                     {isMockData && (
                         <span
-                            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
+                            className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] uppercase tracking-wider font-bold rounded-full border"
                             style={{
-                                backgroundColor: '#fffbeb',
-                                color: '#b45309',
-                                border: '1px solid #fcd34d'
+                                backgroundColor: design?.mode === 'dark' ? 'rgba(249, 115, 22, 0.15)' : 'rgba(254, 252, 232, 1)',
+                                color: design?.mode === 'dark' ? '#fb923c' : '#b45309',
+                                borderColor: design?.mode === 'dark' ? 'rgba(249, 115, 22, 0.3)' : '#fcd34d'
                             }}
                             title="Données de démonstration - Connectez un compte Google Ads pour voir vos données réelles"
                         >
@@ -218,12 +223,12 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 </div>
             </div>
 
-            <div className="heatmap-content flex-1 flex flex-col justify-center overflow-hidden">
+            <div className="heatmap-content flex-1 flex flex-col justify-center overflow-auto report-scrollbar">
                 <div className="heatmap-grid" style={{
                     display: 'grid',
                     gridTemplateColumns: 'auto repeat(24, 1fr)',
                     gap: '2px',
-                    height: '100%'
+                    paddingBottom: '8px'
                 }}>
                     {/* Header Row: Hours */}
                     <div className="heatmap-header-cell empty"></div>

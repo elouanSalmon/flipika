@@ -176,10 +176,13 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 color: design?.colorScheme?.text || '#111827',
                 padding: '24px',
-                minHeight: '250px',
                 borderRadius: '12px',
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                overflow: 'hidden',
+                height: 'auto',
+                maxWidth: '100%',
+                position: 'relative'
             } as React.CSSProperties}
         >
             <div className="flex items-center justify-between mb-8">
@@ -212,11 +215,11 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                 )}
             </div>
 
-            <div className="widget-content flex-1 flex flex-col justify-center">
-                <div className="funnel-container flex flex-col gap-4">
+            <div className="widget-content flex-1 flex flex-col justify-center overflow-hidden" style={{ height: 'auto', minHeight: 0 }}>
+                <div className="funnel-container flex flex-col gap-8" style={{ height: 'auto', overflow: 'hidden' }}>
                     {funnelData.map((step) => (
-                        <div key={step.id} className="funnel-step relative">
-                            <div className="flex items-center justify-between mb-2">
+                        <div key={step.id} className="funnel-step relative flex flex-col">
+                            <div className="flex items-center justify-between mb-2 px-1">
                                 <div className="funnel-label font-medium" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '14px' }}>
                                     {step.label}
                                 </div>
@@ -241,24 +244,21 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                             {/* Conversion Rate Bubble */}
                             {step.conversionRate !== undefined && (
                                 <div
-                                    className="absolute right-0 top-10 transform translate-y-2 flex flex-col items-center"
-                                    style={{ zIndex: 10 }}
+                                    className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-full flex flex-col items-center"
+                                    style={{ zIndex: 10, paddingTop: '4px' }}
                                 >
                                     <div
-                                        className="text-xs font-medium px-2 py-1 rounded-full shadow-sm flex items-center gap-1"
+                                        className="text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1"
                                         style={{
                                             backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'white',
                                             color: design?.colorScheme?.text || '#111827',
-                                            border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`
+                                            border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                                            backdropFilter: 'blur(4px)'
                                         }}
                                     >
                                         <ArrowDown size={10} />
                                         {formatPercent(step.conversionRate)}
                                     </div>
-                                    <div
-                                        className="h-4 w-px"
-                                        style={{ backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)' }}
-                                    ></div>
                                 </div>
                             )}
                         </div>

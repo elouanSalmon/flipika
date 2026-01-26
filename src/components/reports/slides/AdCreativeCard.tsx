@@ -71,7 +71,7 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 <h3 className="ad-headline" style={{ color: design?.colorScheme?.primary || '#3b82f6' }}>
                     {adData.headline}
                 </h3>
-                <p className="ad-description" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
+                <p className="ad-description" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(15, 23, 42, 0.7)' }}>
                     {adData.description}
                 </p>
             </div>
@@ -104,10 +104,10 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 <h3 className="ad-headline" style={{ color: design?.colorScheme?.text || '#111827' }}>
                     {adData.headline}
                 </h3>
-                <p className="ad-description" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
+                <p className="ad-description" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(15, 23, 42, 0.7)' }}>
                     {adData.description}
                 </p>
-                <div className="ad-url" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
+                <div className="ad-url" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(15, 23, 42, 0.5)' }}>
                     {adData.displayUrl}
                 </div>
             </div>
@@ -131,7 +131,7 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 >
                     {icon}
                 </span>
-                <span style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>{label}</span>
+                <span style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(15, 23, 42, 0.6)' }}>{label}</span>
             </div>
             <div className="metric-value-container">
                 <span className="metric-value" style={{ color: design?.colorScheme?.text || '#111827' }}>
@@ -164,7 +164,7 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
             </div>
 
             <div className="ad-creative-right">
-                <h4 className="metrics-title" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
+                <h4 className="metrics-title" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(15, 23, 42, 0.5)' }}>
                     Performances
                 </h4>
                 <div className="metrics-table">
