@@ -226,16 +226,13 @@ const SlideScaler: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div ref={containerRef} className="w-full h-full bg-white relative overflow-hidden">
             <div
                 style={{
-                    transform: `scale(${scale})`,
-                    transformOrigin: 'top left',
+                    transform: `translate(-50%, -50%) scale(${scale})`,
+                    transformOrigin: 'center center',
                     width: '960px',
                     height: '540px',
                     position: 'absolute',
                     top: '50%',
                     left: '50%',
-                    // Center the scaled content
-                    marginLeft: '-480px', // half of 960
-                    marginTop: '-270px',  // half of 540
                 }}
             >
                 {children}
