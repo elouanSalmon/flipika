@@ -131,7 +131,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
             </div>
 
             {/* Slide Container - Maximized */}
-            <div className="relative w-full h-full flex items-center justify-center p-0 md:p-4 overflow-hidden">
+            <div className="relative w-full h-full flex items-center justify-center p-0 overflow-hidden">
                 <AnimatePresence mode='wait'>
                     <motion.div
                         key={currentSlideIndex}
@@ -139,9 +139,9 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                         exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                        className="w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video shadow-2xl relative overflow-hidden rounded-xl md:rounded-2xl ring-1 ring-white/10"
+                        className="w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video relative overflow-hidden shadow-2xl"
                         style={{
-                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                            boxShadow: '0 0 0 1px rgba(0,0,0,1)' // Thin border to define edge against black
                         }}
                     >
                         {/* Scalable Renderer Container */}
