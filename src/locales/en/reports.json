@@ -600,7 +600,8 @@
       "convValue": "Conv. Value",
       "conversions_value": "Conv. Value",
       "costPerConv": "Cost / Conv.",
-      "cost_per_conversion": "Cost / Conv."
+      "cost_per_conversion": "Cost / Conv.",
+      "conversions_value_per_cost": "ROAS"
     },
     "actions": {
       "cancel": "Cancel",

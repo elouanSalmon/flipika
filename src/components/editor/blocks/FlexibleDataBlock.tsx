@@ -14,6 +14,26 @@ import {
 
 const COLORS = ['#0066ff', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
+// Computed Metrics Definition
+const COMPUTED_METRICS: Record<string, { dependencies: string[], calculate: (row: any) => number }> = {
+    'metrics.ctr': {
+        dependencies: ['metrics.clicks', 'metrics.impressions'],
+        calculate: (row) => row['metrics.impressions'] > 0 ? (row['metrics.clicks'] / row['metrics.impressions']) * 100 : 0
+    },
+    'metrics.average_cpc': {
+        dependencies: ['metrics.cost_micros', 'metrics.clicks'],
+        calculate: (row) => row['metrics.clicks'] > 0 ? (row['metrics.cost_micros'] / row['metrics.clicks']) : 0
+    },
+    'metrics.cost_per_conversion': {
+        dependencies: ['metrics.cost_micros', 'metrics.conversions'],
+        calculate: (row) => row['metrics.conversions'] > 0 ? (row['metrics.cost_micros'] / row['metrics.conversions']) : 0
+    },
+    'metrics.conversions_value_per_cost': {
+        dependencies: ['metrics.conversions_value', 'metrics.cost_micros'],
+        calculate: (row) => row['metrics.cost_micros'] > 0 ? (row['metrics.conversions_value'] / (row['metrics.cost_micros'] / 1000000)) : 0
+    }
+};
+
 // Configuration Interface
 export interface FlexibleDataConfig {
     title: string;
@@ -126,7 +146,10 @@ const DataRenderer: React.FC<{
             const startStr = formatDate(sDate);
             const endStr = formatDate(eDate);
 
-            const query = buildFlexibleQuery(config, {
+            const query = buildFlexibleQuery({
+                ...config,
+                metrics: getEffectiveMetrics(config.metrics, config.visualization)
+            }, {
                 startDate: startStr,
                 endDate: endStr,
                 campaignIds: campaignIds
@@ -141,7 +164,10 @@ const DataRenderer: React.FC<{
             let comparisonPromise = Promise.resolve({ success: true, results: [] } as any);
             if (config.showComparison) {
                 const prev = getPreviousPeriod(sDate, eDate, config.comparisonType || 'previous_period');
-                const comparisonQuery = buildFlexibleQuery(config, {
+                const comparisonQuery = buildFlexibleQuery({
+                    ...config,
+                    metrics: getEffectiveMetrics(config.metrics, config.visualization)
+                }, {
                     startDate: formatDate(prev.startDate),
                     endDate: formatDate(prev.endDate),
                     campaignIds: campaignIds
@@ -174,8 +200,19 @@ const DataRenderer: React.FC<{
                     }
                     config.metrics.forEach((m: string) => {
                         const parts = m.split('.');
-                        if (row[parts[0]]) flatRow[m] = row[parts[0]][parts[1]];
+                        if (row[parts[0]]) {
+                            flatRow[m] = row[parts[0]][parts[1]];
+                        }
                     });
+
+                    // Also ensure dependencies are present for client-side calc
+                    if (config.visualization === 'scorecard') {
+                        getEffectiveMetrics(config.metrics, config.visualization).forEach(m => {
+                            const parts = m.split('.');
+                            if (row[parts[0]]) flatRow[m] = row[parts[0]][parts[1]];
+                        });
+                    }
+
                     return flatRow;
                 });
             };
@@ -192,6 +229,22 @@ const DataRenderer: React.FC<{
         } finally {
             setLoading(false);
         }
+    };
+
+    const getEffectiveMetrics = (metrics: string[], visualization: string) => {
+        // For scorecard, we MUST fetch dependencies instead of rate metrics to aggregate correctly
+        if (visualization === 'scorecard') {
+            const effective = new Set<string>();
+            metrics.forEach(m => {
+                if (COMPUTED_METRICS[m]) {
+                    COMPUTED_METRICS[m].dependencies.forEach(d => effective.add(d));
+                } else {
+                    effective.add(m);
+                }
+            });
+            return Array.from(effective);
+        }
+        return metrics;
     };
 
     const generateMockData = () => {
@@ -325,12 +378,12 @@ const DataRenderer: React.FC<{
     if (data.length === 0) return <div className="flex items-center justify-center p-8 text-gray-400 text-sm border-2 border-dashed border-[var(--color-border)] rounded-2xl">{t('flexibleBlock.emptyState')}</div>;
 
     const tooltipStyle = {
-        backgroundColor: 'var(--color-bg-primary)',
+        backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)',
         borderRadius: '12px',
-        border: '1px solid var(--color-border)',
+        border: `1px solid ${design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)'}`,
         boxShadow: 'var(--shadow-lg)',
         fontSize: '12px',
-        color: 'var(--color-text-primary)'
+        color: design?.colorScheme?.text || 'var(--color-text-primary)'
     };
 
     const formatValue = (val: number, metricName: string) => {
@@ -341,6 +394,14 @@ const DataRenderer: React.FC<{
         const moneyFields = ['cost_micros', 'average_cpc', 'cost_per_conversion', 'conversions_value', 'cost'];
         if (moneyFields.includes(metricName) && Math.abs(val) > 1000) {
             displayVal = val / 1000000;
+        }
+
+        // Special handling for ROAS (ratio) - it's already a regular number, usually around 0-10 or 100
+        if (metricName === 'conversions_value_per_cost') {
+            // Google Ads API returns ROAS as a number (e.g. 5.2). 
+            // If we calculated it manually: (Value / Cost).
+            // Let's assume input is already the ratio.
+            return displayVal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
 
         if (moneyFields.includes(metricName)) {
@@ -388,14 +449,14 @@ const DataRenderer: React.FC<{
                                     </thead>
                                     <tbody>
                                         {tableData.map((row, idx) => (
-                                            <tr key={idx} className="border-b last:border-0 border-[var(--color-border)] hover:bg-[var(--color-bg-secondary)] transition-colors">
-                                                <td className="p-3 text-[var(--color-text-primary)]">{row[config.dimension || ''] || '-'}</td>
+                                            <tr key={idx} className="border-b last:border-0 transition-colors" style={{ borderColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)', backgroundColor: 'transparent' }}>
+                                                <td className="p-3" style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}>{row[config.dimension || ''] || '-'}</td>
                                                 {config.metrics.map((m: string) => {
                                                     const metricName = m.split('.')[1];
 
                                                     return (
                                                         <React.Fragment key={m}>
-                                                            <td className="text-right p-3 font-medium text-[var(--color-text-primary)]">{formatValue(row[m], metricName)}</td>
+                                                            <td className="text-right p-3 font-medium" style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}>{formatValue(row[m], metricName)}</td>
                                                             {config.showComparison && (() => {
                                                                 const delta = row[`${m}_delta`];
                                                                 const isInverse = ['average_cpc', 'cost_per_conversion'].includes(metricName);
@@ -427,11 +488,11 @@ const DataRenderer: React.FC<{
                         return (
                             <ResponsiveContainer width="100%" height={height as any}>
                                 <BarChart data={tableData}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
-                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
+                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
+                                    <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || 'var(--color-text-primary)' }} />
                                     {config.metrics.map((m: string, i: number) => (
                                         <React.Fragment key={m}>
                                             <Bar dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={chartColors[i % chartColors.length]} radius={[4, 4, 0, 0]} />
@@ -447,11 +508,11 @@ const DataRenderer: React.FC<{
                         return (
                             <ResponsiveContainer width="100%" height={height as any}>
                                 <LineChart data={tableData}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" opacity={0.5} />
-                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 10, fill: 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
+                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
+                                    <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || 'var(--color-text-primary)' }} />
                                     {config.metrics.map((m: string, i: number) => (
                                         <React.Fragment key={m}>
                                             <Line type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={chartColors[i % chartColors.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
@@ -477,14 +538,23 @@ const DataRenderer: React.FC<{
                                         fill={chartColors[0]}
                                         dataKey={config.metrics[0]}
                                         nameKey={config.dimension}
-                                        label={({ name, percent }: any) => `${name} ${(percent * 100).toFixed(0)}% `}
-                                        fontSize={10}
-                                        fontFamily={design?.typography?.fontFamily}
+                                        label={(props: any) => (
+                                            <text
+                                                x={props.x}
+                                                y={props.y}
+                                                textAnchor={props.textAnchor}
+                                                dominantBaseline="central"
+                                                fill={design?.colorScheme?.text || 'var(--color-text-primary)'}
+                                                style={{ fontSize: 10, fontFamily: design?.typography?.fontFamily }}
+                                            >
+                                                {`${props.name} ${(props.percent * 100).toFixed(0)}% `}
+                                            </text>
+                                        )}
                                     >
                                         {data.map((_, index) => <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />)}
                                     </Pie>
                                     <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily }} />
+                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || 'var(--color-text-primary)' }} />
                                 </PieChart>
                             </ResponsiveContainer>
                         );
@@ -493,8 +563,22 @@ const DataRenderer: React.FC<{
                         return (
                             <div className={`grid ${gridCols} gap-4 h-full items-center`}>
                                 {config.metrics.map((m: string) => {
-                                    const total = data.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
-                                    const prevTotal = comparisonData.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
+                                    // Helper for aggregation
+                                    const aggregate = (dataset: any[]) => {
+                                        if (COMPUTED_METRICS[m]) {
+                                            // Sum dependencies first
+                                            const summedDeps: any = {};
+                                            COMPUTED_METRICS[m].dependencies.forEach(dep => {
+                                                summedDeps[dep] = dataset.reduce((sum, row) => sum + (Number(row[dep]) || 0), 0);
+                                            });
+                                            // Calculate rate from sums
+                                            return COMPUTED_METRICS[m].calculate(summedDeps);
+                                        }
+                                        return dataset.reduce((sum, row) => sum + (Number(row[m]) || 0), 0);
+                                    };
+
+                                    const total = aggregate(data);
+                                    const prevTotal = aggregate(comparisonData);
 
                                     const diff = total - prevTotal;
                                     const percentChange = prevTotal !== 0 ? (diff / prevTotal) * 100 : 0;
@@ -507,11 +591,11 @@ const DataRenderer: React.FC<{
                                     const trendColor = isNeutral ? 'text-[var(--color-text-muted)]' : (isPositive ? 'text-green-500' : 'text-red-500');
 
                                     return (
-                                        <div key={m} className="p-5 glass rounded-2xl text-center border shadow-sm flex flex-col justify-center gap-1" style={{ borderColor: design?.colorScheme?.primary + '20' }}>
-                                            <div className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">
+                                        <div key={m} className="p-5 rounded-2xl text-center border shadow-sm flex flex-col justify-center gap-1" style={{ borderColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)', backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.01)' }}>
+                                            <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: design?.colorScheme?.secondary || 'var(--color-text-muted)' }}>
                                                 {t(`flexibleBlock.metricsList.${metricName}`)}
                                             </div>
-                                            <div className="text-2xl font-bold" style={{ color: design?.colorScheme?.primary || 'var(--color-text-primary)' }}>
+                                            <div className="text-2xl font-bold" style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}>
                                                 {formatValue(total, metricName)}
                                             </div>
                                             {config.showComparison && (
@@ -740,6 +824,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                                     { id: 'metrics.conversions' },
                                                     { id: 'metrics.conversions_value' },
                                                     { id: 'metrics.cost_per_conversion' },
+                                                    { id: 'metrics.conversions_value_per_cost' },
                                                 ].map((m) => {
                                                     const metricKey = m.id.split('.')[1];
                                                     const exists = editConfig.metrics.includes(m.id);
@@ -772,15 +857,22 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
                                             {showRawData ? 'Visual' : 'RAW JSON'}
                                         </button>
                                     </div>
-                                    <div className="flex-1 bg-[var(--color-bg-primary)] rounded-2xl shadow-xl border border-[var(--color-border)] flex flex-col p-6 lg:p-8 overflow-hidden">
+                                    <div
+                                        className="flex-1 rounded-2xl shadow-xl flex flex-col p-6 lg:p-8 overflow-hidden"
+                                        style={{
+                                            backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)',
+                                            border: `1px solid ${design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)'}`,
+                                            color: design?.colorScheme?.text || 'var(--color-text-primary)'
+                                        }}
+                                    >
                                         <div className="mb-6 flex justify-between items-end">
                                             <div className="space-y-0.5">
-                                                <h3 className="text-xl font-bold text-[var(--color-text-primary)] leading-tight">{editConfig.title || t('flexibleBlock.previewSubtitle')}</h3>
-                                                <p className="text-[10px] text-[var(--color-text-muted)]">
+                                                <h3 className="text-xl font-bold leading-tight" style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}>{editConfig.title || t('flexibleBlock.previewSubtitle')}</h3>
+                                                <p className="text-[10px]" style={{ color: design?.colorScheme?.secondary || 'var(--color-text-muted)' }}>
                                                     {accountId ? `Compte ID: ${accountId}` : 'Compte non sélectionné'}
                                                 </p>
                                             </div>
-                                            <div className="text-[9px] font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest border border-primary/20">
+                                            <div className="text-[9px] font-bold bg-primary/10 px-3 py-1.5 rounded-full uppercase tracking-widest border border-primary/20 text-primary">
                                                 {t(`flexibleBlock.visualizations.${editConfig.visualization}`)}
                                             </div>
                                         </div>
@@ -816,9 +908,19 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = ({
 
     return (
         <div className="flexible-data-block relative group">
-            <div className="app-card overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-primary)] transition-all hover:shadow-xl hover:border-primary/30">
-                <div className="px-5 py-4 border-b border-[var(--color-border)] flex justify-between items-center bg-[var(--color-bg-secondary)]/50" style={{ borderColor: design?.colorScheme?.primary + '20' }}>
-                    <h3 className="font-bold" style={{ color: design?.colorScheme?.primary || 'var(--color-text-primary)' }}>{activeConfig.title}</h3>
+            <div
+                className="app-card overflow-hidden rounded-2xl transition-all hover:shadow-xl hover:border-primary/30"
+                style={{
+                    backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)',
+                    border: 'none',
+                    color: design?.colorScheme?.text || 'var(--color-text-primary)'
+                }}
+            >
+                <div className="px-5 py-4 border-b flex justify-between items-center" style={{
+                    borderColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
+                    backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)'
+                }}>
+                    <h3 className="font-bold" style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}>{activeConfig.title}</h3>
                     {editable && (
                         <button
                             onClick={() => setIsConfigOpen(true)}

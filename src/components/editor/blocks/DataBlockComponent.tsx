@@ -8,9 +8,7 @@ import type { SlideConfig } from '../../../types/reportTypes';
 import { ChartBlockErrorBoundary } from './ChartBlockErrorBoundary';
 
 // Import real slide components
-import PerformanceOverviewSlide from '../../reports/slides/PerformanceOverviewSlide';
 import CampaignChartSlide from '../../reports/slides/CampaignChartSlide';
-import KeyMetricsSlide from '../../reports/slides/KeyMetricsSlide';
 import AdCreativeSlide from '../../reports/slides/AdCreativeSlide';
 import FunnelAnalysisSlide from '../../reports/slides/FunnelAnalysisSlide';
 import HeatmapSlide from '../../reports/slides/HeatmapSlide';
@@ -19,6 +17,52 @@ import TopPerformersSlide from '../../reports/slides/TopPerformersSlide';
 import ClientLogoBlock from './ClientLogoBlock';
 import FlexibleDataBlock from './FlexibleDataBlock';
 import type { FlexibleDataConfig } from './FlexibleDataBlock';
+
+// Default configurations for standard blocks
+const PERF_OVERVIEW_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Vue d'ensemble des performances",
+    visualization: 'scorecard',
+    metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.cost_micros', 'metrics.conversions', 'metrics.ctr', 'metrics.average_cpc'],
+    dimension: 'segments.date',
+    showComparison: true,
+    comparisonType: 'previous_period'
+};
+
+const KEY_METRICS_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Métriques Clés",
+    visualization: 'scorecard',
+    metrics: ['metrics.cost_micros', 'metrics.conversions_value', 'metrics.conversions_value_per_cost', 'metrics.cost_per_conversion'],
+    dimension: 'segments.date',
+    showComparison: true,
+    comparisonType: 'previous_period'
+};
+
+const CAMPAIGN_CHART_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Graphique de Campagne",
+    visualization: 'line',
+    metrics: ['metrics.clicks'],
+    dimension: 'segments.date',
+    showComparison: true,
+    comparisonType: 'previous_period'
+};
+
+const DEVICE_SPLIT_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Répartition par Appareil",
+    visualization: 'pie',
+    metrics: ['metrics.clicks'],
+    dimension: 'segments.device',
+    limit: 10
+};
+
+const TOP_PERFORMERS_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Meilleurs Éléments",
+    visualization: 'table',
+    metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.cost_micros', 'metrics.conversions', 'metrics.ctr'],
+    dimension: 'campaign.name',
+    limit: 10,
+    sortBy: 'metrics.conversions',
+    sortOrder: 'DESC'
+};
 
 /**
  * Data Block Component (Epic 13 - Story 13.2)
@@ -64,44 +108,55 @@ export const DataBlockComponent = (props: NodeViewProps) => {
             case SlideType.PERFORMANCE_OVERVIEW:
             case 'performance':
                 return (
-                    <PerformanceOverviewSlide
+                    <FlexibleDataBlock
+                        config={{ ...PERF_OVERVIEW_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
                         endDate={endDate}
-                        config={slideConfig}
                         design={design}
-                        reportId={reportId}
-                        editable={false}
-                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.CAMPAIGN_CHART:
             case 'chart':
                 return (
-                    <CampaignChartSlide
+                    <FlexibleDataBlock
+                        config={{ ...CAMPAIGN_CHART_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
                         endDate={endDate}
-                        config={slideConfig}
                         design={design}
-                        reportId={reportId}
-                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.KEY_METRICS:
             case 'keyMetrics':
                 return (
-                    <KeyMetricsSlide
+                    <FlexibleDataBlock
+                        config={{ ...KEY_METRICS_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
                         endDate={endDate}
-                        config={slideConfig}
                         design={design}
-                        reportId={reportId}
-                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.AD_CREATIVE:
@@ -145,28 +200,36 @@ export const DataBlockComponent = (props: NodeViewProps) => {
                 );
             case SlideType.DEVICE_PLATFORM_SPLIT:
                 return (
-                    <DevicePlatformSplitSlide
+                    <FlexibleDataBlock
+                        config={{ ...DEVICE_SPLIT_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
                         endDate={endDate}
-                        config={slideConfig}
                         design={design}
-                        reportId={reportId}
-                        isTemplateMode={isTemplateMode}
                     />
                 );
             case SlideType.TOP_PERFORMERS:
                 return (
-                    <TopPerformersSlide
+                    <FlexibleDataBlock
+                        config={{ ...TOP_PERFORMERS_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
                         endDate={endDate}
-                        config={slideConfig}
                         design={design}
-                        reportId={reportId}
-                        isTemplateMode={isTemplateMode}
                     />
                 );
             case 'clientLogo':
@@ -220,6 +283,12 @@ export const DataBlockComponent = (props: NodeViewProps) => {
                                     });
                                 } else {
                                     console.log('Configure block:', blockType);
+                                    // Also allow configuring these new flexible blocks
+                                    if (['performance', 'keyMetrics', SlideType.PERFORMANCE_OVERVIEW, SlideType.KEY_METRICS, SlideType.CAMPAIGN_CHART, SlideType.DEVICE_PLATFORM_SPLIT, SlideType.TOP_PERFORMERS].includes(blockType)) {
+                                        updateAttributes({
+                                            config: { ...config, isConfigActive: true }
+                                        });
+                                    }
                                 }
                             }}
                             className="data-block-action-btn"
