@@ -223,7 +223,7 @@ const SlideScaler: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     }, []);
 
     return (
-        <div ref={containerRef} className="w-full h-full bg-white relative overflow-hidden">
+        <div ref={containerRef} className="w-full h-full relative overflow-hidden">
             <div
                 style={{
                     transform: `translate(-50%, -50%) scale(${scale})`,
