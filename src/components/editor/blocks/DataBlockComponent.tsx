@@ -1,7 +1,7 @@
 import { NodeViewWrapper } from '@tiptap/react';
 import type { NodeViewProps } from '@tiptap/react';
 import { useMemo } from 'react';
-import { Settings, Trash2 } from 'lucide-react';
+import { Settings, Trash2, GripVertical } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { SlideType } from '../../../types/reportTypes';
 import type { SlideConfig } from '../../../types/reportTypes';
@@ -264,9 +264,22 @@ export const DataBlockComponent = (props: NodeViewProps) => {
         <NodeViewWrapper
             className={`data-block-wrapper ${selected ? 'selected' : ''}`}
             data-block-type={blockType}
+            data-drag-handle
             style={{ overflow: 'hidden' }}
         >
             <div className="relative group">
+                {/* Drag Handle - visible on hover */}
+                {editor.isEditable && (
+                    <div
+                        className="data-block-drag-handle"
+                        contentEditable={false}
+                        data-drag-handle
+                        title="Glisser pour réorganiser"
+                    >
+                        <GripVertical size={18} />
+                    </div>
+                )}
+
                 <ChartBlockErrorBoundary blockType={blockType}>
                     {renderBlock()}
                 </ChartBlockErrorBoundary>

@@ -17,6 +17,7 @@ import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
+import { DragHandle } from '@tiptap/extension-drag-handle';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
 import { SlashCommandExtension } from './extensions/SlashCommandExtension';
 import { ColumnGroup, Column } from './extensions/ColumnsExtension';
@@ -153,6 +154,21 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         TableRow,
         TableHeader,
         TableCell,
+        // Drag Handle - allows dragging content blocks and slides
+        DragHandle.configure({
+            // Configure which nodes can be dragged (exclude atomic/leaf nodes)
+            allowedNodeTypes: [
+                'paragraph',
+                'heading',
+                'bulletList',
+                'orderedList',
+                'blockquote',
+                'codeBlock',
+                'table',
+                'columnGroup',
+                'slide', // Allow dragging entire slides
+            ],
+        }),
     ], [placeholder]);
 
     const editor = useEditor({

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Plus, Trash2, Calendar, Briefcase, Target } from 'lucide-react';
+import { Plus, Trash2, Calendar, Briefcase, Target, GripVertical } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { DataBlockExtension } from '../extensions/DataBlockExtension';
 import { ColumnGroup, Column } from '../extensions/ColumnsExtension';
@@ -11,6 +11,23 @@ import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { Image } from '@tiptap/extension-image';
+import {
+    DndContext,
+    closestCenter,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+} from '@dnd-kit/core';
+import type { DragEndEvent } from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    sortableKeyboardCoordinates,
+    useSortable,
+    verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 
 interface SlideInfo {
@@ -30,6 +47,82 @@ interface SlideNavigationProps {
         campaignNames: string[];
     };
 }
+
+// Sortable slide item component
+interface SortableSlideItemProps {
+    slide: SlideInfo;
+    index: number;
+    isActive: boolean;
+    design: any;
+    totalSlides: number;
+    onScrollToSlide: (pos: number) => void;
+    onDeleteSlide: (pos: number, nodeSize: number) => void;
+    editor: Editor;
+}
+
+const SortableSlideItem: React.FC<SortableSlideItemProps> = ({
+    slide,
+    index,
+    isActive,
+    design,
+    totalSlides,
+    onScrollToSlide,
+    onDeleteSlide,
+    editor,
+}) => {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging,
+    } = useSortable({ id: slide.id });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : 1,
+    };
+
+    return (
+        <div
+            ref={setNodeRef}
+            style={style}
+            className={`slide-nav-item ${isActive ? 'active' : ''}`}
+            onClick={() => onScrollToSlide(slide.pos)}
+        >
+            <div className="slide-nav-drag-handle" {...attributes} {...listeners}>
+                <GripVertical size={14} />
+            </div>
+            <div className="slide-nav-number">{index + 1}</div>
+            <div
+                className="slide-nav-thumbnail"
+                style={{ backgroundColor: slide.backgroundColor }}
+            >
+                <SlideThumbnail slide={slide} design={design} />
+            </div>
+            {totalSlides > 1 && (
+                <button
+                    className="slide-nav-delete"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        let nodeSize = 0;
+                        editor.state.doc.forEach((node, pos) => {
+                            if (pos === slide.pos) {
+                                nodeSize = node.nodeSize;
+                            }
+                        });
+                        onDeleteSlide(slide.pos, nodeSize);
+                    }}
+                    title="Supprimer"
+                >
+                    <Trash2 size={12} />
+                </button>
+            )}
+        </div>
+    );
+};
 
 // Component to render a single thumbnail with its own mini editor
 const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, design }) => {
@@ -108,12 +201,17 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = ({ slide, de
 };
 
 export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor, scope }) => {
-    // ... (rest of the component logic)
-
-    // ... skipping state and effects ...
     const [slides, setSlides] = useState<SlideInfo[]>([]);
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
     const { design } = useReportEditor();
+
+    // DnD Kit sensors
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
 
     // Slides follow the REPORT's theme (design.mode), not the app's UI theme
     const isDarkMode = design?.mode === 'dark';
@@ -189,6 +287,61 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor, scope 
         editor.chain().focus().deleteRange({ from: pos, to: pos + nodeSize }).run();
     };
 
+    // Handle drag end event to reorder slides
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event;
+
+        if (!over || active.id === over.id) {
+            return;
+        }
+
+        const oldIndex = slides.findIndex((slide) => slide.id === active.id);
+        const newIndex = slides.findIndex((slide) => slide.id === over.id);
+
+        if (oldIndex === -1 || newIndex === -1) {
+            return;
+        }
+
+        // Get the slide nodes from the document
+        const slideNodes: any[] = [];
+        editor.state.doc.forEach((node) => {
+            if (node.type.name === 'slide') {
+                slideNodes.push(node);
+            }
+        });
+
+        if (oldIndex >= slideNodes.length || newIndex >= slideNodes.length) {
+            return;
+        }
+
+        // Reorder using ProseMirror transaction
+        const { tr } = editor.state;
+        const movedNode = slideNodes[oldIndex];
+
+        // Calculate positions
+        let oldPos = 0;
+        for (let i = 0; i < oldIndex; i++) {
+            oldPos += slideNodes[i].nodeSize;
+        }
+
+        let newPos = 0;
+        for (let i = 0; i < newIndex; i++) {
+            newPos += slideNodes[i].nodeSize;
+        }
+
+        // Adjust newPos if moving forward (because we'll delete the node first)
+        if (newIndex > oldIndex) {
+            newPos -= movedNode.nodeSize;
+        }
+
+        // Delete from old position and insert at new position
+        tr.delete(oldPos, oldPos + movedNode.nodeSize);
+        tr.insert(newPos, movedNode);
+
+        // Apply the transaction
+        editor.view.dispatch(tr);
+    };
+
 
     return (
         <div className="slide-navigation">
@@ -221,42 +374,32 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor, scope 
                 <span className="slide-nav-count">{slides.length}</span>
             </div>
 
-            <div className="slide-nav-list">
-                {slides.map((slide, idx) => (
-                    <div
-                        key={slide.id}
-                        className={`slide-nav-item ${idx === activeSlideIndex ? 'active' : ''}`}
-                        onClick={() => scrollToSlide(slide.pos)}
-                    >
-                        <div className="slide-nav-number">{idx + 1}</div>
-                        <div
-                            className="slide-nav-thumbnail"
-                            style={{ backgroundColor: slide.backgroundColor }}
-                        >
-                            <SlideThumbnail slide={slide} design={design} />
-                        </div>
-                        {slides.length > 1 && (
-                            <button
-                                className="slide-nav-delete"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    // Find the slide node to get its size
-                                    let nodeSize = 0;
-                                    editor.state.doc.forEach((node, pos) => {
-                                        if (pos === slide.pos) {
-                                            nodeSize = node.nodeSize;
-                                        }
-                                    });
-                                    deleteSlide(slide.pos, nodeSize);
-                                }}
-                                title="Supprimer"
-                            >
-                                <Trash2 size={12} />
-                            </button>
-                        )}
+            <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+            >
+                <SortableContext
+                    items={slides.map((s) => s.id)}
+                    strategy={verticalListSortingStrategy}
+                >
+                    <div className="slide-nav-list">
+                        {slides.map((slide, idx) => (
+                            <SortableSlideItem
+                                key={slide.id}
+                                slide={slide}
+                                index={idx}
+                                isActive={idx === activeSlideIndex}
+                                design={design}
+                                totalSlides={slides.length}
+                                onScrollToSlide={scrollToSlide}
+                                onDeleteSlide={deleteSlide}
+                                editor={editor}
+                            />
+                        ))}
                     </div>
-                ))}
-            </div>
+                </SortableContext>
+            </DndContext>
 
             <button className="slide-nav-add" onClick={addNewSlide}>
                 <Plus size={16} />
