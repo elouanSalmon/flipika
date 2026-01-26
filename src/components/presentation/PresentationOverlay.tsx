@@ -144,6 +144,8 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                                 reportId={report.id}
                                 clientId={report.clientId}
                                 userId={report.userId}
+                                startDate={report.startDate}
+                                endDate={report.endDate}
                             />
                         </div>
                     </motion.div>

@@ -207,6 +207,8 @@ const PublicReportView: React.FC = () => {
                         reportId={report.id}
                         clientId={report.clientId}
                         userId={report.userId}
+                        startDate={report.startDate}
+                        endDate={report.endDate}
                     />
                 ) : (
                     <ReportCanvas

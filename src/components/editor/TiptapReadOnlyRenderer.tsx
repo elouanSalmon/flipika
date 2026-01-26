@@ -7,6 +7,7 @@ import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
+import { Image } from '@tiptap/extension-image';
 import { SlideDocument } from './extensions/SlideDocument';
 import { SlideExtension } from './extensions/SlideExtension';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
@@ -24,6 +25,8 @@ interface TiptapReadOnlyRendererProps {
     reportId?: string;
     clientId?: string;
     userId?: string;
+    startDate?: Date;
+    endDate?: Date;
 }
 
 /**
@@ -38,6 +41,8 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
     reportId,
     clientId,
     userId,
+    startDate,
+    endDate,
 }) => {
     const extensions = useMemo(() => [
         SlideDocument,
@@ -63,6 +68,13 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
         TableCell,
         ColumnGroup,
         Column,
+        Image.configure({
+            inline: true,
+            allowBase64: true,
+            HTMLAttributes: {
+                class: 'tiptap-image',
+            },
+        }),
     ], []);
 
     const editor = useEditor({
@@ -93,6 +105,8 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
             clientId={clientId}
             userId={userId}
             isPublicView={true}
+            startDate={startDate}
+            endDate={endDate}
         >
             <div
                 className="tiptap-readonly-renderer"
