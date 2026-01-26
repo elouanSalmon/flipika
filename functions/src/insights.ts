@@ -8,15 +8,20 @@ import { InsightRequestSchema, InsightResponseSchema } from './schemas';
 // Define secrets
 const openaiApiKey = defineSecret("OPENAI_API_KEY");
 
-// Configure Genkit
-// Note: If @genkit-ai/firebase is failing, we can skip it if we aren't using Firestore traces heavily yet,
-// OR we just rely on the core genkit instance.
-const ai = genkit({
-    plugins: [
-        // firebase(), // Temporarily commenting out if import fails
-        openAI({ apiKey: openaiApiKey.value() })
-    ]
-});
+// Configure Genkit lazily to allow secret access at runtime
+let ai: any = null;
+
+const getAi = () => {
+    if (!ai) {
+        ai = genkit({
+            plugins: [
+                // firebase(), // Temporarily commenting out if import fails
+                openAI({ apiKey: openaiApiKey.value() })
+            ]
+        });
+    }
+    return ai;
+};
 
 export const analyzeCampaignPerformanceFlow = onCall({
     memory: "512MiB",
@@ -54,7 +59,7 @@ Output JSON matching schema.
     }, null, 2);
 
     try {
-        const response = await ai.generate({
+        const response = await getAi().generate({
             model: 'openai/gpt-4o',
             prompt: [
                 { text: systemPrompt },
