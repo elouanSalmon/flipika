@@ -117,7 +117,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ design, onChange, 
             {isOpen && (
                 <div
                     className="actions-menu theme-selector-menu"
-                    style={{ width: '600px', display: editingTheme ? 'none' : 'block' }}
+                    style={{ width: '380px', maxWidth: '90vw', display: editingTheme ? 'none' : 'block' }}
                 >
                     <div className="p-3 border-b border-[var(--color-border)] mb-2">
                         <h4 className="text-sm font-semibold text-[var(--color-text-primary)] flex items-center gap-2">
