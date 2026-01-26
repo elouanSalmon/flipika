@@ -101,7 +101,14 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
     return (
         <div ref={containerRef} className="fixed inset-0 z-[200] bg-black/95 flex flex-col items-center justify-center overflow-hidden font-sans">
             {/* Ambient Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 pointer-events-none" />
+            <div
+                className="absolute inset-0 pointer-events-none transition-colors duration-500"
+                style={{
+                    background: report.design?.colorScheme?.accent
+                        ? `radial-gradient(circle at 50% 50%, ${report.design.colorScheme.accent}20 0%, transparent 70%)`
+                        : 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%)'
+                }}
+            />
             <div className="absolute inset-0 backdrop-blur-3xl pointer-events-none" />
 
             {/* Header Controls - Glassmorphism */}
