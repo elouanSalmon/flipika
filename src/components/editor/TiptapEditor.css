@@ -1009,6 +1009,20 @@
     border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
+.slide-nav-item.dragging {
+    opacity: 0.3;
+    background: transparent;
+    border: 1px dashed var(--color-border);
+}
+
+.slide-nav-item.overlay {
+    background: var(--color-bg-primary, #ffffff);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--color-primary, #3b82f6);
+    transform: scale(1.05);
+    z-index: 1000;
+}
+
 /* Drag Handle in Slide Navigation */
 .slide-nav-drag-handle {
     display: flex;
@@ -1033,6 +1047,68 @@
 
 .slide-nav-drag-handle:active {
     cursor: grabbing;
+}
+
+/* ============================================
+   CONTENT BLOCK DRAG HANDLES (6 dots icon)
+   ============================================ */
+
+/* Custom drag handle from Tiptap extension */
+.custom-drag-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    background-color: var(--color-bg-primary, #ffffff);
+    border: 1px solid var(--color-border, #e2e8f0);
+    border-radius: 4px;
+    color: var(--color-text-secondary, #64748b);
+    cursor: grab;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    /* Critical for visibility */
+    position: absolute;
+    z-index: 50;
+    pointer-events: auto;
+}
+
+.custom-drag-handle:hover {
+    background-color: var(--color-bg-tertiary, #f3f4f6);
+    color: var(--color-primary, #3b82f6);
+    border-color: var(--color-primary, #3b82f6);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-drag-handle:active {
+    cursor: grabbing;
+    background-color: var(--color-bg-tertiary, #e2e8f0);
+}
+
+.custom-drag-handle svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+/* Dark mode */
+[data-theme="dark"] .custom-drag-handle {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .custom-drag-handle:hover {
+    background-color: #374151;
+    color: #60a5fa;
+    border-color: #60a5fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .custom-drag-handle:active {
+    background-color: #4b5563;
 }
 
 .slide-nav-number {
@@ -2003,4 +2079,20 @@
     background: var(--color-primary, #3b82f6);
     border-radius: 2px;
     opacity: 0.3;
+}
+
+/* ============================================
+   ENHANCED VIEW TRANSITIONS
+   ============================================ */
+
+::view-transition-group(slide-*) {
+    animation-duration: 0.6s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(slide-*),
+::view-transition-new(slide-*) {
+    animation-duration: 0.6s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    mix-blend-mode: normal;
 }

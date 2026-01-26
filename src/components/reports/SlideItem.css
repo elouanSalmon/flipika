@@ -18,10 +18,23 @@
     box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
 }
 
-.slide-item.dragging {
+.slide-item.overlay {
     cursor: grabbing;
     box-shadow: var(--shadow-xl);
     z-index: 1000;
+    transform: scale(1.02);
+    /* Slight scale up for better effect */
+    border-color: var(--color-primary);
+    background: var(--color-bg-card);
+    /* Ensure background is opaque */
+}
+
+/* When the item is being dragged (placeholder in the list), make it faded */
+.slide-item.dragging {
+    opacity: 0.3;
+    border: 2px dashed var(--color-border);
+    box-shadow: none;
+    background: transparent;
 }
 
 /* Drag Handle */

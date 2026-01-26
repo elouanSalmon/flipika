@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -18,10 +19,10 @@ import {
     PointerSensor,
     useSensor,
     useSensors,
+    DragOverlay,
 } from '@dnd-kit/core';
-import type { DragEndEvent } from '@dnd-kit/core';
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import {
-    arrayMove,
     SortableContext,
     sortableKeyboardCoordinates,
     useSortable,
@@ -48,7 +49,6 @@ interface SlideNavigationProps {
     };
 }
 
-// Sortable slide item component
 interface SortableSlideItemProps {
     slide: SlideInfo;
     index: number;
@@ -60,7 +60,13 @@ interface SortableSlideItemProps {
     editor: Editor;
 }
 
-const SortableSlideItem: React.FC<SortableSlideItemProps> = ({
+interface SlideNavItemProps extends SortableSlideItemProps {
+    dragHandleProps?: any;
+    isDragging?: boolean;
+    isOverlay?: boolean;
+}
+
+const SlideNavItem: React.FC<SlideNavItemProps> = ({
     slide,
     index,
     isActive,
@@ -69,30 +75,22 @@ const SortableSlideItem: React.FC<SortableSlideItemProps> = ({
     onScrollToSlide,
     onDeleteSlide,
     editor,
+    dragHandleProps,
+    isDragging,
+    isOverlay,
 }) => {
-    const {
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition,
-        isDragging,
-    } = useSortable({ id: slide.id });
-
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition,
-        opacity: isDragging ? 0.5 : 1,
-    };
-
     return (
-        <div
-            ref={setNodeRef}
-            style={style}
-            className={`slide-nav-item ${isActive ? 'active' : ''}`}
-            onClick={() => onScrollToSlide(slide.pos)}
+        <motion.div
+            layout
+            initial={isOverlay ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`slide-nav-item ${isActive ? 'active' : ''} ${isDragging ? 'dragging' : ''} ${isOverlay ? 'overlay' : ''}`}
+            onClick={() => !isOverlay && onScrollToSlide(slide.pos)}
         >
-            <div className="slide-nav-drag-handle" {...attributes} {...listeners}>
+            <div className="slide-nav-drag-handle" {...dragHandleProps}>
                 <GripVertical size={14} />
             </div>
             <div className="slide-nav-number">{index + 1}</div>
@@ -102,7 +100,7 @@ const SortableSlideItem: React.FC<SortableSlideItemProps> = ({
             >
                 <SlideThumbnail slide={slide} design={design} />
             </div>
-            {totalSlides > 1 && (
+            {totalSlides > 1 && !isOverlay && (
                 <button
                     className="slide-nav-delete"
                     onClick={(e) => {
@@ -120,6 +118,32 @@ const SortableSlideItem: React.FC<SortableSlideItemProps> = ({
                     <Trash2 size={12} />
                 </button>
             )}
+        </motion.div>
+    );
+};
+
+const SortableSlideItem: React.FC<SortableSlideItemProps> = (props) => {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging,
+    } = useSortable({ id: props.slide.id });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    };
+
+    return (
+        <div ref={setNodeRef} style={style}>
+            <SlideNavItem
+                {...props}
+                dragHandleProps={{ ...attributes, ...listeners }}
+                isDragging={isDragging}
+            />
         </div>
     );
 };
@@ -280,15 +304,39 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor, scope 
         }, 50);
     };
 
-    const addNewSlide = () => { editor.commands.insertSlide(); };
+    const addNewSlide = () => {
+        editor.commands.insertSlide();
+
+        // Autoscroll to the new slide after a short delay to allow ProseMirror to update the DOM
+        setTimeout(() => {
+            let lastPos = 0;
+            editor.state.doc.forEach((node, pos) => {
+                if (node.type.name === 'slide') {
+                    lastPos = pos;
+                }
+            });
+            scrollToSlide(lastPos);
+        }, 100);
+    };
 
     const deleteSlide = (pos: number, nodeSize: number) => {
         if (slides.length <= 1) return;
         editor.chain().focus().deleteRange({ from: pos, to: pos + nodeSize }).run();
     };
 
+    const [activeId, setActiveId] = useState<string | null>(null);
+
+    const handleDragStart = (event: DragStartEvent) => {
+        setActiveId(String(event.active.id));
+    };
+
+    const handleDragCancel = () => {
+        setActiveId(null);
+    };
+
     // Handle drag end event to reorder slides
     const handleDragEnd = (event: DragEndEvent) => {
+        setActiveId(null);
         const { active, over } = event;
 
         if (!over || active.id === over.id) {
@@ -377,28 +425,53 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor, scope 
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
+                onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
+                onDragCancel={handleDragCancel}
             >
                 <SortableContext
                     items={slides.map((s) => s.id)}
                     strategy={verticalListSortingStrategy}
                 >
                     <div className="slide-nav-list">
-                        {slides.map((slide, idx) => (
-                            <SortableSlideItem
-                                key={slide.id}
-                                slide={slide}
-                                index={idx}
-                                isActive={idx === activeSlideIndex}
-                                design={design}
-                                totalSlides={slides.length}
-                                onScrollToSlide={scrollToSlide}
-                                onDeleteSlide={deleteSlide}
-                                editor={editor}
-                            />
-                        ))}
+                        <AnimatePresence initial={false}>
+                            {slides.map((slide, idx) => (
+                                <SortableSlideItem
+                                    key={slide.id}
+                                    slide={slide}
+                                    index={idx}
+                                    isActive={idx === activeSlideIndex}
+                                    design={design}
+                                    totalSlides={slides.length}
+                                    onScrollToSlide={scrollToSlide}
+                                    onDeleteSlide={deleteSlide}
+                                    editor={editor}
+                                />
+                            ))}
+                        </AnimatePresence>
                     </div>
                 </SortableContext>
+                <DragOverlay dropAnimation={null}>
+                    {activeId ? (
+                        (() => {
+                            const draggedSlide = slides.find(s => s.id === activeId);
+                            if (!draggedSlide) return null;
+                            return (
+                                <SlideNavItem
+                                    slide={draggedSlide}
+                                    index={slides.indexOf(draggedSlide)}
+                                    isActive={slides.indexOf(draggedSlide) === activeSlideIndex}
+                                    design={design}
+                                    totalSlides={slides.length}
+                                    onScrollToSlide={scrollToSlide}
+                                    onDeleteSlide={deleteSlide}
+                                    editor={editor}
+                                    isOverlay={true}
+                                />
+                            );
+                        })()
+                    ) : null}
+                </DragOverlay>
             </DndContext>
 
             <button className="slide-nav-add" onClick={addNewSlide}>

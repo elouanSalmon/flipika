@@ -157,17 +157,20 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         // Drag Handle - allows dragging content blocks and slides
         DragHandle.configure({
             // Configure which nodes can be dragged (exclude atomic/leaf nodes)
-            allowedNodeTypes: [
-                'paragraph',
-                'heading',
-                'bulletList',
-                'orderedList',
-                'blockquote',
-                'codeBlock',
-                'table',
-                'columnGroup',
-                'slide', // Allow dragging entire slides
-            ],
+
+            render: () => {
+                const div = document.createElement('div');
+                div.className = 'custom-drag-handle';
+                div.innerHTML = `<svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+                    <circle cx="5" cy="4" r="1.5"/>
+                    <circle cx="5" cy="8" r="1.5"/>
+                    <circle cx="5" cy="12" r="1.5"/>
+                    <circle cx="11" cy="4" r="1.5"/>
+                    <circle cx="11" cy="8" r="1.5"/>
+                    <circle cx="11" cy="12" r="1.5"/>
+                </svg>`;
+                return div;
+            },
         }),
     ], [placeholder]);
 

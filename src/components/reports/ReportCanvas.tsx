@@ -1,10 +1,10 @@
 import React from 'react';
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import type { DragEndEvent } from '@dnd-kit/core';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragOverlay } from '@dnd-kit/core';
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Layout, Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import SlideItem from './SlideItem';
+import SortableSlideItem, { SlideItem } from './SlideItem';
 import type { SlideConfig, ReportDesign } from '../../types/reportTypes';
 import './ReportCanvas.css';
 
@@ -49,7 +49,15 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
         })
     );
 
+    const [activeId, setActiveId] = React.useState<string | null>(null);
+
+    const handleDragStart = (event: DragStartEvent) => {
+        if (isPublicView) return;
+        setActiveId(String(event.active.id));
+    };
+
     const handleDragEnd = (event: DragEndEvent) => {
+        setActiveId(null);
         if (isPublicView || !onReorder) return;
 
         const { active, over } = event;
@@ -72,6 +80,10 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
         }
     };
 
+    const handleDragCancel = () => {
+        setActiveId(null);
+    };
+
     const handleDrop = (e: React.DragEvent) => {
         if (isPublicView || !onSlideDrop) return;
 
@@ -87,6 +99,8 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
         e.preventDefault();
         e.dataTransfer.dropEffect = 'copy';
     };
+
+    const activeSlide = activeId ? slides.find(s => s.id === activeId) : null;
 
     if (slides.length === 0) {
         return (
@@ -119,7 +133,9 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
+                onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
+                onDragCancel={handleDragCancel}
             >
                 <SortableContext
                     items={slides.map(w => w.id)}
@@ -127,7 +143,7 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
                 >
                     <div className="slides-container">
                         {slides.map((slide) => (
-                            <SlideItem
+                            <SortableSlideItem
                                 key={slide.id}
                                 slide={slide}
                                 design={design}
@@ -145,6 +161,21 @@ const ReportCanvas: React.FC<ReportCanvasProps> = ({
                         ))}
                     </div>
                 </SortableContext>
+                <DragOverlay>
+                    {activeSlide ? (
+                        <SlideItem
+                            slide={activeSlide}
+                            design={design}
+                            isSelected={true}
+                            startDate={startDate}
+                            endDate={endDate}
+                            isPublicView={isPublicView}
+                            reportId={reportId}
+                            reportAccountId={reportAccountId}
+                            reportCampaignIds={reportCampaignIds}
+                        />
+                    ) : null}
+                </DragOverlay>
             </DndContext>
         </div>
     );

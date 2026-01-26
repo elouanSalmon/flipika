@@ -2,6 +2,7 @@ import { NodeViewWrapper, NodeViewContent } from '@tiptap/react';
 import type { NodeViewProps } from '@tiptap/react';
 import { Settings, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
+import { motion } from 'framer-motion';
 
 /**
  * Slide Component (Epic 13 - Gamma-style Slide Editor)
@@ -136,69 +137,83 @@ export const SlideComponent = ({ node, updateAttributes, deleteNode, selected, g
             data-layout={layout}
             data-theme={isDarkMode ? 'dark' : 'light'}
         >
-            {/* Move arrows - visible on hover */}
-            {editor.isEditable && (
-                <div className="slide-move-arrows">
-                    <button
-                        onClick={moveSlideUp}
-                        disabled={!canMoveUp()}
-                        className="slide-move-btn"
-                        title="Déplacer vers le haut"
-                    >
-                        <ArrowUp size={18} />
-                    </button>
-                    <button
-                        onClick={moveSlideDown}
-                        disabled={!canMoveDown()}
-                        className="slide-move-btn"
-                        title="Déplacer vers le bas"
-                    >
-                        <ArrowDown size={18} />
-                    </button>
-                </div>
-            )}
-
-            <div
-                className="slide-container"
-                style={slideStyle}
+            <motion.div
+                layout
+                layoutId={node.attrs.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30
+                }}
+                className="slide-content-motion-wrapper"
             >
-                <div className={`slide-content slide-layout-${layout}`}>
-                    <NodeViewContent className="slide-content-editable" />
+                {/* Move arrows - visible on hover */}
+                {editor.isEditable && (
+                    <div className="slide-move-arrows">
+                        <button
+                            onClick={moveSlideUp}
+                            disabled={!canMoveUp()}
+                            className="slide-move-btn"
+                            title="Déplacer vers le haut"
+                        >
+                            <ArrowUp size={18} />
+                        </button>
+                        <button
+                            onClick={moveSlideDown}
+                            disabled={!canMoveDown()}
+                            className="slide-move-btn"
+                            title="Déplacer vers le bas"
+                        >
+                            <ArrowDown size={18} />
+                        </button>
+                    </div>
+                )}
+
+                <div
+                    className="slide-container"
+                    style={slideStyle}
+                >
+                    <div className={`slide-content slide-layout-${layout}`}>
+                        <NodeViewContent className="slide-content-editable" />
+                    </div>
+
+                    {selected && (
+                        <>
+                            <div className="slide-actions">
+                                <button
+                                    onClick={() => {
+                                        const layouts = ['content', 'title', 'two-column', 'blank'];
+                                        const currentIndex = layouts.indexOf(layout || 'content');
+                                        const nextLayout = layouts[(currentIndex + 1) % layouts.length];
+                                        updateAttributes({ layout: nextLayout });
+                                    }}
+                                    className="slide-action-btn"
+                                    title="Layout"
+                                >
+                                    <Settings size={16} />
+                                </button>
+                            </div>
+
+
+                        </>
+                    )}
                 </div>
 
                 {selected && (
-                    <>
-                        <div className="slide-actions">
-                            <button
-                                onClick={() => {
-                                    const layouts = ['content', 'title', 'two-column', 'blank'];
-                                    const currentIndex = layouts.indexOf(layout || 'content');
-                                    const nextLayout = layouts[(currentIndex + 1) % layouts.length];
-                                    updateAttributes({ layout: nextLayout });
-                                }}
-                                className="slide-action-btn"
-                                title="Layout"
-                            >
-                                <Settings size={16} />
-                            </button>
-                        </div>
-
-
-                    </>
+                    <button
+                        onClick={() => deleteNode()}
+                        className="slide-side-delete-btn"
+                        title="Supprimer la slide"
+                    >
+                        <Trash2 size={20} />
+                    </button>
                 )}
-            </div>
 
-            {selected && (
-                <button
-                    onClick={() => deleteNode()}
-                    className="slide-side-delete-btn"
-                    title="Supprimer la slide"
-                >
-                    <Trash2 size={20} />
-                </button>
-            )}
-
-            <div className="slide-separator" />
+                <div className="slide-separator" />
+            </motion.div>
         </NodeViewWrapper>
     );
 };
