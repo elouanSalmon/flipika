@@ -7,8 +7,7 @@ import {
     Image as ImageIcon,
     Trash2,
     Check,
-    Loader2,
-    AlertCircle
+    Loader2
 } from 'lucide-react';
 import { useAuth } from '../../../contexts/AuthContext';
 import {
@@ -121,38 +120,41 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
     if (!isOpen) return null;
 
     return createPortal(
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={onClose}>
+        <div className="fixed inset-0 z-[1050] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={onClose}>
             <div
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl h-[80vh] flex flex-col overflow-hidden"
+                className="bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-2xl shadow-2xl w-full max-w-4xl h-[80vh] flex flex-col overflow-hidden backdrop-blur-md"
                 onClick={e => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                        <ImageIcon className="w-5 h-5 text-blue-500" />
+                <div className="flex items-center justify-between p-5 border-b border-[var(--color-border)] bg-[var(--glass-bg)]">
+                    <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent flex items-center gap-2">
+                        <ImageIcon className="w-6 h-6 text-blue-500" />
                         Médiathèque
                     </h2>
-                    <button onClick={onClose} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors">
-                        <X size={20} className="text-gray-500" />
+                    <button
+                        onClick={onClose}
+                        className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded-full transition-colors text-[var(--color-text-secondary)]"
+                    >
+                        <X size={20} />
                     </button>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex border-b border-gray-200 dark:border-gray-700 px-4">
+                <div className="flex border-b border-[var(--color-border)] px-5 bg-[var(--color-bg-secondary)]">
                     <button
                         onClick={() => setActiveTab('upload')}
-                        className={`py-3 px-4 text-sm font-medium border-b-2 transition-colors ${activeTab === 'upload'
+                        className={`py-4 px-6 text-sm font-semibold border-b-2 transition-all ${activeTab === 'upload'
                             ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                            : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
                             }`}
                     >
                         Uploader
                     </button>
                     <button
                         onClick={() => setActiveTab('library')}
-                        className={`py-3 px-4 text-sm font-medium border-b-2 transition-colors ${activeTab === 'library'
+                        className={`py-4 px-6 text-sm font-semibold border-b-2 transition-all ${activeTab === 'library'
                             ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                            : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
                             }`}
                     >
                         Ma Galerie
@@ -160,12 +162,12 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900/50">
+                <div className="flex-1 overflow-y-auto p-6 bg-[var(--color-bg-primary)]">
                     {activeTab === 'upload' ? (
                         <div
-                            className={`h-full flex flex-col items-center justify-center border-2 border-dashed rounded-xl transition-colors ${dragActive
-                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                                : 'border-gray-300 dark:border-gray-600'
+                            className={`h-full flex flex-col items-center justify-center border-2 border-dashed rounded-xl transition-all duration-300 ${dragActive
+                                ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/10 scale-[0.99]'
+                                : 'border-[var(--color-border)] hover:border-blue-400/50 hover:bg-[var(--color-bg-secondary)]'
                                 }`}
                             onDragEnter={handleDrag}
                             onDragLeave={handleDrag}
@@ -184,32 +186,32 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                             {isUploading ? (
                                 <div className="text-center">
                                     <Loader2 className="w-12 h-12 animate-spin text-blue-500 mx-auto mb-4" />
-                                    <p className="text-gray-600 dark:text-gray-300 font-medium">Optimisation et envoi en cours...</p>
-                                    <p className="text-xs text-gray-400 mt-2">Conversion WebP & Redimensionnement</p>
+                                    <p className="text-[var(--color-text-primary)] font-medium text-lg">Optimisation et envoi en cours...</p>
+                                    <p className="text-sm text-[var(--color-text-secondary)] mt-2">Conversion WebP & Redimensionnement</p>
                                 </div>
                             ) : (
-                                <div className="text-center space-y-4">
-                                    <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto">
+                                <div className="text-center space-y-6 max-w-md mx-auto">
+                                    <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-full w-24 h-24 flex items-center justify-center mx-auto shadow-sm">
                                         <Upload className="w-10 h-10 text-blue-600 dark:text-blue-400" />
                                     </div>
                                     <div>
-                                        <p className="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                        <p className="text-xl font-semibold text-[var(--color-text-primary)]">
                                             Glissez-déposez vos images ici
                                         </p>
-                                        <p className="text-sm text-gray-500 mt-1">
+                                        <p className="text-sm text-[var(--color-text-secondary)] mt-2">
                                             ou
                                         </p>
                                     </div>
                                     <label
                                         htmlFor="image-upload"
-                                        className="inline-block px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg cursor-pointer transition-colors shadow-sm"
+                                        className="btn btn-primary cursor-pointer w-full max-w-xs mx-auto"
                                     >
                                         Parcourir les fichiers
                                     </label>
-                                    <div className="flex items-center justify-center gap-2 text-xs text-gray-400 mt-4">
-                                        <Check size={12} /> Auto-conversion WebP
-                                        <Check size={12} /> Max 1200px
-                                        <Check size={12} /> Optimisé pour le web
+                                    <div className="flex items-center justify-center gap-3 text-xs text-[var(--color-text-muted)] mt-6 bg-[var(--color-bg-secondary)] py-2 px-4 rounded-full border border-[var(--color-border)] w-fit mx-auto">
+                                        <span className="flex items-center gap-1"><Check size={10} className="text-green-500" /> Auto-conversion WebP</span>
+                                        <span className="w-px h-3 bg-[var(--color-border)]"></span>
+                                        <span className="flex items-center gap-1"><Check size={10} className="text-green-500" /> Max 1200px</span>
                                     </div>
                                 </div>
                             )}
@@ -219,25 +221,27 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                         <div className="h-full">
                             {isLoading ? (
                                 <div className="flex items-center justify-center h-full">
-                                    <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+                                    <Loader2 className="w-10 h-10 animate-spin text-blue-500" />
                                 </div>
                             ) : images.length === 0 ? (
-                                <div className="flex flex-col items-center justify-center h-full text-gray-500">
-                                    <ImageIcon className="w-16 h-16 mb-4 text-gray-300" />
-                                    <p>Aucune image dans votre galerie</p>
+                                <div className="flex flex-col items-center justify-center h-full text-[var(--color-text-secondary)]">
+                                    <div className="bg-[var(--color-bg-secondary)] p-6 rounded-full mb-4">
+                                        <ImageIcon className="w-12 h-12 text-[var(--color-text-muted)]" />
+                                    </div>
+                                    <p className="text-lg font-medium">Aucune image dans votre galerie</p>
                                     <button
                                         onClick={() => setActiveTab('upload')}
-                                        className="mt-4 text-blue-600 hover:underline"
+                                        className="mt-4 text-blue-600 hover:text-blue-700 font-medium btn-link"
                                     >
-                                        Uploader maintenant
+                                        Commencer à uploader
                                     </button>
                                 </div>
                             ) : (
-                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                                     {images.map((image) => (
                                         <div
                                             key={image.id}
-                                            className="group relative aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-blue-500 transition-all"
+                                            className="group relative aspect-square bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden border border-[var(--color-border)] cursor-pointer hover:border-blue-500 hover:shadow-lg transition-all duration-300"
                                             onClick={() => {
                                                 onSelectImage(image.url);
                                                 onClose();
@@ -246,23 +250,24 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                                             <img
                                                 src={image.url}
                                                 alt={image.name}
-                                                className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                                 loading="lazy"
                                             />
-                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                                             {/* Delete Button */}
                                             <button
                                                 onClick={(e) => handleDelete(image, e)}
-                                                className="absolute top-2 right-2 p-1.5 bg-white/90 dark:bg-black/80 text-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-50"
+                                                className="absolute top-2 right-2 p-2 bg-red-500/90 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 hover:scale-105 shadow-md transform translate-y-[-10px] group-hover:translate-y-0"
                                                 title="Supprimer"
                                             >
                                                 <Trash2 size={14} />
                                             </button>
 
                                             {/* Info Badge */}
-                                            <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/60 to-transparent text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity truncate">
-                                                {image.width}x{image.height} • {(image.size / 1024).toFixed(0)}kb
+                                            <div className="absolute bottom-0 left-0 right-0 p-3 text-white text-xs opacity-0 group-hover:opacity-100 transition-all transform translate-y-[10px] group-hover:translate-y-0">
+                                                <p className="font-medium truncate">{image.name}</p>
+                                                <p className="opacity-80 text-[10px]">{image.width}x{image.height} • {(image.size / 1024).toFixed(0)}kb</p>
                                             </div>
                                         </div>
                                     ))}
