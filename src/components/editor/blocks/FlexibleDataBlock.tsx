@@ -1136,7 +1136,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
         </AnimatePresence>
     );
 
-    // AI Generation overlay component - Glassmorphism style
+    // AI Generation overlay component - Glassmorphism with rainbow animation
     const AiGenerationOverlay = () => (
         <motion.div
             initial={{ opacity: 0 }}
@@ -1144,40 +1144,93 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl overflow-hidden"
             style={{
-                backgroundColor: design?.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.7)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
+                backgroundColor: design?.mode === 'dark' ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.6)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
             }}
         >
-            {/* Center content - Glassmorphism card */}
+            {/* Animated rainbow border glow */}
             <motion.div
-                className="relative flex flex-col items-center gap-3 px-8 py-5 rounded-2xl"
+                className="absolute inset-0 rounded-2xl opacity-30"
                 style={{
-                    backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.6)',
-                    border: design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(0,0,0,0.08)',
-                    boxShadow: design?.mode === 'dark'
-                        ? '0 8px 32px rgba(0,0,0,0.3)'
-                        : '0 8px 32px rgba(0,0,0,0.1)',
+                    background: 'linear-gradient(90deg, #ff0080, #ff8c00, #40e0d0, #7b68ee, #ff0080)',
+                    backgroundSize: '300% 100%',
                 }}
-                initial={{ scale: 0.95, y: 10 }}
-                animate={{ scale: 1, y: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                animate={{
+                    backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'],
+                }}
+                transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: 'linear',
+                }}
+            />
+
+            {/* Center content - Glassmorphism card with rainbow border */}
+            <motion.div
+                className="relative p-[2px] rounded-2xl"
+                style={{
+                    background: 'linear-gradient(90deg, #ff0080, #ff8c00, #40e0d0, #7b68ee, #ff0080)',
+                    backgroundSize: '300% 100%',
+                }}
+                animate={{
+                    backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'],
+                }}
+                transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'linear',
+                }}
+                initial={{ scale: 0.95 }}
             >
                 <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                    className="flex flex-col items-center gap-3 px-8 py-5 rounded-[14px]"
+                    style={{
+                        backgroundColor: design?.mode === 'dark' ? 'rgba(20,20,30,0.95)' : 'rgba(255,255,255,0.95)',
+                        boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+                    }}
+                    initial={{ scale: 0.98 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                 >
-                    <Loader2
-                        size={24}
-                        style={{ color: design?.colorScheme?.primary || 'var(--color-primary)' }}
-                    />
+                    <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                    >
+                        <Loader2
+                            size={28}
+                            className="text-primary"
+                        />
+                    </motion.div>
+                    <span
+                        className="text-sm font-semibold"
+                        style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}
+                    >
+                        {t('flexibleBlock.ai.generating')}
+                    </span>
+                    {/* Animated dots */}
+                    <div className="flex gap-1.5">
+                        {[0, 1, 2].map((i) => (
+                            <motion.div
+                                key={i}
+                                className="w-2 h-2 rounded-full"
+                                style={{
+                                    background: 'linear-gradient(90deg, #ff0080, #ff8c00, #40e0d0)',
+                                    backgroundSize: '200% 100%',
+                                }}
+                                animate={{
+                                    scale: [1, 1.4, 1],
+                                    backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'],
+                                }}
+                                transition={{
+                                    duration: 1,
+                                    repeat: Infinity,
+                                    delay: i * 0.2,
+                                }}
+                            />
+                        ))}
+                    </div>
                 </motion.div>
-                <span
-                    className="text-sm font-medium"
-                    style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}
-                >
-                    {t('flexibleBlock.ai.generating')}
-                </span>
             </motion.div>
         </motion.div>
     );
