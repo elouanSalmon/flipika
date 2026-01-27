@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, RefreshCw, Loader2, Settings, Trash2 } from 'lucide-react';
@@ -41,7 +40,7 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
     onEdit,
     onDelete,
     editable,
-    selected,
+    selected: _selected, // Not used but kept for prop consistency
     headerContent,
     description,
     descriptionIsStale,
@@ -104,8 +103,8 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 color: design?.colorScheme?.text || '#111827',
                 borderRadius: '16px',
-                boxShadow: selected ? `0 0 0 3px ${design?.colorScheme?.primary || 'var(--color-primary)'}, 0 8px 32px rgba(0,0,0,0.15)` : (design?.mode === 'dark' ? '0 4px 6px -1px rgba(0, 0, 0, 0.2)' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)'),
-                border: selected ? 'none' : (design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.05)' : 'none'),
+                boxShadow: design?.mode === 'dark' ? '0 4px 6px -1px rgba(0, 0, 0, 0.2)' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                border: design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.05)' : 'none',
                 minHeight: typeof minHeight === 'number' ? `${minHeight}px` : minHeight,
                 height: height,
                 overflow: 'hidden' // Ensure rounded corners clip content

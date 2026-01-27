@@ -139,34 +139,42 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
 
             {/* Slide Container - Maximized */}
             <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                <AnimatePresence mode='wait'>
+                {slides.map((slide: any, index: number) => (
                     <motion.div
-                        key={currentSlideIndex}
-                        initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                        exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
-                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                        className="w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video relative overflow-hidden shadow-2xl"
-                        style={{
-                            boxShadow: '0 0 0 1px rgba(0,0,0,1)' // Thin border to define edge against black
+                        key={index}
+                        initial={false}
+                        animate={{
+                            opacity: currentSlideIndex === index ? 1 : 0,
+                            scale: currentSlideIndex === index ? 1 : (currentSlideIndex > index ? 1.05 : 0.95),
+                            filter: currentSlideIndex === index ? 'blur(0px)' : 'blur(10px)',
+                            pointerEvents: currentSlideIndex === index ? 'auto' : 'none',
+                            zIndex: currentSlideIndex === index ? 10 : 0
                         }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute inset-0 flex items-center justify-center"
                     >
-                        {/* Scalable Renderer Container */}
-                        <SlideScaler>
-                            <TiptapReadOnlyRenderer
-                                content={currentSlideContent}
-                                design={report.design}
-                                accountId={report.accountId}
-                                campaignIds={report.campaignIds}
-                                reportId={report.id}
-                                clientId={report.clientId}
-                                userId={report.userId}
-                                startDate={report.startDate}
-                                endDate={report.endDate}
-                            />
-                        </SlideScaler>
+                        <div
+                            className="w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video relative overflow-hidden shadow-2xl bg-white"
+                            style={{
+                                boxShadow: '0 0 0 1px rgba(0,0,0,1)' // Thin border to define edge against black
+                            }}
+                        >
+                            <SlideScaler>
+                                <TiptapReadOnlyRenderer
+                                    content={{ type: 'doc', content: [slide] }}
+                                    design={report.design}
+                                    accountId={report.accountId}
+                                    campaignIds={report.campaignIds}
+                                    reportId={report.id}
+                                    clientId={report.clientId}
+                                    userId={report.userId}
+                                    startDate={report.startDate}
+                                    endDate={report.endDate}
+                                />
+                            </SlideScaler>
+                        </div>
                     </motion.div>
-                </AnimatePresence>
+                ))}
             </div>
 
             {/* Navigation Arrows - Glassmorphism, Floating */}

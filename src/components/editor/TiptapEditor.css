@@ -2001,7 +2001,7 @@
     position: relative;
 }
 
-[data-drag-handle]:hover::before {
+/* [data-drag-handle]:hover::before {
     content: '';
     position: absolute;
     left: -4px;
@@ -2011,7 +2011,7 @@
     background: var(--color-primary, #3b82f6);
     border-radius: 2px;
     opacity: 0.3;
-}
+} */
 
 /* ============================================
    ENHANCED VIEW TRANSITIONS
