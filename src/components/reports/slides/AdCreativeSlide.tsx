@@ -1,11 +1,18 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import AdCreativeCard from './AdCreativeCard';
 import PerformanceMaxSlide from './PerformanceMaxSlide';
 import SearchAdSlide from './SearchAdSlide';
 import type { AdCreativeData, AdMetrics } from './AdCreativeCard';
-import Spinner from '../../common/Spinner';
 import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
+import ReportBlock from '../../editor/blocks/ReportBlock';
 import { AlertTriangle } from 'lucide-react';
+import { generateBlockAnalysis } from '../../../services/aiService';
+import { generateConfigHash } from '../../../hooks/useGenerateAnalysis';
+
+export interface AdCreativeConfig {
+    description?: string;
+    aiAnalysisHash?: string;
+}
 
 interface AdCreativeSlideProps {
     config: SlideConfig;
@@ -17,6 +24,7 @@ interface AdCreativeSlideProps {
     editable?: boolean;
     reportId?: string;
     isTemplateMode?: boolean;
+    onUpdateConfig?: (newConfig: Partial<AdCreativeConfig>) => void;
 }
 
 interface RealAdCreative {
@@ -47,12 +55,34 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     campaignIds,
     startDate,
     endDate,
-    // editable and reportId are not used yet but kept in props for future use
+    editable = false,
+    onUpdateConfig,
 }) => {
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isMockData, setIsMockData] = useState(true);
     const [realAds, setRealAds] = useState<RealAdCreative[]>([]);
+
+    // AI Analysis generation state
+    const [isGeneratingAnalysis, setIsGeneratingAnalysis] = useState(false);
+
+    // Ref to store captured data for AI generation
+    const capturedDataRef = useRef<RealAdCreative[]>([]);
+
+    // Get description from config settings
+    const description = config.settings?.description as string | undefined;
+    const aiAnalysisHash = config.settings?.aiAnalysisHash as string | undefined;
+
+    // Check if description is stale
+    const descriptionIsStale = description && aiAnalysisHash && (() => {
+        const currentHash = generateConfigHash({
+            title: 'Ad Creative',
+            metrics: ['metrics.clicks', 'metrics.conversions', 'metrics.ctr'],
+            visualization: 'ad_creative',
+        }, startDate, endDate);
+        return currentHash !== aiAnalysisHash;
+    })();
 
     // Compute effective scope (per-slide override or report-level default)
     const effectiveAccountId = config.scope?.accountId || accountId || '';
@@ -145,6 +175,9 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
             setRealAds(result.ads);
             setIsMockData(false);
 
+            // Capture data for AI generation
+            capturedDataRef.current = result.ads;
+
         } catch (err) {
             console.error('Error loading ad creative data:', err);
             // Fall back to demo data on error
@@ -154,51 +187,122 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
         }
     };
 
-    if (loading) {
-        return (
-            <div className="ad-creative-widget loading">
-                <div className="widget-header">
-                    <h3>Aperçu d'annonce</h3>
-                </div>
-                <div className="widget-content">
-                    <div className="flex justify-center py-8">
-                        <Spinner size={32} />
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    // Handle AI analysis generation (for bulk generation)
+    const handleBulkGenerateAnalysis = useCallback(async () => {
+        // Skip if already has description or no dates or not editable
+        if (description || !startDate || !endDate || !editable || !onUpdateConfig) {
+            return;
+        }
 
-    if (error) {
-        return (
-            <div className="ad-creative-widget error">
-                <div className="widget-header">
-                    <h3>Aperçu d'annonce</h3>
-                </div>
-                <div className="widget-content">
-                    <div className="error-message">{error}</div>
-                </div>
-            </div>
-        );
-    }
+        // For ad creatives, we can still generate even with mock data - it will analyze the ad copy
+        setIsGeneratingAnalysis(true);
+        window.dispatchEvent(new CustomEvent('flipika:ai-generation-start'));
 
-    // Determine which ad to display
+        try {
+            const formatDate = (d: Date | string) => {
+                const date = new Date(d);
+                return date.toISOString().split('T')[0];
+            };
+
+            // Prepare ad creative data for AI
+            const adData = capturedDataRef.current.length > 0
+                ? capturedDataRef.current.map(ad => ({
+                    type: ad.type,
+                    headlines: ad.headlines,
+                    descriptions: ad.descriptions,
+                    clicks: ad.metrics.clicks,
+                    impressions: ad.metrics.impressions,
+                    ctr: ad.metrics.ctr,
+                    conversions: ad.metrics.conversions,
+                    cost: ad.metrics.cost
+                }))
+                : [{
+                    type: 'MOCK',
+                    headlines: ['Logiciel de Gestion Google Ads'],
+                    descriptions: ['Optimisez vos campagnes Google Ads'],
+                    note: 'Données de démonstration'
+                }];
+
+            const result = await generateBlockAnalysis({
+                blockTitle: "Aperçu d'annonce",
+                visualization: 'ad_creative',
+                metrics: ['metrics.clicks', 'metrics.conversions', 'metrics.ctr', 'metrics.cost'],
+                dimension: 'ad_creative',
+                period: {
+                    start: formatDate(startDate),
+                    end: formatDate(endDate)
+                },
+                currentData: adData as any,
+                comparisonData: undefined,
+                showComparison: false
+            });
+
+            // Generate hash for staleness detection
+            const hash = generateConfigHash({
+                title: 'Ad Creative',
+                metrics: ['metrics.clicks', 'metrics.conversions', 'metrics.ctr'],
+                visualization: 'ad_creative',
+            }, startDate, endDate);
+
+            // Update config directly
+            onUpdateConfig({
+                description: result.analysis,
+                aiAnalysisHash: hash
+            });
+
+        } catch (error) {
+            console.error('Error generating analysis (bulk) for ad creative:', error);
+        } finally {
+            setIsGeneratingAnalysis(false);
+            window.dispatchEvent(new CustomEvent('flipika:ai-generation-end'));
+        }
+    }, [description, startDate, endDate, editable, onUpdateConfig]);
+
+    // Listen for "Generate All" event
+    useEffect(() => {
+        const handleRequestAllAnalyses = () => {
+            handleBulkGenerateAnalysis();
+        };
+
+        window.addEventListener('flipika:request-all-analyses', handleRequestAllAnalyses);
+        return () => {
+            window.removeEventListener('flipika:request-all-analyses', handleRequestAllAnalyses);
+        };
+    }, [handleBulkGenerateAnalysis]);
+
+    // AI Generation overlay removed - handled by ReportBlock
+    // DescriptionSection removed - handled by ReportBlock
+
+    const headerContent = isMockData ? (
+        <span
+            className="flex items-center gap-1.5 px-2 py-1 text-[9px] font-medium rounded-full"
+            style={{
+                backgroundColor: '#fffbeb',
+                color: '#b45309',
+                border: '1px solid #fcd34d'
+            }}
+            title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies annonces"
+        >
+            <AlertTriangle size={10} />
+            Mode Démo
+        </span>
+    ) : null;
+
+    // Determine which ad to display & Logic
     let adData: AdCreativeData;
     let adMetrics: AdMetrics;
     let selectedAd: RealAdCreative | undefined;
 
     if (!isMockData && realAds.length > 0) {
         // Use real ad data
-        // Get selected ad ID from widget settings, or use first ad
         const selectedAdId = config.settings?.selectedAdId;
         selectedAd = selectedAdId
             ? realAds.find(ad => ad.id === selectedAdId)
             : realAds[0];
 
         if (selectedAd) {
-            // Transform real ad to AdCreativeData format
             adData = {
-                type: selectedAd.type === 'SEARCH' ? 'search' : selectedAd.type === 'PMAX' ? 'PMAX' : 'display', // Handle PMAX type
+                type: selectedAd.type === 'SEARCH' ? 'search' : selectedAd.type === 'PMAX' ? 'PMAX' : 'display',
                 headline: selectedAd.headlines[0] || 'No headline',
                 description: selectedAd.descriptions[0] || 'No description',
                 displayUrl: selectedAd.displayUrl,
@@ -206,123 +310,83 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
                 finalUrl: selectedAd.finalUrl,
             };
 
-            // Calculate metrics with change (we don't have historical data yet, so no change)
-            const ctr = selectedAd.metrics.ctr * 100; // Convert to percentage
+            const ctr = selectedAd.metrics.ctr * 100;
             adMetrics = {
-                ctr: {
-                    value: ctr,
-                    formatted: `${ctr.toFixed(2)}%`,
-                },
-                conversions: {
-                    value: selectedAd.metrics.conversions,
-                    formatted: new Intl.NumberFormat('fr-FR').format(selectedAd.metrics.conversions),
-                },
-                cost: {
-                    value: selectedAd.metrics.cost,
-                    formatted: new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(selectedAd.metrics.cost),
-                },
+                ctr: { value: ctr, formatted: `${ctr.toFixed(2)}%` },
+                conversions: { value: selectedAd.metrics.conversions, formatted: new Intl.NumberFormat('fr-FR').format(selectedAd.metrics.conversions) },
+                cost: { value: selectedAd.metrics.cost, formatted: new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(selectedAd.metrics.cost) },
             };
         } else {
-            // Fallback to mock if selected ad not found
             const adType = config.settings?.adType || 'search';
             adData = adType === 'display' ? mockDisplayAd : mockSearchAd;
             adMetrics = mockMetrics;
         }
     } else {
-        // Use mock data
         const adType = config.settings?.adType || 'search';
         adData = adType === 'display' ? mockDisplayAd : mockSearchAd;
         adMetrics = mockMetrics;
     }
 
-    // If it's a PMax ad (check type or if it has images array structure suited for PMax)
-    // The backend now returns type='PMAX' for asset groups
-    if (adData.type === 'PMAX' || (selectedAd?.type === 'PMAX')) {
-        return (
-            <div className="h-full rounded-xl overflow-hidden shadow-sm border border-gray-200" style={{ backgroundColor: design?.colorScheme?.background || '#ffffff' }}>
+    const renderAdContent = () => {
+        if (adData.type === 'PMAX' || (selectedAd?.type === 'PMAX')) {
+            return (
                 <PerformanceMaxSlide
                     data={{
                         headlines: selectedAd?.headlines || [],
                         descriptions: selectedAd?.descriptions || [],
-                        images: selectedAd?.images || [], // The backend now provides this specialized array
+                        images: selectedAd?.images || [],
                         finalUrl: selectedAd?.finalUrl,
                         campaignName: selectedAd?.campaignName || 'Campaign',
                         assetGroupName: selectedAd?.name || 'Asset Group'
                     }}
                     design={design}
                 />
-            </div>
-        );
-    }
+            );
+        }
 
-    // If it's a Search ad, use the new SearchAdSlide for better visualization
-    if (adData.type === 'search' || selectedAd?.type === 'SEARCH') {
+        if (adData.type === 'search' || selectedAd?.type === 'SEARCH') {
+            return (
+                <SearchAdSlide
+                    data={{
+                        headlines: selectedAd?.headlines || [adData.headline],
+                        descriptions: selectedAd?.descriptions || [adData.description],
+                        displayUrl: adData.displayUrl,
+                        finalUrl: adData.finalUrl || ''
+                    }}
+                    design={design}
+                />
+            );
+        }
+
         return (
-            <SearchAdSlide
-                data={{
-                    headlines: selectedAd?.headlines || [adData.headline],
-                    descriptions: selectedAd?.descriptions || [adData.description],
-                    displayUrl: adData.displayUrl,
-                    finalUrl: adData.finalUrl || ''
-                }}
-                design={design}
-            />
-        );
-    }
-
-    // Default Fallback (Display Ads or other types using the Card view)
-    return (
-        <div
-            className="ad-creative-widget"
-            style={{
-                '--widget-primary': design?.colorScheme?.primary || '#3b82f6',
-                '--widget-text': design?.colorScheme?.text || '#111827',
-                '--widget-background': design?.colorScheme?.background || '#ffffff',
-                backgroundColor: design?.colorScheme?.background || '#ffffff',
-                color: design?.colorScheme?.text || '#111827',
-                padding: '24px',
-                minHeight: '300px',
-                borderRadius: '12px',
-                display: 'flex',
-                gap: '16px',
-                flexDirection: 'column',
-                // Border only in dark mode
-                border: design?.mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
-            } as React.CSSProperties}
-        >
-            <div className="flex items-center justify-between mb-6">
-                <h3 style={{
-                    color: design?.colorScheme?.text || '#111827',
-                    margin: 0,
-                    fontSize: '18px',
-                    fontWeight: 600,
-                }}>
-                    Aperçu d'annonce
-                </h3>
-                {isMockData && (
-                    <span
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
-                        style={{
-                            backgroundColor: '#fffbeb',
-                            color: '#b45309',
-                            border: '1px solid #fcd34d'
-                        }}
-                        title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies annonces"
-                    >
-                        <AlertTriangle size={12} />
-                        Mode Démo
-                    </span>
-                )}
-            </div>
-
-            <div className="widget-content flex-1 flex flex-col justify-center">
+            <div className="flex flex-col justify-center h-full">
                 <AdCreativeCard
                     adData={adData}
                     metrics={adMetrics}
                     design={design}
                 />
             </div>
-        </div>
+        );
+    };
+
+    return (
+        <ReportBlock
+            title="Aperçu d'annonce"
+            design={design}
+            loading={loading}
+            error={error}
+            editable={editable}
+            headerContent={headerContent}
+            description={description}
+            descriptionIsStale={descriptionIsStale}
+            onRegenerateAnalysis={handleBulkGenerateAnalysis}
+            isGeneratingAnalysis={isGeneratingAnalysis}
+            className="ad-creative-widget"
+        >
+            <div className="flex-1 w-full h-full overflow-hidden min-h-0">
+                {renderAdContent()}
+            </div>
+        </ReportBlock>
     );
 };
 

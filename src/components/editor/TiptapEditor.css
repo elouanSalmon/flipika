@@ -455,6 +455,7 @@
 
 .data-block-wrapper {
     margin: 1.5rem 0;
+    /* Inside slides, the margin is handled by first-child/last-child rules in .slide-content-editable */
     position: relative;
     max-width: 100%;
     width: 100%;
@@ -672,7 +673,7 @@
 .slide-content {
     width: 100%;
     height: 100%;
-    padding: 48px;
+    padding: 24px;
     position: relative;
     z-index: 1;
     /* Use theme colors from slide container */
@@ -728,6 +729,25 @@
     pointer-events: none;
     float: left;
     height: 0;
+}
+
+/* Remove margins from first/last elements in slide content to avoid gaps and overflows */
+.slide-content-editable>*:first-child {
+    margin-top: 0 !important;
+}
+
+.slide-content-editable>*:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Handle empty leading paragraphs that Tiptap often inserts at the start of a slide */
+.slide-content-editable>p:first-child.is-empty,
+.slide-content-editable>p:first-child.is-node-empty {
+    margin: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    visibility: hidden !important;
+    display: none !important;
 }
 
 /* Selection styling - contained within slides */
@@ -2096,6 +2116,7 @@
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     mix-blend-mode: normal;
 }
+
 /* AI Assistant Panel */
 .ai-assistant-panel {
     position: fixed;
@@ -2140,5 +2161,10 @@
     color: #0f172a;
 }
 
-.dark .ai-panel-title { color: #f1f5f9; }
-.ai-icon { color: #6366f1; }
+.dark .ai-panel-title {
+    color: #f1f5f9;
+}
+
+.ai-icon {
+    color: #6366f1;
+}

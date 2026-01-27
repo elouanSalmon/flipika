@@ -1,9 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { AlertTriangle, ArrowDown } from 'lucide-react';
+
+import { useTranslation } from 'react-i18next';
 import { getSlideData } from '../../../services/slideService';
-import Spinner from '../../common/Spinner';
+import { generateBlockAnalysis } from '../../../services/aiService';
+import { generateConfigHash } from '../../../hooks/useGenerateAnalysis';
+import ReportBlock from '../../editor/blocks/ReportBlock';
 import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
 import './FunnelAnalysisSlide.css';
+
+export interface FunnelAnalysisConfig {
+    description?: string;
+    aiAnalysisHash?: string;
+}
 
 interface FunnelAnalysisSlideProps {
     config: SlideConfig;
@@ -15,6 +24,7 @@ interface FunnelAnalysisSlideProps {
     editable?: boolean;
     reportId?: string;
     isTemplateMode?: boolean;
+    onUpdateConfig?: (newConfig: Partial<FunnelAnalysisConfig>) => void;
 }
 
 interface FunnelStep {
@@ -35,11 +45,37 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
     endDate,
     editable = false,
     reportId,
+    onUpdateConfig,
 }) => {
+    const { t } = useTranslation('reports');
     const [funnelData, setFunnelData] = useState<FunnelStep[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isMockData, setIsMockData] = useState(false);
+
+    // AI Analysis generation state
+    const [isGeneratingAnalysis, setIsGeneratingAnalysis] = useState(false);
+
+    // Ref to store captured data for AI generation
+    const capturedDataRef = useRef<{
+        impressions: number;
+        clicks: number;
+        conversions: number;
+    }>({ impressions: 0, clicks: 0, conversions: 0 });
+
+    // Get description from config settings
+    const description = config.settings?.description as string | undefined;
+    const aiAnalysisHash = config.settings?.aiAnalysisHash as string | undefined;
+
+    // Check if description is stale
+    const descriptionIsStale = Boolean(description && aiAnalysisHash && (() => {
+        const currentHash = generateConfigHash({
+            title: 'Funnel Analysis',
+            metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.conversions'],
+            visualization: 'table',
+        }, startDate, endDate);
+        return currentHash !== aiAnalysisHash;
+    })());
 
     // Compute effective scope
     const effectiveAccountId = config.scope?.accountId || accountId || '';
@@ -97,6 +133,9 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
 
                 setFunnelData(steps);
                 setIsMockData(data.isMockData || false);
+
+                // Capture data for AI generation
+                capturedDataRef.current = { impressions, clicks, conversions };
             }
         } catch (err) {
             console.error('Error loading funnel data:', err);
@@ -115,125 +154,151 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
         return `${num.toFixed(2)}%`;
     };
 
-    if (loading) {
-        return (
-            <div className="funnel-analysis-widget loading">
-                <div className="widget-header">
-                    <h3>Analyse de conversion</h3>
-                </div>
-                <div className="widget-content">
-                    <div className="flex justify-center py-8">
-                        <Spinner size={32} />
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    // Handle AI analysis generation (for bulk generation)
+    const handleBulkGenerateAnalysis = useCallback(async () => {
+        // Skip if already has description or no dates or not editable
+        if (description || !startDate || !endDate || !editable || !onUpdateConfig) {
+            return;
+        }
 
-    if (error) {
-        return (
-            <div className="funnel-analysis-widget error">
-                <div className="widget-header">
-                    <h3>Analyse de conversion</h3>
-                </div>
-                <div className="widget-content">
-                    <div className="error-message">{error}</div>
-                </div>
-            </div>
-        );
-    }
+        // Skip if no data captured yet
+        if (capturedDataRef.current.impressions === 0 && capturedDataRef.current.clicks === 0) {
+            return;
+        }
+
+        setIsGeneratingAnalysis(true);
+        window.dispatchEvent(new CustomEvent('flipika:ai-generation-start'));
+
+        try {
+            const formatDate = (d: Date | string) => {
+                const date = new Date(d);
+                return date.toISOString().split('T')[0];
+            };
+
+            const { impressions, clicks, conversions } = capturedDataRef.current;
+            const ctr = impressions > 0 ? (clicks / impressions) * 100 : 0;
+            const conversionRate = clicks > 0 ? (conversions / clicks) * 100 : 0;
+
+            const result = await generateBlockAnalysis({
+                blockTitle: 'Analyse de conversion (Funnel)',
+                visualization: 'funnel',
+                metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.conversions'],
+                dimension: undefined,
+                period: {
+                    start: formatDate(startDate),
+                    end: formatDate(endDate)
+                },
+                currentData: [{
+                    'metrics.impressions': impressions,
+                    'metrics.clicks': clicks,
+                    'metrics.conversions': conversions,
+                    'metrics.ctr': ctr,
+                    'conversion_rate': conversionRate
+                }],
+                comparisonData: undefined,
+                showComparison: false
+            });
+
+            // Generate hash for staleness detection
+            const hash = generateConfigHash({
+                title: 'Funnel Analysis',
+                metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.conversions'],
+                visualization: 'table',
+            }, startDate, endDate);
+
+            // Update config directly
+            onUpdateConfig({
+                description: result.analysis,
+                aiAnalysisHash: hash
+            });
+
+        } catch (error) {
+            console.error('Error generating analysis (bulk) for funnel:', error);
+        } finally {
+            setIsGeneratingAnalysis(false);
+            window.dispatchEvent(new CustomEvent('flipika:ai-generation-end'));
+        }
+    }, [description, startDate, endDate, editable, onUpdateConfig]);
+
+    // Listen for "Generate All" event
+    useEffect(() => {
+        const handleRequestAllAnalyses = () => {
+            handleBulkGenerateAnalysis();
+        };
+
+        window.addEventListener('flipika:request-all-analyses', handleRequestAllAnalyses);
+        return () => {
+            window.removeEventListener('flipika:request-all-analyses', handleRequestAllAnalyses);
+        };
+    }, [handleBulkGenerateAnalysis]);
+
+    // AI Generation overlay removed - handled by ReportBlock
 
     const hasData = funnelData.some(step => step.value > 0);
 
-    if (!hasData) {
+    const headerContent = isMockData ? (
+        <span
+            className="flex items-center gap-1.5 px-2 py-1 text-[10px] font-medium rounded-full"
+            style={{
+                backgroundColor: '#fffbeb',
+                color: '#b45309',
+                border: '1px solid #fcd34d'
+            }}
+            title="Données de démonstration - Connectez un compte Google Ads pour voir vos données réelles"
+        >
+            <AlertTriangle size={10} />
+            Mode Démo
+        </span>
+    ) : null;
+
+    if (!hasData && !loading && !error) {
         return (
-            <div
-                className="funnel-analysis-widget empty"
-                style={{
-                    minHeight: '100px',
-                    padding: '24px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: design?.colorScheme?.background || '#ffffff',
-                    color: design?.colorScheme?.text || '#111827',
-                    borderRadius: '12px'
-                }}
+            <ReportBlock
+                title={t('Funnel Analysis', 'Analyse de conversion')}
+                design={design}
+                className={`funnel-analysis-widget ${design.mode === 'dark' ? 'dark-mode' : ''}`}
             >
-                <div className="empty-state">
+                <div className="empty-state flex flex-col items-center justify-center h-full text-center p-6">
                     <p>Aucune donnée disponible pour le tunnel</p>
-                    <p className="empty-hint">Sélectionnez des campagnes pour afficher le graphique</p>
+                    <p className="empty-hint text-sm opacity-70 mt-2">Sélectionnez des campagnes pour afficher le graphique</p>
                 </div>
-            </div>
+            </ReportBlock>
         );
     }
 
     return (
-        <div
+        <ReportBlock
+            title={t('Funnel Analysis', 'Analyse de conversion')}
+            design={design}
+            loading={loading}
+            error={error}
+            editable={editable}
+            headerContent={headerContent}
+            description={description}
+            descriptionIsStale={descriptionIsStale}
+            onRegenerateAnalysis={handleBulkGenerateAnalysis}
+            isGeneratingAnalysis={isGeneratingAnalysis}
             className={`funnel-analysis-widget ${design.mode === 'dark' ? 'dark-mode' : ''}`}
-            style={{
-                backgroundColor: design?.colorScheme?.background || '#ffffff',
-                color: design?.colorScheme?.text || '#111827',
-                padding: '24px',
-                borderRadius: '12px',
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'hidden',
-                height: 'auto',
-                maxWidth: '100%',
-                position: 'relative'
-            } as React.CSSProperties}
         >
-            <div className="flex items-center justify-between mb-8">
-                <h3 style={{
-                    color: design?.colorScheme?.text || '#111827',
-                    fontSize: '18px',
-                    fontWeight: 600,
-                    margin: 0
-                }}>
-                    Analyse de conversion
-                </h3>
-                {isMockData && (
-                    <span
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
-                        style={{
-                            backgroundColor: '#fffbeb',
-                            color: '#b45309',
-                            border: '1px solid #fcd34d'
-                        }}
-                        title="Données de démonstration - Connectez un compte Google Ads pour voir vos données réelles"
-                    >
-                        <AlertTriangle size={12} />
-                        Mode Démo
-                    </span>
-                )}
-                {editable && (
-                    <button className="widget-settings-btn" onClick={() => {/* TODO: Open settings */ }}>
-                        ⚙️
-                    </button>
-                )}
-            </div>
-
-            <div className="widget-content flex-1 flex flex-col justify-center overflow-hidden" style={{ height: 'auto', minHeight: 0 }}>
-                <div className="funnel-container flex flex-col gap-8" style={{ height: 'auto', overflow: 'hidden' }}>
+            <div className="widget-content flex-1 flex flex-col justify-center overflow-hidden min-h-0 h-full">
+                <div className="funnel-container flex flex-col gap-3 justify-center h-full">
                     {funnelData.map((step) => (
-                        <div key={step.id} className="funnel-step relative flex flex-col">
-                            <div className="flex items-center justify-between mb-2 px-1">
-                                <div className="funnel-label font-medium" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '14px' }}>
+                        <div key={step.id} className="funnel-step relative flex flex-col justify-center flex-1">
+                            <div className="flex items-center justify-between mb-1 px-1">
+                                <div className="funnel-label font-medium" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '12px' }}>
                                     {step.label}
                                 </div>
-                                <div className="funnel-value font-bold" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '14px' }}>
+                                <div className="funnel-value font-bold" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '12px' }}>
                                     {formatNumber(step.value)}
                                 </div>
                             </div>
 
                             <div
-                                className="funnel-bar-container relative h-10 w-full rounded-lg overflow-hidden"
+                                className="funnel-bar-container relative h-full max-h-8 w-full rounded-md overflow-hidden"
                                 style={{ backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}
                             >
                                 <div
-                                    className="funnel-bar h-full rounded-r-lg transition-all duration-1000 ease-out"
+                                    className="funnel-bar h-full rounded-r-md transition-all duration-1000 ease-out"
                                     style={{
                                         width: `${Math.max(step.percentage, 2)}%`,
                                         backgroundColor: step.color
@@ -244,11 +309,10 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                             {/* Conversion Rate Bubble */}
                             {step.conversionRate !== undefined && (
                                 <div
-                                    className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-full flex flex-col items-center"
-                                    style={{ zIndex: 10, paddingTop: '4px' }}
+                                    className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-2/3 flex flex-col items-center z-20"
                                 >
                                     <div
-                                        className="text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1"
+                                        className="text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-0.5"
                                         style={{
                                             backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'white',
                                             color: design?.colorScheme?.text || '#111827',
@@ -256,7 +320,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                                             backdropFilter: 'blur(4px)'
                                         }}
                                     >
-                                        <ArrowDown size={10} />
+                                        <ArrowDown size={8} />
                                         {formatPercent(step.conversionRate)}
                                     </div>
                                 </div>
@@ -265,7 +329,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                     ))}
                 </div>
             </div>
-        </div>
+        </ReportBlock>
     );
 };
 

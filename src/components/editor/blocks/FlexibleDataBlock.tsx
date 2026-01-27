@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import ReportBlock from './ReportBlock';
 import { useReportEditor, ReportEditorProvider } from '../../../contexts/ReportEditorContext';
-import { Settings, Loader2, X, Info, TrendingUp, TrendingDown, Sparkles, AlertTriangle, RefreshCw } from 'lucide-react';
+import { X, Info, Sparkles, AlertTriangle, Loader2, TrendingUp, TrendingDown } from 'lucide-react';
 import type { ReportDesign } from '../../../types/reportTypes';
 import { executeQuery } from '../../../services/googleAds';
 import { buildFlexibleQuery } from '../../../services/gaql';
@@ -41,7 +42,7 @@ export interface FlexibleDataConfig {
     title: string;
     metrics: string[];
     dimension?: string;
-    visualization: 'table' | 'bar' | 'line' | 'pie' | 'scorecard';
+    visualization: 'table' | 'bar' | 'line' | 'pie' | 'scorecard' | 'heatmap' | 'funnel' | 'ad_creative';
     limit?: number;
     sortBy?: string;
     sortOrder?: 'ASC' | 'DESC';
@@ -427,7 +428,7 @@ const DataRenderer: React.FC<{
     };
 
     return (
-        <div className="h-full w-full overflow-hidden relative" style={{ fontFamily: design?.typography?.fontFamily }}>
+        <div className="link-renderer-root flex-1 w-full flex flex-col min-h-0 relative" style={{ fontFamily: design?.typography?.fontFamily }}>
             {isMockData && (
                 <div
                     className="absolute top-2 right-2 z-10 text-[8px] font-bold px-2 py-0.5 rounded-full border backdrop-blur-md flex items-center gap-1 shadow-sm"
@@ -513,77 +514,82 @@ const DataRenderer: React.FC<{
                         );
                     case 'bar':
                         return (
-                            <ResponsiveContainer width="100%" height={height as any}>
-                                <BarChart data={tableData}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
-                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
-                                    <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
-                                    {config.metrics.map((m: string, i: number) => (
-                                        <React.Fragment key={m}>
-                                            <Bar dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={chartColors[i % chartColors.length]} radius={[4, 4, 0, 0]} />
-                                            {config.showComparison && (
-                                                <Bar dataKey={`${m}_prev`} name={`${t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} (N-1)`} fill={chartColors[i % chartColors.length]} opacity={0.3} radius={[4, 4, 0, 0]} />
-                                            )}
-                                        </React.Fragment>
-                                    ))}
-                                </BarChart>
-                            </ResponsiveContainer>
+                            <div className="absolute inset-0">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={tableData}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
+                                        <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
+                                        <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
+                                        <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
+                                        <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
+                                        {config.metrics.map((m: string, i: number) => (
+                                            <React.Fragment key={m}>
+                                                <Bar dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={chartColors[i % chartColors.length]} radius={[4, 4, 0, 0]} />
+                                                {config.showComparison && (
+                                                    <Bar dataKey={`${m}_prev`} name={`${t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} (N-1)`} fill={chartColors[i % chartColors.length]} opacity={0.3} radius={[4, 4, 0, 0]} />
+                                                )}
+                                            </React.Fragment>
+                                        ))}
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
                         );
                     case 'line':
                         return (
-                            <ResponsiveContainer width="100%" height={height as any}>
-                                <LineChart data={tableData}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
-                                    <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
-                                    <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
-                                    {config.metrics.map((m: string, i: number) => (
-                                        <React.Fragment key={m}>
-                                            <Line type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={chartColors[i % chartColors.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                                            {config.showComparison && (
-                                                <Line type="monotone" dataKey={`${m}_prev`} name={`${t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} (N-1)`} stroke={chartColors[i % chartColors.length]} strokeDasharray="5 5" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
-                                            )}
-                                        </React.Fragment>
-                                    ))}
-                                </LineChart>
-                            </ResponsiveContainer>
+                            <div className="absolute inset-0">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <LineChart data={tableData}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
+                                        <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
+                                        <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
+                                        <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
+                                        <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
+                                        {config.metrics.map((m: string, i: number) => (
+                                            <React.Fragment key={m}>
+                                                <Line type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={chartColors[i % chartColors.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                                {config.showComparison && (
+                                                    <Line type="monotone" dataKey={`${m}_prev`} name={`${t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} (N-1)`} stroke={chartColors[i % chartColors.length]} strokeDasharray="5 5" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                                                )}
+                                            </React.Fragment>
+                                        ))}
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            </div>
                         );
                     case 'pie':
-                        const pieRadius = typeof height === 'number' ? height / 3 : 100;
                         return (
-                            <ResponsiveContainer width="100%" height={height as any}>
-                                <PieChart>
-                                    <Pie
-                                        data={data}
-                                        cx="50%"
-                                        cy="50%"
-                                        labelLine={false}
-                                        outerRadius={pieRadius}
-                                        fill={chartColors[0]}
-                                        dataKey={config.metrics[0]}
-                                        nameKey={config.dimension}
-                                        label={(props: any) => (
-                                            <text
-                                                x={props.x}
-                                                y={props.y}
-                                                textAnchor={props.textAnchor}
-                                                dominantBaseline="central"
-                                                fill={design?.colorScheme?.text || '#111827'}
-                                                style={{ fontSize: 10, fontFamily: design?.typography?.fontFamily }}
-                                            >
-                                                {`${props.name} ${(props.percent * 100).toFixed(0)}% `}
-                                            </text>
-                                        )}
-                                    >
-                                        {data.map((_, index) => <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />)}
-                                    </Pie>
-                                    <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                    <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
-                                </PieChart>
-                            </ResponsiveContainer>
+                            <div className="absolute inset-0">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie
+                                            data={data}
+                                            cx="50%"
+                                            cy="50%"
+                                            labelLine={false}
+                                            outerRadius={typeof height === 'number' ? height / 3 : '70%'}
+                                            fill={chartColors[0]}
+                                            dataKey={config.metrics[0]}
+                                            nameKey={config.dimension}
+                                            label={(props: any) => (
+                                                <text
+                                                    x={props.x}
+                                                    y={props.y}
+                                                    textAnchor={props.textAnchor}
+                                                    dominantBaseline="central"
+                                                    fill={design?.colorScheme?.text || '#111827'}
+                                                    style={{ fontSize: 10, fontFamily: design?.typography?.fontFamily }}
+                                                >
+                                                    {`${props.name} ${(props.percent * 100).toFixed(0)}% `}
+                                                </text>
+                                            )}
+                                        >
+                                            {data.map((_, index) => <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />)}
+                                        </Pie>
+                                        <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
+                                        <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
                         );
                     case 'scorecard':
                         const gridCols = config.metrics.length <= 4 ? 'grid-cols-2' : config.metrics.length <= 6 ? 'grid-cols-3' : 'grid-cols-4';
@@ -1014,11 +1020,10 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                                                 <button
                                                     onClick={handleGenerateAnalysis}
                                                     disabled={isGeneratingAnalysis || !accountId}
-                                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
-                                                        isGeneratingAnalysis
-                                                            ? 'bg-primary/80 text-white cursor-wait'
-                                                            : 'bg-primary text-white hover:bg-primary/90 shadow-md shadow-primary/20'
-                                                    }`}
+                                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all ${isGeneratingAnalysis
+                                                        ? 'bg-primary/80 text-white cursor-wait'
+                                                        : 'bg-primary text-white hover:bg-primary/90 shadow-md shadow-primary/20'
+                                                        }`}
                                                 >
                                                     {isGeneratingAnalysis ? (
                                                         <>
@@ -1136,89 +1141,28 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
         </AnimatePresence>
     );
 
-    // AI Generation overlay component - Glassmorphism style
-    const AiGenerationOverlay = () => (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl overflow-hidden"
-            style={{
-                backgroundColor: design?.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.7)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
-            }}
-        >
-            {/* Center content - Glassmorphism card */}
-            <motion.div
-                className="relative flex flex-col items-center gap-3 px-8 py-5 rounded-2xl"
-                style={{
-                    backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.6)',
-                    border: design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(0,0,0,0.08)',
-                    boxShadow: design?.mode === 'dark'
-                        ? '0 8px 32px rgba(0,0,0,0.3)'
-                        : '0 8px 32px rgba(0,0,0,0.1)',
-                }}
-                initial={{ scale: 0.95, y: 10 }}
-                animate={{ scale: 1, y: 0 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            >
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                >
-                    <Loader2
-                        size={24}
-                        style={{ color: design?.colorScheme?.primary || 'var(--color-primary)' }}
-                    />
-                </motion.div>
-                <span
-                    className="text-sm font-medium"
-                    style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}
-                >
-                    {t('flexibleBlock.ai.generating')}
-                </span>
-            </motion.div>
-        </motion.div>
-    );
+    // AI Generation overlay removed - handled by ReportBlock
 
     return (
-        <div className="flexible-data-block relative group">
-            <div
-                className="overflow-hidden rounded-2xl transition-all relative"
-                style={{
-                    backgroundColor: design?.colorScheme?.background || '#ffffff',
-                    border: 'none',
-                    color: design?.colorScheme?.text || '#111827',
-                    boxShadow: design?.mode === 'dark' ? '0 10px 15px -3px rgba(0, 0, 0, 0.5)' : '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
-                }}
+        <div className="h-full">
+            <ReportBlock
+                title={activeConfig.title}
+                design={design!}
+                editable={editable}
+                onEdit={() => setIsConfigOpen(true)}
+                description={activeConfig.description}
+                descriptionIsStale={descriptionIsStale}
+                onRegenerateAnalysis={handleBulkGenerateAnalysis}
+                isGeneratingAnalysis={isGeneratingAnalysis}
+                minHeight={['bar', 'line', 'pie'].includes(activeConfig.visualization) ? (activeConfig.description ? 450 : 350) : 300}
             >
-                {/* AI Generation Overlay */}
-                <AnimatePresence>
-                    {isGeneratingAnalysis && <AiGenerationOverlay />}
-                </AnimatePresence>
-                <div className="px-5 py-4 border-b flex justify-between items-center" style={{
-                    borderColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
-                    backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)'
-                }}>
-                    <h3 className="font-bold" style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}>{activeConfig.title}</h3>
-                    {editable && (
-                        <button
-                            onClick={() => setIsConfigOpen(true)}
-                            className="p-2 hover:bg-[var(--color-bg-secondary)] rounded-xl transition-all text-[var(--color-text-muted)] hover:text-primary border border-transparent hover:border-[var(--color-border)] shadow-sm"
-                        >
-                            <Settings size={16} />
-                        </button>
-                    )}
-                </div>
-
                 <div
-                    className={`p-6 bg-transparent overflow-auto report-scrollbar ${activeConfig.description ? 'h-[280px]' : 'h-[320px]'}`}
-                    style={{
+                    className={`flex-1 w-full min-h-0 flex flex-col ${['table', 'scorecard'].includes(activeConfig.visualization) ? 'overflow-auto report-scrollbar' : 'overflow-hidden'}`}
+                    style={['table', 'scorecard'].includes(activeConfig.visualization) ? {
                         '--scrollbar-track': design?.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)',
                         '--scrollbar-thumb': design?.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)',
                         '--scrollbar-thumb-hover': design?.mode === 'dark' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)',
-                    } as React.CSSProperties}
+                    } as React.CSSProperties : undefined}
                 >
                     <DataRenderer
                         config={activeConfig}
@@ -1227,45 +1171,12 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                         startDate={startDate || ''}
                         endDate={endDate || ''}
                         design={design || undefined}
-                        height={activeConfig.description ? 240 : 280}
                         onDataLoaded={(currentData, comparisonData) => {
                             capturedDataRef.current = { currentData, comparisonData };
                         }}
                     />
                 </div>
-
-                {/* Description / Narrative Layer */}
-                {activeConfig.description && (
-                    <div
-                        className="px-5 py-3 border-t"
-                        style={{
-                            borderColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
-                            backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)'
-                        }}
-                    >
-                        <p
-                            className="text-sm leading-relaxed"
-                            style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}
-                        >
-                            {activeConfig.description}
-                        </p>
-                        {/* Stale indicator - only visible in edit mode */}
-                        {descriptionIsStale && editable && (
-                            <div className="flex items-center gap-1 mt-1.5 text-amber-600 dark:text-amber-400">
-                                <AlertTriangle size={10} />
-                                <span className="text-[9px] font-medium">{t('flexibleBlock.ai.staleHint')}</span>
-                                <button
-                                    onClick={() => setIsConfigOpen(true)}
-                                    className="ml-1 flex items-center gap-0.5 text-[9px] font-medium text-primary hover:underline"
-                                >
-                                    <RefreshCw size={9} />
-                                    {t('flexibleBlock.ai.regenerate')}
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
+            </ReportBlock>
 
             {typeof document !== 'undefined' && createPortal(ConfigModal, document.body)}
         </div>

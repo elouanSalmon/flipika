@@ -610,16 +610,16 @@
     },
     "emptyState": "Configurez un compte pour afficher les données.",
     "ai": {
-      "title": "Analyse IA",
-      "subtitle": "Generez une analyse narrative automatique",
+      "title": "Analyse Narrative",
+      "subtitle": "Générez un commentaire narratif",
       "generate": "Analyser",
       "generating": "Analyse...",
-      "placeholder": "Cliquez sur \"Analyser\" pour generer une description automatique basee sur les donnees du graphique, ou redigez votre propre analyse...",
-      "stale": "Obsolete",
-      "staleHint": "Les parametres ont change depuis la derniere analyse",
-      "regenerate": "Regenerer",
-      "errorNoDate": "Veuillez definir une periode d'analyse",
-      "errorGeneric": "Erreur lors de la generation de l'analyse"
+      "placeholder": "Cliquez sur \"Analyser\" pour générer une synthèse basée sur les données du graphique, ou rédigez votre propre analyse...",
+      "stale": "Obsolète",
+      "staleHint": "Les paramètres ont changé depuis la dernière analyse",
+      "regenerate": "Régénérer",
+      "errorNoDate": "Veuillez définir une période d'analyse",
+      "errorGeneric": "Erreur lors de la génération de l'analyse"
     }
   },
   "toolbar": {

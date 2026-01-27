@@ -1,9 +1,16 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { AlertTriangle, Calendar } from 'lucide-react';
 import { getSlideData } from '../../../services/slideService';
-import Spinner from '../../common/Spinner';
+import { generateBlockAnalysis } from '../../../services/aiService';
+import { generateConfigHash } from '../../../hooks/useGenerateAnalysis';
+import ReportBlock from '../../editor/blocks/ReportBlock';
 import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
 import './HeatmapSlide.css';
+
+export interface HeatmapConfig {
+    description?: string;
+    aiAnalysisHash?: string;
+}
 
 interface HeatmapSlideProps {
     config: SlideConfig;
@@ -15,6 +22,7 @@ interface HeatmapSlideProps {
     editable?: boolean;
     reportId?: string;
     isTemplateMode?: boolean;
+    onUpdateConfig?: (newConfig: Partial<HeatmapConfig>) => void;
 }
 
 interface HeatmapCellData {
@@ -46,11 +54,13 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     design,
     accountId,
     campaignIds,
-
     startDate,
     endDate,
     reportId,
+    editable = false,
+    onUpdateConfig,
 }) => {
+
     const [heatmapData, setHeatmapData] = useState<HeatmapCellData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -58,6 +68,26 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     const [selectedMetric, setSelectedMetric] = useState<string>(
         config.settings?.defaultMetric || 'clicks'
     );
+
+    // AI Analysis generation state
+    const [isGeneratingAnalysis, setIsGeneratingAnalysis] = useState(false);
+
+    // Ref to store captured data for AI generation
+    const capturedDataRef = useRef<HeatmapCellData[]>([]);
+
+    // Get description from config settings
+    const description = config.settings?.description as string | undefined;
+    const aiAnalysisHash = config.settings?.aiAnalysisHash as string | undefined;
+
+    // Check if description is stale
+    const descriptionIsStale = description && aiAnalysisHash && (() => {
+        const currentHash = generateConfigHash({
+            title: 'Heatmap',
+            metrics: ['metrics.clicks'],
+            visualization: 'heatmap',
+        }, startDate, endDate);
+        return currentHash !== aiAnalysisHash;
+    })();
 
     // Compute effective scope
     const effectiveAccountId = config.scope?.accountId || accountId || '';
@@ -73,8 +103,12 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
             setError(null);
 
             const data = await getSlideData(config, effectiveAccountId, effectiveCampaignIds, startDate, endDate, reportId);
-            setHeatmapData(data.heatmapData || []);
+            const heatmapResults = data.heatmapData || [];
+            setHeatmapData(heatmapResults);
             setIsMockData(data.isMockData || false);
+
+            // Capture data for AI generation
+            capturedDataRef.current = heatmapResults;
         } catch (err) {
             console.error('Error loading heatmap data:', err);
             setError('Impossible de charger les données');
@@ -119,121 +153,162 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
         return new Intl.NumberFormat('fr-FR').format(Math.round(value));
     };
 
-    if (loading) {
-        return (
-            <div className="heatmap-container loading" style={{
-                minHeight: '100px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '24px'
-            }}>
-                <Spinner size={32} />
-            </div>
-        );
-    }
+    // Handle AI analysis generation (for bulk generation)
+    const handleBulkGenerateAnalysis = useCallback(async () => {
+        // Skip if already has description or no dates or not editable
+        if (description || !startDate || !endDate || !editable || !onUpdateConfig) {
+            return;
+        }
 
-    if (error) {
-        return (
-            <div className="heatmap-container error" style={{
-                minHeight: '100px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '24px',
-                color: '#ef4444'
-            }}>
-                {error}
-            </div>
-        );
-    }
+        // Skip if no data captured yet
+        if (capturedDataRef.current.length === 0) {
+            return;
+        }
+
+        setIsGeneratingAnalysis(true);
+        window.dispatchEvent(new CustomEvent('flipika:ai-generation-start'));
+
+        try {
+            const formatDate = (d: Date | string) => {
+                const date = new Date(d);
+                return date.toISOString().split('T')[0];
+            };
+
+            // Prepare heatmap data for AI - find best and worst performing hours/days
+            const heatmapSummary = capturedDataRef.current.map(cell => ({
+                day: DAYS[cell.day],
+                hour: cell.hour,
+                clicks: cell.metrics.clicks,
+                impressions: cell.metrics.impressions,
+                conversions: cell.metrics.conversions,
+                ctr: cell.metrics.ctr
+            }));
+
+            // Find top 3 performing time slots
+            const sorted = [...heatmapSummary].sort((a, b) => b.clicks - a.clicks);
+            const topSlots = sorted.slice(0, 5);
+            const bottomSlots = sorted.slice(-3);
+
+            const result = await generateBlockAnalysis({
+                blockTitle: 'Heatmap - Performance par jour et heure',
+                visualization: 'heatmap',
+                metrics: ['metrics.clicks', 'metrics.impressions', 'metrics.conversions'],
+                dimension: 'day_hour',
+                period: {
+                    start: formatDate(startDate),
+                    end: formatDate(endDate)
+                },
+                currentData: [
+                    { type: 'top_performing', slots: JSON.stringify(topSlots) },
+                    { type: 'low_performing', slots: JSON.stringify(bottomSlots) },
+                    { type: 'total_cells', count: heatmapSummary.length }
+                ],
+                comparisonData: undefined,
+                showComparison: false
+            });
+
+            // Generate hash for staleness detection
+            const hash = generateConfigHash({
+                title: 'Heatmap',
+                metrics: ['metrics.clicks'],
+                visualization: 'heatmap',
+            }, startDate, endDate);
+
+            // Update config directly
+            onUpdateConfig({
+                description: result.analysis,
+                aiAnalysisHash: hash
+            });
+
+        } catch (error) {
+            console.error('Error generating analysis (bulk) for heatmap:', error);
+        } finally {
+            setIsGeneratingAnalysis(false);
+            window.dispatchEvent(new CustomEvent('flipika:ai-generation-end'));
+        }
+    }, [description, startDate, endDate, editable, onUpdateConfig]);
+
+    // Listen for "Generate All" event
+    useEffect(() => {
+        const handleRequestAllAnalyses = () => {
+            handleBulkGenerateAnalysis();
+        };
+
+        window.addEventListener('flipika:request-all-analyses', handleRequestAllAnalyses);
+        return () => {
+            window.removeEventListener('flipika:request-all-analyses', handleRequestAllAnalyses);
+        };
+    }, [handleBulkGenerateAnalysis]);
+
+    // AI Generation overlay removed - handled by ReportBlock
+
+    const headerContent = (
+        <div className="flex items-center gap-2">
+            <select
+                value={selectedMetric}
+                onChange={(e) => setSelectedMetric(e.target.value)}
+                className="heatmap-metric-selector"
+                onClick={(e) => e.stopPropagation()} // Prevent block drag when clicking select
+                style={{
+                    borderColor: design.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)',
+                    backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)',
+                    color: design?.colorScheme?.text || '#111827',
+                    padding: '2px 8px',
+                    borderRadius: '6px',
+                    fontSize: '11px',
+                    fontWeight: 500,
+                    outline: 'none',
+                    cursor: 'pointer',
+                    border: '1px solid'
+                }}
+            >
+                {METRIC_OPTIONS.map(opt => (
+                    <option key={opt.value} value={opt.value} style={{ backgroundColor: design?.colorScheme?.background || '#ffffff' }}>{opt.label}</option>
+                ))}
+            </select>
+            {isMockData && (
+                <span
+                    className="flex items-center gap-1.5 px-2 py-1 text-[9px] uppercase tracking-wider font-bold rounded-full border"
+                    style={{
+                        backgroundColor: design?.mode === 'dark' ? 'rgba(249, 115, 22, 0.15)' : 'rgba(254, 252, 232, 1)',
+                        color: design?.mode === 'dark' ? '#fb923c' : '#b45309',
+                        borderColor: design?.mode === 'dark' ? 'rgba(249, 115, 22, 0.3)' : '#fcd34d'
+                    }}
+                    title="Données de démonstration - Connectez un compte Google Ads pour voir vos données réelles"
+                >
+                    <AlertTriangle size={10} />
+                    Mode Démo
+                </span>
+            )}
+        </div>
+    );
 
     return (
-        <div
+        <ReportBlock
+            title="Heatmap"
+            design={design}
+            loading={loading}
+            error={error}
+            editable={editable}
+            headerContent={headerContent}
+            description={description}
+            descriptionIsStale={descriptionIsStale}
+            onRegenerateAnalysis={handleBulkGenerateAnalysis}
+            isGeneratingAnalysis={isGeneratingAnalysis}
             className="heatmap-container"
-            style={{
-                // Inject local theme variables to override global app theme
-                '--text-primary': design?.colorScheme?.text || '#111827',
-                '--text-secondary': design?.colorScheme?.secondary || '#6b7280',
-                '--bg-surface': design?.colorScheme?.background || '#ffffff',
-                '--border-color': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-                '--scrollbar-track': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
-                '--scrollbar-thumb': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.15)',
-                '--scrollbar-thumb-hover': design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.25)',
-
-                backgroundColor: design?.colorScheme?.background || '#ffffff',
-                color: design?.colorScheme?.text || '#111827',
-                padding: '24px',
-                minHeight: '300px',
-                borderRadius: '12px',
-                display: 'flex',
-                gap: '16px',
-                flexDirection: 'column',
-                border: 'none',
-            } as React.CSSProperties}
         >
-            <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                    <h3 style={{
-                        color: design?.colorScheme?.text || '#111827',
-                        fontSize: '18px',
-                        fontWeight: 600,
-                        margin: 0
-                    }}>
-                        Heatmap
-                    </h3>
-                    <select
-                        value={selectedMetric}
-                        onChange={(e) => setSelectedMetric(e.target.value)}
-                        className="heatmap-metric-selector"
-                        style={{
-                            borderColor: design.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)',
-                            backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)',
-                            color: design?.colorScheme?.text || '#111827',
-                            padding: '4px 12px',
-                            borderRadius: '8px',
-                            fontSize: '13px',
-                            fontWeight: 500,
-                            outline: 'none',
-                            cursor: 'pointer',
-                            border: '1px solid'
-                        }}
-                    >
-                        {METRIC_OPTIONS.map(opt => (
-                            <option key={opt.value} value={opt.value} style={{ backgroundColor: design?.colorScheme?.background || '#ffffff' }}>{opt.label}</option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className="flex items-center gap-2">
-                    {isMockData && (
-                        <span
-                            className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] uppercase tracking-wider font-bold rounded-full border"
-                            style={{
-                                backgroundColor: design?.mode === 'dark' ? 'rgba(249, 115, 22, 0.15)' : 'rgba(254, 252, 232, 1)',
-                                color: design?.mode === 'dark' ? '#fb923c' : '#b45309',
-                                borderColor: design?.mode === 'dark' ? 'rgba(249, 115, 22, 0.3)' : '#fcd34d'
-                            }}
-                            title="Données de démonstration - Connectez un compte Google Ads pour voir vos données réelles"
-                        >
-                            <AlertTriangle size={12} />
-                            Mode Démo
-                        </span>
-                    )}
-                </div>
-            </div>
-
-            <div className="heatmap-content flex-1 flex flex-col justify-center overflow-auto report-scrollbar">
-                <div className="heatmap-grid" style={{
+            <div className="heatmap-content flex-1 flex flex-col justify-center overflow-auto report-scrollbar min-h-0 h-full">
+                <div className="heatmap-grid h-full" style={{
                     display: 'grid',
                     gridTemplateColumns: 'auto repeat(24, 1fr)',
                     gap: '2px',
-                    paddingBottom: '8px'
+                    paddingBottom: '4px',
+                    alignContent: 'center'
                 }}>
                     {/* Header Row: Hours */}
                     <div className="heatmap-header-cell empty"></div>
                     {HOURS.map(hour => (
-                        <div key={`header-${hour}`} className="heatmap-header-cell text-xs opacity-50 text-center" style={{ fontSize: '10px' }}>
+                        <div key={`header-${hour}`} className="heatmap-header-cell text-xs opacity-50 text-center" style={{ fontSize: '9px' }}>
                             {hour}
                         </div>
                     ))}
@@ -243,7 +318,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                         return (
                             <React.Fragment key={`row-${dayIndex}`}>
                                 {/* Row Label */}
-                                <div className="heatmap-row-label text-xs font-medium opacity-70 flex items-center" style={{ fontSize: '11px' }}>
+                                <div className="heatmap-row-label text-xs font-medium opacity-70 flex items-center" style={{ fontSize: '10px' }}>
                                     {dayLabel}
                                 </div>
 
@@ -254,8 +329,8 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
 
                                     return (
                                         <div
-                                            key={`cell-${dayIndex}-${hour}`}
-                                            className="heatmap-cell relative group rounded-sm"
+                                            key={`cell-${cellData ? cellData.day : dayIndex}-${hour}`}
+                                            className="heatmap-cell relative group rounded-sm aspect-square"
                                             style={{
                                                 backgroundColor: getCellColor(value),
                                                 opacity: value === 0 ? 1 : getCellOpacity(value),
@@ -268,7 +343,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                                                     backgroundColor: design?.colorScheme?.background || (design.mode === 'dark' ? '#fff' : '#1e293b'),
                                                     color: design?.colorScheme?.text || (design.mode === 'dark' ? '#1e293b' : '#fff'),
                                                     border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                                                    fontSize: '12px'
+                                                    fontSize: '11px'
                                                 }}
                                             >
                                                 <strong>{dayLabel} {hour}h:00 - {hour}h:59</strong><br />
@@ -288,15 +363,15 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 </div>
             </div>
 
-            <div className="flex justify-center mt-4 opacity-50 text-xs">
+            <div className="flex justify-center mt-1 opacity-50 text-[10px] flex-shrink-0">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1.5">
-                        <Calendar size={12} />
+                        <Calendar size={10} />
                         <span>7 derniers jours</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </ReportBlock>
     );
 };
 

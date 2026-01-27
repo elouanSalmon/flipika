@@ -171,6 +171,15 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         design={design}
                         reportId={reportId}
                         isTemplateMode={isTemplateMode}
+                        editable={editor.isEditable}
+                        onUpdateConfig={(newSettings) => {
+                            updateAttributes({
+                                config: {
+                                    ...config,
+                                    settings: { ...config?.settings, ...newSettings }
+                                }
+                            });
+                        }}
                     />
                 );
             case SlideType.FUNNEL_ANALYSIS:
@@ -184,6 +193,15 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         design={design}
                         reportId={reportId}
                         isTemplateMode={isTemplateMode}
+                        editable={editor.isEditable}
+                        onUpdateConfig={(newSettings) => {
+                            updateAttributes({
+                                config: {
+                                    ...config,
+                                    settings: { ...config?.settings, ...newSettings }
+                                }
+                            });
+                        }}
                     />
                 );
             case SlideType.HEATMAP:
@@ -197,6 +215,15 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         design={design}
                         reportId={reportId}
                         isTemplateMode={isTemplateMode}
+                        editable={editor.isEditable}
+                        onUpdateConfig={(newSettings) => {
+                            updateAttributes({
+                                config: {
+                                    ...config,
+                                    settings: { ...config?.settings, ...newSettings }
+                                }
+                            });
+                        }}
                     />
                 );
             case SlideType.DEVICE_PLATFORM_SPLIT:
@@ -265,12 +292,12 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
 
     return (
         <NodeViewWrapper
-            className={`data-block-wrapper ${selected ? 'selected' : ''}`}
+            className={`data-block-wrapper ${selected ? 'selected' : ''} h-full`}
             data-block-type={blockType}
             data-drag-handle
-            style={{ overflow: 'hidden' }}
+            style={{ overflow: 'hidden', height: '100%' }}
         >
-            <div className="relative group">
+            <div className="relative group h-full flex flex-col">
                 {/* Drag Handle - visible on hover */}
                 {editor.isEditable && (
                     <div
