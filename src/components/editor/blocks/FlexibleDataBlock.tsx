@@ -1112,7 +1112,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                                                 {t(`flexibleBlock.visualizations.${editConfig.visualization}`)}
                                             </div>
                                         </div>
-                                        <div className="flex-1 min-h-0 overflow-hidden relative w-full h-full">
+                                        <div className="flex-1 min-h-0 overflow-hidden relative w-full h-full flex flex-col">
                                             <DataRenderer
                                                 config={editConfig}
                                                 accountId={accountId}

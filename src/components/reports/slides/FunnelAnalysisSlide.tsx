@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { AlertTriangle, ArrowDown } from 'lucide-react';
+import { AlertTriangle, ArrowDown, X } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { useTranslation } from 'react-i18next';
 import { getSlideData } from '../../../services/slideService';
@@ -24,7 +26,8 @@ interface FunnelAnalysisSlideProps {
     editable?: boolean;
     reportId?: string;
     isTemplateMode?: boolean;
-    onUpdateConfig?: (newConfig: Partial<FunnelAnalysisConfig>) => void;
+    onDelete?: () => void;
+    onUpdateConfig?: (newConfig: Partial<FunnelAnalysisConfig> & { title?: string }) => void;
 }
 
 interface FunnelStep {
@@ -45,6 +48,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
     endDate,
     editable = false,
     reportId,
+    onDelete,
     onUpdateConfig,
 }) => {
     const { t } = useTranslation('reports');
@@ -52,6 +56,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isMockData, setIsMockData] = useState(false);
+    const [isConfigOpen, setIsConfigOpen] = useState(false);
 
     // AI Analysis generation state
     const [isGeneratingAnalysis, setIsGeneratingAnalysis] = useState(false);
@@ -66,6 +71,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
     // Get description from config settings
     const description = config.settings?.description as string | undefined;
     const aiAnalysisHash = config.settings?.aiAnalysisHash as string | undefined;
+    const blockTitle = config.settings?.title || t('Funnel Analysis', 'Analyse de conversion');
 
     // Check if description is stale
     const descriptionIsStale = Boolean(description && aiAnalysisHash && (() => {
@@ -232,7 +238,53 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
         };
     }, [handleBulkGenerateAnalysis]);
 
-    // AI Generation overlay removed - handled by ReportBlock
+    const handleSave = (title: string) => {
+        onUpdateConfig?.({ title });
+        setIsConfigOpen(false);
+    };
+
+    const ConfigModal = (
+        <AnimatePresence>
+            {isConfigOpen && (
+                <div className="fixed inset-0 z-[12000] flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsConfigOpen(false)}
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                    />
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                        className="relative bg-[var(--color-bg-primary)] rounded-3xl shadow-2xl flex flex-col w-[500px] max-w-full overflow-hidden border border-[var(--color-border)]"
+                    >
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)]">
+                            <h4 className="text-xl font-bold">{t('flexibleBlock.modalTitle', 'Paramètres')}</h4>
+                            <button onClick={() => setIsConfigOpen(false)} className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded-full transition-colors">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <section>
+                                <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.title', 'Titre')}</label>
+                                <input
+                                    type="text"
+                                    defaultValue={blockTitle}
+                                    onBlur={(e) => handleSave(e.target.value)}
+                                    className="w-full px-3 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm outline-none focus:ring-2 focus:ring-primary"
+                                />
+                            </section>
+                        </div>
+                        <div className="px-6 py-4 border-t border-[var(--color-border)] flex justify-end gap-3">
+                            <button onClick={() => setIsConfigOpen(false)} className="btn btn-primary px-6">{t('flexibleBlock.actions.update', 'Enregistrer')}</button>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
+        </AnimatePresence>
+    );
 
     const hasData = funnelData.some(step => step.value > 0);
 
@@ -254,82 +306,91 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
     if (!hasData && !loading && !error) {
         return (
             <ReportBlock
-                title={t('Funnel Analysis', 'Analyse de conversion')}
+                title={blockTitle}
                 design={design}
                 className={`funnel-analysis-widget ${design.mode === 'dark' ? 'dark-mode' : ''}`}
+                onEdit={() => setIsConfigOpen(true)}
+                onDelete={onDelete}
+                editable={editable}
             >
                 <div className="empty-state flex flex-col items-center justify-center h-full text-center p-6">
                     <p>Aucune donnée disponible pour le tunnel</p>
                     <p className="empty-hint text-sm opacity-70 mt-2">Sélectionnez des campagnes pour afficher le graphique</p>
                 </div>
+                {typeof document !== 'undefined' && createPortal(ConfigModal, document.body)}
             </ReportBlock>
         );
     }
 
     return (
-        <ReportBlock
-            title={t('Funnel Analysis', 'Analyse de conversion')}
-            design={design}
-            loading={loading}
-            error={error}
-            editable={editable}
-            headerContent={headerContent}
-            description={description}
-            descriptionIsStale={descriptionIsStale}
-            onRegenerateAnalysis={handleBulkGenerateAnalysis}
-            isGeneratingAnalysis={isGeneratingAnalysis}
-            className={`funnel-analysis-widget ${design.mode === 'dark' ? 'dark-mode' : ''}`}
-        >
-            <div className="widget-content flex-1 flex flex-col justify-center overflow-hidden min-h-0 h-full">
-                <div className="funnel-container flex flex-col gap-3 justify-center h-full">
-                    {funnelData.map((step) => (
-                        <div key={step.id} className="funnel-step relative flex flex-col justify-center flex-1">
-                            <div className="flex items-center justify-between mb-1 px-1">
-                                <div className="funnel-label font-medium" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '12px' }}>
-                                    {step.label}
-                                </div>
-                                <div className="funnel-value font-bold" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '12px' }}>
-                                    {formatNumber(step.value)}
-                                </div>
-                            </div>
-
-                            <div
-                                className="funnel-bar-container relative h-full max-h-8 w-full rounded-md overflow-hidden"
-                                style={{ backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}
-                            >
-                                <div
-                                    className="funnel-bar h-full rounded-r-md transition-all duration-1000 ease-out"
-                                    style={{
-                                        width: `${Math.max(step.percentage, 2)}%`,
-                                        backgroundColor: step.color
-                                    }}
-                                />
-                            </div>
-
-                            {/* Conversion Rate Bubble */}
-                            {step.conversionRate !== undefined && (
-                                <div
-                                    className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-2/3 flex flex-col items-center z-20"
-                                >
-                                    <div
-                                        className="text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-0.5"
-                                        style={{
-                                            backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'white',
-                                            color: design?.colorScheme?.text || '#111827',
-                                            border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                                            backdropFilter: 'blur(4px)'
-                                        }}
-                                    >
-                                        <ArrowDown size={8} />
-                                        {formatPercent(step.conversionRate)}
+        <div className="h-full">
+            <ReportBlock
+                title={blockTitle}
+                design={design}
+                loading={loading}
+                error={error}
+                editable={editable}
+                headerContent={headerContent}
+                description={description}
+                descriptionIsStale={descriptionIsStale}
+                onRegenerateAnalysis={handleBulkGenerateAnalysis}
+                isGeneratingAnalysis={isGeneratingAnalysis}
+                onEdit={() => setIsConfigOpen(true)}
+                onDelete={onDelete}
+                className={`funnel-analysis-widget ${design.mode === 'dark' ? 'dark-mode' : ''}`}
+            >
+                <div className="widget-content flex-1 flex flex-col justify-center overflow-hidden min-h-0 h-full">
+                    <div className="funnel-container flex flex-col gap-3 justify-center h-full">
+                        {funnelData.map((step) => (
+                            <div key={step.id} className="funnel-step relative flex flex-col justify-center flex-1">
+                                <div className="flex items-center justify-between mb-1 px-1">
+                                    <div className="funnel-label font-medium" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '12px' }}>
+                                        {step.label}
+                                    </div>
+                                    <div className="funnel-value font-bold" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '12px' }}>
+                                        {formatNumber(step.value)}
                                     </div>
                                 </div>
-                            )}
-                        </div>
-                    ))}
+
+                                <div
+                                    className="funnel-bar-container relative h-full max-h-8 w-full rounded-md overflow-hidden"
+                                    style={{ backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}
+                                >
+                                    <div
+                                        className="funnel-bar h-full rounded-r-md transition-all duration-1000 ease-out"
+                                        style={{
+                                            width: `${Math.max(step.percentage, 2)}%`,
+                                            backgroundColor: step.color
+                                        }}
+                                    />
+                                </div>
+
+                                {/* Conversion Rate Bubble */}
+                                {step.conversionRate !== undefined && (
+                                    <div
+                                        className="absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-2/3 flex flex-col items-center z-20"
+                                    >
+                                        <div
+                                            className="text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-0.5"
+                                            style={{
+                                                backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'white',
+                                                color: design?.colorScheme?.text || '#111827',
+                                                border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                                                backdropFilter: 'blur(4px)'
+                                            }}
+                                        >
+                                            <ArrowDown size={8} />
+                                            {formatPercent(step.conversionRate)}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </ReportBlock>
+            </ReportBlock>
+            {typeof document !== 'undefined' && require('react-dom').createPortal(ConfigModal, document.body)}
+        </div>
     );
 };
 

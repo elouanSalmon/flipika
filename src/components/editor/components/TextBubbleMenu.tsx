@@ -25,9 +25,13 @@ export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
     }
 
     const shouldShow = ({ editor }: { editor: Editor }) => {
-        // Show bubble menu only when there is a selection and it's not a table
-        // or other specific blocks that might have their own bubble menu
-        return !editor.state.selection.empty && !editor.isActive('table');
+        const { selection } = editor.state;
+
+        // Show bubble menu only when there is a selection and it's not a custom block or node selection
+        return !selection.empty &&
+            !isNodeSelection(selection) &&
+            !editor.isActive('table') &&
+            !editor.isActive('dataBlock');
     };
 
     const BubbleButton: React.FC<{

@@ -177,10 +177,12 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         reportId={reportId}
                         isTemplateMode={isTemplateMode}
                         editable={editor.isEditable}
+                        onDelete={() => deleteNode()}
                         onUpdateConfig={(newSettings) => {
                             updateAttributes({
                                 config: {
                                     ...config,
+                                    ...newSettings, // config.settings might be deprecated in favor of top-level config
                                     settings: { ...config?.settings, ...newSettings }
                                 }
                             });
@@ -199,10 +201,12 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         reportId={reportId}
                         isTemplateMode={isTemplateMode}
                         editable={editor.isEditable}
+                        onDelete={() => deleteNode()}
                         onUpdateConfig={(newSettings) => {
                             updateAttributes({
                                 config: {
                                     ...config,
+                                    ...newSettings,
                                     settings: { ...config?.settings, ...newSettings }
                                 }
                             });
@@ -221,10 +225,12 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         reportId={reportId}
                         isTemplateMode={isTemplateMode}
                         editable={editor.isEditable}
+                        onDelete={() => deleteNode()}
                         onUpdateConfig={(newSettings) => {
                             updateAttributes({
                                 config: {
                                     ...config,
+                                    ...newSettings,
                                     settings: { ...config?.settings, ...newSettings }
                                 }
                             });
@@ -270,7 +276,12 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                     />
                 );
             case 'clientLogo':
-                return <ClientLogoBlock />;
+                return (
+                    <ClientLogoBlock
+                        editable={editor.isEditable}
+                        onDelete={() => deleteNode()}
+                    />
+                );
             case SlideType.FLEXIBLE_DATA:
                 return (
                     <FlexibleDataBlock
