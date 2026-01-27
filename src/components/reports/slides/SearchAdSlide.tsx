@@ -28,13 +28,8 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
                 borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
             }}
         >
-            {/* Header */}
-            <div className="chart-block-header">
-                <h3 className="chart-block-title">Aperçu d'annonce</h3>
-            </div>
-
             {/* Google Search Result Mockup */}
-            <div className="chart-block-content">
+            <div className="chart-block-content" style={{ paddingTop: '10px' }}>
                 <div style={{
                     background: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
                     borderRadius: 'var(--radius-lg)',

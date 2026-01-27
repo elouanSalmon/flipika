@@ -381,9 +381,10 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
             descriptionIsStale={descriptionIsStale}
             onRegenerateAnalysis={handleBulkGenerateAnalysis}
             isGeneratingAnalysis={isGeneratingAnalysis}
+            minHeight={400}
             className="ad-creative-widget"
         >
-            <div className="flex-1 w-full h-full overflow-hidden min-h-0">
+            <div className="flex-1 w-full h-full overflow-hidden min-h-0 ad-preview-container">
                 {renderAdContent()}
             </div>
         </ReportBlock>

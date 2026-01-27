@@ -41,23 +41,18 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
     // Removed shadows as requested
 
     return (
-        <div className="h-full flex flex-col p-8" style={{
+        <div className="h-full flex flex-col p-4" style={{
             fontFamily: design?.typography?.fontFamily || 'Inter, sans-serif',
             color: textColor,
             backgroundColor: bgColor,
         }}>
-            {/* Header / Badge */}
-            <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-purple-200">
-                        <Zap size={20} />
-                    </div>
-                    <div>
-                        <h3 className="font-bold text-lg leading-tight">Performance Max</h3>
-                        <p className="text-xs font-medium tracking-wide uppercase" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
-                            {data.campaignName} • {data.assetGroupName}
-                        </p>
-                    </div>
+            {/* Campaign & Asset Group Info */}
+            <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                    <Zap size={14} className="text-blue-500" />
+                    <p className="text-xs font-medium tracking-wide uppercase" style={{ color: design?.colorScheme?.secondary || '#6b7280' }}>
+                        {data.campaignName} • {data.assetGroupName}
+                    </p>
                 </div>
             </div>
 
