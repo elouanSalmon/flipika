@@ -1,17 +1,21 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { AlertTriangle, X } from 'lucide-react';
 import AdCreativeCard from './AdCreativeCard';
 import PerformanceMaxSlide from './PerformanceMaxSlide';
 import SearchAdSlide from './SearchAdSlide';
 import type { AdCreativeData, AdMetrics } from './AdCreativeCard';
 import type { SlideConfig, ReportDesign } from '../../../types/reportTypes';
 import ReportBlock from '../../editor/blocks/ReportBlock';
-import { AlertTriangle } from 'lucide-react';
 import { generateBlockAnalysis } from '../../../services/aiService';
 import { generateConfigHash } from '../../../hooks/useGenerateAnalysis';
 
 export interface AdCreativeConfig {
     description?: string;
     aiAnalysisHash?: string;
+    title?: string;
 }
 
 interface AdCreativeSlideProps {
@@ -24,7 +28,8 @@ interface AdCreativeSlideProps {
     editable?: boolean;
     reportId?: string;
     isTemplateMode?: boolean;
-    onUpdateConfig?: (newConfig: Partial<AdCreativeConfig>) => void;
+    onDelete?: () => void;
+    onUpdateConfig?: (newConfig: Partial<AdCreativeConfig> & { title?: string }) => void;
 }
 
 interface RealAdCreative {
@@ -44,8 +49,8 @@ interface RealAdCreative {
         conversions: number;
     };
     images: { url: string; ratio: 'SQUARE' | 'PORTRAIT' | 'LANDSCAPE' }[];
-    campaignName?: string; // Add optional campaign name
-    adGroupName?: string;  // Add optional asset group name
+    campaignName?: string;
+    adGroupName?: string;
 }
 
 const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
@@ -56,13 +61,15 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     startDate,
     endDate,
     editable = false,
+    onDelete,
     onUpdateConfig,
 }) => {
-
+    const { t } = useTranslation('reports');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [isMockData, setIsMockData] = useState(true);
     const [realAds, setRealAds] = useState<RealAdCreative[]>([]);
+    const [isConfigOpen, setIsConfigOpen] = useState(false);
 
     // AI Analysis generation state
     const [isGeneratingAnalysis, setIsGeneratingAnalysis] = useState(false);
@@ -73,6 +80,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     // Get description from config settings
     const description = config.settings?.description as string | undefined;
     const aiAnalysisHash = config.settings?.aiAnalysisHash as string | undefined;
+    const blockTitle = config.settings?.title || "Aperçu d'annonce";
 
     // Check if description is stale
     const descriptionIsStale = Boolean(description && aiAnalysisHash && (() => {
@@ -84,16 +92,13 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
         return currentHash !== aiAnalysisHash;
     })());
 
-    // Compute effective scope (per-slide override or report-level default)
+    // Compute effective scope
     const effectiveAccountId = config.scope?.accountId || accountId || '';
-
-    // Memoize campaign IDs to prevent re-render loops due to array reference changes
     const effectiveCampaignIds = useMemo(() => {
         return config.scope?.campaignIds || campaignIds || [];
     }, [config.scope?.campaignIds, campaignIds]);
 
-    // DEMO DATA - Mock ad examples for demonstration
-    // In production, these would be fetched from Google Ads API based on user selection
+    // DEMO DATA
     const mockSearchAd: AdCreativeData = {
         type: 'search',
         headline: 'Logiciel de Gestion Google Ads - Essai Gratuit 14 Jours',
@@ -112,21 +117,9 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     };
 
     const mockMetrics: AdMetrics = {
-        ctr: {
-            value: 4.25,
-            formatted: '4.25%',
-            change: 12.5,
-        },
-        conversions: {
-            value: 47,
-            formatted: '47',
-            change: 8.3,
-        },
-        cost: {
-            value: 1247.50,
-            formatted: '1 247,50 €',
-            change: -5.2,
-        },
+        ctr: { value: 4.25, formatted: '4.25%', change: 12.5 },
+        conversions: { value: 47, formatted: '47', change: 8.3 },
+        cost: { value: 1247.50, formatted: '1 247,50 €', change: -5.2 },
     };
 
     useEffect(() => {
@@ -138,63 +131,39 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
             setLoading(true);
             setError(null);
 
-            // Debug logging to trace values
-            console.log('🎯 AdCreativeSlide loadData called with:', {
-                effectiveAccountId,
-                effectiveCampaignIds,
-                campaignIdsLength: effectiveCampaignIds?.length,
-                hasAccountId: !!effectiveAccountId,
-                hasCampaignIds: effectiveCampaignIds && effectiveCampaignIds.length > 0,
-                startDate,
-                endDate
-            });
-
-            // Check if we have the required data to fetch ads
-            // We need at least an accountId. campaignIds can be empty (meaning "all campaigns")
             if (!effectiveAccountId) {
-                console.warn('⚠️ Missing accountId, using demo data');
                 setIsMockData(true);
                 setLoading(false);
                 return;
             }
 
-            // Fetch real ad creatives from Google Ads API
             const { fetchAdCreatives } = await import('../../../services/googleAds');
-            // Ensure we pass an empty array if campaignIds is undefined, as the service expects string[]
             const result = await fetchAdCreatives(effectiveAccountId, effectiveCampaignIds || []);
 
             if (!result.success || !result.ads || result.ads.length === 0) {
-                console.warn('No ads returned from API, using demo data:', result.error);
                 setIsMockData(true);
                 setLoading(false);
                 return;
             }
 
-            // Successfully loaded real ads
-            console.log('✅ Loaded real ad creatives:', result.ads.length);
             setRealAds(result.ads);
             setIsMockData(false);
-
-            // Capture data for AI generation
             capturedDataRef.current = result.ads;
 
         } catch (err) {
             console.error('Error loading ad creative data:', err);
-            // Fall back to demo data on error
             setIsMockData(true);
         } finally {
             setLoading(false);
         }
     };
 
-    // Handle AI analysis generation (for bulk generation)
+    // Handle AI analysis generation
     const handleBulkGenerateAnalysis = useCallback(async () => {
-        // Skip if already has description or no dates or not editable
         if (description || !startDate || !endDate || !editable || !onUpdateConfig) {
             return;
         }
 
-        // For ad creatives, we can still generate even with mock data - it will analyze the ad copy
         setIsGeneratingAnalysis(true);
         window.dispatchEvent(new CustomEvent('flipika:ai-generation-start'));
 
@@ -204,7 +173,6 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
                 return date.toISOString().split('T')[0];
             };
 
-            // Prepare ad creative data for AI
             const adData = capturedDataRef.current.length > 0
                 ? capturedDataRef.current.map(ad => ({
                     type: ad.type,
@@ -237,14 +205,12 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
                 showComparison: false
             });
 
-            // Generate hash for staleness detection
             const hash = generateConfigHash({
                 title: 'Ad Creative',
                 metrics: ['metrics.clicks', 'metrics.conversions', 'metrics.ctr'],
                 visualization: 'ad_creative',
             }, startDate, endDate);
 
-            // Update config directly
             onUpdateConfig({
                 description: result.analysis,
                 aiAnalysisHash: hash
@@ -258,7 +224,6 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
         }
     }, [description, startDate, endDate, editable, onUpdateConfig]);
 
-    // Listen for "Generate All" event
     useEffect(() => {
         const handleRequestAllAnalyses = () => {
             handleBulkGenerateAnalysis();
@@ -270,31 +235,78 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
         };
     }, [handleBulkGenerateAnalysis]);
 
-    // AI Generation overlay removed - handled by ReportBlock
-    // DescriptionSection removed - handled by ReportBlock
+    const handleSave = (title: string) => {
+        onUpdateConfig?.({ title });
+        setIsConfigOpen(false);
+    };
 
-    const headerContent = isMockData ? (
-        <span
-            className="flex items-center gap-1.5 px-2 py-1 text-[9px] font-medium rounded-full"
-            style={{
-                backgroundColor: '#fffbeb',
-                color: '#b45309',
-                border: '1px solid #fcd34d'
-            }}
-            title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies annonces"
-        >
-            <AlertTriangle size={10} />
-            Mode Démo
-        </span>
-    ) : null;
+    const ConfigModal = (
+        <AnimatePresence>
+            {isConfigOpen && (
+                <div className="fixed inset-0 z-[12000] flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsConfigOpen(false)}
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                    />
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                        className="relative bg-[var(--color-bg-primary)] rounded-3xl shadow-2xl flex flex-col w-[500px] max-w-full overflow-hidden border border-[var(--color-border)]"
+                    >
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)]">
+                            <h4 className="text-xl font-bold">{t('flexibleBlock.modalTitle', 'Paramètres')}</h4>
+                            <button onClick={() => setIsConfigOpen(false)} className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded-full transition-colors">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <section>
+                                <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.title', 'Titre')}</label>
+                                <input
+                                    type="text"
+                                    defaultValue={blockTitle}
+                                    onBlur={(e) => handleSave(e.target.value)}
+                                    className="w-full px-3 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm outline-none focus:ring-2 focus:ring-primary"
+                                />
+                            </section>
+                        </div>
+                        <div className="px-6 py-4 border-t border-[var(--color-border)] flex justify-end gap-3">
+                            <button onClick={() => setIsConfigOpen(false)} className="btn btn-primary px-6">{t('flexibleBlock.actions.update', 'Enregistrer')}</button>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
+        </AnimatePresence>
+    );
 
-    // Determine which ad to display & Logic
+    const headerContent = (
+        <div className="flex items-center gap-2">
+            {isMockData && (
+                <span
+                    className="flex items-center gap-1.5 px-2 py-1 text-[9px] font-medium rounded-full"
+                    style={{
+                        backgroundColor: '#fffbeb',
+                        color: '#b45309',
+                        border: '1px solid #fcd34d'
+                    }}
+                    title="Données de démonstration - Connectez votre compte Google Ads pour voir vos vraies annonces"
+                >
+                    <AlertTriangle size={10} />
+                    Mode Démo
+                </span>
+            )}
+        </div>
+    );
+
     let adData: AdCreativeData;
     let adMetrics: AdMetrics;
     let selectedAd: RealAdCreative | undefined;
 
     if (!isMockData && realAds.length > 0) {
-        // Use real ad data
         const selectedAdId = config.settings?.selectedAdId;
         selectedAd = selectedAdId
             ? realAds.find(ad => ad.id === selectedAdId)
@@ -370,24 +382,29 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     };
 
     return (
-        <ReportBlock
-            title="Aperçu d'annonce"
-            design={design}
-            loading={loading}
-            error={error}
-            editable={editable}
-            headerContent={headerContent}
-            description={description}
-            descriptionIsStale={descriptionIsStale}
-            onRegenerateAnalysis={handleBulkGenerateAnalysis}
-            isGeneratingAnalysis={isGeneratingAnalysis}
-            minHeight={400}
-            className="ad-creative-widget"
-        >
-            <div className="flex-1 w-full h-full overflow-hidden min-h-0 ad-preview-container">
-                {renderAdContent()}
-            </div>
-        </ReportBlock>
+        <div className="h-full">
+            <ReportBlock
+                title={blockTitle}
+                design={design}
+                loading={loading}
+                error={error}
+                editable={editable}
+                headerContent={headerContent}
+                description={description}
+                descriptionIsStale={descriptionIsStale}
+                onRegenerateAnalysis={handleBulkGenerateAnalysis}
+                isGeneratingAnalysis={isGeneratingAnalysis}
+                onEdit={() => setIsConfigOpen(true)}
+                onDelete={onDelete}
+                minHeight={400}
+                className="ad-creative-widget"
+            >
+                <div className="flex-1 w-full h-full overflow-hidden min-h-0 ad-preview-container">
+                    {renderAdContent()}
+                </div>
+            </ReportBlock>
+            {typeof document !== 'undefined' && createPortal(ConfigModal, document.body)}
+        </div>
     );
 };
 

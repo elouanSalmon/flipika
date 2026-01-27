@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
-import { AlertTriangle, Calendar } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { AlertTriangle, Calendar, X } from 'lucide-react';
 import { getSlideData } from '../../../services/slideService';
 import { generateBlockAnalysis } from '../../../services/aiService';
 import { generateConfigHash } from '../../../hooks/useGenerateAnalysis';
@@ -10,6 +13,8 @@ import './HeatmapSlide.css';
 export interface HeatmapConfig {
     description?: string;
     aiAnalysisHash?: string;
+    title?: string;
+    defaultMetric?: string;
 }
 
 interface HeatmapSlideProps {
@@ -22,7 +27,8 @@ interface HeatmapSlideProps {
     editable?: boolean;
     reportId?: string;
     isTemplateMode?: boolean;
-    onUpdateConfig?: (newConfig: Partial<HeatmapConfig>) => void;
+    onDelete?: () => void;
+    onUpdateConfig?: (newConfig: Partial<HeatmapConfig> & { title?: string }) => void;
 }
 
 interface HeatmapCellData {
@@ -58,9 +64,10 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     endDate,
     reportId,
     editable = false,
+    onDelete,
     onUpdateConfig,
 }) => {
-
+    const { t } = useTranslation('reports');
     const [heatmapData, setHeatmapData] = useState<HeatmapCellData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -68,6 +75,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     const [selectedMetric, setSelectedMetric] = useState<string>(
         config.settings?.defaultMetric || 'clicks'
     );
+    const [isConfigOpen, setIsConfigOpen] = useState(false);
 
     // AI Analysis generation state
     const [isGeneratingAnalysis, setIsGeneratingAnalysis] = useState(false);
@@ -78,6 +86,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     // Get description from config settings
     const description = config.settings?.description as string | undefined;
     const aiAnalysisHash = config.settings?.aiAnalysisHash as string | undefined;
+    const blockTitle = config.settings?.title || t('Heatmap', 'Analyse horaire');
 
     // Check if description is stale
     const descriptionIsStale = Boolean(description && aiAnalysisHash && (() => {
@@ -126,23 +135,12 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     // Function to get color based on intensity
     const getCellColor = (value: number) => {
         if (value === 0) return design.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)';
-
-
-
-        // Use primary color with opacity
-        // Assuming primary color is in hex, we might need to be smarter here.
-        // For now, let's use the CSS variable or a simple interpolation if we can't parse easily.
-        // Or cleaner: use HSL if available, or just opacity of the primary color.
-
-        // Simpler approach: use style with opacity
         return design?.colorScheme?.primary || '#3b82f6';
-        // We will apply opacity in the style attribute directly
     };
 
     const getCellOpacity = (value: number) => {
         if (value === 0) return 1; // For the empty bg color
         const intensity = maxMetricValue > 0 ? value / maxMetricValue : 0;
-        // Min opacity 0.1, Max 1
         return 0.1 + (intensity * 0.9);
     };
 
@@ -174,7 +172,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 return date.toISOString().split('T')[0];
             };
 
-            // Prepare heatmap data for AI - find best and worst performing hours/days
+            // Prepare heatmap data for AI
             const heatmapSummary = capturedDataRef.current.map(cell => ({
                 day: DAYS[cell.day],
                 hour: cell.hour,
@@ -240,7 +238,68 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
         };
     }, [handleBulkGenerateAnalysis]);
 
-    // AI Generation overlay removed - handled by ReportBlock
+    const handleSave = (newConfig: Partial<HeatmapConfig>) => {
+        onUpdateConfig?.(newConfig);
+        setIsConfigOpen(false);
+    };
+
+    const ConfigModal = (
+        <AnimatePresence>
+            {isConfigOpen && (
+                <div className="fixed inset-0 z-[12000] flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsConfigOpen(false)}
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                    />
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                        className="relative bg-[var(--color-bg-primary)] rounded-3xl shadow-2xl flex flex-col w-[500px] max-w-full overflow-hidden border border-[var(--color-border)]"
+                    >
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)]">
+                            <h4 className="text-xl font-bold">{t('flexibleBlock.modalTitle', 'Paramètres')}</h4>
+                            <button onClick={() => setIsConfigOpen(false)} className="p-2 hover:bg-[var(--color-bg-tertiary)] rounded-full transition-colors">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <section>
+                                <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.title', 'Titre')}</label>
+                                <input
+                                    type="text"
+                                    defaultValue={blockTitle}
+                                    onBlur={(e) => handleSave({ title: e.target.value })}
+                                    className="w-full px-3 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm outline-none focus:ring-2 focus:ring-primary"
+                                />
+                            </section>
+                            <section>
+                                <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.defaultMetric', 'Métrique par défaut')}</label>
+                                <select
+                                    value={selectedMetric}
+                                    onChange={(e) => {
+                                        setSelectedMetric(e.target.value);
+                                        handleSave({ defaultMetric: e.target.value });
+                                    }}
+                                    className="w-full px-3 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm outline-none focus:ring-2 focus:ring-primary"
+                                >
+                                    {METRIC_OPTIONS.map(opt => (
+                                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                    ))}
+                                </select>
+                            </section>
+                        </div>
+                        <div className="px-6 py-4 border-t border-[var(--color-border)] flex justify-end gap-3">
+                            <button onClick={() => setIsConfigOpen(false)} className="btn btn-primary px-6">{t('flexibleBlock.actions.update', 'Enregistrer')}</button>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
+        </AnimatePresence>
+    );
 
     const headerContent = (
         <div className="flex items-center gap-2">
@@ -284,94 +343,93 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     );
 
     return (
-        <ReportBlock
-            title="Heatmap"
-            design={design}
-            loading={loading}
-            error={error}
-            editable={editable}
-            headerContent={headerContent}
-            description={description}
-            descriptionIsStale={descriptionIsStale}
-            onRegenerateAnalysis={handleBulkGenerateAnalysis}
-            isGeneratingAnalysis={isGeneratingAnalysis}
-            className="heatmap-container"
-        >
-            <div className="heatmap-content flex-1 flex flex-col justify-center overflow-auto report-scrollbar min-h-0 h-full">
-                <div className="heatmap-grid h-full" style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'auto repeat(24, 1fr)',
-                    gap: '2px',
-                    paddingBottom: '4px',
-                    alignContent: 'center'
-                }}>
-                    {/* Header Row: Hours */}
-                    <div className="heatmap-header-cell empty"></div>
-                    {HOURS.map(hour => (
-                        <div key={`header-${hour}`} className="heatmap-header-cell text-xs opacity-50 text-center" style={{ fontSize: '9px' }}>
-                            {hour}
-                        </div>
-                    ))}
+        <div className="h-full">
+            <ReportBlock
+                title={blockTitle}
+                design={design}
+                loading={loading}
+                error={error}
+                editable={editable}
+                headerContent={headerContent}
+                description={description}
+                descriptionIsStale={descriptionIsStale}
+                onRegenerateAnalysis={handleBulkGenerateAnalysis}
+                isGeneratingAnalysis={isGeneratingAnalysis}
+                onEdit={() => setIsConfigOpen(true)}
+                onDelete={onDelete}
+                className="heatmap-container"
+            >
+                <div className="heatmap-content flex-1 flex flex-col justify-center overflow-auto report-scrollbar min-h-0 h-full">
+                    <div className="heatmap-grid h-full" style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'auto repeat(24, 1fr)',
+                        gap: '2px',
+                        paddingBottom: '4px',
+                        alignContent: 'center'
+                    }}>
+                        <div className="heatmap-header-cell empty"></div>
+                        {HOURS.map(hour => (
+                            <div key={`header-${hour}`} className="heatmap-header-cell text-xs opacity-50 text-center" style={{ fontSize: '9px' }}>
+                                {hour}
+                            </div>
+                        ))}
 
-                    {/* Data Rows: Days */}
-                    {DAYS.map((dayLabel, dayIndex) => {
-                        return (
-                            <React.Fragment key={`row-${dayIndex}`}>
-                                {/* Row Label */}
-                                <div className="heatmap-row-label text-xs font-medium opacity-70 flex items-center" style={{ fontSize: '10px' }}>
-                                    {dayLabel}
-                                </div>
+                        {DAYS.map((dayLabel, dayIndex) => {
+                            return (
+                                <React.Fragment key={`row-${dayIndex}`}>
+                                    <div className="heatmap-row-label text-xs font-medium opacity-70 flex items-center" style={{ fontSize: '10px' }}>
+                                        {dayLabel}
+                                    </div>
+                                    {HOURS.map(hour => {
+                                        const cellData = heatmapData.find(d => d.day === dayIndex && d.hour === hour);
+                                        const value = cellData ? (cellData.metrics as any)[selectedMetric] || 0 : 0;
 
-                                {/* Cells for this day */}
-                                {HOURS.map(hour => {
-                                    const cellData = heatmapData.find(d => d.day === dayIndex && d.hour === hour);
-                                    const value = cellData ? (cellData.metrics as any)[selectedMetric] || 0 : 0;
-
-                                    return (
-                                        <div
-                                            key={`cell-${cellData ? cellData.day : dayIndex}-${hour}`}
-                                            className="heatmap-cell relative group rounded-sm aspect-square"
-                                            style={{
-                                                backgroundColor: getCellColor(value),
-                                                opacity: value === 0 ? 1 : getCellOpacity(value),
-                                                cursor: 'help'
-                                            }}
-                                        >
+                                        return (
                                             <div
-                                                className="heatmap-tooltip opacity-0 group-hover:opacity-100 absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 rounded shadow-lg pointer-events-none transition-opacity z-50 whitespace-nowrap"
+                                                key={`cell-${cellData ? cellData.day : dayIndex}-${hour}`}
+                                                className="heatmap-cell relative group rounded-sm aspect-square"
                                                 style={{
-                                                    backgroundColor: design?.colorScheme?.background || (design.mode === 'dark' ? '#fff' : '#1e293b'),
-                                                    color: design?.colorScheme?.text || (design.mode === 'dark' ? '#1e293b' : '#fff'),
-                                                    border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                                                    fontSize: '11px'
+                                                    backgroundColor: getCellColor(value),
+                                                    opacity: value === 0 ? 1 : getCellOpacity(value),
+                                                    cursor: 'help'
                                                 }}
                                             >
-                                                <strong>{dayLabel} {hour}h:00 - {hour}h:59</strong><br />
-                                                {formatValue(value, selectedMetric)} {METRIC_OPTIONS.find(o => o.value === selectedMetric)?.label}
-                                                {/* Arrow */}
                                                 <div
-                                                    className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent"
-                                                    style={{ borderTopColor: design?.colorScheme?.background || (design.mode === 'dark' ? '#fff' : '#1e293b') }}
-                                                ></div>
+                                                    className="heatmap-tooltip opacity-0 group-hover:opacity-100 absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 rounded shadow-lg pointer-events-none transition-opacity z-50 whitespace-nowrap"
+                                                    style={{
+                                                        backgroundColor: design?.colorScheme?.background || (design.mode === 'dark' ? '#fff' : '#1e293b'),
+                                                        color: design?.colorScheme?.text || (design.mode === 'dark' ? '#1e293b' : '#fff'),
+                                                        border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+                                                        fontSize: '11px'
+                                                    }}
+                                                >
+                                                    <strong>{dayLabel} {hour}h:00 - {hour}h:59</strong><br />
+                                                    {formatValue(value, selectedMetric)} {METRIC_OPTIONS.find(o => o.value === selectedMetric)?.label}
+                                                    <div
+                                                        className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent"
+                                                        style={{ borderTopColor: design?.colorScheme?.background || (design.mode === 'dark' ? '#fff' : '#1e293b') }}
+                                                    ></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    );
-                                })}
-                            </React.Fragment>
-                        );
-                    })}
-                </div>
-            </div>
-
-            <div className="flex justify-center mt-1 opacity-50 text-[10px] flex-shrink-0">
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-1.5">
-                        <Calendar size={10} />
-                        <span>7 derniers jours</span>
+                                        );
+                                    })}
+                                </React.Fragment>
+                            );
+                        })}
                     </div>
                 </div>
-            </div>
-        </ReportBlock>
+
+                <div className="flex justify-center mt-1 opacity-50 text-[10px] flex-shrink-0">
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-1.5">
+                            <Calendar size={10} />
+                            <span>7 derniers jours</span>
+                        </div>
+                    </div>
+                </div>
+            </ReportBlock>
+            {typeof document !== 'undefined' && createPortal(ConfigModal, document.body)}
+        </div>
     );
 };
 

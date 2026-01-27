@@ -59,7 +59,7 @@ export const DataBlockExtension = Node.create({
     },
 
     renderHTML({ HTMLAttributes }) {
-        return ['div', mergeAttributes(HTMLAttributes, { 'data-block': 'true' }), 0];
+        return ['div', mergeAttributes(HTMLAttributes, { 'data-block': 'true' })];
     },
 
     addNodeView() {

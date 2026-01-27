@@ -389,7 +389,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                     </div>
                 </div>
             </ReportBlock>
-            {typeof document !== 'undefined' && require('react-dom').createPortal(ConfigModal, document.body)}
+            {typeof document !== 'undefined' && createPortal(ConfigModal, document.body)}
         </div>
     );
 };
