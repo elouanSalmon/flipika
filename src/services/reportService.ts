@@ -218,7 +218,28 @@ export async function updateReport(
         delete firestoreUpdates.id;
         delete firestoreUpdates.slides;
 
-        await updateDoc(docRef, firestoreUpdates);
+        // Deep sanitize to remove undefined values (Firestore doesn't accept undefined)
+        const deepSanitize = (obj: any): any => {
+            if (obj === null || obj === undefined) return null;
+            if (Array.isArray(obj)) {
+                return obj.map(item => deepSanitize(item));
+            }
+            if (typeof obj === 'object' && !(obj instanceof Date) && !('_methodName' in obj)) {
+                // Skip Firestore FieldValue objects (like serverTimestamp, increment)
+                const sanitized: any = {};
+                for (const [key, value] of Object.entries(obj)) {
+                    if (value !== undefined) {
+                        sanitized[key] = deepSanitize(value);
+                    }
+                }
+                return sanitized;
+            }
+            return obj;
+        };
+
+        const sanitizedUpdates = deepSanitize(firestoreUpdates);
+
+        await updateDoc(docRef, sanitizedUpdates);
     } catch (error) {
         console.error('Error updating report:', error);
         throw new Error('Failed to update report');

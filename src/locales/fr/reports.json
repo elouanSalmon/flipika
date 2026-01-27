@@ -608,6 +608,27 @@
       "create": "Générer le bloc",
       "update": "Mettre à jour le contenu"
     },
-    "emptyState": "Configurez un compte pour afficher les données."
+    "emptyState": "Configurez un compte pour afficher les données.",
+    "ai": {
+      "title": "Analyse IA",
+      "subtitle": "Generez une analyse narrative automatique",
+      "generate": "Analyser",
+      "generating": "Analyse...",
+      "placeholder": "Cliquez sur \"Analyser\" pour generer une description automatique basee sur les donnees du graphique, ou redigez votre propre analyse...",
+      "stale": "Obsolete",
+      "staleHint": "Les parametres ont change depuis la derniere analyse",
+      "regenerate": "Regenerer",
+      "errorNoDate": "Veuillez definir une periode d'analyse",
+      "errorGeneric": "Erreur lors de la generation de l'analyse"
+    }
+  },
+  "toolbar": {
+    "generateAllAnalyses": "Generer toutes les analyses",
+    "generatingAll": "Generation en cours...",
+    "generationComplete": "{{completed}}/{{total}} analyses generees",
+    "generationFailed": "{{failed}} echec(s)",
+    "noDataBlocks": "Aucun bloc de donnees trouve",
+    "allBlocksHaveAnalysis": "Tous les blocs ont deja une analyse",
+    "generationStarted": "Generation lancee pour {{count}} blocs"
   }
 }

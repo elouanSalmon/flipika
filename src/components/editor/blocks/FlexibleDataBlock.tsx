@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useReportEditor, ReportEditorProvider } from '../../../contexts/ReportEditorContext';
-import { Settings, Loader2, X, Info, TrendingUp, TrendingDown } from 'lucide-react';
+import { Settings, Loader2, X, Info, TrendingUp, TrendingDown, Sparkles, AlertTriangle, RefreshCw } from 'lucide-react';
 import type { ReportDesign } from '../../../types/reportTypes';
 import { executeQuery } from '../../../services/googleAds';
 import { buildFlexibleQuery } from '../../../services/gaql';
+import { generateBlockAnalysis } from '../../../services/aiService';
+import { generateConfigHash, isDescriptionStale } from '../../../hooks/useGenerateAnalysis';
 import {
     BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
     XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
@@ -47,6 +49,9 @@ export interface FlexibleDataConfig {
     isConfigActive?: boolean;
     showComparison?: boolean;
     comparisonType?: 'previous_period' | 'previous_year';
+    // Narrative Layer fields
+    description?: string;
+    aiAnalysisHash?: string; // Hash of config+dates when analysis was generated
 }
 
 export interface FlexibleDataBlockProps {
@@ -70,7 +75,8 @@ const DataRenderer: React.FC<{
     height?: number | string;
     showRawData?: boolean;
     design?: ReportDesign;
-}> = React.memo(({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false, design }) => {
+    onDataLoaded?: (currentData: any[], comparisonData: any[]) => void;
+}> = React.memo(({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false, design, onDataLoaded }) => {
     const { t } = useTranslation('reports');
 
     // Generate colors based on design or fallback to defaults
@@ -219,12 +225,14 @@ const DataRenderer: React.FC<{
                 });
             };
 
-            setData(processResults(result.results));
-            if (config.showComparison) {
-                setComparisonData(processResults(comparisonResult.results));
-            } else {
-                setComparisonData([]);
-            }
+            const processedCurrent = processResults(result.results);
+            const processedComparison = config.showComparison ? processResults(comparisonResult.results) : [];
+
+            setData(processedCurrent);
+            setComparisonData(processedComparison);
+
+            // Notify parent of loaded data for AI generation
+            onDataLoaded?.(processedCurrent, processedComparison);
         } catch (err: any) {
             setError(err.message || 'Failed to fetch data');
             generateMockData(); // Fallback to mock on error
@@ -314,6 +322,9 @@ const DataRenderer: React.FC<{
 
         setData(currentData);
         setComparisonData(prevData);
+
+        // Notify parent of loaded data for AI generation
+        onDataLoaded?.(currentData, prevData);
     };
 
     const getPreviousPeriod = (s: Date, e: Date, type: 'previous_period' | 'previous_year') => {
@@ -655,8 +666,22 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
     const design = propDesign || context.design;
 
     const [isConfigOpen, setIsConfigOpen] = useState(false);
-
     const [showRawData, setShowRawData] = useState(false);
+
+    // AI Analysis generation state
+    const [isGeneratingAnalysis, setIsGeneratingAnalysis] = useState(false);
+    const [analysisError, setAnalysisError] = useState<string | null>(null);
+
+    // Ref to store captured data for AI generation
+    const capturedDataRef = useRef<{
+        currentData: Array<Record<string, number | string>>;
+        comparisonData: Array<Record<string, number | string>>;
+    }>({ currentData: [], comparisonData: [] });
+
+    // Check if description is stale (config changed since last generation)
+    const descriptionIsStale = useMemo(() => {
+        return isDescriptionStale(config, startDate, endDate);
+    }, [config, startDate, endDate]);
 
     const activeConfig: FlexibleDataConfig = useMemo(() => ({
         title: config.title || t('flexibleBlock.modalTitle'),
@@ -669,7 +694,9 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
         isNew: config.isNew,
         isConfigActive: config.isConfigActive,
         showComparison: config.showComparison,
-        comparisonType: config.comparisonType
+        comparisonType: config.comparisonType,
+        description: config.description,
+        aiAnalysisHash: config.aiAnalysisHash
     }), [config, t]);
 
     const [editConfig, setEditConfig] = useState<FlexibleDataConfig>(activeConfig);
@@ -685,16 +712,18 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
         if (editable && (config.isNew || config.isConfigActive)) {
             setIsConfigOpen(true);
 
-            // Immediately clear the flags to avoid re-opening on remount or report load
             if (config.isNew || config.isConfigActive) {
-                onUpdateConfig({
-                    ...config,
-                    isNew: false,
-                    isConfigActive: false
-                });
+                // Wrap in setTimeout to avoid flushSync errors during render/effect cycle
+                setTimeout(() => {
+                    onUpdateConfig({
+                        ...config,
+                        isNew: false,
+                        isConfigActive: false
+                    });
+                }, 0);
             }
         }
-    }, [editable, config.isNew, config.isConfigActive]);
+    }, [editable, config.isNew, config.isConfigActive, onUpdateConfig]);
 
     const handleSave = () => {
         const { isNew, isConfigActive, ...cleanConfig } = editConfig;
@@ -708,6 +737,119 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
         }
         setIsConfigOpen(false);
     };
+
+    // Handle AI analysis generation (for modal - uses editConfig)
+    const handleGenerateAnalysis = useCallback(async () => {
+        if (!startDate || !endDate) {
+            setAnalysisError(t('flexibleBlock.ai.errorNoDate'));
+            return;
+        }
+
+        setIsGeneratingAnalysis(true);
+        setAnalysisError(null);
+
+        try {
+            const formatDate = (d: Date | string) => {
+                const date = new Date(d);
+                return date.toISOString().split('T')[0];
+            };
+
+            const result = await generateBlockAnalysis({
+                blockTitle: editConfig.title || 'Data Block',
+                visualization: editConfig.visualization,
+                metrics: editConfig.metrics,
+                dimension: editConfig.dimension,
+                period: {
+                    start: formatDate(startDate),
+                    end: formatDate(endDate)
+                },
+                currentData: capturedDataRef.current.currentData,
+                comparisonData: editConfig.showComparison ? capturedDataRef.current.comparisonData : undefined,
+                showComparison: editConfig.showComparison
+            });
+
+            // Generate hash for staleness detection
+            const hash = generateConfigHash(editConfig, startDate, endDate);
+
+            // Update config with generated analysis
+            setEditConfig(prev => ({
+                ...prev,
+                description: result.analysis,
+                aiAnalysisHash: hash
+            }));
+
+        } catch (error) {
+            console.error('Error generating analysis:', error);
+            setAnalysisError(error instanceof Error ? error.message : t('flexibleBlock.ai.errorGeneric'));
+        } finally {
+            setIsGeneratingAnalysis(false);
+        }
+    }, [editConfig, startDate, endDate, t]);
+
+    // Handle bulk AI generation (for "Generate All" button - uses activeConfig)
+    const handleBulkGenerateAnalysis = useCallback(async () => {
+        // Skip if already has description or no dates
+        if (activeConfig.description || !startDate || !endDate || !editable) {
+            return;
+        }
+
+        // Skip if no data captured yet
+        if (capturedDataRef.current.currentData.length === 0) {
+            return;
+        }
+
+        setIsGeneratingAnalysis(true);
+        window.dispatchEvent(new CustomEvent('flipika:ai-generation-start'));
+
+        try {
+            const formatDate = (d: Date | string) => {
+                const date = new Date(d);
+                return date.toISOString().split('T')[0];
+            };
+
+            const result = await generateBlockAnalysis({
+                blockTitle: activeConfig.title || 'Data Block',
+                visualization: activeConfig.visualization,
+                metrics: activeConfig.metrics,
+                dimension: activeConfig.dimension,
+                period: {
+                    start: formatDate(startDate),
+                    end: formatDate(endDate)
+                },
+                currentData: capturedDataRef.current.currentData,
+                comparisonData: activeConfig.showComparison ? capturedDataRef.current.comparisonData : undefined,
+                showComparison: activeConfig.showComparison
+            });
+
+            // Generate hash for staleness detection
+            const hash = generateConfigHash(activeConfig, startDate, endDate);
+
+            // Update config directly
+            onUpdateConfig({
+                ...activeConfig,
+                description: result.analysis,
+                aiAnalysisHash: hash
+            });
+
+        } catch (error) {
+            console.error('Error generating analysis (bulk):', error);
+        } finally {
+            setIsGeneratingAnalysis(false);
+            window.dispatchEvent(new CustomEvent('flipika:ai-generation-end'));
+        }
+    }, [activeConfig, startDate, endDate, editable, onUpdateConfig]);
+
+    // Listen for "Generate All" event
+    useEffect(() => {
+        const handleRequestAllAnalyses = () => {
+            handleBulkGenerateAnalysis();
+        };
+
+        window.addEventListener('flipika:request-all-analyses', handleRequestAllAnalyses);
+        return () => {
+            window.removeEventListener('flipika:request-all-analyses', handleRequestAllAnalyses);
+        };
+    }, [handleBulkGenerateAnalysis]);
 
     const ConfigModal = (
         <AnimatePresence>
@@ -856,6 +998,68 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                                                 })}
                                             </div>
                                         </section>
+
+                                        {/* AI Narrative Layer Section */}
+                                        <section className="p-4 rounded-2xl border border-primary/20 bg-primary/5 space-y-3">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="p-1.5 bg-primary/10 rounded-lg">
+                                                        <Sparkles size={14} className="text-primary" />
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">{t('flexibleBlock.ai.title')}</label>
+                                                        <p className="text-[9px] text-[var(--color-text-muted)]">{t('flexibleBlock.ai.subtitle')}</p>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    onClick={handleGenerateAnalysis}
+                                                    disabled={isGeneratingAnalysis || !accountId}
+                                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+                                                        isGeneratingAnalysis
+                                                            ? 'bg-primary/80 text-white cursor-wait'
+                                                            : 'bg-primary text-white hover:bg-primary/90 shadow-md shadow-primary/20'
+                                                    }`}
+                                                >
+                                                    {isGeneratingAnalysis ? (
+                                                        <>
+                                                            <Loader2 size={12} className="animate-spin" />
+                                                            {t('flexibleBlock.ai.generating')}
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Sparkles size={12} />
+                                                            {t('flexibleBlock.ai.generate')}
+                                                        </>
+                                                    )}
+                                                </button>
+                                            </div>
+
+                                            {/* Description textarea */}
+                                            <div className="relative">
+                                                <textarea
+                                                    value={editConfig.description || ''}
+                                                    onChange={(e) => setEditConfig({ ...editConfig, description: e.target.value, aiAnalysisHash: undefined })}
+                                                    placeholder={t('flexibleBlock.ai.placeholder')}
+                                                    rows={3}
+                                                    className="w-full px-3 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm text-[var(--color-text-primary)] focus:ring-2 focus:ring-primary outline-none transition-all placeholder:text-[var(--color-text-muted)]/50 resize-none"
+                                                />
+                                                {/* Stale indicator */}
+                                                {editConfig.description && editConfig.aiAnalysisHash && isDescriptionStale(editConfig, startDate, endDate) && (
+                                                    <div className="absolute top-2 right-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400">
+                                                        <AlertTriangle size={10} />
+                                                        <span className="text-[8px] font-bold uppercase">{t('flexibleBlock.ai.stale')}</span>
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Error message */}
+                                            {analysisError && (
+                                                <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-[10px]">
+                                                    <AlertTriangle size={12} />
+                                                    {analysisError}
+                                                </div>
+                                            )}
+                                        </section>
                                     </div>
                                 </div>
 
@@ -899,7 +1103,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                                                 {t(`flexibleBlock.visualizations.${editConfig.visualization}`)}
                                             </div>
                                         </div>
-                                        <div className="flex-1 min-h-0 overflow-hidden">
+                                        <div className="flex-1 min-h-0 overflow-hidden relative w-full h-full">
                                             <DataRenderer
                                                 config={editConfig}
                                                 accountId={accountId}
@@ -909,6 +1113,9 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                                                 height="100%"
                                                 showRawData={showRawData}
                                                 design={design || undefined}
+                                                onDataLoaded={(currentData, comparisonData) => {
+                                                    capturedDataRef.current = { currentData, comparisonData };
+                                                }}
                                             />
                                         </div>
                                     </div>
@@ -929,10 +1136,56 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
         </AnimatePresence>
     );
 
+    // AI Generation overlay component - Glassmorphism style
+    const AiGenerationOverlay = () => (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-10 flex items-center justify-center rounded-2xl overflow-hidden"
+            style={{
+                backgroundColor: design?.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.7)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+            }}
+        >
+            {/* Center content - Glassmorphism card */}
+            <motion.div
+                className="relative flex flex-col items-center gap-3 px-8 py-5 rounded-2xl"
+                style={{
+                    backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.6)',
+                    border: design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.12)' : '1px solid rgba(0,0,0,0.08)',
+                    boxShadow: design?.mode === 'dark'
+                        ? '0 8px 32px rgba(0,0,0,0.3)'
+                        : '0 8px 32px rgba(0,0,0,0.1)',
+                }}
+                initial={{ scale: 0.95, y: 10 }}
+                animate={{ scale: 1, y: 0 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            >
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                >
+                    <Loader2
+                        size={24}
+                        style={{ color: design?.colorScheme?.primary || 'var(--color-primary)' }}
+                    />
+                </motion.div>
+                <span
+                    className="text-sm font-medium"
+                    style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}
+                >
+                    {t('flexibleBlock.ai.generating')}
+                </span>
+            </motion.div>
+        </motion.div>
+    );
+
     return (
         <div className="flexible-data-block relative group">
             <div
-                className="overflow-hidden rounded-2xl transition-all"
+                className="overflow-hidden rounded-2xl transition-all relative"
                 style={{
                     backgroundColor: design?.colorScheme?.background || '#ffffff',
                     border: 'none',
@@ -940,6 +1193,10 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                     boxShadow: design?.mode === 'dark' ? '0 10px 15px -3px rgba(0, 0, 0, 0.5)' : '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
                 }}
             >
+                {/* AI Generation Overlay */}
+                <AnimatePresence>
+                    {isGeneratingAnalysis && <AiGenerationOverlay />}
+                </AnimatePresence>
                 <div className="px-5 py-4 border-b flex justify-between items-center" style={{
                     borderColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
                     backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)'
@@ -956,7 +1213,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                 </div>
 
                 <div
-                    className="p-6 bg-transparent h-[320px] overflow-auto report-scrollbar"
+                    className={`p-6 bg-transparent overflow-auto report-scrollbar ${activeConfig.description ? 'h-[280px]' : 'h-[320px]'}`}
                     style={{
                         '--scrollbar-track': design?.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)',
                         '--scrollbar-thumb': design?.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)',
@@ -970,9 +1227,44 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                         startDate={startDate || ''}
                         endDate={endDate || ''}
                         design={design || undefined}
-                        height={280}
+                        height={activeConfig.description ? 240 : 280}
+                        onDataLoaded={(currentData, comparisonData) => {
+                            capturedDataRef.current = { currentData, comparisonData };
+                        }}
                     />
                 </div>
+
+                {/* Description / Narrative Layer */}
+                {activeConfig.description && (
+                    <div
+                        className="px-5 py-3 border-t"
+                        style={{
+                            borderColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
+                            backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)'
+                        }}
+                    >
+                        <p
+                            className="text-sm leading-relaxed"
+                            style={{ color: design?.colorScheme?.text || 'var(--color-text-primary)' }}
+                        >
+                            {activeConfig.description}
+                        </p>
+                        {/* Stale indicator - only visible in edit mode */}
+                        {descriptionIsStale && editable && (
+                            <div className="flex items-center gap-1 mt-1.5 text-amber-600 dark:text-amber-400">
+                                <AlertTriangle size={10} />
+                                <span className="text-[9px] font-medium">{t('flexibleBlock.ai.staleHint')}</span>
+                                <button
+                                    onClick={() => setIsConfigOpen(true)}
+                                    className="ml-1 flex items-center gap-0.5 text-[9px] font-medium text-primary hover:underline"
+                                >
+                                    <RefreshCw size={9} />
+                                    {t('flexibleBlock.ai.regenerate')}
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             {typeof document !== 'undefined' && createPortal(ConfigModal, document.body)}

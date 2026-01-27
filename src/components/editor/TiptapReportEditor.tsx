@@ -1,5 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
+import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import Highlight from '@tiptap/extension-highlight';
@@ -33,7 +35,6 @@ import type { ReportDesign } from '../../types/reportTypes';
 import type { Client } from '../../types/client';
 import './TiptapEditor.css';
 import { MediaManagerModal } from './media/MediaManagerModal';
-import { AiAssistantPanel } from './AiAssistantPanel';
 import { useState } from 'react';
 
 interface TiptapReportEditorProps {
@@ -72,7 +73,6 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     onOpenSettings,
 }) => {
     const [showMediaManager, setShowMediaManager] = useState(false);
-    const [showAiPanel, setShowAiPanel] = useState(false);
 
     const defaultContent = {
         type: 'doc',
@@ -194,20 +194,60 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         setShowMediaManager(false);
     };
 
-    // Listen for slash command event
-    // Using useEffect to bind the event listener
+    const { t } = useTranslation('reports');
+
+    // Handle "Generate All Analyses" for all data blocks
+    const handleGenerateAllAnalyses = useCallback(async () => {
+        if (!editor) return;
+
+        // Find all dataBlock nodes in the document
+        const dataBlocks: { pos: number; node: any }[] = [];
+        editor.state.doc.descendants((node, pos) => {
+            if (node.type.name === 'dataBlock') {
+                dataBlocks.push({ pos, node });
+            }
+        });
+
+        if (dataBlocks.length === 0) {
+            toast.error(t('toolbar.noDataBlocks', 'No data blocks found'));
+            return;
+        }
+
+        // Filter to blocks without description (or all if user wants)
+        const blocksToProcess = dataBlocks.filter(({ node }) => !node.attrs.config?.description);
+
+        if (blocksToProcess.length === 0) {
+            toast.success(t('toolbar.allBlocksHaveAnalysis', 'All blocks already have analyses'));
+            return;
+        }
+
+        const blockCount = blocksToProcess.length;
+        toast.loading(t('toolbar.generatingAll'), { id: 'generate-all' });
+
+        // Dispatch event to trigger generation in each block
+        window.dispatchEvent(new CustomEvent('flipika:request-all-analyses', {
+            detail: { blockCount }
+        }));
+
+        toast.success(
+            t('toolbar.generationStarted', { count: blockCount }) || `Generation started for ${blockCount} blocks`,
+            { id: 'generate-all' }
+        );
+    }, [editor, t]);
+
+    // Listen for custom events
     React.useEffect(() => {
         const handleOpenLibrary = () => setShowMediaManager(true);
-        const handleToggleAi = () => setShowAiPanel(prev => !prev);
+        const handleGenerateAll = () => handleGenerateAllAnalyses();
 
         window.addEventListener('flipika:open-media-library', handleOpenLibrary);
-        window.addEventListener('flipika:toggle-ai-panel', handleToggleAi);
+        window.addEventListener('flipika:generate-all-analyses', handleGenerateAll);
 
         return () => {
             window.removeEventListener('flipika:open-media-library', handleOpenLibrary);
-            window.removeEventListener('flipika:toggle-ai-panel', handleToggleAi);
+            window.removeEventListener('flipika:generate-all-analyses', handleGenerateAll);
         };
-    }, []);
+    }, [handleGenerateAllAnalyses]);
 
     // Calculate highlight colors based on theme
     const highlightColor = design?.mode === 'dark'
@@ -269,12 +309,6 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                         onSelectImage={handleInsertImage}
                     />
 
-                    {/* AI Assistant Panel */}
-                    <AiAssistantPanel
-                        editor={editor}
-                        isOpen={showAiPanel}
-                        onClose={() => setShowAiPanel(false)}
-                    />
                 </div>
             </div>
         </ReportEditorProvider>

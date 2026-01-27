@@ -608,6 +608,27 @@
       "create": "Generate Block",
       "update": "Update Content"
     },
-    "emptyState": "Configure an account to display data."
+    "emptyState": "Configure an account to display data.",
+    "ai": {
+      "title": "AI Analysis",
+      "subtitle": "Generate automatic narrative analysis",
+      "generate": "Analyze",
+      "generating": "Analyzing...",
+      "placeholder": "Click \"Analyze\" to generate an automatic description based on the chart data, or write your own analysis...",
+      "stale": "Outdated",
+      "staleHint": "Parameters have changed since last analysis",
+      "regenerate": "Regenerate",
+      "errorNoDate": "Please set an analysis period",
+      "errorGeneric": "Error generating analysis"
+    }
+  },
+  "toolbar": {
+    "generateAllAnalyses": "Generate all analyses",
+    "generatingAll": "Generating...",
+    "generationComplete": "{{completed}}/{{total}} analyses generated",
+    "generationFailed": "{{failed}} failure(s)",
+    "noDataBlocks": "No data blocks found",
+    "allBlocksHaveAnalysis": "All blocks already have analyses",
+    "generationStarted": "Generation started for {{count}} blocks"
   }
 }
