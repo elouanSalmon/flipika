@@ -80,14 +80,14 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     const aiAnalysisHash = config.settings?.aiAnalysisHash as string | undefined;
 
     // Check if description is stale
-    const descriptionIsStale = description && aiAnalysisHash && (() => {
+    const descriptionIsStale = Boolean(description && aiAnalysisHash && (() => {
         const currentHash = generateConfigHash({
             title: 'Heatmap',
             metrics: ['metrics.clicks'],
             visualization: 'heatmap',
         }, startDate, endDate);
         return currentHash !== aiAnalysisHash;
-    })();
+    })());
 
     // Compute effective scope
     const effectiveAccountId = config.scope?.accountId || accountId || '';

@@ -75,14 +75,14 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     const aiAnalysisHash = config.settings?.aiAnalysisHash as string | undefined;
 
     // Check if description is stale
-    const descriptionIsStale = description && aiAnalysisHash && (() => {
+    const descriptionIsStale = Boolean(description && aiAnalysisHash && (() => {
         const currentHash = generateConfigHash({
             title: 'Ad Creative',
             metrics: ['metrics.clicks', 'metrics.conversions', 'metrics.ctr'],
             visualization: 'ad_creative',
         }, startDate, endDate);
         return currentHash !== aiAnalysisHash;
-    })();
+    })());
 
     // Compute effective scope (per-slide override or report-level default)
     const effectiveAccountId = config.scope?.accountId || accountId || '';
