@@ -66,6 +66,7 @@ export interface FlexibleDataBlockProps {
     startDate?: Date;
     endDate?: Date;
     design?: ReportDesign;
+    variant?: 'default' | 'chromeless';
 }
 
 // Internal component for the Preview section to share data fetching logic
@@ -653,6 +654,7 @@ const DataRenderer: React.FC<{
     );
 });
 
+
 export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
     config,
     onUpdateConfig,
@@ -664,8 +666,11 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
     startDate: propStartDate,
     endDate: propEndDate,
     design: propDesign,
+    variant, // destructure variant
 }) => {
     const { t } = useTranslation('reports');
+    // AI Generation overlay removed - handled by ReportBlock
+    const blockVariant = variant || 'chromeless'; // Default to chromeless for FlexibleDataBlock as it is usually inside a slide
     const context = useReportEditor();
 
     // Props take precedence over context for specific block consistency
@@ -1161,6 +1166,7 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                 onRegenerateAnalysis={handleBulkGenerateAnalysis}
                 isGeneratingAnalysis={isGeneratingAnalysis}
                 minHeight={['bar', 'line', 'pie'].includes(activeConfig.visualization) ? (activeConfig.description ? 450 : 350) : 300}
+                variant={blockVariant}
             >
                 <div
                     className={`flex-1 w-full min-h-0 flex flex-col ${['table', 'scorecard'].includes(activeConfig.visualization) ? 'overflow-auto report-scrollbar' : 'overflow-hidden'}`}

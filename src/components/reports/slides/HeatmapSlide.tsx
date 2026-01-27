@@ -29,6 +29,7 @@ interface HeatmapSlideProps {
     isTemplateMode?: boolean;
     onDelete?: () => void;
     onUpdateConfig?: (newConfig: Partial<HeatmapConfig> & { title?: string }) => void;
+    variant?: 'default' | 'chromeless';
 }
 
 interface HeatmapCellData {
@@ -66,6 +67,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     editable = false,
     onDelete,
     onUpdateConfig,
+    variant,
 }) => {
     const { t } = useTranslation('reports');
     const [heatmapData, setHeatmapData] = useState<HeatmapCellData[]>([]);
@@ -358,6 +360,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 onEdit={() => setIsConfigOpen(true)}
                 onDelete={onDelete}
                 className="heatmap-container"
+                variant={variant}
             >
                 <div className="heatmap-content flex-1 flex flex-col justify-center overflow-auto report-scrollbar min-h-0 h-full">
                     <div className="heatmap-grid h-full" style={{

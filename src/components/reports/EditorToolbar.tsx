@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Editor } from '@tiptap/react';
+import { useTranslation } from 'react-i18next';
+import { ToolbarButton } from '../common/ToolbarButton';
 import {
     Bold,
     Italic,
@@ -28,6 +30,7 @@ interface EditorToolbarProps {
 }
 
 const EditorToolbar: React.FC<EditorToolbarProps> = ({ editor }) => {
+    const { t } = useTranslation('reports');
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [showHighlightPicker, setShowHighlightPicker] = useState(false);
 
@@ -60,142 +63,141 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({ editor }) => {
         '#8b5cf6', '#a855f7', '#d946ef', '#ec4899',
     ];
 
+    const btnClass = "toolbar-button";
+
     return (
         <div className="editor-toolbar">
             <div className="toolbar-group">
-                <button
+                <ToolbarButton
                     onClick={() => editor.chain().focus().undo().run()}
                     disabled={!editor.can().undo()}
-                    className="toolbar-button"
-                    title="Annuler"
-                >
-                    <Undo size={18} />
-                </button>
-                <button
+                    icon={<Undo size={18} />}
+                    tooltip={t('toolbar.undo')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().redo().run()}
                     disabled={!editor.can().redo()}
-                    className="toolbar-button"
-                    title="Rétablir"
-                >
-                    <Redo size={18} />
-                </button>
+                    icon={<Redo size={18} />}
+                    tooltip={t('toolbar.redo')}
+                    className={btnClass}
+                />
             </div>
 
             <div className="toolbar-divider" />
 
             <div className="toolbar-group">
-                <button
+                <ToolbarButton
                     onClick={() => editor.chain().focus().toggleBold().run()}
-                    className={`toolbar-button ${editor.isActive('bold') ? 'is-active' : ''}`}
-                    title="Gras"
-                >
-                    <Bold size={18} />
-                </button>
-                <button
+                    isActive={editor.isActive('bold')}
+                    icon={<Bold size={18} />}
+                    tooltip={t('toolbar.bold')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().toggleItalic().run()}
-                    className={`toolbar-button ${editor.isActive('italic') ? 'is-active' : ''}`}
-                    title="Italique"
-                >
-                    <Italic size={18} />
-                </button>
-                <button
+                    isActive={editor.isActive('italic')}
+                    icon={<Italic size={18} />}
+                    tooltip={t('toolbar.italic')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().toggleStrike().run()}
-                    className={`toolbar-button ${editor.isActive('strike') ? 'is-active' : ''}`}
-                    title="Barré"
-                >
-                    <Strikethrough size={18} />
-                </button>
+                    isActive={editor.isActive('strike')}
+                    icon={<Strikethrough size={18} />}
+                    tooltip={t('toolbar.strike')}
+                    className={btnClass}
+                />
             </div>
 
             <div className="toolbar-divider" />
 
             <div className="toolbar-group">
-                <button
+                <ToolbarButton
                     onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                    className={`toolbar-button ${editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}`}
-                    title="Titre 1"
-                >
-                    <Heading1 size={18} />
-                </button>
-                <button
+                    isActive={editor.isActive('heading', { level: 1 })}
+                    icon={<Heading1 size={18} />}
+                    tooltip={t('toolbar.h1')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                    className={`toolbar-button ${editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}`}
-                    title="Titre 2"
-                >
-                    <Heading2 size={18} />
-                </button>
-                <button
+                    isActive={editor.isActive('heading', { level: 2 })}
+                    icon={<Heading2 size={18} />}
+                    tooltip={t('toolbar.h2')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                    className={`toolbar-button ${editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}`}
-                    title="Titre 3"
-                >
-                    <Heading3 size={18} />
-                </button>
+                    isActive={editor.isActive('heading', { level: 3 })}
+                    icon={<Heading3 size={18} />}
+                    tooltip={t('toolbar.h3')}
+                    className={btnClass}
+                />
             </div>
 
             <div className="toolbar-divider" />
 
             <div className="toolbar-group">
-                <button
+                <ToolbarButton
                     onClick={() => editor.chain().focus().toggleBulletList().run()}
-                    className={`toolbar-button ${editor.isActive('bulletList') ? 'is-active' : ''}`}
-                    title="Liste à puces"
-                >
-                    <List size={18} />
-                </button>
-                <button
+                    isActive={editor.isActive('bulletList')}
+                    icon={<List size={18} />}
+                    tooltip={t('toolbar.bulletList')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                    className={`toolbar-button ${editor.isActive('orderedList') ? 'is-active' : ''}`}
-                    title="Liste numérotée"
-                >
-                    <ListOrdered size={18} />
-                </button>
+                    isActive={editor.isActive('orderedList')}
+                    icon={<ListOrdered size={18} />}
+                    tooltip={t('toolbar.orderedList')}
+                    className={btnClass}
+                />
             </div>
 
             <div className="toolbar-divider" />
 
             <div className="toolbar-group">
-                <button
+                <ToolbarButton
                     onClick={() => editor.chain().focus().setTextAlign('left').run()}
-                    className={`toolbar-button ${editor.isActive({ textAlign: 'left' }) ? 'is-active' : ''}`}
-                    title="Aligner à gauche"
-                >
-                    <AlignLeft size={18} />
-                </button>
-                <button
+                    isActive={editor.isActive({ textAlign: 'left' })}
+                    icon={<AlignLeft size={18} />}
+                    tooltip={t('toolbar.alignLeft')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().setTextAlign('center').run()}
-                    className={`toolbar-button ${editor.isActive({ textAlign: 'center' }) ? 'is-active' : ''}`}
-                    title="Centrer"
-                >
-                    <AlignCenter size={18} />
-                </button>
-                <button
+                    isActive={editor.isActive({ textAlign: 'center' })}
+                    icon={<AlignCenter size={18} />}
+                    tooltip={t('toolbar.alignCenter')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().setTextAlign('right').run()}
-                    className={`toolbar-button ${editor.isActive({ textAlign: 'right' }) ? 'is-active' : ''}`}
-                    title="Aligner à droite"
-                >
-                    <AlignRight size={18} />
-                </button>
-                <button
+                    isActive={editor.isActive({ textAlign: 'right' })}
+                    icon={<AlignRight size={18} />}
+                    tooltip={t('toolbar.alignRight')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().setTextAlign('justify').run()}
-                    className={`toolbar-button ${editor.isActive({ textAlign: 'justify' }) ? 'is-active' : ''}`}
-                    title="Justifier"
-                >
-                    <AlignJustify size={18} />
-                </button>
+                    isActive={editor.isActive({ textAlign: 'justify' })}
+                    icon={<AlignJustify size={18} />}
+                    tooltip={t('toolbar.justify')}
+                    className={btnClass}
+                />
             </div>
 
             <div className="toolbar-divider" />
 
             <div className="toolbar-group">
                 <div className="toolbar-color-picker">
-                    <button
+                    <ToolbarButton
                         onClick={() => setShowColorPicker(!showColorPicker)}
-                        className="toolbar-button"
-                        title="Couleur du texte"
-                    >
-                        <Palette size={18} />
-                    </button>
+                        icon={<Palette size={18} />}
+                        tooltip={t('toolbar.textColor')}
+                        className={btnClass}
+                    />
                     {showColorPicker && (
                         <div className="color-picker-dropdown">
                             <div className="color-grid">
@@ -214,13 +216,12 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({ editor }) => {
                 </div>
 
                 <div className="toolbar-color-picker">
-                    <button
+                    <ToolbarButton
                         onClick={() => setShowHighlightPicker(!showHighlightPicker)}
-                        className="toolbar-button"
-                        title="Surligner"
-                    >
-                        <Highlighter size={18} />
-                    </button>
+                        icon={<Highlighter size={18} />}
+                        tooltip={t('toolbar.highlightColor')}
+                        className={btnClass}
+                    />
                     {showHighlightPicker && (
                         <div className="color-picker-dropdown">
                             <div className="color-grid">
@@ -242,27 +243,24 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({ editor }) => {
             <div className="toolbar-divider" />
 
             <div className="toolbar-group">
-                <button
+                <ToolbarButton
                     onClick={addImage}
-                    className="toolbar-button"
-                    title="Insérer une image"
-                >
-                    <ImageIcon size={18} />
-                </button>
-                <button
+                    icon={<ImageIcon size={18} />}
+                    tooltip={t('toolbar.image')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={addTable}
-                    className="toolbar-button"
-                    title="Insérer un tableau"
-                >
-                    <TableIcon size={18} />
-                </button>
-                <button
+                    icon={<TableIcon size={18} />}
+                    tooltip={t('toolbar.table')}
+                    className={btnClass}
+                />
+                <ToolbarButton
                     onClick={() => editor.chain().focus().setHorizontalRule().run()}
-                    className="toolbar-button"
-                    title="Insérer un séparateur"
-                >
-                    <Minus size={18} />
-                </button>
+                    icon={<Minus size={18} />}
+                    tooltip={t('toolbar.horizontalRule')}
+                    className={btnClass}
+                />
             </div>
         </div>
     );

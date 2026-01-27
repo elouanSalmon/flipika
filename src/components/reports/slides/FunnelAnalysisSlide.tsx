@@ -28,6 +28,7 @@ interface FunnelAnalysisSlideProps {
     isTemplateMode?: boolean;
     onDelete?: () => void;
     onUpdateConfig?: (newConfig: Partial<FunnelAnalysisConfig> & { title?: string }) => void;
+    variant?: 'default' | 'chromeless';
 }
 
 interface FunnelStep {
@@ -50,6 +51,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
     reportId,
     onDelete,
     onUpdateConfig,
+    variant,
 }) => {
     const { t } = useTranslation('reports');
     const [funnelData, setFunnelData] = useState<FunnelStep[]>([]);
@@ -312,6 +314,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                 onEdit={() => setIsConfigOpen(true)}
                 onDelete={onDelete}
                 editable={editable}
+                variant={variant}
             >
                 <div className="empty-state flex flex-col items-center justify-center h-full text-center p-6">
                     <p>Aucune donnée disponible pour le tunnel</p>
@@ -338,6 +341,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                 onEdit={() => setIsConfigOpen(true)}
                 onDelete={onDelete}
                 className={`funnel-analysis-widget ${design.mode === 'dark' ? 'dark-mode' : ''}`}
+                variant={variant}
             >
                 <div className="widget-content flex-1 flex flex-col justify-center overflow-hidden min-h-0 h-full">
                     <div className="funnel-container flex flex-col gap-3 justify-center h-full">

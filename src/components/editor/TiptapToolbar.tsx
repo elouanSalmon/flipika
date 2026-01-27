@@ -1,5 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import type { Editor } from '@tiptap/react';
+import { useTranslation } from 'react-i18next';
+import { ToolbarButton } from '../common/ToolbarButton';
+import { Tooltip } from '../common/Tooltip';
 import {
     Bold,
     Italic,
@@ -32,6 +35,7 @@ interface TiptapToolbarProps {
 }
 
 export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMediaLibrary }) => {
+    const { t } = useTranslation('reports');
     const [linkUrl, setLinkUrl] = useState('');
     const [showLinkInput, setShowLinkInput] = useState(false);
     const [isAiGenerating, setIsAiGenerating] = useState(false);
@@ -49,32 +53,6 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
             window.removeEventListener('flipika:ai-generation-end', handleGenerationEnd);
         };
     }, []);
-
-    const ToolbarButton: React.FC<{
-        onClick: () => void;
-        isActive?: boolean;
-        disabled?: boolean;
-        icon: React.ReactNode;
-        title: string;
-    }> = ({ onClick, isActive, disabled, icon, title }) => (
-        <button
-            onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onClick();
-            }}
-            onMouseDown={(e) => {
-                // Prevent losing focus from editor
-                e.preventDefault();
-            }}
-            disabled={disabled}
-            className={`tiptap-toolbar-btn ${isActive ? 'is-active' : ''} ${disabled ? 'is-disabled' : ''}`}
-            title={title}
-            type="button"
-        >
-            {icon}
-        </button>
-    );
 
     const setLink = useCallback(() => {
         if (!linkUrl) {
@@ -109,6 +87,8 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
         setLinkUrl('');
     };
 
+    const btnClass = "tiptap-toolbar-btn";
+
     return (
         <div className="tiptap-toolbar">
             {/* Undo/Redo */}
@@ -117,13 +97,15 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                     onClick={() => editor.chain().focus().undo().run()}
                     disabled={!editor.can().undo()}
                     icon={<Undo size={18} />}
-                    title="Annuler (Ctrl+Z)"
+                    tooltip={t('toolbar.undo')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().redo().run()}
                     disabled={!editor.can().redo()}
                     icon={<Redo size={18} />}
-                    title="Retablir (Ctrl+Y)"
+                    tooltip={t('toolbar.redo')}
+                    className={btnClass}
                 />
             </div>
 
@@ -135,19 +117,22 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                     onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
                     isActive={editor.isActive('heading', { level: 1 })}
                     icon={<Heading1 size={18} />}
-                    title="Titre 1"
+                    tooltip={t('toolbar.h1')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
                     isActive={editor.isActive('heading', { level: 2 })}
                     icon={<Heading2 size={18} />}
-                    title="Titre 2"
+                    tooltip={t('toolbar.h2')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
                     isActive={editor.isActive('heading', { level: 3 })}
                     icon={<Heading3 size={18} />}
-                    title="Titre 3"
+                    tooltip={t('toolbar.h3')}
+                    className={btnClass}
                 />
             </div>
 
@@ -159,37 +144,43 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                     onClick={() => editor.chain().focus().toggleBold().run()}
                     isActive={editor.isActive('bold')}
                     icon={<Bold size={18} />}
-                    title="Gras (Ctrl+B)"
+                    tooltip={t('toolbar.bold')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleItalic().run()}
                     isActive={editor.isActive('italic')}
                     icon={<Italic size={18} />}
-                    title="Italique (Ctrl+I)"
+                    tooltip={t('toolbar.italic')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleUnderline().run()}
                     isActive={editor.isActive('underline')}
                     icon={<Underline size={18} />}
-                    title="Souligne (Ctrl+U)"
+                    tooltip={t('toolbar.underline')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleStrike().run()}
                     isActive={editor.isActive('strike')}
                     icon={<Strikethrough size={18} />}
-                    title="Barre"
+                    tooltip={t('toolbar.strike')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleCode().run()}
                     isActive={editor.isActive('code')}
                     icon={<Code size={18} />}
-                    title="Code inline"
+                    tooltip={t('toolbar.code')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleHighlight().run()}
                     isActive={editor.isActive('highlight')}
                     icon={<Highlighter size={18} />}
-                    title="Surligner"
+                    tooltip={t('toolbar.highlight')}
+                    className={btnClass}
                 />
             </div>
 
@@ -201,19 +192,22 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                     onClick={() => editor.chain().focus().setTextAlign('left').run()}
                     isActive={editor.isActive({ textAlign: 'left' })}
                     icon={<AlignLeft size={18} />}
-                    title="Aligner a gauche (Ctrl+Shift+L)"
+                    tooltip={t('toolbar.alignLeft')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().setTextAlign('center').run()}
                     isActive={editor.isActive({ textAlign: 'center' })}
                     icon={<AlignCenter size={18} />}
-                    title="Centrer (Ctrl+Shift+E)"
+                    tooltip={t('toolbar.alignCenter')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().setTextAlign('right').run()}
                     isActive={editor.isActive({ textAlign: 'right' })}
                     icon={<AlignRight size={18} />}
-                    title="Aligner a droite (Ctrl+Shift+R)"
+                    tooltip={t('toolbar.alignRight')}
+                    className={btnClass}
                 />
             </div>
 
@@ -225,13 +219,15 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                     onClick={() => editor.chain().focus().toggleBulletList().run()}
                     isActive={editor.isActive('bulletList')}
                     icon={<List size={18} />}
-                    title="Liste a puces"
+                    tooltip={t('toolbar.bulletList')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleOrderedList().run()}
                     isActive={editor.isActive('orderedList')}
                     icon={<ListOrdered size={18} />}
-                    title="Liste numerotee"
+                    tooltip={t('toolbar.orderedList')}
+                    className={btnClass}
                 />
             </div>
 
@@ -241,7 +237,8 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                 <ToolbarButton
                     onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
                     icon={<TableIcon size={18} />}
-                    title="Insérer un tableau"
+                    tooltip={t('toolbar.table')}
+                    className={btnClass}
                 />
                 <ToolbarButton
                     onClick={() => editor.chain().focus().insertContent({
@@ -252,7 +249,8 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                         ],
                     }).run()}
                     icon={<Columns2 size={18} />}
-                    title="Colonnes (2)"
+                    tooltip={t('toolbar.columns')}
+                    className={btnClass}
                 />
             </div>
 
@@ -264,13 +262,15 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                     onClick={handleLinkClick}
                     isActive={editor.isActive('link')}
                     icon={<Link size={18} />}
-                    title="Ajouter un lien"
+                    tooltip={t('toolbar.link')}
+                    className={btnClass}
                 />
                 {editor.isActive('link') && (
                     <ToolbarButton
                         onClick={removeLink}
                         icon={<Link2Off size={18} />}
-                        title="Supprimer le lien"
+                        tooltip={t('toolbar.unlink')}
+                        className={btnClass}
                     />
                 )}
 
@@ -281,7 +281,8 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                         <ToolbarButton
                             onClick={onOpenMediaLibrary}
                             icon={<ImageIcon size={18} />}
-                            title="Médiathèque (Images)"
+                            tooltip={t('toolbar.image')}
+                            className={btnClass}
                         />
                     </>
                 )}
@@ -289,27 +290,28 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                 <div className="mx-1 w-px bg-gray-200 dark:bg-gray-700 h-6 self-center" />
 
                 {/* AI Generate All Button */}
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setIsAiGenerating(true);
-                        window.dispatchEvent(new CustomEvent('flipika:generate-all-analyses'));
-                        // Auto-stop animation after 10s max (fallback)
-                        setTimeout(() => setIsAiGenerating(false), 10000);
-                    }}
-                    onMouseDown={(e) => e.preventDefault()}
-                    disabled={isAiGenerating}
-                    className={`tiptap-toolbar-btn ${isAiGenerating ? 'is-active' : ''}`}
-                    title="Generer toutes les analyses IA"
-                    type="button"
-                >
-                    {isAiGenerating ? (
-                        <Loader2 size={18} className="animate-spin" />
-                    ) : (
-                        <Sparkles size={18} />
-                    )}
-                </button>
+                <Tooltip content={t('toolbar.generateAllAnalyses')}>
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setIsAiGenerating(true);
+                            window.dispatchEvent(new CustomEvent('flipika:generate-all-analyses'));
+                            // Auto-stop animation after 10s max (fallback)
+                            setTimeout(() => setIsAiGenerating(false), 10000);
+                        }}
+                        onMouseDown={(e) => e.preventDefault()}
+                        disabled={isAiGenerating}
+                        className={`tiptap-toolbar-btn ${isAiGenerating ? 'is-active' : ''}`}
+                        type="button"
+                    >
+                        {isAiGenerating ? (
+                            <Loader2 size={18} className="animate-spin" />
+                        ) : (
+                            <Sparkles size={18} />
+                        )}
+                    </button>
+                </Tooltip>
 
                 {/* Link Input Popup */}
                 {showLinkInput && (

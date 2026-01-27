@@ -30,6 +30,7 @@ interface AdCreativeSlideProps {
     isTemplateMode?: boolean;
     onDelete?: () => void;
     onUpdateConfig?: (newConfig: Partial<AdCreativeConfig> & { title?: string }) => void;
+    variant?: 'default' | 'chromeless';
 }
 
 interface RealAdCreative {
@@ -63,6 +64,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     editable = false,
     onDelete,
     onUpdateConfig,
+    variant,
 }) => {
     const { t } = useTranslation('reports');
     const [loading, setLoading] = useState(true);
@@ -398,6 +400,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
                 onDelete={onDelete}
                 minHeight={400}
                 className="ad-creative-widget"
+                variant={variant}
             >
                 <div className="flex-1 w-full h-full overflow-hidden min-h-0 ad-preview-container">
                     {renderAdContent()}

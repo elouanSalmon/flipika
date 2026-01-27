@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, RefreshCw, Loader2, Settings, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,7 @@ interface ReportBlockProps {
     // Layout
     height?: string | number;
     minHeight?: string | number;
+    variant?: 'default' | 'chromeless';
 }
 
 const ReportBlock: React.FC<ReportBlockProps> = ({
@@ -48,8 +49,12 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
     isGeneratingAnalysis,
     height = '100%',
     minHeight = 350,
+    variant = 'default',
 }) => {
     const { t } = useTranslation('reports');
+    const [isSettingsHovered, setIsSettingsHovered] = useState(false);
+    const [isDeleteHovered, setIsDeleteHovered] = useState(false);
+    const isChromeless = variant === 'chromeless';
 
     // AI Generation overlay
     const AiGenerationOverlay = () => (
@@ -62,6 +67,7 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
                 backgroundColor: design?.mode === 'dark' ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.7)',
                 backdropFilter: 'blur(8px)',
                 WebkitBackdropFilter: 'blur(8px)',
+                borderRadius: isChromeless ? '0' : '16px',
             }}
         >
             <motion.div
@@ -96,19 +102,30 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
         </motion.div>
     );
 
+    const containerStyle: React.CSSProperties = isChromeless ? {
+        backgroundColor: 'transparent',
+        color: design?.colorScheme?.text || '#111827',
+        borderRadius: '0',
+        boxShadow: 'none',
+        border: 'none',
+        minHeight: typeof minHeight === 'number' ? `${minHeight}px` : minHeight,
+        height: height,
+        overflow: 'visible'
+    } : {
+        backgroundColor: design?.colorScheme?.background || '#ffffff',
+        color: design?.colorScheme?.text || '#111827',
+        borderRadius: '16px',
+        boxShadow: design?.mode === 'dark' ? '0 4px 6px -1px rgba(0, 0, 0, 0.2)' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+        border: design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.05)' : 'none',
+        minHeight: typeof minHeight === 'number' ? `${minHeight}px` : minHeight,
+        height: height,
+        overflow: 'hidden'
+    };
+
     return (
         <div
             className={`report-block relative group h-full flex flex-col ${className}`}
-            style={{
-                backgroundColor: design?.colorScheme?.background || '#ffffff',
-                color: design?.colorScheme?.text || '#111827',
-                borderRadius: '16px',
-                boxShadow: design?.mode === 'dark' ? '0 4px 6px -1px rgba(0, 0, 0, 0.2)' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
-                border: design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.05)' : 'none',
-                minHeight: typeof minHeight === 'number' ? `${minHeight}px` : minHeight,
-                height: height,
-                overflow: 'hidden' // Ensure rounded corners clip content
-            }}
+            style={containerStyle}
         >
             {/* Loading / Generating Overlay */}
             <AnimatePresence>
@@ -119,10 +136,12 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
 
             {/* Header */}
             <div
-                className="px-5 py-3 border-b flex justify-between items-center flex-shrink-0"
+                className={`px-5 py-3 flex justify-between items-center flex-shrink-0 ${isChromeless ? '' : 'border-b'}`}
                 style={{
                     borderColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
-                    backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)'
+                    backgroundColor: isChromeless ? 'transparent' : (design?.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)'),
+                    paddingLeft: isChromeless ? 0 : undefined,
+                    paddingRight: isChromeless ? 0 : undefined,
                 }}
             >
                 <div className="flex items-center gap-3 overflow-hidden">
@@ -136,9 +155,22 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
                     {editable && onEdit && (
                         <button
                             onClick={onEdit}
-                            className="p-1.5 hover:bg-[var(--color-bg-secondary)] rounded-xl transition-all text-[var(--color-text-muted)] hover:text-primary border border-transparent hover:border-[var(--color-border)] shadow-sm"
+                            onMouseEnter={() => setIsSettingsHovered(true)}
+                            onMouseLeave={() => setIsSettingsHovered(false)}
+                            className="p-1.5 rounded-xl transition-all shadow-sm border"
                             title="Configurer"
-                            style={{ color: design?.colorScheme?.text }}
+                            style={{
+                                color: isSettingsHovered
+                                    ? (design?.colorScheme?.primary || 'var(--color-primary)')
+                                    : (design?.colorScheme?.text || 'var(--color-text-muted)'),
+                                opacity: isSettingsHovered ? 1 : 0.6,
+                                backgroundColor: isSettingsHovered
+                                    ? (design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)')
+                                    : 'transparent',
+                                borderColor: isSettingsHovered
+                                    ? (design?.mode === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)')
+                                    : 'transparent',
+                            }}
                         >
                             <Settings size={14} />
                         </button>
@@ -147,8 +179,22 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
                     {editable && onDelete && (
                         <button
                             onClick={onDelete}
-                            className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all text-red-500/70 hover:text-red-600 border border-transparent hover:border-red-200 dark:hover:border-red-800/50 shadow-sm"
+                            onMouseEnter={() => setIsDeleteHovered(true)}
+                            onMouseLeave={() => setIsDeleteHovered(false)}
+                            className="p-1.5 rounded-xl transition-all shadow-sm border"
                             title="Supprimer"
+                            style={{
+                                color: isDeleteHovered
+                                    ? '#dc2626' // red-600
+                                    : '#ef4444', // red-500
+                                opacity: isDeleteHovered ? 1 : 0.7,
+                                backgroundColor: isDeleteHovered
+                                    ? (design?.mode === 'dark' ? 'rgba(127, 29, 29, 0.3)' : '#fef2f2')
+                                    : 'transparent',
+                                borderColor: isDeleteHovered
+                                    ? (design?.mode === 'dark' ? 'rgba(153, 27, 27, 0.5)' : '#fecaca')
+                                    : 'transparent',
+                            }}
                         >
                             <Trash2 size={14} />
                         </button>
@@ -157,7 +203,7 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 min-h-0 relative flex flex-col p-4">
+            <div className={`flex-1 min-h-0 relative flex flex-col ${isChromeless ? '' : 'p-4'}`}>
                 {error ? (
                     <div className="flex items-center justify-center h-full text-red-500 text-sm p-4 text-center">
                         <AlertTriangle size={20} className="mb-2" />
@@ -170,7 +216,7 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
 
             {/* Narrative Layer (Footer) */}
             {description && (
-                <div className="px-4 pb-4 pt-0 flex-shrink-0">
+                <div className={`flex-shrink-0 ${isChromeless ? 'pt-4 pb-0 px-0' : 'px-4 pb-4 pt-0'}`}>
                     <div
                         className="p-3 rounded-lg relative overflow-hidden group/desc"
                         style={{

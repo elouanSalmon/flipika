@@ -123,6 +123,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         startDate={startDate}
                         endDate={endDate}
                         design={design}
+                        variant="chromeless"
                     />
                 );
             case SlideType.CAMPAIGN_CHART:
@@ -143,6 +144,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         startDate={startDate}
                         endDate={endDate}
                         design={design}
+                        variant="chromeless"
                     />
                 );
             case SlideType.KEY_METRICS:
@@ -163,6 +165,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         startDate={startDate}
                         endDate={endDate}
                         design={design}
+                        variant="chromeless"
                     />
                 );
             case SlideType.AD_CREATIVE:
@@ -187,6 +190,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                                 }
                             });
                         }}
+                        variant="chromeless"
                     />
                 );
             case SlideType.FUNNEL_ANALYSIS:
@@ -211,6 +215,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                                 }
                             });
                         }}
+                        variant="chromeless"
                     />
                 );
             case SlideType.HEATMAP:
@@ -235,6 +240,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                                 }
                             });
                         }}
+                        variant="chromeless"
                     />
                 );
             case SlideType.DEVICE_PLATFORM_SPLIT:
@@ -254,6 +260,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         startDate={startDate}
                         endDate={endDate}
                         design={design}
+                        variant="chromeless"
                     />
                 );
             case SlideType.TOP_PERFORMERS:
@@ -273,6 +280,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         startDate={startDate}
                         endDate={endDate}
                         design={design}
+                        variant="chromeless"
                     />
                 );
             case 'clientLogo':
@@ -299,6 +307,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         startDate={startDate}
                         endDate={endDate}
                         design={design}
+                        variant="chromeless"
                     />
                 );
             default:
