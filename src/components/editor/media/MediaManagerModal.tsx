@@ -9,6 +9,7 @@ import {
     Check,
     Loader2
 } from 'lucide-react';
+import ConfirmationModal from '../../common/ConfirmationModal';
 import { useAuth } from '../../../contexts/AuthContext';
 import {
     uploadImage,
@@ -37,6 +38,7 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
+    const [imageToDelete, setImageToDelete] = useState<ImageMetaData | null>(null);
 
     // Load gallery on open or tab switch
     useEffect(() => {
@@ -104,16 +106,23 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
         }
     }, []);
 
-    const handleDelete = async (image: ImageMetaData, e: React.MouseEvent) => {
+    const handleDeleteClick = (image: ImageMetaData, e: React.MouseEvent) => {
         e.stopPropagation();
-        if (!confirm("Voulez-vous vraiment supprimer cette image ?")) return;
+        setImageToDelete(image);
+    };
+
+    const confirmDelete = async () => {
+        if (!imageToDelete) return;
 
         try {
-            await deleteImage(image);
-            setImages(prev => prev.filter(img => img.id !== image.id));
+            await deleteImage(imageToDelete);
+            setImages(prev => prev.filter(img => img.id !== imageToDelete.id));
             toast.success("Image supprimée");
         } catch (error) {
+            console.error(error);
             toast.error("Erreur lors de la suppression");
+        } finally {
+            setImageToDelete(null);
         }
     };
 
@@ -257,7 +266,7 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
 
                                             {/* Delete Button */}
                                             <button
-                                                onClick={(e) => handleDelete(image, e)}
+                                                onClick={(e) => handleDeleteClick(image, e)}
                                                 className="absolute top-2 right-2 p-2 bg-red-500/90 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 hover:scale-105 shadow-md transform translate-y-[-10px] group-hover:translate-y-0"
                                                 title="Supprimer"
                                             >
@@ -277,6 +286,15 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                     )}
                 </div>
             </div>
+            <ConfirmationModal
+                isOpen={!!imageToDelete}
+                onClose={() => setImageToDelete(null)}
+                onConfirm={confirmDelete}
+                title="Supprimer l'image"
+                message="Voulez-vous vraiment supprimer cette image ? Cette action est irréversible."
+                confirmLabel="Supprimer"
+                isDestructive={true}
+            />
         </div>,
         document.body
     );
