@@ -24,17 +24,24 @@ export const SlideComponent = ({ node, updateAttributes, deleteNode, selected, g
     // Use theme background (opaque, not transparent)
     const finalBackgroundColor = backgroundColor || themeBg;
 
-    // Apply CSS variables for theme colors at slide level
+    // Get fonts from theme
+    const fontFamily = design?.typography?.fontFamily || 'Inter, sans-serif';
+    const headingFontFamily = design?.typography?.headingFontFamily || fontFamily;
+
+    // Apply CSS variables for theme colors and typography at slide level
     const slideStyle = {
         width: '960px',
         height: '540px',
         backgroundColor: finalBackgroundColor,
         color: themeTextColor,
+        fontFamily: fontFamily,
         '--color-primary': design?.colorScheme?.primary || '#0066ff',
         '--color-secondary': design?.colorScheme?.secondary || '#3385ff',
         '--color-accent': design?.colorScheme?.accent || '#00d4ff',
         '--color-bg-primary': themeBg,
         '--color-text-primary': themeTextColor,
+        '--font-family': fontFamily,
+        '--heading-font-family': headingFontFamily,
     } as React.CSSProperties;
 
     // Move slide up

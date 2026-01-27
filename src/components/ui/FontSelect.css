@@ -1,0 +1,373 @@
+/* FontSelect Component Styles */
+
+.font-select {
+    position: relative;
+    width: 100%;
+}
+
+.font-select.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.font-select-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.dark .font-select-label {
+    color: #f1f5f9;
+}
+
+/* Trigger Button */
+.font-select-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    text-align: left;
+    min-height: 48px;
+}
+
+.dark .font-select-trigger {
+    background: rgba(51, 65, 85, 0.5);
+    border-color: rgba(148, 163, 184, 0.2);
+}
+
+.font-select-trigger:hover:not(:disabled) {
+    border-color: #3b82f6;
+}
+
+.font-select-trigger:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.font-select.open .font-select-trigger {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.font-select-value {
+    flex: 1;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dark .font-select-value {
+    color: #f1f5f9;
+}
+
+.font-select-trigger:not(.has-value) .font-select-value {
+    color: #94a3b8;
+}
+
+.font-select-chevron {
+    color: #64748b;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+.font-select-chevron.rotated {
+    transform: rotate(180deg);
+}
+
+/* Dropdown */
+.font-select-dropdown {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+    animation: fontSelectDropdownIn 0.15s ease-out;
+}
+
+.dark .font-select-dropdown {
+    background: #1e293b;
+    border-color: rgba(148, 163, 184, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes fontSelectDropdownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Search */
+.font-select-search {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    gap: 10px;
+    background: #f8fafc;
+}
+
+.dark .font-select-search {
+    border-bottom-color: rgba(148, 163, 184, 0.2);
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.font-select-search-icon {
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+.font-select-search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #0f172a;
+    outline: none;
+}
+
+.dark .font-select-search-input {
+    color: #f1f5f9;
+}
+
+.font-select-search-input::placeholder {
+    color: #94a3b8;
+}
+
+.font-select-search-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.font-select-search-clear:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.dark .font-select-search-clear:hover {
+    background: rgba(51, 65, 85, 0.5);
+    color: #f1f5f9;
+}
+
+/* Categories */
+.font-select-categories {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 4px;
+    border-bottom: 1px solid #e2e8f0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.font-select-categories::-webkit-scrollbar {
+    display: none;
+}
+
+.dark .font-select-categories {
+    border-bottom-color: rgba(148, 163, 184, 0.2);
+}
+
+.font-select-category {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+}
+
+.font-select-category:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.dark .font-select-category:hover {
+    background: rgba(51, 65, 85, 0.5);
+    color: #f1f5f9;
+}
+
+.font-select-category.active {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.dark .font-select-category.active {
+    background: #3b82f6;
+}
+
+/* Font List */
+.font-select-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 280px;
+    padding: 4px;
+}
+
+.font-select-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.font-select-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.font-select-list::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 3px;
+}
+
+.font-select-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.5);
+}
+
+/* Empty State */
+.font-select-empty {
+    padding: 24px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* Font Option */
+.font-select-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-radius: 8px;
+    gap: 8px;
+    text-align: left;
+}
+
+.font-select-option:hover,
+.font-select-option.highlighted {
+    background: #f1f5f9;
+}
+
+.dark .font-select-option:hover,
+.dark .font-select-option.highlighted {
+    background: rgba(51, 65, 85, 0.5);
+}
+
+.font-select-option.selected {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.dark .font-select-option.selected {
+    background: rgba(59, 130, 246, 0.2);
+}
+
+.font-select-option-name {
+    flex: 1;
+    font-size: 14px;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dark .font-select-option-name {
+    color: #f1f5f9;
+}
+
+.font-select-option-category {
+    font-size: 10px;
+    font-weight: 500;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.dark .font-select-option-category {
+    background: rgba(51, 65, 85, 0.5);
+    color: #94a3b8;
+}
+
+.font-select-option-loading {
+    color: #3b82f6;
+    flex-shrink: 0;
+}
+
+.font-select-option-check {
+    color: #3b82f6;
+    flex-shrink: 0;
+}
+
+/* Footer */
+.font-select-footer {
+    padding: 8px 16px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 11px;
+    color: #94a3b8;
+    text-align: center;
+    background: #f8fafc;
+}
+
+.dark .font-select-footer {
+    border-top-color: rgba(148, 163, 184, 0.2);
+    background: rgba(15, 23, 42, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .font-select-dropdown {
+        max-height: 350px;
+    }
+
+    .font-select-categories {
+        padding: 6px 8px;
+    }
+
+    .font-select-category {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    .font-select-list {
+        max-height: 220px;
+    }
+}

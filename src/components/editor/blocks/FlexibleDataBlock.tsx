@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import ReportBlock from './ReportBlock';
 import { useReportEditor, ReportEditorProvider } from '../../../contexts/ReportEditorContext';
+import { useChartFont } from '../../../contexts/FontContext';
 import { X, Info, Sparkles, AlertTriangle, Loader2, TrendingUp, TrendingDown } from 'lucide-react';
 import type { ReportDesign } from '../../../types/reportTypes';
 import { executeQuery } from '../../../services/googleAds';
@@ -82,6 +83,12 @@ const DataRenderer: React.FC<{
     onDataLoaded?: (currentData: any[], comparisonData: any[]) => void;
 }> = React.memo(({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false, design, onDataLoaded }) => {
     const { t } = useTranslation('reports');
+
+    // Get chart font from context - chartKey changes when fonts are loaded
+    const { fontFamily: chartFontFamily, chartKey } = useChartFont();
+
+    // Use design font if available, otherwise fall back to context font
+    const effectiveFontFamily = design?.typography?.fontFamily || chartFontFamily;
 
     // Generate colors based on design or fallback to defaults
     const chartColors = useMemo(() => {
@@ -431,7 +438,7 @@ const DataRenderer: React.FC<{
     };
 
     return (
-        <div className="link-renderer-root flex-1 w-full flex flex-col min-h-0 relative" style={{ fontFamily: design?.typography?.fontFamily }}>
+        <div className="link-renderer-root flex-1 w-full flex flex-col min-h-0 relative" style={{ fontFamily: effectiveFontFamily }}>
             {isMockData && (
                 <div
                     className="absolute top-2 right-2 z-10 text-[8px] font-bold px-2 py-0.5 rounded-full border backdrop-blur-md flex items-center gap-1 shadow-sm"
@@ -517,14 +524,14 @@ const DataRenderer: React.FC<{
                         );
                     case 'bar':
                         return (
-                            <div className="absolute inset-0">
+                            <div className="absolute inset-0" key={chartKey}>
                                 <ResponsiveContainer width="100%" height="100%">
                                     <BarChart data={tableData}>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
-                                        <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
-                                        <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
-                                        <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                        <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
+                                        <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: effectiveFontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
+                                        <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: effectiveFontFamily }} axisLine={false} tickLine={false} />
+                                        <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: effectiveFontFamily }} />
+                                        <Legend wrapperStyle={{ fontSize: '10px', fontFamily: effectiveFontFamily, color: design?.colorScheme?.text || '#111827' }} />
                                         {config.metrics.map((m: string, i: number) => (
                                             <React.Fragment key={m}>
                                                 <Bar dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} fill={chartColors[i % chartColors.length]} radius={[4, 4, 0, 0]} />
@@ -539,14 +546,14 @@ const DataRenderer: React.FC<{
                         );
                     case 'line':
                         return (
-                            <div className="absolute inset-0">
+                            <div className="absolute inset-0" key={chartKey}>
                                 <ResponsiveContainer width="100%" height="100%">
                                     <LineChart data={tableData}>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} />
-                                        <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
-                                        <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: design?.typography?.fontFamily }} axisLine={false} tickLine={false} />
-                                        <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                        <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
+                                        <XAxis dataKey={config.dimension} tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: effectiveFontFamily }} axisLine={{ stroke: design?.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'var(--color-border)' }} tickLine={false} />
+                                        <YAxis tick={{ fontSize: 10, fill: design?.colorScheme?.secondary || '#6b7280', fontFamily: effectiveFontFamily }} axisLine={false} tickLine={false} />
+                                        <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: effectiveFontFamily }} />
+                                        <Legend wrapperStyle={{ fontSize: '10px', fontFamily: effectiveFontFamily, color: design?.colorScheme?.text || '#111827' }} />
                                         {config.metrics.map((m: string, i: number) => (
                                             <React.Fragment key={m}>
                                                 <Line type="monotone" dataKey={m} name={t(`flexibleBlock.metricsList.${m.split('.')[1]}`)} stroke={chartColors[i % chartColors.length]} strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
@@ -561,7 +568,7 @@ const DataRenderer: React.FC<{
                         );
                     case 'pie':
                         return (
-                            <div className="absolute inset-0">
+                            <div className="absolute inset-0" key={chartKey}>
                                 <ResponsiveContainer width="100%" height="100%">
                                     <PieChart>
                                         <Pie
@@ -580,7 +587,7 @@ const DataRenderer: React.FC<{
                                                     textAnchor={props.textAnchor}
                                                     dominantBaseline="central"
                                                     fill={design?.colorScheme?.text || '#111827'}
-                                                    style={{ fontSize: 10, fontFamily: design?.typography?.fontFamily }}
+                                                    style={{ fontSize: 10, fontFamily: effectiveFontFamily }}
                                                 >
                                                     {`${props.name} ${(props.percent * 100).toFixed(0)}% `}
                                                 </text>
@@ -588,8 +595,8 @@ const DataRenderer: React.FC<{
                                         >
                                             {data.map((_, index) => <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />)}
                                         </Pie>
-                                        <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: design?.typography?.fontFamily }} />
-                                        <Legend wrapperStyle={{ fontSize: '10px', fontFamily: design?.typography?.fontFamily, color: design?.colorScheme?.text || '#111827' }} />
+                                        <Tooltip contentStyle={{ ...tooltipStyle, fontFamily: effectiveFontFamily }} />
+                                        <Legend wrapperStyle={{ fontSize: '10px', fontFamily: effectiveFontFamily, color: design?.colorScheme?.text || '#111827' }} />
                                     </PieChart>
                                 </ResponsiveContainer>
                             </div>

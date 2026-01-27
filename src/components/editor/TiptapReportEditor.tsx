@@ -31,6 +31,7 @@ import { TextBubbleMenu } from './components/TextBubbleMenu';
 import { ChartBlockSelector } from './ChartBlockSelector';
 import { TiptapToolbar } from './TiptapToolbar';
 import { ReportEditorProvider } from '../../contexts/ReportEditorContext';
+import { FontProvider } from '../../contexts/FontContext';
 import type { ReportDesign } from '../../types/reportTypes';
 import type { Client } from '../../types/client';
 import './TiptapEditor.css';
@@ -263,54 +264,59 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     const headingFontFamily = design?.typography?.headingFontFamily || fontFamily;
 
     return (
-        <ReportEditorProvider
-            design={design || null}
-            accountId={accountId}
-            campaignIds={campaignIds}
-            reportId={reportId}
-            clientId={clientId}
-            client={client}
-            userId={userId}
-            isTemplateMode={isTemplateMode}
-            startDate={startDate}
-            endDate={endDate}
-            onOpenSettings={onOpenSettings}
+        <FontProvider
+            fontFamily={fontFamily}
+            headingFontFamily={headingFontFamily}
         >
-            <div
-                className="tiptap-slide-editor-layout"
-                style={{
-                    '--highlight-color': highlightColor,
-                    '--highlight-text-color': highlightTextColor,
-                    '--font-family': fontFamily,
-                    '--heading-font-family': headingFontFamily,
-                } as React.CSSProperties}
+            <ReportEditorProvider
+                design={design || null}
+                accountId={accountId}
+                campaignIds={campaignIds}
+                reportId={reportId}
+                clientId={clientId}
+                client={client}
+                userId={userId}
+                isTemplateMode={isTemplateMode}
+                startDate={startDate}
+                endDate={endDate}
+                onOpenSettings={onOpenSettings}
             >
-                {/* Left Sidebar - Slide Navigation */}
-                <SlideNavigation editor={editor} />
+                <div
+                    className="tiptap-slide-editor-layout"
+                    style={{
+                        '--highlight-color': highlightColor,
+                        '--highlight-text-color': highlightTextColor,
+                        '--font-family': fontFamily,
+                        '--heading-font-family': headingFontFamily,
+                    } as React.CSSProperties}
+                >
+                    {/* Left Sidebar - Slide Navigation */}
+                    <SlideNavigation editor={editor} />
 
-                {/* Main Editor Area */}
-                <div className="tiptap-editor-main">
-                    <TiptapToolbar
-                        editor={editor}
-                        onOpenMediaLibrary={() => setShowMediaManager(true)}
-                    />
-                    <div className="tiptap-editor-content slide-editor-container">
-                        <EditorContent editor={editor} />
-                        <TableBubbleMenu editor={editor} />
-                        <TextBubbleMenu editor={editor} />
+                    {/* Main Editor Area */}
+                    <div className="tiptap-editor-main">
+                        <TiptapToolbar
+                            editor={editor}
+                            onOpenMediaLibrary={() => setShowMediaManager(true)}
+                        />
+                        <div className="tiptap-editor-content slide-editor-container">
+                            <EditorContent editor={editor} />
+                            <TableBubbleMenu editor={editor} />
+                            <TextBubbleMenu editor={editor} />
+                        </div>
+                        {/* Floating Chart Selector */}
+                        <ChartBlockSelector editor={editor} />
+
+                        {/* Media Manager */}
+                        <MediaManagerModal
+                            isOpen={showMediaManager}
+                            onClose={() => setShowMediaManager(false)}
+                            onSelectImage={handleInsertImage}
+                        />
+
                     </div>
-                    {/* Floating Chart Selector */}
-                    <ChartBlockSelector editor={editor} />
-
-                    {/* Media Manager */}
-                    <MediaManagerModal
-                        isOpen={showMediaManager}
-                        onClose={() => setShowMediaManager(false)}
-                        onSelectImage={handleInsertImage}
-                    />
-
                 </div>
-            </div>
-        </ReportEditorProvider>
+            </ReportEditorProvider>
+        </FontProvider>
     );
 };

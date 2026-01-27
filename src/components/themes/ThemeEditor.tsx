@@ -10,6 +10,8 @@ import type { Client } from '../../types/client';
 import ThemePreview from './ThemePreview';
 import { useTranslation } from 'react-i18next';
 import { getContrastRatio, getAccessibleColor, isAccessible, hexToRgb, getLuminance } from '../../utils/colorUtils';
+import FontSelect from '../ui/FontSelect';
+import { useThemeFonts } from '../../hooks/useFontLoader';
 import './ThemeEditor.css';
 
 interface ThemeEditorProps {
@@ -58,6 +60,12 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
     const [isDefault, setIsDefault] = useState(theme?.isDefault || false);
     const [saving, setSaving] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState<string | null>(null);
+
+    // Load fonts for the current design
+    useThemeFonts(
+        design.typography.fontFamily,
+        design.typography.headingFontFamily
+    );
 
     const handleApplyPreset = (preset: ThemePreset) => {
         setDesign(preset.design);
@@ -424,20 +432,43 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                         <div className="theme-editor-section">
                             <div className="theme-editor-section-header">
                                 <h3>{t('editor.typographyTitle')}</h3>
+                                <p>{t('editor.typographyDesc')}</p>
                             </div>
                             <div className="theme-editor-field">
-                                <label>{t('editor.fontLabel')}</label>
-                                <select
+                                <FontSelect
+                                    label={t('editor.fontLabel')}
                                     value={design.typography.fontFamily}
-                                    onChange={(e) => setDesign({ ...design, typography: { ...design.typography, fontFamily: e.target.value } })}
-                                    className="theme-editor-select"
-                                >
-                                    <option value="Inter, sans-serif">Inter</option>
-                                    <option value="Roboto, sans-serif">Roboto</option>
-                                    <option value="Open Sans, sans-serif">Open Sans</option>
-                                    <option value="Lato, sans-serif">Lato</option>
-                                    <option value="Montserrat, sans-serif">Montserrat</option>
-                                </select>
+                                    onChange={(value) => {
+                                        setDesign({
+                                            ...design,
+                                            typography: {
+                                                ...design.typography,
+                                                fontFamily: value,
+                                                // Update heading font too if it was the same as body
+                                                headingFontFamily: design.typography.headingFontFamily === design.typography.fontFamily
+                                                    ? value
+                                                    : design.typography.headingFontFamily
+                                            }
+                                        });
+                                    }}
+                                    placeholder={t('editor.fontPlaceholder')}
+                                />
+                            </div>
+                            <div className="theme-editor-field">
+                                <FontSelect
+                                    label={t('editor.headingFontLabel')}
+                                    value={design.typography.headingFontFamily || design.typography.fontFamily}
+                                    onChange={(value) => {
+                                        setDesign({
+                                            ...design,
+                                            typography: {
+                                                ...design.typography,
+                                                headingFontFamily: value
+                                            }
+                                        });
+                                    }}
+                                    placeholder={t('editor.headingFontPlaceholder')}
+                                />
                             </div>
                         </div>
 

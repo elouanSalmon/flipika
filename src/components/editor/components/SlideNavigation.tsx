@@ -198,18 +198,25 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = React.memo((
         },
     }, [editorContent]); // Ensure editor updates when content changes but doesn't recreate every time
 
+    // Get fonts from theme
+    const fontFamily = design?.typography?.fontFamily || 'Inter, sans-serif';
+    const headingFontFamily = design?.typography?.headingFontFamily || fontFamily;
+
     // Style for the scaled slide
     const slideStyle = useMemo(() => ({
         width: '960px',
         height: '540px',
         backgroundColor: finalBackgroundColor,
         color: themeTextColor,
+        fontFamily: fontFamily,
         '--color-primary': design?.colorScheme?.primary || '#0066ff',
         '--color-secondary': design?.colorScheme?.secondary || '#3385ff',
         '--color-accent': design?.colorScheme?.accent || '#00d4ff',
         '--color-bg-primary': themeBg,
         '--color-text-primary': themeTextColor,
-    }), [finalBackgroundColor, themeTextColor, design?.colorScheme, themeBg]);
+        '--font-family': fontFamily,
+        '--heading-font-family': headingFontFamily,
+    }), [finalBackgroundColor, themeTextColor, design?.colorScheme, themeBg, fontFamily, headingFontFamily]);
 
     return (
         <div className="slide-thumbnail-scaler">
