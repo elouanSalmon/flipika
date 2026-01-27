@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { X, ChevronLeft, ChevronRight, Maximize2, Minimize2 } from 'lucide-react';
 import { TiptapReadOnlyRenderer } from '../editor/TiptapReadOnlyRenderer';
 import type { EditableReport } from '../../types/reportTypes';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface PresentationOverlayProps {
     report: EditableReport;
@@ -85,16 +85,6 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
         return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
     }, []);
 
-    // Helper to construct a valid document structure for a single slide
-    const currentSlideContent = React.useMemo(() => {
-        const currentSlide = slides[currentSlideIndex];
-        if (!currentSlide) return { type: 'doc', content: [] };
-
-        return {
-            type: 'doc',
-            content: [currentSlide]
-        };
-    }, [slides, currentSlideIndex]);
 
     if (totalSlides === 0) return null;
 

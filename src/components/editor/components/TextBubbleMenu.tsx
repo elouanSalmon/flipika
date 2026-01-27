@@ -1,6 +1,7 @@
 import React from 'react';
 import { Editor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
+import { isNodeSelection } from '@tiptap/pm';
 import {
     Bold,
     Italic,
