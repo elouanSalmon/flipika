@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertTriangle, RefreshCw, Loader2, Settings } from 'lucide-react';
+import { AlertTriangle, RefreshCw, Loader2, Settings, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { ReportDesign } from '../../../types/reportTypes';
 
@@ -15,7 +15,9 @@ interface ReportBlockProps {
 
     // Header Actions
     onEdit?: () => void;
+    onDelete?: () => void;
     editable?: boolean;
+    selected?: boolean;
     headerContent?: React.ReactNode; // Extra content in header (e.g. selectors)
 
     // Narrative Layer
@@ -37,7 +39,9 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
     error,
     className = '',
     onEdit,
+    onDelete,
     editable,
+    selected,
     headerContent,
     description,
     descriptionIsStale,
@@ -100,8 +104,8 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
                 color: design?.colorScheme?.text || '#111827',
                 borderRadius: '16px',
-                boxShadow: design?.mode === 'dark' ? '0 4px 6px -1px rgba(0, 0, 0, 0.2)' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
-                border: design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                boxShadow: selected ? `0 0 0 3px ${design?.colorScheme?.primary || 'var(--color-primary)'}, 0 8px 32px rgba(0,0,0,0.15)` : (design?.mode === 'dark' ? '0 4px 6px -1px rgba(0, 0, 0, 0.2)' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)'),
+                border: selected ? 'none' : (design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.05)' : 'none'),
                 minHeight: typeof minHeight === 'number' ? `${minHeight}px` : minHeight,
                 height: height,
                 overflow: 'hidden' // Ensure rounded corners clip content
@@ -129,16 +133,28 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
                     {headerContent}
                 </div>
 
-                {editable && onEdit && (
-                    <button
-                        onClick={onEdit}
-                        className="p-1.5 hover:bg-[var(--color-bg-secondary)] rounded-xl transition-all text-[var(--color-text-muted)] hover:text-primary border border-transparent hover:border-[var(--color-border)] shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100 active:opacity-100"
-                        title="Configurer"
-                        style={{ color: design?.colorScheme?.text }}
-                    >
-                        <Settings size={14} />
-                    </button>
-                )}
+                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
+                    {editable && onEdit && (
+                        <button
+                            onClick={onEdit}
+                            className="p-1.5 hover:bg-[var(--color-bg-secondary)] rounded-xl transition-all text-[var(--color-text-muted)] hover:text-primary border border-transparent hover:border-[var(--color-border)] shadow-sm"
+                            title="Configurer"
+                            style={{ color: design?.colorScheme?.text }}
+                        >
+                            <Settings size={14} />
+                        </button>
+                    )}
+
+                    {editable && onDelete && (
+                        <button
+                            onClick={onDelete}
+                            className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all text-red-500/70 hover:text-red-600 border border-transparent hover:border-red-200 dark:hover:border-red-800/50 shadow-sm"
+                            title="Supprimer"
+                        >
+                            <Trash2 size={14} />
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* Main Content Area */}

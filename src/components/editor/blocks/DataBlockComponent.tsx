@@ -1,7 +1,6 @@
 import { NodeViewWrapper } from '@tiptap/react';
 import type { NodeViewProps } from '@tiptap/react';
 import React, { useMemo } from 'react';
-import { Settings, Trash2, GripVertical } from 'lucide-react';
 import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { SlideType } from '../../../types/reportTypes';
 import type { SlideConfig } from '../../../types/reportTypes';
@@ -117,6 +116,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                             });
                         }}
                         editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
@@ -135,6 +136,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                             });
                         }}
                         editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
@@ -153,6 +156,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                             });
                         }}
                         editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
@@ -236,6 +241,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                             });
                         }}
                         editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
@@ -253,6 +260,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                             });
                         }}
                         editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
@@ -272,6 +281,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                             });
                         }}
                         editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
                         accountId={effectiveAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
@@ -292,64 +303,15 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
 
     return (
         <NodeViewWrapper
-            className={`data-block-wrapper ${selected ? 'selected' : ''} h-full`}
+            className={`data-block-wrapper h-auto`}
             data-block-type={blockType}
             data-drag-handle
-            style={{ overflow: 'hidden', height: '100%' }}
+            style={{ overflow: 'visible' }}
         >
-            <div className="relative group h-full flex flex-col">
-                {/* Drag Handle - visible on hover */}
-                {editor.isEditable && (
-                    <div
-                        className="data-block-drag-handle"
-                        contentEditable={false}
-                        data-drag-handle
-                        title="Glisser pour réorganiser"
-                    >
-                        <GripVertical size={18} />
-                    </div>
-                )}
-
+            <div className="relative group flex flex-col">
                 <ChartBlockErrorBoundary blockType={blockType}>
                     {renderBlock()}
                 </ChartBlockErrorBoundary>
-
-                {selected && editor.isEditable && (
-                    <div className="data-block-actions">
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                if (blockType === SlideType.FLEXIBLE_DATA) {
-                                    updateAttributes({
-                                        config: { ...config, isConfigActive: true }
-                                    });
-                                } else {
-                                    console.log('Configure block:', blockType);
-                                    // Also allow configuring these new flexible blocks
-                                    if (['performance', 'keyMetrics', SlideType.PERFORMANCE_OVERVIEW, SlideType.KEY_METRICS, SlideType.CAMPAIGN_CHART, SlideType.DEVICE_PLATFORM_SPLIT, SlideType.TOP_PERFORMERS].includes(blockType)) {
-                                        updateAttributes({
-                                            config: { ...config, isConfigActive: true }
-                                        });
-                                    }
-                                }
-                            }}
-                            className="data-block-action-btn"
-                            title="Configure"
-                        >
-                            <Settings size={16} />
-                        </button>
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                deleteNode();
-                            }}
-                            className="data-block-action-btn danger"
-                            title="Delete"
-                        >
-                            <Trash2 size={16} />
-                        </button>
-                    </div>
-                )}
             </div>
         </NodeViewWrapper>
     );

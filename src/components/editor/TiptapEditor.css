@@ -453,100 +453,12 @@
     outline-offset: 2px;
 }
 
+/* Data Block Wrapper */
+/* Data Block Wrapper */
 .data-block-wrapper {
-    margin: 1.5rem 0;
-    /* Inside slides, the margin is handled by first-child/last-child rules in .slide-content-editable */
     position: relative;
     max-width: 100%;
     width: 100%;
-    overflow: hidden !important;
-}
-
-.data-block-wrapper.selected {
-    outline: 2px solid var(--color-primary, #3b82f6);
-    outline-offset: 2px;
-    border-radius: 0.5rem;
-}
-
-/* Data Block Drag Handle */
-.data-block-drag-handle {
-    position: absolute;
-    left: -32px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    background: var(--color-bg-primary, #ffffff);
-    border: 1px solid var(--color-border, #e5e7eb);
-    border-radius: 6px;
-    color: var(--color-text-secondary, #6b7280);
-    cursor: grab;
-    opacity: 0;
-    transition: all 0.15s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    z-index: 10;
-}
-
-.data-block-wrapper:hover .data-block-drag-handle {
-    opacity: 1;
-}
-
-.data-block-drag-handle:hover {
-    background: var(--color-bg-tertiary, #f3f4f6);
-    border-color: var(--color-primary, #3b82f6);
-    color: var(--color-primary, #3b82f6);
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
-}
-
-.data-block-drag-handle:active {
-    cursor: grabbing;
-}
-
-/* Data Block Actions (SlideItem-inspired) */
-.data-block-actions {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    display: flex;
-    gap: 8px;
-    background: rgba(var(--glass-rgb), 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(var(--border-rgb), 0.3);
-    border-radius: 10px;
-    padding: 6px;
-    box-shadow: var(--shadow-md);
-    z-index: 10;
-    opacity: 1;
-    transition: all 0.2s ease;
-}
-
-.data-block-action-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border: none;
-    background: transparent;
-    color: var(--color-text-secondary);
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.data-block-action-btn:hover {
-    background: rgba(var(--primary-rgb), 0.1);
-    color: var(--color-primary);
-    transform: scale(1.05);
-}
-
-.data-block-action-btn.danger:hover {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
 }
 
 /* Data Block Component Animations */

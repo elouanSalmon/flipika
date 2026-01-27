@@ -57,8 +57,10 @@ export interface FlexibleDataConfig {
 
 export interface FlexibleDataBlockProps {
     config: FlexibleDataConfig;
-    onUpdateConfig: (newConfig: FlexibleDataConfig) => void;
+    onUpdateConfig: (newConfig: Partial<FlexibleDataConfig>) => void;
     editable?: boolean;
+    selected?: boolean;
+    onDelete?: () => void;
     accountId?: string;
     campaignIds?: string[];
     startDate?: Date;
@@ -655,6 +657,8 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
     config,
     onUpdateConfig,
     editable = false,
+    selected = false,
+    onDelete,
     accountId: propAccountId,
     campaignIds: propCampaignIds,
     startDate: propStartDate,
@@ -1149,7 +1153,9 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                 title={activeConfig.title}
                 design={design!}
                 editable={editable}
+                selected={selected}
                 onEdit={() => setIsConfigOpen(true)}
+                onDelete={onDelete}
                 description={activeConfig.description}
                 descriptionIsStale={descriptionIsStale}
                 onRegenerateAnalysis={handleBulkGenerateAnalysis}
