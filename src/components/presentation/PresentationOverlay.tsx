@@ -144,9 +144,10 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                         className="absolute inset-0 flex items-center justify-center"
                     >
                         <div
-                            className="w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video relative overflow-hidden shadow-2xl bg-white"
+                            className="w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video relative overflow-hidden shadow-2xl"
                             style={{
-                                boxShadow: '0 0 0 1px rgba(0,0,0,1)' // Thin border to define edge against black
+                                backgroundColor: slide.attrs?.backgroundColor || report.design?.colorScheme?.background || '#ffffff',
+                                boxShadow: '0 0 0 1px rgba(0,0,0,0.1)'
                             }}
                         >
                             <SlideScaler>

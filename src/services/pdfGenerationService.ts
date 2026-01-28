@@ -594,19 +594,36 @@ class PDFGenerationService {
         await this.waitForRender(wrapper);
 
         try {
+            // Log images in wrapper before capture
+            const imagesInWrapper = wrapper.querySelectorAll('img');
+            console.log(`[PDF] Images in wrapper before capture: ${imagesInWrapper.length}`);
+            imagesInWrapper.forEach((img, i) => {
+                console.log(`[PDF] Image ${i}: src=${img.src?.substring(0, 80)}..., complete=${img.complete}, naturalWidth=${img.naturalWidth}`);
+            });
+
             // Capture with html2canvas at 16:9 ratio
             const canvas = await html2canvas(wrapper, {
                 scale: 2,
                 useCORS: true,
-                allowTaint: true,
+                allowTaint: false, // Set to false to get errors instead of tainted canvas
                 backgroundColor: design.colorScheme.background,
-                logging: false,
+                logging: true, // Enable logging for debugging
                 width: 1280,
                 height: 720,
                 scrollX: 0,
                 scrollY: 0,
                 windowWidth: 1280,
                 windowHeight: 720,
+                onclone: (clonedDoc) => {
+                    // Fix lazy-loaded images
+                    const clonedImages = clonedDoc.querySelectorAll('img');
+                    clonedImages.forEach(img => {
+                        img.loading = 'eager';
+                        if (img.getAttribute('data-src')) {
+                            img.src = img.getAttribute('data-src') || '';
+                        }
+                    });
+                }
             });
 
             // Add canvas image to PDF - full page
@@ -692,14 +709,157 @@ class PDFGenerationService {
             htmlEl.style.opacity = '1';
             htmlEl.style.visibility = 'visible';
         });
+
+        // Ensure images are properly styled and visible for PDF capture
+        const images = element.querySelectorAll('img');
+        images.forEach((img) => {
+            const htmlImg = img as HTMLImageElement;
+            // Remove lazy loading
+            htmlImg.loading = 'eager';
+            // Ensure image is visible
+            htmlImg.style.opacity = '1';
+            htmlImg.style.visibility = 'visible';
+            htmlImg.style.display = 'inline-block';
+            // Remove transitions that could interfere
+            htmlImg.style.transition = 'none';
+            // Set crossOrigin for CORS
+            htmlImg.crossOrigin = 'anonymous';
+            // Ensure proper sizing
+            if (!htmlImg.style.maxWidth) {
+                htmlImg.style.maxWidth = '100%';
+            }
+            htmlImg.style.height = 'auto';
+        });
+    }
+
+    /**
+     * Convert an image URL to a base64 Data URL
+     * This bypasses CORS issues with external images (e.g., Firebase Storage)
+     */
+    private async imageUrlToBase64(url: string): Promise<string | null> {
+        try {
+            // Skip if already a data URL
+            if (url.startsWith('data:')) {
+                return url;
+            }
+
+            console.log(`[PDF] Converting image to base64: ${url.substring(0, 100)}...`);
+
+            // Try fetch first (works for Firebase Storage with proper CORS)
+            try {
+                const response = await fetch(url, {
+                    mode: 'cors',
+                    credentials: 'omit' // Firebase Storage doesn't need credentials
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                            console.log(`[PDF] Successfully converted image via fetch`);
+                            resolve(reader.result as string);
+                        };
+                        reader.onerror = () => {
+                            console.warn(`[PDF] FileReader failed for: ${url}`);
+                            resolve(null);
+                        };
+                        reader.readAsDataURL(blob);
+                    });
+                }
+            } catch (fetchError) {
+                console.warn(`[PDF] Fetch failed, trying Image approach: ${fetchError}`);
+            }
+
+            // Fallback: use Image element with crossOrigin
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+
+                img.onload = () => {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        const ctx = canvas.getContext('2d');
+                        if (ctx) {
+                            ctx.drawImage(img, 0, 0);
+                            const dataUrl = canvas.toDataURL('image/png');
+                            console.log(`[PDF] Successfully converted image via canvas`);
+                            resolve(dataUrl);
+                        } else {
+                            resolve(null);
+                        }
+                    } catch (e) {
+                        console.warn(`[PDF] Canvas conversion failed (CORS?): ${e}`);
+                        resolve(null);
+                    }
+                };
+
+                img.onerror = () => {
+                    console.warn(`[PDF] Image load failed: ${url}`);
+                    resolve(null);
+                };
+
+                img.src = url;
+            });
+        } catch (error) {
+            console.warn(`[PDF] Error converting image to base64: ${url}`, error);
+            return null;
+        }
     }
 
     /**
      * Wait for images and rendering to complete
+     * Also converts external images to base64 to avoid CORS issues with html2canvas
      */
     private async waitForRender(element: HTMLElement): Promise<void> {
-        // Wait for images
+        // Find all images in the element
         const images = Array.from(element.querySelectorAll('img'));
+        console.log(`[PDF] Found ${images.length} images to process`);
+
+        // First, set crossOrigin on all images (needed before they load)
+        images.forEach(img => {
+            if (img.src && !img.src.startsWith('data:')) {
+                img.crossOrigin = 'anonymous';
+            }
+        });
+
+        // Convert all images to base64 data URLs to avoid CORS issues
+        let convertedCount = 0;
+        let failedCount = 0;
+
+        await Promise.all(
+            images.map(async (img) => {
+                const originalSrc = img.src;
+
+                // Skip if no src or already a data URL
+                if (!originalSrc || originalSrc.startsWith('data:')) {
+                    return;
+                }
+
+                try {
+                    // Convert to base64
+                    const base64 = await this.imageUrlToBase64(originalSrc);
+                    if (base64) {
+                        img.src = base64;
+                        convertedCount++;
+                    } else {
+                        failedCount++;
+                        // Hide image if conversion failed to avoid broken image
+                        img.style.display = 'none';
+                    }
+                } catch (error) {
+                    console.warn(`[PDF] Could not convert image: ${originalSrc}`, error);
+                    failedCount++;
+                    img.style.display = 'none';
+                }
+            })
+        );
+
+        console.log(`[PDF] Images converted: ${convertedCount}, failed: ${failedCount}`);
+
+        // Wait for all images to be fully loaded (with their new base64 sources)
         await Promise.all(
             images.map(img =>
                 new Promise<void>(resolve => {
@@ -713,11 +873,40 @@ class PDFGenerationService {
             )
         );
 
+        // Also handle background images in CSS
+        const elementsWithBgImage = Array.from(element.querySelectorAll('*'));
+        let bgConverted = 0;
+
+        await Promise.all(
+            elementsWithBgImage.map(async (el) => {
+                const htmlEl = el as HTMLElement;
+                const computedStyle = window.getComputedStyle(htmlEl);
+                const bgImage = computedStyle.backgroundImage;
+
+                if (bgImage && bgImage !== 'none' && bgImage.startsWith('url("http')) {
+                    // Extract URL from url("...")
+                    const urlMatch = bgImage.match(/url\("([^"]+)"\)/);
+                    if (urlMatch && urlMatch[1]) {
+                        const originalUrl = urlMatch[1];
+                        const base64 = await this.imageUrlToBase64(originalUrl);
+                        if (base64) {
+                            htmlEl.style.backgroundImage = `url("${base64}")`;
+                            bgConverted++;
+                        }
+                    }
+                }
+            })
+        );
+
+        if (bgConverted > 0) {
+            console.log(`[PDF] Background images converted: ${bgConverted}`);
+        }
+
         // Wait for fonts and rendering
         await document.fonts.ready;
 
-        // Small delay for DOM to settle (animations are disabled)
-        await new Promise(resolve => setTimeout(resolve, 50));
+        // Longer delay to ensure images are fully rendered
+        await new Promise(resolve => setTimeout(resolve, 200));
     }
 
     /**

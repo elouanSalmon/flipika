@@ -449,8 +449,8 @@
 
 .tiptap-editor-content img.ProseMirror-selectednode,
 .tiptap-image.ProseMirror-selectednode {
-    outline: 2px solid var(--color-primary, #3b82f6);
-    outline-offset: 2px;
+    /* Selection outline removed for cleaner look */
+    outline: none;
 }
 
 /* Data Block Wrapper */
@@ -490,9 +490,9 @@
 }
 
 .slide-wrapper.selected .slide-container {
-    outline: 3px solid var(--color-primary, #3b82f6);
-    outline-offset: 4px;
-    box-shadow: 0 8px 24px rgba(var(--primary-rgb, 59, 130, 246), 0.2);
+    /* Selection outline removed for cleaner look */
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Slide Move Arrows */
