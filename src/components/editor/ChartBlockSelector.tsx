@@ -37,6 +37,21 @@ interface Section {
 
 const ANALYTICS_ITEMS: BlockOption[] = [
     {
+        type: 'flexible_data',
+        label: 'Donnees Flexibles',
+        description: 'Tableau/Graphique personnalise',
+        icon: Settings,
+        config: {
+            title: 'Nouveau Bloc',
+            visualization: 'table',
+            metrics: ['metrics.impressions', 'metrics.clicks'],
+            dimension: 'segments.date',
+            isNew: true
+        },
+        category: 'analytics',
+        action: 'dataBlock'
+    },
+    {
         type: 'performance_overview',
         label: 'Vue d\'ensemble',
         description: 'Metriques cles & comparaisons',
@@ -60,21 +75,6 @@ const ANALYTICS_ITEMS: BlockOption[] = [
         description: 'Top campagnes/groupes',
         icon: Trophy,
         config: {},
-        category: 'analytics',
-        action: 'dataBlock'
-    },
-    {
-        type: 'flexible_data',
-        label: 'Donnees Flexibles',
-        description: 'Tableau/Graphique personnalise',
-        icon: Settings,
-        config: {
-            title: 'Nouveau Bloc',
-            visualization: 'table',
-            metrics: ['metrics.impressions', 'metrics.clicks'],
-            dimension: 'segments.date',
-            isNew: true
-        },
         category: 'analytics',
         action: 'dataBlock'
     },

@@ -2236,3 +2236,34 @@
     color: var(--color-text-muted, #9ca3af);
     font-size: 13px;
 }
+
+/* ============================================
+   TIPPY OVERRIDES (Fix for Orange Bubble)
+   ============================================ */
+
+/* Remove default background/shadow from tippy box for our custom theme */
+.tippy-box[data-theme~='slash-command'] {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.tippy-box[data-theme~='slash-command'] .tippy-content {
+    padding: 0 !important;
+    background-color: transparent !important;
+}
+
+.tippy-box[data-theme~='slash-command'] .tippy-arrow {
+    display: none !important;
+}
+
+/* Remove default focus outlines that might appear orange */
+.tippy-box:focus,
+.tippy-content:focus {
+    outline: none !important;
+}
+
+/* Ensure no orange border on the menu itself */
+.slash-command-menu {
+    border-color: rgba(203, 213, 225, 0.3) !important;
+}

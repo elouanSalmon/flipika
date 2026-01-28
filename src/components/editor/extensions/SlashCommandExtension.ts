@@ -53,24 +53,6 @@ export const SlashCommandExtension = Extension.create({
                 items: ({ query }: { query: string }): SlashCommandItem[] => {
                     const items: SlashCommandItem[] = [
                         {
-                            title: i18n.t('reports:slashCommand.performanceOverview.title'),
-                            titleKey: 'reports:slashCommand.performanceOverview.title',
-                            description: i18n.t('reports:slashCommand.performanceOverview.description'),
-                            descriptionKey: 'reports:slashCommand.performanceOverview.description',
-                            icon: TrendingUp,
-                            command: ({ editor, range }) => {
-                                editor
-                                    .chain()
-                                    .focus()
-                                    .deleteRange(range)
-                                    .insertDataBlock({
-                                        blockType: 'performance_overview',
-                                        config: {},
-                                    })
-                                    .run();
-                            },
-                        },
-                        {
                             title: i18n.t('reports:slashCommand.flexibleData.title'),
                             titleKey: 'reports:slashCommand.flexibleData.title',
                             description: i18n.t('reports:slashCommand.flexibleData.description'),
@@ -90,6 +72,24 @@ export const SlashCommandExtension = Extension.create({
                                             dimension: 'segments.date',
                                             isNew: true
                                         },
+                                    })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: i18n.t('reports:slashCommand.performanceOverview.title'),
+                            titleKey: 'reports:slashCommand.performanceOverview.title',
+                            description: i18n.t('reports:slashCommand.performanceOverview.description'),
+                            descriptionKey: 'reports:slashCommand.performanceOverview.description',
+                            icon: TrendingUp,
+                            command: ({ editor, range }) => {
+                                editor
+                                    .chain()
+                                    .focus()
+                                    .deleteRange(range)
+                                    .insertDataBlock({
+                                        blockType: 'performance_overview',
+                                        config: {},
                                     })
                                     .run();
                             },
@@ -295,6 +295,24 @@ export const SlashCommandExtension = Extension.create({
                                 interactive: true,
                                 trigger: 'manual',
                                 placement: 'bottom-start',
+                                theme: 'slash-command',
+                                maxWidth: 'none',
+                                offset: [0, 8],
+                                popperOptions: {
+                                    strategy: 'fixed',
+                                    modifiers: [
+                                        {
+                                            name: 'flip',
+                                            enabled: false,
+                                        },
+                                        {
+                                            name: 'preventOverflow',
+                                            options: {
+                                                boundary: 'viewport',
+                                            },
+                                        },
+                                    ],
+                                },
                             });
                         },
 

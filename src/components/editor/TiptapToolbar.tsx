@@ -140,7 +140,7 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
             <div className="tiptap-toolbar-separator" />
 
             {/* Text Formatting */}
-            <div className="tiptap-toolbar-group">
+            <div className="tiptap-toolbar-group relative">
                 <ToolbarButton
                     onClick={() => editor.chain().focus().toggleBold().run()}
                     isActive={editor.isActive('bold')}
@@ -183,6 +183,61 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                     tooltip={t('toolbar.highlight')}
                     className={btnClass}
                 />
+
+                <div className="relative flex items-center gap-1">
+                    <ToolbarButton
+                        onClick={handleLinkClick}
+                        isActive={editor.isActive('link')}
+                        icon={<Link size={18} />}
+                        tooltip={t('toolbar.link')}
+                        className={btnClass}
+                    />
+                    {editor.isActive('link') && (
+                        <ToolbarButton
+                            onClick={removeLink}
+                            icon={<Link2Off size={18} />}
+                            tooltip={t('toolbar.unlink')}
+                            className={btnClass}
+                        />
+                    )}
+
+                    {/* Link Input Popup */}
+                    {showLinkInput && (
+                        <>
+                            <div
+                                className="fixed inset-0 z-40"
+                                onClick={() => setShowLinkInput(false)}
+                            />
+                            <div className="absolute left-0 top-full mt-2 z-50 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-3 min-w-[280px]">
+                                <div className="flex gap-2">
+                                    <input
+                                        type="url"
+                                        value={linkUrl}
+                                        onChange={(e) => setLinkUrl(e.target.value)}
+                                        placeholder="https://exemple.com"
+                                        className="flex-1 px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                setLink();
+                                            }
+                                            if (e.key === 'Escape') {
+                                                setShowLinkInput(false);
+                                            }
+                                        }}
+                                        autoFocus
+                                    />
+                                    <button
+                                        onClick={setLink}
+                                        className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                                    >
+                                        OK
+                                    </button>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
 
             <div className="tiptap-toolbar-separator" />
@@ -274,36 +329,18 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
 
             {/* Link */}
             <div className="tiptap-toolbar-group relative">
-                <ToolbarButton
-                    onClick={handleLinkClick}
-                    isActive={editor.isActive('link')}
-                    icon={<Link size={18} />}
-                    tooltip={t('toolbar.link')}
-                    className={btnClass}
-                />
-                {editor.isActive('link') && (
-                    <ToolbarButton
-                        onClick={removeLink}
-                        icon={<Link2Off size={18} />}
-                        tooltip={t('toolbar.unlink')}
-                        className={btnClass}
-                    />
-                )}
-
                 {/* Media Library Button */}
                 {onOpenMediaLibrary && (
                     <>
-                        <div className="mx-1 w-px bg-gray-200 dark:bg-gray-700 h-6 self-center" />
                         <ToolbarButton
                             onClick={onOpenMediaLibrary}
                             icon={<ImageIcon size={18} />}
                             tooltip={t('toolbar.image')}
                             className={btnClass}
                         />
+                        <div className="mx-1 w-px bg-gray-200 dark:bg-gray-700 h-6 self-center" />
                     </>
                 )}
-
-                <div className="mx-1 w-px bg-gray-200 dark:bg-gray-700 h-6 self-center" />
 
                 {/* AI Generate All Button */}
                 <Tooltip content={t('toolbar.generateAllAnalyses')}>
@@ -329,42 +366,7 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                     </button>
                 </Tooltip>
 
-                {/* Link Input Popup */}
-                {showLinkInput && (
-                    <>
-                        <div
-                            className="fixed inset-0 z-40"
-                            onClick={() => setShowLinkInput(false)}
-                        />
-                        <div className="absolute left-0 top-full mt-2 z-50 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-3 min-w-[280px]">
-                            <div className="flex gap-2">
-                                <input
-                                    type="url"
-                                    value={linkUrl}
-                                    onChange={(e) => setLinkUrl(e.target.value)}
-                                    placeholder="https://exemple.com"
-                                    className="flex-1 px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            e.preventDefault();
-                                            setLink();
-                                        }
-                                        if (e.key === 'Escape') {
-                                            setShowLinkInput(false);
-                                        }
-                                    }}
-                                    autoFocus
-                                />
-                                <button
-                                    onClick={setLink}
-                                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-                                >
-                                    OK
-                                </button>
-                            </div>
-                        </div>
-                    </>
-                )}
+
             </div>
         </div>
     );
