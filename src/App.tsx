@@ -120,18 +120,23 @@ const AppRoutes = () => {
   };
 
   const renderPublicRoutes = (lang?: 'en' | 'fr') => (
-    <Route element={<PublicLayout lang={lang} />}>
-      {enableFullLanding && <Route path="full" element={<LandingFull />} />}
-      <Route path="legal-notices" element={<LegalNotices />} />
-      <Route path="privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="terms-of-service" element={<TermsOfService />} />
-      <Route path="alternatives" element={<ComparisonIndex />} />
-      <Route path="alternatives/:slug" element={<ComparisonPage />} />
-      <Route path="google-ads-report-template" element={<GoogleAdsTemplatePage />} />
-      <Route path="sitemap" element={<Sitemap />} />
+    <>
+      {/* Login page - standalone without header/footer */}
       <Route path="login" element={<Login />} />
-      <Route path="*" element={<NotFound />} />
-    </Route>
+
+      {/* Other public pages with header/footer */}
+      <Route element={<PublicLayout lang={lang} />}>
+        {enableFullLanding && <Route path="full" element={<LandingFull />} />}
+        <Route path="legal-notices" element={<LegalNotices />} />
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="terms-of-service" element={<TermsOfService />} />
+        <Route path="alternatives" element={<ComparisonIndex />} />
+        <Route path="alternatives/:slug" element={<ComparisonPage />} />
+        <Route path="google-ads-report-template" element={<GoogleAdsTemplatePage />} />
+        <Route path="sitemap" element={<Sitemap />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </>
   );
 
   return (

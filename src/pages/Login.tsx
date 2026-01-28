@@ -4,6 +4,9 @@ import { useAuth } from "../contexts/AuthContext";
 import { motion } from "framer-motion";
 import { AlertCircle, ArrowRight, BarChart3, Zap, Shield, Sparkles, FileText } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import Logo from "../components/Logo";
+import LanguageSwitcher from "../components/LanguageSwitcher";
+import Footer from "../components/Footer";
 
 const Login = () => {
   const { loginWithGoogle, currentUser } = useAuth();
@@ -60,15 +63,21 @@ const Login = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full flex bg-white dark:bg-slate-900 overflow-hidden font-sans">
+    <div className="flex flex-col bg-white dark:bg-slate-900 font-sans">
+      {/* Main content - takes full viewport height */}
+      <div className="min-h-screen w-full flex relative">
 
       {/* LEFT COLUMN - LOGIN */}
       <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-between p-8 lg:p-12 xl:p-16 relative z-10 bg-gradient-to-br from-blue-50/50 via-white to-blue-50/30 dark:from-slate-900 dark:to-slate-800 border-r border-slate-100 dark:border-slate-800">
 
-        {/* Main Content (Header handled by PublicLayout) */}
+        {/* Minimal Header - Logo + Language */}
+        <div className="flex items-center justify-between w-full mb-8">
+          <Logo />
+          <LanguageSwitcher />
+        </div>
 
         {/* Main Content */}
-        <div className="flex flex-col max-w-sm w-full mx-auto space-y-8 relative z-20">
+        <div className="flex flex-col max-w-sm w-full mx-auto space-y-8 relative z-20 flex-1 justify-center">
 
           <div className="space-y-3">
             <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -228,6 +237,10 @@ const Login = () => {
           ease: "linear",
         }}
       />
+      </div>
+
+      {/* Footer - appears when user scrolls down */}
+      <Footer />
     </div>
   );
 };
