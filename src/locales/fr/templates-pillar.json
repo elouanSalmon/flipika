@@ -1,0 +1,112 @@
+{
+    "page": {
+        "title": "Le Modèle de Rapport Google Ads Ultime (Mieux qu'Excel)",
+        "metaDescription": "Téléchargez le meilleur modèle de rapport Google Ads pour 2026. Arrêtez les fichiers Excel statiques et passez aux tableaux de bord automatisés Flipika.",
+        "h1": "Arrêtez de télécharger des modèles statiques.\nPassez aux Dashboards Vivants.",
+        "subtitle": "Les modèles Excel et PDF sont obsolètes. Ils cassent, ils mentent et ils sont moches. Passez au Modèle Vivant Flipika : toujours à jour, interactif et beau.",
+        "cta": "Utiliser ce modèle gratuitement",
+        "galleryTitle": "Choisissez votre Modèle Vivant",
+        "comparisonTitle": "Pourquoi Flipika bat Excel & Looker Studio",
+        "hookTitle": "Pourquoi c'est mieux que Looker Studio",
+        "faqTitle": "Recommandé par les Experts",
+        "costTitle": "Le Coût Caché du Reporting Manuel",
+        "costSubtitle": "Vous utilisez encore Excel ou PowerPoint ? Voici ce que ça vous coûte vraiment.",
+        "metricsTitle": "Les Métriques Clés en 2026",
+        "metricsSubtitle": "Les KPIs qui comptent ont changé. Suivez-vous les bons ?"
+    },
+    "gallery": {
+        "executive": {
+            "title": "Le Résumé Exécutif",
+            "description": "Parfait pour les décideurs. Des KPIs de haut niveau comme le ROAS, les dépenses totales et la valeur de conversion. Conçu pour répondre à la question : 'Mon argent est-il bien dépensé ?' en 10 secondes."
+        },
+        "ecommerce": {
+            "title": "Le Tracker ROAS E-commerce",
+            "description": "Performance produits, analyse des campagnes Shopping et attribution des revenus. Zoomez par catégorie de produit, ID d'article ou localisation pour identifier vos segments les plus rentables."
+        },
+        "agency": {
+            "title": "La Vue d'Ensemble Agence",
+            "description": "Vous gérez plusieurs clients ? Obtenez une vue unifiée de la performance de tous vos comptes au même endroit. Repérez instantanément les comptes en difficulté et allouez votre temps là où ça compte."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "excel": "Modèle Excel / PDF",
+            "flipika": "Modèle Vivant Flipika"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Données Temps Réel",
+                "excel": "Non (Export manuel requis)",
+                "flipika": "Oui (Connexion API Live)"
+            },
+            "maintenance": {
+                "feature": "Maintenance",
+                "excel": "Élevée (Réparer les formules)",
+                "flipika": "Zéro (Mises à jour auto)"
+            },
+            "sharing": {
+                "feature": "Partage Client",
+                "excel": "Pièce jointe (Statique)",
+                "flipika": "Lien Live ou Email auto"
+            },
+            "design": {
+                "feature": "Design Visuel",
+                "excel": "Basique / Encombré",
+                "flipika": "Glassmorphism Premium"
+            }
+        }
+    },
+    "hook": {
+        "speed": {
+            "title": "Chargement Instantané",
+            "description": "Looker Studio peut prendre 10s+ à charger. Flipika charge en quelques millisecondes grâce à notre cache optimisé."
+        },
+        "branding": {
+            "title": "Marque Blanche Totale",
+            "description": "Pas de logos 'Google' partout. Votre marque, vos couleurs, votre domaine."
+        },
+        "stability": {
+            "title": "Ça Marche, C'est Tout",
+            "description": "Plus de déconnexions aléatoires ou de graphiques cassés."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "10h+ / Mois",
+            "description": "Un account manager moyen passe 10 heures par mois juste à rassembler des données et formater des tableurs."
+        },
+        "errors": {
+            "title": "Erreurs Humaines",
+            "description": "Une erreur de copier-coller peut ruiner une relation client. Les pipelines automatisés ne font jamais d'erreurs."
+        },
+        "opportunity": {
+            "title": "Insights Manqués",
+            "description": "Pendant que vous réglez des tailles de police dans Excel, vous n'analysez pas pourquoi votre CPA a augmenté hier."
+        }
+    },
+    "metrics": {
+        "roas": {
+            "title": "ROAS (Retour sur Dépenses Pubs)",
+            "description": "Le graal du e-commerce. Ne suivez pas juste les clics, suivez combien de revenus chaque dollar génère réellement."
+        },
+        "cpa": {
+            "title": "CPA (Coût par Acquisition)",
+            "description": "Pour la génération de leads, garder un CPA stable tout en augmentant le volume est le défi ultime."
+        },
+        "imp_share": {
+            "title": "Part d'impression (Budget)",
+            "description": "Perdez-vous des clients parce que votre budget est trop bas ? Cette métrique vous dit exactement combien d'opportunités vous laissez sur la table."
+        }
+    },
+    "faq": {
+        "q1": "Ce modèle de rapport est-il vraiment gratuit ?",
+        "a1": "Oui, vous pouvez utiliser nos modèles standards gratuitement. Nous offrons aussi des fonctionnalités premium, mais les templates de base sont gratuits pour toujours.",
+        "q2": "Puis-je exporter le rapport en PDF ?",
+        "a2": "Absolument. Bien que nous encouragions le partage live pour l'interactivité, vous pouvez générer un rapport PDF pixel-perfect en un clic.",
+        "q3": "Comment Flipika se connecte-t-il à mon compte Google Ads ?",
+        "a3": "Nous utilisons l'API officielle Google Ads. C'est sécurisé, rapide et en lecture seule. Nous ne modifions jamais vos campagnes, nous visualisons juste la performance.",
+        "q4": "Est-ce mieux que Looker Studio ?",
+        "a4": "Looker Studio est puissant mais lent et dur à maintenir. Flipika est construit pour la vitesse et l'esthétique. Si vous voulez des rapports prêts pour les clients sans prise de tête, Flipika est meilleur."
+    }
+}

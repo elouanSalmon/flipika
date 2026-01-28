@@ -1,0 +1,112 @@
+{
+    "page": {
+        "title": "The Ultimate Google Ads Report Template (Better than Excel)",
+        "metaDescription": "Download the best Google Ads Report Template for 2026. Stop using static Excel sheets and start using live, automated dashboards with Flipika.",
+        "h1": "Stop downloading static templates.\nStart using Live Dashboards.",
+        "subtitle": "Excel and PDF templates are obsolete. They break, they lie, and they are ugly. Switch to Flipika's Live Template: always up-to-date, interactive, and beautiful.",
+        "cta": "Use this template for free",
+        "galleryTitle": "Choose your Live Template",
+        "comparisonTitle": "Why Flipika beats Excel & Looker Studio",
+        "hookTitle": "Why this beats standard Looker Studio Templates",
+        "faqTitle": "Frequently Asked Questions",
+        "costTitle": "The Hidden Cost of Manual Reporting",
+        "costSubtitle": "Still using Excel or PowerPoint? Here is what it really costs you.",
+        "metricsTitle": "Key Metrics to Track in 2026",
+        "metricsSubtitle": "The metrics that matter have changed. Are you tracking the right ones?"
+    },
+    "gallery": {
+        "executive": {
+            "title": "The Executive Summary",
+            "description": "Perfect for C-level reporting. Focuses on high-level KPIs like ROAS, total spend, and conversion value. Designed to answer the question: 'Is my money being spent wisely?' in 10 seconds."
+        },
+        "ecommerce": {
+            "title": "The E-commerce ROAS Tracker",
+            "description": "Granular product performance, shopping campaign analysis, and revenue attribution. Drill down by product category, item ID, or location to identify your most profitable segments."
+        },
+        "agency": {
+            "title": "The Agency Overview",
+            "description": "Manage multiple clients? Get a unified view of all your accounts performance in one place. Spot underperforming accounts instantly and allocate your time where it matters most."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Feature",
+            "excel": "Excel / PDF Template",
+            "flipika": "Flipika Live Template"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Real-time Data",
+                "excel": "No (Manual export required)",
+                "flipika": "Yes (Live API connection)"
+            },
+            "maintenance": {
+                "feature": "Maintenance Needs",
+                "excel": "High (Fixing broken formulas)",
+                "flipika": "Zero (Automated updates)"
+            },
+            "sharing": {
+                "feature": "Client Sharing",
+                "excel": "Email attachment (Static)",
+                "flipika": "Live URL or Auto-emailing"
+            },
+            "design": {
+                "feature": "Visual Design",
+                "excel": "Basic / Cluttered",
+                "flipika": "Premium Glassmorphism"
+            }
+        }
+    },
+    "hook": {
+        "speed": {
+            "title": "Blazing Fast Loader",
+            "description": "Looker Studio can take 10s+ to load. Flipika loads in milliseconds thanks to our optimized caching layer."
+        },
+        "branding": {
+            "title": "White Label Perfection",
+            "description": "No 'Google' logo everywhere. Your brand, your colors, your domain."
+        },
+        "stability": {
+            "title": "It Just Works",
+            "description": "No more random connector disconnects or broken visualisations."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "10+ Hours / Month",
+            "description": "The average account manager spends 10 hours per month just gathering data and formatting spreadsheets."
+        },
+        "errors": {
+            "title": "Human Errors",
+            "description": "One copy-paste error can ruin a client relationship. Automated pipes never make mistakes."
+        },
+        "opportunity": {
+            "title": "Missed Insights",
+            "description": "While you are fixing font sizes in Excel, you are not analyzing why your CPA increased yesterday."
+        }
+    },
+    "metrics": {
+        "roas": {
+            "title": "ROAS (Return on Ad Spend)",
+            "description": "The holy grail of e-commerce. Don't just track clicks, track how much revenue every dollar generates."
+        },
+        "cpa": {
+            "title": "CPA (Cost Per Acquisition)",
+            "description": "For lead generation, keeping your CPA stable while scaling volume is the ultimate challenge."
+        },
+        "imp_share": {
+            "title": "Search Lost IS (Budget)",
+            "description": "Are you losing customers because your budget is too low? This metric tells you exactly how much opportunity you are leaving on the table."
+        }
+    },
+    "faq": {
+        "q1": "Is this Google Ads report template really free?",
+        "a1": "Yes, you can use our standard templates for free. We also offer premium features for power users, but the core templates are free forever.",
+        "q2": "Can I export the report to PDF?",
+        "a2": "Absolutely. While we encourage live sharing for interactivity, you can generate a pixel-perfect PDF report in one click.",
+        "q3": "How does Flipika connect to my Google Ads account?",
+        "a3": "We use the official Google Ads API. It's secure, fast, and read-only. We never modify your campaigns, we just visualize the performance.",
+        "q4": "Is it better than Looker Studio?",
+        "a4": "Looker Studio is powerful but slow and hard to maintain. Flipika is built for speed and aesthetics. If you want client-ready reports without the headache, Flipika is better."
+    }
+}

@@ -27,6 +27,7 @@ const Sitemap: React.FC = () => {
             title: i18n.language === 'fr' ? 'Alternatives & Comparatifs' : 'Alternatives & Comparisons',
             icon: <Zap className="w-5 h-5 text-amber-500" />,
             links: [
+                { name: i18n.language === 'fr' ? 'Modèle Rapport Google Ads (Template)' : 'Google Ads Report Template', path: '/google-ads-report-template' },
                 { name: i18n.language === 'fr' ? 'Toutes les Alternatives' : 'All Alternatives', path: '/alternatives' },
                 ...competitors.map(c => ({
                     name: i18n.language === 'fr' ? `Flipika vs ${c.name}` : `Flipika vs ${c.name}`,

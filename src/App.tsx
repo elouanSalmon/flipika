@@ -51,6 +51,7 @@ import TiptapTemplateEditorPage from './pages/TiptapTemplateEditorPage';
 import GoogleAdsPlayground from './pages/GoogleAdsPlayground';
 import ComparisonIndex from './pages/alternatives/ComparisonIndex';
 import ComparisonPage from './pages/alternatives/ComparisonPage';
+import GoogleAdsTemplatePage from './pages/templates/GoogleAdsTemplatePage';
 import './App.css';
 
 // Protected Route Component
@@ -126,6 +127,7 @@ const AppRoutes = () => {
       <Route path="terms-of-service" element={<TermsOfService />} />
       <Route path="alternatives" element={<ComparisonIndex />} />
       <Route path="alternatives/:slug" element={<ComparisonPage />} />
+      <Route path="google-ads-report-template" element={<GoogleAdsTemplatePage />} />
       <Route path="sitemap" element={<Sitemap />} />
       <Route path="login" element={<Login />} />
       <Route path="*" element={<NotFound />} />

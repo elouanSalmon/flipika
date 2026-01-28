@@ -1269,7 +1269,73 @@
     text-decoration: underline;
 }
 
+/* Dynamic variables in thumbnails - simplified styling */
+.slide-thumbnail-content-wrapper .dynamic-variable-tag,
+.slide-thumbnail-content-wrapper .dynamic-variable-resolved {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0;
+    font-size: inherit;
+    color: inherit !important;
+    box-shadow: none !important;
+}
 
+/* Columns in thumbnails */
+.slide-thumbnail-content-wrapper .column-group {
+    display: flex !important;
+    gap: 24px;
+    width: 100%;
+}
+
+.slide-thumbnail-content-wrapper .column {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Tables in thumbnails */
+.slide-thumbnail-content-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: inherit;
+}
+
+.slide-thumbnail-content-wrapper th,
+.slide-thumbnail-content-wrapper td {
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Data blocks in thumbnails - hide complex widgets, show placeholder */
+.slide-thumbnail-content-wrapper .data-block-widget {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Images in thumbnails */
+.slide-thumbnail-content-wrapper img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Ensure text alignment works in thumbnails */
+.slide-thumbnail-content-wrapper [style*="text-align: center"],
+.slide-thumbnail-content-wrapper .has-text-align-center {
+    text-align: center;
+}
+
+.slide-thumbnail-content-wrapper [style*="text-align: right"],
+.slide-thumbnail-content-wrapper .has-text-align-right {
+    text-align: right;
+}
 
 .slide-nav-layout-indicator {
     opacity: 0.6;
