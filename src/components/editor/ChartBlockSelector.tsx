@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Editor } from '@tiptap/react';
 import {
     BarChart3, TrendingUp, PieChart, Target,
-    Image, Filter, Layout, Trophy, X, Search, Grid3x3, Settings
+    Image, Filter, Layout, Trophy, X, Search, Grid3x3, Settings,
+    Building2, Table as TableIcon, Columns2, Presentation, PartyPopper
 } from 'lucide-react';
 import './ChartBlockSelector.css';
 
@@ -10,57 +11,62 @@ interface ChartBlockSelectorProps {
     editor: Editor;
 }
 
-interface ChartOption {
+interface BlockOption {
     type: string;
     label: string;
     description: string;
     icon: React.ElementType;
-    config: any;
-    category: 'analytics' | 'charts' | 'content';
+    config?: any;
+    category: 'analytics' | 'charts' | 'content' | 'layout' | 'slides';
+    action?: 'dataBlock' | 'content' | 'event';
+    eventName?: string;
 }
 
 interface Category {
     id: string;
     label: string;
     icon: React.ElementType;
-    items: ChartOption[];
+    items: BlockOption[];
 }
 
 interface Section {
     id: string;
     label: string;
-    items: ChartOption[];
+    items: BlockOption[];
 }
 
-const ANALYTICS_ITEMS: ChartOption[] = [
+const ANALYTICS_ITEMS: BlockOption[] = [
     {
         type: 'performance_overview',
         label: 'Vue d\'ensemble',
-        description: 'Métriques clés & comparaisons',
+        description: 'Metriques cles & comparaisons',
         icon: TrendingUp,
         config: {},
-        category: 'analytics'
+        category: 'analytics',
+        action: 'dataBlock'
     },
     {
         type: 'key_metrics',
-        label: 'Métriques Clés',
+        label: 'Metriques Cles',
         description: 'Grille 2x2 de KPIs',
         icon: Target,
         config: {},
-        category: 'analytics'
+        category: 'analytics',
+        action: 'dataBlock'
     },
     {
         type: 'top_performers',
-        label: 'Meilleurs Éléments',
+        label: 'Meilleurs Elements',
         description: 'Top campagnes/groupes',
         icon: Trophy,
         config: {},
-        category: 'analytics'
+        category: 'analytics',
+        action: 'dataBlock'
     },
     {
         type: 'flexible_data',
-        label: 'Données Flexibles',
-        description: 'Tableau/Graphique personnalisé',
+        label: 'Donnees Flexibles',
+        description: 'Tableau/Graphique personnalise',
         icon: Settings,
         config: {
             title: 'Nouveau Bloc',
@@ -69,18 +75,20 @@ const ANALYTICS_ITEMS: ChartOption[] = [
             dimension: 'segments.date',
             isNew: true
         },
-        category: 'analytics'
+        category: 'analytics',
+        action: 'dataBlock'
     },
 ];
 
-const CHARTS_ITEMS: ChartOption[] = [
+const CHARTS_ITEMS: BlockOption[] = [
     {
         type: 'campaign_chart',
         label: 'Graphique',
         description: 'Ligne, barre, aire',
         icon: BarChart3,
         config: { chartType: 'line' },
-        category: 'charts'
+        category: 'charts',
+        action: 'dataBlock'
     },
     {
         type: 'funnel_analysis',
@@ -88,7 +96,8 @@ const CHARTS_ITEMS: ChartOption[] = [
         description: 'Taux de conversion',
         icon: Filter,
         config: {},
-        category: 'charts'
+        category: 'charts',
+        action: 'dataBlock'
     },
     {
         type: 'heatmap',
@@ -96,26 +105,79 @@ const CHARTS_ITEMS: ChartOption[] = [
         description: 'Carte de chaleur',
         icon: Layout,
         config: {},
-        category: 'charts'
+        category: 'charts',
+        action: 'dataBlock'
     },
     {
         type: 'device_platform_split',
-        label: 'Répartition',
+        label: 'Repartition',
         description: 'Par appareil/plateforme',
         icon: PieChart,
         config: {},
-        category: 'charts'
+        category: 'charts',
+        action: 'dataBlock'
     },
 ];
 
-const CONTENT_ITEMS: ChartOption[] = [
+const CONTENT_ITEMS: BlockOption[] = [
     {
         type: 'ad_creative',
-        label: 'Créatifs Pub',
-        description: 'Aperçu des visuels',
+        label: 'Creatifs Pub',
+        description: 'Apercu des visuels',
         icon: Image,
         config: {},
-        category: 'content'
+        category: 'content',
+        action: 'dataBlock'
+    },
+    {
+        type: 'clientLogo',
+        label: 'Logo Client',
+        description: 'Affiche le logo du client',
+        icon: Building2,
+        config: {},
+        category: 'content',
+        action: 'dataBlock'
+    },
+];
+
+const LAYOUT_ITEMS: BlockOption[] = [
+    {
+        type: 'table',
+        label: 'Tableau',
+        description: 'Tableau de donnees editable',
+        icon: TableIcon,
+        category: 'layout',
+        action: 'content',
+        config: { rows: 3, cols: 3, withHeaderRow: true }
+    },
+    {
+        type: 'columns',
+        label: 'Colonnes',
+        description: 'Diviser en 2 colonnes',
+        icon: Columns2,
+        category: 'layout',
+        action: 'content'
+    },
+];
+
+const SLIDES_ITEMS: BlockOption[] = [
+    {
+        type: 'cover_page',
+        label: 'Page de garde',
+        description: 'Slide de presentation',
+        icon: Presentation,
+        category: 'slides',
+        action: 'event',
+        eventName: 'flipika:insert-cover-page'
+    },
+    {
+        type: 'conclusion_page',
+        label: 'Conclusion',
+        description: 'Slide de remerciement',
+        icon: PartyPopper,
+        category: 'slides',
+        action: 'event',
+        eventName: 'flipika:insert-conclusion-page'
     },
 ];
 
@@ -139,7 +201,7 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
     }, []);
 
     // Combine all items into one master list
-    const ALL_ITEMS = [...ANALYTICS_ITEMS, ...CHARTS_ITEMS, ...CONTENT_ITEMS];
+    const ALL_ITEMS = [...ANALYTICS_ITEMS, ...CHARTS_ITEMS, ...CONTENT_ITEMS, ...LAYOUT_ITEMS, ...SLIDES_ITEMS];
 
     // Define categories for the sidebar
     const categories: Category[] = [
@@ -147,27 +209,52 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
         { id: 'analytics', label: 'Analytics', icon: TrendingUp, items: ANALYTICS_ITEMS },
         { id: 'charts', label: 'Graphiques', icon: BarChart3, items: CHARTS_ITEMS },
         { id: 'content', label: 'Contenu', icon: Image, items: CONTENT_ITEMS },
+        { id: 'layout', label: 'Mise en page', icon: Columns2, items: LAYOUT_ITEMS },
+        { id: 'slides', label: 'Slides', icon: Presentation, items: SLIDES_ITEMS },
     ];
 
-    const handleInsertChart = (chart: ChartOption) => {
-        editor.chain().focus().insertDataBlock({
-            blockType: chart.type,
-            config: chart.config
-        }).run();
+    const handleInsertBlock = (block: BlockOption) => {
+        if (block.action === 'dataBlock') {
+            // Insert a data block
+            editor.chain().focus().insertDataBlock({
+                blockType: block.type,
+                config: block.config || {}
+            }).run();
+        } else if (block.action === 'content') {
+            // Insert native TipTap content
+            if (block.type === 'table') {
+                editor.chain().focus().insertTable({
+                    rows: block.config?.rows || 3,
+                    cols: block.config?.cols || 3,
+                    withHeaderRow: block.config?.withHeaderRow ?? true
+                }).run();
+            } else if (block.type === 'columns') {
+                editor.chain().focus().insertContent({
+                    type: 'columnGroup',
+                    content: [
+                        { type: 'column', content: [{ type: 'paragraph' }] },
+                        { type: 'column', content: [{ type: 'paragraph' }] },
+                    ],
+                }).run();
+            }
+        } else if (block.action === 'event' && block.eventName) {
+            // Dispatch custom event
+            window.dispatchEvent(new CustomEvent(block.eventName));
+        }
 
         setActiveCategory(null);
         setSearchTerm('');
     };
 
     // Get items to display based on active category
-    const getActiveItems = (): ChartOption[] => {
+    const getActiveItems = (): BlockOption[] => {
         if (!activeCategory) return [];
         const category = categories.find(c => c.id === activeCategory);
         return category?.items || [];
     };
 
     // Filter items based on search term
-    const getFilteredItems = (): ChartOption[] => {
+    const getFilteredItems = (): BlockOption[] => {
         const items = getActiveItems();
         if (!searchTerm.trim()) return items;
 
@@ -207,6 +294,16 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
         const contentFiltered = filteredItems.filter(i => i.category === 'content');
         if (contentFiltered.length > 0) {
             sections.push({ id: 'content', label: 'Contenu', items: contentFiltered });
+        }
+
+        const layoutFiltered = filteredItems.filter(i => i.category === 'layout');
+        if (layoutFiltered.length > 0) {
+            sections.push({ id: 'layout', label: 'Mise en page', items: layoutFiltered });
+        }
+
+        const slidesFiltered = filteredItems.filter(i => i.category === 'slides');
+        if (slidesFiltered.length > 0) {
+            sections.push({ id: 'slides', label: 'Slides', items: slidesFiltered });
         }
 
         return sections;
@@ -266,7 +363,7 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
                                             <button
                                                 key={index}
                                                 className="chart-flyout-item"
-                                                onClick={() => handleInsertChart(item)}
+                                                onClick={() => handleInsertBlock(item)}
                                             >
                                                 <div className="flyout-item-icon">
                                                     <Icon size={20} />

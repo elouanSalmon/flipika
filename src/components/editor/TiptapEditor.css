@@ -2080,3 +2080,159 @@
 .ai-icon {
     color: #6366f1;
 }
+
+/* ============================================
+   DYNAMIC VARIABLES
+   ============================================ */
+
+/* Variable tag in editor (inline element) */
+.dynamic-variable-tag {
+    display: inline;
+    padding: 2px 6px;
+    margin: 0 2px;
+    background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+    color: #3730a3;
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+    font-size: 0.9em;
+    font-weight: 500;
+    white-space: nowrap;
+    border: 1px solid #c7d2fe;
+    cursor: default;
+    user-select: none;
+}
+
+.dark .dynamic-variable-tag {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    color: #a5b4fc;
+    border-color: #4338ca;
+}
+
+/* Variable tag in white text context (cover pages) */
+.dynamic-variable-tag[style*="color: rgb(255, 255, 255)"],
+.dynamic-variable-tag[style*="color: #ffffff"],
+.dynamic-variable-tag[style*="color: white"] {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Resolved variable (when value is available) */
+.dynamic-variable-resolved {
+    display: inline;
+}
+
+/* Variable inline wrapper */
+.dynamic-variable-inline {
+    display: inline;
+    vertical-align: baseline;
+}
+
+/* ============================================
+   VARIABLE SUGGESTION MENU
+   ============================================ */
+
+.variable-suggestion-menu {
+    background: var(--color-bg-primary, #ffffff);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    min-width: 280px;
+    max-width: 360px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.dark .variable-suggestion-menu {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.variable-suggestion-header {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted, #9ca3af);
+    padding: 8px 12px 4px;
+    margin-bottom: 4px;
+}
+
+.variable-suggestion-category {
+    margin-bottom: 8px;
+}
+
+.variable-suggestion-category:last-child {
+    margin-bottom: 0;
+}
+
+.variable-suggestion-category-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted, #9ca3af);
+    padding: 4px 8px;
+    margin-top: 4px;
+}
+
+.variable-suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease;
+}
+
+.variable-suggestion-item:hover,
+.variable-suggestion-item.is-selected {
+    background: var(--color-bg-secondary, #f3f4f6);
+}
+
+.dark .variable-suggestion-item:hover,
+.dark .variable-suggestion-item.is-selected {
+    background: #334155;
+}
+
+.variable-suggestion-item-tag {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: #3730a3;
+    background: #dbeafe;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.dark .variable-suggestion-item-tag {
+    color: #a5b4fc;
+    background: #312e81;
+}
+
+.variable-suggestion-item-label {
+    font-size: 13px;
+    color: var(--color-text-primary, #0f172a);
+    flex: 1;
+}
+
+.dark .variable-suggestion-item-label {
+    color: #f1f5f9;
+}
+
+.variable-suggestion-empty {
+    padding: 16px;
+    text-align: center;
+    color: var(--color-text-muted, #9ca3af);
+    font-size: 13px;
+}

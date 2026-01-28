@@ -12,8 +12,10 @@ import { SlideDocument } from './extensions/SlideDocument';
 import { SlideExtension } from './extensions/SlideExtension';
 import { DataBlockExtension } from './extensions/DataBlockExtension';
 import { ColumnGroup, Column } from './extensions/ColumnsExtension';
+import { DynamicVariableExtension } from './extensions/DynamicVariableExtension';
 import { ReportEditorProvider } from '../../contexts/ReportEditorContext';
 import type { ReportDesign } from '../../types/reportTypes';
+import type { Client } from '../../types/client';
 import type { JSONContent } from '@tiptap/react';
 import './TiptapEditor.css';
 
@@ -24,6 +26,7 @@ interface TiptapReadOnlyRendererProps {
     campaignIds?: string[];
     reportId?: string;
     clientId?: string;
+    client?: Client | null;
     userId?: string;
     startDate?: Date;
     endDate?: Date;
@@ -40,6 +43,7 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
     campaignIds = [],
     reportId,
     clientId,
+    client,
     userId,
     startDate,
     endDate,
@@ -60,6 +64,7 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
         }),
         SlideExtension,
         DataBlockExtension,
+        DynamicVariableExtension,
         Table.configure({
             resizable: false, // Read-only
         }),
@@ -103,6 +108,7 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
             campaignIds={campaignIds}
             reportId={reportId}
             clientId={clientId}
+            client={client}
             userId={userId}
             isPublicView={true}
             startDate={startDate}

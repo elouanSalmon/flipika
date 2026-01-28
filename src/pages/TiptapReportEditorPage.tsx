@@ -87,6 +87,13 @@ const TiptapReportEditorPage: React.FC = () => {
     // Client for context
     const [client, setClient] = useState<Client | null>(null);
 
+    // User profile for dynamic variables
+    const [userProfile, setUserProfile] = useState<{
+        userName: string;
+        userEmail: string;
+        userCompany: string;
+    } | null>(null);
+
     const autoSaveTimerRef = useRef<number | null>(null);
 
     useEffect(() => {
@@ -96,6 +103,27 @@ const TiptapReportEditorPage: React.FC = () => {
             navigate('/app/reports');
         }
     }, [reportId, currentUser, navigate]);
+
+    // Load user profile for dynamic variables
+    useEffect(() => {
+        const loadUserProfile = async () => {
+            if (!currentUser) return;
+            try {
+                const profile = await getUserProfile(currentUser.uid);
+                if (profile) {
+                    const fullName = `${profile.firstName || ''} ${profile.lastName || ''}`.trim();
+                    setUserProfile({
+                        userName: fullName || profile.username || '',
+                        userEmail: profile.email || currentUser.email || '',
+                        userCompany: profile.company || '',
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+            }
+        };
+        loadUserProfile();
+    }, [currentUser]);
 
     // Load accounts for settings modal
     useEffect(() => {
@@ -818,9 +846,13 @@ const TiptapReportEditorPage: React.FC = () => {
                     accountId={report.accountId}
                     campaignIds={report.campaignIds}
                     reportId={report.id}
+                    reportTitle={title}
                     clientId={report.clientId}
                     client={client}
                     userId={report.userId}
+                    userName={userProfile?.userName}
+                    userEmail={userProfile?.userEmail}
+                    userCompany={userProfile?.userCompany}
                     startDate={report.startDate ? new Date(report.startDate) : undefined}
                     endDate={report.endDate ? new Date(report.endDate) : undefined}
                     onOpenSettings={handleOpenSettings}

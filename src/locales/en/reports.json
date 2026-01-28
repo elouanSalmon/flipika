@@ -349,7 +349,43 @@
     "columns": {
       "title": "Columns",
       "description": "Divide slide into 2 columns"
+    },
+    "coverPage": {
+      "title": "Cover Page",
+      "description": "Insert an editable cover page slide"
+    },
+    "conclusionPage": {
+      "title": "Conclusion",
+      "description": "Insert an editable conclusion slide"
     }
+  },
+  "coverPage": {
+    "defaultTitle": "Report Title",
+    "defaultPeriod": "Analysis period",
+    "defaultClient": "Client name",
+    "defaultUser": "Your name",
+    "preparedFor": "Prepared for:",
+    "preparedBy": "Prepared by:",
+    "inserted": "Cover page added"
+  },
+  "conclusionPage": {
+    "thankYou": "Thank you for reading!",
+    "contactPrompt": "For any questions, feel free to contact us:",
+    "defaultEmail": "your@email.com",
+    "inserted": "Conclusion page added"
+  },
+  "variables": {
+    "title": "Dynamic variables",
+    "noResults": "No variable found",
+    "clientName": "Client name",
+    "reportTitle": "Report title",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "dateRange": "Period (start - end)",
+    "userName": "User name",
+    "userEmail": "User email",
+    "userCompany": "Company",
+    "currentDate": "Current date"
   },
   "card": {
     "status": {
@@ -654,6 +690,9 @@
     "image": "Insert image from library",
     "textColor": "Change text color",
     "highlightColor": "Change highlight color",
-    "horizontalRule": "Insert horizontal rule"
+    "horizontalRule": "Insert horizontal rule",
+    "insertVariable": "Insert dynamic variable [var]",
+    "coverPage": "Insert cover page",
+    "conclusionPage": "Insert conclusion page"
   }
 }

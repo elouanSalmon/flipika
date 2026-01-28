@@ -349,7 +349,43 @@
     "columns": {
       "title": "Colonnes",
       "description": "Diviser la slide en 2 colonnes"
+    },
+    "coverPage": {
+      "title": "Page de garde",
+      "description": "Inserer une slide de page de garde editable"
+    },
+    "conclusionPage": {
+      "title": "Conclusion",
+      "description": "Inserer une slide de conclusion editable"
     }
+  },
+  "coverPage": {
+    "defaultTitle": "Titre du rapport",
+    "defaultPeriod": "Periode d'analyse",
+    "defaultClient": "Nom du client",
+    "defaultUser": "Votre nom",
+    "preparedFor": "Prepare pour :",
+    "preparedBy": "Prepare par :",
+    "inserted": "Page de garde ajoutee"
+  },
+  "conclusionPage": {
+    "thankYou": "Merci de votre lecture !",
+    "contactPrompt": "Pour toute question, n'hesitez pas a nous contacter :",
+    "defaultEmail": "votre@email.com",
+    "inserted": "Page de conclusion ajoutee"
+  },
+  "variables": {
+    "title": "Variables dynamiques",
+    "noResults": "Aucune variable trouvee",
+    "clientName": "Nom du client",
+    "reportTitle": "Titre du rapport",
+    "startDate": "Date de debut",
+    "endDate": "Date de fin",
+    "dateRange": "Periode (debut - fin)",
+    "userName": "Nom de l'utilisateur",
+    "userEmail": "Email de l'utilisateur",
+    "userCompany": "Entreprise",
+    "currentDate": "Date du jour"
   },
   "card": {
     "status": {
@@ -654,6 +690,9 @@
     "image": "Insérer une image depuis la médiathèque",
     "textColor": "Changer la couleur du texte",
     "highlightColor": "Changer la couleur de surlignage",
-    "horizontalRule": "Insérer un séparateur horizontal"
+    "horizontalRule": "Insérer un séparateur horizontal",
+    "insertVariable": "Inserer une variable dynamique [var]",
+    "coverPage": "Inserer une page de garde",
+    "conclusionPage": "Inserer une page de conclusion"
   }
 }

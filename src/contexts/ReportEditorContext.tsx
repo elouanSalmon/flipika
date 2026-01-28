@@ -7,9 +7,13 @@ interface ReportEditorContextType {
     accountId: string;
     campaignIds: string[];
     reportId?: string;
+    reportTitle?: string;
     clientId?: string;
     client?: Client | null;
     userId?: string;
+    userName?: string;
+    userEmail?: string;
+    userCompany?: string;
     isPublicView?: boolean;
     isTemplateMode?: boolean; // When true, blocks always show demo data
     startDate?: Date;
@@ -33,9 +37,13 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
     accountId,
     campaignIds,
     reportId,
+    reportTitle,
     clientId,
     client,
     userId,
+    userName,
+    userEmail,
+    userCompany,
     isPublicView,
     isTemplateMode,
     startDate,
@@ -47,9 +55,13 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
         accountId,
         campaignIds,
         reportId,
+        reportTitle,
         clientId,
         client,
         userId,
+        userName,
+        userEmail,
+        userCompany,
         isPublicView,
         isTemplateMode,
         startDate,
@@ -60,9 +72,13 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
         accountId,
         campaignIds,
         reportId,
+        reportTitle,
         clientId,
         client,
         userId,
+        userName,
+        userEmail,
+        userCompany,
         isPublicView,
         isTemplateMode,
         startDate,

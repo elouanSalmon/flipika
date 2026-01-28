@@ -33,41 +33,6 @@ interface PDFGenerationOptions {
 const SLIDE_WIDTH_MM = 338.67;  // ~13.33 inches
 const SLIDE_HEIGHT_MM = 190.5;  // ~7.5 inches
 
-/**
- * Sanitize text for PDF - replace accented characters with ASCII equivalents
- * jsPDF's default Helvetica font doesn't support French accents properly
- */
-function sanitizeTextForPDF(text: string): string {
-    if (!text) return '';
-
-    const accentMap: Record<string, string> = {
-        'à': 'a', 'â': 'a', 'ä': 'a', 'á': 'a', 'ã': 'a',
-        'è': 'e', 'é': 'e', 'ê': 'e', 'ë': 'e',
-        'ì': 'i', 'î': 'i', 'ï': 'i', 'í': 'i',
-        'ò': 'o', 'ô': 'o', 'ö': 'o', 'ó': 'o', 'õ': 'o',
-        'ù': 'u', 'û': 'u', 'ü': 'u', 'ú': 'u',
-        'ÿ': 'y', 'ý': 'y',
-        'ñ': 'n',
-        'ç': 'c',
-        'œ': 'oe', 'æ': 'ae',
-        'À': 'A', 'Â': 'A', 'Ä': 'A', 'Á': 'A', 'Ã': 'A',
-        'È': 'E', 'É': 'E', 'Ê': 'E', 'Ë': 'E',
-        'Ì': 'I', 'Î': 'I', 'Ï': 'I', 'Í': 'I',
-        'Ò': 'O', 'Ô': 'O', 'Ö': 'O', 'Ó': 'O', 'Õ': 'O',
-        'Ù': 'U', 'Û': 'U', 'Ü': 'U', 'Ú': 'U',
-        'Ÿ': 'Y', 'Ý': 'Y',
-        'Ñ': 'N',
-        'Ç': 'C',
-        'Œ': 'OE', 'Æ': 'AE',
-    };
-
-    return text
-        .split('')
-        .map(char => accentMap[char] || char)
-        .join('')
-        .replace(/[^\x00-\x7F]/g, ''); // Remove any remaining non-ASCII characters
-}
-
 // Default translations (French)
 const DEFAULT_TRANSLATIONS: PDFTranslations = {
     title: 'Génération du PDF',
@@ -152,15 +117,15 @@ class PDFGenerationService {
             });
             console.log('[PDF] jsPDF document created, internal page size:', pdf.internal.pageSize.getWidth(), 'x', pdf.internal.pageSize.getHeight());
 
-            // Add cover page
-            console.log('[PDF] Adding cover page...');
-            await this.addCoverPage(pdf, options);
-            console.log('[PDF] Cover page added');
-            options.onProgress?.(20);
-            this.updateOverlayProgress(overlay, 20, t.coverPage);
+            // NOTE: Cover page and conclusion page are no longer added automatically.
+            // Users can add them manually using /page-garde and /conclusion slash commands
+            // in the TipTap editor, which creates editable slides.
+
+            options.onProgress?.(15);
+            this.updateOverlayProgress(overlay, 15, t.creatingDocument);
 
             // Calculate progress increment per slide
-            const progressPerSlide = 60 / slideElements.length;
+            const progressPerSlide = 75 / slideElements.length;
 
             // Process each slide
             for (let i = 0; i < slideElements.length; i++) {
@@ -169,20 +134,18 @@ class PDFGenerationService {
                 const slideStatus = t.slideProgress
                     .replace('{{current}}', String(i + 1))
                     .replace('{{total}}', String(slideElements.length));
-                this.updateOverlayProgress(overlay, 20 + i * progressPerSlide, slideStatus);
+                this.updateOverlayProgress(overlay, 15 + i * progressPerSlide, slideStatus);
 
-                // Add new page for each slide
-                pdf.addPage();
+                // Add new page for each slide (except for the first one - use the initial page)
+                if (i > 0) {
+                    pdf.addPage();
+                }
 
                 // Render slide to canvas
                 await this.renderSlideToPage(pdf, slideElement, options.design, i + 1);
 
-                options.onProgress?.(20 + (i + 1) * progressPerSlide);
+                options.onProgress?.(15 + (i + 1) * progressPerSlide);
             }
-
-            // ADD CONCLUSION PAGE
-            pdf.addPage();
-            await this.addConclusionPage(pdf, options);
 
             options.onProgress?.(85);
             this.updateOverlayProgress(overlay, 85, t.finalizing);
@@ -385,125 +348,6 @@ class PDFGenerationService {
         if (statusEl) {
             statusEl.textContent = status;
         }
-    }
-
-    /**
-     * Add cover page with title, date range, client info, and user info
-     */
-    private async addCoverPage(pdf: jsPDF, options: PDFGenerationOptions): Promise<void> {
-        const { design, reportTitle, startDate, endDate, client, user } = options;
-
-        // Full page background with primary color
-        const primaryColor = this.hexToRgb(design.colorScheme.primary);
-        pdf.setFillColor(primaryColor.r, primaryColor.g, primaryColor.b);
-        pdf.rect(0, 0, SLIDE_WIDTH_MM, SLIDE_HEIGHT_MM, 'F');
-
-        // Text Color
-        pdf.setTextColor(255, 255, 255);
-
-        // Logo if available (top left corner)
-        if (client?.logoUrl || design.logo?.url) {
-            try {
-                // Prefer client logo if available, or design logo
-                const logoUrl = client?.logoUrl || design.logo?.url;
-                if (logoUrl) {
-                    const logoSize = design.logo?.size === 'small' ? 20 : design.logo?.size === 'large' ? 40 : 30;
-                    await this.addImageToPdf(pdf, logoUrl, 20, 15, logoSize, logoSize);
-                }
-            } catch (e) {
-                console.warn('Could not add logo to PDF:', e);
-            }
-        }
-
-        // Title - centered vertically (adjusted if dates/client info present)
-        let contentY = SLIDE_HEIGHT_MM / 2 - 20;
-
-        pdf.setFontSize(42);
-        pdf.setFont('helvetica', 'bold');
-
-        // Word wrap for long titles - sanitize text for PDF compatibility
-        const safeTitle = sanitizeTextForPDF(reportTitle);
-        const titleLines = pdf.splitTextToSize(safeTitle, SLIDE_WIDTH_MM - 60);
-        pdf.text(titleLines, SLIDE_WIDTH_MM / 2, contentY, { align: 'center' });
-
-        // Date range
-        if (startDate && endDate) {
-            contentY += 25;
-            pdf.setFontSize(20);
-            pdf.setFont('helvetica', 'normal');
-            const dateText = `${this.formatDate(startDate)} - ${this.formatDate(endDate)}`;
-            pdf.text(dateText, SLIDE_WIDTH_MM / 2, contentY, { align: 'center' });
-        }
-
-        // Client & User Info at the bottom
-        const bottomY = SLIDE_HEIGHT_MM - 20;
-
-        // "Prepared for [Client]" (Left bottom)
-        if (client?.name) {
-            pdf.setFontSize(12);
-            pdf.setFont('helvetica', 'bold');
-            pdf.text('Prepare pour :', 20, bottomY - 6);
-            pdf.setFont('helvetica', 'normal');
-            pdf.text(sanitizeTextForPDF(client.name), 20, bottomY);
-        }
-
-        // "Prepared by [User]" (Right bottom)
-        if (user) {
-            const userName = `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.email || '';
-            const company = user.company || '';
-
-            pdf.setFontSize(12);
-            pdf.setFont('helvetica', 'bold');
-            pdf.text('Prepare par :', SLIDE_WIDTH_MM - 20, bottomY - 6, { align: 'right' });
-
-            pdf.setFont('helvetica', 'normal');
-            let userText = sanitizeTextForPDF(userName);
-            if (company) userText += ` - ${sanitizeTextForPDF(company)}`;
-            pdf.text(userText, SLIDE_WIDTH_MM - 20, bottomY, { align: 'right' });
-        }
-    }
-
-    /**
-     * Add conclusion page with contact info
-     */
-    private async addConclusionPage(pdf: jsPDF, options: PDFGenerationOptions): Promise<void> {
-        const { design, user } = options;
-
-        // Full page background with primary color
-        const primaryColor = this.hexToRgb(design.colorScheme.primary);
-        pdf.setFillColor(primaryColor.r, primaryColor.g, primaryColor.b);
-        pdf.rect(0, 0, SLIDE_WIDTH_MM, SLIDE_HEIGHT_MM, 'F');
-
-        // Text Color
-        pdf.setTextColor(255, 255, 255);
-
-        // Center Content
-        const centerX = SLIDE_WIDTH_MM / 2;
-        const centerY = SLIDE_HEIGHT_MM / 2;
-
-        // "Merci de votre lecture !"
-        pdf.setFontSize(36);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text('Merci de votre lecture !', centerX, centerY - 10, { align: 'center' });
-
-        // Contact Info
-        if (user) {
-            pdf.setFontSize(16);
-            pdf.setFont('helvetica', 'normal');
-
-            const contactText = "Pour toute question, n'hesitez pas a nous contacter :";
-            pdf.text(contactText, centerX, centerY + 20, { align: 'center' });
-
-            const email = user.email || '';
-            if (email) {
-                pdf.setFontSize(18);
-                pdf.setFont('helvetica', 'bold');
-                pdf.text(sanitizeTextForPDF(email), centerX, centerY + 35, { align: 'center' });
-            }
-        }
-
-
-
     }
 
     /**
@@ -926,66 +770,6 @@ class PDFGenerationService {
                 { align: 'right' }
             );
         }
-    }
-
-    /**
-     * Add an image to PDF from URL
-     */
-    private async addImageToPdf(
-        pdf: jsPDF,
-        url: string,
-        x: number,
-        y: number,
-        width: number,
-        height: number
-    ): Promise<void> {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.onload = () => {
-                try {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext('2d');
-                    if (ctx) {
-                        ctx.drawImage(img, 0, 0);
-                        const dataUrl = canvas.toDataURL('image/png');
-                        pdf.addImage(dataUrl, 'PNG', x, y, width, height);
-                    }
-                    resolve();
-                } catch (e) {
-                    reject(e);
-                }
-            };
-            img.onerror = reject;
-            img.src = url;
-        });
-    }
-
-    /**
-     * Format date for display
-     */
-    private formatDate(date: Date): string {
-        return new Intl.DateTimeFormat('fr-FR', {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-        }).format(date);
-    }
-
-    /**
-     * Convert hex color to RGB
-     */
-    private hexToRgb(hex: string): { r: number; g: number; b: number } {
-        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result
-            ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16),
-            }
-            : { r: 59, g: 130, b: 246 }; // Default blue
     }
 
     /**

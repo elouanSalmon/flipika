@@ -25,6 +25,7 @@ import { SlashCommandExtension } from './extensions/SlashCommandExtension';
 import { ColumnGroup, Column } from './extensions/ColumnsExtension';
 import { SlideExtension } from './extensions/SlideExtension';
 import { SlideDocument } from './extensions/SlideDocument';
+import { DynamicVariableExtension } from './extensions/DynamicVariableExtension';
 import { SlideNavigation } from './components/SlideNavigation';
 import { TableBubbleMenu } from './components/TableBubbleMenu';
 import { TextBubbleMenu } from './components/TextBubbleMenu';
@@ -47,9 +48,13 @@ interface TiptapReportEditorProps {
     accountId?: string;
     campaignIds?: string[];
     reportId?: string;
+    reportTitle?: string;
     clientId?: string;
     client?: Client | null;
     userId?: string;
+    userName?: string;
+    userEmail?: string;
+    userCompany?: string;
     isTemplateMode?: boolean;
     startDate?: Date;
     endDate?: Date;
@@ -65,9 +70,13 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     accountId = '',
     campaignIds = [],
     reportId,
+    reportTitle,
     clientId,
     client,
     userId,
+    userName,
+    userEmail,
+    userCompany,
     isTemplateMode = false,
     startDate,
     endDate,
@@ -148,6 +157,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         SlideExtension,
         DataBlockExtension,
         SlashCommandExtension,
+        DynamicVariableExtension,
         ColumnGroup,
         Column,
         // Table extensions
@@ -236,19 +246,216 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         );
     }, [editor, t]);
 
+    // Insert cover page slide with dynamic variables
+    const handleInsertCoverPage = useCallback(() => {
+        if (!editor) return;
+
+        const preparedFor = t('coverPage.preparedFor', 'Prepare pour :');
+        const preparedBy = t('coverPage.preparedBy', 'Prepare par :');
+
+        // Insert a new slide with cover page content using dynamic variables
+        const endPos = editor.state.doc.content.size;
+        editor.chain()
+            .insertContentAt(endPos, {
+                type: 'slide',
+                attrs: {
+                    id: `slide-cover-${Date.now()}`,
+                    layout: 'content',
+                    backgroundColor: design?.colorScheme?.primary || '#3b82f6',
+                },
+                content: [
+                    // Spacer at top for visual balance
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    // Main title - using dynamic variable
+                    {
+                        type: 'heading',
+                        attrs: { level: 1, textAlign: 'center' },
+                        content: [
+                            {
+                                type: 'dynamicVariable',
+                                attrs: { id: 'reportTitle', label: 'Titre du rapport' },
+                            },
+                        ],
+                    },
+                    // Date range - using dynamic variable
+                    {
+                        type: 'paragraph',
+                        attrs: { textAlign: 'center' },
+                        content: [
+                            {
+                                type: 'dynamicVariable',
+                                attrs: { id: 'dateRange', label: 'Periode' },
+                            },
+                        ],
+                    },
+                    // Spacers for visual balance
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    // Two columns for prepared for/by with dynamic variables
+                    {
+                        type: 'columnGroup',
+                        content: [
+                            {
+                                type: 'column',
+                                content: [
+                                    {
+                                        type: 'paragraph',
+                                        attrs: { textAlign: 'left' },
+                                        content: [
+                                            {
+                                                type: 'text',
+                                                marks: [
+                                                    { type: 'bold' },
+                                                    { type: 'textStyle', attrs: { color: '#ffffff' } },
+                                                ],
+                                                text: preparedFor,
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        type: 'paragraph',
+                                        attrs: { textAlign: 'left' },
+                                        content: [
+                                            {
+                                                type: 'dynamicVariable',
+                                                attrs: { id: 'clientName', label: 'Nom du client' },
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                            {
+                                type: 'column',
+                                content: [
+                                    {
+                                        type: 'paragraph',
+                                        attrs: { textAlign: 'right' },
+                                        content: [
+                                            {
+                                                type: 'text',
+                                                marks: [
+                                                    { type: 'bold' },
+                                                    { type: 'textStyle', attrs: { color: '#ffffff' } },
+                                                ],
+                                                text: preparedBy,
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        type: 'paragraph',
+                                        attrs: { textAlign: 'right' },
+                                        content: [
+                                            {
+                                                type: 'dynamicVariable',
+                                                attrs: { id: 'userName', label: 'Votre nom' },
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            })
+            .focus()
+            .run();
+
+        toast.success(t('coverPage.inserted', 'Page de garde ajoutee'));
+    }, [editor, design, t]);
+
+    // Insert conclusion page slide with dynamic variables
+    const handleInsertConclusionPage = useCallback(() => {
+        if (!editor) return;
+
+        const thankYouMessage = t('conclusionPage.thankYou', 'Merci de votre lecture !');
+        const contactPrompt = t('conclusionPage.contactPrompt', 'Pour toute question, n\'hesitez pas a nous contacter :');
+
+        // Insert a new slide with conclusion page content using dynamic variables
+        const endPos = editor.state.doc.content.size;
+        editor.chain()
+            .insertContentAt(endPos, {
+                type: 'slide',
+                attrs: {
+                    id: `slide-conclusion-${Date.now()}`,
+                    layout: 'content',
+                    backgroundColor: design?.colorScheme?.primary || '#3b82f6',
+                },
+                content: [
+                    // Spacers at top for visual balance
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    // Main thank you message - centered
+                    {
+                        type: 'heading',
+                        attrs: { level: 1, textAlign: 'center' },
+                        content: [
+                            {
+                                type: 'text',
+                                marks: [{ type: 'textStyle', attrs: { color: '#ffffff' } }],
+                                text: thankYouMessage,
+                            },
+                        ],
+                    },
+                    // Spacer
+                    { type: 'paragraph', content: [] },
+                    { type: 'paragraph', content: [] },
+                    // Contact prompt - centered
+                    {
+                        type: 'paragraph',
+                        attrs: { textAlign: 'center' },
+                        content: [
+                            {
+                                type: 'text',
+                                marks: [{ type: 'textStyle', attrs: { color: '#ffffff' } }],
+                                text: contactPrompt,
+                            },
+                        ],
+                    },
+                    // Email - centered, using dynamic variable
+                    {
+                        type: 'paragraph',
+                        attrs: { textAlign: 'center' },
+                        content: [
+                            {
+                                type: 'dynamicVariable',
+                                attrs: { id: 'userEmail', label: 'Email' },
+                            },
+                        ],
+                    },
+                ],
+            })
+            .focus()
+            .run();
+
+        toast.success(t('conclusionPage.inserted', 'Page de conclusion ajoutee'));
+    }, [editor, design, t]);
+
     // Listen for custom events
     React.useEffect(() => {
         const handleOpenLibrary = () => setShowMediaManager(true);
         const handleGenerateAll = () => handleGenerateAllAnalyses();
+        const handleCoverPage = () => handleInsertCoverPage();
+        const handleConclusionPage = () => handleInsertConclusionPage();
 
         window.addEventListener('flipika:open-media-library', handleOpenLibrary);
         window.addEventListener('flipika:generate-all-analyses', handleGenerateAll);
+        window.addEventListener('flipika:insert-cover-page', handleCoverPage);
+        window.addEventListener('flipika:insert-conclusion-page', handleConclusionPage);
 
         return () => {
             window.removeEventListener('flipika:open-media-library', handleOpenLibrary);
             window.removeEventListener('flipika:generate-all-analyses', handleGenerateAll);
+            window.removeEventListener('flipika:insert-cover-page', handleCoverPage);
+            window.removeEventListener('flipika:insert-conclusion-page', handleConclusionPage);
         };
-    }, [handleGenerateAllAnalyses]);
+    }, [handleGenerateAllAnalyses, handleInsertCoverPage, handleInsertConclusionPage]);
 
     // Calculate highlight colors based on theme
     const highlightColor = design?.mode === 'dark'
@@ -273,9 +480,13 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                 accountId={accountId}
                 campaignIds={campaignIds}
                 reportId={reportId}
+                reportTitle={reportTitle}
                 clientId={clientId}
                 client={client}
                 userId={userId}
+                userName={userName}
+                userEmail={userEmail}
+                userCompany={userCompany}
                 isTemplateMode={isTemplateMode}
                 startDate={startDate}
                 endDate={endDate}

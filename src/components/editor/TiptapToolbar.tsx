@@ -27,6 +27,7 @@ import {
     Image as ImageIcon,
     Sparkles,
     Loader2,
+    Braces,
 } from 'lucide-react';
 
 interface TiptapToolbarProps {
@@ -250,6 +251,21 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                     }).run()}
                     icon={<Columns2 size={18} />}
                     tooltip={t('toolbar.columns')}
+                    className={btnClass}
+                />
+            </div>
+
+            <div className="tiptap-toolbar-separator" />
+
+            {/* Dynamic Variables */}
+            <div className="tiptap-toolbar-group">
+                <ToolbarButton
+                    onClick={() => {
+                        // Insert '[' to trigger variable suggestion menu
+                        editor.chain().focus().insertContent('[').run();
+                    }}
+                    icon={<Braces size={18} />}
+                    tooltip={t('toolbar.insertVariable')}
                     className={btnClass}
                 />
             </div>

@@ -4,7 +4,7 @@ import Suggestion from '@tiptap/suggestion';
 import { SlashCommandMenu } from '../components/SlashCommandMenu';
 import tippy from 'tippy.js';
 import type { Instance as TippyInstance } from 'tippy.js';
-import { BarChart3, Target, TrendingUp, Filter, Image, Columns2, Layout, PieChart, Trophy, Building2, Table as TableIcon } from 'lucide-react';
+import { BarChart3, Target, TrendingUp, Filter, Image, Columns2, Layout, PieChart, Trophy, Building2, Table as TableIcon, Presentation, PartyPopper } from 'lucide-react';
 import i18n from '../../../i18n';
 
 
@@ -239,6 +239,28 @@ export const SlashCommandExtension = Extension.create({
                                         ],
                                     })
                                     .run();
+                            },
+                        },
+                        {
+                            title: i18n.t('reports:slashCommand.coverPage.title'),
+                            titleKey: 'reports:slashCommand.coverPage.title',
+                            description: i18n.t('reports:slashCommand.coverPage.description'),
+                            descriptionKey: 'reports:slashCommand.coverPage.description',
+                            icon: Presentation,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range).run();
+                                window.dispatchEvent(new CustomEvent('flipika:insert-cover-page'));
+                            },
+                        },
+                        {
+                            title: i18n.t('reports:slashCommand.conclusionPage.title'),
+                            titleKey: 'reports:slashCommand.conclusionPage.title',
+                            description: i18n.t('reports:slashCommand.conclusionPage.description'),
+                            descriptionKey: 'reports:slashCommand.conclusionPage.description',
+                            icon: PartyPopper,
+                            command: ({ editor, range }) => {
+                                editor.chain().focus().deleteRange(range).run();
+                                window.dispatchEvent(new CustomEvent('flipika:insert-conclusion-page'));
                             },
                         },
                     ];
