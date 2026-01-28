@@ -29,6 +29,7 @@ interface TiptapReadOnlyRendererProps {
     accountId?: string;
     campaignIds?: string[];
     reportId?: string;
+    reportTitle?: string;
     clientId?: string;
     client?: Client | null;
     userId?: string;
@@ -49,6 +50,7 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
     accountId = '',
     campaignIds = [],
     reportId,
+    reportTitle,
     clientId,
     client,
     userId,
@@ -130,6 +132,7 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
             accountId={accountId}
             campaignIds={campaignIds}
             reportId={reportId}
+            reportTitle={reportTitle}
             clientId={clientId}
             client={client}
             userId={userId}

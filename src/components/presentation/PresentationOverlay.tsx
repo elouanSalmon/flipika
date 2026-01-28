@@ -152,11 +152,11 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute inset-0 flex items-center justify-center"
                     >
-                        {/* Slide wrapper - background comes from SlideComponent */}
+                        {/* Slide wrapper - background comes from SlideComponent via inline styles */}
                         <div
                             className="presentation-slide-wrapper w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video relative overflow-hidden shadow-2xl"
                             style={{
-                                backgroundColor: report.design?.colorScheme?.background || '#ffffff',
+                                backgroundColor: 'transparent',
                             }}
                         >
                             <SlideScaler isActive={currentSlideIndex === index}>
@@ -166,6 +166,7 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                                     accountId={report.accountId}
                                     campaignIds={report.campaignIds}
                                     reportId={report.id}
+                                    reportTitle={report.title}
                                     clientId={report.clientId}
                                     client={client}
                                     userId={report.userId}
