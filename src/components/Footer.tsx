@@ -34,6 +34,9 @@ const Footer: React.FC = () => {
             <Link to={getPath('/terms-of-service')} className="footer-simple-link">
               {t('common:footer.terms')}
             </Link>
+            <Link to={getPath('/sitemap')} className="footer-simple-link">
+              {i18n.language === 'fr' ? 'Plan du site' : 'Sitemap'}
+            </Link>
           </div>
 
           <div className="footer-simple-copyright">

@@ -42,6 +42,7 @@ import ThemesPage from './pages/ThemesPage';
 import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import Sitemap from './pages/Sitemap';
 import NotFound from './pages/NotFound';
 import ClientsPage from './pages/ClientsPage';
 import ClientEditPage from './pages/ClientEditPage';
@@ -125,6 +126,7 @@ const AppRoutes = () => {
       <Route path="terms-of-service" element={<TermsOfService />} />
       <Route path="alternatives" element={<ComparisonIndex />} />
       <Route path="alternatives/:slug" element={<ComparisonPage />} />
+      <Route path="sitemap" element={<Sitemap />} />
       <Route path="login" element={<Login />} />
       <Route path="*" element={<NotFound />} />
     </Route>
