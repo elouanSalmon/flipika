@@ -590,6 +590,7 @@
     z-index: 1;
     /* Use theme colors from slide container */
     color: inherit;
+    background: transparent;
     font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
 }
 
@@ -598,7 +599,15 @@
     height: 100%;
     outline: none;
     color: inherit;
+    background: transparent;
     font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+}
+
+/* Ensure ProseMirror editor in slides is transparent */
+.slide-content .ProseMirror,
+.slide-content-editable .ProseMirror {
+    background: transparent;
+    color: inherit;
 }
 
 /* Text styling inside slides - use theme colors */
@@ -799,27 +808,97 @@
 
 /* Read-only / Presentation Mode Overrides */
 .tiptap-readonly-renderer .slide-wrapper {
-    margin: 0 auto;
-    width: 100%;
-    height: 100%;
-    max-width: none !important;
+    margin: 2rem auto;
+    /* DO NOT use height: 100% - it breaks vertical slide stacking */
+    max-width: 960px;
 }
 
 .tiptap-readonly-renderer .slide-container {
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    margin: 0 !important;
+    /* Keep the fixed slide dimensions for proper rendering */
+    width: 960px;
+    height: 540px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
 
 .tiptap-readonly-renderer .slide-editor-container {
-    padding: 0;
+    padding: 2rem 0;
     min-height: auto;
     background: transparent;
 }
 
 .tiptap-readonly-renderer .tiptap-editor-content {
     padding: 0;
-    min-height: 100%;
+}
+
+/* ============================================
+   PRESENTATION MODE (Slideshow) - Full screen slides
+   The SlideScaler uses transform: scale() on a 960x540px container.
+   We must keep the slide-container at fixed 960x540px for scaling to work.
+   ============================================ */
+
+/* Remove extra styling when in presentation mode */
+.presentation-slide-wrapper .tiptap-readonly-renderer {
+    width: 960px;
+    height: 540px;
+}
+
+.presentation-slide-wrapper .tiptap-readonly-renderer .slide-editor-container {
+    padding: 0;
+    background: transparent;
+    width: 960px;
+    height: 540px;
+    min-height: unset;
+}
+
+.presentation-slide-wrapper .tiptap-readonly-renderer .slide-wrapper {
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    width: 960px;
+    height: 540px;
+    background: transparent !important;
+}
+
+/* ProseMirror container should also be fixed size */
+.presentation-slide-wrapper .tiptap-readonly-renderer .ProseMirror {
+    width: 960px;
+    height: 540px;
+    background: transparent !important;
+}
+
+.presentation-slide-wrapper .tiptap-readonly-renderer .slide-content-motion-wrapper {
+    width: 960px;
+    height: 540px;
+    background: transparent;
+}
+
+/* In presentation mode, keep fixed dimensions but remove decorative styling */
+.presentation-slide-wrapper .tiptap-readonly-renderer .slide-container {
+    /* Keep the fixed 960x540 dimensions from inline styles - don't override */
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+/* Ensure slide content fills the container */
+.presentation-slide-wrapper .tiptap-readonly-renderer .slide-content {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+/* Remove separator line in presentation mode */
+.presentation-slide-wrapper .slide-separator {
+    display: none;
+}
+
+/* Hide move arrows and action buttons in presentation mode */
+.presentation-slide-wrapper .slide-move-arrows,
+.presentation-slide-wrapper .slide-actions,
+.presentation-slide-wrapper .slide-side-delete-btn {
+    display: none !important;
 }
 
 /* ============================================
@@ -2108,13 +2187,26 @@
     border-color: #4338ca;
 }
 
-/* Variable tag in white text context (cover pages) */
+/* Variable tag in white text context (cover pages with dark backgrounds) */
 .dynamic-variable-tag[style*="color: rgb(255, 255, 255)"],
 .dynamic-variable-tag[style*="color: #ffffff"],
 .dynamic-variable-tag[style*="color: white"] {
     background: rgba(255, 255, 255, 0.2);
     color: #ffffff;
     border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Ensure dynamic variables inherit text color in slides with custom backgrounds */
+.slide-container .dynamic-variable-resolved {
+    color: inherit;
+}
+
+/* For slides with light text (auto-detected), adjust variable tags */
+.slide-content .dynamic-variable-tag {
+    color: inherit;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: currentColor;
+    opacity: 0.9;
 }
 
 /* Resolved variable (when value is available) */

@@ -406,7 +406,23 @@ class PDFGenerationService {
         document.head.appendChild(pdfStyle);
         wrapper.classList.add('pdf-export-wrapper');
 
-        // Style the clone to fill the wrapper
+        // Get the slide's custom background color if set (for cover/conclusion pages)
+        const slideContainer = slideClone.classList.contains('slide-container')
+            ? slideClone
+            : slideClone.querySelector('.slide-container') as HTMLElement;
+        const customBgColor = slideContainer?.style.backgroundColor || null;
+
+        // If slide has a custom background (cover/conclusion), apply it to the wrapper
+        if (customBgColor) {
+            wrapper.style.backgroundColor = customBgColor;
+            // Also update the text color for contrast
+            const slideTextColor = slideContainer?.style.color;
+            if (slideTextColor) {
+                wrapper.style.color = slideTextColor;
+            }
+        }
+
+        // Style the clone to fill the wrapper (keep background if customized)
         slideClone.style.cssText = `
             transform: none;
             opacity: 1;
@@ -416,7 +432,7 @@ class PDFGenerationService {
             padding: 0;
             border: none;
             box-shadow: none;
-            background: transparent;
+            background: ${customBgColor || 'transparent'};
         `;
 
         // Find the slide-content inside and make it fill

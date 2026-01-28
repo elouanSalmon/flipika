@@ -5,6 +5,32 @@ import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { motion } from 'framer-motion';
 
 /**
+ * Calculate relative luminance of a color
+ * Used to determine if text should be light or dark for contrast
+ */
+const getLuminance = (hexColor: string): number => {
+    const hex = hexColor.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16) / 255;
+    const g = parseInt(hex.substring(2, 4), 16) / 255;
+    const b = parseInt(hex.substring(4, 6), 16) / 255;
+
+    const toLinear = (c: number) => c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+
+    return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+};
+
+/**
+ * Determine if a color is dark (needs light text) or light (needs dark text)
+ */
+const isColorDark = (hexColor: string): boolean => {
+    try {
+        return getLuminance(hexColor) < 0.5;
+    } catch {
+        return false;
+    }
+};
+
+/**
  * Slide Component (Epic 13 - Gamma-style Slide Editor)
  *
  * React NodeView for rendering individual slides with fixed 16:9 dimensions.
@@ -24,6 +50,12 @@ export const SlideComponent = ({ node, updateAttributes, deleteNode, selected, g
     // Use theme background (opaque, not transparent)
     const finalBackgroundColor = backgroundColor || themeBg;
 
+    // Auto-calculate text color for custom backgrounds (cover/conclusion pages)
+    // If slide has a custom background color, determine if it needs light or dark text
+    const hasCustomBackground = !!backgroundColor;
+    const needsLightText = hasCustomBackground && isColorDark(backgroundColor);
+    const finalTextColor = needsLightText ? '#ffffff' : themeTextColor;
+
     // Get fonts from theme
     const fontFamily = design?.typography?.fontFamily || 'Inter, sans-serif';
     const headingFontFamily = design?.typography?.headingFontFamily || fontFamily;
@@ -33,13 +65,13 @@ export const SlideComponent = ({ node, updateAttributes, deleteNode, selected, g
         width: '960px',
         height: '540px',
         backgroundColor: finalBackgroundColor,
-        color: themeTextColor,
+        color: finalTextColor,
         fontFamily: fontFamily,
         '--color-primary': design?.colorScheme?.primary || '#0066ff',
         '--color-secondary': design?.colorScheme?.secondary || '#3385ff',
         '--color-accent': design?.colorScheme?.accent || '#00d4ff',
         '--color-bg-primary': themeBg,
-        '--color-text-primary': themeTextColor,
+        '--color-text-primary': finalTextColor,
         '--font-family': fontFamily,
         '--heading-font-family': headingFontFamily,
     } as React.CSSProperties;

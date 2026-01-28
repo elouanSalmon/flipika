@@ -152,14 +152,14 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute inset-0 flex items-center justify-center"
                     >
+                        {/* Slide wrapper - background comes from SlideComponent */}
                         <div
-                            className="w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video relative overflow-hidden shadow-2xl"
+                            className="presentation-slide-wrapper w-full h-full max-w-[177.78vh] max-h-[56.25vw] aspect-video relative overflow-hidden shadow-2xl"
                             style={{
-                                backgroundColor: slide.attrs?.backgroundColor || report.design?.colorScheme?.background || '#ffffff',
-                                boxShadow: '0 0 0 1px rgba(0,0,0,0.1)'
+                                backgroundColor: report.design?.colorScheme?.background || '#ffffff',
                             }}
                         >
-                            <SlideScaler>
+                            <SlideScaler isActive={currentSlideIndex === index}>
                                 <TiptapReadOnlyRenderer
                                     content={{ type: 'doc', content: [slide] }}
                                     design={report.design}
@@ -213,23 +213,38 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
 };
 
 // Helper component to scale slide content
-const SlideScaler: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const SlideScaler: React.FC<{ children: React.ReactNode; isActive: boolean }> = ({ children, isActive }) => {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
 
-    useEffect(() => {
-        const updateScale = () => {
-            if (containerRef.current) {
-                const { width, height } = containerRef.current.getBoundingClientRect();
-                // We know the slide defines specific dimensions (960x540)
-                // But the container is aspect-ratio locked to 16:9 so we can just scale by width
-                const scaleX = width / 960;
-                const scaleY = height / 540;
-                // Use the smaller scale to ensure fit (though in 16:9 they should be identical)
-                setScale(Math.min(scaleX, scaleY));
+    const updateScale = useCallback(() => {
+        if (containerRef.current) {
+            const { width, height } = containerRef.current.getBoundingClientRect();
+            // We know the slide defines specific dimensions (960x540)
+            // But the container is aspect-ratio locked to 16:9 so we can just scale by width
+            const scaleX = width / 960;
+            const scaleY = height / 540;
+            // Use the smaller scale to ensure fit (though in 16:9 they should be identical)
+            const newScale = Math.min(scaleX, scaleY);
+            // Only update if scale is valid (parent has dimensions)
+            if (newScale > 0) {
+                setScale(newScale);
             }
-        };
+        }
+    }, []);
 
+    // Recalculate scale when slide becomes active
+    // This is needed because getBoundingClientRect returns wrong values
+    // when the parent motion.div has a transform scale applied
+    useEffect(() => {
+        if (isActive) {
+            // Delay to let the animation complete
+            const timeout = setTimeout(updateScale, 50);
+            return () => clearTimeout(timeout);
+        }
+    }, [isActive, updateScale]);
+
+    useEffect(() => {
         // Initial calculate
         updateScale();
 
@@ -238,8 +253,14 @@ const SlideScaler: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             observer.observe(containerRef.current);
         }
 
-        return () => observer.disconnect();
-    }, []);
+        // Also listen to window resize
+        window.addEventListener('resize', updateScale);
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('resize', updateScale);
+        };
+    }, [updateScale]);
 
     return (
         <div ref={containerRef} className="w-full h-full relative overflow-hidden">

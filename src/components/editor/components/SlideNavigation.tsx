@@ -19,6 +19,28 @@ import { TextStyle } from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-color';
 import { Link } from '@tiptap/extension-link';
 import { DynamicVariableExtension } from '../extensions/DynamicVariableExtension';
+
+/**
+ * Calculate relative luminance of a color for contrast detection
+ */
+const getLuminance = (hexColor: string): number => {
+    const hex = hexColor.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16) / 255;
+    const g = parseInt(hex.substring(2, 4), 16) / 255;
+    const b = parseInt(hex.substring(4, 6), 16) / 255;
+
+    const toLinear = (c: number) => c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+
+    return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+};
+
+const isColorDark = (hexColor: string): boolean => {
+    try {
+        return getLuminance(hexColor) < 0.5;
+    } catch {
+        return false;
+    }
+};
 import {
     DndContext,
     closestCenter,
@@ -165,6 +187,11 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = React.memo((
 
     const finalBackgroundColor = slide.backgroundColor || themeBg;
 
+    // Auto-calculate text color for custom backgrounds (cover/conclusion pages)
+    const hasCustomBackground = !!slide.backgroundColor;
+    const needsLightText = hasCustomBackground && isColorDark(slide.backgroundColor);
+    const finalTextColor = needsLightText ? '#ffffff' : themeTextColor;
+
     // Create a read-only mini editor for this thumbnail
     // Wrap the slide content in a proper doc structure
     const editorContent = useMemo(() => ({
@@ -233,16 +260,16 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = React.memo((
         width: '960px',
         height: '540px',
         backgroundColor: finalBackgroundColor,
-        color: themeTextColor,
+        color: finalTextColor,
         fontFamily: fontFamily,
         '--color-primary': design?.colorScheme?.primary || '#0066ff',
         '--color-secondary': design?.colorScheme?.secondary || '#3385ff',
         '--color-accent': design?.colorScheme?.accent || '#00d4ff',
         '--color-bg-primary': themeBg,
-        '--color-text-primary': themeTextColor,
+        '--color-text-primary': finalTextColor,
         '--font-family': fontFamily,
         '--heading-font-family': headingFontFamily,
-    }), [finalBackgroundColor, themeTextColor, design?.colorScheme, themeBg, fontFamily, headingFontFamily]);
+    }), [finalBackgroundColor, finalTextColor, design?.colorScheme, themeBg, fontFamily, headingFontFamily]);
 
     return (
         <div className="slide-thumbnail-scaler">
