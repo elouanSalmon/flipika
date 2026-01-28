@@ -1,0 +1,197 @@
+{
+    "common": {
+        "downloadCTA": "Access the Template",
+        "emailPlaceholder": "name@company.com",
+        "secure": "Instant Access • No Credit Card",
+        "downloading": "Processing...",
+        "success": "Check your inbox!",
+        "successMessage": "The resource has been sent to your email.",
+        "whatsInside": "Template Contents",
+        "whoFor": "Perfect For",
+        "faq": "In-Depth Guide & FAQs",
+        "preview": "Preview"
+    },
+    "pages": {
+        "google-ads-excel-template": {
+            "title": "Ultimate Google Ads Excel Report Template (2026 Edition)",
+            "metaDescription": "Stop wasting time on manual reporting. Download the industry-standard Google Ads Excel template. Includes automated formulas for ROAS, CPA, and conversion tracking.",
+            "h1": "The Last Google Ads Excel Template You'll Ever Need.",
+            "subtitle": "Manually copy-pasting CSVs into Excel is so 2015. But if you must use Excel, use this battle-tested template.",
+            "painTitle": "The Hidden Cost of Excel Reporting",
+            "painPoints": [
+                "3+ hours per client/month manually updating data",
+                "High risk of human error (copy-paste mistakes)",
+                "Static data that is obsolete the moment you hit send"
+            ],
+            "trap": {
+                "title": "Why Professional Agencies Are Dumping Excel",
+                "text": "Excel was built for finance, not live marketing data. Leading agencies have switched to automated dashboards to save 80% of their reporting time."
+            },
+            "solution": {
+                "title": "The Automated Alternative",
+                "text": "Flipika connects directly to the API. Your clients get a live link, and you never have to touch a spreadsheet again."
+            },
+            "features": [
+                "Executive Summary Tab with MoM & YoY Calculations",
+                "Campaign Performance Tracker (Search, Display, Shopping)",
+                "Keyword Analysis Sheet with Quality Score formatting",
+                "Automated ROAS & CPA Calculators",
+                "Search Query Charts (Must be manually updated)",
+                "Budget Pacing Helper Formula"
+            ],
+            "personas": [
+                "Freelance Marketers",
+                "Boutique Agencies",
+                "In-house PPC Managers"
+            ],
+            "faq": [
+                {
+                    "q": "How do I import my Google Ads data into this Excel template?",
+                    "a": "To use this template, you must first log in to your Google Ads account. Navigate to the 'Campaigns' tab, adjust your columns to match the template schema (Clicks, Impressions, CTR, Cost, Conversions, Cost/Conv, Conv. Rate), and then click 'Download' > 'Excel .csv'. Open the CSV, copy the data range, and paste it into the 'Raw Data' tab of our template. The formulas in the 'Dashboard' tab will update automatically. Note: You must repeat this process every time you want to refresh the date range."
+                },
+                {
+                    "q": "Can I automate this process using Google Sheets scripts?",
+                    "a": "Yes, it is possible to use Google Apps Script to fetch data, but it requires coding knowledge and maintenance. If Google changes their API, your script will break. This is why professional marketers use dedicated connectors like Flipika, which handles the API maintenance and provides a drag-and-drop interface for building reports."
+                },
+                {
+                    "q": "What Key Performance Indicators (KPIs) are included?",
+                    "a": "The template covers all standard PPC metrics: Impressions, Clicks, Click-Through Rate (CTR), Average Cost Per Click (CPC), Cost, Conversions, Cost Per Conversion (CPA), Conversion Rate (CVR), and Return on Ad Spend (ROAS). It also includes calculated fields for View-Through Conversions if you have Display campaigns."
+                },
+                {
+                    "q": "Is this template compatible with Mac Numbers or Google Sheets?",
+                    "a": "Yes. The file is a standard `.xlsx`. You can upload it to Google Drive to convert it to a Google Sheet. Most formulas (SUMIF, VLOOKUP) are universal. However, conditional formatting rules might need slight adjustments when switching platforms."
+                },
+                {
+                    "q": "Why does my ROAS show up as an error?",
+                    "a": "This usually happens if your 'Cost' is zero, causing a division by zero error. Our template has `IFERROR` wrappers to handle this, but if you are editing the formulas, ensure you validate that the denominator is greater than zero."
+                },
+                {
+                    "q": "How to visualize Month-over-Month (MoM) growth?",
+                    "a": "The 'Executive Summary' tab includes a pre-built table for MoM comparison. You simply need to paste last month's data in the 'Previous Month' columns. Flipika automates this by allowing you to select 'Compare to: Previous Period' in the dashboard settings, instantly generating red/green percentage changes without manual entry."
+                },
+                {
+                    "q": "Does this template support Performance Max (PMax) campaigns?",
+                    "a": "Yes, PMax campaigns will appear in the campaign list. However, because PMax behaves differently (no keywords), the 'Keyword Analysis' tab will remain empty for those specific campaigns. For detailed PMax reporting (Asset Groups, Listing Groups), we recommend using a specialized tool like Flipika."
+                }
+            ]
+        },
+        "google-ads-powerpoint-template": {
+            "title": "Premium Google Ads PowerPoint Presentation Template",
+            "metaDescription": "Download a client-ready Google Ads PPT template. Professionally designed slides for monthly and quarterly business reviews (QBR).",
+            "h1": "Turn Boring Data Into a Compelling Story.",
+            "subtitle": "Stop taking screenshots. This PowerPoint template gives you a professional structure for your monthly client meetings.",
+            "painTitle": "Why PPT Reporting is Painful",
+            "painPoints": [
+                "Endless screenshotting and cropping",
+                "Slide formatting nightmares",
+                "Zero interactivity during presentations"
+            ],
+            "trap": {
+                "title": "The Screenshot Trap",
+                "text": "A screenshot captures a moment, but misses the context. When a client asks 'Why?', you can't drill down into a static image."
+            },
+            "solution": {
+                "title": "Presentation Mode 2.0",
+                "text": "Flipika includes a native Presentation Mode. Present live data directly from the dashboard. Filter, drill-down, and answer questions on the fly."
+            },
+            "features": [
+                "20+ Professionally Designed Master Slides",
+                "Monthly & Quarterly Business Review (QBR) Layouts",
+                "Campaign & Ad Group Performance Drill-downs",
+                "Competitor Analysis & Market Share Slides",
+                "Next Steps, Strategy & Budget Recommendation Section",
+                "Editable Charts & Data Tables"
+            ],
+            "personas": [
+                "Account Managers",
+                "Marketing Directors",
+                "Consultants"
+            ],
+            "faq": [
+                {
+                    "q": "How do I update the charts in this PowerPoint?",
+                    "a": "To update the charts, right-click on the chart element and select 'Edit Data in Excel'. This will open a mini-spreadsheet where you can paste your latest campaign data. The chart visuals will update to reflect the new numbers. This manual process ensures your slides look custom-made, but it can be time-consuming for large accounts."
+                },
+                {
+                    "q": "Is this template suitable for a Quarterly Business Review (QBR)?",
+                    "a": "Absolutely. We have included specific slides for high-level strategic review, including year-over-year growth, market trends, and long-term roadmap planning. These slides are distinct from the monthly tactical slides, helping you elevate the conversation with your clients."
+                },
+                {
+                    "q": "Can I apply my agency's branding/colors?",
+                    "a": "Yes. This template uses PowerPoint's 'Slide Master' feature. Go to 'View' > 'Slide Master', and you can change the theme colors, fonts, and add your logo to the footer of every slide in one click. All charts and shapes in the presentation are linked to the theme colors, so they will update automatically."
+                },
+                {
+                    "q": "What is the best way to present Google Ads data to a CEO?",
+                    "a": "CEOs care about the bottom line. Avoid getting bogged down in 'Click-Through Rates' or 'Quality Scores' on the first slide. Use the 'Executive Summary' slide to highlight Spend, Revenue, and ROAS (Return on Ad Spend). Only dive into campaign-level metrics if asked. Flipika's 'Executive View' preset is designed specifically for this use case."
+                },
+                {
+                    "q": "How to handle 'Day of Week' or 'Hour of Day' analysis in PPT?",
+                    "a": "This template includes a 'Heatmap' slide layout. You will need to export your segmentation data from Google Ads, conditionally format it in Excel to create a color scale, and then paste it as a picture or table into the PPT slide. It's a powerful visual for explaining bid adjustments."
+                },
+                {
+                    "q": "Why does my presentation file size get so large?",
+                    "a": "High-resolution screenshots and embedded Excel sheets can bloat your file size. We recommend compressing images (Select Image > Format > Compress Pictures) before emailing. Alternatively, sending a live Flipika link requires zero storage and always loads the latest data."
+                }
+            ]
+        },
+        "google-ads-pdf-example": {
+            "title": "Perfect Google Ads Report PDF Example (Benchmark)",
+            "metaDescription": "Not sure what to report? Download this professional Google Ads PDF report example to see industry best practices.",
+            "h1": "The Gold Standard of PPC Reporting.",
+            "subtitle": "See exactly what top-tier agencies include in their reports. Use this PDF as a benchmark for your own client deliverables.",
+            "painTitle": "The Limitations of PDF",
+            "painPoints": [
+                "Fichiers perdus dans les emails",
+                "Illisible sur mobile",
+                "Impossible de filtrer ou changer les dates"
+            ],
+            "trap": {
+                "title": "PDFs are 'Dead' Documents",
+                "text": "A PDF is a tombstone for data. It shows what happened in the past, but offers no interactivity to explore the future."
+            },
+            "solution": {
+                "title": "Share Live Links",
+                "text": "Send a secure Flipika link. It looks like a document, but behaves like an app. Password protected, mobile-responsive, and alive."
+            },
+            "features": [
+                "KPI Executive Summary (The 'North Star' Metrics)",
+                "Visual Funnel Analysis (Impressions -> Conversions)",
+                "Device & Location Performance Heatmaps",
+                "Top Performing Creative/Ad Copy Showcase",
+                "Budget Pacing & Projection Visuals",
+                "Glossary of Terms for Non-Technical Clients"
+            ],
+            "personas": [
+                "Agency Founders",
+                "Marketing Students",
+                "Client-side CMOs"
+            ],
+            "faq": [
+                {
+                    "q": "What makes a Google Ads report 'perfect'?",
+                    "a": "A perfect report balances granularity with clarity. It must answer three questions immediately: 'How much did we spend?', 'What did we get for it?', and 'What are we doing next?'. This PDF example demonstrates the ideal flow: starting with high-level KPIs, moving to campaign performance, and ending with actionable insights."
+                },
+                {
+                    "q": "Should I include 'All Conversions' or just 'Conversions'?",
+                    "a": "This is a common debate. 'Conversions' usually refers to your primary goals (purchases, leads), while 'All Conversions' includes secondary actions (add to cart, page view). We recommend focusing your PDF report on primary 'Conversions' to avoid inflating numbers, but keeping 'All Conversions' in an appendix or secondary table."
+                },
+                {
+                    "q": "How often should I send a PDF report?",
+                    "a": "Traditionally, agencies send PDF reports monthly. However, in the age of automation, clients expect faster feedback. Weekly PDFs can be overwhelming. The modern best practice is to provide a live dashboard link (like Flipika) for checking anytime, supplemented by a monthly curated insight email."
+                },
+                {
+                    "q": "How do I explain 'Attribution Models' in a static PDF?",
+                    "a": "It's difficult. Attribution (Data-Driven, Last Click) changes how credit is assigned. In a static PDF, you should add a footnote explaining which model is being used. In interactive tools, users can often toggle between models to see the difference."
+                },
+                {
+                    "q": "Can I edit the text in this PDF example?",
+                    "a": "No, this specific file is a read-only benchmark. It serves as a visual guide for how you should structure your own reports. To create your own, you would need to build a layout in Word, PowerPoint, or similar, and export to PDF—or use a report generator."
+                },
+                {
+                    "q": "Why is the text so small on mobile?",
+                    "a": "PDFs are designed for A4/Letter paper printing, not for iPhone screens. This is the biggest drawback of the format. A responsive web report adapts to screen size, making it much easier for busy clients to check numbers on their commute."
+                }
+            ]
+        }
+    }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Map, ChevronRight, Globe, Shield, Zap } from 'lucide-react';
+import { Map, ChevronRight, Globe, Shield, Zap, LayoutTemplate } from 'lucide-react';
 import { competitors } from '../data/competitors';
 import SEO from '../components/SEO';
 
@@ -33,6 +33,15 @@ const Sitemap: React.FC = () => {
                     name: i18n.language === 'fr' ? `Flipika vs ${c.name}` : `Flipika vs ${c.name}`,
                     path: `/alternatives/${c.slug}`
                 }))
+            ]
+        },
+        {
+            title: i18n.language === 'fr' ? 'Ressources Gratuites' : 'Free Resources',
+            icon: <LayoutTemplate className="w-5 h-5 text-purple-500" />,
+            links: [
+                { name: i18n.language === 'fr' ? 'Modèle Excel Google Ads' : 'Google Ads Excel Template', path: '/resources/google-ads-excel-template' },
+                { name: i18n.language === 'fr' ? 'Modèle PowerPoint Google Ads' : 'Google Ads PowerPoint Template', path: '/resources/google-ads-powerpoint-template' },
+                { name: i18n.language === 'fr' ? 'Exemple Rapport PDF' : 'Google Ads PDF Example', path: '/resources/google-ads-pdf-example' },
             ]
         },
         {

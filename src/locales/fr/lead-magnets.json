@@ -1,0 +1,197 @@
+{
+    "common": {
+        "downloadCTA": "Accéder au Modèle",
+        "emailPlaceholder": "nom@entreprise.com",
+        "secure": "Accès Immédiat • Gratuit",
+        "downloading": "Traitement...",
+        "success": "Vérifiez votre boîte mail !",
+        "successMessage": "La ressource a été envoyée à votre adresse email.",
+        "whatsInside": "Contenu du Modèle",
+        "whoFor": "Idéal pour",
+        "faq": "Guide Détaillé & FAQ",
+        "preview": "Aperçu"
+    },
+    "pages": {
+        "google-ads-excel-template": {
+            "title": "Le Modèle Excel Ultime pour Google Ads (Édition 2026)",
+            "metaDescription": "Arrêtez le reporting manuel. Téléchargez le standard de l'industrie pour Excel. Formules automatisées pour ROAS, CPA et suivi des conversions.",
+            "h1": "Le Dernier Modèle Excel dont vous aurez besoin.",
+            "subtitle": "Copier-coller des CSV à la main, c'est tellement 2015. Mais si vous devez utiliser Excel, prenez ce modèle éprouvé.",
+            "painTitle": "Le Coût Caché d'Excel",
+            "painPoints": [
+                "3h+ par client/mois à mettre à jour les données",
+                "Erreurs humaines fréquentes (omissions, décalages)",
+                "Données statiques, obsolètes dès l'envoi"
+            ],
+            "trap": {
+                "title": "Pourquoi les Agences Pros abandonnent Excel",
+                "text": "Excel est fait pour la finance, pas pour le marketing live. Les meilleures agences passent aux dashboards automatisés pour économiser 80% de leur temps."
+            },
+            "solution": {
+                "title": "L'Alternative Automatisée",
+                "text": "Flipika se connecte directement à l'API. Vos clients reçoivent un lien live, et vous ne touchez plus jamais un tableur."
+            },
+            "features": [
+                "Onglet 'Résumé Exécutif' avec calculs MoM & YoY",
+                "Suivi de Performance Campagnes (Search, Display, Shopping)",
+                "Analyse Mots-clés avec formatage Quality Score",
+                "Calculateurs Automatiques ROAS & CPA",
+                "Graphiques de Requêtes de Recherche (Mise à jour manuelle)",
+                "Formule d'aide au Pacing Budgétaire"
+            ],
+            "personas": [
+                "Marketeurs Freelance",
+                "Agences Boutique",
+                "Responsables PPC In-house"
+            ],
+            "faq": [
+                {
+                    "q": "Comment importer mes données Google Ads dans ce modèle Excel ?",
+                    "a": "Pour utiliser ce modèle, connectez-vous d'abord à votre compte Google Ads. Allez dans l'onglet 'Campagnes', ajustez vos colonnes pour correspondre au schéma du modèle (Clics, Impressions, CTR, Coût, Conversions, Coût/Conv, Taux de Conv), puis cliquez sur 'Télécharger' > 'Excel .csv'. Ouvrez le CSV, copiez la plage de données et collez-la dans l'onglet 'Raw Data' de notre modèle. Les formules de l'onglet 'Dashboard' se mettront à jour automatiquement. Note : Vous devez répéter ce processus à chaque fois que vous voulez rafraîchir les données."
+                },
+                {
+                    "q": "Puis-je automatiser ce processus avec des scripts Google Sheets ?",
+                    "a": "Oui, il est possible d'utiliser Google Apps Script pour récupérer des données, mais cela nécessite des connaissances en code et de la maintenance. Si Google change son API, votre script cassera. C'est pourquoi les marketeurs pro utilisent des connecteurs dédiés comme Flipika, qui gère la maintenance API et offre une interface drag-and-drop."
+                },
+                {
+                    "q": "Quels KPIs sont inclus dans le template ?",
+                    "a": "Le modèle couvre toutes les métriques PPC standards : Impressions, Clics, Taux de Clic (CTR), Coût par Clic (CPC), Coût, Conversions, Coût par Conversion (CPA), Taux de Conversion (CVR), et Retour sur les Dépenses Publicitaires (ROAS). Il inclut aussi des champs pour les conversions après affichage (View-Through) pour les campagnes Display."
+                },
+                {
+                    "q": "Est-ce compatible avec Mac Numbers ou Google Sheets ?",
+                    "a": "Oui. Le fichier est un `.xlsx` standard. Vous pouvez l'uploader sur Google Drive pour le convertir en Google Sheet. La plupart des formules (SOMME.SI, RECHERCHEV) sont universelles. Cependant, les règles de mise en forme conditionnelle peuvent nécessiter de légers ajustements."
+                },
+                {
+                    "q": "Pourquoi mon ROAS affiche-t-il une erreur ?",
+                    "a": "Cela arrive généralement si votre 'Coût' est zéro, provoquant une division par zéro. Notre modèle a des wrappers `SIERREUR` pour gérer cela, mais si vous éditez les formules, assurez-vous de valider que le dénominateur est supérieur à zéro."
+                },
+                {
+                    "q": "Comment visualiser la croissance Mois par Mois (MoM) ?",
+                    "a": "L'onglet 'Résumé Exécutif' inclut un tableau pré-construit pour la comparaison MoM. Vous devez simplement coller les données du mois dernier dans les colonnes 'Mois Précédent'. Flipika automatise cela en vous permettant de sélectionner 'Comparer à : Période Précédente' dans les paramètres du dashboard."
+                },
+                {
+                    "q": "Ce modèle supporte-t-il les campagnes Performance Max (PMax) ?",
+                    "a": "Oui, les campagnes PMax apparaîtront dans la liste. Cependant, comme PMax n'utilise pas de mots-clés traditionnels, l'onglet 'Analyse Mots-clés' restera vide pour ces campagnes spécifiques. Pour un reporting PMax détaillé (Groupes d'actifs, Listing Groups), nous recommandons un outil spécialisé comme Flipika."
+                }
+            ]
+        },
+        "google-ads-powerpoint-template": {
+            "title": "Modèle de Présentation Google Ads Premium (PPT)",
+            "metaDescription": "Téléchargez un modèle PPT Google Ads prêt pour vos clients. Slides pros pour vos revues mensuelles et trimestrielles (QBR).",
+            "h1": "Transformez vos données en une histoire captivante.",
+            "subtitle": "Arrêtez les captures d'écran. Ce modèle PowerPoint vous donne une structure pro pour vos réunions clients.",
+            "painTitle": "La Douleur du Reporting PPT",
+            "painPoints": [
+                "Captures d'écran et recadrages infinis",
+                "Cauchemars de mise en page",
+                "Zéro interactivité pendant la présentation"
+            ],
+            "trap": {
+                "title": "Le Piège de la Capture d'Écran",
+                "text": "Une capture fige un instant mais perd le contexte. Quand un client demande 'Pourquoi ?', vous ne pouvez pas creuser dans une image."
+            },
+            "solution": {
+                "title": "Mode Présentation 2.0",
+                "text": "Flipika inclut un mode Présentation natif. Présentez vos données live directement depuis le dashboard. Filtrez et répondez aux questions à la volée."
+            },
+            "features": [
+                "20+ Masques de Diapositives Professionnels",
+                "Layouts pour Revues Mensuelles & Trimestrielles (QBR)",
+                "Détails Campagnes & Ad Groups avec Drill-down",
+                "Slides d'Analyse Concurrentielle & Parts de Marché",
+                "Section Next Steps, Stratégie & Recommandations",
+                "Graphiques et Tableaux de Données Éditable"
+            ],
+            "personas": [
+                "Account Managers",
+                "Directeurs Marketing",
+                "Consultants"
+            ],
+            "faq": [
+                {
+                    "q": "Comment mettre à jour les graphiques dans ce PPT ?",
+                    "a": "Pour mettre à jour, faites un clic droit sur le graphique et choisissez 'Modifier les données dans Excel'. Cela ouvrira un mini-tableur où vous pourrez coller vos données récentes. Le visuel se mettra à jour. Ce processus manuel garantit un look 'sur mesure', mais prend du temps."
+                },
+                {
+                    "q": "Ce modèle est-il adapté pour une QBR (Quarterly Business Review) ?",
+                    "a": "Absolument. Nous avons inclus des slides spécifiques pour la revue stratégique, incluant la croissance annuelle (YoY), les tendances marché et la roadmap. Ces slides se distinguent des slides tactiques mensuelles pour élever la conversation."
+                },
+                {
+                    "q": "Puis-je appliquer le branding de mon agence ?",
+                    "a": "Oui. Ce modèle utilise la fonction 'Masque des Diapositives'. Allez dans 'Affichage' > 'Masque', et vous pouvez changer les couleurs, polices et logos en un clic pour toutes les slides. Tous les éléments graphiques sont liés au thème."
+                },
+                {
+                    "q": "Quelle est la meilleure façon de présenter à un PDG ?",
+                    "a": "Les PDG se soucient de la rentabilité. Évitez de vous noyer dans les 'Quality Scores' dès la première slide. Utilisez la slide 'Résumé Exécutif' pour mettre en avant Dépenses, Revenus et ROAS. Ne plongez dans les détails que si demandé. Le mode 'Vue Exécutive' de Flipika est conçu pour ça."
+                },
+                {
+                    "q": "Comment faire une analyse 'Jour de la semaine' ou 'Heure' dans PPT ?",
+                    "a": "Ce template inclut un layout 'Heatmap'. Vous devrez exporter vos données segmentées depuis Google Ads, appliquer une mise en forme conditionnelle dans Excel, puis coller le résultat comme image ou tableau dans la slide PPT."
+                },
+                {
+                    "q": "Pourquoi mon fichier PPT devient-il si lourd ?",
+                    "a": "Les captures HD et les feuilles Excel incorporées alourdissent le fichier. Compressez les images via le menu Format avant d'envoyer par email. Alternativement, un lien Flipika ne pèse rien et charge toujours la donnée fraîche."
+                }
+            ]
+        },
+        "google-ads-pdf-example": {
+            "title": "Exemple de Rapport Google Ads Parfait (PDF)",
+            "metaDescription": "Vous doutez de votre reporting ? Téléchargez cet exemple PDF Google Ads pour voir les best practices.",
+            "h1": "Le Gold Standard du Reporting PPC.",
+            "subtitle": "Voyez exactement ce que les meilleures agences incluent. Utilisez ce PDF comme benchmark pour vos propres livrables.",
+            "painTitle": "Les Limites du PDF",
+            "painPoints": [
+                "Fichiers perdus dans les emails",
+                "Illisible sur mobile",
+                "Impossible de filtrer ou changer les dates"
+            ],
+            "trap": {
+                "title": "Le PDF est un document 'Mort'",
+                "text": "Un PDF est une pierre tombale pour vos données. Il montre le passé mais n'offre aucune interactivité pour explorer le futur."
+            },
+            "solution": {
+                "title": "Partagez des Liens Live",
+                "text": "Envoyez un lien Flipika sécurisé. Ça ressemble à un doc, mais ça agit comme une app. Protégé, responsive et vivant."
+            },
+            "features": [
+                "Résumé Exécutif des KPIs (Les métriques 'North Star')",
+                "Visualisation d'Entonnoir (Impressions -> Conversions)",
+                "Heatmaps de Performance par Appareil & Lieu",
+                "Showcase des Meilleures Créas/Pubs",
+                "Visuels de Pacing Budgétaire & Projections",
+                "Glossaire des Termes pour les Clients Non-Techniques"
+            ],
+            "personas": [
+                "Fondateurs d'Agence",
+                "Étudiants Marketing",
+                "CMOs"
+            ],
+            "faq": [
+                {
+                    "q": "Qu'est-ce qui rend un rapport Google Ads 'parfait' ?",
+                    "a": "Un rapport parfait équilibre détails et clarté. Il doit répondre à trois questions : 'Combien a-t-on dépensé ?', 'Qu'a-t-on gagné ?', et 'Quelle est la suite ?'. Cet exemple PDF montre le flux idéal : KPIs macro, puis performance campagnes, puis insights actionnables."
+                },
+                {
+                    "q": "Dois-je inclure 'Toutes les conv.' ou juste 'Conversions' ?",
+                    "a": "C'est un débat classique. 'Conversions' réfère à vos buts primaires (achats, leads), 'Toutes les conv.' inclut les micro-actions (vue page clé). Nous recommandons de focus le PDF sur les 'Conversions' pour ne pas gonfler les chiffres, en gardant le reste en annexe."
+                },
+                {
+                    "q": "À quelle fréquence envoyer un rapport PDF ?",
+                    "a": "Traditionnellement, c'est mensuel. Mais à l'ère de l'automatisation, les clients veulent plus de réactivité. Le nouveau standard est un lien dashboard live (comme Flipika) consultable tout le temps, complété par un email d'insights mensuel."
+                },
+                {
+                    "q": "Comment expliquer les modèles d'attribution dans un PDF statique ?",
+                    "a": "C'est dur. L'attribution (Data-Driven, Last Click) change tout. Dans un PDF, ajoutez une note de bas de page précisant le modèle. Dans les outils interactifs, l'utilisateur peut souvent basculer d'un modèle à l'autre."
+                },
+                {
+                    "q": "Puis-je éditer le texte de cet exemple PDF ?",
+                    "a": "Non, ce fichier est un benchmark en lecture seule. Pour créer le vôtre, vous devriez construire une mise en page sous Word/PPT ou utiliser un générateur de rapports comme Flipika."
+                },
+                {
+                    "q": "Pourquoi le texte est-il si petit sur mobile ?",
+                    "a": "Le PDF est conçu pour l'impression A4, pas pour l'écran d'un iPhone. C'est son plus gros défaut. Un rapport web responsive s'adapte à l'écran, facilitant la lecture pour les clients pressés."
+                }
+            ]
+        }
+    }
+}

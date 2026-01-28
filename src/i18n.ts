@@ -20,6 +20,7 @@ import frClients from './locales/fr/clients.json';
 import frTutorial from './locales/fr/tutorial.json';
 import frAlternatives from './locales/fr/alternatives.json';
 import frTemplatesPillar from './locales/fr/templates-pillar.json';
+import frLeadMagnets from './locales/fr/lead-magnets.json';
 
 // Authenticated Pages - English
 import enDashboard from './locales/en/dashboard.json';
@@ -35,6 +36,7 @@ import enClients from './locales/en/clients.json';
 import enTutorial from './locales/en/tutorial.json';
 import enAlternatives from './locales/en/alternatives.json';
 import enTemplatesPillar from './locales/en/templates-pillar.json';
+import enLeadMagnets from './locales/en/lead-magnets.json';
 
 // ... other imports
 
@@ -54,6 +56,7 @@ const resources = {
     tutorial: enTutorial,
     alternatives: enAlternatives,
     'templates-pillar': enTemplatesPillar,
+    'lead-magnets': enLeadMagnets,
   },
   fr: {
     common: frCommon,
@@ -70,6 +73,7 @@ const resources = {
     tutorial: frTutorial,
     alternatives: frAlternatives,
     'templates-pillar': frTemplatesPillar,
+    'lead-magnets': frLeadMagnets,
   },
 };
 
@@ -92,7 +96,7 @@ i18n
       escapeValue: false,
     },
     defaultNS: 'common',
-    ns: ['common', 'dashboard', 'reports', 'templates', 'schedules', 'settings', 'billing', 'copilot', 'audit', 'themes', 'alternatives', 'templates-pillar'],
+    ns: ['common', 'dashboard', 'reports', 'templates', 'schedules', 'settings', 'billing', 'copilot', 'audit', 'themes', 'alternatives', 'templates-pillar', 'lead-magnets'],
     load: 'languageOnly',
   });
 

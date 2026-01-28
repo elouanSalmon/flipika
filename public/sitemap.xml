@@ -70,6 +70,25 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/google-ads-report-template" />
   </url>
 
+  <url>
+    <loc>https://flipika.com/resources/google-ads-excel-template</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/resources/google-ads-excel-template" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/resources/google-ads-excel-template" />
+  </url>
+  <url>
+    <loc>https://flipika.com/resources/google-ads-powerpoint-template</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/resources/google-ads-powerpoint-template" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/resources/google-ads-powerpoint-template" />
+  </url>
+  <url>
+    <loc>https://flipika.com/resources/google-ads-pdf-example</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/resources/google-ads-pdf-example" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/resources/google-ads-pdf-example" />
+  </url>
+
   <!-- French Silo -->
   <url>
     <loc>https://flipika.com/fr</loc>
@@ -138,5 +157,23 @@
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/google-ads-report-template" />
     <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/google-ads-report-template" />
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/resources/google-ads-excel-template</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/resources/google-ads-excel-template" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/resources/google-ads-excel-template" />
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/resources/google-ads-powerpoint-template</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/resources/google-ads-powerpoint-template" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/resources/google-ads-powerpoint-template" />
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/resources/google-ads-pdf-example</loc>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/resources/google-ads-pdf-example" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/resources/google-ads-pdf-example" />
   </url>
 </urlset>
