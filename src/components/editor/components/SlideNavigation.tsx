@@ -12,6 +12,13 @@ import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { Image } from '@tiptap/extension-image';
+import { Underline } from '@tiptap/extension-underline';
+import { Highlight } from '@tiptap/extension-highlight';
+import { TextAlign } from '@tiptap/extension-text-align';
+import { TextStyle } from '@tiptap/extension-text-style';
+import { Color } from '@tiptap/extension-color';
+import { Link } from '@tiptap/extension-link';
+import { DynamicVariableExtension } from '../extensions/DynamicVariableExtension';
 import {
     DndContext,
     closestCenter,
@@ -168,10 +175,28 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = React.memo((
     const extensions = useMemo(() => [
         StarterKit.configure({
             heading: { levels: [1, 2, 3] },
+            link: false,
+            underline: false,
         }),
         DataBlockExtension,
+        DynamicVariableExtension,
         ColumnGroup,
         Column,
+        TextStyle,
+        Color,
+        Underline,
+        Link.configure({
+            openOnClick: false,
+            HTMLAttributes: {
+                class: 'tiptap-link',
+            },
+        }),
+        Highlight.configure({
+            multicolor: true,
+        }),
+        TextAlign.configure({
+            types: ['heading', 'paragraph'],
+        }),
         Table.configure({
             resizable: false,
         }),
@@ -191,6 +216,7 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = React.memo((
         extensions,
         content: editorContent,
         editable: false,
+        immediatelyRender: false,
         editorProps: {
             attributes: {
                 class: 'slide-thumbnail-editor',

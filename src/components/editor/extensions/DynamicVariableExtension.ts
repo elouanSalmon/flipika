@@ -172,6 +172,24 @@ export const DynamicVariableExtension = Node.create({
                                 interactive: true,
                                 trigger: 'manual',
                                 placement: 'bottom-start',
+                                theme: 'slash-command',
+                                maxWidth: 'none',
+                                offset: [0, 8],
+                                popperOptions: {
+                                    strategy: 'fixed',
+                                    modifiers: [
+                                        {
+                                            name: 'flip',
+                                            enabled: false,
+                                        },
+                                        {
+                                            name: 'preventOverflow',
+                                            options: {
+                                                boundary: 'viewport',
+                                            },
+                                        },
+                                    ],
+                                },
                             });
                         },
 

@@ -191,19 +191,11 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         extensions,
         content: content || defaultContent,
         editable,
+        immediatelyRender: false,
         onUpdate: ({ editor }) => {
             onChange?.(editor.getJSON());
         },
     });
-
-    if (!editor) {
-        return null;
-    }
-
-    const handleInsertImage = (url: string) => {
-        editor.chain().focus().setImage({ src: url }).run();
-        setShowMediaManager(false);
-    };
 
     const { t } = useTranslation('reports');
 
@@ -456,6 +448,15 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             window.removeEventListener('flipika:insert-conclusion-page', handleConclusionPage);
         };
     }, [handleGenerateAllAnalyses, handleInsertCoverPage, handleInsertConclusionPage]);
+
+    if (!editor) {
+        return null;
+    }
+
+    const handleInsertImage = (url: string) => {
+        editor.chain().focus().setImage({ src: url }).run();
+        setShowMediaManager(false);
+    };
 
     // Calculate highlight colors based on theme
     const highlightColor = design?.mode === 'dark'
