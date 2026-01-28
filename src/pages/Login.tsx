@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { motion } from "framer-motion";
 import { AlertCircle, ArrowRight, BarChart3, Zap, Shield, Sparkles, FileText } from "lucide-react";
-import Logo from "../components/Logo";
-import LanguageSwitcher from "../components/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 
 const Login = () => {
@@ -67,13 +65,7 @@ const Login = () => {
       {/* LEFT COLUMN - LOGIN */}
       <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-between p-8 lg:p-12 xl:p-16 relative z-10 bg-gradient-to-br from-blue-50/50 via-white to-blue-50/30 dark:from-slate-900 dark:to-slate-800 border-r border-slate-100 dark:border-slate-800">
 
-        {/* Header */}
-        <div className="flex items-center justify-between relative z-20">
-          <Logo className="scale-100 origin-left" />
-          <div className="scale-90 origin-right opacity-80 hover:opacity-100 transition-opacity">
-            <LanguageSwitcher />
-          </div>
-        </div>
+        {/* Main Content (Header handled by PublicLayout) */}
 
         {/* Main Content */}
         <div className="flex flex-col max-w-sm w-full mx-auto space-y-8 relative z-20">
@@ -139,9 +131,9 @@ const Login = () => {
 
         </div>
 
-        {/* Footer */}
-        <div className="text-xs text-slate-400 dark:text-slate-400 relative z-20">
-          &copy; {new Date().getFullYear()} Flipika. {t('auth.footer.rights')} • <Link to="/terms-of-service" className="hover:text-slate-600 dark:hover:text-slate-200 underline decoration-current underline-offset-2">{t('auth.footer.terms')}</Link>
+        {/* Reassurance text (Footer handled by PublicLayout) */}
+        <div className="text-xs text-slate-400 dark:text-slate-400 relative z-20 mt-8">
+          {t('auth.footer.rights')}
         </div>
       </div>
 

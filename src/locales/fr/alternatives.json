@@ -1,0 +1,70 @@
+{
+    "common": {
+        "viewComparison": "Voir le comparatif complet",
+        "backToIndex": "Retour aux alternatives",
+        "tryFlipika": "Essayer Flipika gratuitement",
+        "migrationGuarantee": "Migration gratuite incluse"
+    },
+    "index": {
+        "title": "Les Meilleures Alternatives aux outils d'Analytics",
+        "subtitle": "Découvrez pourquoi les agences modernes quittent leurs anciens outils pour la clarté et la rapidité de Flipika.",
+        "whyFlipika": "Pourquoi Flipika ?",
+        "highlight1": "Analyses Propulsées par l'IA",
+        "highlight1Desc": "Obtenez des résumés instantanés de vos performances Google Ads sans analyse manuelle.",
+        "highlight2": "Pensé pour les Agences",
+        "highlight2Desc": "Automatisez vos rapports clients et consacrez plus de temps à la stratégie qu'à la mise en forme."
+    },
+    "page": {
+        "seoTitle": "Meilleure Alternative à {{competitor}} en {{year}} | Flipika",
+        "seoDescription": "Fatigué des limites de {{competitor}} ? Découvrez pourquoi Flipika est l'alternative numéro 1 pour des rapports Google Ads rapides.",
+        "updatedBadge": "Dernière mise à jour : {{date}}",
+        "h1Title": "Pourquoi Flipika est la meilleure alternative à {{competitor}} en {{year}}",
+        "painPointsTitle": "Le Problème avec {{competitor}}",
+        "painPointsSubtitle": "Le marketing devrait porter sur la stratégie, pas sur la lutte avec des outils lents.",
+        "comparisonTitle": "Le Match des Fonctionnalités",
+        "comparisonSubtitle": "Flipika vs {{competitor}} : le comparatif pour les opérations quotidiennes en agence.",
+        "visualProofTitle": "Voyez la Différence",
+        "visualProofDesc": "Une interface épurée et prête pour la présentation que vos clients comprendront enfin.",
+        "migrationCtaTitle": "Prêt à quitter {{competitor}} ?",
+        "migrationCtaDesc": "Nous vous aidons à migrer vos rapports et dashboards actuels vers Flipika en moins de 24 heures.",
+        "benefit1": "Chargement instantané",
+        "benefit2": "Zéro mise en forme",
+        "benefit3": "Rapports illimités"
+    },
+    "competitors": {
+        "looker-studio": {
+            "indexDescription": "Gratuit mais atrocement lent. Ne perdez plus de temps avec les roulettes de chargement.",
+            "heroSubtitle": "Arrêtez d'attendre que vos dashboards chargent. Obtenez vos insights instantanément.",
+            "painPointTitle": "Le Piège du Sablier",
+            "painPointDesc": "Looker Studio est célèbre pour sa lenteur avec les gros volumes de données. Flipika livre vos données en millisecondes."
+        },
+        "agency-analytics": {
+            "indexDescription": "Un coût par client qui bride votre marge. Passez au forfait illimité.",
+            "heroSubtitle": "Arrêtez de payer par client. Développez votre agence sans frais cachés.",
+            "painPointTitle": "La Taxe sur la Croissance",
+            "painPointDesc": "Payer pour chaque nouveau client rend votre rentabilité difficile à maintenir. Le modèle de Flipika est conçu pour vous suivre."
+        },
+        "dashthis": {
+            "indexDescription": "Des dashboards statiques qui datent des années 2010. Modernisez votre reporting.",
+            "heroSubtitle": "Passez des widgets figés aux présentations interactives boostées par l'IA.",
+            "painPointTitle": "Des Présentations Datées",
+            "painPointDesc": "Les captures d'écran dans des tableaux de bord ne suffisent plus. Flipika offre une expérience moderne en glassmorphism."
+        },
+        "excel-spreadsheets": {
+            "indexDescription": "La méthode manuelle qui invite aux erreurs. Automatisez avant l'épuisement.",
+            "heroSubtitle": "L'erreur humaine est inévitable. L'automatisation est indispensable.",
+            "painPointTitle": "Le Cauchemar du Copier-Coller",
+            "painPointDesc": "Passer vos lundis à copier-coller des données Google Ads est un gâchis de talent. Automatisez le tout avec Flipika."
+        }
+    },
+    "highlights": {
+        "aiSpeed": {
+            "title": "Vélocité IA",
+            "desc": "Des rapports qui prenaient des heures se génèrent désormais en secondes."
+        },
+        "simplicity": {
+            "title": "Pure Clarté",
+            "desc": "Un design minimaliste qui met en avant l'essentiel : votre ROI."
+        }
+    }
+}

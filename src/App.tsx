@@ -13,7 +13,6 @@ import { SubscriptionProvider } from './contexts/SubscriptionContext';
 import { usePageTracking } from './hooks/usePageTracking';
 import { useUserTracking } from './hooks/useUserTracking';
 import HubSpotChat from './components/HubSpotChat';
-import LanguageRedirect from './components/LanguageRedirect';
 import CookieConsent from './components/CookieConsent';
 import InstallPWA from './components/InstallPWA';
 import OnboardingModal from './components/onboarding/OnboardingModal';
@@ -24,6 +23,7 @@ import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
 import Login from './pages/Login';
 import AppLayout from './layouts/AppLayout';
+import PublicLayout from './layouts/PublicLayout';
 import OAuthCallback from './pages/OAuthCallback';
 import Dashboard from './pages/Dashboard';
 import DashboardNew from './pages/DashboardNew';
@@ -48,6 +48,8 @@ import ClientEditPage from './pages/ClientEditPage';
 import ReportPreview from './pages/ReportPreview';
 import TiptapTemplateEditorPage from './pages/TiptapTemplateEditorPage';
 import GoogleAdsPlayground from './pages/GoogleAdsPlayground';
+import ComparisonIndex from './pages/alternatives/ComparisonIndex';
+import ComparisonPage from './pages/alternatives/ComparisonPage';
 import './App.css';
 
 // Protected Route Component
@@ -115,28 +117,31 @@ const AppRoutes = () => {
     return 'settings'; // Fallback to settings if nothing else is enabled
   };
 
+  const renderPublicRoutes = (lang?: 'en' | 'fr') => (
+    <Route element={<PublicLayout lang={lang} />}>
+      {enableFullLanding && <Route path="full" element={<LandingFull />} />}
+      <Route path="legal-notices" element={<LegalNotices />} />
+      <Route path="privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="terms-of-service" element={<TermsOfService />} />
+      <Route path="alternatives" element={<ComparisonIndex />} />
+      <Route path="alternatives/:slug" element={<ComparisonPage />} />
+      <Route path="login" element={<Login />} />
+      <Route path="*" element={<NotFound />} />
+    </Route>
+  );
+
   return (
     <Routes>
-      {/* Language Redirects */}
-      <Route path="/en" element={<LanguageRedirect targetLanguage="en" />} />
-      <Route path="/fr" element={<LanguageRedirect targetLanguage="fr" />} />
-
-      {/* Public Landing Pages */}
+      {/* Root English Silo */}
       <Route path="/" element={<Landing />} />
-      {enableFullLanding && <Route path="/full" element={<LandingFull />} />}
-      <Route path="/legal-notices" element={<LegalNotices />} />
-      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="/terms-of-service" element={<TermsOfService />} />
+      {renderPublicRoutes('en')}
 
-      {/* Legacy French routes - redirect to new routes */}
-      <Route path="/mentions-legales" element={<Navigate to="/legal-notices" replace />} />
-      <Route path="/politique-confidentialite" element={<Navigate to="/privacy-policy" replace />} />
-      <Route path="/conditions-utilisation" element={<Navigate to="/terms-of-service" replace />} />
+      {/* French Silo */}
+      <Route path="/fr">
+        <Route index element={<Landing />} />
+        {renderPublicRoutes('fr')}
+      </Route>
 
-      {/* Auth Pages */}
-      <Route path="/login" element={<Login />} />
-
-      {/* Protected App Routes */}
       <Route path="/app" element={
         <ProtectedRoute>
           <AppLayout />
@@ -206,8 +211,10 @@ const AppRoutes = () => {
       {/* Public Report View - No authentication required */}
       <Route path="/:username/reports/:reportId" element={<PublicReportView />} />
 
-      {/* 404 Route */}
-      <Route path="*" element={<NotFound />} />
+      {/* Legacy French routes - redirect to new routes */}
+      <Route path="/mentions-legales" element={<Navigate to="/legal-notices" replace />} />
+      <Route path="/politique-confidentialite" element={<Navigate to="/privacy-policy" replace />} />
+      <Route path="/conditions-utilisation" element={<Navigate to="/terms-of-service" replace />} />
     </Routes>
   );
 };

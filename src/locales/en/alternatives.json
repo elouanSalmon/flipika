@@ -1,0 +1,70 @@
+{
+    "common": {
+        "viewComparison": "View full comparison",
+        "backToIndex": "Back to all alternatives",
+        "tryFlipika": "Try Flipika for free",
+        "migrationGuarantee": "Free migration included"
+    },
+    "index": {
+        "title": "The Best Alternatives to Analytics Tools",
+        "subtitle": "Discover why modern marketing teams are switching to Flipika for faster, clearer, and more impactful reporting.",
+        "whyFlipika": "Why Flipika?",
+        "highlight1": "AI-Powered Insights",
+        "highlight1Desc": "Get instant summaries of your Google Ads performance without manual analysis.",
+        "highlight2": "Built for Agencies",
+        "highlight2Desc": "Automate client reports and spend more time on strategy, less on formatting."
+    },
+    "page": {
+        "seoTitle": "Best {{competitor}} Alternative for {{year}} | Flipika",
+        "seoDescription": "Tired of {{competitor}}'s limitations? See why Flipika is the leading alternative for fast, automated Google Ads reporting.",
+        "updatedBadge": "Last updated: {{date}}",
+        "h1Title": "Why Flipika is the best {{competitor}} alternative in {{year}}",
+        "painPointsTitle": "The {{competitor}} Problem",
+        "painPointsSubtitle": "Marketing should be about strategy, not fighting with slow tools.",
+        "comparisonTitle": "Feature Battle",
+        "comparisonSubtitle": "How Flipika stacks up against {{competitor}} for daily agency operations.",
+        "visualProofTitle": "See the Difference",
+        "visualProofDesc": "A clean, presentation-ready interface that your clients will actually understand.",
+        "migrationCtaTitle": "Ready to switch from {{competitor}}?",
+        "migrationCtaDesc": "We'll help you migrate your current reports and dashboards to Flipika in less than 24 hours.",
+        "benefit1": "Instant Loading",
+        "benefit2": "No formatting required",
+        "benefit3": "Unlimited reports"
+    },
+    "competitors": {
+        "looker-studio": {
+            "indexDescription": "Built-in but painfully slow. Move beyond loading spinners to instant reporting.",
+            "heroSubtitle": "Stop waiting for dashboards to load. Get instant insights with Flipika.",
+            "painPointTitle": "The Loading Spinner Trap",
+            "painPointDesc": "Looker Studio is notorious for its slowness with large datasets. Flipika delivers your data in milliseconds, not minutes."
+        },
+        "agency-analytics": {
+            "indexDescription": "Expensive scaling that eats your margins. Switch to flat pricing.",
+            "heroSubtitle": "Stop paying per client. Scale your agency without the overhead.",
+            "painPointTitle": "The Growth Tax",
+            "painPointDesc": "Paying for every client you add makes it harder to scale profitably. Flipika's pricing model is built to grow with you."
+        },
+        "dashthis": {
+            "indexDescription": "Static dashboards that feel like the 2010s. Modernize your reporting.",
+            "heroSubtitle": "Move beyond static widgets to interactive, AI-powered presentations.",
+            "painPointTitle": "Dated Presentations",
+            "painPointDesc": "Static screenshots in dashboards don't wow clients anymore. Flipika provides a modern, glassmorphism experience."
+        },
+        "excel-spreadsheets": {
+            "indexDescription": "The manual way to make mistakes. Automate before you burn out.",
+            "heroSubtitle": "Human error is inevitable. Automation is essential.",
+            "painPointTitle": "The Copy-Paste Nightmare",
+            "painPointDesc": "Spending Mondays copy-pasting Google Ads data is a waste of your talent. Automate the boring parts with Flipika."
+        }
+    },
+    "highlights": {
+        "aiSpeed": {
+            "title": "AI Velocity",
+            "desc": "Reports that used to take hours now take seconds."
+        },
+        "simplicity": {
+            "title": "Pure Clarity",
+            "desc": "Minimalist design that highlights what matters: your ROI."
+        }
+    }
+}

@@ -5,8 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+
+  const getLangPath = (path: string) => {
+    const isFrench = i18n.language === 'fr';
+    return isFrench ? `/fr${path}` : path;
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -106,7 +111,7 @@ const Hero: React.FC = () => {
             >
               <motion.button
                 className="btn btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold"
-                onClick={() => navigate('/login')}
+                onClick={() => navigate(getLangPath('/login'))}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -116,7 +121,7 @@ const Hero: React.FC = () => {
 
               <motion.button
                 className="btn btn-secondary inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium"
-                onClick={() => navigate('/login')}
+                onClick={() => navigate(getLangPath('/login'))}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

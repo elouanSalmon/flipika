@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface LogoProps {
     className?: string;
@@ -11,13 +12,15 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({ className = '', onClick, scale = 1.05, subtitle = 'bêta' }) => {
+    const { i18n } = useTranslation();
     const navigate = useNavigate();
 
     const handleClick = () => {
         if (onClick) {
             onClick();
         } else {
-            navigate('/');
+            const isFrench = i18n.language === 'fr';
+            navigate(isFrench ? '/fr' : '/');
         }
     };
 

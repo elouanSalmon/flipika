@@ -1,21 +1,17 @@
 import { motion } from 'framer-motion';
-import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Problem from '../components/Problem';
 import Features from '../components/Features';
 import Differentiation from '../components/Differentiation';
 import SocialProof from '../components/Testimonials';
 import EmailCapture from '../components/EmailCapture';
-import Footer from '../components/Footer';
 import CookieConsent from '../components/CookieConsent';
 
 const Landing = () => {
     return (
-        <>
+        <div className="flex-1 flex flex-col">
             <div className="bg-gradient"></div>
             <div className="bg-grid"></div>
-
-            <Header />
 
             <main>
                 <Hero />
@@ -25,8 +21,6 @@ const Landing = () => {
                 <SocialProof />
                 <EmailCapture />
             </main>
-
-            <Footer />
 
             {/* Floating elements for visual appeal */}
             <motion.div
@@ -55,7 +49,7 @@ const Landing = () => {
             />
 
             <CookieConsent />
-        </>
+        </div>
     );
 };
 

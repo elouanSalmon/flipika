@@ -9,8 +9,13 @@ import './Header.css';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+
+  const getLangPath = (path: string) => {
+    const isFrench = i18n.language === 'fr';
+    return isFrench ? `/fr${path}` : path;
+  };
 
   const handleNavigation = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -86,7 +91,7 @@ const Header: React.FC = () => {
           {/* CTA Button - Desktop only */}
           <motion.button
             className="btn btn-primary cta-button"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate(getLangPath('/login'))}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6 }}

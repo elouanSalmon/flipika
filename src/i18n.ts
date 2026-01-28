@@ -18,6 +18,7 @@ import frAudit from './locales/fr/audit.json';
 import frThemes from './locales/fr/themes.json';
 import frClients from './locales/fr/clients.json';
 import frTutorial from './locales/fr/tutorial.json';
+import frAlternatives from './locales/fr/alternatives.json';
 
 // Authenticated Pages - English
 import enDashboard from './locales/en/dashboard.json';
@@ -31,6 +32,9 @@ import enAudit from './locales/en/audit.json';
 import enThemes from './locales/en/themes.json';
 import enClients from './locales/en/clients.json';
 import enTutorial from './locales/en/tutorial.json';
+import enAlternatives from './locales/en/alternatives.json';
+
+// ... other imports
 
 const resources = {
   en: {
@@ -46,6 +50,7 @@ const resources = {
     themes: enThemes,
     clients: enClients,
     tutorial: enTutorial,
+    alternatives: enAlternatives,
   },
   fr: {
     common: frCommon,
@@ -60,6 +65,7 @@ const resources = {
     themes: frThemes,
     clients: frClients,
     tutorial: frTutorial,
+    alternatives: frAlternatives,
   },
 };
 
@@ -75,14 +81,14 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: ['fr', 'en'],
+    fallbackLng: ['en', 'fr'],
     debug: false,
     detection: detectionOptions,
     interpolation: {
       escapeValue: false,
     },
     defaultNS: 'common',
-    ns: ['common', 'dashboard', 'reports', 'templates', 'schedules', 'settings', 'billing', 'copilot', 'audit', 'themes'],
+    ns: ['common', 'dashboard', 'reports', 'templates', 'schedules', 'settings', 'billing', 'copilot', 'audit', 'themes', 'alternatives'],
     load: 'languageOnly',
   });
 
