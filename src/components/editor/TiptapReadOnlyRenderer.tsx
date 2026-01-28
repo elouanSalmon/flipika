@@ -7,6 +7,10 @@ import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
+import { TextStyle } from '@tiptap/extension-text-style';
+import { Color } from '@tiptap/extension-color';
+import { Underline } from '@tiptap/extension-underline';
+import { Link } from '@tiptap/extension-link';
 import { Image } from '@tiptap/extension-image';
 import { SlideDocument } from './extensions/SlideDocument';
 import { SlideExtension } from './extensions/SlideExtension';
@@ -59,6 +63,8 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
         StarterKit.configure({
             document: false,
             heading: { levels: [1, 2, 3] },
+            // Disable extensions we configure separately
+            underline: false,
         }),
         Highlight.configure({
             multicolor: false,
@@ -67,6 +73,16 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
             types: ['heading', 'paragraph'],
             alignments: ['left', 'center', 'right'],
             defaultAlignment: 'left',
+        }),
+        // Text styling extensions (required for cover/conclusion pages with colored text)
+        TextStyle,
+        Color,
+        Underline,
+        Link.configure({
+            openOnClick: true, // Allow clicking links in read-only mode
+            HTMLAttributes: {
+                class: 'tiptap-link',
+            },
         }),
         SlideExtension,
         DataBlockExtension,
