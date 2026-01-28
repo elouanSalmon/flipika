@@ -11,6 +11,7 @@ import PasswordPrompt from '../components/reports/PasswordPrompt';
 import Spinner from '../components/common/Spinner';
 import Logo from '../components/Logo';
 import type { EditableReport, SlideConfig } from '../types/reportTypes';
+import type { Client } from '../types/client';
 import type { UserProfile } from '../types/userProfile';
 import type { JSONContent } from '@tiptap/react';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +37,7 @@ const PublicReportView: React.FC = () => {
     const [needsPassword, setNeedsPassword] = useState(false);
     const [hasAccess, setHasAccess] = useState(false);
     const [showPresentationMode, setShowPresentationMode] = useState(false);
+    const [client, setClient] = useState<Client | null>(null);
 
     useEffect(() => {
         loadPublicReport();
@@ -84,6 +86,19 @@ const PublicReportView: React.FC = () => {
                 // No password needed
                 setHasAccess(true);
                 setWidgets(result.slides);
+            }
+
+            // Load client data if available
+            if (result.report.clientId && profile.uid) {
+                try {
+                    const { clientService } = await import('../services/clientService');
+                    const clientData = await clientService.getClient(profile.uid, result.report.clientId);
+                    if (clientData) {
+                        setClient(clientData);
+                    }
+                } catch (err) {
+                    console.error('Error loading client for public view:', err);
+                }
             }
         } catch (err) {
             console.error('Error loading public report:', error);
@@ -207,6 +222,10 @@ const PublicReportView: React.FC = () => {
                         reportId={report.id}
                         clientId={report.clientId}
                         userId={report.userId}
+                        userName={author ? `${author.firstName} ${author.lastName}`.trim() : ''}
+                        userEmail={author?.email}
+                        userCompany={author?.company}
+                        client={client}
                         startDate={report.startDate}
                         endDate={report.endDate}
                     />
@@ -237,6 +256,10 @@ const PublicReportView: React.FC = () => {
             {showPresentationMode && report && (
                 <PresentationOverlay
                     report={report}
+                    userName={author ? `${author.firstName} ${author.lastName}`.trim() : ''}
+                    userEmail={author?.email}
+                    userCompany={author?.company}
+                    client={client}
                     onClose={() => setShowPresentationMode(false)}
                 />
             )}

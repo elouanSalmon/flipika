@@ -242,8 +242,8 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     const handleInsertCoverPage = useCallback(() => {
         if (!editor) return;
 
-        const preparedFor = t('coverPage.preparedFor', 'Prepare pour :');
-        const preparedBy = t('coverPage.preparedBy', 'Prepare par :');
+        const preparedFor = t('coverPage.preparedFor', 'Préparé pour :');
+        const preparedBy = t('coverPage.preparedBy', 'Préparé par :');
 
         // Insert a new slide with cover page content using dynamic variables
         const endPos = editor.state.doc.content.size;
@@ -256,9 +256,18 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                     backgroundColor: design?.colorScheme?.primary || '#3b82f6',
                 },
                 content: [
-                    // Spacer at top for visual balance
-                    { type: 'paragraph', content: [] },
-                    { type: 'paragraph', content: [] },
+                    // Client Logo at the top (using dynamic variable)
+                    {
+                        type: 'paragraph',
+                        attrs: { textAlign: 'center' },
+                        content: [
+                            {
+                                type: 'dynamicVariable',
+                                attrs: { id: 'clientLogo', label: 'Logo Client' },
+                            },
+                        ],
+                    },
+                    // Small spacer
                     { type: 'paragraph', content: [] },
                     // Main title - using dynamic variable
                     {
@@ -282,10 +291,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                             },
                         ],
                     },
-                    // Spacers for visual balance
-                    { type: 'paragraph', content: [] },
-                    { type: 'paragraph', content: [] },
-                    { type: 'paragraph', content: [] },
+                    // Spacer for visual balance
                     { type: 'paragraph', content: [] },
                     { type: 'paragraph', content: [] },
                     // Two columns for prepared for/by with dynamic variables

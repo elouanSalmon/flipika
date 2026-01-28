@@ -917,6 +917,10 @@ const TiptapReportEditorPage: React.FC = () => {
                             ...report,
                             content: (editorContent || { type: 'doc', content: [] }) as any
                         }}
+                        userName={userProfile?.userName}
+                        userEmail={userProfile?.userEmail}
+                        userCompany={userProfile?.userCompany}
+                        client={client}
                         onClose={() => setShowPresentationMode(false)}
                     />
                 )

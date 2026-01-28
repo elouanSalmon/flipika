@@ -219,7 +219,10 @@ export const SlashCommandExtension = Extension.create({
                             icon: Building2,
                             command: ({ editor, range }) => {
                                 editor.chain().focus().deleteRange(range)
-                                    .insertDataBlock({ blockType: 'clientLogo', config: {} })
+                                    .insertContent({
+                                        type: 'dynamicVariable',
+                                        attrs: { id: 'clientLogo', label: 'Logo Client' },
+                                    })
                                     .run();
                             },
                         },

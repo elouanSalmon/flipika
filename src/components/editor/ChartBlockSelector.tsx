@@ -132,11 +132,11 @@ const CONTENT_ITEMS: BlockOption[] = [
     {
         type: 'clientLogo',
         label: 'Logo Client',
-        description: 'Affiche le logo du client',
+        description: 'Variable dynamique du logo client',
         icon: Building2,
         config: {},
         category: 'content',
-        action: 'dataBlock'
+        action: 'content'
     },
 ];
 
@@ -214,7 +214,13 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
     ];
 
     const handleInsertBlock = (block: BlockOption) => {
-        if (block.action === 'dataBlock') {
+        if (block.type === 'clientLogo') {
+            // Insert as a dynamic variable instead of a data block
+            editor.chain().focus().insertContent({
+                type: 'dynamicVariable',
+                attrs: { id: 'clientLogo', label: 'Logo Client' },
+            }).run();
+        } else if (block.action === 'dataBlock') {
             // Insert a data block
             editor.chain().focus().insertDataBlock({
                 blockType: block.type,

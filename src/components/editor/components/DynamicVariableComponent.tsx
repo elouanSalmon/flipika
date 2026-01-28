@@ -22,7 +22,7 @@ const formatDate = (date: Date | undefined): string => {
 export function resolveVariable(
     variableId: DynamicVariableId,
     context: {
-        client?: { name?: string } | null;
+        client?: { name?: string; logoUrl?: string } | null;
         reportTitle?: string;
         startDate?: Date;
         endDate?: Date;
@@ -34,6 +34,8 @@ export function resolveVariable(
     switch (variableId) {
         case 'clientName':
             return context.client?.name || null;
+        case 'clientLogo':
+            return context.client?.logoUrl || null;
         case 'reportTitle':
             return context.reportTitle || null;
         case 'startDate':
@@ -89,6 +91,43 @@ export const DynamicVariableComponent: React.FC<NodeViewProps> = ({ node }) => {
 
     // In template mode or if value can't be resolved, show the tag
     const showTag = isTemplateMode || !resolvedValue;
+
+    if (variableId === 'clientLogo') {
+        const logoUrl = resolvedValue;
+
+        if (showTag || !logoUrl) {
+            return (
+                <NodeViewWrapper
+                    as="span"
+                    className="dynamic-variable-inline dynamic-variable-tag"
+                    data-variable-id={variableId}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                >
+                    [{label}]
+                </NodeViewWrapper>
+            );
+        }
+
+        return (
+            <NodeViewWrapper
+                as="span"
+                className="dynamic-variable-inline dynamic-variable-resolved"
+                data-variable-id={variableId}
+                style={{ display: 'inline-flex', verticalAlign: 'middle' }}
+            >
+                <img
+                    src={logoUrl}
+                    alt="Client Logo"
+                    style={{
+                        maxHeight: '2.5rem',
+                        maxWidth: '100%',
+                        objectFit: 'contain',
+                        margin: '0.25rem 0'
+                    }}
+                />
+            </NodeViewWrapper>
+        );
+    }
 
     return (
         <NodeViewWrapper

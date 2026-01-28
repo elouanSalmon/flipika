@@ -5,13 +5,14 @@ import { useReportEditor } from '../../../contexts/ReportEditorContext';
 import { SlideType } from '../../../types/reportTypes';
 import type { SlideConfig } from '../../../types/reportTypes';
 import { ChartBlockErrorBoundary } from './ChartBlockErrorBoundary';
+import { X } from 'lucide-react';
 
 // Import real slide components
 // Import real slide components
 import AdCreativeSlide from '../../reports/slides/AdCreativeSlide';
 import FunnelAnalysisSlide from '../../reports/slides/FunnelAnalysisSlide';
 import HeatmapSlide from '../../reports/slides/HeatmapSlide';
-import ClientLogoBlock from './ClientLogoBlock';
+
 import FlexibleDataBlock from './FlexibleDataBlock';
 import type { FlexibleDataConfig } from './FlexibleDataBlock';
 
@@ -71,7 +72,7 @@ const TOP_PERFORMERS_DEFAULT_CONFIG: FlexibleDataConfig = {
 export const DataBlockComponent = React.memo((props: NodeViewProps) => {
     const { node, deleteNode, selected, editor, updateAttributes } = props;
     const { blockType, config } = node.attrs;
-    const { design, accountId, campaignIds, reportId, isTemplateMode, startDate, endDate } = useReportEditor();
+    const { design, client, accountId, campaignIds, reportId, isTemplateMode, startDate, endDate } = useReportEditor();
 
     if (!design) {
         return (
@@ -285,10 +286,26 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                 );
             case 'clientLogo':
                 return (
-                    <ClientLogoBlock
-                        editable={editor.isEditable}
-                        onDelete={() => deleteNode()}
-                    />
+                    <div className="flex items-center justify-center p-4">
+                        {client?.logoUrl ? (
+                            <img
+                                src={client.logoUrl}
+                                alt="Logo Client"
+                                className="max-h-16 object-contain"
+                            />
+                        ) : (
+                            <div className="text-gray-400 italic">Logo Client</div>
+                        )}
+                        {editor.isEditable && (
+                            <button
+                                onClick={() => deleteNode()}
+                                className="absolute top-2 right-2 p-1 bg-red-100 text-red-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                title="Supprimer le logo"
+                            >
+                                <X size={14} />
+                            </button>
+                        )}
+                    </div>
                 );
             case SlideType.FLEXIBLE_DATA:
                 return (

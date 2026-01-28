@@ -352,36 +352,36 @@
     },
     "coverPage": {
       "title": "Page de garde",
-      "description": "Inserer une slide de page de garde editable"
+      "description": "Insérer une slide de page de garde éditable"
     },
     "conclusionPage": {
       "title": "Conclusion",
-      "description": "Inserer une slide de conclusion editable"
+      "description": "Insérer une slide de conclusion éditable"
     }
   },
   "coverPage": {
     "defaultTitle": "Titre du rapport",
-    "defaultPeriod": "Periode d'analyse",
+    "defaultPeriod": "Période d'analyse",
     "defaultClient": "Nom du client",
     "defaultUser": "Votre nom",
-    "preparedFor": "Prepare pour :",
-    "preparedBy": "Prepare par :",
-    "inserted": "Page de garde ajoutee"
+    "preparedFor": "Préparé pour :",
+    "preparedBy": "Préparé par :",
+    "inserted": "Page de garde ajoutée"
   },
   "conclusionPage": {
     "thankYou": "Merci de votre lecture !",
-    "contactPrompt": "Pour toute question, n'hesitez pas a nous contacter :",
+    "contactPrompt": "Pour toute question, n'hésitez pas à nous contacter :",
     "defaultEmail": "votre@email.com",
-    "inserted": "Page de conclusion ajoutee"
+    "inserted": "Page de conclusion ajoutée"
   },
   "variables": {
     "title": "Variables dynamiques",
-    "noResults": "Aucune variable trouvee",
+    "noResults": "Aucune variable trouvée",
     "clientName": "Nom du client",
     "reportTitle": "Titre du rapport",
-    "startDate": "Date de debut",
+    "startDate": "Date de début",
     "endDate": "Date de fin",
-    "dateRange": "Periode (debut - fin)",
+    "dateRange": "Période (début - fin)",
     "userName": "Nom de l'utilisateur",
     "userEmail": "Email de l'utilisateur",
     "userCompany": "Entreprise",
@@ -691,8 +691,8 @@
     "textColor": "Changer la couleur du texte",
     "highlightColor": "Changer la couleur de surlignage",
     "horizontalRule": "Insérer un séparateur horizontal",
-    "insertVariable": "Inserer une variable dynamique [var]",
-    "coverPage": "Inserer une page de garde",
-    "conclusionPage": "Inserer une page de conclusion"
+    "insertVariable": "Insérer une variable dynamique [var]",
+    "coverPage": "Insérer une page de garde",
+    "conclusionPage": "Insérer une page de conclusion"
   }
 }

@@ -66,6 +66,12 @@ export const DYNAMIC_VARIABLES = [
         labelKey: 'variables.currentDate',
         category: 'other',
     },
+    {
+        id: 'clientLogo',
+        label: 'Logo du client',
+        labelKey: 'variables.clientLogo',
+        category: 'client',
+    },
 ] as const;
 
 export type DynamicVariableId = typeof DYNAMIC_VARIABLES[number]['id'];

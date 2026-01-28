@@ -11,6 +11,7 @@ import { useAuth } from '../contexts/AuthContext';
 import ReportCanvas from '../components/reports/ReportCanvas';
 import { TiptapReadOnlyRenderer } from '../components/editor';
 import type { JSONContent } from '@tiptap/react';
+import type { Client } from '../types/client';
 import Spinner from '../components/common/Spinner';
 import ErrorState from '../components/common/ErrorState';
 import EmptyState from '../components/common/EmptyState';
@@ -50,6 +51,12 @@ const ReportPreview: React.FC = () => {
     const [retryCount, setRetryCount] = useState(0);
     const [isRetrying, setIsRetrying] = useState(false);
     const [showTroubleshoot, setShowTroubleshoot] = useState(false);
+    const [authorProfile, setAuthorProfile] = useState<{
+        userName: string;
+        userEmail: string;
+        userCompany: string;
+    } | null>(null);
+    const [client, setClient] = useState<Client | null>(null);
     const reportPreviewRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -57,6 +64,27 @@ const ReportPreview: React.FC = () => {
             loadReport();
         }
     }, [reportId]);
+
+    // Load author profile for dynamic variables
+    useEffect(() => {
+        const loadUserProfile = async () => {
+            if (!currentUser) return;
+            try {
+                const profile = await getUserProfile(currentUser.uid);
+                if (profile) {
+                    const fullName = `${profile.firstName || ''} ${profile.lastName || ''}`.trim();
+                    setAuthorProfile({
+                        userName: fullName || profile.username || '',
+                        userEmail: profile.email || currentUser.email || '',
+                        userCompany: profile.company || '',
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+            }
+        };
+        loadUserProfile();
+    }, [currentUser]);
 
     const loadReport = async () => {
         if (!reportId) return;
@@ -100,6 +128,17 @@ const ReportPreview: React.FC = () => {
 
             // Reset retry count on success
             setRetryCount(0);
+
+            // Fetch Client Data
+            if (result.report.clientId && currentUser?.uid) {
+                try {
+                    const { clientService } = await import('../services/clientService');
+                    const clientData = await clientService.getClient(currentUser.uid, result.report.clientId);
+                    setClient(clientData);
+                } catch (err) {
+                    console.warn('Could not load client data for preview:', err);
+                }
+            }
         } catch (error: unknown) {
             clearTimeout(timeoutId);
 
@@ -841,6 +880,10 @@ const ReportPreview: React.FC = () => {
                                 reportId={report.id}
                                 clientId={report.clientId}
                                 userId={report.userId}
+                                userName={authorProfile?.userName}
+                                userEmail={authorProfile?.userEmail}
+                                userCompany={authorProfile?.userCompany}
+                                client={client}
                                 startDate={report.startDate}
                                 endDate={report.endDate}
                             />

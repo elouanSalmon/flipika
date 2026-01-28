@@ -28,6 +28,9 @@ interface TiptapReadOnlyRendererProps {
     clientId?: string;
     client?: Client | null;
     userId?: string;
+    userName?: string;
+    userEmail?: string;
+    userCompany?: string;
     startDate?: Date;
     endDate?: Date;
 }
@@ -45,6 +48,9 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
     clientId,
     client,
     userId,
+    userName,
+    userEmail,
+    userCompany,
     startDate,
     endDate,
 }) => {
@@ -86,6 +92,7 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
         extensions,
         content,
         editable: false,
+        immediatelyRender: false,
     });
 
     if (!editor) {
@@ -110,6 +117,9 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
             clientId={clientId}
             client={client}
             userId={userId}
+            userName={userName}
+            userEmail={userEmail}
+            userCompany={userCompany}
             isPublicView={true}
             startDate={startDate}
             endDate={endDate}

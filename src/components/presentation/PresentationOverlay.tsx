@@ -2,18 +2,27 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { X, ChevronLeft, ChevronRight, Maximize2, Minimize2 } from 'lucide-react';
 import { TiptapReadOnlyRenderer } from '../editor/TiptapReadOnlyRenderer';
 import type { EditableReport } from '../../types/reportTypes';
+import type { Client } from '../../types/client';
 import { motion } from 'framer-motion';
 
 interface PresentationOverlayProps {
     report: EditableReport;
     onClose: () => void;
     initialSlideIndex?: number;
+    userName?: string;
+    userEmail?: string;
+    userCompany?: string;
+    client?: Client | null;
 }
 
 export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
     report,
     onClose,
     initialSlideIndex = 0,
+    userName,
+    userEmail,
+    userCompany,
+    client,
 }) => {
     const [currentSlideIndex, setCurrentSlideIndex] = useState(initialSlideIndex);
     const [isFullscreen, setIsFullscreen] = useState(false);
@@ -158,7 +167,11 @@ export const PresentationOverlay: React.FC<PresentationOverlayProps> = ({
                                     campaignIds={report.campaignIds}
                                     reportId={report.id}
                                     clientId={report.clientId}
+                                    client={client}
                                     userId={report.userId}
+                                    userName={userName}
+                                    userEmail={userEmail}
+                                    userCompany={userCompany}
                                     startDate={report.startDate}
                                     endDate={report.endDate}
                                 />
