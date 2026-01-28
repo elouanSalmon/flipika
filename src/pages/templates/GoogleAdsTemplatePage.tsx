@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Check, X, Zap, LayoutTemplate, Lock, ChevronDown, CheckCircle2, AlertTriangle, TrendingUp, Sparkles, Clock } from 'lucide-react';
+import { ArrowRight, X, ChevronDown, CheckCircle2, AlertTriangle, TrendingUp, Sparkles, Clock } from 'lucide-react';
 import SEO from '../../components/SEO';
 import TemplateGallery from '../../components/templates/TemplateGallery';
 
