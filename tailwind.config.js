@@ -24,6 +24,10 @@ export default {
                     dark: '#0066ff',
                 },
             },
+            fontFamily: {
+                'space-grotesk': ['Space Grotesk', 'Inter', 'sans-serif'],
+                'sans': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            },
             backdropBlur: {
                 xs: '2px',
             },
