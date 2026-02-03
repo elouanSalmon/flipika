@@ -46,6 +46,20 @@ import enAgencyAnalytics from './locales/en/alternatives/agency-analytics.json';
 import enDashThis from './locales/en/alternatives/dashthis.json';
 import enExcel from './locales/en/alternatives/excel-spreadsheets.json';
 
+// Templates - French
+import frGoogleAds from './locales/fr/templates/google-ads.json';
+import frPpc from './locales/fr/templates/ppc.json';
+import frMarketingAgency from './locales/fr/templates/marketing-agency.json';
+import frEcommerce from './locales/fr/templates/ecommerce.json';
+import frExecutive from './locales/fr/templates/executive.json';
+
+// Templates - English
+import enGoogleAds from './locales/en/templates/google-ads.json';
+import enPpc from './locales/en/templates/ppc.json';
+import enMarketingAgency from './locales/en/templates/marketing-agency.json';
+import enEcommerce from './locales/en/templates/ecommerce.json';
+import enExecutive from './locales/en/templates/executive.json';
+
 // ... other imports
 
 const resources = {
@@ -63,12 +77,19 @@ const resources = {
     clients: enClients,
     tutorial: enTutorial,
     alternatives: enAlternatives,
-    'templates-pillar': enTemplatesPillar,
+    'templates-pillar': enTemplatesPillar, // Keep for safety or remove if unused
     'lead-magnets': enLeadMagnets,
     'looker-studio': enLookerStudio,
     'agency-analytics': enAgencyAnalytics,
     'dashthis': enDashThis,
     'excel-spreadsheets': enExcel,
+
+    // New Template Namespaces
+    'templates:google-ads': enGoogleAds,
+    'templates:ppc': enPpc,
+    'templates:marketing-agency': enMarketingAgency,
+    'templates:ecommerce': enEcommerce,
+    'templates:executive': enExecutive,
   },
   fr: {
     common: frCommon,
@@ -90,6 +111,13 @@ const resources = {
     'agency-analytics': frAgencyAnalytics,
     'dashthis': frDashThis,
     'excel-spreadsheets': frExcel,
+
+    // New Template Namespaces
+    'templates:google-ads': frGoogleAds,
+    'templates:ppc': frPpc,
+    'templates:marketing-agency': frMarketingAgency,
+    'templates:ecommerce': frEcommerce,
+    'templates:executive': frExecutive,
   },
 };
 
@@ -129,7 +157,13 @@ i18n
       'looker-studio',
       'agency-analytics',
       'dashthis',
-      'excel-spreadsheets'
+      'excel-spreadsheets',
+      // New namespaces
+      'templates:google-ads',
+      'templates:ppc',
+      'templates:marketing-agency',
+      'templates:ecommerce',
+      'templates:executive'
     ],
     load: 'languageOnly',
   });

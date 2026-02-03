@@ -1,0 +1,192 @@
+{
+    "page": {
+        "title": "Ecommerce Google Ads Template 2026 | Track ROAS & Sales",
+        "metaDescription": "The ultimate Ecommerce Dashboard for Google Ads. Track ROAS, Revenue, Shopping Campaigns, and Product Performance. Real-time sales tracking.",
+        "h1": "Track Revenue & ROAS,\nNot Just Clicks.",
+        "subtitle": "For Ecommerce brands, only one metric matters: Profit for every dollar spent. Flipika's Ecommerce Template is built to visualize your ROI instantly.",
+        "cta": "Start Tracking ROAS",
+        "galleryTitle": "Ecommerce Dashboards",
+        "comparisonTitle": "Ecommerce: Flipika vs Generic Reports",
+        "hookTitle": "Built for Online Stores",
+        "faqTitle": "Ecommerce FAQ",
+        "costTitle": "The Cost of Unknown Profitability",
+        "costSubtitle": "If you don't track ROAS in real-time, you're burning margin.",
+        "metricsTitle": "E-com Metrics That Matter",
+        "metricsSubtitle": "Forget CTR. Let's talk Sales and Margin.",
+        "howItWorksTitle": "Setup in 3 Minutes",
+        "howItWorksSubtitle": "Connect. Visualize. Scale.",
+        "benefitsTitle": "Why E-com Brands Love Flipika",
+        "benefitsSubtitle": " clarity on your ad spend profitability",
+        "testimonialsTitle": "Merchant Success Stories",
+        "testimonialsSubtitle": "Used by Shopify & WooCommerce stores globally",
+        "useCasesTitle": "Retail Scenarios",
+        "useCasesSubtitle": "From single-product dropshipping to huge catalogs",
+        "tipsTitle": "7 Tips to Boost ROAS",
+        "tipsSubtitle": "Optimization advice included in your dashboard",
+        "socialProof": "Tracking $50M+ in ad spend annually"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connect Store Ads",
+            "description": "Link Google Ads. We automatically detect your Shopping campaigns and Merchant Center feeds."
+        },
+        "step2": {
+            "title": "Choose Ecom Layout",
+            "description": "Select the 'ROAS Focus' template. It prioritizes Revenue, Cart Value, and Cost of Sale over vanity metrics."
+        },
+        "step3": {
+            "title": "Visualize Products",
+            "description": "See which products are your winners and losers. Drill down by Brand, Category, or Item ID."
+        },
+        "step4": {
+            "title": "Scale Winners",
+            "description": "Use the insights to kill wasting ad sets and double down on profitable products immediately."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Daily Morning Recap",
+            "description": "Wake up to an email showing exactly how much you spent and made yesterday. Start your day knowing your numbers."
+        },
+        "realtime": {
+            "title": "Black Friday Ready",
+            "description": "During peak season, you need live data. Watch your hourly spend vs revenue to maximize big sale days."
+        },
+        "design": {
+            "title": "Investor Ready",
+            "description": "Need to show numbers to investors or partners? Our professional financial visuals build confidence."
+        },
+        "whitelabel": {
+            "title": "Custom Domain",
+            "description": "Host your dashboard at metrics.yourstore.com. Keep your data professional and branded."
+        },
+        "multidevice": {
+            "title": "Check on the Go",
+            "description": "Shopify notification popped up? Check the ad cost for that sale instantly on your phone."
+        },
+        "support": {
+            "title": "Ecom Data Experts",
+            "description": "We understand Merchant Center errors and conversion value lag. Our support speaks e-commerce."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "I finally know exactly how much profit I make on every ad dollar. The product-level breakdown is a lifesaver.",
+            "author": "Alex T.",
+            "role": "Owner",
+            "company": "SneakerStreet"
+        },
+        "testimonial2": {
+            "quote": "Running ads without Flipika was like flying blind. Now I can see which SKU is driving the ROAS down and cut it.",
+            "author": "Jessica L.",
+            "role": "Marketing Director",
+            "company": "BeautyCo"
+        },
+        "testimonial3": {
+            "quote": "The automated weekly report saves me 2 hours every Monday. And it looks way better than my old spreadsheets.",
+            "author": "Ryan P.",
+            "role": "Founder",
+            "company": "TechGadgets"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Performance Max Analysis",
+            "description": "Crack the black box. See asset group performance and listing group insights for PMax campaigns.",
+            "metrics": [
+                "PMax ROAS",
+                "Asset Strength",
+                "Listing Groups",
+                "Cost/Conv"
+            ]
+        },
+        "leadgen": {
+            "title": "High-Ticket Sales",
+            "description": "For stores with high AOV ($500+). Track long sales cycles and assisted conversions.",
+            "metrics": [
+                "Assisted Conv.",
+                "Path Length",
+                "Time Lag",
+                "Revenue"
+            ]
+        },
+        "agency": {
+            "title": "Dropshipping Testing",
+            "description": "Rapidly test products. Visualization of daily profitability per product to find winners fast.",
+            "metrics": [
+                "Daily Profit",
+                "Break-even ROAS",
+                "Margin %",
+                "Testing Cost"
+            ]
+        },
+        "local": {
+            "title": "Omnichannel Retail",
+            "description": "Combine online sales with 'Store Visits' metrics to see total impact of ads on revenue.",
+            "metrics": [
+                "Online Sales",
+                "Store Visits",
+                "Total ROAS",
+                "Local Actions"
+            ]
+        },
+        "saas": {
+            "title": "Subscription Box",
+            "description": "Track CAC vs LTV context. Understand front-end profitability vs back-end lifetime value.",
+            "metrics": [
+                "First Order Value",
+                "CAC",
+                "Subscribers",
+                "Recurring Revenue"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Track Search Impression Share",
+            "description": "Are your competitors outbidding you on your own brand name? Monitor Brand Search IS closely."
+        },
+        "tip2": {
+            "title": "Monitor Product Hygiene",
+            "description": "Keep an eye on 'Products Ready to Serve'. If this drops, you are missing potential sales due to feed errors."
+        },
+        "tip3": {
+            "title": "Breakdown by Category",
+            "description": "Don't look at blended ROAS only. Maybe Shoes are profitable but Socks are losing money. Segment!"
+        },
+        "tip4": {
+            "title": "Watch the 'Time Lag'",
+            "description": "Don't pause a campaign after 1 day if your average customer takes 14 days to buy. Check the lag report."
+        },
+        "tip5": {
+            "title": "Optimize for Margin, Not Revenue",
+            "description": "High ROAS doesn't mean high profit if you sell low-margin items. Know your break-even ROAS."
+        },
+        "tip6": {
+            "title": "Use Custom Labels",
+            "description": "Group products by margin (High/Low) or Season (Winter/Summer) in your feed, then report on these labels in Flipika."
+        },
+        "tip7": {
+            "title": "Mobile Speed Matters",
+            "description": "If mobile traffic has high Bounce Rate, your site is too slow. Fix it, or stop buying mobile traffic."
+        }
+    },
+    "faq": {
+        "q1": "Does it work with Shopify?",
+        "a1": "Yes, if your Google Ads sends data to your Shopify store (which it should), Flipika tracks the results perfectly.",
+        "q2": "Can I see profit, not just revenue?",
+        "a2": "Currently we pull 'Conversion Value' from Google Ads. If you pass profit margin data to Google, we can display it.",
+        "q3": "Does it track Performance Max?",
+        "a3": "Yes, we have full support for PMax campaigns, asset groups, and listing groups reporting.",
+        "q4": "How often does data update?",
+        "a4": "Hourly. Essential for Flash Sales or Black Friday monitoring.",
+        "q5": "Can I filter by product type?",
+        "a5": "Yes, our interactive tables allow filtering by Campaign, Ad Group, or Item ID.",
+        "q6": "Is it good for dropshipping?",
+        "a6": "Perfect for it. Quick clarity on what's working so you can kill bad ads fast.",
+        "q7": "What if I have multiple stores?",
+        "a7": "Toggle between store accounts in one click, or use our Agency view to see them side-by-side.",
+        "q8": "Do I need technical skills?",
+        "a8": "None. If you can log into Google, you can use Flipika. It's plug-and-play."
+    }
+}

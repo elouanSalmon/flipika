@@ -1,0 +1,192 @@
+{
+    "page": {
+        "title": "Executive Report Template | Google Ads Board Reporting",
+        "metaDescription": "The One-Page Executive Dashboard for Google Ads. High-level KPIs for C-Suite, Board Members, and Investors. Clear, concise, and impact-focused.",
+        "h1": "The One-Page Report\nYour CEO Will Actually Read.",
+        "subtitle": "Executives don't need clicks and CTR. They need ROAS, Spend, and Net Promoters. Flipika delivers the big picture in a format boardroom-ready instantly.",
+        "cta": "See Executive Summary",
+        "galleryTitle": "Executive Views",
+        "comparisonTitle": "Flipika vs PowerPoint Decks",
+        "hookTitle": "Built for Decision Makers",
+        "faqTitle": "Executive FAQ",
+        "costTitle": "The Cost of Information Overload",
+        "costSubtitle": "C-levels drown in data but starve for insights. Stop sending 50-page PDFs.",
+        "metricsTitle": "The Only KPIs That Matter at C-Level",
+        "metricsSubtitle": "Focus on the bottom line. Growth, Profitability, and Health.",
+        "howItWorksTitle": "Streamlined Process",
+        "howItWorksSubtitle": "Data to Decision in minutes",
+        "benefitsTitle": "Why CMOs & CFOs Trust Flipika",
+        "benefitsSubtitle": "Clarity, Control, and Confidence",
+        "testimonialsTitle": "Leadership Feedback",
+        "testimonialsSubtitle": "Used by VPs at Fortune 500s and Startups",
+        "useCasesTitle": "Executive Scenarios",
+        "useCasesSubtitle": "From Board Meetings to Investor Updates",
+        "tipsTitle": "7 Tips for Board Reporting",
+        "tipsSubtitle": "How to present data to non-marketers",
+        "socialProof": "Trusted by Leaders at TechCos & Brands"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connect Data Sources",
+            "description": "Secure, read-only connection to Google Ads. Enterprise-grade security compliance."
+        },
+        "step2": {
+            "title": "Select Executive View",
+            "description": "Choose the 'Boardroom Ready' template. Removes granular metrics, highlights high-level trends and financial impact."
+        },
+        "step3": {
+            "title": "Add Commentary",
+            "description": "Use the 'Executive Summary' text block to add qualitative context alongside quantitative data."
+        },
+        "step4": {
+            "title": "Export or Share",
+            "description": "Generate a clean PDF for the board deck, or share a live link protected by password."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Monday Morning Brief",
+            "description": "Automated email summary sent to the C-suite every Monday at 8 AM. They start the week informed."
+        },
+        "realtime": {
+            "title": "Budget Control",
+            "description": "CFOs love it. Real-time view of month-to-date spend vs budget cap. No more end-of-month surprises."
+        },
+        "design": {
+            "title": "Boardroom Aesthetics",
+            "description": "Clean, uncluttered design. Large numbers, clear trend lines. Looks great on a projector or an iPad."
+        },
+        "whitelabel": {
+            "title": "Internal Branding",
+            "description": "Your company logo and colors. Looks like a proprietary internal BI tool."
+        },
+        "multidevice": {
+            "title": "iPad Ready",
+            "description": "Perfect for executives who check performance on their tablet during commute."
+        },
+        "support": {
+            "title": "Enterprise Reliability",
+            "description": "99.9% Uptime. Data is always there when you need it for a critical meeting."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "I don't have time to log into Google Ads. Flipika's weekly summary gives me everything I need to know in 30 seconds.",
+            "author": "Michael S.",
+            "role": "CEO",
+            "company": "FinTech Startup"
+        },
+        "testimonial2": {
+            "quote": "Finally, a report that speaks my language. Spend, Revenue, ROI. No marketing jargon.",
+            "author": "Linda G.",
+            "role": "CFO",
+            "company": "Retail Chain"
+        },
+        "testimonial3": {
+            "quote": "My marketing director uses Flipika to present at board meetings. It helps us make faster budget allocation decisions.",
+            "author": "Robert D.",
+            "role": "Board Member",
+            "company": "Venture Firm"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Investor Update",
+            "description": "Show investors healthy unit economics. CAC stabilization and Volume growth on one chart.",
+            "metrics": [
+                "Blended CAC",
+                "Monthly Spend",
+                "Total Revenue",
+                "YoY Growth"
+            ]
+        },
+        "leadgen": {
+            "title": "Sales Alignment",
+            "description": "Align Marketing and Sales. Show Lead Volume trends overlayed with Pipeline Value.",
+            "metrics": [
+                "Marketing Qualified Leads",
+                "Cost Per MQL",
+                "Pipeline Generated",
+                "Conversion Impact"
+            ]
+        },
+        "agency": {
+            "title": "QBR (Quarterly Business Review)",
+            "description": "The perfect visual aid for QBRs. Show quarter-over-quarter improvements clearly.",
+            "metrics": [
+                "QoQ Growth",
+                "Efficiency Gains",
+                "Strategic Initiatives",
+                "Forecast"
+            ]
+        },
+        "local": {
+            "title": "Franchise Owner Update",
+            "description": "Simple green/red indicators for franchise owners. 'Are we up or down vs last year?'",
+            "metrics": [
+                "YoY Revenue",
+                "Local Footfall",
+                "Brand Awareness",
+                "Market Share"
+            ]
+        },
+        "saas": {
+            "title": "Board Meeting Deck",
+            "description": "Copy-paste ready charts for the deck. Burn rate vs Customer Acquisition.",
+            "metrics": [
+                "Burn Rate (Ads)",
+                "New Logos",
+                "CAC Payback",
+                "LTV Trend"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Context is King",
+            "description": "Numbers without context are dangerous. Always use the text widget to explain WHY a number changed (e.g., 'Seasonality', 'New Competitor')."
+        },
+        "tip2": {
+            "title": "Focus on Trends, not Snapsots",
+            "description": "Executives care about direction. Is the line going up or down? Show 12-month trailing charts."
+        },
+        "tip3": {
+            "title": "Aggregate Data",
+            "description": "Don't show campaign-level data. Roll it up to Channel or Region level. Keep it strategic."
+        },
+        "tip4": {
+            "title": "Highlight Efficiency",
+            "description": "Show ROAS or CPA prominently. Prove that the budget is being used efficiently."
+        },
+        "tip5": {
+            "title": "Include Benchmarks",
+            "description": "Compare performance against industry benchmarks or internal targets/forecasts."
+        },
+        "tip6": {
+            "title": "Keep it One Page",
+            "description": "If they have to scroll too much, you lost them. The key metrics should fit on one screen."
+        },
+        "tip7": {
+            "title": "Prepare Answers",
+            "description": "The dashboard will prompt questions. 'Why is CPA up?' Be ready to answer based on the drill-down data available to you."
+        }
+    },
+    "faq": {
+        "q1": "Can I password protect the report?",
+        "a1": "Yes, sensitive financial data should be secure. You can password protect any public link.",
+        "q2": "Does it integrate with Salesforce?",
+        "a2": "We extract Google Ads data. If you import Salesforce conversions into Google Ads (recommended), we can report on them (e.g., 'Closed Deals').",
+        "q3": "Can I export for PowerPoint?",
+        "a3": "You can export images of charts or a full PDF to drop into your deck.",
+        "q4": "How secure is the data?",
+        "a4": "SOC 2 compliant infrastructure. Read-only access. We take security seriously for enterprise clients.",
+        "q5": "Can I see budget pacing?",
+        "a5": "Yes, the 'Pacing' widget is a favorite of CFOs. It projects end-of-month spend based on current run rate.",
+        "q6": "Is it easy to read on mobile?",
+        "a6": "Designed for busy executives on the go. Retains clarity on iPhone and iPad screens.",
+        "q7": "Can I customize the logo?",
+        "a7": "Yes, fully white-labeled. Put your company brand on it.",
+        "q8": "Do I need a Google Ads login?",
+        "a8": "No. Once connected by the marketing team, executives can view the Flipika dashboard via a simple link without needing Google Ads access."
+    }
+}

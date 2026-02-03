@@ -1,0 +1,192 @@
+{
+    "page": {
+        "title": "Template Rapport Exécutif | Reporting Google Ads pour Board",
+        "metaDescription": "Le Dashboard Exécutif One-Page pour Google Ads. KPIs de haut niveau pour le Comex, Board et Investisseurs. Clair, concis et impactant.",
+        "h1": "Le Rapport One-Page que votre\nCEO lira vraiment.",
+        "subtitle": "Les exécutifs n'ont pas besoin de clics et de CTR. Ils veulent du ROAS, de la Dépense et de la Rentabilité. Flipika livre la 'Big Picture' dans un format prêt pour le board.",
+        "cta": "Voir le Résumé Exécutif",
+        "galleryTitle": "Vues Dirigeants",
+        "comparisonTitle": "Flipika vs Slides PowerPoint",
+        "hookTitle": "Conçu pour les Décideurs",
+        "faqTitle": "FAQ Dirigeants",
+        "costTitle": "Le Coût de la Surcharge d'Info",
+        "costSubtitle": "Les C-levels se noient dans la donnée mais manquent d'insights. Arrêtez les PDF de 50 pages.",
+        "metricsTitle": "Les Seuls KPIs qui Comptent au Comex",
+        "metricsSubtitle": "Focus sur la ligne du bas. Croissance, Profitabilité et Santé.",
+        "howItWorksTitle": "Processus Simplifié",
+        "howItWorksSubtitle": "De la donnée à la décision en minutes",
+        "benefitsTitle": "Pourquoi les CMOs & CFOs font confiance à Flipika",
+        "benefitsSubtitle": "Clarté, Contrôle et Confiance",
+        "testimonialsTitle": "Feedback Leadership",
+        "testimonialsSubtitle": "Utilisé par des VPs de Fortune 500 et Startups",
+        "useCasesTitle": "Scénarios Exécutifs",
+        "useCasesSubtitle": "Des réunions de Board aux updates Investisseurs",
+        "tipsTitle": "7 Conseils pour Reporter au Board",
+        "tipsSubtitle": "Comment présenter la data aux non-marketeurs",
+        "socialProof": "Approuvé par les leaders de la Tech & Retail"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connecter les Sources",
+            "description": "Connexion sécurisée en lecture seule à Google Ads. Conformité sécurité entreprise."
+        },
+        "step2": {
+            "title": "Choisir la Vue Exécutive",
+            "description": "Sélectionnez le template 'Boardroom Ready'. Supprime les métriques granulaires, surligne les tendances macro et l'impact financier."
+        },
+        "step3": {
+            "title": "Ajouter le Commentaire",
+            "description": "Utilisez le bloc 'Executive Summary' pour ajouter du contexte qualitatif à côté des données quantitatives."
+        },
+        "step4": {
+            "title": "Exporter ou Partager",
+            "description": "Générez un PDF propre pour le deck du board, ou partagez un lien live protégé par mot de passe."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Brief du Lundi Matin",
+            "description": "Résumé email automatisé envoyé au Comex chaque lundi à 8h. Ils commencent la semaine informés."
+        },
+        "realtime": {
+            "title": "Contrôle Budgétaire",
+            "description": "Les CFOs adorent. Vue temps réel du consommé vs budget plafond. Plus de surprises en fin de mois."
+        },
+        "design": {
+            "title": "Esthétique Boardroom",
+            "description": "Design épuré. Gros chiffres, courbes de tendance claires. Rend super bien sur un projecteur ou un iPad."
+        },
+        "whitelabel": {
+            "title": "Branding Interne",
+            "description": "Votre logo et couleurs d'entreprise. Ressemble à un outil BI propriétaire développé en interne."
+        },
+        "multidevice": {
+            "title": "iPad Ready",
+            "description": "Parfait pour les exécutifs qui checkent la perf sur leur tablette pendant le transport."
+        },
+        "support": {
+            "title": "Fiabilité Entreprise",
+            "description": "99.9% Uptime. La donnée est toujours là quand vous en avez besoin pour une réunion critique."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Je n'ai pas le temps de me loguer sur Google Ads. Le résumé hebdo Flipika me donne tout ce que je dois savoir en 30 secondes.",
+            "author": "Michael S.",
+            "role": "CEO",
+            "company": "FinTech Startup"
+        },
+        "testimonial2": {
+            "quote": "Enfin un rapport qui parle ma langue. Dépense, Revenu, ROI. Pas de jargon marketing.",
+            "author": "Linda G.",
+            "role": "CFO",
+            "company": "Chaîne Retail"
+        },
+        "testimonial3": {
+            "quote": "Ma directrice marketing utilise Flipika pour présenter au board. Ça nous aide à prendre des décisions d'allocation budgétaire plus vite.",
+            "author": "Robert D.",
+            "role": "Membre du Board",
+            "company": "Venture Firm"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Update Investisseurs",
+            "description": "Montrez des unit economics sains. Stabilisation du CAC et croissance du Volume sur un graphe.",
+            "metrics": [
+                "CAC Blended",
+                "Dépense Mensuelle",
+                "Revenu Total",
+                "Croissance YoY"
+            ]
+        },
+        "leadgen": {
+            "title": "Alignement Sales",
+            "description": "Alignez Marketing et Vente. Montrez les tendances de Volume de Leads superposées à la Valeur Pipeline.",
+            "metrics": [
+                "MQLs",
+                "Coût par MQL",
+                "Pipeline Généré",
+                "Impact Conversion"
+            ]
+        },
+        "agency": {
+            "title": "QBR (Revue Trimestrielle)",
+            "description": "L'aide visuelle parfaite pour les QBRs. Montrez les améliorations trimestre par trimestre clairement.",
+            "metrics": [
+                "Croissance QoQ",
+                "Gains Efficacité",
+                "Initiatives Strat.",
+                "Prévisions"
+            ]
+        },
+        "local": {
+            "title": "Update Franchisés",
+            "description": "Indicateurs simples vert/rouge pour les propriétaires. 'Sommes-nous en hausse ou baisse vs l'an dernier ?'",
+            "metrics": [
+                "Revenu YoY",
+                "Footfall Local",
+                "Notoriété",
+                "Part de Marché"
+            ]
+        },
+        "saas": {
+            "title": "Deck Board Meeting",
+            "description": "Graphes prêts à copier-coller pour le deck. Burn rate vs Acquisition Client.",
+            "metrics": [
+                "Burn Rate (Ads)",
+                "Nouveaux Logos",
+                "Payback CAC",
+                "Tendance LTV"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Le Contexte est Roi",
+            "description": "Les chiffres sans contexte sont dangereux. Utilisez toujours le widget texte pour expliquer POURQUOI un chiffre a changé (ex: 'Saisonnalité', 'Nouveau Concurrent')."
+        },
+        "tip2": {
+            "title": "Focus Tendances, pas Instantanés",
+            "description": "Les exécutifs s'intéressent à la direction. La courbe monte ou descend ? Montrez des historiques sur 12 mois."
+        },
+        "tip3": {
+            "title": "Agregez la Donnée",
+            "description": "Ne montrez pas de données niveau campagne. Roulez au niveau Canal ou Région. Restez stratégique."
+        },
+        "tip4": {
+            "title": "Surlignez l'Efficacité",
+            "description": "Montrez le ROAS ou CPA de façon proéminente. Prouvez que le budget est utilisé efficacement."
+        },
+        "tip5": {
+            "title": "Incluez des Benchmarks",
+            "description": "Comparez la performance contre les benchmarks industrie ou les cibles internes."
+        },
+        "tip6": {
+            "title": "Tenez sur Une Page",
+            "description": "S'ils doivent trop scroller, vous les avez perdus. Les métriques clés doivent tenir sur un écran."
+        },
+        "tip7": {
+            "title": "Préparez les Réponses",
+            "description": "Le dashboard va susciter des questions. 'Pourquoi le CPA monte ?' Soyez prêt à répondre grâce à la data drill-down."
+        }
+    },
+    "faq": {
+        "q1": "Puis-je protéger le rapport par mot de passe ?",
+        "a1": "Oui, les données financières sensibles doivent être sécurisées. Vous pouvez protéger tout lien public.",
+        "q2": "Intégration Salesforce ?",
+        "a2": "Nous extrayons Google Ads. Si vous importez les conversions Salesforce dans Google Ads (recommandé), nous pouvons reporter dessus (ex: 'Deals Closés').",
+        "q3": "Export PowerPoint ?",
+        "a3": "Vous pouvez exporter les images des graphes ou un PDF complet pour glisser dans votre deck.",
+        "q4": "Sécurité des données ?",
+        "a4": "Infra SOC 2. Accès lecture seule. Nous prenons la sécurité au sérieux pour les clients entreprise.",
+        "q5": "Puis-je voir le pacing budget ?",
+        "a5": "Oui, le widget 'Pacing' est un favori des CFOs. Il projette la dépense fin de mois selon le rythme actuel.",
+        "q6": "Lisible sur mobile ?",
+        "a6": "Conçu pour les exécutifs occupés. Reste clair sur écrans iPhone et iPad.",
+        "q7": "Logo customisable ?",
+        "a7": "Oui, marque blanche totale. Mettez votre marque entreprise dessus.",
+        "q8": "Besoin d'un login Google Ads ?",
+        "a8": "Non. Une fois connecté par l'équipe marketing, les exécutifs voient le dashboard Flipika via un lien simple sans accès Google Ads."
+    }
+}

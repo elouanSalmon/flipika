@@ -70,7 +70,7 @@ export default defineConfig(({ mode }) => {
           ]
         },
         workbox: {
-          maximumFileSizeToCacheInBytes: 4000000,
+          maximumFileSizeToCacheInBytes: 6000000,
           // Network-First strategy for API and Firestore requests
           // This ensures users NEVER see stale data
           runtimeCaching: [

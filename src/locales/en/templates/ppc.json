@@ -1,0 +1,192 @@
+{
+    "page": {
+        "title": "Free PPC Report Template 2026 | For Google Ads & Bing",
+        "metaDescription": "Download the ultimate PPC Report Template for 2026. Track Search, Display, and Video campaigns in one place. Automated, real-time, and client-ready.",
+        "h1": "Stop manually aggregating\nPPC data for your clients.",
+        "subtitle": "Static Excel sheets can't keep up with modern PPC complexity. Switch to Flipika's Live PPC Template: aggregated views, automated insights, and zero maintenance.",
+        "cta": "Use this template for free",
+        "galleryTitle": "Select Your PPC Dashboard",
+        "comparisonTitle": "Why Flipika beats Excel for PPC",
+        "hookTitle": "Why it's better than manual reporting",
+        "faqTitle": "Frequently Asked Questions",
+        "costTitle": "The Cost of Manual PPC Reporting",
+        "costSubtitle": "Still copy-pasting from Google Ads to Excel? Here is the true cost.",
+        "metricsTitle": "Key PPC Metrics in 2026",
+        "metricsSubtitle": "Clicks are vanity. Here are the sanity metrics you need.",
+        "howItWorksTitle": "How it works",
+        "howItWorksSubtitle": "From connection to insights in 3 minutes",
+        "benefitsTitle": "Why choose Flipika for PPC?",
+        "benefitsSubtitle": "Reports that prove your ROI and justify your management fees",
+        "testimonialsTitle": "What PPC Managers Say",
+        "testimonialsSubtitle": "Join 500+ professionals who upgraded their reporting",
+        "useCasesTitle": "PPC Use Cases",
+        "useCasesSubtitle": "Tailored for every type of paid media campaign",
+        "tipsTitle": "7 Pro Tips for PPC Reporting",
+        "tipsSubtitle": "Best practices from top performance agencies",
+        "socialProof": "Trusted by 500+ PPC Agencies globally"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connect Ad Accounts",
+            "description": "Securely connect Google Ads via official API. Bing and Meta Ads coming soon. Read-only access ensures safety."
+        },
+        "step2": {
+            "title": "Select PPC Template",
+            "description": "Choose between 'Search Focused', 'Full Funnel', or 'Executive Summary' layouts tailored for PPC performance."
+        },
+        "step3": {
+            "title": "Customize KPIs",
+            "description": "Drag & drop widgets to show exactly what matters: CPA by device, ROAS by location, or Search Lost IS."
+        },
+        "step4": {
+            "title": "Automate Delivery",
+            "description": "Schedule weekly emails to your clients or stakeholders. They get a live link or a pixel-perfect PDF."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "100% Automated",
+            "description": "Never take a screenshot of Google Ads again. Your data is live, accurate, and always ready for a meeting."
+        },
+        "realtime": {
+            "title": "Real-Time Adjustments",
+            "description": "Spot budget bleed immediately. Live dashboards let you react to CPAs spiking before they ruin your monthly performance."
+        },
+        "design": {
+            "title": "Agency-Grade Design",
+            "description": "Look like a premium consultant. Glassmorphism design and interactive charts make you look worth every penny of your retainer."
+        },
+        "whitelabel": {
+            "title": "Your Brand, Not Ours",
+            "description": "Remove Flipika branding. Use your domain (report.youragency.com) and logo. Own the client experience completely."
+        },
+        "multidevice": {
+            "title": "Mobile Ready",
+            "description": "Clients check emails on phones. Make sure your report looks perfect on mobile devices with our responsive design."
+        },
+        "support": {
+            "title": "PPC Expert Support",
+            "description": "Built by PPC pros for PPC pros. Our support team helps you visualize complex metrics like attribution models."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "I used to spend every Monday morning fighting with Excel pivot tables. Now my PPC reports generate themselves. I gained back 4 hours a week.",
+            "author": "James C.",
+            "role": "PPC Manager",
+            "company": "Growth Digital"
+        },
+        "testimonial2": {
+            "quote": "Clients actually read these reports. The interactive charts for ROAS vs Spend helped maximize our budget approval rates.",
+            "author": "Sarah Jenkins",
+            "role": "Head of Paid Search",
+            "company": "Ecom Scalers"
+        },
+        "testimonial3": {
+            "quote": "The ability to customize columns for Quality Score and Lost IS directly in the table widget is a game changer for my optimization workflow.",
+            "author": "Mike T.",
+            "role": "Freelancer",
+            "company": "MikePPC"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Shopping & Retail",
+            "description": "Visualize Shopping feed performance. Track revenue by product group and Merchant Center status. Metrics: ROAS, Cart Value, Purchase Rate.",
+            "metrics": [
+                "Shopping ROAS",
+                "Avg Order Value",
+                "Cart Abandonment",
+                "Feed Health"
+            ]
+        },
+        "leadgen": {
+            "title": "B2B Lead Gen",
+            "description": "Follow the lead quality. Connect offline conversions to see which keywords drive actual contracts, not just form fills. Metrics: Cost/Lead, Lead Quality, Pipeline Value.",
+            "metrics": [
+                "CPA",
+                "Lead Quality",
+                "Form Conv. Rate",
+                "Pipeline Value"
+            ]
+        },
+        "agency": {
+            "title": "Multi-Client Management",
+            "description": "See all your managed accounts in one master view. Spot underperforming budgets and critical alerts instantly. Metrics: Global Spend, Alert Count, Portfolio ROAS.",
+            "metrics": [
+                "Portfolio Spend",
+                "Budget Pace",
+                "Health Score",
+                "Critical Alerts"
+            ]
+        },
+        "local": {
+            "title": "Local Service Ads",
+            "description": "Track calls and location actions. Perfect for plumbers, lawyers, and local businesses. Metrics: Calls, Directions, Store Visits.",
+            "metrics": [
+                "Phone Calls",
+                "Store Visits",
+                "Local Actions",
+                "Cost Per Call"
+            ]
+        },
+        "saas": {
+            "title": "SaaS User Acquisition",
+            "description": "Measure the full funnel from impression to trial to paid user. Optimize for LTV. Metrics: CAC, Trial Ratio, Churn contribution.",
+            "metrics": [
+                "CAC",
+                "Trial to Paid",
+                "Signups",
+                "LTV/CAC"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Monitor Search Lost IS (Budget)",
+            "description": "If this is high, you are losing easy wins. Use this metric in Flipika to justify budget increases to your clients."
+        },
+        "tip2": {
+            "title": "Segment by Match Type",
+            "description": "Broad vs Exact performance often varies wildly. Use our 'Segment By' feature to visualize the ROAS difference instantly."
+        },
+        "tip3": {
+            "title": "Day of Week Analysis",
+            "description": "B2B campaigns often burn cash on weekends. Use the heatmap visualization to identify wasted spend hours."
+        },
+        "tip4": {
+            "title": "Quality Score Tracking",
+            "description": "Don't just look at current QS. Track its history. Flipika logs daily snapshots so you can prove your optimization work improved score."
+        },
+        "tip5": {
+            "title": "Device Performance",
+            "description": "Mobile conversion rates are often lower. Should you bid down? Check the device comparison chart before deciding."
+        },
+        "tip6": {
+            "title": "Actual Search Terms",
+            "description": "Show clients what they are paying for. A word cloud of actual search terms can be very revealing and build trust."
+        },
+        "tip7": {
+            "title": "Conversion Delay",
+            "description": "Explain why last week's results look low. Use the time-lag report to show clients that conversions take time to mature."
+        }
+    },
+    "faq": {
+        "q1": "Is this template suitable for small budgets?",
+        "a1": "Yes, absolutely. Whether you spend $500 or $500,000, the metrics (CPA, CTR, ROAS) remain the key indicators of success. Flipika scales with you.",
+        "q2": "Can I combine Google and Bing data?",
+        "a2": "Currently native integration is Google Ads. Microsoft Ads (Bing) integration is on our roadmap for late 2026. You can use manual data blocks for Bing in the meantime.",
+        "q3": "How accurate is the data?",
+        "a3": "100% accurate. We pull directly from the Google Ads API without sampling. What you see in Flipika matches your Google Ads dashboard exactly.",
+        "q4": "Can I share this with my team?",
+        "a4": "Yes, you can invite unlimited team members to view or edit the reports depending on their permissions. Great for internal collaboration.",
+        "q5": "Does it support custom conversions?",
+        "a5": "Yes, all conversion actions defined in your Google Ads account are importable. You can filter reports to show only specific conversion labels.",
+        "q6": "Is there a limit on historical data?",
+        "a6": "We typically pull the last 24 months of data upon connection, allowing you to do Year-over-Year comparisons immediately.",
+        "q7": "Can I white-label the URL?",
+        "a7": "Yes, on our Agency plan, you can map a custom domain (e.g., reports.agency.com) so the client never sees 'Flipika'.",
+        "q8": "How secure is the connection?",
+        "a8": "We use OAuth 2.0 with strictly read-only scopes. We cannot change your ads or spend your budget. We are verified by Google Security."
+    }
+}

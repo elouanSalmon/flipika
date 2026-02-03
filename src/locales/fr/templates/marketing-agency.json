@@ -1,0 +1,192 @@
+{
+    "page": {
+        "title": "Modèle de Rapport Agence 2026 | Rapports Clients Marque Blanche",
+        "metaDescription": "Scalez votre agence avec des rapports Google Ads automatisés et marque blanche. Gérez 50+ clients sans effort. Dashboards temps réel à vos couleurs.",
+        "h1": "Le Reporting Client qui\nGrandit avec votre Agence.",
+        "subtitle": "Arrêtez de perdre des heures facturables sur des captures d'écran. Flipika permet aux agences d'automatiser des rapports premium pour des centaines de clients en quelques minutes.",
+        "cta": "Voir le Template Agence",
+        "galleryTitle": "Conçu pour les Agences",
+        "comparisonTitle": "Pourquoi les Agences choisissent Flipika",
+        "hookTitle": "Bâti pour la Croissance",
+        "faqTitle": "FAQ Agence",
+        "costTitle": "Le Coût du Reporting Non-Facturable",
+        "costSubtitle": "Chaque heure passée sur Excel par vos Account Managers est une heure perdue pour la stratégie.",
+        "metricsTitle": "Des KPIs que les Clients Comprennent",
+        "metricsSubtitle": "Simplifiez le complexe. Montrez la valeur instantanément.",
+        "howItWorksTitle": "Votre Nouveau Workflow",
+        "howItWorksSubtitle": "Onboarder un nouveau client en moins de 5 minutes",
+        "benefitsTitle": "Pourquoi les Top Agences Choisissent Flipika",
+        "benefitsSubtitle": "Rétention, Efficacité et Image de Marque",
+        "testimonialsTitle": "Les Fondateurs d'Agence Adorent",
+        "testimonialsSubtitle": "Propulse le reporting de 200+ agences marketing",
+        "useCasesTitle": "Cas d'Usage Agence",
+        "useCasesSubtitle": "De la boutique spécialisée aux grands réseaux",
+        "tipsTitle": "7 Conseils Rétention via le Reporting",
+        "tipsSubtitle": "Transformez le reporting de corvée en outil de fidélisation",
+        "socialProof": "Approuvé par 200+ Agences mondialement"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connectez le Compte MCC",
+            "description": "Liez votre MCC Google Ads une seule fois. Tous les sous-comptes deviennent instantanément disponibles. Pas de logins multiples."
+        },
+        "step2": {
+            "title": "Branding Global",
+            "description": "Uploadez votre logo, définissez vos codes couleurs, et mappez votre domaine (rapports.votreagence.com). Applique votre marque sur tous les rapports."
+        },
+        "step3": {
+            "title": "Assignez les Templates",
+            "description": "Créez un 'Master Template' et appliquez-le à 50 clients en un clic. Les mises à jour du master se propagent partout."
+        },
+        "step4": {
+            "title": "Automatisez l'Envoi",
+            "description": "Règle : 'Envoyer rapport standard le Lundi à 9h'. Détendez-vous et laissez Flipika gérer les updates hebdos."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Gain de Temps Massif",
+            "description": "Réduisez le temps de reporting de 90%. Un account manager peut gérer 2x plus de clients s'il ne passe pas ses vendredis à faire des rapports."
+        },
+        "realtime": {
+            "title": "Portail Client",
+            "description": "Donnez un lien permanent aux clients. Ils vérifient les stats quand ils veulent. La transparence crée la confiance et réduit les emails de statut."
+        },
+        "design": {
+            "title": "Image de Marque Premium",
+            "description": "Vos rapports ressemblent à un logiciel custom développé par l'agence. Impressionnez les prospects en pitch avec des démos live."
+        },
+        "whitelabel": {
+            "title": "100% Marque Blanche",
+            "description": "Votre domaine, votre expéditeur email, votre logo. Flipika est complètement invisible pour vos clients finaux."
+        },
+        "multidevice": {
+            "title": "Mode Pitch",
+            "description": "Utilisez le dashboard sur tablette en réunion client. Les données interactives vous rendent plus préparé et professionnel."
+        },
+        "support": {
+            "title": "Support Agence Prioritaire",
+            "description": "Les agences ont un account manager dédié. Nous vous aidons à migrer vos anciens rapports et formons votre équipe."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Passer à Flipika nous a économisé l'équivalent d'un salaire temps plein en heures de reporting. Le ROI a été immédiat.",
+            "author": "David K.",
+            "role": "Fondateur Agence",
+            "company": "ScaleUp Media"
+        },
+        "testimonial2": {
+            "quote": "Nos clients adorent le lien live. Ils se sentent plus en contrôle, et on passe moins de temps à répondre aux questions basiques.",
+            "author": "Elena R.",
+            "role": "Directrice Clientèle",
+            "company": "SearchWins"
+        },
+        "testimonial3": {
+            "quote": "La marque blanche est parfaite. Les clients demandent 'Combien a coûté ce logiciel ?' Ça nous donne une image énorme.",
+            "author": "Marc B.",
+            "role": "CEO",
+            "company": "Boutique Ads"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Rapport Ecom Mensuel",
+            "description": "Focus ROAS et Ventes. Montrez l'impact revenu direct du travail de l'agence clairement.",
+            "metrics": [
+                "Revenu Total",
+                "Dépense Pub",
+                "ROAS",
+                "Nouveaux Clients"
+            ]
+        },
+        "leadgen": {
+            "title": "Lead Gen Hebdo",
+            "description": "Gardez les équipes commerciales heureuses avec le flux de leads. Qualité et volume au centre.",
+            "metrics": [
+                "Leads Semaine",
+                "CPL",
+                "Qualité Lead",
+                "Rythme Budget"
+            ]
+        },
+        "agency": {
+            "title": "Vue Portefeuille Interne",
+            "description": "Pour les patrons d'agence. Tous les clients dans un tableau. Repérez les insatisfaits (ROAS bas) avant le churn.",
+            "metrics": [
+                "Dépense Gérée Totale",
+                "ROAS Moyen",
+                "Risque Churn",
+                "Perf Équipe"
+            ]
+        },
+        "local": {
+            "title": "Rapport Franchise",
+            "description": "Gérez les franchises multi-sites. Rapport par magasin/ville tout en donnant une vue globale au siège.",
+            "metrics": [
+                "Visites Magasin",
+                "ROAS Local",
+                "Classement Ville",
+                "CPV Global"
+            ]
+        },
+        "saas": {
+            "title": "Onboarding Nouveaux",
+            "description": "Wow effect dans les 7 premiers jours. Envoyez un rapport 'Premiers Gains' montrant l'impact immédiat.",
+            "metrics": [
+                "Score Opti",
+                "Gaspillage Évité",
+                "Gain CTR",
+                "Quick Wins"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Utilisez les Résumés Exécutifs",
+            "description": "Les clients sont occupés. Ajoutez un widget texte en haut avec 3 bullet points écrits par l'AM. Ne montrez pas juste des graphes."
+        },
+        "tip2": {
+            "title": "Automatisez les Alertes",
+            "description": "Set d'alertes internes si les métriques d'un client chutent. Corrigez avant qu'ils n'appellent. Proactif > Réactif."
+        },
+        "tip3": {
+            "title": "Montrez le N vs N-1",
+            "description": "La saisonnalité compte. Comparez toujours ce mois au même mois l'an dernier pour montrer la vraie croissance."
+        },
+        "tip4": {
+            "title": "Éduquez avec les Tooltips",
+            "description": "Les clients ne savent pas ce qu'est la 'Part d'impression'. Flipika a des définitions intégrées, plus besoin de réexpliquer."
+        },
+        "tip5": {
+            "title": "Cohérence de Marque",
+            "description": "Assurez-vous que chaque rapport utilise la même structure. La cohérence crée la confiance et l'image pro."
+        },
+        "tip6": {
+            "title": "La Transparence est Clé",
+            "description": "Ne cachez pas la dépense. Montrez exactement ce qui va à Google vs vos honoraires. La transparence réduit les frictions de facturation."
+        },
+        "tip7": {
+            "title": "Upsell par la Data",
+            "description": "Montrez 'Part d'impression perdue (Budget)' en gros. C'est le moyen le plus facile de demander une hausse de budget."
+        }
+    },
+    "faq": {
+        "q1": "Comment fonctionne le prix agence ?",
+        "a1": "Plan fixe ou par client, selon ce qui scale le mieux pour vous. Pas de frais cachés par utilisateur équipe.",
+        "q2": "Puis-je utiliser mon domaine ?",
+        "a2": "Oui, support CNAME inclus. Vos clients verront rapports.votreagence.com.",
+        "q3": "Supportez-vous les MCC ?",
+        "a3": "Oui, connectez le MCC racine et tous les sous-comptes sont importés et synchronisés.",
+        "q4": "Puis-je templater mes rapports ?",
+        "a4": "Oui, créez un 'Template Agence Standard' et appliquez-le à tout nouveau client en un clic. Gain de temps énorme.",
+        "q5": "Y a-t-il une limite de clients ?",
+        "a5": "Pas de limite dure. Des agences gèrent 500+ comptes sur Flipika. L'infra scale automatiquement.",
+        "q6": "Les clients peuvent-ils éditer ?",
+        "a6": "Non, accès 'Lecture Seule'. Ils peuvent jouer avec les dates mais pas casser le layout.",
+        "q7": "Export PDF possible ?",
+        "a7": "Oui, illimité. Top pour les réunions physiques ou les clients 'papier'.",
+        "q8": "Quelle vitesse d'onboarding ?",
+        "a8": "Connectez un MCC et générez vos 10 premiers rapports en moins de 15 minutes. C'est plug-and-play."
+    }
+}

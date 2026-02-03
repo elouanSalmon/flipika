@@ -51,7 +51,7 @@ import TiptapTemplateEditorPage from './pages/TiptapTemplateEditorPage';
 import GoogleAdsPlayground from './pages/GoogleAdsPlayground';
 import ComparisonIndex from './pages/alternatives/ComparisonIndex';
 import ComparisonPage from './pages/alternatives/ComparisonPage';
-import GoogleAdsTemplatePage from './pages/templates/GoogleAdsTemplatePage';
+import TemplateLandingPage from './pages/templates/TemplateLandingPage';
 import LeadMagnetPage from './pages/resources/LeadMagnetPage';
 import './App.css';
 
@@ -133,7 +133,8 @@ const AppRoutes = () => {
         <Route path="terms-of-service" element={<TermsOfService />} />
         <Route path="alternatives" element={<ComparisonIndex />} />
         <Route path="alternatives/:slug" element={<ComparisonPage />} />
-        <Route path="google-ads-report-template" element={<GoogleAdsTemplatePage />} />
+        <Route path="templates/:slug" element={<TemplateLandingPage />} />
+        <Route path="google-ads-report-template" element={<Navigate to="/templates/google-ads" replace />} />
         <Route path="resources/:slug" element={<LeadMagnetPage />} />
         <Route path="sitemap" element={<Sitemap />} />
         <Route path="*" element={<NotFound />} />

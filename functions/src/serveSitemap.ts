@@ -1,13 +1,18 @@
-import * as functions from "firebase-functions";
+import { onRequest } from "firebase-functions/v2/https";
 import * as admin from "firebase-admin";
 import { SitemapStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
+import { logger } from "firebase-functions";
 
 /**
  * Cloud Function HTTP qui génère et sert le sitemap.xml à la demande
  * Accessible via: https://flipika.com/sitemap.xml
  */
-export const serveSitemap = functions.https.onRequest(
+export const serveSitemap = onRequest(
+    {
+        region: "europe-west1",
+        memory: "256MiB",
+    },
     async (req, res) => {
         try {
             // Configuration CORS et headers
@@ -72,11 +77,11 @@ export const serveSitemap = functions.https.onRequest(
                     });
                 });
 
-                functions.logger.info(
+                logger.info(
                     `Added ${usersSnapshot.size} user profiles to sitemap`
                 );
             } catch (error) {
-                functions.logger.warn("Error fetching users for sitemap:", error);
+                logger.warn("Error fetching users for sitemap:", error);
                 // Continue même en cas d'erreur sur une collection
             }
 
@@ -109,17 +114,17 @@ export const serveSitemap = functions.https.onRequest(
                     });
                 });
 
-                functions.logger.info(
+                logger.info(
                     `Added ${postsSnapshot.size} articles to sitemap`
                 );
             } catch (error) {
-                functions.logger.warn("Error fetching posts for sitemap:", error);
+                logger.warn("Error fetching posts for sitemap:", error);
             }
 
             // ========================================
             // 4. GÉNÉRATION DU XML
             // ========================================
-            functions.logger.info(`Generating sitemap with ${links.length} URLs`);
+            logger.info(`Generating sitemap with ${links.length} URLs`);
 
             // Écrire tous les liens dans le stream
             const stream = Readable.from(links).pipe(smStream);
@@ -130,9 +135,9 @@ export const serveSitemap = functions.https.onRequest(
             // Envoyer la réponse
             res.status(200).send(sitemap.toString());
 
-            functions.logger.info("Sitemap generated and served successfully");
+            logger.info("Sitemap generated and served successfully");
         } catch (error) {
-            functions.logger.error("Error generating sitemap:", error);
+            logger.error("Error generating sitemap:", error);
             res.status(500).send("Error generating sitemap");
         }
     }

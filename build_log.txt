@@ -1,0 +1,53 @@
+
+> ads@0.0.0 build:dev
+> tsc -b && vite build --mode development
+
+vite v7.1.12 building for development...
+transforming...
+✓ 3604 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/firebase/config.ts is dynamically imported by /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/liveDataService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/liveDataService.ts but also statically imported by /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/reports/ExportToGoogleSlidesButton.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/contexts/AuthContext.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/contexts/GoogleAdsContext.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/contexts/SubscriptionContext.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/firebase/emailService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/BillingPage.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/OAuthCallback.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/clientService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/googleAds.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/historyService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/imageService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/reportService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/scheduledReportService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/slideService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/templateService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/themeService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/tutorialService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/userProfileService.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/googleAds.ts is dynamically imported by /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/reports/slides/AdCreativeSlide.tsx but also statically imported by /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/common/GoogleAdsGuard.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/dashboard/EmptyDashboardState.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/editor/blocks/FlexibleDataBlock.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/onboarding/OnboardingModal.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/reports/ScopeSelector.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/settings/ConnectionsCard.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/contexts/GoogleAdsContext.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/Copilot.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/Dashboard.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/GoogleAdsPlayground.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/NewReport.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ReportEditor.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ReportPreview.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ReportsList.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ScheduledReports.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/Templates.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/TiptapReportEditorPage.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/TiptapTemplateEditorPage.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/liveDataService.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/slideService.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/services/clientService.ts is dynamically imported by /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/themes/ThemeEditor.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/PublicReportView.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ReportPreview.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ReportPreview.tsx but also statically imported by /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/components/editor/ThemeSelector.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/hooks/useClients.ts, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ReportEditor.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ReportsList.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ScheduledReports.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/Templates.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/ThemesPage.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/TiptapReportEditorPage.tsx, /Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/src/pages/TiptapTemplateEditorPage.tsx, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/registerSW.js                            0.13 kB
+dist/manifest.webmanifest                     1.06 kB
+dist/index.html                               4.86 kB │ gzip:     1.72 kB
+dist/assets/index-BPXi7key.css              347.93 kB │ gzip:    53.05 kB
+dist/assets/emailResolver-FdaFUO4h.js         0.27 kB │ gzip:     0.21 kB
+dist/assets/historyService-C04Fxk-y.js        0.75 kB │ gzip:     0.45 kB
+dist/assets/react-vendor-BzrpNAyj.js         11.92 kB │ gzip:     4.25 kB
+dist/assets/icons-vendor-D4wR0zmf.js         57.46 kB │ gzip:    11.32 kB
+dist/assets/animation-vendor-CczsVnIJ.js    116.64 kB │ gzip:    38.65 kB
+dist/assets/index.es-YKXf8Oq8.js            159.51 kB │ gzip:    53.32 kB
+dist/assets/firebase-vendor-h49gjU5x.js     387.16 kB │ gzip:    95.00 kB
+dist/assets/index-2yAZvi9I.js             4,002.45 kB │ gzip: 1,174.05 kB
+
+(!) Some chunks are larger than 1000 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 8.71s
+error during build:
+Error: 
+  Configure "workbox.maximumFileSizeToCacheInBytes" to change the limit: the default value is 2 MiB.
+  Check https://vite-pwa-org.netlify.app/guide/faq.html#missing-assets-from-sw-precache-manifest for more information.
+  Assets exceeding the limit:
+  - assets/index-2yAZvi9I.js is 4 MB, and won't be precached.
+
+    at logWorkboxResult (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/vite-plugin-pwa/dist/chunk-G4TAN34B.js:44:13)
+    at generateServiceWorker (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/vite-plugin-pwa/dist/index.js:209:3)
+    at async _generateSW (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/vite-plugin-pwa/dist/index.js:234:5)
+    at async Object.handler (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/vite-plugin-pwa/dist/index.js:427:13)
+    at async PluginDriver.hookParallel (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/rollup/dist/es/shared/node-entry.js:22330:17)
+    at async Object.close (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/rollup/dist/es/shared/node-entry.js:23347:13)
+    at async buildEnvironment (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/vite/dist/node/chunks/config.js:33785:15)
+    at async Object.build (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/vite/dist/node/chunks/config.js:34129:19)
+    at async Object.buildApp (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/vite/dist/node/chunks/config.js:34126:153)
+    at async CAC.<anonymous> (file:///Users/elouan.salmon@ekwateur.fr/Documents/GitHub/flipika/node_modules/vite/dist/node/cli.js:629:3)

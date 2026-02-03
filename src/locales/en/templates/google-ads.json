@@ -1,0 +1,277 @@
+{
+    "page": {
+        "title": "Free Google Ads Report Template 2026 | Excel & Looker Studio Alternative",
+        "metaDescription": "Download the best Google Ads report template for 2026. Real-time automated dashboards. Free, unlimited. Better than Excel, faster than Looker Studio.",
+        "h1": "Stop downloading static templates.\nStart using Live Dashboards.",
+        "subtitle": "Excel and PDF templates are obsolete. They break, they lie, and they are ugly. Switch to Flipika's Live Template: always up-to-date, interactive, and beautiful.",
+        "cta": "Use this template for free",
+        "galleryTitle": "Choose your Live Template",
+        "comparisonTitle": "Why Flipika beats Excel & Looker Studio",
+        "hookTitle": "Why this beats standard Looker Studio Templates",
+        "faqTitle": "Frequently Asked Questions",
+        "costTitle": "The Hidden Cost of Manual Reporting",
+        "costSubtitle": "Still using Excel or PowerPoint? Here is what it really costs you.",
+        "metricsTitle": "Key Metrics to Track in 2026",
+        "metricsSubtitle": "The metrics that matter have changed. Are you tracking the right ones?",
+        "howItWorksTitle": "How It Works",
+        "howItWorksSubtitle": "From connection to your first report in 3 minutes flat",
+        "benefitsTitle": "Why Choose Flipika?",
+        "benefitsSubtitle": "Reports that impress your clients and free up your time",
+        "testimonialsTitle": "What Our Users Say",
+        "testimonialsSubtitle": "Join 500+ agencies and advertisers who ditched Excel",
+        "useCasesTitle": "Use Cases by Industry",
+        "useCasesSubtitle": "How different businesses use Flipika for their Google Ads reporting",
+        "tipsTitle": "7 Expert Tips to Optimize Your Reports",
+        "tipsSubtitle": "Best practices we learned from analyzing thousands of Google Ads accounts",
+        "socialProof": "Used by 500+ agencies in 30 countries"
+    },
+    "gallery": {
+        "executive": {
+            "title": "The Executive Summary",
+            "description": "Perfect for C-level reporting and board presentations. Focuses on high-level KPIs like ROAS, total spend, and conversion value. Designed to answer the question: 'Is my money being spent wisely?' in 10 seconds. Including time-series charts, month-over-month comparisons, and automated alerts on performance anomalies. Ideal for CMOs, CFOs, and entrepreneurs who want the big picture without drowning in technical details."
+        },
+        "ecommerce": {
+            "title": "The E-commerce ROAS Tracker",
+            "description": "Granular product performance, shopping campaign analysis, and revenue attribution. Drill down by product category, item ID, or location to identify your most profitable segments. Track average order value, conversion rate, and margin per product. Compare performance across different bidding strategies (Target ROAS, Maximize Conversions). Perfect for e-commerce businesses managing 100+ product catalogs who need to know exactly which products drive the best advertising ROI."
+        },
+        "agency": {
+            "title": "The Agency Overview",
+            "description": "Manage multiple clients? Get a unified view of all your accounts performance in one place. Spot underperforming accounts instantly and allocate your time where it matters most. Multi-account dashboard with real-time alerts, automated reports sent every Monday morning, and white-label export for client presentations. Track budget spent vs. allocated, identify cross-sell opportunities, and prove your value with clear metrics."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Feature",
+            "excel": "Excel / PDF Template",
+            "flipika": "Flipika Live Template"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Real-time Data",
+                "excel": "No (Manual export required)",
+                "flipika": "Yes (Live API connection)"
+            },
+            "maintenance": {
+                "feature": "Maintenance Needs",
+                "excel": "High (Fixing broken formulas)",
+                "flipika": "Zero (Automated updates)"
+            },
+            "sharing": {
+                "feature": "Client Sharing",
+                "excel": "Email attachment (Static)",
+                "flipika": "Live URL or Auto-emailing"
+            },
+            "design": {
+                "feature": "Visual Design",
+                "excel": "Basic / Cluttered",
+                "flipika": "Premium Glassmorphism"
+            }
+        }
+    },
+    "hook": {
+        "speed": {
+            "title": "Blazing Fast Loader",
+            "description": "Looker Studio can take 10s+ to load. Flipika loads in milliseconds thanks to our optimized caching layer."
+        },
+        "branding": {
+            "title": "White Label Perfection",
+            "description": "No 'Google' logo everywhere. Your brand, your colors, your domain."
+        },
+        "stability": {
+            "title": "It Just Works",
+            "description": "No more random connector disconnects or broken visualisations."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "10+ Hours / Month",
+            "description": "The average account manager spends 10 hours per month just gathering data and formatting spreadsheets. With Flipika, that time drops to zero. Full automation lets you focus on strategic optimization rather than data manipulation."
+        },
+        "errors": {
+            "title": "Human Errors",
+            "description": "One copy-paste error can ruin a client relationship. Automated pipelines never make mistakes. No more wrong numbers in your presentations, no more inconsistent metrics between report versions. Your clients always see real data, updated in real-time."
+        },
+        "opportunity": {
+            "title": "Missed Insights",
+            "description": "While you are fixing font sizes in Excel, you are not analyzing why your CPA increased yesterday. Flipika frees you from reporting tasks to let you do actual analysis. Real optimization opportunities appear when you have time to dig into data, not compile it."
+        }
+    },
+    "metrics": {
+        "roas": {
+            "title": "ROAS (Return on Ad Spend)",
+            "description": "The holy grail of e-commerce. Don't just track clicks, track how much revenue every dollar generates. A 4:1 ROAS means every dollar spent generates 4 dollars in revenue."
+        },
+        "cpa": {
+            "title": "CPA (Cost Per Acquisition)",
+            "description": "For lead generation, keeping your CPA stable while scaling volume is the ultimate challenge. Measure the real cost of acquiring a qualified customer, not just a click."
+        },
+        "imp_share": {
+            "title": "Search Lost IS (Budget)",
+            "description": "Are you losing customers because your budget is too low? This metric tells you exactly how much opportunity you are leaving on the table. If your impression share is 60%, that means 40% of your potential customers never see your ads."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connect your Google Ads account",
+            "description": "One click to authorize Flipika via OAuth 2.0. Secure read-only connection, we never modify your campaigns. Takes 30 seconds."
+        },
+        "step2": {
+            "title": "Choose your template",
+            "description": "Select from our pre-configured templates (Executive, E-commerce, Agency) or create your own from scratch. Each template is optimized for a specific use case."
+        },
+        "step3": {
+            "title": "Customize your dashboard",
+            "description": "Add your logo, pick your brand colors, select the KPIs that matter to you. Ultra-intuitive drag-and-drop interface."
+        },
+        "step4": {
+            "title": "Share and automate",
+            "description": "Generate a secure sharing link or configure automatic email delivery. Your clients receive their reports every Monday morning, without any intervention from you."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Full Automation",
+            "description": "No more manual reporting. Your dashboards update automatically every hour with the latest Google Ads data. Set up recurring reports that email themselves. Never again \"I forgot to send the monthly report\"."
+        },
+        "realtime": {
+            "title": "Real-Time Data",
+            "description": "See the impact of your optimizations immediately. Direct API connection with Google Ads, no obsolete CSV exports. Automatic refresh every hour. Make decisions based on today's data, not last week's."
+        },
+        "design": {
+            "title": "Design That Impresses",
+            "description": "Your clients judge your professionalism by your reports. Flipika uses the latest design trends (glassmorphism, gradients, micro-animations) to create dashboards that WOW. Every element is designed for clarity and aesthetics."
+        },
+        "whitelabel": {
+            "title": "Total White Label",
+            "description": "Your logo, your colors, your custom domain. No mention of Flipika if you don't want it. Your clients think you developed the tool in-house. Perfect for agencies wanting to strengthen their brand image."
+        },
+        "multidevice": {
+            "title": "Accessible Everywhere",
+            "description": "Desktop, tablet, mobile: your reports adapt automatically. Your clients can check their performance from their iPhone between meetings. Responsive interface tested on all devices."
+        },
+        "support": {
+            "title": "Expert Support",
+            "description": "Got a question? Our Google Ads expert team responds in under 2 hours. Complete documentation, video tutorials, monthly webinars. We help you get the most from your data."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Flipika saved us 15 hours per week in reporting. Our clients love the transparency of live dashboards. It's become our secret weapon for closing new accounts.",
+            "author": "Marie Dupont",
+            "role": "Client Services Director",
+            "company": "360 Digital Agency"
+        },
+        "testimonial2": {
+            "quote": "I finally abandoned my Excel spreadsheets from 2018. Flipika reports are so much more beautiful than what I was doing manually. And the time saved lets me actually optimize my campaigns instead of copy-pasting.",
+            "author": "Thomas Martin",
+            "role": "Freelance Google Ads Specialist",
+            "company": "Independent Consultant"
+        },
+        "testimonial3": {
+            "quote": "As CMO, I need to see overall performance at a glance. Flipika's Executive template gives me exactly that: ROAS, spend, conversions. Everything that matters, nothing superfluous.",
+            "author": "Sophie Leroy",
+            "role": "CMO",
+            "company": "TechStartup SaaS"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "E-commerce & Retail",
+            "description": "Track your Shopping campaigns, analyze ROAS by product category, identify your advertising best-sellers. Perfect for online stores with 50+ SKUs. Key metrics: ROAS, cart value, conversion rate, revenue by category.",
+            "metrics": [
+                "ROAS per product",
+                "Shopping revenue",
+                "Average cart value",
+                "Conversion rate"
+            ]
+        },
+        "leadgen": {
+            "title": "B2B Lead Generation",
+            "description": "Optimize your cost per lead, track conversion quality, analyze keywords that generate the best prospects. Ideal for professional services, SaaS, training. Key metrics: CPA, lead-to-customer conversion rate, quality score.",
+            "metrics": [
+                "CPA per campaign",
+                "Lead volume",
+                "Quality Score",
+                "Lead→Customer conversion rate"
+            ]
+        },
+        "agency": {
+            "title": "Marketing Agencies",
+            "description": "Manage 10, 20, 50 client accounts from a single dashboard. Spot underperformance, allocate your time efficiently, generate automated white-label reports. Key metrics: multi-account performance, budget vs. spend, anomaly alerts.",
+            "metrics": [
+                "Multi-account view",
+                "Budget spent vs allocated",
+                "Underperformance alerts",
+                "White-label reports"
+            ]
+        },
+        "local": {
+            "title": "Local Businesses",
+            "description": "Track your local campaigns, analyze phone calls, measure store traffic generated by your ads. Perfect for restaurants, physical stores, home services. Key metrics: calls, directions, store visits.",
+            "metrics": [
+                "Number of calls",
+                "Direction requests",
+                "Store visits",
+                "Local ROI"
+            ]
+        },
+        "saas": {
+            "title": "SaaS Startups",
+            "description": "Optimize your CAC (Customer Acquisition Cost), track LTV/CAC ratio, analyze trial-to-paid conversions. Growth-oriented metrics for tech companies. Key metrics: CAC, MRR generated by Google Ads, trial sign-ups, paid conversions.",
+            "metrics": [
+                "CAC (Customer Acquisition Cost)",
+                "Trial sign-ups",
+                "Trial→Paid conversion",
+                "MRR from Ads"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Segment by Device (Mobile vs Desktop)",
+            "description": "Mobile conversion rates are often 2-3x lower than desktop. Analyze your performance by device and adjust your bids accordingly. On Flipika, add a 'Device' filter to compare instantly."
+        },
+        "tip2": {
+            "title": "Track Weekly Trends, Not Just Monthly",
+            "description": "A good Google Ads report shows day-by-day patterns. Monday vs. Sunday, week 1 vs. week 4 of the month. Monthly averages often hide critical insights. Use Flipika's time-series charts to detect variations."
+        },
+        "tip3": {
+            "title": "Compare Current Period vs. Previous Period",
+            "description": "\"This month vs. last month\" or \"This week vs. last week\". Time comparisons reveal trends you don't see with absolute numbers. Flipika automatically calculates % changes for each KPI."
+        },
+        "tip4": {
+            "title": "Highlight ROAS or CPA, Not Clicks",
+            "description": "Clicks and impressions are vanity metrics. What matters: how much it costs to acquire a customer (CPA) or how much it returns (ROAS). Your clients don't care about clicks, they want business results."
+        },
+        "tip5": {
+            "title": "Always Include Search Lost IS (Budget)",
+            "description": "This metric shows the % of impressions lost due to insufficient budget. If it's >20%, you're leaving money on the table. Recommend a budget increase to your clients with precise data."
+        },
+        "tip6": {
+            "title": "Set Up Anomaly Alerts",
+            "description": "CPA doubling overnight? CTR collapsing? Configure automatic alerts to be notified immediately. Flipika sends you an email if a metric deviates +/- 30% from its 7-day average."
+        },
+        "tip7": {
+            "title": "Export to PDF for Board Presentations",
+            "description": "Even though live dashboards are great, some clients prefer PDF for archives or presentations. Flipika generates pixel-perfect PDFs in one click, with your branding and generation date."
+        }
+    },
+    "faq": {
+        "q1": "Is this Google Ads report template really free?",
+        "a1": "Yes, you can use our standard templates for free, forever. We also offer premium features (white-label custom domain, unlimited PDF reports, priority support) for agencies managing multiple clients, but the core templates remain 100% free with no time limits.",
+        "q2": "Can I export the report to PDF?",
+        "a2": "Absolutely. While we encourage live sharing to benefit from interactivity and real-time data, you can generate a pixel-perfect PDF report in one click. The PDF includes all your charts, tables, and branding. Perfect for client presentations or archives.",
+        "q3": "How does Flipika connect to my Google Ads account?",
+        "a3": "We use the official Google Ads API with OAuth 2.0. It's the same security protocol as Gmail or Google Drive. The connection is read-only: we NEVER modify your campaigns, budgets, or bids. We just visualize performance. You can revoke access anytime from your Google account.",
+        "q4": "Is it better than Looker Studio?",
+        "a4": "Looker Studio is powerful but slow (10-15s loading time) and hard to maintain (connectors that disconnect). Flipika is built for speed (< 1s loading) and premium aesthetics. If you want client-ready reports without technical headaches, Flipika is better. If you need ultra-custom BigQuery queries, Looker Studio remains relevant.",
+        "q5": "Is my data secure?",
+        "a5": "Yes. We use SSL/TLS encryption for all communications, store your data on SOC 2 certified servers, and comply with European GDPR. Your Google Ads data is never shared with third parties. We don't sell data. You own your information and can request deletion anytime.",
+        "q6": "Can I customize the displayed metrics?",
+        "a6": "Totally. Our templates are starting points, not cages. You can add/remove any Google Ads metric: Quality Score, Impression Share, Conv. Rate, Cost/Conv, etc. Drag-and-drop interface to reorganize your widgets. Save your custom templates and reuse them for other accounts.",
+        "q7": "Does Flipika work with Google Analytics and other tools?",
+        "a7": "Currently, Flipika focuses on Google Ads to offer the best possible experience. Google Analytics 4, Meta Ads, and LinkedIn Ads integration is on our 2026 roadmap. If you need a multi-source dashboard today, we recommend combining Flipika (for Google Ads) with another tool for other platforms.",
+        "q8": "How long does it take to create my first report?",
+        "a8": "Less than 3 minutes. Here's the process: (1) Connect your Google Ads account via OAuth (30 seconds), (2) Choose a pre-configured template (15 seconds), (3) Customize your branding and colors (2 minutes), (4) Share the link or configure auto-send (30 seconds). That's it. Most users have their first dashboard operational in under 5 minutes."
+    }
+}

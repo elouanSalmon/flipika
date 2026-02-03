@@ -1,0 +1,192 @@
+{
+    "page": {
+        "title": "Template E-commerce Google Ads 2026 | Suivez le ROAS & Ventes",
+        "metaDescription": "Le dashboard E-commerce ultime pour Google Ads. Suivez le ROAS, les Revenus, Campagnes Shopping et Performance Produit. Tracking des ventes en temps réel.",
+        "h1": "Suivez le Revenu et le ROAS,\nPas Juste les Clics.",
+        "subtitle": "En E-com, seul le profit compte. Le modèle E-commerce de Flipika est conçu pour visualiser votre ROI instantanément et stopper l'hémorragie.",
+        "cta": "Tracker mon ROAS",
+        "galleryTitle": "Dashboards E-commerce",
+        "comparisonTitle": "E-com : Flipika vs Rapports Standards",
+        "hookTitle": "Conçu pour les Boutiques en Ligne",
+        "faqTitle": "FAQ E-commerce",
+        "costTitle": "Le Coût de l'Ignorance",
+        "costSubtitle": "Si vous ne suivez pas le ROAS en temps réel, vous brûlez votre marge.",
+        "metricsTitle": "Métriques E-com Vitales",
+        "metricsSubtitle": "Oubliez le CTR. Parlons Ventes et Marge.",
+        "howItWorksTitle": "Setup en 3 Minutes",
+        "howItWorksSubtitle": "Connectez. Visualisez. Scalez.",
+        "benefitsTitle": "Pourquoi les E-commerçants aiment Flipika",
+        "benefitsSubtitle": "Clarté totale sur la rentabilité publicitaire",
+        "testimonialsTitle": "Succès Marchands",
+        "testimonialsSubtitle": "Utilisé par des boutiques Shopify & WooCommerce partout",
+        "useCasesTitle": "Scénarios Retail",
+        "useCasesSubtitle": "Du dropshipping mono-produit au catalogue géant",
+        "tipsTitle": "7 Astuces pour Booster le ROAS",
+        "tipsSubtitle": "Conseils d'optimisation inclus dans le dashboard",
+        "socialProof": "Tracke $50M+ de dépense pub annuelle"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connectez le Store",
+            "description": "Liez Google Ads. Nous détectons automatiquement vos campagnes Shopping et flux Merchant Center."
+        },
+        "step2": {
+            "title": "Layout E-commerce",
+            "description": "Sélectionnez le template 'Focus ROAS'. Il priorise Revenu, Panier Moyen et Coût de Vente sur les métriques vanity."
+        },
+        "step3": {
+            "title": "Visualisez les Produits",
+            "description": "Voyez quels produits sont vos winners et losers. Zoomez par Marque, Catégorie ou ID Item."
+        },
+        "step4": {
+            "title": "Scalez les Gagnants",
+            "description": "Utilisez les insights pour couper les pubs inutiles et doubler la mise sur les produits rentables immédiatement."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Récap Matinal",
+            "description": "Réveillez-vous avec un email montrant exactement dépense vs revenu d'hier. Commencez la journée en connaissant vos chiffres."
+        },
+        "realtime": {
+            "title": "Prêt pour Black Friday",
+            "description": "Pendant le peak, il faut du live. Surveillez le spend vs revenue heure par heure pour maxer les gros jours."
+        },
+        "design": {
+            "title": "Prêt pour Investisseurs",
+            "description": "Besoin de montrer les chiffres à la banque ou associés ? Nos visuels financiers pros inspirent confiance."
+        },
+        "whitelabel": {
+            "title": "Domaine Custom",
+            "description": "Hébergez votre dashboard sur metrics.votrebioutique.com. Gardez vos données pro et brandées."
+        },
+        "multidevice": {
+            "title": "Check Mobile",
+            "description": "Notif Shopify ? Vérifiez le coût pub de cette vente instantanément sur votre téléphone."
+        },
+        "support": {
+            "title": "Experts Data Ecom",
+            "description": "Nous comprenons les erreurs Merchant Center et le délai de conversion. Notre support parle e-commerce."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Je sais enfin exactement combien de profit je fais sur chaque euro de pub. Le détail par produit est un sauveur.",
+            "author": "Alex T.",
+            "role": "Gérant",
+            "company": "SneakerStreet"
+        },
+        "testimonial2": {
+            "quote": "Faire de la pub sans Flipika c'était voler à l'aveugle. Maintenant je vois quel SKU plomb le ROAS et je le coupe.",
+            "author": "Jessica L.",
+            "role": "Dir. Marketing",
+            "company": "BeautyCo"
+        },
+        "testimonial3": {
+            "quote": "Le rapport hebdo auto me sauve 2 heures chaque lundi. Et c'est bien plus beau que mes vieux Excels.",
+            "author": "Ryan P.",
+            "role": "Fondateur",
+            "company": "TechGadgets"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Analyse Performance Max",
+            "description": "Ouvrez la boîte noire. Voyez la perf des groupes d'assets et listing groups pour PMax.",
+            "metrics": [
+                "PMax ROAS",
+                "Force Asset",
+                "Listing Groups",
+                "Coût/Conv"
+            ]
+        },
+        "leadgen": {
+            "title": "Ventes High-Ticket",
+            "description": "Pour les paniers élevés (500€+). Suivez les cycles longs et conversions assistées.",
+            "metrics": [
+                "Conv. Assistées",
+                "Chemin",
+                "Délai",
+                "Revenu"
+            ]
+        },
+        "agency": {
+            "title": "Testing Dropshipping",
+            "description": "Testez vite. Visualisation de la profitabilité jour par jour par produit pour trouver les winners.",
+            "metrics": [
+                "Profit Jour",
+                "ROAS Break-even",
+                "Marge %",
+                "Coût Test"
+            ]
+        },
+        "local": {
+            "title": "Retail Omnicanal",
+            "description": "Combinez ventes web et 'Visites Magasin' pour voir l'impact total des pubs sur le CA.",
+            "metrics": [
+                "Ventes Web",
+                "Visites Magasin",
+                "ROAS Total",
+                "Actions Locales"
+            ]
+        },
+        "saas": {
+            "title": "Box Abonnement",
+            "description": "Track CAC vs LTV. Comprenez la rentabilité front-end vs valeur vie client.",
+            "metrics": [
+                "Valeur 1ère Cmd",
+                "CAC",
+                "Abonnés",
+                "Revenu Récurrent"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Track Search Impression Share",
+            "description": "Vos concurrents enchérissent-ils sur votre nom de marque ? Surveillez la Part de Voix Marque."
+        },
+        "tip2": {
+            "title": "Monitorez l'Hygiène Produit",
+            "description": "Gardez un œil sur 'Produits Prêts à Diffuser'. Si ça chute, vous ratez des ventes à cause d'erreurs de flux."
+        },
+        "tip3": {
+            "title": "Segmentez par Catégorie",
+            "description": "Ne regardez pas que le ROAS global. Les Chaussures sont peut-être rentables mais les Chaussettes perdent de l'argent. Segmentez !"
+        },
+        "tip4": {
+            "title": "Attention au 'Délai'",
+            "description": "Ne coupez pas une campagne après 1 jour si vos clients mettent 14 jours à acheter. Vérifiez le rapport de délai."
+        },
+        "tip5": {
+            "title": "Optimisez la Marge, pas le Revenu",
+            "description": "Gros ROAS ne veut pas dire gros profit si vous vendez des articles à faible marge. Connaissez votre ROAS break-even."
+        },
+        "tip6": {
+            "title": "Utilisez les Custom Labels",
+            "description": "Groupez les produits par Marge (Haute/Basse) ou Saison (Hiver/Été) dans le flux, puis reportez dessus dans Flipika."
+        },
+        "tip7": {
+            "title": "Vitesse Mobile",
+            "description": "Si le trafic mobile a un fort taux de rebond, votre site est trop lent. Fixez-le ou arrêtez d'acheter du trafic mobile."
+        }
+    },
+    "faq": {
+        "q1": "Ça marche avec Shopify ?",
+        "a1": "Oui, si votre Google Ads reçoit les données de Shopify (ce qui devrait être le cas), Flipika tracke tout parfaitement.",
+        "q2": "Puis-je voir le profit, pas que le revenu ?",
+        "a2": "Nous tirons la 'Valeur de Conv' de Google. Si vous envoyez la marge à Google, nous pouvons l'afficher.",
+        "q3": "Ça tracke Performance Max ?",
+        "a3": "Oui, support complet des campagnes PMax, groupes d'assets et listing groups.",
+        "q4": "Fréquence de mise à jour ?",
+        "a4": "Chaque heure. Essentiel pour monitorer les Flash Sales ou Soldes.",
+        "q5": "Puis-je filtrer par type produit ?",
+        "a5": "Oui, nos tableaux interactifs permettent de filtrer par Campagne, Ad Group ou Item ID.",
+        "q6": "Bien pour le dropshipping ?",
+        "a6": "Parfait. Clarté rapide sur ce qui marche pour couper les mauvaises pubs vite.",
+        "q7": "Et si j'ai plusieurs boutiques ?",
+        "a7": "Basculez entre les comptes en un clic, ou utilisez la vue Agence pour les voir côte-à-côte.",
+        "q8": "Faut-il être technique ?",
+        "a8": "Zéro technique. Si vous savez vous loguer à Google, vous savez utiliser Flipika."
+    }
+}

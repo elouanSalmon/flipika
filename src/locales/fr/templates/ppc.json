@@ -1,0 +1,192 @@
+{
+    "page": {
+        "title": "Modèle de Rapport PPC Gratuit 2026 | Pour Google Ads",
+        "metaDescription": "Téléchargez le modèle de rapport PPC ultime pour 2026. Suivez vos campagnes Search, Display et Vidéo. Automatisé, temps réel et prêt à envoyer.",
+        "h1": "Arrêtez d'agréger vos données PPC\nà la main.",
+        "subtitle": "Les fichiers Excel statiques ne suffisent plus pour le PPC moderne. Passez au Modèle Vivant Flipika : vues agrégées, insights automatisés et zéro maintenance.",
+        "cta": "Utiliser ce modèle gratuitement",
+        "galleryTitle": "Choisissez votre Dashboard PPC",
+        "comparisonTitle": "Pourquoi Flipika bat Excel pour le PPC",
+        "hookTitle": "Pourquoi c'est mieux que le reporting manuel",
+        "faqTitle": "Questions Fréquentes",
+        "costTitle": "Le Coût du Reporting PPC Manuel",
+        "costSubtitle": "Vous copiez-collez encore depuis Google Ads ? Voici le vrai coût.",
+        "metricsTitle": "Les Métriques PPC Clés en 2026",
+        "metricsSubtitle": "Les clics, c'est bien. La rentabilité, c'est mieux.",
+        "howItWorksTitle": "Comment ça marche",
+        "howItWorksSubtitle": "De la connexion aux insights en 3 minutes",
+        "benefitsTitle": "Pourquoi choisir Flipika pour le PPC ?",
+        "benefitsSubtitle": "Des rapports qui prouvent votre ROI et justifient vos honoraires",
+        "testimonialsTitle": "Ce que disent les Managers PPC",
+        "testimonialsSubtitle": "Rejoignez 500+ pros qui ont modernisé leur reporting",
+        "useCasesTitle": "Cas d'Usage PPC",
+        "useCasesSubtitle": "Adapté à tous les types de campagnes média",
+        "tipsTitle": "7 Conseils Pro pour le Reporting PPC",
+        "tipsSubtitle": "Les meilleures pratiques des agences à la performance",
+        "socialProof": "Utilisé par 500+ Agences PPC globalement"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connectez vos comptes Pubs",
+            "description": "Connexion sécurisée à Google Ads via l'API officielle. Lecture seule pour une sécurité totale. Configuration en quelques secondes."
+        },
+        "step2": {
+            "title": "Choisissez le Template PPC",
+            "description": "Optez pour 'Search Performance', 'Full Funnel' ou 'Executive Summary' selon votre audience."
+        },
+        "step3": {
+            "title": "Personnalisez les KPIs",
+            "description": "Glissez-déposez les widgets : CPA par appareil, ROAS par région, ou parts d'impressions perdues."
+        },
+        "step4": {
+            "title": "Automatisez l'envoi",
+            "description": "Programmez des emails hebdomadaires. Vos clients reçoivent un lien live ou un PDF pixel-perfect chaque lundi."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "100% Automatisé",
+            "description": "Ne faites plus jamais de capture d'écran Google Ads. Vos données sont live, justes, et toujours prêtes pour le point client."
+        },
+        "realtime": {
+            "title": "Ajustements Temps Réel",
+            "description": "Repérez les fuites de budget immédiatement. Les dashboards live vous permettent de réagir aux hausses de CPA avant la fin du mois."
+        },
+        "design": {
+            "title": "Design Agence Premium",
+            "description": "Soyez à la hauteur de vos honoraires. Le design Glassmorphism et les graphiques interactifs renforcent votre image d'expert."
+        },
+        "whitelabel": {
+            "title": "Votre Marque, Pas la Nôtre",
+            "description": "Supprimez le branding Flipika. Utilisez votre domaine (rapports.votreagence.com) et votre logo. Maîtrisez l'expérience client."
+        },
+        "multidevice": {
+            "title": "Mobile Ready",
+            "description": "Vos clients lisent leurs mails sur mobile. Assurez-vous que vos rapports soient lisibles partout avec notre design responsive."
+        },
+        "support": {
+            "title": "Support Expert PPC",
+            "description": "Conçu par des pros du PPC pour des pros. Notre équipe comprend vos questions sur l'attribution ou le quality score."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Je passais mes lundis matin à me battre avec des tableaux croisés dynamiques. Maintenant mes rapports se génèrent tout seuls. J'ai gagné 4h par semaine.",
+            "author": "Julien C.",
+            "role": "PPC Manager",
+            "company": "Growth Digital"
+        },
+        "testimonial2": {
+            "quote": "Les clients lisent enfin les rapports. Les graphiques interactifs ROAS vs Dépenses ont aidé à faire valider nos augmentations de budget.",
+            "author": "Sarah M.",
+            "role": "Head of Paid Search",
+            "company": "Ecom Scalers"
+        },
+        "testimonial3": {
+            "quote": "Pouvoir montrer le Quality Score et les parts d'impression perdues directement dans le tableau a changé ma façon d'optimiser.",
+            "author": "Mikael T.",
+            "role": "Freelance",
+            "company": "MikaPPC"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Shopping & Retail",
+            "description": "Visualisez la performance du flux Shopping. Suivez les revenus par groupe de produits. Métriques : ROAS, Panier Moyen, Taux d'Abandon.",
+            "metrics": [
+                "Shopping ROAS",
+                "Panier Moyen",
+                "Abandon Panier",
+                "Santé du Flux"
+            ]
+        },
+        "leadgen": {
+            "title": "B2B Lead Gen",
+            "description": "Suivez la qualité des leads. Connectez les conversions offline pour voir quels mots-clés signent des contrats. Métriques : Coût/Lead, Qualité, Pipeline.",
+            "metrics": [
+                "CPA",
+                "Qualité Lead",
+                "Taux Conv.",
+                "Valeur Pipeline"
+            ]
+        },
+        "agency": {
+            "title": "Gestion Multi-Comptes",
+            "description": "Vue master de tous vos comptes gérés. Repérez les sous-performances et les alertes critiques instantanément. Métriques : Dépense Globale, Alertes, ROAS Portefeuille.",
+            "metrics": [
+                "Dépense Totale",
+                "Conso Budget",
+                "Score Santé",
+                "Alertes"
+            ]
+        },
+        "local": {
+            "title": "Services Locaux",
+            "description": "Suivez les appels et actions locales. Parfait pour les artisans et commerces physiques. Métriques : Appels, Itinéraires, Visites Magasin.",
+            "metrics": [
+                "Appels",
+                "Visites",
+                "Actions Locales",
+                "Coût par Appel"
+            ]
+        },
+        "saas": {
+            "title": "Acquisition SaaS",
+            "description": "Mesurez le funnel complet de l'impression à l'utilisateur payant. Optimisez pour la LTV. Métriques : CAC, Ratio Essai, Churn.",
+            "metrics": [
+                "CAC",
+                "Essai vers Payant",
+                "Inscriptions",
+                "LTV/CAC"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Surveillez la Part d'Impression Perdue (Budget)",
+            "description": "Si c'est élevé, vous perdez des ventes faciles. Utilisez cette métrique pour justifier des hausses de budget auprès de vos clients."
+        },
+        "tip2": {
+            "title": "Segmentez par Type de Correspondance",
+            "description": "Large vs Exact : la performance varie énormément. Utilisez notre segmentation pour visualiser la différence de ROAS instantanément."
+        },
+        "tip3": {
+            "title": "Analyse Jour de la Semaine",
+            "description": "Le B2B gaspille souvent du budget le weekend. Utilisez la heatmap pour identifier les heures creuses coûteuses."
+        },
+        "tip4": {
+            "title": "Historique du Quality Score",
+            "description": "Ne regardez pas juste le QS actuel. Flipika enregistre l'historique pour prouver que vos optimisations ont payé."
+        },
+        "tip5": {
+            "title": "Performance par Appareil",
+            "description": "Le mobile convertit souvent moins bien. Faut-il baisser les enchères ? Vérifiez le comparatif device avant de décider."
+        },
+        "tip6": {
+            "title": "Termes de Recherche Réels",
+            "description": "Montrez aux clients ce qu'ils paient. Un nuage de mots des vrais termes de recherche est souvent révélateur et crée la confiance."
+        },
+        "tip7": {
+            "title": "Délai de Conversion",
+            "description": "Expliquez pourquoi la semaine dernière semble faible. Utilisez le rapport de délai pour montrer que les conversions prennent du temps."
+        }
+    },
+    "faq": {
+        "q1": "Ce modèle convient-il aux petits budgets ?",
+        "a1": "Absolument. Que vous dépensiez 500€ ou 500 000€, les métriques clés (CPA, ROAS) restent les mêmes. Flipika s'adapte à votre échelle.",
+        "q2": "Puis-je combiner Google et Bing ?",
+        "a2": "L'intégration native est Google Ads pour l'instant. Microsoft Ads (Bing) arrive fin 2026. Vous pouvez utiliser des blocs de données manuels en attendant.",
+        "q3": "Les données sont-elles précises ?",
+        "a3": "100% précises. Nous tirons les données directement de l'API Google Ads sans échantillonnage. Ce que vous voyez correspond exactement à Google Ads.",
+        "q4": "Puis-je partager avec mon équipe ?",
+        "a4": "Oui, invitez autant de membres d'équipe que vous voulez avec des permissions lecture ou édition. Idéal pour la collaboration interne.",
+        "q5": "Supportez-vous les conversions personnalisées ?",
+        "a5": "Oui, toutes les actions de conversion de votre compte sont importables. Vous pouvez filtrer pour n'afficher que celles qui comptent.",
+        "q6": "Y a-t-il une limite d'historique ?",
+        "a6": "Nous récupérons généralement les 24 derniers mois dès la connexion, permettant des comparaisons N vs N-1 immédiates.",
+        "q7": "Puis-je mettre l'URL en marque blanche ?",
+        "a7": "Oui, sur le plan Agence, vous pouvez mapper un domaine personnalisé (ex: rapports.agence.com) pour effacer toute mention de Flipika.",
+        "q8": "La connexion est-elle sécurisée ?",
+        "a8": "Nous utilisons OAuth 2.0 avec des droits en lecture seule stricte. Nous ne pouvons pas modifier vos pubs ni toucher au budget. Sécurité vérifiée par Google."
+    }
+}
