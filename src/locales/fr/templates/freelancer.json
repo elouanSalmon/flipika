@@ -1,0 +1,180 @@
+{
+    "page": {
+        "title": "Modèle Rapport Google Ads Freelance",
+        "metaDescription": "Rapports Google Ads pros pour Freelances. Ayez l'air d'une grosse agence sans les coûts.",
+        "h1": "Apparence Pro,\nTarifs Pro.",
+        "subtitle": "Arrêtez les screenshots. Impressionnez vos clients avec des rapports automatisés en marque blanche qui justifient vos honoraires.",
+        "cta": "Démarrer en Freelance",
+        "galleryTitle": "Templates pour Solopreneurs",
+        "comparisonTitle": "Flipika vs Screenshots",
+        "hookTitle": "Bâti pour les Indépendants",
+        "faqTitle": "FAQ Freelance",
+        "costTitle": "La Taxe Freelance",
+        "costSubtitle": "Le temps passé sur le reporting est du temps non facturé.",
+        "metricsTitle": "KPIs Compréhensibles",
+        "metricsSubtitle": "Simple, clair, focus ROI",
+        "howItWorksTitle": "Workflow Freelance",
+        "howItWorksSubtitle": "Automatisez votre reporting mensuel",
+        "benefitsTitle": "Pourquoi les Freelances aiment Flipika",
+        "benefitsSubtitle": "Libérez-vous d'Excel",
+        "testimonialsTitle": "Avis Freelances",
+        "testimonialsSubtitle": "Utilisé par 500+ indeps",
+        "useCasesTitle": "Types de Clients",
+        "useCasesSubtitle": "TPE, Ecom, Local",
+        "tipsTitle": "Guide Reporting Freelance",
+        "tipsSubtitle": "Gardez vos clients plus longtemps",
+        "socialProof": "Économise 10h/semaine aux freelances"
+    },
+    "gallery": {
+        "executive": {
+            "title": "Le Récap Mensuel",
+            "description": "Résumé simple 1 page. Parfait pour les clients TPE qui veulent juste savoir 'est-ce que ça marche ?'."
+        },
+        "ecommerce": {
+            "title": "Freelance E-com",
+            "description": "Template focus ROAS pour vos clients Shopify ou Dropshipping."
+        },
+        "agency": {
+            "title": "Partenaire Marque Blanche",
+            "description": "Si vous soustraitez pour des agences, utilisez ce template neutre qui passe partout."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connectez le Compte",
+            "description": "Connexion sécurisée Google. On ne touche jamais au budget pub."
+        },
+        "step2": {
+            "title": "Appliquez Thème 'Pro'",
+            "description": "Un look propre et moderne qui fait monter votre valeur perçue."
+        },
+        "step3": {
+            "title": "Écrivez votre Analyse",
+            "description": "Utilisez le bloc texte pour expliquer vos actions. Les clients paient votre cerveau, pas juste des graphes."
+        },
+        "step4": {
+            "title": "Programmez le PDF",
+            "description": "Réglez l'envoi pour le 1er du mois. Vous êtes payé, on envoie le rapport."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Zéro Temps Admin",
+            "description": "Vous portez toutes les casquettes. Le reporting ne devrait pas prendre une journée. Automatisez tout."
+        },
+        "realtime": {
+            "title": "Lien Client",
+            "description": "Donnez un lien aux clients stressés pour qu'ils arrêtent de demander 'ça donne quoi ?' tous les jours."
+        },
+        "design": {
+            "title": "Qualité Agence",
+            "description": "Livrez des rapports plus beaux que ceux des grosses agences. Niveau au-dessus."
+        },
+        "whitelabel": {
+            "title": "Votre Marque Perso",
+            "description": "Mettez votre logo freelance en haut. Batissez votre propre equity."
+        },
+        "multidevice": {
+            "title": "Mobile Ready",
+            "description": "Les clients checkent leurs mails en route. Votre rapport sera parfait sur leur iPhone."
+        },
+        "support": {
+            "title": "Communauté",
+            "description": "Rejoignez d'autres freelances. On partage des tips pour expliquer les mauvaises métriques."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "excel": "Screenshots DIY",
+            "flipika": "Template Freelance"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Mises à jour",
+                "excel": "Manuel & Statique",
+                "flipika": "Auto & Live"
+            },
+            "maintenance": {
+                "feature": "Temps passé",
+                "excel": "2h par client",
+                "flipika": "0h (Automatisé)"
+            },
+            "sharing": {
+                "feature": "Professionnalisme",
+                "excel": "Amateur",
+                "flipika": "Expert"
+            },
+            "design": {
+                "feature": "Format",
+                "excel": "Email moche",
+                "flipika": "Page Web Superbe"
+            }
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Restez Simple",
+            "description": "Les petits clients sont vite perdus. Montrez 3 gros chiffres (Dépense, Leads, CPA) en premier."
+        },
+        "tip2": {
+            "title": "Expliquez Tout",
+            "description": "Ajoutez un glossaire ou nos infobulles. Un client éduqué churn moins."
+        },
+        "tip3": {
+            "title": "Surlignez les Victoires",
+            "description": "Utilisez le widget 'Top Perf' pour montrer la meilleure pub ou mot-clé."
+        },
+        "tip4": {
+            "title": "Transparence",
+            "description": "Montrez les termes de recherche. Prouvez que vous ne gaspillez pas le budget."
+        },
+        "tip5": {
+            "title": "Vidéo Loom",
+            "description": "Enregistrez 2 min de vidéo scrollant le rapport Flipika. Ça bâtit une confiance énorme."
+        },
+        "tip6": {
+            "title": "Comparaison",
+            "description": "Comparez toujours à la 'Période Précédente'. Le contexte est la clé de la rétention."
+        },
+        "tip7": {
+            "title": "Prochaines Étapes",
+            "description": "Finissez chaque rapport par 'Ce que je fais le mois prochain'. Ça vend le retainer."
+        }
+    },
+    "faq": {
+        "q1": "C'est abordable ?",
+        "a1": "Oui, on a un plan spécial freelances. Rentabilisé avec un seul client retenu.",
+        "q2": "Je peux avoir plusieurs clients ?",
+        "a2": "Oui, gérez tous vos clients depuis un dashboard unique.",
+        "q3": "Avec mon logo ?",
+        "a3": "Oui, marque blanche totale incluse.",
+        "q4": "Y'a un contrat ?",
+        "a4": "Non, annulez quand vous voulez si vous perdez des clients.",
+        "q5": "Export PDF ?",
+        "a5": "Oui, parfait pour joindre à votre facture mensuelle.",
+        "q6": "Besoin compétences techniques ?",
+        "a6": "Aucune. Si vous savez utiliser Google Ads, vous savez utiliser Flipika.",
+        "q7": "Données sûres ?",
+        "a7": "On utilise les API Google officielles. On ne voit pas votre carte bleue.",
+        "q8": "C'est customisable ?",
+        "a8": "Oui, drag & drop des widgets pour coller à votre style."
+    },
+    "cost": {
+        "time": {
+            "error": "Reporting Manuel",
+            "value": "5h+ / mois",
+            "flipika": "5min / mois"
+        },
+        "errors": {
+            "error": "Churn Client",
+            "value": "Haut risque",
+            "flipika": "Rétention Client"
+        },
+        "opportunity": {
+            "error": "Heures Facturables",
+            "value": "Perdues",
+            "flipika": "Maximisées"
+        }
+    }
+}

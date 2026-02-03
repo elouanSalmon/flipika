@@ -1,0 +1,205 @@
+{
+    "page": {
+        "seoTitle": "Best Swydo Alternative in 2026 | Flipika",
+        "seoDescription": "Swydo reports look dated. Upgrade to Flipika for modern, glassmorphism-style dashboards that wow clients.",
+        "h1Title": "The Modern Alternative to Swydo",
+        "subtitle": "Your clients deserve reports that look like they were made in 2026, not 2015.",
+        "painPointsTitle": "Why Agencies Switch from Swydo",
+        "painPointsSubtitle": "Great basic tool, but showing its age.",
+        "comparisonTitle": "Flipika vs Swydo",
+        "comparisonSubtitle": "Design and Modernity Comparison",
+        "costTitle": "The Cost of Outdated Design",
+        "costSubtitle": "What is a 'good enough' report costing your brand perception?",
+        "tipsTitle": "Migrating from Swydo",
+        "tipsSubtitle": "Upgrade your reporting stack",
+        "useCasesTitle": "Use Cases: Modern Reporting",
+        "migrationCtaTitle": "Upgrade Your Agency Brand",
+        "migrationCtaDesc": "Join the agencies delivering premium, interactive experiences.",
+        "benefitsTitle": "Why Choose Flipika",
+        "benefitsSubtitle": "A generation ahead in design and usability",
+        "faqTitle": "Swydo Migration FAQ",
+        "useCasesSubtitle": "Scenarios where design wins deals"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Instant Rendering",
+            "description": "Swydo can be sluggish with heavy accounts. Flipika is built on a modern stack for instant loading."
+        },
+        "realtime": {
+            "title": "True Real-time",
+            "description": "Live links that actually feel live. Interactive charts that clients can hover and explore."
+        },
+        "design": {
+            "title": "Glassmorphism UI",
+            "description": "We don't just do 'flat design'. We use modern aesthetics that match the quality of your agency's work."
+        },
+        "whitelabel": {
+            "title": "Beyond the Logo",
+            "description": "Custom domains, custom colors, custom fonts. Make the platform truly yours."
+        },
+        "ai": {
+            "title": "AI Narrative",
+            "description": "Swydo needs you to write comments. Flipika writes the story for you based on the data."
+        },
+        "support": {
+            "title": "Modern Support",
+            "description": "Chat support that feels like talking to a colleague, not a ticket system."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Direct Scrape Brands",
+            "description": "DTC brands care about aesthetics. Send them a report that matches their Shopify store's vibe.",
+            "metrics": [
+                "Store ROAS",
+                "Cart Abandonment",
+                "Visual Product Ads"
+            ]
+        },
+        "leadgen": {
+            "title": "SaaS Clients",
+            "description": "Tech clients expect tech-forward reporting. Don't send them a static PDF.",
+            "metrics": [
+                "MQL Velocity",
+                "Pipeline Value",
+                "SaaS Metrics"
+            ]
+        },
+        "agency": {
+            "title": "Creative Agencies",
+            "description": "If you sell creative services, your reports cannot look ugly. It hurts your credibility.",
+            "metrics": [
+                "Creative Performance",
+                "Asset Engagement",
+                "Brand Lift"
+            ]
+        },
+        "local": {
+            "title": "Franchises",
+            "description": "Give franchise owners a simple, beautiful dashboard they can understand at a glance.",
+            "metrics": [
+                "Local Foot Traffic",
+                "Call Volume",
+                "Store Visits"
+            ]
+        },
+        "saas": {
+            "title": "App Marketing",
+            "description": "Mobile-first reports for mobile-first products. Looks perfect on any device.",
+            "metrics": [
+                "Install Rate",
+                "In-App Actions",
+                "Retention"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connect Data",
+            "description": "One-click connection to Google Ads. We pull history instantly."
+        },
+        "step2": {
+            "title": "Customize Look",
+            "description": "Set your brand colors. Watch the entire interface transform to match your agency identity."
+        },
+        "step3": {
+            "title": "Recreate Templates",
+            "description": "Our flexible editor lets you rebuild your best Swydo templates in minutes, but better."
+        },
+        "step4": {
+            "title": "Impress Clients",
+            "description": "Send the new live link. Wait for the 'Wow, this looks great' email."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Manual Formatting",
+            "description": "Spending time making Swydo look 'okay'? Flipika looks amazing by default."
+        },
+        "maintenance": {
+            "title": "Template Maintenance",
+            "description": "Updating templates in legacy tools is a chore. Here, it is global and instant."
+        },
+        "opportunity": {
+            "title": "Client Perception",
+            "description": "Old-school reports signal 'old-school agency'. Modern reports signal 'cutting-edge partner'."
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Focus on UX",
+            "description": "Your clients use apps like Linear and Notion. Give them a reporting experience that matches that standard."
+        },
+        "tip2": {
+            "title": "Interactive vs Static",
+            "description": "Stop training clients to read PDFs. Train them to explore the data interactively."
+        },
+        "tip3": {
+            "title": "Mobile Experience",
+            "description": "Open a Swydo report on mobile. Then open Flipika. You will see why you need to switch."
+        },
+        "tip4": {
+            "title": "Automated Insights",
+            "description": "Use the AI to add context. It saves you writing the 'what happened' paragraph."
+        },
+        "tip5": {
+            "title": "Consolidate Tools",
+            "description": "If you use Swydo for reporting and another tool for dashboards, combine them here."
+        },
+        "tip6": {
+            "title": "Show Off",
+            "description": "Use the presentation mode during Zoom calls. It is much more engaging than screen sharing a PDF."
+        },
+        "tip7": {
+            "title": "Custom Domains",
+            "description": "Essential for brand consistency. reports.youragency.com builds trust."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Feature",
+            "swydo": "Swydo",
+            "flipika": "Flipika"
+        },
+        "rows": {
+            "design": {
+                "feature": "Interface Design",
+                "swydo": "Functional (2015 era)",
+                "flipika": "Modern (Glassmorphism)"
+            },
+            "speed": {
+                "feature": "Page Load",
+                "swydo": "Average",
+                "flipika": "Instant"
+            },
+            "mobile": {
+                "feature": "Mobile Experience",
+                "swydo": "Basic Response",
+                "flipika": "Phone-Optimized App"
+            },
+            "presentation": {
+                "feature": "Presentation Mode",
+                "swydo": "No",
+                "flipika": "Yes (Slide View)"
+            }
+        }
+    },
+    "faq": {
+        "q1": "Is it hard to move templates?",
+        "a1": "Not at all. Our block-based editor is intuitive. You can recreate any layout you had in Swydo.",
+        "q2": "Do you have scheduled emails?",
+        "a2": "Yes, PDF and link scheduling works exactly the same. You won't lose that automation.",
+        "q3": "Is it more expensive?",
+        "a3": "Likely cheaper or comparable, but you get unlimited clients on our flat plans.",
+        "q4": "Can I export PDF?",
+        "a4": "Yes, and they look better. High-res vector exports that print perfectly.",
+        "q5": "What about integrations?",
+        "a5": "We focus deeper on Google Ads data, pulling fields others miss. More integrations coming soon.",
+        "q6": "Is there a contract?",
+        "a6": "No, monthly or annual. Cancel anytime.",
+        "q7": "Can I trial it?",
+        "a7": "Yes, free trial available. Connect your data and see the design difference instantly.",
+        "q8": "Is it secure?",
+        "a8": "Bank-grade security. Read-only access to your ad accounts."
+    }
+}

@@ -1,0 +1,205 @@
+{
+    "page": {
+        "seoTitle": "Meilleure alternative à ReportGarden 2026 | Flipika",
+        "seoDescription": "Fatigué des mises à jour lentes ? Flipika est l'alternative rapide à ReportGarden avec une UI moderne et l'IA intégrée.",
+        "h1Title": "L'Alternative Rapide à ReportGarden",
+        "subtitle": "ReportGarden semble coincé dans le passé. Flipika sort des nouveautés chaque semaine.",
+        "painPointsTitle": "Temps de Changer ?",
+        "painPointsSubtitle": "Ne laissez pas vos outils vous ralentir.",
+        "comparisonTitle": "Flipika vs ReportGarden",
+        "comparisonSubtitle": "Comparatif Vélocité & Innovation",
+        "costTitle": "Le Coût de la Stagnation",
+        "costSubtitle": "Fonctionnalités manquantes = Opportunités manquées.",
+        "tipsTitle": "Migrer depuis ReportGarden",
+        "tipsSubtitle": "Guide de transition fluide",
+        "useCasesTitle": "Cas d'Usage : Haute Vélocité",
+        "migrationCtaTitle": "Accélérez votre Reporting",
+        "migrationCtaDesc": "Rejoignez la plateforme qui évolue aussi vite que le marketing digital.",
+        "benefitsTitle": "Pourquoi Choisir Flipika",
+        "benefitsSubtitle": "Bâti pour les agences agiles modernes",
+        "faqTitle": "FAQ Migration ReportGarden",
+        "useCasesSubtitle": "Pour les équipes qui veulent de la vitesse"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Vitesse Éclair",
+            "description": "Tout est instantané dans Flipika. Pas d'attente pour générer ou rafraîchir un rapport."
+        },
+        "realtime": {
+            "title": "Collab Live",
+            "description": "Travaillez sur les rapports en équipe en temps réel, comme dans Google Docs."
+        },
+        "design": {
+            "title": "UI Fraîche",
+            "description": "Une interface épurée et propre qui rend la data complexe simple à lire."
+        },
+        "whitelabel": {
+            "title": "Branding Total",
+            "description": "Contrôlez chaque pixel de l'expérience client. Domaine, favicon, expéditeur email."
+        },
+        "ai": {
+            "title": "Copilote IA",
+            "description": "ReportGarden vous donne la data. Flipika vous donne data + l'interprétation IA."
+        },
+        "support": {
+            "title": "Support Proactif",
+            "description": "On ne fixe pas juste les bugs. On écoute vos demandes de features et on les code."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Ecom Gros Volume",
+            "description": "Gérez des milliers de SKUs et campagnes sans que l'interface ne rame.",
+            "metrics": [
+                "Perf SKU",
+                "Marge Catégorie",
+                "Efficacité Ads"
+            ]
+        },
+        "leadgen": {
+            "title": "Agences Perf",
+            "description": "Pour les équipes où chaque minute compte. Setup rapport en secondes.",
+            "metrics": [
+                "Tendances CPA",
+                "Qualité Conv.",
+                "Speed to Lead"
+            ]
+        },
+        "agency": {
+            "title": "Agences en Scale",
+            "description": "Onboarder 50 nouveaux clients ? Fait en quelques clics via templating de masse.",
+            "metrics": [
+                "Santé Client",
+                "Vue Portfolio",
+                "Efficacité Team"
+            ]
+        },
+        "local": {
+            "title": "Multi-Sites",
+            "description": "Gérez des centaines de fiches GMB et campagnes locales sans effort.",
+            "metrics": [
+                "Classement Maps",
+                "Actions Locales",
+                "Croissance Avis"
+            ]
+        },
+        "saas": {
+            "title": "SaaS Data-Driven",
+            "description": "Visualisez les métriques de funnel complexes clairement pour les stakeholders.",
+            "metrics": [
+                "Déperdition Funnel",
+                "Analyse Cohorte",
+                "Impact MRR"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Synchro Comptes",
+            "description": "Connectez les réseaux pubs. On mappe la hiérarchie client automatiquement."
+        },
+        "step2": {
+            "title": "Choix Métriques",
+            "description": "Drag & drop des widgets. Pas de code requis."
+        },
+        "step3": {
+            "title": "Envoi Auto",
+            "description": "Réglez le planning. Hebdo, mensuel, ou à la demande."
+        },
+        "step4": {
+            "title": "Focus Stratégie",
+            "description": "Arrêtez de vous battre avec l'éditeur. Passez du temps à analyser."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Temps Génération",
+            "description": "ReportGarden peut prendre des minutes pour un PDF. Flipika le fait en millisecondes."
+        },
+        "maintenance": {
+            "title": "Courbe Apprentissage",
+            "description": "Les nouveaux staffers apprennent Flipika en 10 minutes. C'est intuitif par design."
+        },
+        "opportunity": {
+            "title": "Retard Features",
+            "description": "Quand Google sort une métrique, on l'a jours après. Pas des mois."
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Nettoyez la Data",
+            "description": "La migration est le moment d'auditer. Virez les métriques que les clients ne regardent jamais."
+        },
+        "tip2": {
+            "title": "Activez Vue Live",
+            "description": "Montrez le dashboard live d'abord. Ils vont le préférer au PDF."
+        },
+        "tip3": {
+            "title": "Utilisez Portfolios",
+            "description": "Groupez les clients similaires et gérez leurs réglages en masse."
+        },
+        "tip4": {
+            "title": "Commentez via IA",
+            "description": "Laissez l'IA drafter le résumé. Éditez-le, ne partez pas de zéro."
+        },
+        "tip5": {
+            "title": "Check Mobile",
+            "description": "Vérifiez le rendu mobile. Vos clients checkent sur leur téléphone."
+        },
+        "tip6": {
+            "title": "Email Marque Blanche",
+            "description": "Configurez le SMTP pour que les mails viennent de vous, pas 'noreply@flipika.com'."
+        },
+        "tip7": {
+            "title": "Boucle Feedback",
+            "description": "Demandez aux clients ce qu'ils pensent du nouveau look. Ils adorent l'upgrade en général."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "reportgarden": "ReportGarden",
+            "flipika": "Flipika"
+        },
+        "rows": {
+            "design": {
+                "feature": "Vitesse Interface",
+                "reportgarden": "Tech Legacy Lente",
+                "flipika": "Tech Moderne Instant"
+            },
+            "speed": {
+                "feature": "Taux Innovation",
+                "reportgarden": "Faible",
+                "flipika": "Élevé (Updates Hebdo)"
+            },
+            "mobile": {
+                "feature": "Intégration IA",
+                "reportgarden": "Basique/Aucune",
+                "flipika": "Native Deep AI"
+            },
+            "presentation": {
+                "feature": "Usabilité",
+                "reportgarden": "Complexe",
+                "flipika": "Intuitive"
+            }
+        }
+    },
+    "faq": {
+        "q1": "Import facile ?",
+        "a1": "Très. On tire la structure direct des plateformes pubs. Pas de mapping manuel.",
+        "q2": "Et l'historique ?",
+        "a2": "On récupère jusqu'à 24 mois d'historique instantanément à la connexion.",
+        "q3": "Branding custom ?",
+        "a3": "Oui, support marque blanche total sur tous les plans.",
+        "q4": "Support franchises ?",
+        "a4": "Oui, nos features multi-lieux sont robustes pour le reporting réseau.",
+        "q5": "Limite de rapports ?",
+        "a5": "Non. Rapports illimités sur tous les plans agence.",
+        "q6": "Qualité du support ?",
+        "a6": "Plus rapide et technique. On est des marketeurs qui dev pour des marketeurs.",
+        "q7": "Mixer les sources ?",
+        "a7": "Focus extrême sur Google Ads/PPC pour être les meilleurs, mais d'autres arrivent.",
+        "q8": "Moins cher ?",
+        "a8": "Prix compétitifs qui scalent mieux quand vous ajoutez des clients."
+    }
+}

@@ -1,0 +1,205 @@
+{
+    "page": {
+        "seoTitle": "Meilleure alternative à Whatagraph 2026 | Flipika",
+        "seoDescription": "Whatagraph devient trop cher ? Flipika offre un scaling illimité et des prix fixes pour les agences en croissance.",
+        "h1Title": "L'Alternative Abordable à Whatagraph",
+        "subtitle": "Scalez votre agence sans exploser votre facture logicielle.",
+        "painPointsTitle": "Douleurs de Croissance ?",
+        "painPointsSubtitle": "Le succès ne devrait pas être taxé.",
+        "comparisonTitle": "Flipika vs Whatagraph",
+        "comparisonSubtitle": "Comparatif Prix & Valeur",
+        "costTitle": "Le Coût de la Donnée",
+        "costSubtitle": "Ne payez pas plus juste pour connecter plus de sources.",
+        "tipsTitle": "Migrer depuis Whatagraph",
+        "tipsSubtitle": "Guide de changement intelligent",
+        "useCasesTitle": "Cas d'Usage : Scaling Malin",
+        "migrationCtaTitle": "Scalez Sans Limites",
+        "migrationCtaDesc": "Passez à Flipika pour une tarification prévisible et fixe.",
+        "benefitsTitle": "Pourquoi Choisir Flipika",
+        "benefitsSubtitle": "Potentiel de croissance illimité",
+        "faqTitle": "FAQ Migration Whatagraph",
+        "useCasesSubtitle": "Pour les agences qui surveillent leurs marges"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Coût Prévisible",
+            "description": "Prix mensuel fixe. Signez 100 nouveaux clients demain, votre facture Flipika ne bouge pas."
+        },
+        "realtime": {
+            "title": "Impact Visuel",
+            "description": "On égale la qualité visuelle de Whatagraph mais on ajoute l'interactivité et le glassmorphism."
+        },
+        "design": {
+            "title": "Portail Client",
+            "description": "Donnez accès aux données 24/7 sans payer de licences utilisateur supplémentaires."
+        },
+        "whitelabel": {
+            "title": "Marque Blanche Totale",
+            "description": "Votre marque au premier plan. Pas de badge 'Propulsé par' sur les plans payants."
+        },
+        "ai": {
+            "title": "Analyse IA",
+            "description": "Insights automatisés qui expliquent les courbes. Sauvez des heures d'analyste."
+        },
+        "support": {
+            "title": "Partenaire Agence",
+            "description": "On vous aide à vendre. Utilisez notre 'Mode Pitch' pour closer des deals."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Retail Volume",
+            "description": "Trackez beaucoup de points de données sans toucher les limites de sources.",
+            "metrics": [
+                "ROI Volume",
+                "Santé Catalogue",
+                "ROAS Global"
+            ]
+        },
+        "leadgen": {
+            "title": "Haute Vélocité",
+            "description": "Gardez le CPA bas en gardant les coûts d'outils bas.",
+            "metrics": [
+                "Contrôle CPA",
+                "Rythme Budget",
+                "Volume Leads"
+            ]
+        },
+        "agency": {
+            "title": "Agence Enterprise",
+            "description": "Gérez 100+ comptes efficacement. Les coûts Whatagraph explosent ici; pas Flipika.",
+            "metrics": [
+                "Stabilité Marge",
+                "Contrôle OpEX",
+                "Efficacité"
+            ]
+        },
+        "local": {
+            "title": "Réseau TPE",
+            "description": "Top pour servir plein de petits clients de façon rentable.",
+            "metrics": [
+                "ROI Local",
+                "Marge Service",
+                "Rétention"
+            ]
+        },
+        "saas": {
+            "title": "Startups Growth",
+            "description": "Trackez tout durant la phase de croissance sans taxe sur l'outil.",
+            "metrics": [
+                "Taux Croissance",
+                "Efficacité Burn",
+                "Coût Acquisition"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Vérifiez les Prix",
+            "description": "Regardez votre dernière facture Whatagraph. Regardez les prix Flipika. Souriez."
+        },
+        "step2": {
+            "title": "Migrez les Données",
+            "description": "Connectez vos sources. On visualise exactement la même donnée instantanément."
+        },
+        "step3": {
+            "title": "Rebrandez",
+            "description": "Uploadez vos assets. Les rapports auront l'air aussi premium (ou mieux)."
+        },
+        "step4": {
+            "title": "Empocher l'Économie",
+            "description": "Réinvestissez l'économie dans votre équipe ou votre propre marketing."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Temps de Setup",
+            "description": "Flipika est plus rapide à configurer. Les templates globaux s'appliquent partout."
+        },
+        "maintenance": {
+            "title": "Engagement Contrat",
+            "description": "Flipika est flexible. Pas d'appels agressifs pour upsell sur un an."
+        },
+        "opportunity": {
+            "title": "Plafond Croissance",
+            "description": "Ne refusez pas les petits clients à cause du coût logiciel. Flipika rend les petits clients profitables."
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Comparez les Marges",
+            "description": "Calculez votre coût logiciel par client. Changez si ça dépasse 2% de vos honoraires."
+        },
+        "tip2": {
+            "title": "Utilisez le Lien Live",
+            "description": "Passez les clients du PDF au lien live. C'est plus engageant."
+        },
+        "tip3": {
+            "title": "Narratifs Vidéo",
+            "description": "Enregistrez un Loom sur un dashboard Flipika. Les clients adorent la touche perso."
+        },
+        "tip4": {
+            "title": "Accès Équipe",
+            "description": "Invitez toute votre team. On ne facture pas au siège utilisateur."
+        },
+        "tip5": {
+            "title": "Consolidez",
+            "description": "Mettez tous les clients dans un portail, même les petits."
+        },
+        "tip6": {
+            "title": "Upsell Reporting",
+            "description": "Facturez un premium pour 'Dashboard Avancé'—votre coût reste le même."
+        },
+        "tip7": {
+            "title": "Export Données",
+            "description": "Besoin de la donnée brute ? Export CSV/Excel dispo tout le temps."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "whatagraph": "Whatagraph",
+            "flipika": "Flipika"
+        },
+        "rows": {
+            "design": {
+                "feature": "Prix Sources",
+                "whatagraph": "Payez par Source",
+                "flipika": "Sources Illimitées"
+            },
+            "speed": {
+                "feature": "Coût Scaling",
+                "whatagraph": "Élevé (Exponentiel)",
+                "flipika": "Bas (Fixe)"
+            },
+            "mobile": {
+                "feature": "Sièges Users",
+                "whatagraph": "Limité/Payant",
+                "flipika": "Illimité/Gratuit"
+            },
+            "presentation": {
+                "feature": "Style Visuel",
+                "whatagraph": "Infographie",
+                "flipika": "Verre Interactif"
+            }
+        }
+    },
+    "faq": {
+        "q1": "Vraiment sources illimitées ?",
+        "a1": "Oui. Dans la limite de l'usage raisonnable, on ne compte pas chaque compte connecté.",
+        "q2": "Les rapports s'impriment ?",
+        "a2": "Oui, l'export PDF est pixel-perfect pour impression ou PJ email.",
+        "q3": "Design comparable ?",
+        "a3": "Les avis trouvent souvent Flipika plus moderne. Whatagraph est 'style infographie', nous 'style app'.",
+        "q4": "Domaine custom ?",
+        "a4": "Oui, marque blanche totale sur domaine perso.",
+        "q5": "Durée contrat ?",
+        "a5": "Mensuel dispo. Annuel a une remise.",
+        "q6": "Intégrations supportées ?",
+        "a6": "Focus Google Ads initialement pour être les meilleurs. Si besoin de 50 intégrations obscures, restez chez eux. Pour du Google Ads poussé, venez chez nous.",
+        "q7": "Support ?",
+        "a7": "Réactif et utile. On veut que vous réussissiez.",
+        "q8": "Aide au setup ?",
+        "a8": "On peut aider à migrer vos premiers templates pour assurer une transition douce."
+    }
+}

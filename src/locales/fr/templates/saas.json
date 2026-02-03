@@ -1,0 +1,180 @@
+{
+    "page": {
+        "title": "Modèle Rapport Google Ads SaaS & Tech",
+        "metaDescription": "Suivez CAC, LTV, et Conversions Essai. Reporting avancé pour entreprises SaaS et startups Tech.",
+        "h1": "Scalez votre SaaS par\nla Data.",
+        "subtitle": "Arrêtez d'optimiser les clics. Optimisez le MRR. Le seul modèle conçu pour les business d'abonnement.",
+        "cta": "Voir Template SaaS",
+        "galleryTitle": "Templates pour la Croissance",
+        "comparisonTitle": "Flipika vs Rapports Classiques",
+        "hookTitle": "Bâti pour la Tech",
+        "faqTitle": "FAQ Reporting SaaS",
+        "costTitle": "Le Coût de l'Innovation",
+        "costSubtitle": "La data lente tue la croissance.",
+        "metricsTitle": "KPIs que les Founders aiment",
+        "metricsSubtitle": "CAC, LTV, Période Payback",
+        "howItWorksTitle": "Workflow Growth",
+        "howItWorksSubtitle": "Boucle de données",
+        "benefitsTitle": "Pourquoi les Licornes choisissent Flipika",
+        "benefitsSubtitle": "Visibilité funnel profonde",
+        "testimonialsTitle": "Avis Growth Leads",
+        "testimonialsSubtitle": "Propulse les startups YC",
+        "useCasesTitle": "Types de SaaS",
+        "useCasesSubtitle": "B2B, B2C, PLG",
+        "tipsTitle": "Guide Métriques SaaS",
+        "tipsSubtitle": "Reporter au board efficacement",
+        "socialProof": "Tracke 500+ funnels SaaS"
+    },
+    "gallery": {
+        "executive": {
+            "title": "Vue Board Deck",
+            "description": "Métriques haut niveau pour investisseurs. Efficacité burn rate, CAC blendé, croissance MoM."
+        },
+        "ecommerce": {
+            "title": "Mouvement PLG",
+            "description": "De l'inscription à l'activation. Liez la dépense pub au comportement utilisateur dans l'app."
+        },
+        "agency": {
+            "title": "B2B Enterprise",
+            "description": "Pour ventes high-ticket. Suivez les leads qualifiés (MQL/SQL) et la contribution pipeline."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connectez Sources",
+            "description": "Google Ads pour la dépense, GA4/Segment pour les événements backend."
+        },
+        "step2": {
+            "title": "Définir Événements",
+            "description": "Mappez vos conversions 'Signup', 'Trial Start', et 'Purchase'."
+        },
+        "step3": {
+            "title": "Calculer CAC",
+            "description": "On divise auto la dépense par vos conversions custom pour sortir le vrai Coût d'Acquisition."
+        },
+        "step4": {
+            "title": "Partager à l'Équipe",
+            "description": "Donnez accès au Produit, Sales, et Founder. Alignez tout le monde sur les objectifs."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Vue Funnel Total",
+            "description": "Ne voyez pas juste le clic. Voyez le signup, l'activation, et le revenu."
+        },
+        "realtime": {
+            "title": "Pouls Quotidien",
+            "description": "Les startups rapides nécessitent de la data quotidienne. Checkez le pacing et CAC chaque matin."
+        },
+        "design": {
+            "title": "Design Tech-Native",
+            "description": "Conçu pour les utilisateurs dark mode. Fit parfait dans votre stack avec Linear et Vercel."
+        },
+        "whitelabel": {
+            "title": "Domaine Custom",
+            "description": "Hébergez sur metrics.votrestartup.com. La transparence bâtit et la culture."
+        },
+        "multidevice": {
+            "title": "Responsive",
+            "description": "Checkez les stats de croissance sur votre tel pendant les meetings investisseurs."
+        },
+        "support": {
+            "title": "Ingénieurs Data",
+            "description": "Notre équipe support parle SQL et API. On vous aide à débugger le tracking."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "excel": "Data Studio",
+            "flipika": "Template SaaS"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Vitesse",
+                "excel": "Lent / cache",
+                "flipika": "Flux temps réel"
+            },
+            "maintenance": {
+                "feature": "Conversions",
+                "excel": "Objectifs simples",
+                "flipika": "Formules Custom (CAC)"
+            },
+            "sharing": {
+                "feature": "Esthétique",
+                "excel": "Corporate Ennuyeux",
+                "flipika": "Tech Moderne"
+            },
+            "design": {
+                "feature": "Permissions",
+                "excel": "G-Drive Bordélique",
+                "flipika": "Rôles RBAC"
+            }
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Trackez CAC Blendé",
+            "description": "La dépense pub n'est qu'une partie. Ajoutez le contexte trafic orga pour voir l'efficacité globale."
+        },
+        "tip2": {
+            "title": "Analyse Cohorte",
+            "description": "Utilisez la comparaison de date pour voir comment les signups du mois dernier convertissent aujourd'hui."
+        },
+        "tip3": {
+            "title": "Marque vs Hors-Marque",
+            "description": "Séparez le reporting. Ne laissez pas les clics Marque pas cher cacher un CAC Hors-Marque élevé."
+        },
+        "tip4": {
+            "title": "Bidding Valeur",
+            "description": "Reportez sur le ROAS basé sur la LTV prédictive, pas juste la première valeur d'achat."
+        },
+        "tip5": {
+            "title": "Vélocité Pipeline",
+            "description": "Pour le B2B, trackez le temps-de-closing. Les pubs amènent-elles des deals plus rapides ?"
+        },
+        "tip6": {
+            "title": "Micro-Conversions",
+            "description": "Si les cycles sont longs, reportez sur 'Vues Page Clé' ou 'Téléchargement PDF' comme indicateurs avancés."
+        },
+        "tip7": {
+            "title": "Log Expériences",
+            "description": "Gardez un changelog dans le rapport. 'Changement page prix' - voir impact sur conversions."
+        }
+    },
+    "faq": {
+        "q1": "Calculer LTV ?",
+        "a1": "Oui, inputez une LTV fixe ou calculez dynamiquement si vous passez la data revenu.",
+        "q2": "Marche pour B2B ?",
+        "a2": "Oui, excellent pour le tracking lead gen high-ticket.",
+        "q3": "Sécurisé ?",
+        "a3": "Standards SOC2. Votre data client est safe.",
+        "q4": "Intégration Hubspot ?",
+        "a4": "Intégration native arrive. Pour l'instant on tracke via import conversion GAds.",
+        "q5": "Pour apps mobiles ?",
+        "a5": "Oui, support tracking conversion Firebase et App Stores.",
+        "q6": "Présenter au Board ?",
+        "a6": "Utilisez le Mode Présentation. Ressemble à un deck slide poli, mais live.",
+        "q7": "Alertes ?",
+        "a7": "Set up alertes quand le CPA dépasse le seuil cible.",
+        "q8": "Collab équipe ?",
+        "a8": "Commentez les graphes directement pour discuter des anomalies avec la team."
+    },
+    "cost": {
+        "time": {
+            "error": "SQL Manuel",
+            "value": "Temps Ingé cher",
+            "flipika": "Auto-magique"
+        },
+        "errors": {
+            "error": "Mauvaise Data",
+            "value": "Mauvaises décisions",
+            "flipika": "Source de Vérité"
+        },
+        "opportunity": {
+            "error": "Boucles lentes",
+            "value": "Concurrents gagnent",
+            "flipika": "Itération rapide"
+        }
+    }
+}

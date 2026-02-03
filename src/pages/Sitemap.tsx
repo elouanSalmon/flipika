@@ -24,10 +24,23 @@ const Sitemap: React.FC = () => {
             ]
         },
         {
+            title: i18n.language === 'fr' ? 'Modèles de Rapports (Templates)' : 'Report Templates',
+            icon: <LayoutTemplate className="w-5 h-5 text-pink-500" />,
+            links: [
+                { name: i18n.language === 'fr' ? 'Modèle Google Ads' : 'Google Ads Template', path: '/templates/google-ads' },
+                { name: i18n.language === 'fr' ? 'Modèle PPC' : 'PPC Report Template', path: '/templates/ppc' },
+                { name: i18n.language === 'fr' ? 'Modèle Agence Marketing' : 'Marketing Agency Template', path: '/templates/marketing-agency' },
+                { name: i18n.language === 'fr' ? 'Modèle E-commerce' : 'Ecommerce Report Template', path: '/templates/ecommerce' },
+                { name: i18n.language === 'fr' ? 'Modèle Exécutif' : 'Executive Report Template', path: '/templates/executive' },
+                { name: i18n.language === 'fr' ? 'Modèle Immobilier' : 'Real Estate Report Template', path: '/templates/real-estate' },
+                { name: i18n.language === 'fr' ? 'Modèle Freelance' : 'Freelancer Report Template', path: '/templates/freelancer' },
+                { name: i18n.language === 'fr' ? 'Modèle SaaS' : 'SaaS Report Template', path: '/templates/saas' },
+            ]
+        },
+        {
             title: i18n.language === 'fr' ? 'Alternatives & Comparatifs' : 'Alternatives & Comparisons',
             icon: <Zap className="w-5 h-5 text-amber-500" />,
             links: [
-                { name: i18n.language === 'fr' ? 'Modèle Rapport Google Ads (Template)' : 'Google Ads Report Template', path: '/google-ads-report-template' },
                 { name: i18n.language === 'fr' ? 'Toutes les Alternatives' : 'All Alternatives', path: '/alternatives' },
                 ...competitors.map(c => ({
                     name: i18n.language === 'fr' ? `Flipika vs ${c.name}` : `Flipika vs ${c.name}`,

@@ -1,0 +1,205 @@
+{
+    "page": {
+        "seoTitle": "Best ReportGarden Alternative 2026 | Flipika",
+        "seoDescription": "Tired of slow updates? Flipika is the fast-moving ReportGarden alternative with modern UI and AI built-in.",
+        "h1Title": "The Faster Alternative to ReportGarden",
+        "subtitle": "ReportGarden feels stuck in the past. Flipika ships new features every week.",
+        "painPointsTitle": "Time to Move On?",
+        "painPointsSubtitle": "Don't let your tools slow you down.",
+        "comparisonTitle": "Flipika vs ReportGarden",
+        "comparisonSubtitle": "Innovation Velocity Comparison",
+        "costTitle": "The Cost of Stagnation",
+        "costSubtitle": "Missed features mean missed opportunities.",
+        "tipsTitle": "Migrating from ReportGarden",
+        "tipsSubtitle": "Smooth transition guide",
+        "useCasesTitle": "Use Cases: High Velocity",
+        "migrationCtaTitle": "Accelerate Your Reporting",
+        "migrationCtaDesc": "Join the platform that evolves as fast as digital marketing.",
+        "benefitsTitle": "Why Choose Flipika",
+        "benefitsSubtitle": "Built for modern agile agencies",
+        "faqTitle": "ReportGarden Migration FAQ",
+        "useCasesSubtitle": "For teams that need speed"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Blazing Speed",
+            "description": "Everything in Flipika is instant. No waiting for reports to generate or refresh."
+        },
+        "realtime": {
+            "title": "Live Collaboration",
+            "description": "Work on reports with your team in real-time, just like in Google Docs."
+        },
+        "design": {
+            "title": "Fresh UI",
+            "description": "A clean, uncluttered interface that makes complex data look simple."
+        },
+        "whitelabel": {
+            "title": "Total Branding",
+            "description": "Control every pixel of your client's experience. Domain, favicon, email sender."
+        },
+        "ai": {
+            "title": "AI Copilot",
+            "description": "ReportGarden gives you data. Flipika gives you data + AI interpretation."
+        },
+        "support": {
+            "title": "Proactive Support",
+            "description": "We don't just fix bugs. We listen to your feature requests and build them."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "High Volume Ecom",
+            "description": "Handle thousands of SKUs and campaigns without the interface lagging.",
+            "metrics": [
+                "SKU Performance",
+                "Category Margin",
+                "Ads Efficiency"
+            ]
+        },
+        "leadgen": {
+            "title": "Performance Agencies",
+            "description": "For teams where every minute counts. Setup reports in seconds.",
+            "metrics": [
+                "CPA Trends",
+                "Conversion Quality",
+                "Speed to Lead"
+            ]
+        },
+        "agency": {
+            "title": "Scaling Agencies",
+            "description": "Onboard 50 new clients? Done in a few clicks with mass-templating.",
+            "metrics": [
+                "Client Health",
+                "Portfolio View",
+                "Team Efficiency"
+            ]
+        },
+        "local": {
+            "title": "Multi-Location",
+            "description": "Manage hundreds of GMB and Local Ads locations effortlessly.",
+            "metrics": [
+                "Map Rankings",
+                "Local Actions",
+                "Review Growth"
+            ]
+        },
+        "saas": {
+            "title": "Data-Driven SaaS",
+            "description": "Visualize complex funnel metrics clearly for stakeholders.",
+            "metrics": [
+                "Funnel Drop-off",
+                "Cohort Analysis",
+                "MRR Impact"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Sync Accounts",
+            "description": "Connect your ad networks securely. We map your client hierarchy automatically."
+        },
+        "step2": {
+            "title": "Select Metrics",
+            "description": "Drag and drop the widgets you need. No coding required."
+        },
+        "step3": {
+            "title": "Automate Delivery",
+            "description": "Set the schedule. Weekly, monthly, or on-demand."
+        },
+        "step4": {
+            "title": "Focus on Strategy",
+            "description": "Stop wrestling with the report builder. Spend time analyzing."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Report Generation Time",
+            "description": "ReportGarden can take minutes to generate a PDF. Flipika does it in milliseconds."
+        },
+        "maintenance": {
+            "title": "Learning Curve",
+            "description": "New staff learn Flipika in 10 minutes. It's intuitive by design."
+        },
+        "opportunity": {
+            "title": "Feature Lag",
+            "description": "When Google releases a new metric, we have it days later. Not months."
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Clean Up Data",
+            "description": "Migration is a great time to audit your old templates. Remove metrics clients don't look at."
+        },
+        "tip2": {
+            "title": "Enable Live View",
+            "description": "Show clients the live dashboard first. They will prefer it over the PDF."
+        },
+        "tip3": {
+            "title": "Use Portfolios",
+            "description": "Group similar clients and manage their reporting settings in bulk."
+        },
+        "tip4": {
+            "title": "Automate Comments",
+            "description": "Let AI draft your executive summary. Edit it, don't write it from scratch."
+        },
+        "tip5": {
+            "title": "Check Mobile",
+            "description": "Ensure your new reports look great on phone. Clients check metrics on the go."
+        },
+        "tip6": {
+            "title": "White Label Email",
+            "description": "Set up your SMTP so emails come from you, not 'noreply@flipika.com'."
+        },
+        "tip7": {
+            "title": "Feedback Loop",
+            "description": "Ask clients what they think of the new look. They usually love the upgrade."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Feature",
+            "reportgarden": "ReportGarden",
+            "flipika": "Flipika"
+        },
+        "rows": {
+            "design": {
+                "feature": "Interface Speed",
+                "reportgarden": "Slower Legacy Tech",
+                "flipika": "Instant Modern Tech"
+            },
+            "speed": {
+                "feature": "Innovation Rate",
+                "reportgarden": "Low",
+                "flipika": "High (Weekly Updates)"
+            },
+            "mobile": {
+                "feature": "AI Integration",
+                "reportgarden": "Basic/None",
+                "flipika": "Native Deep AI"
+            },
+            "presentation": {
+                "feature": "Usability",
+                "reportgarden": "Complex",
+                "flipika": "Intuitive"
+            }
+        }
+    },
+    "faq": {
+        "q1": "Is data import easy?",
+        "a1": "Very. We pull structure directly from the ad platforms. No manual mapping needed.",
+        "q2": "What about historical data?",
+        "a2": "We pull up to 24 months of history instantly upon connection.",
+        "q3": "Can I custom brand?",
+        "a3": "Yes, full white label support on all plans.",
+        "q4": "Do you support franchises?",
+        "a4": "Yes, our multi-location features are robust for franchise reporting.",
+        "q5": "Is there a limit on reports?",
+        "a5": "No. Unlimited reports on all agency plans.",
+        "q6": "How is the support?",
+        "a6": "Faster and more technical. We are marketers building for marketers.",
+        "q7": "Can I mix data sources?",
+        "a7": "Currently laser-focused on Google Ads/PPC to be the best at it, but more coming.",
+        "q8": "Is it cheaper?",
+        "a8": "Competitive pricing that scales better as you add more clients."
+    }
+}

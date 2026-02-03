@@ -25,6 +25,9 @@ import frLookerStudio from './locales/fr/alternatives/looker-studio.json';
 import frAgencyAnalytics from './locales/fr/alternatives/agency-analytics.json';
 import frDashThis from './locales/fr/alternatives/dashthis.json';
 import frExcel from './locales/fr/alternatives/excel-spreadsheets.json';
+import frSwydo from './locales/fr/alternatives/swydo.json';
+import frReportGarden from './locales/fr/alternatives/reportgarden.json';
+import frWhatagraph from './locales/fr/alternatives/whatagraph.json';
 
 // Authenticated Pages - English
 import enDashboard from './locales/en/dashboard.json';
@@ -45,6 +48,9 @@ import enLookerStudio from './locales/en/alternatives/looker-studio.json';
 import enAgencyAnalytics from './locales/en/alternatives/agency-analytics.json';
 import enDashThis from './locales/en/alternatives/dashthis.json';
 import enExcel from './locales/en/alternatives/excel-spreadsheets.json';
+import enSwydo from './locales/en/alternatives/swydo.json';
+import enReportGarden from './locales/en/alternatives/reportgarden.json';
+import enWhatagraph from './locales/en/alternatives/whatagraph.json';
 
 // Templates - French
 import frGoogleAds from './locales/fr/templates/google-ads.json';
@@ -52,6 +58,9 @@ import frPpc from './locales/fr/templates/ppc.json';
 import frMarketingAgency from './locales/fr/templates/marketing-agency.json';
 import frEcommerce from './locales/fr/templates/ecommerce.json';
 import frExecutive from './locales/fr/templates/executive.json';
+import frRealEstate from './locales/fr/templates/real-estate.json';
+import frFreelancer from './locales/fr/templates/freelancer.json';
+import frSaas from './locales/fr/templates/saas.json';
 
 // Templates - English
 import enGoogleAds from './locales/en/templates/google-ads.json';
@@ -59,6 +68,9 @@ import enPpc from './locales/en/templates/ppc.json';
 import enMarketingAgency from './locales/en/templates/marketing-agency.json';
 import enEcommerce from './locales/en/templates/ecommerce.json';
 import enExecutive from './locales/en/templates/executive.json';
+import enRealEstate from './locales/en/templates/real-estate.json';
+import enFreelancer from './locales/en/templates/freelancer.json';
+import enSaas from './locales/en/templates/saas.json';
 
 // ... other imports
 
@@ -83,6 +95,9 @@ const resources = {
     'agency-analytics': enAgencyAnalytics,
     'dashthis': enDashThis,
     'excel-spreadsheets': enExcel,
+    'swydo': enSwydo,
+    'reportgarden': enReportGarden,
+    'whatagraph': enWhatagraph,
 
     // New Template Namespaces
     'templates-google-ads': enGoogleAds,
@@ -90,6 +105,9 @@ const resources = {
     'templates-marketing-agency': enMarketingAgency,
     'templates-ecommerce': enEcommerce,
     'templates-executive': enExecutive,
+    'templates-real-estate': enRealEstate,
+    'templates-freelancer': enFreelancer,
+    'templates-saas': enSaas,
   },
   fr: {
     common: frCommon,
@@ -111,6 +129,9 @@ const resources = {
     'agency-analytics': frAgencyAnalytics,
     'dashthis': frDashThis,
     'excel-spreadsheets': frExcel,
+    'swydo': frSwydo,
+    'reportgarden': frReportGarden,
+    'whatagraph': frWhatagraph,
 
     // New Template Namespaces
     'templates-google-ads': frGoogleAds,
@@ -118,6 +139,9 @@ const resources = {
     'templates-marketing-agency': frMarketingAgency,
     'templates-ecommerce': frEcommerce,
     'templates-executive': frExecutive,
+    'templates-real-estate': frRealEstate,
+    'templates-freelancer': frFreelancer,
+    'templates-saas': frSaas,
   },
 };
 
@@ -158,12 +182,18 @@ i18n
       'agency-analytics',
       'dashthis',
       'excel-spreadsheets',
+      'swydo',
+      'reportgarden',
+      'whatagraph',
       // New namespaces
       'templates-google-ads',
       'templates-ppc',
       'templates-marketing-agency',
       'templates-ecommerce',
-      'templates-executive'
+      'templates-executive',
+      'templates-real-estate',
+      'templates-freelancer',
+      'templates-saas'
     ],
     load: 'languageOnly',
   });

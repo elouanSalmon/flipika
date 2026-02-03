@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createLifetimeCheckout = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.googleAdsQuery = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.serveSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createLifetimeCheckout = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.googleAdsQuery = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -16,8 +16,6 @@ Object.defineProperty(exports, "handleOAuthCallback", { enumerable: true, get: f
 var domainRedirect_1 = require("./domainRedirect");
 Object.defineProperty(exports, "domainRedirect", { enumerable: true, get: function () { return domainRedirect_1.domainRedirect; } });
 // Re-export Sitemap functions
-var serveSitemap_1 = require("./serveSitemap");
-Object.defineProperty(exports, "serveSitemap", { enumerable: true, get: function () { return serveSitemap_1.serveSitemap; } });
 var generateSitemap_1 = require("./generateSitemap");
 Object.defineProperty(exports, "generateSitemap", { enumerable: true, get: function () { return generateSitemap_1.generateSitemap; } });
 // Re-export Backup function

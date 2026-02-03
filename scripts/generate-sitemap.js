@@ -25,14 +25,25 @@ async function generateSitemap() {
         { url: "/terms-of-service", changefreq: "monthly", priority: 0.3, links: [{ lang: 'fr', url: 'https://flipika.com/fr/terms-of-service' }, { lang: 'en', url: 'https://flipika.com/terms-of-service' }] },
 
         // Alternatives Pages
+        // Alternatives Pages
         { url: "/alternatives", changefreq: "weekly", priority: 0.8, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives' }, { lang: 'en', url: 'https://flipika.com/alternatives' }] },
         { url: "/alternatives/looker-studio", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/looker-studio' }, { lang: 'en', url: 'https://flipika.com/alternatives/looker-studio' }] },
         { url: "/alternatives/agency-analytics", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/agency-analytics' }, { lang: 'en', url: 'https://flipika.com/alternatives/agency-analytics' }] },
         { url: "/alternatives/dashthis", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/dashthis' }, { lang: 'en', url: 'https://flipika.com/alternatives/dashthis' }] },
         { url: "/alternatives/excel-spreadsheets", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/excel-spreadsheets' }, { lang: 'en', url: 'https://flipika.com/alternatives/excel-spreadsheets' }] },
+        { url: "/alternatives/swydo", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/swydo' }, { lang: 'en', url: 'https://flipika.com/alternatives/swydo' }] },
+        { url: "/alternatives/reportgarden", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/reportgarden' }, { lang: 'en', url: 'https://flipika.com/alternatives/reportgarden' }] },
+        { url: "/alternatives/whatagraph", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/whatagraph' }, { lang: 'en', url: 'https://flipika.com/alternatives/whatagraph' }] },
 
         // Templates Pages
         { url: "/templates/google-ads", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/google-ads' }, { lang: 'en', url: 'https://flipika.com/templates/google-ads' }] },
+        { url: "/templates/ppc", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/ppc' }, { lang: 'en', url: 'https://flipika.com/templates/ppc' }] },
+        { url: "/templates/marketing-agency", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/marketing-agency' }, { lang: 'en', url: 'https://flipika.com/templates/marketing-agency' }] },
+        { url: "/templates/ecommerce", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/ecommerce' }, { lang: 'en', url: 'https://flipika.com/templates/ecommerce' }] },
+        { url: "/templates/executive", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/executive' }, { lang: 'en', url: 'https://flipika.com/templates/executive' }] },
+        { url: "/templates/real-estate", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/real-estate' }, { lang: 'en', url: 'https://flipika.com/templates/real-estate' }] },
+        { url: "/templates/freelancer", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/freelancer' }, { lang: 'en', url: 'https://flipika.com/templates/freelancer' }] },
+        { url: "/templates/saas", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/saas' }, { lang: 'en', url: 'https://flipika.com/templates/saas' }] },
 
         // Resources Pages
         { url: "/resources/google-ads-excel-template", changefreq: "monthly", priority: 0.8, links: [{ lang: 'fr', url: 'https://flipika.com/fr/resources/google-ads-excel-template' }, { lang: 'en', url: 'https://flipika.com/resources/google-ads-excel-template' }] },
@@ -53,9 +64,19 @@ async function generateSitemap() {
         { url: "/fr/alternatives/agency-analytics", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/agency-analytics' }, { lang: 'en', url: 'https://flipika.com/alternatives/agency-analytics' }] },
         { url: "/fr/alternatives/dashthis", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/dashthis' }, { lang: 'en', url: 'https://flipika.com/alternatives/dashthis' }] },
         { url: "/fr/alternatives/excel-spreadsheets", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/excel-spreadsheets' }, { lang: 'en', url: 'https://flipika.com/alternatives/excel-spreadsheets' }] },
+        { url: "/fr/alternatives/swydo", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/swydo' }, { lang: 'en', url: 'https://flipika.com/alternatives/swydo' }] },
+        { url: "/fr/alternatives/reportgarden", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/reportgarden' }, { lang: 'en', url: 'https://flipika.com/alternatives/reportgarden' }] },
+        { url: "/fr/alternatives/whatagraph", changefreq: "monthly", priority: 0.7, links: [{ lang: 'fr', url: 'https://flipika.com/fr/alternatives/whatagraph' }, { lang: 'en', url: 'https://flipika.com/alternatives/whatagraph' }] },
 
         // French Templates
         { url: "/fr/templates/google-ads", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/google-ads' }, { lang: 'en', url: 'https://flipika.com/templates/google-ads' }] },
+        { url: "/fr/templates/ppc", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/ppc' }, { lang: 'en', url: 'https://flipika.com/templates/ppc' }] },
+        { url: "/fr/templates/marketing-agency", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/marketing-agency' }, { lang: 'en', url: 'https://flipika.com/templates/marketing-agency' }] },
+        { url: "/fr/templates/ecommerce", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/ecommerce' }, { lang: 'en', url: 'https://flipika.com/templates/ecommerce' }] },
+        { url: "/fr/templates/executive", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/executive' }, { lang: 'en', url: 'https://flipika.com/templates/executive' }] },
+        { url: "/fr/templates/real-estate", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/real-estate' }, { lang: 'en', url: 'https://flipika.com/templates/real-estate' }] },
+        { url: "/fr/templates/freelancer", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/freelancer' }, { lang: 'en', url: 'https://flipika.com/templates/freelancer' }] },
+        { url: "/fr/templates/saas", changefreq: "weekly", priority: 0.9, links: [{ lang: 'fr', url: 'https://flipika.com/fr/templates/saas' }, { lang: 'en', url: 'https://flipika.com/templates/saas' }] },
 
         // French Resources
         { url: "/fr/resources/google-ads-excel-template", changefreq: "monthly", priority: 0.8, links: [{ lang: 'fr', url: 'https://flipika.com/fr/resources/google-ads-excel-template' }, { lang: 'en', url: 'https://flipika.com/resources/google-ads-excel-template' }] },

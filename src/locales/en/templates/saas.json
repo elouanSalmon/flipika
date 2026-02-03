@@ -1,0 +1,180 @@
+{
+    "page": {
+        "title": "SaaS & Tech Google Ads Report Template 2026",
+        "metaDescription": "Track CAC, LTV, and Trial Conversions. Advanced reporting for SaaS companies and Tech startups.",
+        "h1": "Scale Your SaaS with\nBetter Data.",
+        "subtitle": "Stop optimizing for clicks. Start optimizing for MRR. The only template built for subscription business models.",
+        "cta": "Get SaaS Template",
+        "galleryTitle": "Templates for Growth",
+        "comparisonTitle": "Flipika vs General Reports",
+        "hookTitle": "Built for Tech",
+        "faqTitle": "SaaS Reporting FAQ",
+        "costTitle": "The Innovation Cost",
+        "costSubtitle": "Slow data kills growth loops.",
+        "metricsTitle": "KPIs Founders Love",
+        "metricsSubtitle": "CAC, LTV, Payback Period",
+        "howItWorksTitle": "Growth Workflow",
+        "howItWorksSubtitle": "Data loop setup",
+        "benefitsTitle": "Why SaaS Unicorns Choose Flipika",
+        "benefitsSubtitle": "Deep funnel visibility",
+        "testimonialsTitle": "Growth Lead Reviews",
+        "testimonialsSubtitle": "Powering YC startups",
+        "useCasesTitle": "SaaS Types",
+        "useCasesSubtitle": "B2B, B2C, PLG",
+        "tipsTitle": "SaaS Metrics Guide",
+        "tipsSubtitle": "Report to the board effectively",
+        "socialProof": "Tracking 500+ SaaS funnels"
+    },
+    "gallery": {
+        "executive": {
+            "title": "Board Deck View",
+            "description": "High-level metrics for investors. Burn rate efficiency, blended CAC, and MoM growth."
+        },
+        "ecommerce": {
+            "title": "PLG Product Motion",
+            "description": "Track signups to activation. Connect ad spend to user behavior inside your app."
+        },
+        "agency": {
+            "title": "B2B Enterprise",
+            "description": "For high-ticket sales. Track qualified leads (MQL/SQL) and pipeline value contribution."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connect Data Sources",
+            "description": "Google Ads for spend, GA4/Segment for backend events."
+        },
+        "step2": {
+            "title": "Define Events",
+            "description": "Map your 'Signup', 'Trial Start', and 'Purchase' conversion actions."
+        },
+        "step3": {
+            "title": "Calculate CAC",
+            "description": "We automatically divide spend by custom conversions to show real Customer Acquisition Cost."
+        },
+        "step4": {
+            "title": "Share with Team",
+            "description": "Give access to Product, Sales, and Founder. Align everyone on growth goals."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Full Funnel View",
+            "description": "Don't just see the click. See the signup, the activation, and the revenue."
+        },
+        "realtime": {
+            "title": "Daily Pulse",
+            "description": "Fast-moving startups need daily data. Check your pacing and CAC every morning."
+        },
+        "design": {
+            "title": "Tech-Native Design",
+            "description": "Designed for dark mode users. Fits right into your stack alongside Linear and Vercel."
+        },
+        "whitelabel": {
+            "title": "Custom Domain",
+            "description": "Host metrics on metrics.yourstartup.com. Transparency builds culture."
+        },
+        "multidevice": {
+            "title": "Responsive",
+            "description": "Check growth stats from your phone during investor meetings."
+        },
+        "support": {
+            "title": "Data Engineers",
+            "description": "Our support team speaks SQL and API. We help you debug tracking."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Feature",
+            "excel": "Data Studio",
+            "flipika": "SaaS Template"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Speed",
+                "excel": "Slow / Cache issues",
+                "flipika": "Real-time stream"
+            },
+            "maintenance": {
+                "feature": "Conversions",
+                "excel": "Simple goals",
+                "flipika": "Custom Formulas (CAC)"
+            },
+            "sharing": {
+                "feature": "Aesthetics",
+                "excel": "Corporate Boring",
+                "flipika": "Modern Tech"
+            },
+            "design": {
+                "feature": "Permissions",
+                "excel": "Messy G-Drive",
+                "flipika": "RBAC Roles"
+            }
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Track Blended CAC",
+            "description": "Ad spend is only part of the story. Add organic traffic context to see blended efficiency."
+        },
+        "tip2": {
+            "title": "Cohort Analysis",
+            "description": "Use date comparison to see how signups from last month are converting today."
+        },
+        "tip3": {
+            "title": "Brand vs Non-Brand",
+            "description": "Split your reporting. Don't let cheap Brand clicks hide expensive Non-Brand CAC."
+        },
+        "tip4": {
+            "title": "Value Based Bidding",
+            "description": "Report on ROAS based on LTV predictions, not just first purchase value."
+        },
+        "tip5": {
+            "title": "Pipeline Velocity",
+            "description": "For B2B, track time-to-close. Are ads bringing in faster deal cycles?"
+        },
+        "tip6": {
+            "title": "Micro-Conversions",
+            "description": "If sales cycles are long, report on 'Key Page Views' or 'PDF Downloads' as leading indicators."
+        },
+        "tip7": {
+            "title": "Experiment Log",
+            "description": "Keep a changelog in the report. 'Changed pricing page' - see impact on conversions."
+        }
+    },
+    "faq": {
+        "q1": "Can I calculate LTV?",
+        "a1": "Yes, you can input a fixed LTV value or calculate it dynamically if you pass revenue data.",
+        "q2": "Does it work for B2B?",
+        "a2": "Yes, excellent for high-ticket B2B lead gen tracking.",
+        "q3": "Is it secure?",
+        "a3": "SOC2 compliant standards. Your customer data is safe.",
+        "q4": "Integrate with Hubspot?",
+        "a4": "Native Hubspot integration coming soon. For now, we track via GAds conversion import.",
+        "q5": "For mobile apps?",
+        "a5": "Yes, we support Firebase conversion tracking for app installs.",
+        "q6": "Can I present to Board?",
+        "a6": "Use Presentation Mode. It looks like a polished slide deck, but live.",
+        "q7": "Alerts?",
+        "a7": "Set alerts for when CPA spikes above your target threshold.",
+        "q8": "Team collaboration?",
+        "a8": "Comment on charts directly to discuss anomalies with your team."
+    },
+    "cost": {
+        "time": {
+            "error": "Manual SQL",
+            "value": "Expensive Eng time",
+            "flipika": "Auto-magic"
+        },
+        "errors": {
+            "error": "Bad Data",
+            "value": "Wrong decisions",
+            "flipika": "Single Source of Truth"
+        },
+        "opportunity": {
+            "error": "Slow loops",
+            "value": "Competitors win",
+            "flipika": "Fast iteration"
+        }
+    }
+}

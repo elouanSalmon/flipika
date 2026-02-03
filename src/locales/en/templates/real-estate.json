@@ -1,0 +1,180 @@
+{
+    "page": {
+        "title": "Real Estate Google Ads Report Template 2026",
+        "metaDescription": "Track leads, property inquiries, and local visibility. The perfect Google Ads report template for Real Estate agencies and developers.",
+        "h1": "Reports that Sell More\nProperties.",
+        "subtitle": "Real Estate marketing is local and fast-paced. Show your clients exactly how many qualified inquiries you generated for each property listing.",
+        "cta": "Get Real Estate Template",
+        "galleryTitle": "Designed for Real Estate",
+        "comparisonTitle": "Flipika vs General Reports",
+        "hookTitle": "Built for Agents & Developers",
+        "faqTitle": "Real Estate FAQ",
+        "costTitle": "The Cost of Bad Reporting",
+        "costSubtitle": "Lost leads mean lost commissions.",
+        "metricsTitle": "KPIs Agents Care About",
+        "metricsSubtitle": "Calls, Bookings, and Open Houses",
+        "howItWorksTitle": "Workflow for Agents",
+        "howItWorksSubtitle": "From listing to sold report",
+        "benefitsTitle": "Why Top Estate Agencies Choose Flipika",
+        "benefitsSubtitle": "Transparency wins listings",
+        "testimonialsTitle": "Agent Feedback",
+        "testimonialsSubtitle": "Trusted by brokers worldwide",
+        "useCasesTitle": "Real Estate Scenarios",
+        "useCasesSubtitle": "Residential, Commercial, Luxury",
+        "tipsTitle": "7 Real Estate Reporting Tips",
+        "tipsSubtitle": "How to impress property developers",
+        "socialProof": "Tracking $200M+ in property ad spend"
+    },
+    "gallery": {
+        "executive": {
+            "title": "The Broker Overview",
+            "description": "High-level view for agency principals. Track spend and lead volume across all agents and territories."
+        },
+        "ecommerce": {
+            "title": "Commercial Real Estate",
+            "description": "Deep dive into B2B leads for office and retail space. Higher CPAs, longer cycles."
+        },
+        "agency": {
+            "title": "Multi-Location Template",
+            "description": "Perfect for agencies managing franchise real estate networks. Compare branch performance."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connect Google Ads",
+            "description": "Link your account. We pull location data and call extension metrics automatically."
+        },
+        "step2": {
+            "title": "Filter by Location",
+            "description": "Create separate sections for each neighborhood or development project."
+        },
+        "step3": {
+            "title": "Add Property Images",
+            "description": "Upload listing photos to the report to make it visual and engaging."
+        },
+        "step4": {
+            "title": "Auto-Send to Agents",
+            "description": "Schedule weekly emails so agents have their lead numbers before the Monday meeting."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Listing Reports",
+            "description": "Automatically group stats by Campaign/Listing. Show sellers exactly where their marketing budget went."
+        },
+        "realtime": {
+            "title": "Live Lead Tracker",
+            "description": "Don't make agents wait. Give them a live dashboard of incoming calls and form fills."
+        },
+        "design": {
+            "title": "Luxury Aesthetic",
+            "description": "Real estate is about image. Your reports should look as premium as the properties you sell."
+        },
+        "whitelabel": {
+            "title": "Agency Branding",
+            "description": "Your logo, your colors. Establish your agency as the market leader."
+        },
+        "multidevice": {
+            "title": "Mobile Friendly",
+            "description": "Agents live on their phones. Your reports work perfectly on mobile devices."
+        },
+        "support": {
+            "title": "Location Support",
+            "description": "We understand local targeting and can help you visualize geo-performance."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Feature",
+            "excel": "Generic Report",
+            "flipika": "Real Estate Template"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Location Data",
+                "excel": "Messy tables",
+                "flipika": "Interactive Maps"
+            },
+            "maintenance": {
+                "feature": "Listing Images",
+                "excel": "Text only",
+                "flipika": "Visual Gallery"
+            },
+            "sharing": {
+                "feature": "Lead Details",
+                "excel": "Numbers only",
+                "flipika": "Quality Context"
+            },
+            "design": {
+                "feature": "Style",
+                "excel": "Spreadsheet",
+                "flipika": "Luxury Brochure"
+            }
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Show the Map",
+            "description": "Real estate is location. Use the geo-map widget to show where buyers are searching from."
+        },
+        "tip2": {
+            "title": "Calls > Clicks",
+            "description": "Agents want phone calls. Highlight 'Call Extensions' metrics at the top."
+        },
+        "tip3": {
+            "title": "Cost Per Lead",
+            "description": "Always context CPL with property value. $50 lead for a $1M home is cheap."
+        },
+        "tip4": {
+            "title": "Competition Info",
+            "description": "Use Auction Insights to show which other agencies are bidding on your keywords."
+        },
+        "tip5": {
+            "title": "Mobile Stats",
+            "description": "Most home searches happen on mobile. Show mobile traffic share to justify mobile ad spend."
+        },
+        "tip6": {
+            "title": "Visual Ads",
+            "description": "Include previews of the top performing image ads. Sellers love seeing their home online."
+        },
+        "tip7": {
+            "title": "Local Terms",
+            "description": "Highlight search terms with neighborhood names to prove local relevance."
+        }
+    },
+    "faq": {
+        "q1": "Can I report by city?",
+        "a1": "Yes, our geo-segmentation allows you to break down performance by city or radius.",
+        "q2": "Do you track phone calls?",
+        "a2": "We pull directly from Google Ads Call Extensions and Call Only ads.",
+        "q3": "Can I show listing photos?",
+        "a3": "Yes, you can upload images to the report to make it visual.",
+        "q4": "Is it suitable for developers?",
+        "a4": "Perfect for new development projects where you need to report to investors.",
+        "q5": "Can I white label?",
+        "a5": "Yes, put your agency logo on it.",
+        "q6": "How fast is setup?",
+        "a6": "Select the Real Estate template and connect your account. Done in 2 minutes.",
+        "q7": "Can agents access it?",
+        "a7": "You can generate read-only links for your agents to view anytime.",
+        "q8": "Facebook Ads?",
+        "a8": "Coming soon. Currently focused on capturing high-intent search traffic."
+    },
+    "cost": {
+        "time": {
+            "error": "Manual assembly",
+            "value": "2-3h / week",
+            "flipika": "0min"
+        },
+        "errors": {
+            "error": "Data mismatch",
+            "value": "High risk",
+            "flipika": "0% Risk"
+        },
+        "opportunity": {
+            "error": "Missed leads",
+            "value": "Priceless",
+            "flipika": "Captured"
+        }
+    }
+}

@@ -1,0 +1,180 @@
+{
+    "page": {
+        "title": "Modèle Rapport Google Ads Immobilier",
+        "metaDescription": "Suivez les leads, demandes de visite et la visibilité locale. Le modèle Google Ads parfait pour agences immo et promoteurs.",
+        "h1": "Des Rapports qui Vendent\nPlus de Biens.",
+        "subtitle": "Le marketing immo est local et rapide. Montrez à vos clients combien de contacts qualifiés vous générez pour chaque mandat.",
+        "cta": "Voir le Modèle Immo",
+        "galleryTitle": "Conçu pour l'Immobilier",
+        "comparisonTitle": "Flipika vs Rapports Classiques",
+        "hookTitle": "Bâti pour les Agents & Promoteurs",
+        "faqTitle": "FAQ Immobilier",
+        "costTitle": "Le Coût d'un Mauvais Reporting",
+        "costSubtitle": "Leads perdus = Commissions perdues.",
+        "metricsTitle": "KPIs qui comptent",
+        "metricsSubtitle": "Appels, Rdv, et Portes Ouvertes",
+        "howItWorksTitle": "Workflow Agence",
+        "howItWorksSubtitle": "Du mandat au rapport vendu",
+        "benefitsTitle": "Pourquoi les Top Agences Choisissent Flipika",
+        "benefitsSubtitle": "La transparence gagne des mandats",
+        "testimonialsTitle": "Retours Agents",
+        "testimonialsSubtitle": "Approuvé par des courtiers mondiaux",
+        "useCasesTitle": "Scénarios Immobiliers",
+        "useCasesSubtitle": "Résidentiel, Tertiaire, Luxe",
+        "tipsTitle": "7 Conseils Reporting Immo",
+        "tipsSubtitle": "Impressionner les promoteurs",
+        "socialProof": "Plus de 200M€ de budget immo tracké"
+    },
+    "gallery": {
+        "executive": {
+            "title": "Vue Directeur Agence",
+            "description": "Vue d'ensemble pour les directeurs. Suivez les dépenses et le volume de leads par agent et territoire."
+        },
+        "ecommerce": {
+            "title": "Immobilier Tertiaire",
+            "description": "Plongez dans les leads B2B pour bureaux et commerces. CPA plus élevés, cycles plus longs."
+        },
+        "agency": {
+            "title": "Réseau Multi-Agences",
+            "description": "Parfait pour gérer les réseaux de franchises. Comparez la performance par succursale."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connexion Google Ads",
+            "description": "Liez le compte. On récupère la data locale et les métriques d'appels automatiquement."
+        },
+        "step2": {
+            "title": "Filtre par Lieu",
+            "description": "Créez des sections séparées par quartier ou programme neuf."
+        },
+        "step3": {
+            "title": "Images des Biens",
+            "description": "Uploadez les photos des biens dans le rapport pour le rendre visuel."
+        },
+        "step4": {
+            "title": "Envoi Auto aux Agents",
+            "description": "Programmez l'envoi hebdo pour que les agents aient leurs chiffres avant la réunion du lundi."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Rapports par Mandat",
+            "description": "Groupez les stats par Campagne/Bien. Montrez aux vendeurs où passe leur budget marketing."
+        },
+        "realtime": {
+            "title": "Tracker Lead Live",
+            "description": "Ne faites pas attendre les agents. Donnez-leur un dash live des appels et formulaires."
+        },
+        "design": {
+            "title": "Esthétique Luxe",
+            "description": "L'immo est une question d'image. Vos rapports doivent être aussi premium que les biens vendus."
+        },
+        "whitelabel": {
+            "title": "Branding Agence",
+            "description": "Votre logo, vos couleurs. Établissez votre agence comme le leader du marché."
+        },
+        "multidevice": {
+            "title": "Mobile Friendly",
+            "description": "Les agents vivent sur leur téléphone. Vos rapports s'affichent parfaitement sur mobile."
+        },
+        "support": {
+            "title": "Support Local",
+            "description": "On comprend le ciblage local et on vous aide à visualiser la perf géo."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "excel": "Rapport Générique",
+            "flipika": "Modèle Immo"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Données Géo",
+                "excel": "Tableaux lourds",
+                "flipika": "Cartes Interactives"
+            },
+            "maintenance": {
+                "feature": "Images Biens",
+                "excel": "Texte seul",
+                "flipika": "Galerie Visuelle"
+            },
+            "sharing": {
+                "feature": "Détails Leads",
+                "excel": "Chiffres seuls",
+                "flipika": "Contexte Qualité"
+            },
+            "design": {
+                "feature": "Style",
+                "excel": "Spreadsheet",
+                "flipika": "Brochure Luxe"
+            }
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Montrez la Carte",
+            "description": "L'immo c'est l'emplacement. Utilisez le widget carte pour montrer d'où viennent les acheteurs."
+        },
+        "tip2": {
+            "title": "Appels > Clics",
+            "description": "Les agents veulent du téléphone. Mettez les métriques 'Extensions d'appel' tout en haut."
+        },
+        "tip3": {
+            "title": "Coût par Lead",
+            "description": "Contextualisez le CPL avec la valeur du bien. 50€ le lead pour une maison à 1M€, c'est donné."
+        },
+        "tip4": {
+            "title": "Info Concurrence",
+            "description": "Utilisez les Auction Insights pour montrer quelles autres agences bident sur vos mots-clés."
+        },
+        "tip5": {
+            "title": "Stats Mobile",
+            "description": "La recherche immo est mobile. Montrez la part de trafic mobile pour justifier le budget."
+        },
+        "tip6": {
+            "title": "Ads Visuelles",
+            "description": "Incluez les prévisualisations des annonces images. Les vendeurs adorent voir leur maison en ligne."
+        },
+        "tip7": {
+            "title": "Termes Locaux",
+            "description": "Surlignez les termes de recherche avec les noms de quartiers pour prouver la pertinence locale."
+        }
+    },
+    "faq": {
+        "q1": "Rapport par ville ?",
+        "a1": "Oui, notre segmentation géo permet de casser la perf par ville ou rayon.",
+        "q2": "Vous trackez les appels ?",
+        "a2": "On tire direct des Extensions d'Appel Google Ads.",
+        "q3": "Montrer photos mandats ?",
+        "a3": "Oui, vous pouvez uploader des images pour rendre le rapport visuel.",
+        "q4": "Adapté aux promoteurs ?",
+        "a4": "Parfait pour les programmes neufs où il faut reporter aux investisseurs.",
+        "q5": "Marque blanche ?",
+        "a5": "Oui, mettez votre logo d'agence.",
+        "q6": "Vitesse setup ?",
+        "a6": "Sélectionnez le template Immo, connectez le compte. Fait en 2 minutes.",
+        "q7": "Accès agents ?",
+        "a7": "Vous pouvez générer des liens lecture seule pour vos agents.",
+        "q8": "Facebook Ads ?",
+        "a8": "Bientôt. Focus actuel sur la capture d'intention de recherche (Search)."
+    },
+    "cost": {
+        "time": {
+            "error": "Assemblage manuel",
+            "value": "2-3h / semaine",
+            "flipika": "0min"
+        },
+        "errors": {
+            "error": "Erreur données",
+            "value": "Risque élevé",
+            "flipika": "0% Risque"
+        },
+        "opportunity": {
+            "error": "Leads manqués",
+            "value": "Inestimable",
+            "flipika": "Capturés"
+        }
+    }
+}

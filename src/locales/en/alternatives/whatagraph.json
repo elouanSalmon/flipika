@@ -1,0 +1,205 @@
+{
+    "page": {
+        "seoTitle": "Best Whatagraph Alternative 2026 | Flipika",
+        "seoDescription": "Whatagraph getting too expensive? Flipika offers unlimited scaling and flat pricing for growing agencies.",
+        "h1Title": "The Affordable Alternative to Whatagraph",
+        "subtitle": "Scale your agency without your software bill exploding.",
+        "painPointsTitle": "Growing Pains With Whatagraph?",
+        "painPointsSubtitle": "Success shouldn't come with a price penalty.",
+        "comparisonTitle": "Flipika vs Whatagraph",
+        "comparisonSubtitle": "Pricing & Value Comparison",
+        "costTitle": "The Cost of Data",
+        "costSubtitle": "Don't pay extra just for connecting more sources.",
+        "tipsTitle": "Migrating from Whatagraph",
+        "tipsSubtitle": "Smart switching guide",
+        "useCasesTitle": "Use Cases: Smart Scaling",
+        "migrationCtaTitle": "Scale Without Limits",
+        "migrationCtaDesc": "Switch to Flipika for predictable, flat-rate pricing.",
+        "benefitsTitle": "Why Choose Flipika",
+        "benefitsSubtitle": "Unlimited growth potential",
+        "faqTitle": "Whatagraph Migration FAQ",
+        "useCasesSubtitle": "For agencies watching their margins"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Predictable Cost",
+            "description": "Flat monthly fee. Sign 100 new clients tomorrow, your Flipika bill stays exactly the same."
+        },
+        "realtime": {
+            "title": "Visual Impact",
+            "description": "We match Whatagraph's visual quality but add interactivity and glassmorphism."
+        },
+        "design": {
+            "title": "Client Portal",
+            "description": "Give clients access to their data 24/7 without paying seat license fees."
+        },
+        "whitelabel": {
+            "title": "Full White Label",
+            "description": "Your brand front and center. No 'Powered by' badges on paid plans."
+        },
+        "ai": {
+            "title": "AI Analysis",
+            "description": "Automated insights that explain the chart movements. Save analyst hours."
+        },
+        "support": {
+            "title": "Agency Partnership",
+            "description": "We help you sell. Use our 'Pitch Mode' to close new deals."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Volume Retail",
+            "description": "Track many data points without hitting source limits.",
+            "metrics": [
+                "Volume ROI",
+                "Catalog Health",
+                "Global ROAS"
+            ]
+        },
+        "leadgen": {
+            "title": "High Velocity",
+            "description": "Keep CPA low by keeping tool costs low.",
+            "metrics": [
+                "CPA Control",
+                "Budget Pace",
+                "Lead Volume"
+            ]
+        },
+        "agency": {
+            "title": "Enterprise Agency",
+            "description": "Manage 100+ accounts efficiently. Whatagraph costs skyrocket here; Flipika doesn't.",
+            "metrics": [
+                "Margin Stability",
+                "OpEX Control",
+                "Efficiency"
+            ]
+        },
+        "local": {
+            "title": "Small Biz Network",
+            "description": "Great for serving many small clients profitably.",
+            "metrics": [
+                "Local ROI",
+                "Service Margin",
+                "Retention"
+            ]
+        },
+        "saas": {
+            "title": "Growth Startups",
+            "description": "Track everything during your growth phase without tool tax.",
+            "metrics": [
+                "Growth Rate",
+                "Burn Efficiency",
+                "Acquisition Cost"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Check Pricing",
+            "description": "Look at your last Whatagraph bill. Now look at Flipika pricing. Smile."
+        },
+        "step2": {
+            "title": "Migrate Data",
+            "description": "Connect your sources. We visualize the exact same data instantly."
+        },
+        "step3": {
+            "title": "Rebrand",
+            "description": "Upload your assets. The reports will look just as premium (or better)."
+        },
+        "step4": {
+            "title": "Pocket Savings",
+            "description": "Reinvest the savings into your team or your own marketing."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Setup Time",
+            "description": "Flipika is faster to configure. Global templates apply instantly to all clients."
+        },
+        "maintenance": {
+            "title": "Contract Lock-in",
+            "description": "Flipika is flexible. No aggressive annual upselling calls."
+        },
+        "opportunity": {
+            "title": "Growth Cap",
+            "description": "Don't turn down small clients because software costs kill the margin. Flipika makes small clients profitable."
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Compare Margins",
+            "description": "Calculate your software cost per client. Switch if it exceeds 2% of your fee."
+        },
+        "tip2": {
+            "title": "Use Live Links",
+            "description": "Switch clients from receiving PDFs to checking a live link. It's stickier."
+        },
+        "tip3": {
+            "title": "Video Narratives",
+            "description": "Record a Loom over a Flipika dashboard. Clients love the personal touch."
+        },
+        "tip4": {
+            "title": "Team Access",
+            "description": "Invite your whole team. We don't charge per user seat."
+        },
+        "tip5": {
+            "title": "Consolidate",
+            "description": "Put all clients in one portal, even the small ones."
+        },
+        "tip6": {
+            "title": "Upsell Reporting",
+            "description": "Charge a premium for 'Advanced Dashboarding'—your cost stays the same."
+        },
+        "tip7": {
+            "title": "Export Data",
+            "description": "Need raw data? Export to CSV/Excel anytime for deeper analysis."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Feature",
+            "whatagraph": "Whatagraph",
+            "flipika": "Flipika"
+        },
+        "rows": {
+            "design": {
+                "feature": "Source Pricing",
+                "whatagraph": "Pay per Source",
+                "flipika": "Unlimited Sources"
+            },
+            "speed": {
+                "feature": "Scaling Cost",
+                "whatagraph": "High (Exponential)",
+                "flipika": "Low (Flat)"
+            },
+            "mobile": {
+                "feature": "User Seats",
+                "whatagraph": "Limited/Paid",
+                "flipika": "Unlimited/Free"
+            },
+            "presentation": {
+                "feature": "Visual Style",
+                "whatagraph": "Infographic",
+                "flipika": "Interactive Glass"
+            }
+        }
+    },
+    "faq": {
+        "q1": "Really unlimited sources?",
+        "a1": "Yes. Within fair use policy, we don't count every connected account against you.",
+        "q2": "Are reports printable?",
+        "a2": "Yes, PDF export is pixel-perfect for printing or email attachments.",
+        "q3": "Is the design comparable?",
+        "a3": "Reviewers often find Flipika more modern. Whatagraph is 'infographic style', we are 'app style'.",
+        "q4": "Can I custom domain?",
+        "a4": "Yes, totally white labeled on custom domain.",
+        "q5": "Contract length?",
+        "a5": "Monthly available. Annual gets a discount.",
+        "q6": "Supported integrations?",
+        "a6": "Focus on Google Ads ecosystem initially. If you need 50+ obscure integrations, stick with them. If you need deep Google Ads, pick us.",
+        "q7": "How is support?",
+        "a7": "Responsive and helpful. We want you to succeed.",
+        "q8": "Setup assistance?",
+        "a8": "We can help migrate your first few templates to ensure a smooth switch."
+    }
+}
