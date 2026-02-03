@@ -141,6 +141,49 @@
             ]
         }
     },
+    "gallery": {
+        "executive": {
+            "title": "Le Résumé Exécutif",
+            "description": "Parfait pour les décideurs et les présentations au board. Des KPIs de haut niveau comme le ROAS, les dépenses totales et la valeur de conversion. Conçu pour répondre à la question : 'Mon argent est-il bien dépensé ?' en 10 secondes. Incluant des graphiques d'évolution temporelle, des comparaisons mois par mois et des alertes automatiques sur les anomalies de performance. Idéal pour les CMOs, CFOs et entrepreneurs qui veulent une vue d'ensemble sans se noyer dans les détails techniques."
+        },
+        "ecommerce": {
+            "title": "Le Tracker ROAS E-commerce",
+            "description": "Performance produits, analyse des campagnes Shopping et attribution des revenus. Zoomez par catégorie de produit, ID d'article ou localisation pour identifier vos segments les plus rentables. Suivez le panier moyen, le taux de conversion et la marge par produit. Comparez les performances entre différentes stratégies d'enchères (Target ROAS, Maximize Conversions). Parfait pour les e-commerçants qui gèrent des catalogues de 100+ produits et veulent savoir exactement quels produits générent le meilleur retour publicitaire."
+        },
+        "agency": {
+            "title": "La Vue d'Ensemble Agence",
+            "description": "Vous gérez plusieurs clients ? Obtenez une vue unifiée de la performance de tous vos comptes au même endroit. Repérez les insatisfaits et allouez votre temps là où ça compte. Dashboard multi-comptes avec alertes en temps réel, rapports automatisés envoyés chaque lundi matin, et export white-label pour vos présentations client. Suivez le budget consommé vs. alloué, identifiez les opportunités de cross-sell, et prouvez votre valeur ajoutée avec des métriques claires."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "excel": "Rapport Agence Standard",
+            "flipika": "Portail Client Flipika"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Multi-Clients",
+                "excel": "Ouvrir 50 onglets",
+                "flipika": "Un Dashboard Maître"
+            },
+            "maintenance": {
+                "feature": "Charge Hebdo",
+                "excel": "1 jour par semaine",
+                "flipika": "Zéro manipulation"
+            },
+            "sharing": {
+                "feature": "Accès Client",
+                "excel": "Attendre l'email",
+                "flipika": "Portail Client 24/7"
+            },
+            "design": {
+                "feature": "Marque Blanche",
+                "excel": "Limité (Logo seul)",
+                "flipika": "Total (Domaine & Couleurs)"
+            }
+        }
+    },
     "tips": {
         "tip1": {
             "title": "Utilisez les Résumés Exécutifs",

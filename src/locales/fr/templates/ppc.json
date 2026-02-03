@@ -43,30 +43,75 @@
             "description": "Programmez des emails hebdomadaires. Vos clients reçoivent un lien live ou un PDF pixel-perfect chaque lundi."
         }
     },
-    "benefits": {
-        "automation": {
-            "title": "100% Automatisé",
-            "description": "Ne faites plus jamais de capture d'écran Google Ads. Vos données sont live, justes, et toujours prêtes pour le point client."
+    "hook": {
+        "speed": {
+            "title": "Chargement Instantané",
+            "description": "Looker Studio peut prendre 10s+ à charger. Flipika charge en quelques millisecondes grâce à notre cache optimisé."
         },
-        "realtime": {
-            "title": "Ajustements Temps Réel",
-            "description": "Repérez les fuites de budget immédiatement. Les dashboards live vous permettent de réagir aux hausses de CPA avant la fin du mois."
+        "branding": {
+            "title": "Marque Blanche Totale",
+            "description": "Pas de logos 'Google' partout. Votre marque, vos couleurs, votre domaine."
         },
-        "design": {
-            "title": "Design Agence Premium",
-            "description": "Soyez à la hauteur de vos honoraires. Le design Glassmorphism et les graphiques interactifs renforcent votre image d'expert."
+        "stability": {
+            "title": "Ça Marche, C'est Tout",
+            "description": "Plus de déconnexions aléatoires ou de graphiques cassés."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "5h / Semaine par Compte",
+            "description": "Agréger les données Search, Display et Vidéo prend un temps fou. Flipika unifie tout instantanément."
         },
-        "whitelabel": {
-            "title": "Votre Marque, Pas la Nôtre",
-            "description": "Supprimez le branding Flipika. Utilisez votre domaine (rapports.votreagence.com) et votre logo. Maîtrisez l'expérience client."
+        "errors": {
+            "title": "Formules Cassées",
+            "description": "Les Excels complexes finissent toujours par avoir des erreurs de référence. Notre dashboard est toujours 100% juste."
         },
-        "multidevice": {
-            "title": "Mobile Ready",
-            "description": "Vos clients lisent leurs mails sur mobile. Assurez-vous que vos rapports soient lisibles partout avec notre design responsive."
+        "opportunity": {
+            "title": "Temps de Réaction",
+            "description": "Le temps de voir un CPA élevé dans un report hebdo manuel, vous avez déjà gaspillé du budget. Le live permet de réagir tout de suite."
+        }
+    },
+    "gallery": {
+        "executive": {
+            "title": "Le Résumé Exécutif",
+            "description": "Parfait pour les décideurs et les présentations au board. Des KPIs de haut niveau comme le ROAS, les dépenses totales et la valeur de conversion. Conçu pour répondre à la question : 'Mon argent est-il bien dépensé ?' en 10 secondes. Incluant des graphiques d'évolution temporelle, des comparaisons mois par mois et des alertes automatiques sur les anomalies de performance. Idéal pour les CMOs, CFOs et entrepreneurs qui veulent une vue d'ensemble sans se noyer dans les détails techniques."
         },
-        "support": {
-            "title": "Support Expert PPC",
-            "description": "Conçu par des pros du PPC pour des pros. Notre équipe comprend vos questions sur l'attribution ou le quality score."
+        "ecommerce": {
+            "title": "Le Tracker ROAS E-commerce",
+            "description": "Performance produits, analyse des campagnes Shopping et attribution des revenus. Zoomez par catégorie de produit, ID d'article ou localisation pour identifier vos segments les plus rentables. Suivez le panier moyen, le taux de conversion et la marge par produit. Comparez les performances entre différentes stratégies d'enchères (Target ROAS, Maximize Conversions). Parfait pour les e-commerçants qui gèrent des catalogues de 100+ produits et veulent savoir exactement quels produits générent le meilleur retour publicitaire."
+        },
+        "agency": {
+            "title": "La Vue d'Ensemble Agence",
+            "description": "Vous gérez plusieurs clients ? Obtenez une vue unifiée de la performance de tous vos comptes au même endroit. Repérez instantanément les comptes en difficulté et allouez votre temps là où ça compte. Dashboard multi-comptes avec alertes en temps réel, rapports automatisés envoyés chaque lundi matin, et export white-label pour vos présentations client. Suivez le budget consommé vs. alloué, identifiez les opportunités de cross-sell, et prouvez votre valeur ajoutée avec des métriques claires."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "excel": "Rapport Excel Manuel",
+            "flipika": "Dashboard PPC Flipika"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Suivi Budget",
+                "excel": "Décalé (Risque dépassement)",
+                "flipika": "Temps réel (Évite dépassement)"
+            },
+            "maintenance": {
+                "feature": "Agrégation Données",
+                "excel": "Téléchargement manuel",
+                "flipika": "Synchro auto Google Ads"
+            },
+            "sharing": {
+                "feature": "Envoi",
+                "excel": "PDF statique en PJ",
+                "flipika": "Lien Live + Email auto"
+            },
+            "design": {
+                "feature": "Design",
+                "excel": "Graphiques Basiques",
+                "flipika": "Look Agence Pro"
+            }
         }
     },
     "testimonials": {

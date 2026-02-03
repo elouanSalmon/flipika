@@ -85,11 +85,11 @@ const resources = {
     'excel-spreadsheets': enExcel,
 
     // New Template Namespaces
-    'templates:google-ads': enGoogleAds,
-    'templates:ppc': enPpc,
-    'templates:marketing-agency': enMarketingAgency,
-    'templates:ecommerce': enEcommerce,
-    'templates:executive': enExecutive,
+    'templates-google-ads': enGoogleAds,
+    'templates-ppc': enPpc,
+    'templates-marketing-agency': enMarketingAgency,
+    'templates-ecommerce': enEcommerce,
+    'templates-executive': enExecutive,
   },
   fr: {
     common: frCommon,
@@ -113,11 +113,11 @@ const resources = {
     'excel-spreadsheets': frExcel,
 
     // New Template Namespaces
-    'templates:google-ads': frGoogleAds,
-    'templates:ppc': frPpc,
-    'templates:marketing-agency': frMarketingAgency,
-    'templates:ecommerce': frEcommerce,
-    'templates:executive': frExecutive,
+    'templates-google-ads': frGoogleAds,
+    'templates-ppc': frPpc,
+    'templates-marketing-agency': frMarketingAgency,
+    'templates-ecommerce': frEcommerce,
+    'templates-executive': frExecutive,
   },
 };
 
@@ -159,11 +159,11 @@ i18n
       'dashthis',
       'excel-spreadsheets',
       // New namespaces
-      'templates:google-ads',
-      'templates:ppc',
-      'templates:marketing-agency',
-      'templates:ecommerce',
-      'templates:executive'
+      'templates-google-ads',
+      'templates-ppc',
+      'templates-marketing-agency',
+      'templates-ecommerce',
+      'templates-executive'
     ],
     load: 'languageOnly',
   });

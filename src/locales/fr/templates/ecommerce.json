@@ -25,6 +25,49 @@
         "tipsSubtitle": "Conseils d'optimisation inclus dans le dashboard",
         "socialProof": "Tracke $50M+ de dépense pub annuelle"
     },
+    "gallery": {
+        "executive": {
+            "title": "Le Résumé Exécutif",
+            "description": "Parfait pour les décideurs et les présentations au board. Des KPIs de haut niveau comme le ROAS, les dépenses totales et la valeur de conversion. Conçu pour répondre à la question : 'Mon argent est-il bien dépensé ?' en 10 secondes. Incluant des graphiques d'évolution temporelle, des comparaisons mois par mois et des alertes automatiques sur les anomalies de performance. Idéal pour les CMOs, CFOs et entrepreneurs qui veulent une vue d'ensemble sans se noyer dans les détails techniques."
+        },
+        "ecommerce": {
+            "title": "Le Tracker ROAS E-commerce",
+            "description": "Performance produits, analyse des campagnes Shopping et attribution des revenus. Zoomez par catégorie de produit, ID d'article ou localisation pour identifier vos segments les plus rentables. Suivez le panier moyen, le taux de conversion et la marge par produit. Comparez les performances entre différentes stratégies d'enchères (Target ROAS, Maximize Conversions). Parfait pour les e-commerçants qui gèrent des catalogues de 100+ produits et veulent savoir exactement quels produits générent le meilleur retour publicitaire."
+        },
+        "agency": {
+            "title": "La Vue d'Ensemble Agence",
+            "description": "Vous gérez plusieurs clients ? Obtenez une vue unifiée de la performance de tous vos comptes au même endroit. Repérez les insatisfaits et allouez votre temps là où ça compte. Dashboard multi-comptes avec alertes en temps réel, rapports automatisés envoyés chaque lundi matin, et export white-label pour vos présentations client. Suivez le budget consommé vs. alloué, identifiez les opportunités de cross-sell, et prouvez votre valeur ajoutée avec des métriques claires."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "excel": "Tableur Classique",
+            "flipika": "Tracker E-com Flipika"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Données Produits",
+                "excel": "Pas d'images/détails",
+                "flipika": "Affichage produits riche"
+            },
+            "maintenance": {
+                "feature": "Mise à jour Stock",
+                "excel": "Souvent obsolète",
+                "flipika": "Synchro statut flux"
+            },
+            "sharing": {
+                "feature": "Analyse Marge",
+                "excel": "Calcul manuel",
+                "flipika": "Auto-calculé"
+            },
+            "design": {
+                "feature": "Visuel",
+                "excel": "Lignes tristes",
+                "flipika": "Galerie Produit"
+            }
+        }
+    },
     "howItWorks": {
         "step1": {
             "title": "Connectez le Store",
@@ -67,6 +110,34 @@
         "support": {
             "title": "Experts Data Ecom",
             "description": "Nous comprenons les erreurs Merchant Center et le délai de conversion. Notre support parle e-commerce."
+        }
+    },
+    "hook": {
+        "speed": {
+            "title": "Chargement Instantané",
+            "description": "Looker Studio peut prendre 10s+ à charger. Flipika charge en quelques millisecondes grâce à notre cache optimisé."
+        },
+        "branding": {
+            "title": "Marque Blanche Totale",
+            "description": "Pas de logos 'Google' partout. Votre marque, vos couleurs, votre domaine."
+        },
+        "stability": {
+            "title": "Ça Marche, C'est Tout",
+            "description": "Plus de déconnexions aléatoires ou de graphiques cassés."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "L'Enfer du Mapping Produit",
+            "description": "Associer manuellement des SKUs aux métriques dans Excel est une torture. Nous lions IDs et ROAS automatiquement."
+        },
+        "errors": {
+            "title": "Décalage de Stock",
+            "description": "Vous faites de la pub pour des produits en rupture car le rapport date de lundi ? C'est de l'argent jeté."
+        },
+        "opportunity": {
+            "title": "Optimisation de Marge",
+            "description": "Arrêtez d'optimiser pour le ROAS, visez le Profit. Le tracking produit temps réel révèle vos vrais gagnants."
         }
     },
     "testimonials": {

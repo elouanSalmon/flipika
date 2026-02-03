@@ -25,6 +25,34 @@
         "tipsSubtitle": "Best practices from top performance agencies",
         "socialProof": "Trusted by 500+ PPC Agencies globally"
     },
+    "hook": {
+        "speed": {
+            "title": "Blazing Fast Loader",
+            "description": "Looker Studio can take 10s+ to load. Flipika loads in milliseconds thanks to our optimized caching layer."
+        },
+        "branding": {
+            "title": "White Label Perfection",
+            "description": "No 'Google' logo everywhere. Your brand, your colors, your domain."
+        },
+        "stability": {
+            "title": "It Just Works",
+            "description": "No more random connector disconnects or broken visualisations."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "5hrs / Week per Account",
+            "description": "Aggregating data from Search, Display, and Video campaigns takes ages. Flipika unifies everything instantly."
+        },
+        "errors": {
+            "title": "Broken Formulas",
+            "description": "Complex Excel sheets often have reference errors. Our automated dashboard is always 100% accurate."
+        },
+        "opportunity": {
+            "title": "Reaction Time",
+            "description": "By the time you spot a high CPA in a weekly manual report, you've already wasted budget. Live data lets you react instantly."
+        }
+    },
     "howItWorks": {
         "step1": {
             "title": "Connect Ad Accounts",
@@ -169,6 +197,49 @@
         "tip7": {
             "title": "Conversion Delay",
             "description": "Explain why last week's results look low. Use the time-lag report to show clients that conversions take time to mature."
+        }
+    },
+    "gallery": {
+        "executive": {
+            "title": "The Executive Summary",
+            "description": "Perfect for C-level reporting and board presentations. Focuses on high-level KPIs like ROAS, total spend, and conversion value. Designed to answer the question: 'Is my money being spent wisely?' in 10 seconds. Including time-series charts, month-over-month comparisons, and automated alerts on performance anomalies. Ideal for CMOs, CFOs, and entrepreneurs who want the big picture without drowning in technical details."
+        },
+        "ecommerce": {
+            "title": "The E-commerce ROAS Tracker",
+            "description": "Granular product performance, shopping campaign analysis, and revenue attribution. Drill down by product category, item ID, or location to identify your most profitable segments. Track average order value, conversion rate, and margin per product. Compare performance across different bidding strategies (Target ROAS, Maximize Conversions). Perfect for e-commerce businesses managing 100+ product catalogs who need to know exactly which products drive the best advertising ROI."
+        },
+        "agency": {
+            "title": "The Agency Overview",
+            "description": "Manage multiple clients? Get a unified view of all your accounts performance in one place. Spot underperforming accounts instantly and allocate your time where it matters most. Multi-account dashboard with real-time alerts, automated reports sent every Monday morning, and white-label export for client presentations. Track budget spent vs. allocated, identify cross-sell opportunities, and prove your value with clear metrics."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Feature",
+            "excel": "Manual Excel Report",
+            "flipika": "Flipika PPC Dashboard"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Budget Tracking",
+                "excel": "Delayed (Risk of overspend)",
+                "flipika": "Real-time (Prevents overspend)"
+            },
+            "maintenance": {
+                "feature": "Data Aggregation",
+                "excel": "Manual download & merge",
+                "flipika": "Auto-sync Google Ads"
+            },
+            "sharing": {
+                "feature": "Delivery",
+                "excel": "Static PDF attachment",
+                "flipika": "Live Link + Auto-email"
+            },
+            "design": {
+                "feature": "Visual Design",
+                "excel": "Basic Charts",
+                "flipika": "Pro Agency Look"
+            }
         }
     },
     "faq": {

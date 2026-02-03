@@ -43,6 +43,49 @@
             "description": "Generate a clean PDF for the board deck, or share a live link protected by password."
         }
     },
+    "gallery": {
+        "executive": {
+            "title": "The Executive Summary",
+            "description": "Perfect for C-level reporting and board presentations. Focuses on high-level KPIs like ROAS, total spend, and conversion value. Designed to answer the question: 'Is my money being spent wisely?' in 10 seconds. Including time-series charts, month-over-month comparisons, and automated alerts on performance anomalies. Ideal for CMOs, CFOs, and entrepreneurs who want the big picture without drowning in technical details."
+        },
+        "ecommerce": {
+            "title": "The E-commerce ROAS Tracker",
+            "description": "Granular product performance, shopping campaign analysis, and revenue attribution. Drill down by product category, item ID, or location to identify your most profitable segments. Track average order value, conversion rate, and margin per product. Compare performance across different bidding strategies (Target ROAS, Maximize Conversions). Perfect for e-commerce businesses managing 100+ product catalogs who need to know exactly which products drive the best advertising ROI."
+        },
+        "agency": {
+            "title": "The Agency Overview",
+            "description": "Manage multiple clients? Get a unified view of all your accounts performance in one place. Spot underperforming accounts instantly and allocate your time where it matters most. Multi-account dashboard with real-time alerts, automated reports sent every Monday morning, and white-label export for client presentations. Track budget spent vs. allocated, identify cross-sell opportunities, and prove your value with clear metrics."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Feature",
+            "excel": "50-Page PDF",
+            "flipika": "1-Page Executive Board"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Readability",
+                "excel": "Cluttered & Technical",
+                "flipika": "Clean Executive Cards"
+            },
+            "maintenance": {
+                "feature": "Frequency",
+                "excel": "Monthly only",
+                "flipika": "Available 24/7"
+            },
+            "sharing": {
+                "feature": "Format",
+                "excel": "Boring tables",
+                "flipika": "Visual Trendlines"
+            },
+            "design": {
+                "feature": "Impact",
+                "excel": "Low (Ignored)",
+                "flipika": "High (Board Ready)"
+            }
+        }
+    },
     "benefits": {
         "automation": {
             "title": "Monday Morning Brief",
@@ -67,6 +110,34 @@
         "support": {
             "title": "Enterprise Reliability",
             "description": "99.9% Uptime. Data is always there when you need it for a critical meeting."
+        }
+    },
+    "hook": {
+        "speed": {
+            "title": "Blazing Fast Loader",
+            "description": "Looker Studio can take 10s+ to load. Flipika loads in milliseconds thanks to our optimized caching layer."
+        },
+        "branding": {
+            "title": "White Label Perfection",
+            "description": "No 'Google' logo everywhere. Your brand, your colors, your domain."
+        },
+        "stability": {
+            "title": "It Just Works",
+            "description": "No more random connector disconnects or broken visualisations."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Waiting for Answers",
+            "description": "The CEO asks 'How are we doing?' and waits 2 days for a report. This dashboard gives the answer in 2 seconds."
+        },
+        "errors": {
+            "title": "Data Overload",
+            "description": "Executives ignore 50-page PDFs. They need a single page of truth. Complexity is an error in communication."
+        },
+        "opportunity": {
+            "title": "Strategic Agility",
+            "description": "Faster access to high-level data means faster strategic pivots. Don't steer the ship looking at the wake."
         }
     },
     "testimonials": {

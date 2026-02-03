@@ -69,6 +69,49 @@
             "description": "99.9% Uptime. La donnée est toujours là quand vous en avez besoin pour une réunion critique."
         }
     },
+    "gallery": {
+        "executive": {
+            "title": "Le Résumé Exécutif",
+            "description": "Parfait pour les décideurs et les présentations au board. Des KPIs de haut niveau comme le ROAS, les dépenses totales et la valeur de conversion. Conçu pour répondre à la question : 'Mon argent est-il bien dépensé ?' en 10 secondes. Incluant des graphiques d'évolution temporelle, des comparaisons mois par mois et des alertes automatiques sur les anomalies de performance. Idéal pour les CMOs, CFOs et entrepreneurs qui veulent une vue d'ensemble sans se noyer dans les détails techniques."
+        },
+        "ecommerce": {
+            "title": "Le Tracker ROAS E-commerce",
+            "description": "Performance produits, analyse des campagnes Shopping et attribution des revenus. Zoomez par catégorie de produit, ID d'article ou localisation pour identifier vos segments les plus rentables. Suivez le panier moyen, le taux de conversion et la marge par produit. Comparez les performances entre différentes stratégies d'enchères (Target ROAS, Maximize Conversions). Parfait pour les e-commerçants qui gèrent des catalogues de 100+ produits et veulent savoir exactement quels produits générent le meilleur retour publicitaire."
+        },
+        "agency": {
+            "title": "La Vue d'Ensemble Agence",
+            "description": "Vous gérez plusieurs clients ? Obtenez une vue unifiée de la performance de tous vos comptes au même endroit. Repérez les insatisfaits et allouez votre temps là où ça compte. Dashboard multi-comptes avec alertes en temps réel, rapports automatisés envoyés chaque lundi matin, et export white-label pour vos présentations client. Suivez le budget consommé vs. alloué, identifiez les opportunités de cross-sell, et prouvez votre valeur ajoutée avec des métriques claires."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Fonctionnalité",
+            "excel": "PDF de 50 Pages",
+            "flipika": "Board Exécutif 1-Page"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Lisibilité",
+                "excel": "Surchargé & Technique",
+                "flipika": "Cartes Exécutives Claires"
+            },
+            "maintenance": {
+                "feature": "Fréquence",
+                "excel": "Mensuel uniquement",
+                "flipika": "Disponible 24/7"
+            },
+            "sharing": {
+                "feature": "Format",
+                "excel": "Tableaux ennuyeux",
+                "flipika": "Tendances Visuelles"
+            },
+            "design": {
+                "feature": "Impact",
+                "excel": "Faible (Ignoré)",
+                "flipika": "Élevé (Board Ready)"
+            }
+        }
+    },
     "testimonials": {
         "testimonial1": {
             "quote": "Je n'ai pas le temps de me loguer sur Google Ads. Le résumé hebdo Flipika me donne tout ce que je dois savoir en 30 secondes.",

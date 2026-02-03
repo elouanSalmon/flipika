@@ -19,7 +19,7 @@ const TemplateLandingPage: React.FC = () => {
     // Dynamic namespace loading
     useEffect(() => {
         if (slug) {
-            i18n.loadNamespaces(`templates:${slug}`);
+            i18n.loadNamespaces(`templates-${slug}`);
         }
     }, [slug, i18n]);
 
@@ -42,7 +42,7 @@ const TemplateLandingPage: React.FC = () => {
     };
 
     // Helper for dynamic translation
-    const tr = (key: string) => t(`templates:${slug}.${key}`);
+    const tr = (key: string) => t(`templates-${slug}:${key}`);
 
     // Structured Data for SEO
     const structuredData = {
@@ -272,7 +272,7 @@ const TemplateLandingPage: React.FC = () => {
                                 const isOpen = openUseCase === useCase;
                                 // Need to handle potentially missing use cases in new files
                                 const title = tr(`useCases.${useCase}.title`);
-                                if (!title || title === `templates:${slug}.useCases.${useCase}.title`) return null;
+                                if (!title || title === `templates-${slug}:useCases.${useCase}.title`) return null;
 
                                 return (
                                     <motion.div
@@ -299,7 +299,7 @@ const TemplateLandingPage: React.FC = () => {
                                                         <p className="text-[var(--color-text-secondary)] leading-relaxed mb-4">{tr(`useCases.${useCase}.description`)}</p>
                                                         <div className="flex flex-wrap gap-2">
                                                             {/* Safe mapping for potential array */}
-                                                            {(t(`templates:${slug}.useCases.${useCase}.metrics`, { returnObjects: true }) as string[] || []).map((metric, i) => (
+                                                            {(t(`templates-${slug}:useCases.${useCase}.metrics`, { returnObjects: true }) as string[] || []).map((metric, i) => (
                                                                 <span key={i} className="px-3 py-1.5 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold border border-[var(--color-primary)]/20">
                                                                     {metric}
                                                                 </span>
