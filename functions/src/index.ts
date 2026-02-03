@@ -15,7 +15,6 @@ export { initiateOAuth, handleOAuthCallback } from "./oauth";
 export { domainRedirect } from "./domainRedirect";
 
 // Re-export Sitemap functions
-export { serveSitemap } from "./serveSitemap";
 export { generateSitemap } from "./generateSitemap";
 
 // Re-export Backup function
@@ -38,7 +37,7 @@ export { generateScheduledReports, processScheduledReports };
 export { migrateReportsWithAccountNames } from "./migrateReports";
 
 // Re-export AI Analyst functions (Genkit Flow)
-export { analyzeCampaignPerformanceFlow } from "./insights";
+// export { analyzeCampaignPerformanceFlow } from "./insights";
 
 
 // Import Stripe functions
