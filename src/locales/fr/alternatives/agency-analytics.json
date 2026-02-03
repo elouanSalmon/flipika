@@ -1,0 +1,198 @@
+{
+    "page": {
+        "seoTitle": "Meilleure Alternative à AgencyAnalytics en 2026 | Flipika",
+        "seoDescription": "Évitez la 'taxe à la croissance' d'AgencyAnalytics. Flipika offre des rapports illimités sans frais par client.",
+        "h1Title": "Pourquoi Flipika remplace AgencyAnalytics",
+        "subtitle": "Arrêtez de payer 15$ par client. Passez au pricing illimité.",
+        "painPointsTitle": "Le Problème avec AgencyAnalytics",
+        "painPointsSubtitle": "Votre succès ne devrait pas vous coûter plus cher.",
+        "comparisonTitle": "Flipika vs AgencyAnalytics",
+        "comparisonSubtitle": "Le match des fonctionnalités et du prix.",
+        "costTitle": "Le vrai coût de la croissance",
+        "costSubtitle": "Combien AgencyAnalytics vous coûtera vraiment l'année prochaine",
+        "tipsTitle": "Conseils pour quitter AgencyAnalytics",
+        "tipsSubtitle": "Migrez vos clients sans friction",
+        "useCasesTitle": "Cas d'usage : Scaling d'Agence",
+        "migrationCtaTitle": "Arrêtez de payer pour chaque client",
+        "migrationCtaDesc": "Passez à Flipika et scalez votre agence sans pénalité financière.",
+        "benefitsTitle": "Pourquoi choisir Flipika",
+        "benefitsSubtitle": "Tout ce dont vous avez besoin pour des rapports Google Ads professionnels",
+        "faqTitle": "Questions Fréquentes",
+        "testimonialsTitle": "Ce que disent nos clients",
+        "testimonialsSubtitle": "Rejoignez des centaines d'agences qui ont fait le switch",
+        "useCasesSubtitle": "Flipika s'adapte à tous les types de business"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Vitesse Fulgurante",
+            "description": "Fini les roulettes de chargement. Vos rapports s'affichent en moins d'une seconde, même avec des millions de lignes de données."
+        },
+        "realtime": {
+            "title": "Données en Temps Réel",
+            "description": "Vos rapports se mettent à jour automatiquement. Plus besoin de rafraîchir manuellement ou d'attendre la synchronisation."
+        },
+        "design": {
+            "title": "Design Premium",
+            "description": "Des rapports professionnels avec un design glassmorphism moderne qui impressionne vos clients dès le premier regard."
+        },
+        "whitelabel": {
+            "title": "White Label Complet",
+            "description": "Votre logo, vos couleurs, votre domaine personnalisé. Flipika disparaît derrière votre marque."
+        },
+        "ai": {
+            "title": "Insights IA",
+            "description": "Notre IA analyse vos campagnes et génère automatiquement des recommandations actionnables."
+        },
+        "support": {
+            "title": "Support Français",
+            "description": "Une équipe francophone disponible par chat 7j/7 pour vous accompagner dans votre migration."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "E-commerce & Shopping Ads",
+            "description": "Suivez vos performances Shopping Ads avec des rapports détaillés sur les produits, catégories, et ROAS par SKU. Idéal pour les boutiques en ligne qui gèrent des catalogues de milliers de références.",
+            "metrics": [
+                "ROAS par produit",
+                "Performance par catégorie",
+                "Taux de conversion Shopping"
+            ]
+        },
+        "leadgen": {
+            "title": "Génération de Leads B2B",
+            "description": "Optimisez vos campagnes de génération de leads avec des rapports qui trackent le parcours complet : du clic à la conversion qualifiée. Intégrations CRM disponibles.",
+            "metrics": [
+                "Coût par lead",
+                "Taux de qualification",
+                "ROI par campagne"
+            ]
+        },
+        "agency": {
+            "title": "Agences Marketing",
+            "description": "Gérez plusieurs clients depuis une seule interface. Rapports automatisés, white label complet, et facturation intégrée pour un workflow agence optimisé.",
+            "metrics": [
+                "Rapports multi-clients",
+                "Marque blanche",
+                "Automatisation complète"
+            ]
+        },
+        "local": {
+            "title": "Business Locaux",
+            "description": "Suivez vos campagnes locales (Google Maps, appels, directions) avec des métriques géolocalisées. Parfait pour les franchises et réseaux multi-sites.",
+            "metrics": [
+                "Appels téléphoniques",
+                "Directions vers magasin",
+                "Performance par zone"
+            ]
+        },
+        "saas": {
+            "title": "SaaS & Logiciels",
+            "description": "Trackez votre funnel d'acquisition complet : essais gratuits, conversions payantes, LTV. Intégrations avec Stripe, Paddle et principaux outils SaaS.",
+            "metrics": [
+                "CAC par canal",
+                "LTV/CAC ratio",
+                "Taux de conversion essai-payant"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Importez vos clients",
+            "description": "Connectez votre compte Google Ads Manager (MCC) et importez tous vos comptes clients en un clic."
+        },
+        "step2": {
+            "title": "Appliquez vos thèmes",
+            "description": "Recréez votre branding AgencyAnalytics dans Flipika. Logo, couleurs, domaine personnalisé."
+        },
+        "step3": {
+            "title": "Automatisez massivement",
+            "description": "Assignez un template maître à 50 clients d'un coup. Plus besoin de configurer les comptes un par un."
+        },
+        "step4": {
+            "title": "Économisez immédiatement",
+            "description": "Dès le premier mois, constatez la différence de facturation. Fini les ajouts de ligne 'Extra Client' sur la facture."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "La taxe par client",
+            "description": "AgencyAnalytics facture ~15-20$ par client supplémentaire. Si vous signez 10 nouveaux clients, votre facture logicielle augmente de 200$/mois. Avec Flipika, c'est 0$."
+        },
+        "maintenance": {
+            "title": "Le coût des Add-ons",
+            "description": "Rank Tracker ? Facturé à part. Site Audit ? Facturé à part. Chez Flipika, toutes les fonctionnalités marketing principales sont incluses dans le plan de base."
+        },
+        "opportunity": {
+            "title": "Marge réduite",
+            "description": "En payant par client, votre marge diminue pour les petits comptes. Flipika vous permet de rester rentable même sur les petits budgets Google Ads."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "On adorait AgencyAnalytics mais la facture montait chaque mois. En passant chez Flipika, on a économisé 4000$/an dès la première année, pour un résultat identique.",
+            "author": "Pierre Durand",
+            "role": "CEO",
+            "company": "ScaleUp Agency"
+        },
+        "testimonial2": {
+            "quote": "Leur modèle de pricing nous punissait de grandir. Flipika a compris que les agences ont besoin de coûts prévisibles.",
+            "author": "Sarah Connor",
+            "role": "Operations Manager",
+            "company": "TechMarketing"
+        },
+        "testimonial3": {
+            "quote": "L'interface est tout aussi propre qu'AgencyAnalytics, mais la flexibilité des slides Flipika est bien meilleure pour les rendus clients personnalisés.",
+            "author": "Lucas Viera",
+            "role": "Head of SEA",
+            "company": "Digital First"
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Analysez votre facture",
+            "description": "Regardez combien vous payez réellement par client sur AgencyAnalytics. Le prix d'appel est trompeur."
+        },
+        "tip2": {
+            "title": "Préparez vos clients",
+            "description": "Annoncez à vos clients une 'mise à jour de la plateforme de reporting'. Présentez le changement comme une amélioration de l'expérience."
+        },
+        "tip3": {
+            "title": "Récupérez vos données SEO",
+            "description": "Si vous utilisez le Rank Tracker d'AgencyAnalytics, pensez à exporter vos historiques de positionnement avant de couper."
+        },
+        "tip4": {
+            "title": "Testez l'éditeur de slides",
+            "description": "C'est la grande différence. Là où AgencyAnalytics est rigide, Flipika permet de faire des slides sur mesure. Profitez-en."
+        },
+        "tip5": {
+            "title": "Configurez le domaine",
+            "description": "N'oubliez pas de configurer votre CNAME (reports.votreagence.com) sur Flipika pour que la transition soit invisible."
+        },
+        "tip6": {
+            "title": "Utilisez le Narrative Layer",
+            "description": "AgencyAnalytics a des widgets basiques. Activez l'IA de Flipika pour ajouter automatiquement du texte d'analyse."
+        },
+        "tip7": {
+            "title": "Groupes de comptes",
+            "description": "Utilisez les portefeuilles Flipika pour grouper vos clients par type (Ecom, Leadgen) et leur appliquer des stratégies de reporting différentes."
+        }
+    },
+    "faq": {
+        "q1": "Est-ce vraiment illimité en nombre de clients ?",
+        "a1": "Oui. Notre modèle économique est basé sur la valeur que nous apportons à l'agence, pas sur une taxe à l'utilisation. Vous pouvez avoir 10 ou 100 clients, le prix de base reste le même.",
+        "q2": "Avez-vous le Rank Tracking SEO ?",
+        "a2": "Nous nous concentrons d'abord sur être les meilleurs en Paid Media (Google Ads). Pour le SEO, nous intégrons Google Search Console gratuitement. Pour le tracking de mots-clés avancé, des outils spécialisés sont souvent mieux et moins chers qu'un all-in-one.",
+        "q3": "Comment se passe la migration depuis AgencyAnalytics ?",
+        "a3": "C'est simple car vous gérez déjà vos clients via des comptes publicitaires. En connectant vos MCCs, Flipika recrée instantanément la structure de vos comptes.",
+        "q4": "L'interface est-elle aussi simple ?",
+        "a4": "Oui, nous visons la même simplicité d'usage, mais avec plus de flexibilité dans le design. Si vous savez utiliser AgencyAnalytics, vous saurez utiliser Flipika en 5 minutes.",
+        "q5": "Puis-je donner un accès client ?",
+        "a5": "Bien sûr. Chaque client peut avoir son propre portail sécurisé, en marque blanche, exactement comme sur AgencyAnalytics.",
+        "q6": "Gérez-vous Facebook Ads ?",
+        "a6": "L'intégration Meta Ads arrive au T2 2026. Pour l'instant, nous sommes l'outil ultime pour les agences Google Ads, mais le multi-canal arrive très vite.",
+        "q7": "Y a-t-il des frais de setup ?",
+        "a7": "Aucun. Vous créez votre compte et vous démarrez. Pas de frais cachés d'onboarding.",
+        "q8": "Puis-je exporter en PDF ?",
+        "a8": "Oui, PDF haute définition et même Google Slides éditables, ce qu'AgencyAnalytics ne fait pas toujours bien."
+    }
+}

@@ -19,6 +19,9 @@
         "seoDescription": "Fatigué des limites de {{competitor}} ? Découvrez pourquoi Flipika est l'alternative numéro 1 pour des rapports Google Ads rapides.",
         "updatedBadge": "Dernière mise à jour : {{date}}",
         "h1Title": "Pourquoi Flipika est la meilleure alternative à {{competitor}} en {{year}}",
+        "subtitle": "Arrêtez d'attendre que vos dashboards chargent. Obtenez vos insights instantanément avec Flipika.",
+        "socialProof": "Utilisé par 500+ agences dans 30 pays",
+        "cta": "Essayer Flipika gratuitement",
         "painPointsTitle": "Le Problème avec {{competitor}}",
         "painPointsSubtitle": "Le marketing devrait porter sur la stratégie, pas sur la lutte avec des outils lents.",
         "comparisonTitle": "Le Match des Fonctionnalités",
@@ -29,7 +32,193 @@
         "migrationCtaDesc": "Nous vous aidons à migrer vos rapports et dashboards actuels vers Flipika en moins de 24 heures.",
         "benefit1": "Chargement instantané",
         "benefit2": "Zéro mise en forme",
-        "benefit3": "Rapports illimités"
+        "benefit3": "Rapports illimités",
+        "howItWorksTitle": "Comment ça fonctionne",
+        "howItWorksSubtitle": "Passez de Looker Studio à Flipika en 4 étapes simples",
+        "benefitsTitle": "Pourquoi choisir Flipika",
+        "benefitsSubtitle": "Tout ce dont vous avez besoin pour des rapports Google Ads professionnels",
+        "useCasesTitle": "Cas d'usage",
+        "useCasesSubtitle": "Flipika s'adapte à tous les types de business",
+        "costTitle": "Le coût caché de {{competitor}}",
+        "costSubtitle": "Ce que la \"gratuité\" vous coûte vraiment",
+        "testimonialsTitle": "Ce que disent nos clients",
+        "testimonialsSubtitle": "Rejoignez des centaines d'agences qui ont fait le switch",
+        "tipsTitle": "Conseils d'experts pour la transition",
+        "tipsSubtitle": "Comment réussir votre migration de {{competitor}} vers Flipika",
+        "faqTitle": "Questions Fréquentes"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connectez Google Ads",
+            "description": "Liez votre compte Google Ads en un clic. Aucune API complexe, aucun token à configurer."
+        },
+        "step2": {
+            "title": "Choisissez votre template",
+            "description": "Sélectionnez parmi nos templates pré-conçus ou créez le vôtre de zéro avec notre éditeur visuel."
+        },
+        "step3": {
+            "title": "Personnalisez à votre image",
+            "description": "Ajoutez votre logo, vos couleurs de marque et personnalisez les métriques affichées."
+        },
+        "step4": {
+            "title": "Partagez instantanément",
+            "description": "Générez un lien sécurisé et partagez-le avec vos clients. Pas de PDF obsolète, des données live."
+        }
+    },
+    "benefits": {
+        "speed": {
+            "title": "Vitesse Fulgurante",
+            "description": "Fini les roulettes de chargement. Vos rapports s'affichent en moins d'une seconde, même avec des millions de lignes de données."
+        },
+        "realtime": {
+            "title": "Données en Temps Réel",
+            "description": "Vos rapports se mettent à jour automatiquement. Plus besoin de rafraîchir manuellement ou d'attendre la synchronisation."
+        },
+        "design": {
+            "title": "Design Premium",
+            "description": "Des rapports professionnels avec un design glassmorphism moderne qui impressionne vos clients dès le premier regard."
+        },
+        "whitelabel": {
+            "title": "White Label Complet",
+            "description": "Votre logo, vos couleurs, votre domaine personnalisé. Flipika disparaît derrière votre marque."
+        },
+        "ai": {
+            "title": "Insights IA",
+            "description": "Notre IA analyse vos campagnes et génère automatiquement des recommandations actionnables."
+        },
+        "support": {
+            "title": "Support Français",
+            "description": "Une équipe francophone disponible par chat7j/7 pour vous accompagner dans votre migration."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "E-commerce & Shopping Ads",
+            "description": "Suivez vos performances Shopping Ads avec des rapports détaillés sur les produits, catégories, et ROAS par SKU. Idéal pour les boutiques en ligne qui gèrent des catalogues de milliers de références.",
+            "metrics": [
+                "ROAS par produit",
+                "Performance par catégorie",
+                "Taux de conversion Shopping"
+            ]
+        },
+        "leadgen": {
+            "title": "Génération de Leads B2B",
+            "description": "Optimisez vos campagnes de génération de leads avec des rapports qui trackent le parcours complet : du clic à la conversion qualifiée. Intégrations CRM disponibles.",
+            "metrics": [
+                "Coût par lead",
+                "Taux de qualification",
+                "ROI par campagne"
+            ]
+        },
+        "agency": {
+            "title": "Agences Marketing",
+            "description": "Gérez plusieurs clients depuis une seule interface. Rapports automatisés, white label complet, et facturation intégrée pour un workflow agence optimisé.",
+            "metrics": [
+                "Rapports multi-clients",
+                "Marque blanche",
+                "Automatisation complète"
+            ]
+        },
+        "local": {
+            "title": "Business Locaux",
+            "description": "Suivez vos campagnes locales (Google Maps, appels, directions) avec des métriques géolocalisées. Parfait pour les franchises et réseaux multi-sites.",
+            "metrics": [
+                "Appels téléphoniques",
+                "Directions vers magasin",
+                "Performance par zone"
+            ]
+        },
+        "saas": {
+            "title": "SaaS & Logiciels",
+            "description": "Trackez votre funnel d'acquisition complet : essais gratuits, conversions payantes, LTV. Intégrations avec Stripe, Paddle et principaux outils SaaS.",
+            "metrics": [
+                "CAC par canal",
+                "LTV/CAC ratio",
+                "Taux de conversion essai-payant"
+            ]
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Temps Perdu = Argent Perdu",
+            "description": "Un rapport Looker Studio met en moyenne 15-30 secondes à charger. Si vous consultez 20 rapports par jour, c'est 10 minutes perdues quotidiennement, soit 40 heures par an à attendre des spinners."
+        },
+        "maintenance": {
+            "title": "Maintenance Cachée",
+            "description": "Looker Studio casse régulièrement à cause des mises à jour Google Ads API. Vous passez des heures à débugger des connecteurs, reconfigurer des sources de données, et réparer des visualisations cassées."
+        },
+        "opportunity": {
+            "title": "Coût d'Opportunité",
+            "description": "Pendant que vous galérez avec Looker Studio, vos concurrents optimisent leurs campagnes. Le temps perdu en reporting manuel est du temps non investi dans la stratégie et l'optimisation."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Depuis qu'on a migré vers Flipika, on a divisé par 4 le temps passé sur le reporting client. Les rapports se génèrent tout seuls et nos clients adorent le nouveau design.",
+            "author": "Marie Dubois",
+            "role": "Directrice Marketing",
+            "company": "Agence Digitale Paris"
+        },
+        "testimonial2": {
+            "quote": "Fini les dashboards Looker Studio qui mettent 2 minutes à charger lors des présentations client. Avec Flipika, tout est instantané et ça fait vraiment pro.",
+            "author": "Thomas Martin",
+            "role": "CEO",
+            "company": "Growth Partners"
+        },
+        "testimonial3": {
+            "quote": "On gère 50+ clients et avant c'était l'enfer avec Looker Studio. Flipika nous a permis d'automatiser 90% du reporting et de scaler notre agence sans recruter.",
+            "author": "Sophie Laurent",
+            "role": "Head of Performance",
+            "company": "MediaBoost Agency"
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Auditez vos dashboards actuels",
+            "description": "Avant de migrer, listez tous vos dashboards Looker Studio et identifiez ceux qui sont réellement utilisés. Profitez-en pour faire le ménage et ne migrer que l'essentiel."
+        },
+        "tip2": {
+            "title": "Commencez par un client pilote",
+            "description": "Ne migrez pas tous vos clients d'un coup. Choisissez un client test pour valider votre setup Flipika, recueillir du feedback, et affiner votre processus avant le déploiement global."
+        },
+        "tip3": {
+            "title": "Formez votre équipe progressivement",
+            "description": "Organisez une session de formation pour votre équipe sur Flipika. L'interface est intuitive mais un onboarding structuré accélère l'adoption et évite les frustrations."
+        },
+        "tip4": {
+            "title": "Configurez votre white label dès le départ",
+            "description": "Uploadez votre logo, définissez vos couleurs de marque et paramétrez votre domaine personnalisé avant de créer vos premiers rapports. Ça évitera de tout refaire après."
+        },
+        "tip5": {
+            "title": "Utilisez les templates comme base",
+            "description": "Flipika propose des templates prêts à l'emploi pour tous les cas d'usage. Partez de ces templates et personnalisez-les plutôt que de repartir de zéro."
+        },
+        "tip6": {
+            "title": "Automatisez l'envoi de rapports",
+            "description": "Configurez des rapports automatiques hebdomadaires ou mensuels pour vos clients. Ils recevront leurs insights sans que vous ayez à lever le petit doigt."
+        },
+        "tip7": {
+            "title": "Exploitez les insights IA",
+            "description": "Ne vous contentez pas d'afficher des chiffres. Activez les insights IA pour que Flipika génère automatiquement des recommandations d'optimisation que vos clients comprendront."
+        }
+    },
+    "faq": {
+        "q1": "Puis-je importer mes dashboards Looker Studio existants ?",
+        "a1": "Pas directement, car Looker Studio et Flipika utilisent des architectures différentes. Cependant, notre équipe peut vous aider à recréer vos dashboards les plus importants dans Flipika en moins de 24h. La bonne nouvelle : la plupart de nos clients découvrent que les templates Flipika répondent déjà à 80% de leurs besoins.",
+        "q2": "Flipika est-il vraiment plus rapide que Looker Studio ?",
+        "a2": "Oui, significativement. Looker Studio interroge l'API Google Ads à chaque chargement, ce qui prend 10-30 secondes. Flipika pré-calcule vos métriques et utilise une architecture optimisée qui charge vos rapports en moins d'une seconde, même avec des millions de lignes de données.",
+        "q3": "Mes données sont-elles sécurisées ?",
+        "a3": "Absolument. Flipika est hébergé sur Google Cloud (mêmes serveurs que Google Ads), utilise le chiffrement SSL/TLS, et est conforme RGPD. Vos données sont stockées en Europe et jamais partagées avec des tiers. Nous avons les mêmes standards de sécurité que les banques en ligne.",
+        "q4": "Puis-je personnaliser les rapports à mon image ?",
+        "a4": "Oui, complètement. Vous pouvez uploader votre logo, définir vos couleurs de marque, personnaliser les métriques affichées, et même utiliser votre propre domaine (ex: reports.votreagence.com). Le white label est inclus dans tous nos plans.",
+        "q5": "Comment fonctionne la migration ?",
+        "a5": "Notre équipe vous accompagne gratuitement. Vous nous envoyez les liens de vos dashboards Looker Studio actuels, nous les analysons, et nous créons les équivalents dans Flipika. Migration typique : 1-2 jours pour 10-20 dashboards. Vous validez, et on lance.",
+        "q6": "Qu'arrive-t-il si Google Ads change son API ?",
+        "a6": "Contrairement à Looker Studio où vous devez tout reconfigurer manuellement, Flipika gère automatiquement les changements d'API Google Ads. Notre équipe technique maintient les connecteurs à jour, vous n'avez rien à faire. Zero downtime, zero souci.",
+        "q7": "Puis-je essayer Flipika sans engagement ?",
+        "a7": "Oui, 100%. Tous nos plans incluent un essai gratuit de 14 jours, sans carte bancaire requise. Vous pouvez créer autant de rapports que vous voulez pendant l'essai. Si ça ne vous convient pas, pas de problème, annulez en un clic.",
+        "q8": "Flipika fonctionne-t-il avec Google Analytics et Facebook Ads ?",
+        "a8": "Flipika est actuellement spécialisé sur Google Ads pour offrir la meilleure expérience possible. Les intégrations Google Analytics 4 et Meta Ads sont en développement et sortiront en T2 2026. Inscrivez-vous à notre newsletter pour être informé du lancement."
     },
     "competitors": {
         "looker-studio": {

@@ -1,0 +1,198 @@
+{
+    "page": {
+        "seoTitle": "Meilleure Alternative à DashThis en 2026 | Flipika",
+        "seoDescription": "Fini les widgets statiques et limités. Flipika offre des rapports interactifs et modernes que vos clients adoreront.",
+        "h1Title": "Pourquoi Flipika remplace DashThis",
+        "subtitle": "Passez des widgets figés aux présentations interactives.",
+        "painPointsTitle": "Le Problème avec DashThis",
+        "painPointsSubtitle": "Les dashboards de 2015 ne suffisent plus en 2026.",
+        "comparisonTitle": "Flipika vs DashThis",
+        "comparisonSubtitle": "Modernité vs Tradition.",
+        "costTitle": "Le coût de la rigidité",
+        "costSubtitle": "Pourquoi la limite de widgets vous coûte cher",
+        "tipsTitle": "Quitter DashThis",
+        "tipsSubtitle": "Modernisez votre reporting sans perdre vos données",
+        "useCasesTitle": "Cas d'usage : Modernisation",
+        "migrationCtaTitle": "Modernisez vos rapports clients",
+        "migrationCtaDesc": "Remplacez vos widgets statiques par des présentations interactives.",
+        "benefitsTitle": "Pourquoi choisir Flipika",
+        "benefitsSubtitle": "Tout ce dont vous avez besoin pour des rapports Google Ads professionnels",
+        "faqTitle": "Questions Fréquentes",
+        "testimonialsTitle": "Ce que disent nos clients",
+        "testimonialsSubtitle": "Rejoignez des centaines d'agences qui ont fait le switch",
+        "useCasesSubtitle": "Flipika s'adapte à tous les types de business"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Vitesse Fulgurante",
+            "description": "Fini les roulettes de chargement. Vos rapports s'affichent en moins d'une seconde, même avec des millions de lignes de données."
+        },
+        "realtime": {
+            "title": "Données en Temps Réel",
+            "description": "Vos rapports se mettent à jour automatiquement. Plus besoin de rafraîchir manuellement ou d'attendre la synchronisation."
+        },
+        "design": {
+            "title": "Design Premium",
+            "description": "Des rapports professionnels avec un design glassmorphism moderne qui impressionne vos clients dès le premier regard."
+        },
+        "whitelabel": {
+            "title": "White Label Complet",
+            "description": "Votre logo, vos couleurs, votre domaine personnalisé. Flipika disparaît derrière votre marque."
+        },
+        "ai": {
+            "title": "Insights IA",
+            "description": "Notre IA analyse vos campagnes et génère automatiquement des recommandations actionnables."
+        },
+        "support": {
+            "title": "Support Français",
+            "description": "Une équipe francophone disponible par chat 7j/7 pour vous accompagner dans votre migration."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "E-commerce & Shopping Ads",
+            "description": "Suivez vos performances Shopping Ads avec des rapports détaillés sur les produits, catégories, et ROAS par SKU. Idéal pour les boutiques en ligne qui gèrent des catalogues de milliers de références.",
+            "metrics": [
+                "ROAS par produit",
+                "Performance par catégorie",
+                "Taux de conversion Shopping"
+            ]
+        },
+        "leadgen": {
+            "title": "Génération de Leads B2B",
+            "description": "Optimisez vos campagnes de génération de leads avec des rapports qui trackent le parcours complet : du clic à la conversion qualifiée. Intégrations CRM disponibles.",
+            "metrics": [
+                "Coût par lead",
+                "Taux de qualification",
+                "ROI par campagne"
+            ]
+        },
+        "agency": {
+            "title": "Agences Marketing",
+            "description": "Gérez plusieurs clients depuis une seule interface. Rapports automatisés, white label complet, et facturation intégrée pour un workflow agence optimisé.",
+            "metrics": [
+                "Rapports multi-clients",
+                "Marque blanche",
+                "Automatisation complète"
+            ]
+        },
+        "local": {
+            "title": "Business Locaux",
+            "description": "Suivez vos campagnes locales (Google Maps, appels, directions) avec des métriques géolocalisées. Parfait pour les franchises et réseaux multi-sites.",
+            "metrics": [
+                "Appels téléphoniques",
+                "Directions vers magasin",
+                "Performance par zone"
+            ]
+        },
+        "saas": {
+            "title": "SaaS & Logiciels",
+            "description": "Trackez votre funnel d'acquisition complet : essais gratuits, conversions payantes, LTV. Intégrations avec Stripe, Paddle et principaux outils SaaS.",
+            "metrics": [
+                "CAC par canal",
+                "LTV/CAC ratio",
+                "Taux de conversion essai-payant"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connectez vos sources",
+            "description": "Comme sur DashThis, connectez vos comptes marketing. Mais avec Flipika, les données sont récupérées en live, pas en snapshots."
+        },
+        "step2": {
+            "title": "Libérez votre layout",
+            "description": "Oubliez la grille rigide. Placez vos métriques où vous voulez, changez les tailles, superposez des éléments. C'est votre slide."
+        },
+        "step3": {
+            "title": "Enrichissez le contenu",
+            "description": "Ajoutez des images, des vidéos, du contexte. Ne vous limitez pas à des widgets de chiffres froids."
+        },
+        "step4": {
+            "title": "Wow Effect",
+            "description": "Partagez un lien interactif avec vos clients. L'expérience de navigation est fluide, animée et moderne."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "La limite de widgets",
+            "description": "DashThis facture souvent au dashboard avec une limite de widgets. Pour un client complexe, vous devez diviser en 3 dashboards... et payer 3 fois."
+        },
+        "maintenance": {
+            "title": "Coût par dashboard",
+            "description": "Le modèle DashThis vous désincite à créer des rapports spécifiques. Flipika vous encourage à créer autant de rapports que nécessaire sans surcoût."
+        },
+        "opportunity": {
+            "title": "Image de marque",
+            "description": "Envoyer un dashboard au look 'années 2010' donne une image datée à votre agence. Un design moderne justifie vos honoraires premium."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "DashThis était solide mais trop rigide. On ne pouvait pas faire exactement ce qu'on voulait. Flipika nous a donné la liberté créative que notre équipe Design voulait.",
+            "author": "Alice Monnet",
+            "role": "Creative Director",
+            "company": "BrandStudio"
+        },
+        "testimonial2": {
+            "quote": "Le système de 'périodes' de DashThis était confusant pour nos clients. Flipika gère les dates de manière bien plus intuitive et flexible.",
+            "author": "Tom H.",
+            "role": "Analytics Manager",
+            "company": "DataViz Corp"
+        },
+        "testimonial3": {
+            "quote": "On devait payer pour chaque nouveau dashboard de test. Avec Flipika, on peut prototyper autant qu'on veut, on est beaucoup plus agiles.",
+            "author": "Nadia K.",
+            "role": "Freelance",
+            "company": "NK Digital"
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Repensez vos KPIs",
+            "description": "Ne copiez pas bêtement vos widgets DashThis. Flipika permet de visualiser les données différemment, profitez-en pour améliorer la lisibilité."
+        },
+        "tip2": {
+            "title": "Utilisez le Multi-Page",
+            "description": "DashThis pousse au scrolling infini. Flipika gère mieux les rapports multipages structurés comme une présentation."
+        },
+        "tip3": {
+            "title": "Ajoutez du contexte",
+            "description": "C'est la force de Flipika. Ajoutez des slides de texte, d'explication, de stratégie entre vos slides de données."
+        },
+        "tip4": {
+            "title": "Faites des templates",
+            "description": "Le système de templates de Flipika est plus puissant. Créez un 'Master Template' et déclinez-le."
+        },
+        "tip5": {
+            "title": "Oubliez la limite de 50",
+            "description": "Il n'y a pas de limite arbitraire de widgets par page sur Flipika. Mettez autant de métriques que nécessaire."
+        },
+        "tip6": {
+            "title": "Exportez vos presets",
+            "description": "Notez vos filtres et segments personnalisés dans DashThis pour les recréer rapidement dans Flipika."
+        },
+        "tip7": {
+            "title": "Testez l'interactivité",
+            "description": "Montrez à vos clients qu'ils peuvent survoler les graphiques pour voir les détails, ce qui était limité sur DashThis."
+        }
+    },
+    "faq": {
+        "q1": "Puis-je avoir plus de 50 widgets ?",
+        "a1": "Oui, il n'y a pas de limite technique dure. Cependant, pour la lisibilité, nous conseillons de répartir sur plusieurs slides, ce qui est illimité.",
+        "q2": "Vos widgets sont-ils statiques ?",
+        "a2": "Non, ils sont 100% dynamiques. Vous changez la date, tout se met à jour. Vous filtrez, tout s'adapte. Ce n'est pas une image figée.",
+        "q3": "Est-ce plus cher que DashThis ?",
+        "a3": "Souvent moins cher à volume égal. DashThis devient très cher quand on a beaucoup de dashboards. Flipika a un prix plus plat et prévisible.",
+        "q4": "Gérez-vous les CSV ?",
+        "a4": "Oui, vous pouvez importer des données externes via Google Sheets, ce qui est souvent plus flexible que le gestionnaire CSV de DashThis.",
+        "q5": "Comment sont les graphiques ?",
+        "a5": "Nous utilisons une librairie de charting moderne (Recharts) qui est plus fluide, plus belle et plus interactive que les graphiques standards.",
+        "q6": "Y a-t-il des périodes prédéfinies ?",
+        "a6": "Oui, mais vous avez aussi un sélecteur de date totalement libre. Pas besoin de créer un dashboard 'Mensuel' et un autre 'Hebdo'. C'est le même rapport.",
+        "q7": "Puis-je grouper des widgets ?",
+        "a7": "Oui, notre éditeur permet de grouper, aligner et distribuer vos éléments avec une précision au pixel près.",
+        "q8": "L'export PDF est-il bon ?",
+        "a8": "Il est vectoriel et haute définition. Il ne coupe pas les tableaux au milieu comme ça arrive parfois ailleurs."
+    }
+}

@@ -20,10 +20,10 @@ const PainPointSelector: React.FC<PainPointSelectorProps> = ({ competitor }) => 
                     </div>
                     <div className="flex-1 text-center md:text-left">
                         <h3 className="text-2xl md:text-3xl font-bold text-primary mb-4 leading-tight">
-                            {t('alternatives:page.painPointsTitle', { competitor: competitor.name })}
+                            {t(`${competitor.slug}:page.painPointsTitle`, { competitor: competitor.name })}
                         </h3>
                         <p className="text-xl text-secondary leading-relaxed">
-                            {t(`alternatives:competitors.${competitor.slug}.painPointDesc`, { competitor: competitor.name })}
+                            {t(`${competitor.slug}:page.painPointsSubtitle`, { competitor: competitor.name })}
                         </p>
                     </div>
                 </div>

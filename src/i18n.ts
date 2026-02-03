@@ -21,6 +21,10 @@ import frTutorial from './locales/fr/tutorial.json';
 import frAlternatives from './locales/fr/alternatives.json';
 import frTemplatesPillar from './locales/fr/templates-pillar.json';
 import frLeadMagnets from './locales/fr/lead-magnets.json';
+import frLookerStudio from './locales/fr/alternatives/looker-studio.json';
+import frAgencyAnalytics from './locales/fr/alternatives/agency-analytics.json';
+import frDashThis from './locales/fr/alternatives/dashthis.json';
+import frExcel from './locales/fr/alternatives/excel-spreadsheets.json';
 
 // Authenticated Pages - English
 import enDashboard from './locales/en/dashboard.json';
@@ -37,6 +41,10 @@ import enTutorial from './locales/en/tutorial.json';
 import enAlternatives from './locales/en/alternatives.json';
 import enTemplatesPillar from './locales/en/templates-pillar.json';
 import enLeadMagnets from './locales/en/lead-magnets.json';
+import enLookerStudio from './locales/en/alternatives/looker-studio.json';
+import enAgencyAnalytics from './locales/en/alternatives/agency-analytics.json';
+import enDashThis from './locales/en/alternatives/dashthis.json';
+import enExcel from './locales/en/alternatives/excel-spreadsheets.json';
 
 // ... other imports
 
@@ -57,6 +65,10 @@ const resources = {
     alternatives: enAlternatives,
     'templates-pillar': enTemplatesPillar,
     'lead-magnets': enLeadMagnets,
+    'looker-studio': enLookerStudio,
+    'agency-analytics': enAgencyAnalytics,
+    'dashthis': enDashThis,
+    'excel-spreadsheets': enExcel,
   },
   fr: {
     common: frCommon,
@@ -74,6 +86,10 @@ const resources = {
     alternatives: frAlternatives,
     'templates-pillar': frTemplatesPillar,
     'lead-magnets': frLeadMagnets,
+    'looker-studio': frLookerStudio,
+    'agency-analytics': frAgencyAnalytics,
+    'dashthis': frDashThis,
+    'excel-spreadsheets': frExcel,
   },
 };
 
@@ -96,7 +112,25 @@ i18n
       escapeValue: false,
     },
     defaultNS: 'common',
-    ns: ['common', 'dashboard', 'reports', 'templates', 'schedules', 'settings', 'billing', 'copilot', 'audit', 'themes', 'alternatives', 'templates-pillar', 'lead-magnets'],
+    ns: [
+      'common',
+      'dashboard',
+      'reports',
+      'templates',
+      'schedules',
+      'settings',
+      'billing',
+      'copilot',
+      'audit',
+      'themes',
+      'alternatives',
+      'templates-pillar',
+      'lead-magnets',
+      'looker-studio',
+      'agency-analytics',
+      'dashthis',
+      'excel-spreadsheets'
+    ],
     load: 'languageOnly',
   });
 

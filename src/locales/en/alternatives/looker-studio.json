@@ -1,0 +1,198 @@
+{
+    "page": {
+        "seoTitle": "Best Looker Studio Alternative in 2026 | Flipika",
+        "seoDescription": "Tired of Looker Studio limitations? Discover why Flipika is the #1 alternative for fast, automated Google Ads reporting.",
+        "h1Title": "Why Flipika is the Best Alternative to Looker Studio",
+        "subtitle": "Stop waiting for dashboards to load. Get instant insights with Flipika.",
+        "painPointsTitle": "The Problem with Looker Studio",
+        "painPointsSubtitle": "Marketing should be about strategy, not fighting with slow tools.",
+        "comparisonTitle": "Flipika vs Looker Studio",
+        "comparisonSubtitle": "The honest comparison for Google Ads agencies.",
+        "costTitle": "The Hidden Cost of Free",
+        "costSubtitle": "Why Looker Studio costs more than you think",
+        "tipsTitle": "Expert Tips for Switching",
+        "tipsSubtitle": "How to successfully migrate from Looker Studio to Flipika",
+        "useCasesTitle": "Use Cases: Replacing Looker Studio",
+        "migrationCtaTitle": "Ready to say goodbye to endless loading?",
+        "migrationCtaDesc": "Migrate your Looker reports to Flipika and rediscover speed.",
+        "benefitsTitle": "Why choose Flipika",
+        "benefitsSubtitle": "Everything you need for professional Google Ads reporting",
+        "faqTitle": "Frequently Asked Questions",
+        "testimonialsTitle": "What our customers say",
+        "testimonialsSubtitle": "Join hundreds of agencies who made the switch",
+        "useCasesSubtitle": "Flipika adapts to all business types"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Lightning Fast",
+            "description": "No more loading spinners. Your reports display in under a second, even with millions of rows of data."
+        },
+        "realtime": {
+            "title": "Real-time Data",
+            "description": "Your reports update automatically. No more manual refreshing or waiting for synchronization."
+        },
+        "design": {
+            "title": "Premium Design",
+            "description": "Professional reports with modern glassmorphism design that impresses your clients from first glance."
+        },
+        "whitelabel": {
+            "title": "Complete White Label",
+            "description": "Your logo, your colors, your custom domain. Flipika vanishes behind your brand."
+        },
+        "ai": {
+            "title": "AI Insights",
+            "description": "Our AI analyzes your campaigns and automatically generates actionable recommendations."
+        },
+        "support": {
+            "title": "Expert Support",
+            "description": "A dedicated team available via chat 7/7 to support you through your migration."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "E-commerce & Shopping Ads",
+            "description": "Track your Shopping Ads performance with detailed reports on products, categories, and ROAS by SKU. Perfect for online stores managing catalogs of thousands of references.",
+            "metrics": [
+                "ROAS by product",
+                "Performance by category",
+                "Shopping conversion rate"
+            ]
+        },
+        "leadgen": {
+            "title": "B2B Lead Generation",
+            "description": "Optimize your lead generation campaigns with reports that track the complete journey: from click to qualified conversion. CRM integrations available.",
+            "metrics": [
+                "Cost per lead",
+                "Qualification rate",
+                "ROI by campaign"
+            ]
+        },
+        "agency": {
+            "title": "Marketing Agencies",
+            "description": "Manage multiple clients from a single interface. Automated reports, complete white label, and integrated billing for an optimized agency workflow.",
+            "metrics": [
+                "Multi-client reports",
+                "White label",
+                "Complete automation"
+            ]
+        },
+        "local": {
+            "title": "Local Businesses",
+            "description": "Track your local campaigns (Google Maps, calls, directions) with geolocated metrics. Perfect for franchises and multi-location networks.",
+            "metrics": [
+                "Phone calls",
+                "Store directions",
+                "Performance by area"
+            ]
+        },
+        "saas": {
+            "title": "SaaS & Software",
+            "description": "Track your complete acquisition funnel: free trials, paid conversions, LTV. Integrations with Stripe, Paddle, and major SaaS tools.",
+            "metrics": [
+                "CAC by channel",
+                "LTV/CAC ratio",
+                "Trial-to-paid conversion"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "No More Broken Connectors",
+            "description": "Connect Google Ads directly. Flipika uses the native real-time API, bypassing unstable third-party connectors."
+        },
+        "step2": {
+            "title": "Smart Import",
+            "description": "Our AI analyzes your old Looker Studio dashboards and suggests the most relevant Flipika templates."
+        },
+        "step3": {
+            "title": "Zero Load Time",
+            "description": "Where Looker takes 30 seconds to load, Flipika displays your data instantly thanks to our smart caching engine."
+        },
+        "step4": {
+            "title": "Secure Sharing",
+            "description": "Replace public Looker Studio links with secure, brand-customized client portals."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "The Cost of Waiting",
+            "description": "A Looker Studio report takes on average 20 seconds to load. For an agency with 50 clients checking weekly reports, that's over 100 hours wasted annually staring at spinners."
+        },
+        "maintenance": {
+            "title": "Technical Maintenance",
+            "description": "Looker Studio connectors break regularly with API updates. Time spent debugging 'System Error' is non-billable time eating into your margins."
+        },
+        "opportunity": {
+            "title": "Data Limitations",
+            "description": "The 75k row limit and API quotas force you to simplify analyses or pay for BigQuery. Flipika handles millions of rows without extra cost."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Our Looker Studio reports took so long to load in client meetings it was embarrassing. With Flipika, it's instant. We've regained our credibility.",
+            "author": "Mark Lewis",
+            "role": "Agency Director",
+            "company": "AdPerformance London"
+        },
+        "testimonial2": {
+            "quote": "I was sick of 'Quota Exhausted' errors on GA4 and Google Ads. Flipika handles this in the backend, I've never seen a loading error since.",
+            "author": "Julia Roberts",
+            "role": "PPC Consultant",
+            "company": "Freelance"
+        },
+        "testimonial3": {
+            "quote": "Migrating from Looker took just one afternoon. The templates are much better looking and my clients prefer the modern interface.",
+            "author": "Karim Benali",
+            "role": "Founder",
+            "company": "KB Marketing"
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Export Historical Data",
+            "description": "Before cutting Looker Studio, ensure you've exported historical data if you use non-Google Ads sources."
+        },
+        "tip2": {
+            "title": "Audit Calculated Fields",
+            "description": "List your custom calculated fields in Looker. Flipika handles most natively (ROAS, CPA, etc.), but check your specific formulas."
+        },
+        "tip3": {
+            "title": "Simplify Your Reporting",
+            "description": "We tend to overload Looker Studio. Use the switch to Flipika to keep only the KPIs your clients truly care about."
+        },
+        "tip4": {
+            "title": "Enable Presentation Mode",
+            "description": "Unlike Looker's static PDF, use Flipika's presentation mode for interactive account reviews with your clients."
+        },
+        "tip5": {
+            "title": "Test on Mobile",
+            "description": "Looker Studio is unreadable on mobile. Check your new Flipika reports on phone; your clients will love checking stats on the go."
+        },
+        "tip6": {
+            "title": "Use Comments",
+            "description": "Replace Looker's static text boxes with Flipika's contextual comments to explain performance variations."
+        },
+        "tip7": {
+            "title": "Train Your Clients",
+            "description": "The interface is different. Take 10 minutes to show your clients how to navigate their new interactive reports."
+        }
+    },
+    "faq": {
+        "q1": "Do I need to pay for BigQuery like with Looker Studio?",
+        "a1": "No! Flipika includes its own optimized data storage. You don't need to pay strictly for cloud storage or configure complex BigQuery connectors for speed.",
+        "q2": "Can I import my Looker Studio templates?",
+        "a2": "Not directly, the architecture is too different. But our template library covers 95% of standard needs, and our editor allows recreating specific views much faster than Looker.",
+        "q3": "Are there row limits like Looker's 75k?",
+        "a3": "No. Our architecture is built for Big Data. Whether you have 10,000 or 10 million campaign rows, Flipika remains smooth and fast.",
+        "q4": "Do I keep my historical access?",
+        "a4": "Yes, Flipika retrieves all available history via the Google Ads API (typically several years). You don't lose performance history by switching tools.",
+        "q5": "How do you handle Google API quotas?",
+        "a5": "That's our strength. Unlike Looker which uses YOUR quota, Flipika uses its own caching and query optimization system. You'll never see a quota error again.",
+        "q6": "Is the tool collaborative?",
+        "a6": "Yes, much more than Looker. You can comment directly on charts, assign tasks to your team, and finely manage access rights for each user.",
+        "q7": "Can I add my logo?",
+        "a7": "Absolutely. White Label is native. Your logo, your colors, your domain. Your clients will never see the Flipika brand, unlike the Google banner on Looker reports.",
+        "q8": "Is support responsive?",
+        "a8": "Yes. No more Google community forums where no one answers. You get real human support via chat, ready to help."
+    }
+}

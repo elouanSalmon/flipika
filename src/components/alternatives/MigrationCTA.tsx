@@ -36,11 +36,11 @@ const MigrationCTA: React.FC<MigrationCTAProps> = ({ competitor }) => {
                     </motion.div>
 
                     <h2 className="text-4xl md:text-6xl font-black text-primary mb-8 leading-[1.1] tracking-tight">
-                        {t('alternatives:page.migrationCtaTitle', { competitor: competitor.name })}
+                        {t(`${competitor.slug}:page.migrationCtaTitle`, { competitor: competitor.name })}
                     </h2>
 
                     <p className="text-xl md:text-2xl text-secondary mb-12 leading-relaxed opacity-80">
-                        {t('alternatives:page.migrationCtaDesc', { competitor: competitor.name })}
+                        {t(`${competitor.slug}:page.migrationCtaDesc`, { competitor: competitor.name })}
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">

@@ -18,7 +18,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ competitor }) => {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-white/40 dark:bg-white/5 border-b border-white/20 dark:border-white/10">
-                                <th className="px-8 py-6 text-sm font-bold text-secondary uppercase tracking-widest">{t('alternatives:page.comparisonTitle')}</th>
+                                <th className="px-8 py-6 text-sm font-bold text-secondary uppercase tracking-widest">{t(`${competitor.slug}:page.comparisonTitle`)}</th>
                                 <th className="px-8 py-6 text-sm font-bold text-secondary uppercase tracking-widest">{competitor.name}</th>
                                 <th className="px-8 py-6 text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest bg-blue-600/5">
                                     Flipika

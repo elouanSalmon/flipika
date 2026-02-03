@@ -1,0 +1,198 @@
+{
+    "page": {
+        "seoTitle": "Excel Alternative for Google Ads Reporting | Flipika",
+        "seoDescription": "Stop manual copy-pasting. Automate your Google Ads reports and eliminate human errors.",
+        "h1Title": "Why Flipika Replaces Your Excel Spreadsheets",
+        "subtitle": "Human error is inevitable. Flipika automation is essential.",
+        "painPointsTitle": "The Problem with Excel",
+        "painPointsSubtitle": "Your Monday mornings depend better than copy-pasting.",
+        "comparisonTitle": "Flipika vs Excel",
+        "comparisonSubtitle": "Manual vs Automatic.",
+        "costTitle": "The Cost of Manual",
+        "costSubtitle": "Calculating the ROI of automation",
+        "tipsTitle": "From Excel to Auto",
+        "tipsSubtitle": "How to stop manual work without losing control",
+        "useCasesTitle": "Use Cases: Automation",
+        "migrationCtaTitle": "Automation starts here",
+        "migrationCtaDesc": "Say goodbye to manual errors and let Flipika do the work.",
+        "benefitsTitle": "Why choose Flipika",
+        "benefitsSubtitle": "Everything you need for professional Google Ads reporting",
+        "faqTitle": "Frequently Asked Questions",
+        "testimonialsTitle": "What our customers say",
+        "testimonialsSubtitle": "Join hundreds of agencies who made the switch",
+        "useCasesSubtitle": "Flipika adapts to all business types"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Lightning Fast",
+            "description": "No more loading spinners. Your reports display in under a second, even with millions of rows of data."
+        },
+        "realtime": {
+            "title": "Real-time Data",
+            "description": "Your reports update automatically. No more manual refreshing or waiting for synchronization."
+        },
+        "design": {
+            "title": "Premium Design",
+            "description": "Professional reports with modern glassmorphism design that impresses your clients from first glance."
+        },
+        "whitelabel": {
+            "title": "Complete White Label",
+            "description": "Your logo, your colors, your custom domain. Flipika vanishes behind your brand."
+        },
+        "ai": {
+            "title": "AI Insights",
+            "description": "Our AI analyzes your campaigns and automatically generates actionable recommendations."
+        },
+        "support": {
+            "title": "Expert Support",
+            "description": "A dedicated team available via chat 7/7 to support you through your migration."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "E-commerce & Shopping Ads",
+            "description": "Track your Shopping Ads performance with detailed reports on products, categories, and ROAS by SKU. Perfect for online stores managing catalogs of thousands of references.",
+            "metrics": [
+                "ROAS by product",
+                "Performance by category",
+                "Shopping conversion rate"
+            ]
+        },
+        "leadgen": {
+            "title": "B2B Lead Generation",
+            "description": "Optimize your lead generation campaigns with reports that track the complete journey: from click to qualified conversion. CRM integrations available.",
+            "metrics": [
+                "Cost per lead",
+                "Qualification rate",
+                "ROI by campaign"
+            ]
+        },
+        "agency": {
+            "title": "Marketing Agencies",
+            "description": "Manage multiple clients from a single interface. Automated reports, complete white label, and integrated billing for an optimized agency workflow.",
+            "metrics": [
+                "Multi-client reports",
+                "White label",
+                "Complete automation"
+            ]
+        },
+        "local": {
+            "title": "Local Businesses",
+            "description": "Track your local campaigns (Google Maps, calls, directions) with geolocated metrics. Perfect for franchises and multi-location networks.",
+            "metrics": [
+                "Phone calls",
+                "Store directions",
+                "Performance by area"
+            ]
+        },
+        "saas": {
+            "title": "SaaS & Software",
+            "description": "Track your complete acquisition funnel: free trials, paid conversions, LTV. Integrations with Stripe, Paddle, and major SaaS tools.",
+            "metrics": [
+                "CAC by channel",
+                "LTV/CAC ratio",
+                "Trial-to-paid conversion"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Connect Your Accounts",
+            "description": "Instead of downloading CSVs, connect your Google Ads accounts in read-only mode."
+        },
+        "step2": {
+            "title": "Choose Your Metrics",
+            "description": "Select the KPIs you had in your Excel columns (CPC, CTR, Conv. Rate...)."
+        },
+        "step3": {
+            "title": "Let the Bot Work",
+            "description": "Flipika retrieves data, performs calculations, and fills tables for you. Every day."
+        },
+        "step4": {
+            "title": "Analyze Instead of Entering",
+            "description": "Use the time saved to analyze numbers and add strategic value."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Man Hours",
+            "description": "If you spend 2h per week updating Excels for 10 clients, that's 80h per month. That's a half-time job just for data entry."
+        },
+        "maintenance": {
+            "title": "Formula Errors",
+            "description": "A copy-paste error or a broken formula in Excel can skew a report and break client trust. The cost of error is huge."
+        },
+        "opportunity": {
+            "title": "Poor Design",
+            "description": "Even with effort, an Excel remains an Excel. Hard to justify your agency fees with a raw spreadsheet."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "I spent my Mondays extracting CSVs and filling tables. Flipika changed my life. I can finally do real strategy.",
+            "author": "Chloe D.",
+            "role": "Account Manager",
+            "company": "Freelance"
+        },
+        "testimonial2": {
+            "quote": "We always had copy-paste errors in our Excels. With direct automation, data is 100% reliable.",
+            "author": "Maxime R.",
+            "role": "Director",
+            "company": "PerfAgency"
+        },
+        "testimonial3": {
+            "quote": "Our clients didn't read our Excels. Since we send interactive visual links, they finally care about the results.",
+            "author": "Sarah L.",
+            "role": "Consultant",
+            "company": "AdExpert"
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "List Your Columns",
+            "description": "Take your typical Excel and list all columns. Check that they exist as standard metrics."
+        },
+        "tip2": {
+            "title": "Recreate Your Formulas",
+            "description": "Did you have custom margin calculations? Use Flipika's calculated fields to do the same."
+        },
+        "tip3": {
+            "title": "Ditck VLOOKUP",
+            "description": "No need to do complex vertical searches to cross-reference data. Flipika does it natively."
+        },
+        "tip4": {
+            "title": "Think Charts",
+            "description": "Transform your tables of indigestible numbers into evolution charts. It's time to visualize."
+        },
+        "tip5": {
+            "title": "Keep Control",
+            "description": "Did you like Excel for control? Flipika lets you edit, comment, and adjust. You don't lose your hand."
+        },
+        "tip6": {
+            "title": "Archive Old Files",
+            "description": "Keep your old Excels as backup but don't update them anymore. Cut the cord."
+        },
+        "tip7": {
+            "title": "Automate Sending",
+            "description": "No need to send the file by email anymore. Schedule an automatic link sending every Monday at 9 AM."
+        }
+    },
+    "faq": {
+        "q1": "Can I upload my Excel?",
+        "a1": "Yes, if you have non-Google Ads data (goals, offline...), you can put them in a Google Sheet and connect it to Flipika.",
+        "q2": "Is it as flexible as Excel?",
+        "a2": "Almost. You can't color each cell individually, but for marketing reporting, you gain hugely in structure and reliability.",
+        "q3": "My formulas are complex.",
+        "a3": "Our calculated fields engine handles operations (+ - * /) and parentheses. That covers 99% of marketing needs.",
+        "q4": "Is it paid?",
+        "a4": "Yes, but compare the subscription price to your hourly rate multiplied by hours saved. ROI is immediate.",
+        "q5": "Can I export to Excel?",
+        "a5": "You can export chart data to CSV if you need to do an ad-hoc analysis in Excel.",
+        "q6": "Are there pivot tables?",
+        "a6": "Flipika tables allow grouping by dimensions (Campaign, AdGroup, Keyword...), which is equivalent to a dynamic Pivot Table.",
+        "q7": "My clients prefer Excel.",
+        "a7": "They say that, but they've never seen a beautiful interactive report. Try for a month, they won't want to go back.",
+        "q8": "Is it secure?",
+        "a8": "Much more than an Excel file lying around in emails. Access is controlled and revocable."
+    }
+}
