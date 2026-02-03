@@ -18,8 +18,6 @@
         "benefitsTitle": "Why choose Flipika",
         "benefitsSubtitle": "Everything you need for professional Google Ads reporting",
         "faqTitle": "Frequently Asked Questions",
-        "testimonialsTitle": "What our customers say",
-        "testimonialsSubtitle": "Join hundreds of agencies who made the switch",
         "useCasesSubtitle": "Flipika adapts to all business types"
     },
     "benefits": {
@@ -125,26 +123,6 @@
         "opportunity": {
             "title": "Reduced Margin",
             "description": "By paying per client, your margin shrinks on small accounts. Flipika allows you to remain profitable even on small Google Ads budgets."
-        }
-    },
-    "testimonials": {
-        "testimonial1": {
-            "quote": "We loved AgencyAnalytics but the bill went up every month. Switching to Flipika saved us $4,000/year from year one, for an identical result.",
-            "author": "Peter Durant",
-            "role": "CEO",
-            "company": "ScaleUp Agency"
-        },
-        "testimonial2": {
-            "quote": "Their pricing model punished us for growing. Flipika understood that agencies need predictable costs.",
-            "author": "Sarah Connor",
-            "role": "Operations Manager",
-            "company": "TechMarketing"
-        },
-        "testimonial3": {
-            "quote": "The interface is just as clean as AgencyAnalytics, but the flexibility of Flipika slides is much better for custom client deliverables.",
-            "author": "Luke Viera",
-            "role": "Head of SEA",
-            "company": "Digital First"
         }
     },
     "tips": {

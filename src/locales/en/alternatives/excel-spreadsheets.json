@@ -18,8 +18,6 @@
         "benefitsTitle": "Why choose Flipika",
         "benefitsSubtitle": "Everything you need for professional Google Ads reporting",
         "faqTitle": "Frequently Asked Questions",
-        "testimonialsTitle": "What our customers say",
-        "testimonialsSubtitle": "Join hundreds of agencies who made the switch",
         "useCasesSubtitle": "Flipika adapts to all business types"
     },
     "benefits": {
@@ -125,26 +123,6 @@
         "opportunity": {
             "title": "Poor Design",
             "description": "Even with effort, an Excel remains an Excel. Hard to justify your agency fees with a raw spreadsheet."
-        }
-    },
-    "testimonials": {
-        "testimonial1": {
-            "quote": "I spent my Mondays extracting CSVs and filling tables. Flipika changed my life. I can finally do real strategy.",
-            "author": "Chloe D.",
-            "role": "Account Manager",
-            "company": "Freelance"
-        },
-        "testimonial2": {
-            "quote": "We always had copy-paste errors in our Excels. With direct automation, data is 100% reliable.",
-            "author": "Maxime R.",
-            "role": "Director",
-            "company": "PerfAgency"
-        },
-        "testimonial3": {
-            "quote": "Our clients didn't read our Excels. Since we send interactive visual links, they finally care about the results.",
-            "author": "Sarah L.",
-            "role": "Consultant",
-            "company": "AdExpert"
         }
     },
     "tips": {

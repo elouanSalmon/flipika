@@ -18,8 +18,6 @@
         "benefitsTitle": "Why choose Flipika",
         "benefitsSubtitle": "Everything you need for professional Google Ads reporting",
         "faqTitle": "Frequently Asked Questions",
-        "testimonialsTitle": "What our customers say",
-        "testimonialsSubtitle": "Join hundreds of agencies who made the switch",
         "useCasesSubtitle": "Flipika adapts to all business types"
     },
     "benefits": {
@@ -125,26 +123,6 @@
         "opportunity": {
             "title": "Brand Image",
             "description": "Sending a '2010s look' dashboard gives a dated image to your agency. A modern design justifies your premium fees."
-        }
-    },
-    "testimonials": {
-        "testimonial1": {
-            "quote": "DashThis was solid but too rigid. We couldn't do exactly what we wanted. Flipika gave us the creative freedom our Design team wanted.",
-            "author": "Alice Monnet",
-            "role": "Creative Director",
-            "company": "BrandStudio"
-        },
-        "testimonial2": {
-            "quote": "DashThis's 'periods' system was confusing for our clients. Flipika handles dates in a much more intuitive and flexible way.",
-            "author": "Tom H.",
-            "role": "Analytics Manager",
-            "company": "DataViz Corp"
-        },
-        "testimonial3": {
-            "quote": "We had to pay for every new test dashboard. With Flipika, we can prototype as much as we want, we are much more agile.",
-            "author": "Nadia K.",
-            "role": "Freelance",
-            "company": "NK Digital"
         }
     },
     "tips": {

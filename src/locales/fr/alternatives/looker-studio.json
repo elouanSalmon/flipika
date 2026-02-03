@@ -18,8 +18,6 @@
         "benefitsTitle": "Pourquoi choisir Flipika",
         "benefitsSubtitle": "Tout ce dont vous avez besoin pour des rapports Google Ads professionnels",
         "faqTitle": "Questions Fréquentes",
-        "testimonialsTitle": "Ce que disent nos clients",
-        "testimonialsSubtitle": "Rejoignez des centaines d'agences qui ont fait le switch",
         "useCasesSubtitle": "Flipika s'adapte à tous les types de business"
     },
     "benefits": {
@@ -125,26 +123,6 @@
         "opportunity": {
             "title": "Limitations de données",
             "description": "La limite de 75k lignes et les quotas d'API vous obligent à simplifier vos analyses ou payer BigQuery. Flipika gère des millions de lignes sans surcoût."
-        }
-    },
-    "testimonials": {
-        "testimonial1": {
-            "quote": "Nos rapports Looker Studio mettaient tellement de temps à charger en réunion client que c'en était gênant. Avec Flipika, c'est instantané. On a retrouvé notre crédibilité.",
-            "author": "Marc Lavigne",
-            "role": "Directeur Agence",
-            "company": "AdPerformance Paris"
-        },
-        "testimonial2": {
-            "quote": "J'en avais marre des erreurs 'Quota Exhausted' sur GA4 et Google Ads. Flipika gère ça en backend, je n'ai plus jamais vu d'erreur de chargement.",
-            "author": "Julie Bertrand",
-            "role": "Consultante SEA",
-            "company": "Freelance"
-        },
-        "testimonial3": {
-            "quote": "La migration depuis Looker s'est faite en une après-midi. Les templates sont bien plus beaux et mes clients préfèrent nettement l'interface moderne.",
-            "author": "Karim Benali",
-            "role": "Fondateur",
-            "company": "KB Marketing"
         }
     },
     "tips": {
