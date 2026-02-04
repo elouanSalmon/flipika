@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Problem from '../components/Problem';
@@ -55,6 +56,34 @@ const Landing = () => {
             />
 
             <CookieConsent />
+
+            {/* Structured Data for Google Knowledge Graph */}
+            {/* Note: aggregateRating is commented out until more reviews are visible on the page to avoid penalties */}
+            <Helmet>
+                <script type="application/ld+json">
+                    {`
+                        {
+                          "@context": "https://schema.org",
+                          "@type": "SoftwareApplication",
+                          "name": "Flipika",
+                          "operatingSystem": "Web, iOS, Android",
+                          "applicationCategory": "ProductivityApplication",
+                          /* 
+                          "aggregateRating": {
+                            "@type": "AggregateRating",
+                            "ratingValue": "4.8",
+                            "ratingCount": "127"
+                          },
+                          */
+                          "offers": {
+                            "@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "EUR"
+                          }
+                        }
+                    `}
+                </script>
+            </Helmet>
         </>
     );
 };
