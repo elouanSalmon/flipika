@@ -24,6 +24,7 @@
   font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--color-text-primary);
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
 }
 
 .footer-simple-links {
