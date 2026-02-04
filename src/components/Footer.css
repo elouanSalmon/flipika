@@ -44,6 +44,18 @@
   color: var(--color-primary);
 }
 
+.footer-linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.footer-linkedin-link:hover {
+  color: var(--color-primary);
+}
+
 .footer-simple-copyright {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);

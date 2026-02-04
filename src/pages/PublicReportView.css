@@ -184,6 +184,17 @@
     color: var(--color-primary);
 }
 
+.footer-linkedin-icon {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-text-secondary);
+    transition: color 0.2s;
+}
+
+.footer-linkedin-icon:hover {
+    color: var(--color-primary);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .public-report-header {

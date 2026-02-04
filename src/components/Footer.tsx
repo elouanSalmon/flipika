@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Linkedin } from 'lucide-react';
 import './Footer.css';
 
 const Footer: React.FC = () => {
@@ -38,6 +39,16 @@ const Footer: React.FC = () => {
               {i18n.language === 'fr' ? 'Plan du site' : 'Sitemap'}
             </Link>
           </div>
+
+          <a
+            href="https://www.linkedin.com/company/flipika/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-linkedin-link"
+            aria-label="Flipika LinkedIn"
+          >
+            <Linkedin size={20} />
+          </a>
 
           <div className="footer-simple-copyright">
             © 2025 Flipika. {t('common:footer.copyright')}.

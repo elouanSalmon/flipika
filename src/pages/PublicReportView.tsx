@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Zap, AlertCircle, Play } from 'lucide-react';
+import { Zap, AlertCircle, Play, Linkedin } from 'lucide-react';
 import { getPublicReport } from '../services/reportService';
 import { getUserProfileByUsername } from '../services/userProfileService';
 import { verifyPassword, storeReportAccess, hasReportAccess } from '../utils/passwordUtils';
@@ -249,6 +249,16 @@ const PublicReportView: React.FC = () => {
                         <Zap size={16} />
                         <strong>Flipika</strong>
                     </span>
+                    <span style={{ margin: '0 0.5rem', color: 'var(--color-text-tertiary)' }}>•</span>
+                    <a
+                        href="https://www.linkedin.com/company/flipika/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="footer-linkedin-icon"
+                        aria-label="Flipika LinkedIn"
+                    >
+                        <Linkedin size={16} />
+                    </a>
                 </p>
             </footer>
 
