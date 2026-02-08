@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Problem from '../components/Problem';
@@ -10,10 +11,19 @@ import EmailCapture from '../components/EmailCapture';
 import RoadmapPreview from '../components/RoadmapPreview';
 import Footer from '../components/Footer';
 import CookieConsent from '../components/CookieConsent';
+import SEO from '../components/SEO';
 
 const Landing = () => {
+    const { t } = useTranslation('seo');
+
     return (
         <>
+            <SEO
+                title={t('landing.title')}
+                description={t('landing.description')}
+                keywords={t('landing.keywords')}
+                canonicalPath="/"
+            />
             <div className="bg-gradient"></div>
             <div className="bg-grid"></div>
 

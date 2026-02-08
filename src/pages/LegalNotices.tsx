@@ -4,12 +4,21 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { SafeHTML } from '../components/SafeHTML';
+import SEO from '../components/SEO';
 import './LegalPages.css';
 
 const LegalNotices: React.FC = () => {
   const { t } = useTranslation();
+  const { t: tSeo } = useTranslation('seo');
+
   return (
     <div className="legal-page flex-1">
+      <SEO
+        title={tSeo('legalNotices.title')}
+        description={tSeo('legalNotices.description')}
+        keywords={tSeo('legalNotices.keywords')}
+        canonicalPath="/legal-notices"
+      />
       <div className="legal-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -12,6 +12,7 @@ import { useSubscription } from '../contexts/SubscriptionContext';
 
 const Roadmap: React.FC = () => {
     const { t, i18n } = useTranslation('roadmap');
+    const { t: tSeo } = useTranslation('seo');
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const { createLifetimeCheckout } = useSubscription();
@@ -50,8 +51,10 @@ const Roadmap: React.FC = () => {
     return (
         <div className="flex-1 bg-[var(--color-bg-primary)] relative overflow-hidden">
             <SEO
-                title={t('page.title')}
-                description={t('page.metaDescription')}
+                title={tSeo('roadmap.title')}
+                description={tSeo('roadmap.description')}
+                keywords={tSeo('roadmap.keywords')}
+                canonicalPath="/roadmap"
             />
 
             {/* Background decorative elements */}

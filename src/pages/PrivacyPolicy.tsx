@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { SafeHTML } from '../components/SafeHTML';
+import SEO from '../components/SEO';
 import './LegalPages.css';
 
 const PrivacyPolicy: React.FC = () => {
   const { t } = useTranslation();
+  const { t: tSeo } = useTranslation('seo');
 
   // Helper function to safely render arrays
   const renderList = (items: string[] | undefined) => {
@@ -23,6 +25,12 @@ const PrivacyPolicy: React.FC = () => {
 
   return (
     <div className="legal-page flex-1">
+      <SEO
+        title={tSeo('privacyPolicy.title')}
+        description={tSeo('privacyPolicy.description')}
+        keywords={tSeo('privacyPolicy.keywords')}
+        canonicalPath="/privacy-policy"
+      />
       <div className="legal-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

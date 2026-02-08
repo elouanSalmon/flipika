@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import Logo from "../components/Logo";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
 
 const Login = () => {
   const { loginWithGoogle, currentUser } = useAuth();
@@ -14,6 +15,7 @@ const Login = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
+  const { t: tSeo } = useTranslation('seo');
 
   useEffect(() => {
     if (currentUser) {
@@ -64,179 +66,185 @@ const Login = () => {
 
   return (
     <div className="flex flex-col bg-white dark:bg-slate-900 font-sans">
+      <SEO
+        title={tSeo('login.title')}
+        description={tSeo('login.description')}
+        keywords={tSeo('login.keywords')}
+        canonicalPath="/login"
+      />
       {/* Main content - takes full viewport height */}
       <div className="min-h-screen w-full flex relative">
 
-      {/* LEFT COLUMN - LOGIN */}
-      <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-between p-8 lg:p-12 xl:p-16 relative z-10 bg-gradient-to-br from-blue-50/50 via-white to-blue-50/30 dark:from-slate-900 dark:to-slate-800 border-r border-slate-100 dark:border-slate-800">
+        {/* LEFT COLUMN - LOGIN */}
+        <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-between p-8 lg:p-12 xl:p-16 relative z-10 bg-gradient-to-br from-blue-50/50 via-white to-blue-50/30 dark:from-slate-900 dark:to-slate-800 border-r border-slate-100 dark:border-slate-800">
 
-        {/* Minimal Header - Logo + Language */}
-        <div className="flex items-center justify-between w-full mb-8">
-          <Logo />
-          <LanguageSwitcher />
-        </div>
-
-        {/* Main Content */}
-        <div className="flex flex-col max-w-sm w-full mx-auto space-y-8 relative z-20 flex-1 justify-center">
-
-          <div className="space-y-3">
-            <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-              {t('auth.login.title')}
-            </h1>
-            <p className="text-slate-500 dark:text-slate-400 text-lg">
-              {t('auth.login.subtitle')} <br className="hidden lg:block" />
-              <span className="text-blue-600 font-medium">{t('auth.login.subtitle2')}</span>
-            </p>
+          {/* Minimal Header - Logo + Language */}
+          <div className="flex items-center justify-between w-full mb-8">
+            <Logo />
+            <LanguageSwitcher />
           </div>
 
-          <div className="space-y-4">
-            <button
-              onClick={handleLogin}
-              disabled={isLoading}
-              className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-[#0066FF] hover:bg-[#0052cc] text-white font-medium transition-all duration-200 shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group"
-            >
-              {isLoading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  <div className="bg-white p-1 rounded-full">
-                    <img
-                      src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                      alt="Google"
-                      className="w-4 h-4"
-                    />
-                  </div>
-                  <span className="text-base">{t('auth.login.google')}</span>
-                  <ArrowRight size={18} className="opacity-60 group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
-            </button>
+          {/* Main Content */}
+          <div className="flex flex-col max-w-sm w-full mx-auto space-y-8 relative z-20 flex-1 justify-center">
 
-            {error && (
-              <div className="p-4 rounded-xl bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 text-sm flex items-start gap-3">
-                <AlertCircle size={18} className="shrink-0 mt-0.5" />
-                {error}
-              </div>
-            )}
-
-            <div className="flex items-center gap-4 py-4">
-              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700"></div>
-              <span className="text-sm text-slate-500 dark:text-slate-400">{t('auth.benefits.title')}</span>
-              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700"></div>
+            <div className="space-y-3">
+              <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                {t('auth.login.title')}
+              </h1>
+              <p className="text-slate-500 dark:text-slate-400 text-lg">
+                {t('auth.login.subtitle')} <br className="hidden lg:block" />
+                <span className="text-blue-600 font-medium">{t('auth.login.subtitle2')}</span>
+              </p>
             </div>
 
-            {/* Reassurance/Benefits */}
-            <div className="space-y-4 pt-2">
-              {benefits.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 text-slate-600 dark:text-slate-300">
-                  <div className="shrink-0 w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center border border-slate-100 dark:border-slate-700 shadow-sm">
-                    {item.icon}
-                  </div>
-                  <span className="text-sm font-medium">{item.text}</span>
+            <div className="space-y-4">
+              <button
+                onClick={handleLogin}
+                disabled={isLoading}
+                className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-[#0066FF] hover:bg-[#0052cc] text-white font-medium transition-all duration-200 shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group"
+              >
+                {isLoading ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <div className="bg-white p-1 rounded-full">
+                      <img
+                        src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                        alt="Google"
+                        className="w-4 h-4"
+                      />
+                    </div>
+                    <span className="text-base">{t('auth.login.google')}</span>
+                    <ArrowRight size={18} className="opacity-60 group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
+              </button>
+
+              {error && (
+                <div className="p-4 rounded-xl bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 text-sm flex items-start gap-3">
+                  <AlertCircle size={18} className="shrink-0 mt-0.5" />
+                  {error}
                 </div>
+              )}
+
+              <div className="flex items-center gap-4 py-4">
+                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700"></div>
+                <span className="text-sm text-slate-500 dark:text-slate-400">{t('auth.benefits.title')}</span>
+                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700"></div>
+              </div>
+
+              {/* Reassurance/Benefits */}
+              <div className="space-y-4 pt-2">
+                {benefits.map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-3 text-slate-600 dark:text-slate-300">
+                    <div className="shrink-0 w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center border border-slate-100 dark:border-slate-700 shadow-sm">
+                      {item.icon}
+                    </div>
+                    <span className="text-sm font-medium">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* Reassurance text (Footer handled by PublicLayout) */}
+          <div className="text-xs text-slate-400 dark:text-slate-400 relative z-20 mt-8">
+            {t('auth.footer.rights')}
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN - VISUAL WALL */}
+        <div className="hidden lg:flex w-[55%] xl:w-[60%] items-center justify-center relative bg-[#F8FAFC] dark:bg-[#020617] overflow-hidden">
+
+          {/* Subtle Background Gradients - Blue nuance only */}
+          <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px]" />
+
+          {/* Masonry Grid Background Pattern */}
+          <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+            style={{ backgroundImage: 'radial-gradient(#64748b 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
+          </div>
+
+          {/* Tilted Card Wall Container */}
+          <div
+            className="absolute inset-0 flex items-center justify-center"
+            style={{
+              transform: 'perspective(2000px) rotateX(15deg) rotateY(-15deg) rotateZ(6deg) translateX(10%) translateY(-5%)',
+              transformStyle: 'preserve-3d'
+            }}
+          >
+            <div className="grid grid-cols-2 gap-8 p-8 min-w-[1000px]">
+              {/* Generated Mock Cards */}
+              {mockCards.map((card, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 100 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + (idx * 0.1), duration: 0.8, ease: "easeOut" }}
+                  className="p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] dark:shadow-none border border-slate-200/60 dark:border-slate-800 flex flex-col gap-6 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-500 will-change-transform"
+                >
+                  {/* Fake Image Content */}
+                  <div className="h-40 w-full bg-slate-50 dark:bg-slate-800 rounded-2xl overflow-hidden relative group border border-slate-100 dark:border-slate-700/50">
+                    <div className={`absolute top-4 left-4 w-10 h-10 rounded-xl ${card.color} text-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 duration-300`}>
+                      {card.icon}
+                    </div>
+
+                    {/* Abstract UI content */}
+                    <div className="absolute top-20 left-4 right-4 space-y-3 opacity-60">
+                      <div className="h-2 w-3/4 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+                      <div className="h-2 w-1/2 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+                      <div className="flex gap-2 mt-4">
+                        <div className="h-12 w-1/3 bg-blue-100/50 dark:bg-blue-900/20 rounded-lg"></div>
+                        <div className="h-12 w-1/3 bg-indigo-100/50 dark:bg-indigo-900/20 rounded-lg"></div>
+                        <div className="h-12 w-1/3 bg-sky-100/50 dark:bg-sky-900/20 rounded-lg"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <h3 className="font-bold text-lg text-slate-900 dark:text-white leading-tight">{card.title}</h3>
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-medium text-slate-500">{card.subtitle}</p>
+                      <div className="text-xs font-semibold px-2 py-1 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">Success</div>
+                    </div>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
 
+          {/* Overlay to fade out edges - top and bottom */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-transparent to-[#F8FAFC] dark:from-[#020617] dark:to-[#020617] opacity-60" />
         </div>
 
-        {/* Reassurance text (Footer handled by PublicLayout) */}
-        <div className="text-xs text-slate-400 dark:text-slate-400 relative z-20 mt-8">
-          {t('auth.footer.rights')}
-        </div>
-      </div>
-
-      {/* RIGHT COLUMN - VISUAL WALL */}
-      <div className="hidden lg:flex w-[55%] xl:w-[60%] items-center justify-center relative bg-[#F8FAFC] dark:bg-[#020617] overflow-hidden">
-
-        {/* Subtle Background Gradients - Blue nuance only */}
-        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px]" />
-
-        {/* Masonry Grid Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-          style={{ backgroundImage: 'radial-gradient(#64748b 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
-        </div>
-
-        {/* Tilted Card Wall Container */}
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{
-            transform: 'perspective(2000px) rotateX(15deg) rotateY(-15deg) rotateZ(6deg) translateX(10%) translateY(-5%)',
-            transformStyle: 'preserve-3d'
+        {/* Floating Orbs - Blue Lights */}
+        <motion.div
+          className="floating-orb orb-1"
+          style={{ zIndex: 11 }}
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -100, 0],
           }}
-        >
-          <div className="grid grid-cols-2 gap-8 p-8 min-w-[1000px]">
-            {/* Generated Mock Cards */}
-            {mockCards.map((card, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + (idx * 0.1), duration: 0.8, ease: "easeOut" }}
-                className="p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] dark:shadow-none border border-slate-200/60 dark:border-slate-800 flex flex-col gap-6 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-500 will-change-transform"
-              >
-                {/* Fake Image Content */}
-                <div className="h-40 w-full bg-slate-50 dark:bg-slate-800 rounded-2xl overflow-hidden relative group border border-slate-100 dark:border-slate-700/50">
-                  <div className={`absolute top-4 left-4 w-10 h-10 rounded-xl ${card.color} text-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 duration-300`}>
-                    {card.icon}
-                  </div>
-
-                  {/* Abstract UI content */}
-                  <div className="absolute top-20 left-4 right-4 space-y-3 opacity-60">
-                    <div className="h-2 w-3/4 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
-                    <div className="h-2 w-1/2 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
-                    <div className="flex gap-2 mt-4">
-                      <div className="h-12 w-1/3 bg-blue-100/50 dark:bg-blue-900/20 rounded-lg"></div>
-                      <div className="h-12 w-1/3 bg-indigo-100/50 dark:bg-indigo-900/20 rounded-lg"></div>
-                      <div className="h-12 w-1/3 bg-sky-100/50 dark:bg-sky-900/20 rounded-lg"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <h3 className="font-bold text-lg text-slate-900 dark:text-white leading-tight">{card.title}</h3>
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-slate-500">{card.subtitle}</p>
-                    <div className="text-xs font-semibold px-2 py-1 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">Success</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Overlay to fade out edges - top and bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-transparent to-[#F8FAFC] dark:from-[#020617] dark:to-[#020617] opacity-60" />
-      </div>
-
-      {/* Floating Orbs - Blue Lights */}
-      <motion.div
-        className="floating-orb orb-1"
-        style={{ zIndex: 11 }}
-        animate={{
-          x: [0, 100, 0],
-          y: [0, -100, 0],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
-      <motion.div
-        className="floating-orb orb-2"
-        style={{ zIndex: 11 }}
-        animate={{
-          x: [0, -150, 0],
-          y: [0, 150, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+        <motion.div
+          className="floating-orb orb-2"
+          style={{ zIndex: 11 }}
+          animate={{
+            x: [0, -150, 0],
+            y: [0, 150, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
       </div>
 
       {/* Footer - appears when user scrolls down */}

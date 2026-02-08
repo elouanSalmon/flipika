@@ -1,0 +1,72 @@
+{
+    "default": {
+        "title": "Flipika - Rapports Google Ads pour Media Buyers",
+        "description": "Générez des rapports Google Ads automatisés, clairs et professionnels pour vos clients. La solution idéale pour les media buyers exigeants.",
+        "keywords": "Rapports Google Ads, Media Buyer, Reporting automatisé, Audit Google Ads, Freelance PPC, Agence PPC",
+        "ogTitle": "Flipika - Rapports Google Ads pour Media Buyers",
+        "ogDescription": "Générez des rapports Google Ads automatisés, clairs et professionnels pour vos clients."
+    },
+    "landing": {
+        "title": "Flipika - Rapports Google Ads en 2 Minutes | Reporting PPC Automatisé",
+        "description": "Créez des rapports Google Ads professionnels en 2 minutes au lieu de 3 heures. Synchronisation automatique, insights IA, marque blanche. Essai gratuit pour media buyers.",
+        "keywords": "rapports Google Ads, reporting PPC automatisé, outil reporting client, logiciel media buyer, dashboard Google Ads, rapports marque blanche",
+        "ogTitle": "Flipika - Rapports Google Ads de 3h à 2 min",
+        "ogDescription": "Arrêtez de perdre du temps sur le reporting manuel. Flipika génère automatiquement de beaux rapports Google Ads pour vos clients."
+    },
+    "login": {
+        "title": "Connexion | Flipika - Plateforme de Reporting Google Ads",
+        "description": "Connectez-vous à votre compte Flipika pour accéder à vos rapports Google Ads, templates et dashboards clients. Authentification sécurisée via Google.",
+        "keywords": "connexion Flipika, login reporting Google Ads, connexion dashboard PPC",
+        "ogTitle": "Connexion à Flipika",
+        "ogDescription": "Accédez à votre tableau de bord de reporting Google Ads."
+    },
+    "roadmap": {
+        "title": "Roadmap Flipika | De Google Ads à Meta Ads & Au-delà",
+        "description": "Découvrez la vision de Flipika : du reporting Google Ads vers Meta Ads, vers la Super App ultime pour Media Buyers. Voyez ce qui arrive et obtenez l'accès lifetime.",
+        "keywords": "roadmap Flipika, fonctionnalités outil Google Ads, reporting Meta Ads, app media buyer, roadmap outil PPC",
+        "ogTitle": "Roadmap Flipika - Le Futur du Reporting Media Buyer",
+        "ogDescription": "De Google Ads à Meta Ads et au-delà. Découvrez ce qui arrive chez Flipika."
+    },
+    "privacyPolicy": {
+        "title": "Politique de Confidentialité | Flipika - Reporting Google Ads",
+        "description": "Découvrez comment Flipika protège vos données et informations de compte Google Ads. Conforme RGPD, hébergement européen sécurisé, pratiques transparentes.",
+        "keywords": "politique confidentialité Flipika, sécurité données Google Ads, conformité RGPD, protection des données",
+        "ogTitle": "Politique de Confidentialité - Flipika",
+        "ogDescription": "Comment nous protégeons vos données et informations Google Ads."
+    },
+    "termsOfService": {
+        "title": "Conditions d'Utilisation | Flipika - Reporting Google Ads",
+        "description": "Lisez les conditions d'utilisation de Flipika. Comprenez vos droits et obligations lors de l'utilisation de notre plateforme de reporting Google Ads.",
+        "keywords": "conditions utilisation Flipika, termes API Google Ads, accord utilisateur",
+        "ogTitle": "Conditions d'Utilisation - Flipika",
+        "ogDescription": "Termes et conditions d'utilisation de la plateforme de reporting Flipika."
+    },
+    "legalNotices": {
+        "title": "Mentions Légales | Flipika - Informations Société",
+        "description": "Informations légales sur Flipika SAS. Immatriculation, détails d'hébergement et coordonnées légales.",
+        "keywords": "mentions légales Flipika, informations société, immatriculation",
+        "ogTitle": "Mentions Légales - Flipika",
+        "ogDescription": "Informations légales et société pour Flipika SAS."
+    },
+    "sitemap": {
+        "title": "Plan du Site | Flipika - Toutes les Pages",
+        "description": "Parcourez toutes les pages de Flipika.com. Trouvez les templates de rapports, comparatifs d'alternatives, ressources et informations légales.",
+        "keywords": "plan du site Flipika, toutes les pages, navigation",
+        "ogTitle": "Plan du Site - Flipika",
+        "ogDescription": "Explorez toutes les pages de Flipika.com"
+    },
+    "notFound": {
+        "title": "Page Non Trouvée | Flipika",
+        "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+        "keywords": "",
+        "ogTitle": "Page Non Trouvée - Flipika",
+        "ogDescription": "Cette page n'existe pas."
+    },
+    "alternativesIndex": {
+        "title": "Meilleures Alternatives Reporting Google Ads 2026 | Flipika vs Concurrents",
+        "description": "Comparez Flipika à Looker Studio, AgencyAnalytics, DashThis, Swydo et plus encore. Trouvez le meilleur outil de reporting Google Ads pour votre agence ou activité freelance.",
+        "keywords": "alternatives reporting Google Ads, alternative Looker Studio, alternative AgencyAnalytics, meilleur outil reporting PPC, DashThis vs Flipika",
+        "ogTitle": "Alternatives Reporting Google Ads - Comparatifs Flipika",
+        "ogDescription": "Comparez les meilleurs outils de reporting Google Ads et trouvez la solution adaptée à votre activité."
+    }
+}

@@ -17,7 +17,6 @@ import CookieConsent from './components/CookieConsent';
 import InstallPWA from './components/InstallPWA';
 import OnboardingModal from './components/onboarding/OnboardingModal';
 import OfflineAlert from './components/common/OfflineAlert';
-import SEO from './components/SEO';
 import { useNetworkStatus } from './hooks/useNetworkStatus';
 import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
@@ -238,7 +237,7 @@ const AppContent = () => {
 
   return (
     <>
-      <SEO />
+      {/* SEO is now handled per-page for unique metadata */}
       <OfflineAlert isOnline={isOnline} />
       <AppRoutes />
     </>

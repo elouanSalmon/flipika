@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { competitors } from '../../data/competitors';
 import { ArrowRight, CheckCircle2, Zap } from 'lucide-react';
+import SEO from '../../components/SEO';
 
 const ComparisonIndex: React.FC = () => {
     const { t, i18n } = useTranslation();
+    const { t: tSeo } = useTranslation('seo');
     const navigate = useNavigate();
 
     const getLangPath = (path: string) => {
@@ -16,6 +18,12 @@ const ComparisonIndex: React.FC = () => {
 
     return (
         <div className="flex-1 bg-[var(--color-bg-primary)] py-20 px-4 relative overflow-hidden">
+            <SEO
+                title={tSeo('alternativesIndex.title')}
+                description={tSeo('alternativesIndex.description')}
+                keywords={tSeo('alternativesIndex.keywords')}
+                canonicalPath="/alternatives"
+            />
             {/* Background decorative elements */}
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
                 <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-blue-500/10 rounded-full blur-[120px]" />

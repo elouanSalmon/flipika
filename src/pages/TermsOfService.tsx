@@ -3,12 +3,21 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import SEO from '../components/SEO';
 import './LegalPages.css';
 
 const TermsOfService: React.FC = () => {
   const { t } = useTranslation();
+  const { t: tSeo } = useTranslation('seo');
+
   return (
     <div className="legal-page flex-1">
+      <SEO
+        title={tSeo('termsOfService.title')}
+        description={tSeo('termsOfService.description')}
+        keywords={tSeo('termsOfService.keywords')}
+        canonicalPath="/terms-of-service"
+      />
       <div className="legal-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

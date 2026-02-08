@@ -3,15 +3,22 @@ import { motion } from 'framer-motion';
 import { Home, ArrowLeft, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
+import SEO from '../components/SEO';
 
 const NotFound = () => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
+    const { t: tSeo } = useTranslation('seo');
     const { currentUser } = useAuth();
     const isConnected = !!currentUser;
 
     return (
         <div className="flex-1 flex flex-col items-center justify-center p-4 relative">
+            <SEO
+                title={tSeo('notFound.title')}
+                description={tSeo('notFound.description')}
+                noIndex={true}
+            />
             {/* Background Gradients using CSS variables */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div style={{ position: 'absolute', top: '25%', left: '25%', width: '30vw', height: '30vw', borderRadius: '50%', background: 'var(--gradient-primary)', opacity: 0.1, filter: 'blur(100px)' }} />

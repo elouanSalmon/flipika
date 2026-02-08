@@ -22,6 +22,7 @@ import frAlternatives from './locales/fr/alternatives.json';
 import frTemplatesPillar from './locales/fr/templates-pillar.json';
 import frLeadMagnets from './locales/fr/lead-magnets.json';
 import frRoadmap from './locales/fr/roadmap.json';
+import frSeo from './locales/fr/seo.json';
 import frLookerStudio from './locales/fr/alternatives/looker-studio.json';
 import frAgencyAnalytics from './locales/fr/alternatives/agency-analytics.json';
 import frDashThis from './locales/fr/alternatives/dashthis.json';
@@ -46,6 +47,7 @@ import enAlternatives from './locales/en/alternatives.json';
 import enTemplatesPillar from './locales/en/templates-pillar.json';
 import enLeadMagnets from './locales/en/lead-magnets.json';
 import enRoadmap from './locales/en/roadmap.json';
+import enSeo from './locales/en/seo.json';
 import enLookerStudio from './locales/en/alternatives/looker-studio.json';
 import enAgencyAnalytics from './locales/en/alternatives/agency-analytics.json';
 import enDashThis from './locales/en/alternatives/dashthis.json';
@@ -111,6 +113,7 @@ const resources = {
     'templates-real-estate': enRealEstate,
     'templates-freelancer': enFreelancer,
     'templates-saas': enSaas,
+    seo: enSeo,
   },
   fr: {
     common: frCommon,
@@ -146,6 +149,7 @@ const resources = {
     'templates-real-estate': frRealEstate,
     'templates-freelancer': frFreelancer,
     'templates-saas': frSaas,
+    seo: frSeo,
   },
 };
 
@@ -198,7 +202,8 @@ i18n
       'templates-executive',
       'templates-real-estate',
       'templates-freelancer',
-      'templates-saas'
+      'templates-saas',
+      'seo'
     ],
     load: 'languageOnly',
   });

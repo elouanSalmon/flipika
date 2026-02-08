@@ -8,6 +8,7 @@ import SEO from '../components/SEO';
 
 const Sitemap: React.FC = () => {
     const { i18n } = useTranslation();
+    const { t: tSeo } = useTranslation('seo');
     const navigate = useNavigate();
 
     const getLangPath = (path: string) => {
@@ -77,8 +78,10 @@ const Sitemap: React.FC = () => {
             </div>
 
             <SEO
-                title={i18n.language === 'fr' ? 'Plan du site | Flipika' : 'Sitemap | Flipika'}
-                description={i18n.language === 'fr' ? 'Parcourez toutes les pages de Flipika.com pour trouver facilement l\'information que vous cherchez.' : 'Browse all pages of Flipika.com to easily find the information you are looking for.'}
+                title={tSeo('sitemap.title')}
+                description={tSeo('sitemap.description')}
+                keywords={tSeo('sitemap.keywords')}
+                canonicalPath="/sitemap"
             />
 
             <div className="max-w-4xl mx-auto relative z-10">
