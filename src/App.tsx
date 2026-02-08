@@ -17,6 +17,7 @@ import CookieConsent from './components/CookieConsent';
 import InstallPWA from './components/InstallPWA';
 import OnboardingModal from './components/onboarding/OnboardingModal';
 import OfflineAlert from './components/common/OfflineAlert';
+import PageTransition from './components/common/PageTransition';
 import { useNetworkStatus } from './hooks/useNetworkStatus';
 import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
@@ -237,9 +238,11 @@ const AppContent = () => {
 
   return (
     <>
+      <PageTransition>
+        <AppRoutes />
+      </PageTransition>
       {/* SEO is now handled per-page for unique metadata */}
       <OfflineAlert isOnline={isOnline} />
-      <AppRoutes />
     </>
   );
 };
