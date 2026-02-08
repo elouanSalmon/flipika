@@ -245,10 +245,9 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         const preparedFor = t('coverPage.preparedFor', 'Préparé pour :');
         const preparedBy = t('coverPage.preparedBy', 'Préparé par :');
 
-        // Insert a new slide with cover page content using dynamic variables
-        const endPos = editor.state.doc.content.size;
+        // Insert cover page as the first slide in the report
         editor.chain()
-            .insertContentAt(endPos, {
+            .insertContentAt(0, {
                 type: 'slide',
                 attrs: {
                     id: `slide-cover-${Date.now()}`,
