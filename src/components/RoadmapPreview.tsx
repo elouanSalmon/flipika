@@ -68,15 +68,16 @@ const RoadmapPreview: React.FC = () => {
                     className="relative mb-10"
                 >
                     {/* Horizontal line */}
-                    <div className="absolute top-6 left-[16.66%] right-[16.66%] h-px bg-gradient-to-r from-green-500/40 via-blue-500/40 to-purple-500/40" />
+                    {/* Horizontal line */}
+                    <div className="absolute top-6 left-[16%] right-[16%] h-px bg-gradient-to-r from-green-500/40 via-blue-500/40 to-purple-500/40" />
 
                     <div className="grid grid-cols-3 gap-4 md:gap-8">
                         {phases.map((phase, i) => {
                             const Icon = phase.icon;
                             return (
-                                <div key={i} className="relative text-center">
+                                <div key={i} className="relative flex flex-col items-center text-center">
                                     {/* Dot */}
-                                    <div className={`w-12 h-12 mx-auto mb-4 ${phase.dotClass} rounded-full flex items-center justify-center shadow-lg relative z-10`}>
+                                    <div className={`w-12 h-12 mb-4 ${phase.dotClass} rounded-full flex items-center justify-center shadow-lg relative z-10`}>
                                         <Icon size={20} className="text-white" />
                                     </div>
                                     <h3 className="text-sm md:text-base font-bold text-[var(--color-text-primary)] mb-1">
