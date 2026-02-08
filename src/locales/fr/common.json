@@ -677,6 +677,7 @@
       "description": "Vous allez être redirigé vers l'application..."
     },
     "back": "Retour",
+    "logout": "Se déconnecter",
     "subscription": {
       "title": "Choisissez votre formule",
       "description": "Démarrez avec un essai gratuit ou optez pour l'accès à vie",

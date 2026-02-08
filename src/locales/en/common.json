@@ -300,6 +300,7 @@
       "description": "You will be redirected to the application..."
     },
     "back": "Back",
+    "logout": "Log out",
     "subscription": {
       "title": "Choose your plan",
       "description": "Start with a free trial or opt for lifetime access",

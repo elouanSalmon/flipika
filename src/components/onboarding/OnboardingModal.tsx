@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { User, Building, FileText, Check, Loader2, Lock, CreditCard, ChevronLeft, ChevronRight } from 'lucide-react';
+import { User, Building, FileText, Check, Loader2, Lock, CreditCard, ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { useSubscription } from '../../contexts/SubscriptionContext';
@@ -19,7 +20,8 @@ type Step = 'welcome' | 'username' | 'details' | 'googleAds' | 'subscription' | 
 
 const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
     const { t } = useTranslation();
-    const { currentUser, userProfile, refreshProfile } = useAuth();
+    const { currentUser, userProfile, refreshProfile, logout } = useAuth();
+    const navigate = useNavigate();
     const { isConnected, refreshConnectionStatus } = useGoogleAds();
     const { createCheckout, createLifetimeCheckout } = useSubscription();
 
@@ -248,6 +250,15 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
             console.error('Error creating lifetime checkout:', error);
             toast.error('Erreur lors de la création du paiement');
             setIsCreatingLifetimeCheckout(false);
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            navigate('/login');
+        } catch (error) {
+            console.error('Logout error:', error);
         }
     };
 
@@ -731,7 +742,18 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                     />
                 </div>
 
-                <div className="p-8">
+                {/* Logout button */}
+                <div className="flex justify-end px-8 pt-4">
+                    <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-1.5 text-sm text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                    >
+                        <LogOut size={14} />
+                        {t('common:onboarding.logout')}
+                    </button>
+                </div>
+
+                <div className="px-8 pb-8">
                     <AnimatePresence mode="wait">
                         {renderStep()}
                     </AnimatePresence>
