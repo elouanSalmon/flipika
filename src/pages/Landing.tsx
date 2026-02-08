@@ -7,6 +7,7 @@ import Features from '../components/Features';
 import Differentiation from '../components/Differentiation';
 import SocialProof from '../components/Testimonials';
 import EmailCapture from '../components/EmailCapture';
+import RoadmapPreview from '../components/RoadmapPreview';
 import Footer from '../components/Footer';
 import CookieConsent from '../components/CookieConsent';
 
@@ -24,6 +25,7 @@ const Landing = () => {
                 <Features />
                 <Differentiation />
                 <SocialProof />
+                <RoadmapPreview />
                 <EmailCapture />
             </main>
 

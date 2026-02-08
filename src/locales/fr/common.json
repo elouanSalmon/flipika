@@ -213,6 +213,17 @@
       }
     }
   },
+  "roadmapPreview": {
+    "title": "Et ce n'est que le début",
+    "description": "Flipika grandit pour devenir la plateforme tout-en-un des media buyers.",
+    "now": "Google Ads Reporting",
+    "nowDescription": "Disponible maintenant",
+    "soon": "Meta Ads Reporting",
+    "soonDescription": "Bientôt disponible",
+    "future": "La Super App Media Buyers",
+    "futureDescription": "Notre vision",
+    "cta": "Voir la roadmap complète"
+  },
   "emailCapture": {
     "title": "Marre de perdre du temps sur vos reportings Google Ads ?",
     "subtitle": "Accédez à la bêta privée et générez vos rapports automatiquement",
