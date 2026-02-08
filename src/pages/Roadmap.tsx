@@ -185,7 +185,7 @@ const Roadmap: React.FC = () => {
                         className="relative pl-16 md:pl-0"
                     >
                         {/* Timeline dot */}
-                        <div className="absolute left-6 md:left-1/2 top-0 -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 z-10">
+                        <div className="absolute left-6 md:left-1/2 top-0 -translate-x-1/2 w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 z-10">
                             <Rocket size={22} className="text-white" />
                         </div>
 
@@ -205,9 +205,8 @@ const Roadmap: React.FC = () => {
                                 </p>
                             </div>
                             <div className="mt-6 md:mt-0 md:pl-12">
-                                <div className="glass border border-[var(--glass-border)] rounded-2xl p-6 relative overflow-hidden">
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-purple-500/10 to-transparent rounded-bl-full" />
-                                    <ul className="space-y-2.5 relative">
+                                <div className="glass border border-[var(--glass-border)] rounded-2xl p-6">
+                                    <ul className="space-y-2.5">
                                         {Array.isArray(futureFeatures) && futureFeatures.map((feature, i) => (
                                             <li key={i} className="text-sm text-[var(--color-text-primary)] pl-4 relative before:content-[''] before:absolute before:left-0 before:top-[9px] before:w-1.5 before:h-1.5 before:rounded-full before:bg-purple-500">
                                                 {feature}
@@ -308,7 +307,6 @@ const Roadmap: React.FC = () => {
 
                             {/* Includes */}
                             <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/10 dark:bg-yellow-500/20 rounded-full mb-8">
-                                <Sparkles size={16} className="text-yellow-600 dark:text-yellow-400" />
                                 <span className="text-sm font-medium text-yellow-900 dark:text-yellow-200">
                                     {t('cta.includes')}
                                 </span>
