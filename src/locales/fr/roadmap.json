@@ -1,0 +1,86 @@
+{
+  "page": {
+    "title": "Roadmap Flipika - L'avenir du reporting pour les Media Buyers",
+    "metaDescription": "Découvrez la vision de Flipika : du reporting Google Ads au Meta Ads, vers la Super App des media buyers. Rejoignez-nous dès maintenant."
+  },
+  "hero": {
+    "badge": "ROADMAP 2026-2027",
+    "title": "Construisons ensemble l'outil que chaque media buyer mérite",
+    "description": "Flipika n'est pas juste un outil de reporting. C'est une vision : créer la plateforme tout-en-un qui transforme le quotidien des media buyers. Voici ce qui vous attend."
+  },
+  "timeline": {
+    "now": {
+      "badge": "DISPONIBLE",
+      "title": "Google Ads Reporting",
+      "subtitle": "Le meilleur outil de reporting Google Ads du marché",
+      "description": "Des rapports professionnels en quelques clics. Templates personnalisables, exports automatiques, branding client, liens de partage publics.",
+      "features": [
+        "Rapports Google Ads en un clic",
+        "Templates drag & drop personnalisables",
+        "Branding et thèmes par client",
+        "Liens de partage publics",
+        "Rapports programmés automatiques",
+        "Export PDF & Google Slides"
+      ]
+    },
+    "soon": {
+      "badge": "BIENTÔT",
+      "title": "Meta Ads Reporting",
+      "subtitle": "Facebook & Instagram Ads dans le même outil",
+      "description": "Connectez vos comptes Meta Business et générez des rapports croisés Google + Meta. Une vue unifiée de vos performances publicitaires.",
+      "features": [
+        "Connexion Meta Business Manager",
+        "Rapports Meta Ads natifs",
+        "Rapports croisés Google + Meta",
+        "Métriques unifiées multi-plateforme",
+        "Templates Meta Ads dédiés",
+        "Comparaison de performances cross-channel"
+      ]
+    },
+    "future": {
+      "badge": "VISION",
+      "title": "La Super App des Media Buyers",
+      "subtitle": "Tout ce dont vous avez besoin, au même endroit",
+      "description": "Notre ambition : devenir l'outil indispensable de chaque media buyer. Reporting, analyse, automatisation, collaboration — tout dans une seule plateforme.",
+      "features": [
+        "TikTok Ads, LinkedIn Ads, Pinterest Ads",
+        "Tableau de bord unifié multi-source",
+        "Copilote IA pour l'analyse de vos campagnes",
+        "Alertes intelligentes et recommandations",
+        "Automatisations et workflows personnalisés",
+        "Collaboration d'équipe en temps réel"
+      ]
+    }
+  },
+  "vision": {
+    "title": "Pourquoi rejoindre Flipika maintenant ?",
+    "description": "Les early adopters qui nous rejoignent aujourd'hui bénéficient de tous les avantages futurs. Chaque nouvelle fonctionnalité, chaque nouvelle intégration — incluse dans votre accès à vie.",
+    "points": [
+      {
+        "title": "Influencez le produit",
+        "description": "Vos retours façonnent directement notre roadmap. Les premiers utilisateurs ont un impact réel sur les fonctionnalités que nous construisons."
+      },
+      {
+        "title": "Prix garanti à vie",
+        "description": "Le prix d'aujourd'hui est le prix le plus bas que Flipika aura jamais. À mesure que nous ajoutons des fonctionnalités, la valeur augmente — mais pas votre facture."
+      },
+      {
+        "title": "Tout inclus, pour toujours",
+        "description": "Meta Ads, TikTok Ads, le copilote IA, les automatisations — tout ce qui est sur cette roadmap sera inclus dans votre accès à vie."
+      }
+    ]
+  },
+  "cta": {
+    "badge": "OFFRE EARLY ADOPTER",
+    "title": "Sécurisez votre accès à vie",
+    "description": "Rejoignez les media buyers qui ont déjà fait le choix de Flipika. Un seul paiement, un accès illimité à toutes les fonctionnalités actuelles et futures.",
+    "price": "100",
+    "currency": "EUR",
+    "priceLabel": "paiement unique",
+    "includes": "Google Ads + Meta Ads + toutes les futures intégrations",
+    "button": "Obtenir l'accès à vie",
+    "redirecting": "Redirection...",
+    "guarantee": "Satisfait ou remboursé 30 jours",
+    "noSubscription": "Aucun abonnement. Aucun frais caché."
+  }
+}

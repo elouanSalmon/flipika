@@ -1,0 +1,86 @@
+{
+  "page": {
+    "title": "Flipika Roadmap - The Future of Reporting for Media Buyers",
+    "metaDescription": "Discover Flipika's vision: from Google Ads reporting to Meta Ads, towards the ultimate Media Buyer Super App. Join us now."
+  },
+  "hero": {
+    "badge": "ROADMAP 2026-2027",
+    "title": "Let's build the tool every media buyer deserves",
+    "description": "Flipika is not just a reporting tool. It's a vision: to create the all-in-one platform that transforms media buyers' daily work. Here's what's coming."
+  },
+  "timeline": {
+    "now": {
+      "badge": "AVAILABLE NOW",
+      "title": "Google Ads Reporting",
+      "subtitle": "The best Google Ads reporting tool on the market",
+      "description": "Professional reports in just a few clicks. Customizable templates, automatic exports, client branding, public share links.",
+      "features": [
+        "One-click Google Ads reports",
+        "Customizable drag & drop templates",
+        "Per-client branding and themes",
+        "Public share links",
+        "Scheduled automatic reports",
+        "PDF & Google Slides export"
+      ]
+    },
+    "soon": {
+      "badge": "COMING SOON",
+      "title": "Meta Ads Reporting",
+      "subtitle": "Facebook & Instagram Ads in the same tool",
+      "description": "Connect your Meta Business accounts and generate cross-platform Google + Meta reports. A unified view of your advertising performance.",
+      "features": [
+        "Meta Business Manager connection",
+        "Native Meta Ads reports",
+        "Cross-platform Google + Meta reports",
+        "Unified multi-platform metrics",
+        "Dedicated Meta Ads templates",
+        "Cross-channel performance comparison"
+      ]
+    },
+    "future": {
+      "badge": "VISION",
+      "title": "The Media Buyer Super App",
+      "subtitle": "Everything you need, in one place",
+      "description": "Our ambition: become the essential tool for every media buyer. Reporting, analysis, automation, collaboration - all in one platform.",
+      "features": [
+        "TikTok Ads, LinkedIn Ads, Pinterest Ads",
+        "Unified multi-source dashboard",
+        "AI Copilot for campaign analysis",
+        "Smart alerts and recommendations",
+        "Custom automations and workflows",
+        "Real-time team collaboration"
+      ]
+    }
+  },
+  "vision": {
+    "title": "Why join Flipika now?",
+    "description": "Early adopters who join today get all future benefits. Every new feature, every new integration - included in your lifetime access.",
+    "points": [
+      {
+        "title": "Shape the product",
+        "description": "Your feedback directly shapes our roadmap. Early users have a real impact on the features we build."
+      },
+      {
+        "title": "Price guaranteed forever",
+        "description": "Today's price is the lowest Flipika will ever be. As we add features, the value increases - but not your bill."
+      },
+      {
+        "title": "Everything included, forever",
+        "description": "Meta Ads, TikTok Ads, AI copilot, automations - everything on this roadmap will be included in your lifetime access."
+      }
+    ]
+  },
+  "cta": {
+    "badge": "EARLY ADOPTER OFFER",
+    "title": "Secure your lifetime access",
+    "description": "Join the media buyers who have already chosen Flipika. One payment, unlimited access to all current and future features.",
+    "price": "100",
+    "currency": "EUR",
+    "priceLabel": "one-time payment",
+    "includes": "Google Ads + Meta Ads + all future integrations",
+    "button": "Get lifetime access",
+    "redirecting": "Redirecting...",
+    "guarantee": "30-day money-back guarantee",
+    "noSubscription": "No subscription. No hidden fees."
+  }
+}

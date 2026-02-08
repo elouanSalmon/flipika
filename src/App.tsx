@@ -53,6 +53,7 @@ import ComparisonIndex from './pages/alternatives/ComparisonIndex';
 import ComparisonPage from './pages/alternatives/ComparisonPage';
 import TemplateLandingPage from './pages/templates/TemplateLandingPage';
 import LeadMagnetPage from './pages/resources/LeadMagnetPage';
+import Roadmap from './pages/Roadmap';
 import './App.css';
 
 // Protected Route Component
@@ -136,6 +137,7 @@ const AppRoutes = () => {
         <Route path="templates/:slug" element={<TemplateLandingPage />} />
         <Route path="google-ads-report-template" element={<Navigate to="/templates/google-ads" replace />} />
         <Route path="resources/:slug" element={<LeadMagnetPage />} />
+        <Route path="roadmap" element={<Roadmap />} />
         <Route path="sitemap" element={<Sitemap />} />
         <Route path="*" element={<NotFound />} />
       </Route>

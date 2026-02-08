@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
           </a>
 
           <div className="footer-simple-copyright">
-            © 2025 Flipika. {t('common:footer.copyright')}.
+            © {new Date().getFullYear()} Flipika. {t('common:footer.copyright')}.
           </div>
         </div>
       </div>
