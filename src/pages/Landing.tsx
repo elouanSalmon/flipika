@@ -25,7 +25,6 @@ const Landing = () => {
                 canonicalPath="/"
             />
             <div className="bg-gradient"></div>
-            <div className="bg-grid"></div>
 
             <Header />
 

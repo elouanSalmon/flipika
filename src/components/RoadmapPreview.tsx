@@ -68,7 +68,7 @@ const RoadmapPreview: React.FC = () => {
                     className="relative mb-10"
                 >
                     {/* Horizontal line */}
-                    <div className="absolute top-6 left-0 right-0 h-px bg-gradient-to-r from-green-500/40 via-blue-500/40 to-purple-500/40" />
+                    <div className="absolute top-6 left-[16.66%] right-[16.66%] h-px bg-gradient-to-r from-green-500/40 via-blue-500/40 to-purple-500/40" />
 
                     <div className="grid grid-cols-3 gap-4 md:gap-8">
                         {phases.map((phase, i) => {
