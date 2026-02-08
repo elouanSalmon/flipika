@@ -55,6 +55,13 @@
         "ogTitle": "Plan du Site - Flipika",
         "ogDescription": "Explorez toutes les pages de Flipika.com"
     },
+    "pricing": {
+        "title": "Tarifs | Flipika - Simple & Transparent",
+        "description": "Tarification simple et transparente pour le reporting Google Ads. Commencez par un essai gratuit, sans carte bancaire. Offres à vie disponibles.",
+        "keywords": "Tarifs Flipika, prix reporting Google Ads, coût outil PPC, offre à vie",
+        "ogTitle": "Tarifs Flipika - Simple & Transparent",
+        "ogDescription": "Découvrez nos offres tarifaires simples et transparentes."
+    },
     "notFound": {
         "title": "Page Non Trouvée | Flipika",
         "description": "La page que vous recherchez n'existe pas ou a été déplacée.",
