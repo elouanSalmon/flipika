@@ -35,7 +35,7 @@ const RoadmapPreview: React.FC = () => {
             color: 'purple',
             title: t('common:roadmapPreview.future'),
             description: t('common:roadmapPreview.futureDescription'),
-            dotClass: 'bg-gradient-to-br from-purple-500 to-pink-500',
+            dotClass: 'bg-purple-500',
             textClass: 'text-purple-600 dark:text-purple-400',
             bgClass: 'bg-purple-500/10',
         },
@@ -101,10 +101,10 @@ const RoadmapPreview: React.FC = () => {
                 >
                     <Link
                         to={getLangPath('/roadmap')}
-                        className="inline-flex items-center gap-2 text-[var(--color-primary)] font-semibold hover:underline transition-all"
+                        className="btn btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold transition-all hover:-translate-y-0.5"
                     >
                         {t('common:roadmapPreview.cta')}
-                        <ArrowRight size={18} />
+                        <ArrowRight size={20} />
                     </Link>
                 </motion.div>
             </div>

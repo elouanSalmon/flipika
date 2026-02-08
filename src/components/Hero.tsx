@@ -39,9 +39,8 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-bg-secondary)] pt-16 pb-24">
-      {/* Blue light orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <section className="relative min-h-screen flex items-center pt-16 pb-24">
+      <div className="absolute inset-0 pointer-events-none">
         <div
           style={{
             position: 'absolute',

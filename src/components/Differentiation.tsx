@@ -73,9 +73,8 @@ const Differentiation: React.FC = () => {
   };
 
   return (
-    <section className="relative py-24 bg-[var(--color-bg-secondary)] overflow-hidden">
-      {/* Blue light orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <section className="relative py-24">
+      <div className="absolute inset-0 pointer-events-none">
         <div
           style={{
             position: 'absolute',

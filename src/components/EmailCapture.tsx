@@ -65,9 +65,8 @@ const EmailCapture: React.FC = () => {
   };
 
   return (
-    <section id="email-capture" className="relative py-16 bg-[var(--color-bg-secondary)] overflow-hidden">
-      {/* Blue light orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <section id="email-capture" className="relative py-16">
+      <div className="absolute inset-0 pointer-events-none">
         <div
           style={{
             position: 'absolute',
