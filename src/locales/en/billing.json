@@ -27,19 +27,99 @@
     "accountsCount_one": "{{count}} account",
     "accountsCount_other": "{{count}} accounts",
     "monthly": "/month",
-    "seeAllPricing": "See all pricing tiers →",
+    "seeAllPricing": "See all pricing tiers",
     "trialInfo": "14-day free trial",
     "features": {
       "title": "Included features",
       "generation": "1-click report generation",
       "narrative": "AI Analysis: Narrative Layer & Insights",
-      "customTemplates": "fully customizable themes & templates",
+      "customTemplates": "Fully customizable themes & templates",
       "automation": "Scheduling & Automated Sending",
       "exports": "PDF, Slides & Web Link Exports",
       "email": "Instant email sending",
       "slideshow": "Interactive Slideshow Mode"
     },
-    "securePayment": "Secure payment via Stripe"
+    "securePayment": "Secure payment via Stripe",
+    "hero": {
+      "badge": "Simple and transparent pricing",
+      "title": "10€ per account, nothing more.",
+      "subtitle": "No hidden fees, no complicated tiers. Just one transparent price per Google Ads account."
+    },
+    "monthlyCard": {
+      "title": "Monthly",
+      "priceSuffix": "/mo",
+      "perAccountLabel": "per Google Ads account",
+      "examplesTitle": "Quick estimate",
+      "cta": "Start free trial",
+      "trialNote": "14-day free trial, then billed monthly"
+    },
+    "lifetimeCard": {
+      "bestValue": "Only 9 spots left at this price",
+      "feature1": "Lifetime access to all features",
+      "feature2": "Future updates included",
+      "feature3": "Priority lifetime support",
+      "earlyAdopter": "Limited early adopter offer"
+    },
+    "comparison": {
+      "badge": "Compare plans",
+      "title": "Everything you need, nothing you don't",
+      "subtitle": "See exactly what's included in each plan.",
+      "feature": "Feature",
+      "monthlyCol": "Monthly",
+      "lifetimeCol": "Lifetime",
+      "row1": "Report generation",
+      "row2": "AI-powered narrative",
+      "row3": "Custom templates",
+      "row4": "Scheduling & automation",
+      "row5": "PDF, Slides & Web exports",
+      "row6": "Email sending",
+      "row7": "Slideshow mode",
+      "row8": "Unlimited accounts",
+      "row9": "Future features included",
+      "row10": "Priority support"
+    },
+    "social": {
+      "stat1Value": "127+",
+      "stat1Label": "Early adopters",
+      "stat2Value": "2,500+",
+      "stat2Label": "Reports generated",
+      "stat3Value": "3h",
+      "stat3Label": "Saved per report",
+      "stat4Value": "4.9/5",
+      "stat4Label": "User satisfaction",
+      "trustStripe": "Powered by Stripe",
+      "trustTrial": "14-day free trial",
+      "trustCancel": "Cancel anytime",
+      "trustGdpr": "GDPR compliant"
+    },
+    "faq": {
+      "badge": "Questions? Answers.",
+      "title": "Frequently asked questions",
+      "subtitle": "Everything you need to know about Flipika pricing.",
+      "q1": "How does the free trial work?",
+      "a1": "You get 14 days of full access after entering your payment details. Connect your Google Ads accounts and generate unlimited reports. You won't be charged during the trial period.",
+      "q2": "What counts as a \"Google Ads account\"?",
+      "a2": "Each Google Ads account (MCC sub-account or standalone) that you connect to Flipika counts as one seat. You only pay for accounts you actively connect.",
+      "q3": "Can I cancel anytime?",
+      "a3": "Yes, absolutely. You can cancel your subscription at any time from your billing settings. You'll keep access until the end of your current billing period.",
+      "q4": "What's included in the Lifetime plan?",
+      "a4": "The Lifetime plan gives you permanent access to all current and future features, unlimited accounts, and priority support. One payment, no recurring fees, ever.",
+      "q5": "Will the Lifetime plan price increase?",
+      "a5": "Yes. The current price is a special early adopter offer. As we add more features, the price will increase. Lock in the current price while it lasts.",
+      "q6": "How does billing work if I add or remove accounts?",
+      "a6": "Your monthly bill adjusts automatically. Add accounts and pay more, remove accounts and pay less. It's prorated so you're always charged fairly.",
+      "q7": "Is my payment data secure?",
+      "a7": "Absolutely. All payments are processed by Stripe, a PCI-DSS Level 1 certified payment provider. We never store your credit card information.",
+      "q8": "Do you offer refunds?",
+      "a8": "We offer a full refund within the first 30 days of any paid subscription if you're not satisfied. For the Lifetime plan, the same 30-day guarantee applies."
+    },
+    "finalCta": {
+      "title": "Ready to transform your Google Ads reporting?",
+      "subtitle": "Join 127+ marketers who save hours every week with Flipika.",
+      "primaryCta": "Start free trial",
+      "secondaryCta": "Get lifetime access",
+      "trustLine": "14-day free trial - Cancel anytime - Secure payment"
+    }
   },
   "subscription": {
     "googleAdsAccounts": "Google Ads Accounts",
@@ -94,5 +174,19 @@
     "upgradeTitle": "Switch to Lifetime Plan",
     "upgradeDescription": "No more monthly fees. One payment, lifetime access.",
     "upgradeCta": "Unlock"
+  },
+  "pricingModal": {
+    "title": "Pricing",
+    "close": "Close",
+    "pricePerMonth": "{{price}}/mo",
+    "perGoogleAdsAccount": "per connected Google Ads account",
+    "howItWorks": "How does it work?",
+    "howItWorksDescription": "You only pay for the Google Ads accounts you connect to Flipika. The amount adjusts automatically each month.",
+    "pricingExamples": "Pricing examples:",
+    "accountCount_one": "{{count}} account",
+    "accountCount_other": "{{count}} accounts",
+    "perMonth": "/mo",
+    "securePayment": "Secure payment by <1>Stripe</1>",
+    "understood": "Got it!"
   }
 }

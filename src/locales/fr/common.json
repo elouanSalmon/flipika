@@ -9,6 +9,8 @@
     "testimonials": "Avis",
     "contact": "Contact",
     "problem": "Problèmes",
+    "roadmap": "Roadmap",
+    "alternatives": "Alternatives",
     "login": "Connexion"
   },
   "auth": {

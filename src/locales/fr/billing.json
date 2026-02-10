@@ -27,7 +27,7 @@
     "accountsCount_one": "{{count}} compte",
     "accountsCount_other": "{{count}} comptes",
     "monthly": "/mois",
-    "seeAllPricing": "Voir tous les niveaux de tarification →",
+    "seeAllPricing": "Voir tous les niveaux de tarification",
     "trialInfo": "14 jours d'essai gratuit",
     "features": {
       "title": "Fonctionnalités incluses",
@@ -39,7 +39,87 @@
       "email": "Envoi par email instantané",
       "slideshow": "Mode Diaporama Interactif"
     },
-    "securePayment": "Paiement sécurisé par Stripe"
+    "securePayment": "Paiement sécurisé par Stripe",
+    "hero": {
+      "badge": "Tarification simple et transparente",
+      "title": "10€ par compte, rien de plus.",
+      "subtitle": "Pas de frais cachés, pas de niveaux compliqués. Juste un prix transparent par compte Google Ads."
+    },
+    "monthlyCard": {
+      "title": "Mensuel",
+      "priceSuffix": "/mois",
+      "perAccountLabel": "par compte Google Ads",
+      "examplesTitle": "Estimation rapide",
+      "cta": "Commencer l'essai gratuit",
+      "trialNote": "14 jours d'essai gratuit, puis facturation mensuelle"
+    },
+    "lifetimeCard": {
+      "bestValue": "Plus que 9 places à ce prix",
+      "feature1": "Accès à vie à toutes les fonctionnalités",
+      "feature2": "Mises à jour futures incluses",
+      "feature3": "Support prioritaire à vie",
+      "earlyAdopter": "Offre limitée early adopter"
+    },
+    "comparison": {
+      "badge": "Comparer les plans",
+      "title": "Tout ce dont vous avez besoin, rien de superflu",
+      "subtitle": "Découvrez exactement ce qui est inclus dans chaque plan.",
+      "feature": "Fonctionnalité",
+      "monthlyCol": "Mensuel",
+      "lifetimeCol": "À vie",
+      "row1": "Génération de rapports",
+      "row2": "Narration IA",
+      "row3": "Templates personnalisés",
+      "row4": "Planification & automatisation",
+      "row5": "Exports PDF, Slides & Web",
+      "row6": "Envoi par email",
+      "row7": "Mode diaporama",
+      "row8": "Comptes illimités",
+      "row9": "Fonctionnalités futures incluses",
+      "row10": "Support prioritaire"
+    },
+    "social": {
+      "stat1Value": "127+",
+      "stat1Label": "Early adopters",
+      "stat2Value": "2 500+",
+      "stat2Label": "Rapports générés",
+      "stat3Value": "3h",
+      "stat3Label": "Gagnées par rapport",
+      "stat4Value": "4.9/5",
+      "stat4Label": "Satisfaction utilisateur",
+      "trustStripe": "Propulsé par Stripe",
+      "trustTrial": "14 jours d'essai gratuit",
+      "trustCancel": "Annulation libre",
+      "trustGdpr": "Conforme RGPD"
+    },
+    "faq": {
+      "badge": "Questions ? Réponses.",
+      "title": "Questions fréquemment posées",
+      "subtitle": "Tout ce que vous devez savoir sur la tarification Flipika.",
+      "q1": "Comment fonctionne l'essai gratuit ?",
+      "a1": "Vous bénéficiez de 14 jours d'accès complet après avoir renseigné vos informations de paiement. Connectez vos comptes Google Ads et générez des rapports illimités. Aucun prélèvement pendant la période d'essai.",
+      "q2": "Qu'est-ce qui compte comme un \"compte Google Ads\" ?",
+      "a2": "Chaque compte Google Ads (sous-compte MCC ou autonome) que vous connectez à Flipika compte comme un siège. Vous ne payez que pour les comptes que vous connectez activement.",
+      "q3": "Puis-je annuler à tout moment ?",
+      "a3": "Oui, absolument. Vous pouvez annuler votre abonnement à tout moment depuis vos paramètres de facturation. Vous conservez l'accès jusqu'à la fin de votre période de facturation en cours.",
+      "q4": "Qu'est-ce qui est inclus dans le plan À vie ?",
+      "a4": "Le plan À vie vous donne un accès permanent à toutes les fonctionnalités actuelles et futures, des comptes illimités et un support prioritaire. Un seul paiement, aucun frais récurrent.",
+      "q5": "Le prix du plan À vie va-t-il augmenter ?",
+      "a5": "Oui. Le prix actuel est une offre spéciale early adopter. Au fur et à mesure que nous ajoutons des fonctionnalités, le prix augmentera. Profitez du prix actuel tant qu'il est disponible.",
+      "q6": "Comment fonctionne la facturation si j'ajoute ou supprime des comptes ?",
+      "a6": "Votre facture mensuelle s'ajuste automatiquement. Ajoutez des comptes et payez plus, supprimez des comptes et payez moins. C'est proratisé pour que vous soyez toujours facturé équitablement.",
+      "q7": "Mes données de paiement sont-elles sécurisées ?",
+      "a7": "Absolument. Tous les paiements sont traités par Stripe, un fournisseur de paiement certifié PCI-DSS Niveau 1. Nous ne stockons jamais vos informations de carte bancaire.",
+      "q8": "Proposez-vous des remboursements ?",
+      "a8": "Nous offrons un remboursement complet dans les 30 premiers jours de tout abonnement payant si vous n'êtes pas satisfait. Pour le plan À vie, la même garantie de 30 jours s'applique."
+    },
+    "finalCta": {
+      "title": "Prêt à transformer vos rapports Google Ads ?",
+      "subtitle": "Rejoignez plus de 127 marketeurs qui gagnent des heures chaque semaine avec Flipika.",
+      "primaryCta": "Commencer l'essai gratuit",
+      "secondaryCta": "Accès à vie",
+      "trustLine": "14 jours d'essai gratuit - Annulation libre - Paiement sécurisé"
+    }
   },
   "subscription": {
     "googleAdsAccounts": "Comptes Google Ads",
@@ -94,5 +174,19 @@
     "upgradeTitle": "Passez en accès à vie",
     "upgradeDescription": "Fini les mensualités. Un paiement, accès à vie.",
     "upgradeCta": "Débloquer"
+  },
+  "pricingModal": {
+    "title": "Tarification",
+    "close": "Fermer",
+    "pricePerMonth": "{{price}}/mois",
+    "perGoogleAdsAccount": "par compte Google Ads connecté",
+    "howItWorks": "Comment ça marche ?",
+    "howItWorksDescription": "Vous payez uniquement pour les comptes Google Ads que vous connectez à Flipika. Le montant est ajusté automatiquement chaque mois.",
+    "pricingExamples": "Exemples de tarification :",
+    "accountCount_one": "{{count}} compte",
+    "accountCount_other": "{{count}} comptes",
+    "perMonth": "/mois",
+    "securePayment": "Paiement sécurisé par <1>Stripe</1>",
+    "understood": "Compris !"
   }
 }
