@@ -189,10 +189,14 @@ export default function Pricing() {
                     >
                         {/* Monthly Card */}
                         <motion.div
-                            className="relative flex flex-col p-8 glass rounded-2xl"
+                            className="relative flex flex-col p-8 glass rounded-2xl overflow-hidden"
                             variants={itemVariants}
                             whileHover={{ y: -5 }}
                         >
+                            {/* Unique Subscription Badge */}
+                            <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-blue-600 text-white text-xs font-bold px-6 py-1.5 rounded-b-xl shadow-sm z-10 whitespace-nowrap">
+                                {t('billing:pricing.monthlyCard.uniqueLabel')}
+                            </div>
                             <div className="flex-grow">
                                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
                                     {t('billing:pricing.monthlyCard.title')}
@@ -381,11 +385,10 @@ export default function Pricing() {
                             {comparisonRows.map((row, i) => (
                                 <motion.div
                                     key={row.key}
-                                    className={`grid grid-cols-3 gap-4 px-6 py-3.5 ${
-                                        i % 2 === 0
+                                    className={`grid grid-cols-3 gap-4 px-6 py-3.5 ${i % 2 === 0
                                             ? 'bg-white/30 dark:bg-gray-900/20'
                                             : 'bg-gray-50/30 dark:bg-gray-800/20'
-                                    } ${i < comparisonRows.length - 1 ? 'border-b border-gray-100/50 dark:border-gray-700/30' : ''}`}
+                                        } ${i < comparisonRows.length - 1 ? 'border-b border-gray-100/50 dark:border-gray-700/30' : ''}`}
                                     initial={{ opacity: 0, x: -10 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ delay: i * 0.05 }}
