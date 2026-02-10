@@ -54,6 +54,7 @@ import ComparisonPage from './pages/alternatives/ComparisonPage';
 import TemplateLandingPage from './pages/templates/TemplateLandingPage';
 import LeadMagnetPage from './pages/resources/LeadMagnetPage';
 import Roadmap from './pages/Roadmap';
+import Features from './pages/Features';
 import Pricing from './pages/Pricing';
 import './App.css';
 
@@ -139,6 +140,7 @@ const AppRoutes = () => {
         <Route path="google-ads-report-template" element={<Navigate to="/templates/google-ads" replace />} />
         <Route path="resources/:slug" element={<LeadMagnetPage />} />
         <Route path="roadmap" element={<Roadmap />} />
+        <Route path="features" element={<Features />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="sitemap" element={<Sitemap />} />
         <Route path="*" element={<NotFound />} />

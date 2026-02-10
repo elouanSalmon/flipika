@@ -565,9 +565,9 @@ export default function Pricing() {
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-                                    <Link to="/login">
+                                    <Link to="/login" className="w-full sm:w-auto">
                                         <motion.div
-                                            className="btn btn-primary inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold"
+                                            className="btn btn-lg btn-primary w-full sm:min-w-[260px] flex items-center justify-center gap-2 leading-none"
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
@@ -575,9 +575,9 @@ export default function Pricing() {
                                             <ArrowRight size={18} />
                                         </motion.div>
                                     </Link>
-                                    <Link to="/login">
+                                    <Link to="/login" className="w-full sm:w-auto">
                                         <motion.div
-                                            className="btn inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white border-none shadow-[0_4px_12px_rgba(234,179,8,0.3)]"
+                                            className="btn btn-lg w-full sm:min-w-[260px] flex items-center justify-center gap-2 leading-none bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white border-none shadow-[0_4px_12px_rgba(234,179,8,0.3)]"
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >

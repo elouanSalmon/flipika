@@ -22,6 +22,7 @@ import frAlternatives from './locales/fr/alternatives.json';
 import frTemplatesPillar from './locales/fr/templates-pillar.json';
 import frLeadMagnets from './locales/fr/lead-magnets.json';
 import frRoadmap from './locales/fr/roadmap.json';
+import frFeatures from './locales/fr/features.json';
 import frSeo from './locales/fr/seo.json';
 import frLookerStudio from './locales/fr/alternatives/looker-studio.json';
 import frAgencyAnalytics from './locales/fr/alternatives/agency-analytics.json';
@@ -47,6 +48,7 @@ import enAlternatives from './locales/en/alternatives.json';
 import enTemplatesPillar from './locales/en/templates-pillar.json';
 import enLeadMagnets from './locales/en/lead-magnets.json';
 import enRoadmap from './locales/en/roadmap.json';
+import enFeatures from './locales/en/features.json';
 import enSeo from './locales/en/seo.json';
 import enLookerStudio from './locales/en/alternatives/looker-studio.json';
 import enAgencyAnalytics from './locales/en/alternatives/agency-analytics.json';
@@ -96,6 +98,7 @@ const resources = {
     'templates-pillar': enTemplatesPillar, // Keep for safety or remove if unused
     'lead-magnets': enLeadMagnets,
     roadmap: enRoadmap,
+    features: enFeatures,
     'looker-studio': enLookerStudio,
     'agency-analytics': enAgencyAnalytics,
     'dashthis': enDashThis,
@@ -132,6 +135,7 @@ const resources = {
     'templates-pillar': frTemplatesPillar,
     'lead-magnets': frLeadMagnets,
     roadmap: frRoadmap,
+    features: frFeatures,
     'looker-studio': frLookerStudio,
     'agency-analytics': frAgencyAnalytics,
     'dashthis': frDashThis,
@@ -187,6 +191,7 @@ i18n
       'templates-pillar',
       'lead-magnets',
       'roadmap',
+      'features',
       'looker-studio',
       'agency-analytics',
       'dashthis',

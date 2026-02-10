@@ -42,6 +42,7 @@ const SimpleHeader = () => {
 
     const navItems = [
         { label: t('common:header.home'), path: '/' },
+        { label: t('common:header.features'), path: '/features' },
         { label: t('common:header.pricing'), path: '/pricing' },
         { label: t('common:header.roadmap'), path: '/roadmap' },
     ];

@@ -62,6 +62,13 @@
         "ogTitle": "Flipika Pricing - Simple & Transparent",
         "ogDescription": "Check out our simple and transparent pricing plans."
     },
+    "features": {
+        "title": "Features | Flipika - Automated Google Ads Reporting",
+        "description": "Discover all Flipika features: report generation, AI narration, custom templates, automation, multi-format exports and more.",
+        "keywords": "Flipika features, automated Google Ads reporting, custom templates, AI narration, PDF slides export, slideshow mode",
+        "ogTitle": "Flipika Features - Everything for your Google Ads reports",
+        "ogDescription": "Automatic generation, AI narration, custom templates, multi-format exports and more."
+    },
     "notFound": {
         "title": "Page Not Found | Flipika",
         "description": "The page you're looking for doesn't exist or has been moved.",

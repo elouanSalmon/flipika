@@ -1,0 +1,106 @@
+{
+    "hero": {
+        "badge": "Fonctionnalités",
+        "title": "Tout ce dont vous avez besoin pour vos rapports Google Ads",
+        "subtitle": "Découvrez comment Flipika transforme votre reporting client en processus automatisé, professionnel et entièrement personnalisable."
+    },
+    "features": [
+        {
+            "id": "report-generation",
+            "icon": "FileBarChart",
+            "title": "Génération de rapports",
+            "subtitle": "Rapports automatiques en quelques clics",
+            "description": "Créez des rapports Google Ads professionnels en 2 minutes au lieu de 3 heures. Synchronisation automatique des données, mise en page optimisée.",
+            "benefits": [
+                "Synchronisation automatique avec Google Ads",
+                "Mise en page professionnelle pré-configurée",
+                "Données toujours à jour en temps réel",
+                "Gain de temps massif sur le reporting"
+            ]
+        },
+        {
+            "id": "ai-narration",
+            "icon": "Sparkles",
+            "title": "Narration par IA",
+            "subtitle": "Insights générés automatiquement",
+            "description": "Notre IA analyse vos données et génère des commentaires pertinents, suggestions d'optimisation et insights actionnables pour vos clients.",
+            "benefits": [
+                "Analyse intelligente des performances",
+                "Suggestions d'optimisation personnalisées",
+                "Détection automatique des anomalies",
+                "Commentaires rédigés en langage naturel"
+            ]
+        },
+        {
+            "id": "custom-templates",
+            "icon": "FileText",
+            "title": "Templates personnalisés",
+            "subtitle": "Adaptez chaque rapport à votre marque",
+            "description": "Créez et sauvegardez des templates sur mesure avec votre branding, vos KPIs préférés et votre mise en page personnalisée.",
+            "benefits": [
+                "Éditeur visuel intuitif drag & drop",
+                "Branding et marque blanche",
+                "Bibliothèque de templates réutilisables",
+                "KPIs et métriques personnalisables"
+            ]
+        },
+        {
+            "id": "scheduling-automation",
+            "icon": "Calendar",
+            "title": "Planification & automatisation",
+            "subtitle": "Automatisez votre reporting récurrent",
+            "description": "Planifiez l'envoi automatique de vos rapports : quotidiens, hebdomadaires ou mensuels. Vos clients reçoivent leurs insights sans effort de votre part.",
+            "benefits": [
+                "Planification flexible (quotidien, hebdo, mensuel)",
+                "Envoi automatique par email",
+                "Synchronisation automatique des données",
+                "Gestion multi-clients simplifiée"
+            ]
+        },
+        {
+            "id": "multi-format-exports",
+            "icon": "Download",
+            "title": "Exports PDF, Slides & Web",
+            "subtitle": "Exportez dans le format de votre choix",
+            "description": "Générez vos rapports en PDF pour impression, en slides PowerPoint pour vos présentations, ou en lien web interactif pour consultation en ligne.",
+            "benefits": [
+                "Export PDF haute qualité",
+                "Export PowerPoint éditable",
+                "Lien web interactif partageables",
+                "Personnalisation par format"
+            ]
+        },
+        {
+            "id": "email-sending",
+            "icon": "Mail",
+            "title": "Envoi par email",
+            "subtitle": "Livraison directe à vos clients",
+            "description": "Envoyez vos rapports directement depuis Flipika avec un message personnalisé. Tracking d'ouverture et historique complet des envois.",
+            "benefits": [
+                "Envoi direct depuis la plateforme",
+                "Message personnalisable par client",
+                "Tracking des ouvertures",
+                "Historique des envois consultable"
+            ]
+        },
+        {
+            "id": "slideshow-mode",
+            "icon": "Presentation",
+            "title": "Mode diaporama",
+            "subtitle": "Présentez comme un pro",
+            "description": "Transformez vos rapports en présentations interactives plein écran. Parfait pour vos réunions clients et revues de performance.",
+            "benefits": [
+                "Mode plein écran immersif",
+                "Navigation intuitive au clavier",
+                "Transition fluide entre pages",
+                "Idéal pour les présentations clients"
+            ]
+        }
+    ],
+    "cta": {
+        "title": "Prêt à transformer votre reporting ?",
+        "subtitle": "Rejoignez les media buyers qui ont déjà adopté Flipika et gagnez des heures chaque semaine.",
+        "button": "Commencer gratuitement",
+        "trustLine": "Essai gratuit • Sans carte bancaire • Configuration en 2 minutes"
+    }
+}
