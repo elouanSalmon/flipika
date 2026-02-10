@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Check,
     CheckCircle,
     X as XIcon,
     ChevronDown,
@@ -49,6 +48,7 @@ export default function Pricing() {
     const { t } = useTranslation(['billing', 'seo']);
     const [showPricingModal, setShowPricingModal] = useState(false);
     const [openFaq, setOpenFaq] = useState<number | null>(null);
+    const [sliderAccounts, setSliderAccounts] = useState(3);
 
     const features = [
         t('billing:pricing.features.generation'),
@@ -197,66 +197,71 @@ export default function Pricing() {
                             <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-blue-600 text-white text-xs font-bold px-6 py-1.5 rounded-b-xl shadow-sm z-10 whitespace-nowrap">
                                 {t('billing:pricing.monthlyCard.uniqueLabel')}
                             </div>
+
+                            {/* ── Row 1: Title ── */}
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-4 mb-6">
+                                {t('billing:pricing.monthlyCard.title')}
+                            </h3>
+
+                            {/* ── Row 2: Price ── */}
+                            <div className="mb-6">
+                                <span className="text-5xl font-extrabold text-primary dark:text-primary-light">
+                                    {PRICE_PER_SEAT}€
+                                </span>
+                                <span className="text-lg text-gray-500 dark:text-gray-400 ml-1">
+                                    {t('billing:pricing.monthlyCard.priceSuffix')}
+                                </span>
+                                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                    {t('billing:pricing.monthlyCard.perAccountLabel')}
+                                </p>
+                            </div>
+
+                            {/* ── Row 3: Slider estimate ── */}
+                            <div className="mb-6">
+                                <div className="flex items-baseline justify-between mb-4">
+                                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        {t('billing:pricing.accountsCount', { count: sliderAccounts })}
+                                    </span>
+                                    <span className="text-2xl font-extrabold text-primary dark:text-primary-light">
+                                        {PRICE_PER_SEAT * sliderAccounts}€<span className="text-sm font-normal text-gray-500 dark:text-gray-400">/{t('billing:pricing.monthlyCard.priceSuffix').replace('/', '')}</span>
+                                    </span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min={1}
+                                    max={20}
+                                    value={sliderAccounts}
+                                    onChange={(e) => setSliderAccounts(Number(e.target.value))}
+                                    className="pricing-slider w-full"
+                                    style={{ '--val': sliderAccounts } as React.CSSProperties}
+                                />
+                                <div className="flex justify-between text-xs text-gray-400 dark:text-gray-500 mt-1.5">
+                                    <span>1</span>
+                                    <span>20</span>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => setShowPricingModal(true)}
+                                className="btn-link text-sm mb-6 block"
+                            >
+                                {t('billing:pricing.seeAllPricing')} →
+                            </button>
+
+                            {/* ── Row 4: Features (flex-grow to push CTA down) ── */}
                             <div className="flex-grow">
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-                                    {t('billing:pricing.monthlyCard.title')}
-                                </h3>
-
-                                <div className="mb-6">
-                                    <span className="text-5xl font-extrabold text-primary dark:text-primary-light">
-                                        {PRICE_PER_SEAT}€
-                                    </span>
-                                    <span className="text-lg text-gray-500 dark:text-gray-400 ml-1">
-                                        {t('billing:pricing.monthlyCard.priceSuffix')}
-                                    </span>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                        {t('billing:pricing.monthlyCard.perAccountLabel')}
-                                    </p>
-                                </div>
-
-                                {/* Quick estimate grid */}
-                                <div className="mb-6">
-                                    <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
-                                        {t('billing:pricing.monthlyCard.examplesTitle')}
-                                    </p>
-                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                        {[1, 2, 5, 10].map((seats) => (
-                                            <div
-                                                key={seats}
-                                                className="p-2 glass rounded-lg text-center"
-                                            >
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                    {t('billing:pricing.accountsCount', { count: seats })}
-                                                </p>
-                                                <p className="text-sm font-bold text-gray-900 dark:text-gray-100">
-                                                    {PRICE_PER_SEAT * seats}€
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <button
-                                    onClick={() => setShowPricingModal(true)}
-                                    className="btn-link text-sm mb-6 block"
-                                >
-                                    {t('billing:pricing.seeAllPricing')} →
-                                </button>
-
-                                {/* Features list */}
                                 <ul className="space-y-3 mb-8">
                                     {features.map((feature, i) => (
                                         <li key={i} className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
-                                            <div className="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                                                <Check className="w-3 h-3 text-green-600 dark:text-green-400" />
-                                            </div>
+                                            <CheckCircle className="w-5 h-5 text-primary dark:text-primary-light flex-shrink-0" />
                                             <span>{feature}</span>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
 
-                            <div className="pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
+                            {/* ── Row 5: CTA (always at bottom) ── */}
+                            <div className="pt-6 border-t border-gray-200/50 dark:border-gray-700/50 mt-auto">
                                 <Link to="/login">
                                     <motion.div
                                         className="btn btn-outline w-full py-3.5 text-base font-semibold flex items-center justify-center gap-2"
@@ -287,26 +292,30 @@ export default function Pricing() {
                             {/* Glow orb */}
                             <div className="absolute -top-16 -right-16 w-48 h-48 bg-gradient-to-br from-yellow-300/20 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-                            <div className="flex-grow pt-4">
-                                <h3 className="text-xl font-bold text-yellow-900 dark:text-yellow-200 mb-6">
-                                    {t('billing:lifetime.title')}
-                                </h3>
+                            {/* ── Row 1: Title (same mt-4 as monthly) ── */}
+                            <h3 className="text-xl font-bold text-yellow-900 dark:text-yellow-200 mt-4 mb-6">
+                                {t('billing:lifetime.title')}
+                            </h3>
 
-                                <div className="mb-6">
-                                    <div className="flex items-baseline gap-2">
-                                        <span className="text-5xl font-extrabold text-yellow-600 dark:text-yellow-400">
-                                            {LIFETIME_PRICE}€
-                                        </span>
-                                    </div>
-                                    <p className="text-sm text-yellow-700/80 dark:text-yellow-400/80 mt-1">
-                                        {t('billing:lifetime.oneTime')}
-                                    </p>
+                            {/* ── Row 2: Price ── */}
+                            <div className="mb-6">
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-5xl font-extrabold text-yellow-600 dark:text-yellow-400">
+                                        {LIFETIME_PRICE}€
+                                    </span>
                                 </div>
-
-                                <p className="text-base text-gray-700 dark:text-gray-300 mb-8">
-                                    {t('billing:lifetime.description')}
+                                <p className="text-sm text-yellow-700/80 dark:text-yellow-400/80 mt-1">
+                                    {t('billing:lifetime.oneTime')}
                                 </p>
+                            </div>
 
+                            {/* ── Row 3: Middle content (unique to this card) ── */}
+                            <p className="text-base text-gray-700 dark:text-gray-300 mb-8">
+                                {t('billing:lifetime.description')}
+                            </p>
+
+                            {/* ── Row 4: Features (flex-grow to push CTA down) ── */}
+                            <div className="flex-grow">
                                 <ul className="space-y-3 mb-8">
                                     {[
                                         t('billing:pricing.lifetimeCard.feature1'),
@@ -321,7 +330,8 @@ export default function Pricing() {
                                 </ul>
                             </div>
 
-                            <div className="pt-6 border-t border-yellow-200/50 dark:border-yellow-700/30">
+                            {/* ── Row 5: CTA (always at bottom) ── */}
+                            <div className="pt-6 border-t border-yellow-200/50 dark:border-yellow-700/30 mt-auto">
                                 <Link to="/login">
                                     <motion.div
                                         className="btn w-full py-3.5 text-base font-semibold bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white border-none shadow-[0_4px_12px_rgba(234,179,8,0.4)] hover:shadow-[0_6px_16px_rgba(234,179,8,0.5)] flex items-center justify-center gap-2"
@@ -386,8 +396,8 @@ export default function Pricing() {
                                 <motion.div
                                     key={row.key}
                                     className={`grid grid-cols-3 gap-4 px-6 py-3.5 ${i % 2 === 0
-                                            ? 'bg-white/30 dark:bg-gray-900/20'
-                                            : 'bg-gray-50/30 dark:bg-gray-800/20'
+                                        ? 'bg-white/30 dark:bg-gray-900/20'
+                                        : 'bg-gray-50/30 dark:bg-gray-800/20'
                                         } ${i < comparisonRows.length - 1 ? 'border-b border-gray-100/50 dark:border-gray-700/30' : ''}`}
                                     initial={{ opacity: 0, x: -10 }}
                                     whileInView={{ opacity: 1, x: 0 }}
