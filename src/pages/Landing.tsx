@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import Header from '../components/Header';
+import SimpleHeader from '../components/SimpleHeader';
 import Hero from '../components/Hero';
 import Problem from '../components/Problem';
 import Features from '../components/Features';
@@ -26,7 +26,7 @@ const Landing = () => {
             />
             <div className="bg-gradient"></div>
 
-            <Header />
+            <SimpleHeader />
 
             <main>
                 <Hero />

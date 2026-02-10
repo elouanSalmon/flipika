@@ -217,9 +217,12 @@ const Features: React.FC = () => {
             className="btn btn-outline inline-flex items-center gap-2"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/login')}
+            onClick={() => {
+              const isFrench = t('common:language') === 'fr';
+              navigate(isFrench ? '/fr/features' : '/features');
+            }}
           >
-            <span>Voir comment ça marche</span>
+            <span>{t('common:features.viewAll') || (t('common:language') === 'fr' ? 'Voir toutes les fonctionnalités' : 'View all features')}</span>
             <ArrowRight size={20} />
           </motion.button>
         </motion.div>

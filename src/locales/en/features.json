@@ -4,6 +4,14 @@
         "title": "Everything you need for your Google Ads reports",
         "subtitle": "Discover how Flipika transforms your client reporting into an automated, professional, and fully customizable process."
     },
+    "stats": {
+        "timeSaved": "90% time saved",
+        "timeSavedDesc": "On your monthly reporting",
+        "automation": "100% automated",
+        "automationDesc": "From sync to delivery",
+        "satisfaction": "98% satisfied",
+        "satisfactionDesc": "Delighted clients"
+    },
     "features": [
         {
             "id": "report-generation",
@@ -97,10 +105,670 @@
             ]
         }
     ],
+    "featureDetails": {
+        "report-generation": {
+            "hero": {
+                "title": "Automatic report generation",
+                "subtitle": "Create professional Google Ads reports in 2 minutes instead of 3 hours",
+                "cta": "Try for free"
+            },
+            "whyItMatters": {
+                "title": "Why it's revolutionary",
+                "description": "Manual reporting takes hours every month. Flipika automates the entire process, from data synchronization to professional layout.",
+                "points": [
+                    {
+                        "title": "Massive time savings",
+                        "description": "90% time saved on your monthly reporting"
+                    },
+                    {
+                        "title": "Always up-to-date",
+                        "description": "Real-time sync with your Google Ads campaigns"
+                    },
+                    {
+                        "title": "Zero errors",
+                        "description": "Eliminate copy-paste errors and omissions"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "How it works",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Connect Google Ads",
+                        "description": "Secure OAuth connection in one click"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Select your KPIs",
+                        "description": "Choose the metrics important to your client"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Generate the report",
+                        "description": "One click and your report is ready in 30 seconds"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Monthly client reports",
+                    "description": "Automatically send your monthly reports with the latest performance data"
+                },
+                {
+                    "title": "Strategic meetings",
+                    "description": "Prepare your client presentations in minutes"
+                },
+                {
+                    "title": "Multi-campaign tracking",
+                    "description": "Easily manage reporting for dozens of client accounts"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Before / After Flipika",
+                "before": {
+                    "title": "Without Flipika",
+                    "points": [
+                        "3 hours of manual work per report",
+                        "Tedious data copy-pasting",
+                        "Risk of errors and omissions",
+                        "Layout to redo every time"
+                    ]
+                },
+                "after": {
+                    "title": "With Flipika",
+                    "points": [
+                        "2 minutes flat per report",
+                        "Automatic synchronization",
+                        "Always accurate data",
+                        "Infinitely reusable template"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Can I customize the report design?",
+                    "answer": "Absolutely! You can create custom templates with your branding, colors, and logo."
+                },
+                {
+                    "question": "Is data updated in real-time?",
+                    "answer": "Yes, each report opening syncs the latest data from your Google Ads campaigns."
+                },
+                {
+                    "question": "How long does it take to generate a report?",
+                    "answer": "On average 30 seconds for a complete report with all your metrics."
+                }
+            ]
+        },
+        "ai-narration": {
+            "hero": {
+                "title": "Intelligent AI narration",
+                "subtitle": "AI writes your analysis and recommendations automatically",
+                "cta": "Discover AI"
+            },
+            "whyItMatters": {
+                "title": "Analysis that makes the difference",
+                "description": "Your clients don't just want numbers, they want to understand. Our AI analyzes data and generates relevant comments in natural language.",
+                "points": [
+                    {
+                        "title": "Actionable insights",
+                        "description": "Concrete recommendations based on performance"
+                    },
+                    {
+                        "title": "Anomaly detection",
+                        "description": "Automatically spot unusual increases and decreases"
+                    },
+                    {
+                        "title": "Natural language",
+                        "description": "Comments written like a human expert"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "AI in action",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Data analysis",
+                        "description": "AI scans all your metrics and trends"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Pattern detection",
+                        "description": "Identifies opportunities and points of attention"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Comment generation",
+                        "description": "Automatic writing of relevant analyses"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Enriched reports",
+                    "description": "Add value with automatic analyses"
+                },
+                {
+                    "title": "Writing time savings",
+                    "description": "No need to manually write your comments"
+                },
+                {
+                    "title": "Proactive detection",
+                    "description": "Be alerted to anomalies before your clients"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Before / After AI",
+                "before": {
+                    "title": "Manual analysis",
+                    "points": [
+                        "1 hour analyzing data",
+                        "Manual comment writing",
+                        "Risk of missing insights",
+                        "Variable consistency due to fatigue"
+                    ]
+                },
+                "after": {
+                    "title": "With Flipika AI",
+                    "points": [
+                        "Instant analysis",
+                        "Automatically generated comments",
+                        "All insights detected",
+                        "Guaranteed consistent quality"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Can AI really replace my analysis?",
+                    "answer": "AI assists you by generating a complete first analysis. You can always edit and enrich it as needed."
+                },
+                {
+                    "question": "Are comments customizable?",
+                    "answer": "Yes! You can edit each AI-generated comment to adapt it to your tone and style."
+                },
+                {
+                    "question": "What types of insights can AI detect?",
+                    "answer": "Performance variations, trends, period vs period comparisons, optimization opportunities and more."
+                }
+            ]
+        },
+        "custom-templates": {
+            "hero": {
+                "title": "100% customizable templates",
+                "subtitle": "Create reports in your image with our visual editor",
+                "cta": "Create my template"
+            },
+            "whyItMatters": {
+                "title": "Your brand, your style",
+                "description": "Every agency has its identity. With Flipika, create templates that reflect your brand and impress your clients.",
+                "points": [
+                    {
+                        "title": "Total white label",
+                        "description": "Logo, colors, typography: everything is customizable"
+                    },
+                    {
+                        "title": "Infinite reuse",
+                        "description": "Create once, use infinitely for all your clients"
+                    },
+                    {
+                        "title": "Drag & drop editor",
+                        "description": "Intuitive interface, no technical skills required"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Create your perfect template",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Choose a base",
+                        "description": "Start from a blank template or pre-designed model"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Customize the design",
+                        "description": "Add your logo, colors and visual elements"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Select your KPIs",
+                        "description": "Drag and drop important metrics"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Templates by industry",
+                    "description": "Create specific templates for e-commerce, B2B, local, etc."
+                },
+                {
+                    "title": "Templates per client",
+                    "description": "Customize a template in each client's colors"
+                },
+                {
+                    "title": "Agency library",
+                    "description": "Build a collection of reusable templates"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Maximum flexibility",
+                "before": {
+                    "title": "Generic reports",
+                    "points": [
+                        "Same design for all clients",
+                        "No customization",
+                        "Amateur appearance",
+                        "No white label"
+                    ]
+                },
+                "after": {
+                    "title": "With Flipika Templates",
+                    "points": [
+                        "Unique design per client",
+                        "100% customizable",
+                        "Ultra-professional rendering",
+                        "Complete white label"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "How many templates can I create?",
+                    "answer": "Unlimited! Create as many templates as you want."
+                },
+                {
+                    "question": "Can I duplicate an existing template?",
+                    "answer": "Yes, you can clone any template to modify it."
+                },
+                {
+                    "question": "Do I need design skills?",
+                    "answer": "No, the drag & drop editor is designed to be usable by anyone, without training."
+                }
+            ]
+        },
+        "scheduling-automation": {
+            "hero": {
+                "title": "Complete automation",
+                "subtitle": "Schedule your reports and forget manual reporting",
+                "cta": "Automate my reports"
+            },
+            "whyItMatters": {
+                "title": "Reporting that runs itself",
+                "description": "Configure once, benefit for life. Your reports are generated and sent automatically according to your defined schedule.",
+                "points": [
+                    {
+                        "title": "Zero recurring effort",
+                        "description": "Your clients receive their reports without any action from you"
+                    },
+                    {
+                        "title": "Guaranteed punctuality",
+                        "description": "Never late on your reporting deadlines again"
+                    },
+                    {
+                        "title": "Easy multi-client",
+                        "description": "Manage dozens of clients with the same simplicity"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Configure and relax",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Define frequency",
+                        "description": "Daily, weekly, monthly or custom"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Choose recipients",
+                        "description": "Add your clients' emails"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Activate automation",
+                        "description": "That's it! Your reports will go out automatically"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Recurring monthly reports",
+                    "description": "Automate sending your monthly reports on the 1st of each month"
+                },
+                {
+                    "title": "Performance weekly",
+                    "description": "Send a weekly summary every Monday morning"
+                },
+                {
+                    "title": "Daily alerts",
+                    "description": "Configure daily reports for critical campaigns"
+                }
+            ],
+            "beforeAfter": {
+                "title": "From manual to automatic",
+                "before": {
+                    "title": "Manual reporting",
+                    "points": [
+                        "Stressful reminders and deadlines",
+                        "Risk of forgetting or being late",
+                        "Time wasted every period",
+                        "Constant mental load"
+                    ]
+                },
+                "after": {
+                    "title": "With automation",
+                    "points": [
+                        "Complete set & forget",
+                        "Guaranteed punctual delivery",
+                        "Time freed for your core business",
+                        "Total peace of mind"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Can I edit a scheduled report before sending?",
+                    "answer": "Yes, you can always edit an automatically generated report before its scheduled send."
+                },
+                {
+                    "question": "What happens if Google Ads is down?",
+                    "answer": "The system automatically retries. You're notified if there's a persistent problem."
+                },
+                {
+                    "question": "Can I schedule different reports for each client?",
+                    "answer": "Absolutely! Each client can have their own frequency and template."
+                }
+            ]
+        },
+        "multi-format-exports": {
+            "hero": {
+                "title": "Export in all formats",
+                "subtitle": "PDF, PowerPoint or web link: choose according to your needs",
+                "cta": "See formats"
+            },
+            "whyItMatters": {
+                "title": "One report, three formats",
+                "description": "Each situation requires a different format. Flipika generates your reports in the optimal format for each use.",
+                "points": [
+                    {
+                        "title": "Professional PDF",
+                        "description": "High quality for printing or email sending"
+                    },
+                    {
+                        "title": "Editable PowerPoint",
+                        "description": "Edit and present from PowerPoint"
+                    },
+                    {
+                        "title": "Interactive web link",
+                        "description": "Share easily, viewable from anywhere"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Export in one click",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Generate your report",
+                        "description": "Create your report as usual"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Choose the format",
+                        "description": "PDF, PPTX or web link according to your needs"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Download or share",
+                        "description": "Your report is ready in the chosen format"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Client emails",
+                    "description": "Send a clean and professional PDF"
+                },
+                {
+                    "title": "Presentations",
+                    "description": "Export to PowerPoint for your meetings"
+                },
+                {
+                    "title": "Quick sharing",
+                    "description": "Generate a web link for immediate consultation"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Maximum flexibility",
+                "before": {
+                    "title": "Limited export",
+                    "points": [
+                        "Only one format available",
+                        "Variable quality",
+                        "Additional manipulation required",
+                        "Time wasted in conversion"
+                    ]
+                },
+                "after": {
+                    "title": "Flipika multi-format",
+                    "points": [
+                        "3 formats to choose from",
+                        "Optimal quality for each format",
+                        "Direct export without manipulation",
+                        "Immediate time savings"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Are PDF exports high quality?",
+                    "answer": "Yes, our PDFs are generated in high resolution, perfect for printing."
+                },
+                {
+                    "question": "Is PowerPoint editable?",
+                    "answer": "Yes, you can modify all elements of the PPTX in PowerPoint."
+                },
+                {
+                    "question": "Do web links expire?",
+                    "answer": "No, web links remain active as long as you don't delete them."
+                }
+            ]
+        },
+        "email-sending": {
+            "hero": {
+                "title": "Send directly from the platform",
+                "subtitle": "Deliver your reports by email with tracking and complete history",
+                "cta": "Try sending"
+            },
+            "whyItMatters": {
+                "title": "Professional delivery",
+                "description": "Send your reports directly from Flipika with a personalized message. Track opens and keep a complete history.",
+                "points": [
+                    {
+                        "title": "Professional sending",
+                        "description": "Email with your branding and personalized message"
+                    },
+                    {
+                        "title": "Open tracking",
+                        "description": "Know who opened when and how many times"
+                    },
+                    {
+                        "title": "Complete history",
+                        "description": "View all your past sends at a glance"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Simplified sending",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Write your message",
+                        "description": "Personalize the accompanying email"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Add recipients",
+                        "description": "One or more client contacts"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Send",
+                        "description": "Click and it's sent, with automatic tracking"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Fast delivery",
+                    "description": "Send your reports in seconds"
+                },
+                {
+                    "title": "Engagement tracking",
+                    "description": "Verify that your clients have viewed the report"
+                },
+                {
+                    "title": "Targeted follow-ups",
+                    "description": "Follow up with clients who haven't opened"
+                }
+            ],
+            "beforeAfter": {
+                "title": "From basic to professional email",
+                "before": {
+                    "title": "Classic email",
+                    "points": [
+                        "Bulky attachment",
+                        "No tracking",
+                        "Generic message",
+                        "No centralized history"
+                    ]
+                },
+                "after": {
+                    "title": "Flipika sending",
+                    "points": [
+                        "Light and fast link",
+                        "Open tracking",
+                        "Personalized message",
+                        "Complete history available"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Can I personalize the email for each client?",
+                    "answer": "Yes, you can write a unique message for each send."
+                },
+                {
+                    "question": "Does tracking really work?",
+                    "answer": "Yes, you see exactly who opened, when and how many times."
+                },
+                {
+                    "question": "Is there a sending limit?",
+                    "answer": "No, you can send as many reports as you want."
+                }
+            ]
+        },
+        "slideshow-mode": {
+            "hero": {
+                "title": "Immersive presentation mode",
+                "subtitle": "Transform your reports into captivating full-screen presentations",
+                "cta": "See in action"
+            },
+            "whyItMatters": {
+                "title": "Present like a pro",
+                "description": "Your client meetings deserve better than a simple PDF. Slideshow mode transforms your reports into professional interactive presentations.",
+                "points": [
+                    {
+                        "title": "Immersive full-screen",
+                        "description": "Clean interface that highlights your data"
+                    },
+                    {
+                        "title": "Smooth navigation",
+                        "description": "Keyboard controls for natural presentation"
+                    },
+                    {
+                        "title": "Maximum impact",
+                        "description": "Impress your clients with professional rendering"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Presentation in one click",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Open your report",
+                        "description": "Load the report you want to present"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Activate slideshow mode",
+                        "description": "One click on the presentation icon"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Present",
+                        "description": "Navigate with arrows, impress your clients"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Client meetings",
+                    "description": "Present your results professionally"
+                },
+                {
+                    "title": "Performance reviews",
+                    "description": "Go through KPIs with your team"
+                },
+                {
+                    "title": "Sales pitches",
+                    "description": "Demonstrate your results during prospecting"
+                }
+            ],
+            "beforeAfter": {
+                "title": "From ordinary to extraordinary",
+                "before": {
+                    "title": "PDF presentation",
+                    "points": [
+                        "Manual scrolling not smooth",
+                        "Visual distractions",
+                        "Amateur appearance",
+                        "Approximate navigation"
+                    ]
+                },
+                "after": {
+                    "title": "Slideshow mode",
+                    "points": [
+                        "Smooth keyboard navigation",
+                        "Total focus on content",
+                        "Ultra-professional rendering",
+                        "Elegant transitions"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Can I use slideshow mode on any report?",
+                    "answer": "Yes, all Flipika reports are compatible with presentation mode."
+                },
+                {
+                    "question": "Are keyboard commands intuitive?",
+                    "answer": "Very! Arrows to navigate, Esc to exit. Simple and effective."
+                },
+                {
+                    "question": "Can I share the link in slideshow mode?",
+                    "answer": "Yes, you can generate a link that opens directly in presentation mode."
+                }
+            ]
+        }
+    },
     "cta": {
         "title": "Ready to transform your reporting?",
         "subtitle": "Join the media buyers who have already adopted Flipika and save hours every week.",
         "button": "Start for free",
-        "trustLine": "Free trial • No credit card • 2-minute setup"
+        "trustLine": "Free trial • 2-minute setup"
     }
 }

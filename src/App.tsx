@@ -55,6 +55,7 @@ import TemplateLandingPage from './pages/templates/TemplateLandingPage';
 import LeadMagnetPage from './pages/resources/LeadMagnetPage';
 import Roadmap from './pages/Roadmap';
 import Features from './pages/Features';
+import FeatureDetailPage from './pages/FeatureDetailPage';
 import Pricing from './pages/Pricing';
 import './App.css';
 
@@ -141,6 +142,7 @@ const AppRoutes = () => {
         <Route path="resources/:slug" element={<LeadMagnetPage />} />
         <Route path="roadmap" element={<Roadmap />} />
         <Route path="features" element={<Features />} />
+        <Route path="features/:featureId" element={<FeatureDetailPage />} />
         <Route path="pricing" element={<Pricing />} />
         <Route path="sitemap" element={<Sitemap />} />
         <Route path="*" element={<NotFound />} />

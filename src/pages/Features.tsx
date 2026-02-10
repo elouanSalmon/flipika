@@ -74,10 +74,11 @@ const Features: React.FC = () => {
             />
 
             {/* ============================================================
-                Background Effects (matching Pricing/Roadmap)
+                Background Effects
             ============================================================ */}
             <div className="pointer-events-none absolute inset-0" aria-hidden>
-                <div
+                {/* Animated gradient orbs */}
+                <motion.div
                     style={{
                         position: 'absolute',
                         top: '-10%',
@@ -89,8 +90,18 @@ const Features: React.FC = () => {
                         opacity: 0.08,
                         filter: 'blur(100px)',
                     }}
+                    animate={{
+                        scale: [1, 1.1, 1],
+                        x: [0, 20, 0],
+                        y: [0, 30, 0],
+                    }}
+                    transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                    }}
                 />
-                <div
+                <motion.div
                     style={{
                         position: 'absolute',
                         bottom: '10%',
@@ -101,6 +112,16 @@ const Features: React.FC = () => {
                         background: 'var(--color-primary)',
                         opacity: 0.06,
                         filter: 'blur(100px)',
+                    }}
+                    animate={{
+                        scale: [1, 1.15, 1],
+                        x: [0, -20, 0],
+                        y: [0, -30, 0],
+                    }}
+                    transition={{
+                        duration: 10,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
                     }}
                 />
                 <div
@@ -127,7 +148,6 @@ const Features: React.FC = () => {
                         className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6"
                         variants={itemVariants}
                     >
-                        <Sparkles size={16} />
                         <span>{t('hero.badge')}</span>
                     </motion.div>
 
@@ -147,8 +167,10 @@ const Features: React.FC = () => {
                 </motion.div>
             </section>
 
+
+
             {/* ============================================================
-                Section 2 — Features Grid
+                Section 3 — Features Grid
             ============================================================ */}
             <section className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
                 <motion.div
@@ -164,18 +186,23 @@ const Features: React.FC = () => {
                             return (
                                 <motion.div
                                     key={feature.id}
-                                    className="glass rounded-2xl p-6 sm:p-8 flex flex-col"
+                                    className="glass rounded-2xl p-6 sm:p-8 flex flex-col group cursor-pointer"
                                     variants={itemVariants}
-                                    whileHover={{ y: -5 }}
+                                    whileHover={{
+                                        y: -8,
+                                        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                                    }}
                                     transition={{ type: 'spring', stiffness: 300 }}
+                                    onClick={() => navigate(getLangPath(`/features/${feature.id}`))}
                                 >
-                                    {/* Icon */}
-                                    <div className="w-14 h-14 bg-[var(--color-primary)]/10 rounded-2xl flex items-center justify-center mb-5">
+                                    {/* Icon with glow effect */}
+                                    <div className="relative w-14 h-14 bg-[var(--color-primary)]/10 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                                         <Icon size={28} className="text-[var(--color-primary)]" />
+                                        <div className="absolute inset-0 bg-[var(--color-primary)] rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity" />
                                     </div>
 
                                     {/* Title & Subtitle */}
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
                                         {feature.title}
                                     </h3>
                                     <p className="text-sm font-medium text-primary mb-3">
@@ -185,21 +212,27 @@ const Features: React.FC = () => {
                                         {feature.description}
                                     </p>
 
-                                    {/* Benefits */}
-                                    <ul className="space-y-2.5 mt-auto">
-                                        {feature.benefits.map((benefit, bi) => (
+                                    {/* Benefits (show first 3) */}
+                                    <ul className="space-y-2.5 mt-auto mb-4">
+                                        {feature.benefits.slice(0, 3).map((benefit, bi) => (
                                             <li
                                                 key={bi}
                                                 className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300"
                                             >
                                                 <CheckCircle
-                                                    className="w-4.5 h-4.5 text-green-500 flex-shrink-0 mt-0.5"
+                                                    className="w-4.5 h-4.5 text-blue-500 flex-shrink-0 mt-0.5"
                                                     size={18}
                                                 />
                                                 <span>{benefit}</span>
                                             </li>
                                         ))}
                                     </ul>
+
+                                    {/* View more button */}
+                                    <div className="flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all">
+                                        <span>Explorer cette fonctionnalité</span>
+                                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                    </div>
                                 </motion.div>
                             );
                         })}
@@ -208,7 +241,7 @@ const Features: React.FC = () => {
             </section>
 
             {/* ============================================================
-                Section 3 — CTA
+                Section 4 — CTA
             ============================================================ */}
             <section className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
                 <motion.div

@@ -4,6 +4,14 @@
         "title": "Tout ce dont vous avez besoin pour vos rapports Google Ads",
         "subtitle": "Découvrez comment Flipika transforme votre reporting client en processus automatisé, professionnel et entièrement personnalisable."
     },
+    "stats": {
+        "timeSaved": "90% de temps gagné",
+        "timeSavedDesc": "Sur votre reporting mensuel",
+        "automation": "100% automatisé",
+        "automationDesc": "De la sync à l'envoi",
+        "satisfaction": "98% satisfaits",
+        "satisfactionDesc": "Clients enchantés"
+    },
     "features": [
         {
             "id": "report-generation",
@@ -97,10 +105,670 @@
             ]
         }
     ],
+    "featureDetails": {
+        "report-generation": {
+            "hero": {
+                "title": "Génération de rapports automatique",
+                "subtitle": "Créez des rapports Google Ads professionnels en 2 minutes au lieu de 3 heures",
+                "cta": "Essayer gratuitement"
+            },
+            "whyItMatters": {
+                "title": "Pourquoi c'est révolutionnaire",
+                "description": "Le reporting manuel prend des heures chaque mois. Flipika automatise tout le processus, de la synchronisation des données à la mise en page professionnelle.",
+                "points": [
+                    {
+                        "title": "Gain de temps massif",
+                        "description": "90% de temps économisé sur votre reporting mensuel"
+                    },
+                    {
+                        "title": "Toujours à jour",
+                        "description": "Synchronisation en temps réel avec vos campagnes Google Ads"
+                    },
+                    {
+                        "title": "Zéro erreur",
+                        "description": "Éliminez les erreurs de copier-coller et les oublis"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Comment ça fonctionne",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Connectez Google Ads",
+                        "description": "Connexion sécurisée OAuth en un clic"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Sélectionnez vos KPIs",
+                        "description": "Choisissez les métriques importantes pour votre client"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Générez le rapport",
+                        "description": "Un clic et votre rapport est prêt en 30 secondes"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Rapports mensuels clients",
+                    "description": "Envoyez automatiquement vos rapports mensuels avec les dernières performances"
+                },
+                {
+                    "title": "Réunions stratégiques",
+                    "description": "Préparez vos présentations clients en quelques minutes"
+                },
+                {
+                    "title": "Suivi multi-campagnes",
+                    "description": "Gérez facilement le reporting de dizaines de comptes clients"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Avant / Après Flipika",
+                "before": {
+                    "title": "Sans Flipika",
+                    "points": [
+                        "3 heures de travail manuel par rapport",
+                        "Copier-coller fastidieux des données",
+                        "Risque d'erreurs et d'oublis",
+                        "Mise en page à refaire à chaque fois"
+                    ]
+                },
+                "after": {
+                    "title": "Avec Flipika",
+                    "points": [
+                        "2 minutes chrono par rapport",
+                        "Synchronisation automatique",
+                        "Données toujours exactes",
+                        "Template réutilisable à l'infini"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Puis-je personnaliser le design du rapport ?",
+                    "answer": "Absolument ! Vous pouvez créer des templates sur mesure avec votre branding, couleurs et logo."
+                },
+                {
+                    "question": "Les données sont-elles mises à jour en temps réel ?",
+                    "answer": "Oui, chaque ouverture de rapport synchronise les dernières données de vos campagnes Google Ads."
+                },
+                {
+                    "question": "Combien de temps faut-il pour générer un rapport ?",
+                    "answer": "En moyenne 30 secondes pour un rapport complet avec toutes vos métriques."
+                }
+            ]
+        },
+        "ai-narration": {
+            "hero": {
+                "title": "Narration intelligente par IA",
+                "subtitle": "L'IA rédige vos analyses et recommandations automatiquement",
+                "cta": "Découvrir l'IA"
+            },
+            "whyItMatters": {
+                "title": "L'analyse qui fait la différence",
+                "description": "Vos clients ne veulent pas que des chiffres, ils veulent comprendre. Notre IA analyse les données et génère des commentaires pertinents en langage naturel.",
+                "points": [
+                    {
+                        "title": "Insights actionnables",
+                        "description": "Recommandations concrètes basées sur les performances"
+                    },
+                    {
+                        "title": "Détection d'anomalies",
+                        "description": "Repérez automatiquement les hausse et baisses inhabituelles"
+                    },
+                    {
+                        "title": "Langage naturel",
+                        "description": "Commentaires rédigés comme par un expert humain"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "L'IA en action",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Analyse des données",
+                        "description": "L'IA scanne toutes vos métriques et tendances"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Détection de patterns",
+                        "description": "Identification des opportunités et points d'attention"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Génération de commentaires",
+                        "description": "Rédaction automatique d'analyses pertinentes"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Rapports enrichis",
+                    "description": "Ajoutez de la valeur avec des analyses automatiques"
+                },
+                {
+                    "title": "Gain de temps rédactionnel",
+                    "description": "Plus besoin de rédiger manuellement vos commentaires"
+                },
+                {
+                    "title": "Détection proactive",
+                    "description": "Soyez alerté des anomalies avant vos clients"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Avant / Après l'IA",
+                "before": {
+                    "title": "Analyse manuelle",
+                    "points": [
+                        "1 heure à analyser les données",
+                        "Rédaction manuelle des commentaires",
+                        "Risque de manquer des insights",
+                        "Cohérence variable selon la fatigue"
+                    ]
+                },
+                "after": {
+                    "title": "Avec l'IA Flipika",
+                    "points": [
+                        "Analyse instantanée",
+                        "Commentaires générés automatiquement",
+                        "Tous les insights détectés",
+                        "Qualité constante garantie"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "L'IA peut-elle vraiment remplacer mon analyse ?",
+                    "answer": "L'IA vous assiste en générant une première analyse complète. Vous pouvez toujours la modifier et l'enrichir selon vos besoins."
+                },
+                {
+                    "question": "Les commentaires sont-ils personnalisables ?",
+                    "answer": "Oui ! Vous pouvez éditer chaque commentaire généré par l'IA pour l'adapter à votre ton et style."
+                },
+                {
+                    "question": "Quels types d'insights l'IA peut-elle détecter ?",
+                    "answer": "Variations de performances, tendances, comparaisons période vs période, opportunités d'optimisation et bien plus."
+                }
+            ]
+        },
+        "custom-templates": {
+            "hero": {
+                "title": "Templates 100% personnalisables",
+                "subtitle": "Créez des rapports à votre image avec notre éditeur visuel",
+                "cta": "Créer mon template"
+            },
+            "whyItMatters": {
+                "title": "Votre marque, votre style",
+                "description": "Chaque agence a son identité. Avec Flipika, créez des templates qui reflètent votre marque et impressionnent vos clients.",
+                "points": [
+                    {
+                        "title": "Marque blanche totale",
+                        "description": "Logo, couleurs, typographie : tout est personnalisable"
+                    },
+                    {
+                        "title": "Réutilisation infinie",
+                        "description": "Créez une fois, utilisez à l'infini pour tous vos clients"
+                    },
+                    {
+                        "title": "Éditeur drag & drop",
+                        "description": "Interface intuitive, aucune compétence technique requise"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Créez votre template parfait",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Choisissez une base",
+                        "description": "Partez d'un template vierge ou d'un modèle pré-conçu"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Personnalisez le design",
+                        "description": "Ajoutez votre logo, couleurs et éléments visuels"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Sélectionnez vos KPIs",
+                        "description": "Glissez-déposez les métriques importantes"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Templates par industrie",
+                    "description": "Créez des templates spécifiques pour e-commerce, B2B, local, etc."
+                },
+                {
+                    "title": "Templates par client",
+                    "description": "Personnalisez un template aux couleurs de chaque client"
+                },
+                {
+                    "title": "Bibliothèque d'agence",
+                    "description": "Constituez une collection de templates réutilisables"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Flexibilité maximale",
+                "before": {
+                    "title": "Rapports génériques",
+                    "points": [
+                        "Même design pour tous les clients",
+                        "Aucune personnalisation",
+                        "Apparence amateur",
+                        "Pas de marque blanche"
+                    ]
+                },
+                "after": {
+                    "title": "Avec Templates Flipika",
+                    "points": [
+                        "Design unique par client",
+                        "100% personnalisable",
+                        "Rendu ultra-professionnel",
+                        "Marque blanche complète"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Combien de templates puis-je créer ?",
+                    "answer": "Illimité ! Créez autant de templates que vous le souhaitez."
+                },
+                {
+                    "question": "Puis-je dupliquer un template existant ?",
+                    "answer": "Oui, vous pouvez cloner n'importe quel template pour le modifier."
+                },
+                {
+                    "question": "Faut-il des compétences en design ?",
+                    "answer": "Non, l'éditeur drag & drop est conçu pour être utilisable par n'importe qui, sans formation."
+                }
+            ]
+        },
+        "scheduling-automation": {
+            "hero": {
+                "title": "Automatisation complète",
+                "subtitle": "Planifiez vos rapports et oubliez le reporting manuel",
+                "cta": "Automatiser mes rapports"
+            },
+            "whyItMatters": {
+                "title": "Le reporting qui tourne tout seul",
+                "description": "Configurez une fois, bénéficiez à vie. Vos rapports sont générés et envoyés automatiquement selon le planning que vous définissez.",
+                "points": [
+                    {
+                        "title": "Zéro effort récurrent",
+                        "description": "Vos clients reçoivent leurs rapports sans aucune action de votre part"
+                    },
+                    {
+                        "title": "Ponctualité garantie",
+                        "description": "Plus jamais de retard sur vos deadlines de reporting"
+                    },
+                    {
+                        "title": "Multi-clients facile",
+                        "description": "Gérez des dizaines de clients avec la même simplicité"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Configurez et relaxez",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Définissez la fréquence",
+                        "description": "Quotidien, hebdomadaire, mensuel ou personnalisé"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Choisissez les destinataires",
+                        "description": "Ajoutez les emails de vos clients"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Activez l'automatisation",
+                        "description": "C'est tout ! Vos rapports partiront automatiquement"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Rapports mensuels récurrents",
+                    "description": "Automatisez l'envoi de vos rapports mensuels le 1er de chaque mois"
+                },
+                {
+                    "title": "Hebdo de performance",
+                    "description": "Envoyez un résumé hebdomadaire tous les lundis matin"
+                },
+                {
+                    "title": "Alertes quotidiennes",
+                    "description": "Configurez des rapports quotidiens pour les campagnes critiques"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Du manuel à l'automatique",
+                "before": {
+                    "title": "Reporting manuel",
+                    "points": [
+                        "Rappels et deadlines stressants",
+                        "Risque d'oubli ou de retard",
+                        "Temps perdu chaque période",
+                        "Charge mentale constante"
+                    ]
+                },
+                "after": {
+                    "title": "Avec l'automatisation",
+                    "points": [
+                        "Set & forget complet",
+                        "Livraison ponctuelle garantie",
+                        "Temps libéré pour votre cœur de métier",
+                        "Tranquillité d'esprit totale"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Puis-je modifier un rapport planifié avant l'envoi ?",
+                    "answer": "Oui, vous pouvez toujours éditer un rapport généré automatiquement avant son envoi programmé."
+                },
+                {
+                    "question": "Que se passe-t-il si Google Ads est en panne ?",
+                    "answer": "Le système réessaie automatiquement. Vous êtes notifié en cas de problème persistant."
+                },
+                {
+                    "question": "Puis-je planifier des rapports différents pour chaque client ?",
+                    "answer": "Absolument ! Chaque client peut avoir sa propre fréquence et son propre template."
+                }
+            ]
+        },
+        "multi-format-exports": {
+            "hero": {
+                "title": "Exportez dans tous les formats",
+                "subtitle": "PDF, PowerPoint ou lien web : choisissez selon vos besoins",
+                "cta": "Voir les formats"
+            },
+            "whyItMatters": {
+                "title": "Un rapport, trois formats",
+                "description": "Chaque situation nécessite un format différent. Flipika génère vos rapports dans le format optimal pour chaque usage.",
+                "points": [
+                    {
+                        "title": "PDF professionnel",
+                        "description": "Haute qualité pour impression ou envoi par email"
+                    },
+                    {
+                        "title": "PowerPoint éditable",
+                        "description": "Modifiez et présentez depuis PowerPoint"
+                    },
+                    {
+                        "title": "Lien web interactif",
+                        "description": "Partagez facilement, consultable depuis n'importe où"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Export en un clic",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Générez votre rapport",
+                        "description": "Créez votre rapport comme d'habitude"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Choisissez le format",
+                        "description": "PDF, PPTX ou lien web selon vos besoins"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Téléchargez ou partagez",
+                        "description": "Votre rapport est prêt dans le format choisi"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Email clients",
+                    "description": "Envoyez un PDF propre et professionnel"
+                },
+                {
+                    "title": "Présentations",
+                    "description": "Exportez en PowerPoint pour vos réunions"
+                },
+                {
+                    "title": "Partage rapide",
+                    "description": "Générez un lien web pour consultation immédiate"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Flexibilité maximale",
+                "before": {
+                    "title": "Export limité",
+                    "points": [
+                        "Un seul format disponible",
+                        "Qualité variable",
+                        "Manipulation supplémentaire nécessaire",
+                        "Perte de temps en conversion"
+                    ]
+                },
+                "after": {
+                    "title": "Multi-formats Flipika",
+                    "points": [
+                        "3 formats au choix",
+                        "Qualité optimale pour chaque format",
+                        "Export direct sans manipulation",
+                        "Gain de temps immédiat"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Les exports PDF sont-ils de haute qualité ?",
+                    "answer": "Oui, nos PDF sont générés en haute résolution, parfaits pour l'impression."
+                },
+                {
+                    "question": "Le PowerPoint est-il éditable ?",
+                    "answer": "Oui, vous pouvez modifier tous les éléments du PPTX dans PowerPoint."
+                },
+                {
+                    "question": "Les liens web expirent-ils ?",
+                    "answer": "Non, les liens web restent actifs tant que vous ne les supprimez pas."
+                }
+            ]
+        },
+        "email-sending": {
+            "hero": {
+                "title": "Envoi direct depuis la plateforme",
+                "subtitle": "Livrez vos rapports par email avec tracking et historique complet",
+                "cta": "Essayer l'envoi"
+            },
+            "whyItMatters": {
+                "title": "Livraison professionnelle",
+                "description": "Envoyez vos rapports directement depuis Flipika avec un message personnalisé. Suivez les ouvertures et gardez un historique complet.",
+                "points": [
+                    {
+                        "title": "Envoi professionnel",
+                        "description": "Email avec votre branding et message personnalisé"
+                    },
+                    {
+                        "title": "Tracking des ouvertures",
+                        "description": "Savez qui a ouvert quand et combien de fois"
+                    },
+                    {
+                        "title": "Historique complet",
+                        "description": "Consultez tous vos envois passés en un clin d'œil"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Envoi simplifié",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Rédigez votre message",
+                        "description": "Personnalisez l'email d'accompagnement"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Ajoutez les destinataires",
+                        "description": "Un ou plusieurs contacts clients"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Envoyez",
+                        "description": "Cliquez et c'est parti, avec tracking automatique"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Livraison rapide",
+                    "description": "Envoyez vos rapports en quelques secondes"
+                },
+                {
+                    "title": "Suivi d'engagement",
+                    "description": "Vérifiez que vos clients ont bien consulté le rapport"
+                },
+                {
+                    "title": "Relances ciblées",
+                    "description": "Relancez les clients qui n'ont pas ouvert"
+                }
+            ],
+            "beforeAfter": {
+                "title": "De l'email basique au professionnel",
+                "before": {
+                    "title": "Email classique",
+                    "points": [
+                        "Pièce jointe volumineuse",
+                        "Aucun tracking",
+                        "Message générique",
+                        "Pas d'historique centralisé"
+                    ]
+                },
+                "after": {
+                    "title": "Envoi Flipika",
+                    "points": [
+                        "Lien léger et rapide",
+                        "Tracking des ouvertures",
+                        "Message personnalisé",
+                        "Historique complet disponible"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Puis-je personnaliser l'email pour chaque client ?",
+                    "answer": "Oui, vous pouvez rédiger un message unique pour chaque envoi."
+                },
+                {
+                    "question": "Le tracking fonctionne-t-il vraiment ?",
+                    "answer": "Oui, vous voyez exactement qui a ouvert, quand et combien de fois."
+                },
+                {
+                    "question": "Y a-t-il une limite d'envois ?",
+                    "answer": "Non, vous pouvez envoyer autant de rapports que vous le souhaitez."
+                }
+            ]
+        },
+        "slideshow-mode": {
+            "hero": {
+                "title": "Mode présentation immersif",
+                "subtitle": "Transformez vos rapports en présentations plein écran captivantes",
+                "cta": "Voir en action"
+            },
+            "whyItMatters": {
+                "title": "Présentez comme un pro",
+                "description": "Vos réunions clients méritent mieux qu'un simple PDF. Le mode diaporama transforme vos rapports en présentations interactives professionnelles.",
+                "points": [
+                    {
+                        "title": "Plein écran immersif",
+                        "description": "Interface épurée qui met en valeur vos données"
+                    },
+                    {
+                        "title": "Navigation fluide",
+                        "description": "Contrôles au clavier pour une présentation naturelle"
+                    },
+                    {
+                        "title": "Impact maximal",
+                        "description": "Impressionnez vos clients avec un rendu professionnel"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Présentation en un clic",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Ouvrez votre rapport",
+                        "description": "Chargez le rapport que vous souhaitez présenter"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Activez le mode diaporama",
+                        "description": "Un clic sur l'icône présentation"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Présentez",
+                        "description": "Naviguez avec les flèches, impressionnez vos clients"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Réunions clients",
+                    "description": "Présentez vos résultats de manière professionnelle"
+                },
+                {
+                    "title": "Revues de performance",
+                    "description": "Parcourez les KPIs avec votre équipe"
+                },
+                {
+                    "title": "Pitch commerciaux",
+                    "description": "Démontrez vos résultats lors de prospections"
+                }
+            ],
+            "beforeAfter": {
+                "title": "De l'ordinaire à l'extraordinaire",
+                "before": {
+                    "title": "Présentation PDF",
+                    "points": [
+                        "Scroll manuel peu fluide",
+                        "Distractions visuelles",
+                        "Aspect amateur",
+                        "Navigation approximative"
+                    ]
+                },
+                "after": {
+                    "title": "Mode Slideshow",
+                    "points": [
+                        "Navigation au clavier fluide",
+                        "Focus total sur le contenu",
+                        "Rendu ultra-professionnel",
+                        "Transitions élégantes"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "Puis-je utiliser le mode diaporama sur n'importe quel rapport ?",
+                    "answer": "Oui, tous les rapports Flipika sont compatibles avec le mode présentation."
+                },
+                {
+                    "question": "Les commandes clavier sont-elles intuitives ?",
+                    "answer": "Très ! Flèches pour naviguer, Échap pour quitter. Simple et efficace."
+                },
+                {
+                    "question": "Puis-je partager le lien en mode diaporama ?",
+                    "answer": "Oui, vous pouvez générer un lien qui s'ouvre directement en mode présentation."
+                }
+            ]
+        }
+    },
     "cta": {
         "title": "Prêt à transformer votre reporting ?",
         "subtitle": "Rejoignez les media buyers qui ont déjà adopté Flipika et gagnez des heures chaque semaine.",
         "button": "Commencer gratuitement",
-        "trustLine": "Essai gratuit • Sans carte bancaire • Configuration en 2 minutes"
+        "trustLine": "Essai gratuit • Configuration en 2 minutes"
     }
 }

@@ -2,7 +2,18 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import {
+    Menu,
+    X,
+    ChevronDown,
+    FileBarChart,
+    Sparkles,
+    FileText,
+    Calendar,
+    Download,
+    Mail,
+    Presentation,
+} from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggle from './ThemeToggle';
 import Logo from './Logo';
@@ -10,10 +21,22 @@ import { useAuth } from '../contexts/AuthContext';
 import ConnectedHeader from './app/ConnectedHeader';
 import '../components/Header.css';
 
+// Icon mapping for features
+const iconMap: Record<string, typeof FileBarChart> = {
+    FileBarChart,
+    Sparkles,
+    FileText,
+    Calendar,
+    Download,
+    Mail,
+    Presentation,
+};
+
 const SimpleHeader = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const { t, i18n } = useTranslation();
+    const [featuresDropdownOpen, setFeaturesDropdownOpen] = useState(false);
+    const { t, i18n } = useTranslation(['common', 'features']);
     const navigate = useNavigate();
     const { currentUser } = useAuth();
     const isConnected = !!currentUser;
@@ -40,11 +63,18 @@ const SimpleHeader = () => {
         return <ConnectedHeader />;
     }
 
+    // Get features from translation
+    const features = t('features:features', { returnObjects: true }) as Array<{
+        id: string;
+        icon: string;
+        title: string;
+    }>;
+
+
     const navItems = [
         { label: t('common:header.home'), path: '/' },
-        { label: t('common:header.features'), path: '/features' },
-        { label: t('common:header.pricing'), path: '/pricing' },
         { label: t('common:header.roadmap'), path: '/roadmap' },
+        { label: t('common:header.pricing'), path: '/pricing' },
     ];
 
     return (
@@ -54,17 +84,86 @@ const SimpleHeader = () => {
                     {/* Logo */}
                     <Logo />
 
+
                     {/* Desktop Navigation */}
                     <nav className="nav-desktop">
-                        {navItems.map((item) => (
+                        <Link
+                            to={getLangPath('/')}
+                            className="nav-link"
+                        >
+                            {t('common:header.home')}
+                        </Link>
+
+                        {/* Features Dropdown */}
+                        <div
+                            className="relative"
+                            onMouseEnter={() => setFeaturesDropdownOpen(true)}
+                            onMouseLeave={() => setFeaturesDropdownOpen(false)}
+                        >
                             <Link
-                                key={item.path}
-                                to={getLangPath(item.path)}
-                                className="nav-link"
+                                to={getLangPath('/features')}
+                                className="nav-link inline-flex items-center gap-1"
                             >
-                                {item.label}
+                                <span>{t('common:header.features')}</span>
+                                <ChevronDown
+                                    size={14}
+                                    className={`transition-transform ${featuresDropdownOpen ? 'rotate-180' : ''
+                                        }`}
+                                />
                             </Link>
-                        ))}
+
+                            <AnimatePresence>
+                                {featuresDropdownOpen && (
+                                    <motion.div
+                                        className="absolute top-full left-0 mt-2 rounded-xl shadow-xl overflow-hidden z-50"
+                                        style={{
+                                            width: '400px',
+                                            backgroundColor: 'var(--color-bg-secondary)',
+                                            backdropFilter: 'blur(12px)',
+                                            border: '1px solid var(--color-border)',
+                                        }}
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.15 }}
+                                    >
+                                        <div className="py-1">
+                                            {features.map((feature) => {
+                                                const Icon = iconMap[feature.icon] || Sparkles;
+                                                return (
+                                                    <Link
+                                                        key={feature.id}
+                                                        to={getLangPath(`/features/${feature.id}`)}
+                                                        className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                                    >
+                                                        <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
+                                                            <Icon size={16} className="text-primary" />
+                                                        </div>
+                                                        <span className="text-sm text-[var(--color-text-primary)]">
+                                                            {feature.title}
+                                                        </span>
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        <Link
+                            to={getLangPath('/pricing')}
+                            className="nav-link"
+                        >
+                            {t('common:header.pricing')}
+                        </Link>
+
+                        <Link
+                            to={getLangPath('/roadmap')}
+                            className="nav-link"
+                        >
+                            {t('common:header.roadmap')}
+                        </Link>
                     </nav>
 
                     {/* Actions */}
@@ -110,7 +209,7 @@ const SimpleHeader = () => {
 
                         {/* Menu panel */}
                         <motion.nav
-                            className="relative mx-4 mt-2 glass rounded-2xl p-4 shadow-xl"
+                            className="relative mx-4 mt-2 glass rounded-2xl p-4 shadow-xl max-h-[calc(100vh-6rem)] overflow-y-auto"
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
@@ -127,6 +226,36 @@ const SimpleHeader = () => {
                                         {item.label}
                                     </Link>
                                 ))}
+
+                                {/* Features Section in Mobile */}
+                                <div className="py-1">
+                                    <Link
+                                        to={getLangPath('/features')}
+                                        className="px-4 py-3 rounded-xl text-sm font-semibold text-primary hover:bg-[var(--glass-bg)] transition-colors block"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {t('common:header.features')}
+                                    </Link>
+
+                                    <div className="ml-2 mt-1 space-y-0.5">
+                                        {features.map((feature) => {
+                                            const Icon = iconMap[feature.icon] || Sparkles;
+                                            return (
+                                                <Link
+                                                    key={feature.id}
+                                                    to={getLangPath(`/features/${feature.id}`)}
+                                                    className="flex items-center gap-2.5 px-4 py-2 rounded-xl hover:bg-[var(--glass-bg)] transition-colors"
+                                                    onClick={() => setMobileMenuOpen(false)}
+                                                >
+                                                    <Icon size={14} className="text-primary" />
+                                                    <span className="text-xs text-[var(--color-text-secondary)]">
+                                                        {feature.title}
+                                                    </span>
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
 
                                 <div className="my-2 border-t border-[var(--color-border)]" />
 
