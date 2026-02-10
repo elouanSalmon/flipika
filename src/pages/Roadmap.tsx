@@ -4,11 +4,32 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
     ArrowRight, Loader2, Shield, Rocket,
-    BarChart3, Target, TrendingUp, Sparkles, Lock, Users
+    BarChart3, Target, TrendingUp, Lock, Users,
+    CheckCircle, Zap, Crown, Star
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15,
+            delayChildren: 0.1,
+        },
+    },
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, type: 'spring' as const, stiffness: 100 },
+    },
+};
 
 const Roadmap: React.FC = () => {
     const { t, i18n } = useTranslation('roadmap');
@@ -38,18 +59,72 @@ const Roadmap: React.FC = () => {
         }
     };
 
-    const fadeUp = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0 },
-    };
-
     const nowFeatures = t('timeline.now.features', { returnObjects: true }) as string[];
     const soonFeatures = t('timeline.soon.features', { returnObjects: true }) as string[];
     const futureFeatures = t('timeline.future.features', { returnObjects: true }) as string[];
     const visionPoints = t('vision.points', { returnObjects: true }) as { title: string; description: string }[];
 
+    const phases = [
+        {
+            icon: BarChart3,
+            color: 'green',
+            badge: t('timeline.now.badge'),
+            title: t('timeline.now.title'),
+            subtitle: t('timeline.now.subtitle'),
+            description: t('timeline.now.description'),
+            features: nowFeatures,
+            dotBg: 'bg-green-500',
+            dotShadow: 'shadow-green-500/30',
+            badgeBg: 'bg-green-500/10',
+            badgeText: 'text-green-600 dark:text-green-400',
+            subtitleText: 'text-green-600 dark:text-green-400',
+            bulletColor: 'text-green-500',
+            accentBorder: 'border-green-500/20',
+            glowColor: 'from-green-500/20',
+            status: 'live' as const,
+        },
+        {
+            icon: Target,
+            color: 'blue',
+            badge: t('timeline.soon.badge'),
+            title: t('timeline.soon.title'),
+            subtitle: t('timeline.soon.subtitle'),
+            description: t('timeline.soon.description'),
+            features: soonFeatures,
+            dotBg: 'bg-blue-500',
+            dotShadow: 'shadow-blue-500/30',
+            badgeBg: 'bg-blue-500/10',
+            badgeText: 'text-blue-600 dark:text-blue-400',
+            subtitleText: 'text-blue-600 dark:text-blue-400',
+            bulletColor: 'text-blue-500',
+            accentBorder: 'border-blue-500/20',
+            glowColor: 'from-blue-500/20',
+            status: 'next' as const,
+        },
+        {
+            icon: Rocket,
+            color: 'purple',
+            badge: t('timeline.future.badge'),
+            title: t('timeline.future.title'),
+            subtitle: t('timeline.future.subtitle'),
+            description: t('timeline.future.description'),
+            features: futureFeatures,
+            dotBg: 'bg-purple-500',
+            dotShadow: 'shadow-purple-500/30',
+            badgeBg: 'bg-purple-500/10',
+            badgeText: 'text-purple-600 dark:text-purple-400',
+            subtitleText: 'text-purple-600 dark:text-purple-400',
+            bulletColor: 'text-purple-500',
+            accentBorder: 'border-purple-500/20',
+            glowColor: 'from-purple-500/20',
+            status: 'vision' as const,
+        },
+    ];
+
+    const visionIcons = [Users, Lock, TrendingUp];
+
     return (
-        <div className="flex-1 bg-[var(--color-bg-primary)] relative overflow-hidden">
+        <div className="relative overflow-hidden">
             <SEO
                 title={tSeo('roadmap.title')}
                 description={tSeo('roadmap.description')}
@@ -57,270 +132,303 @@ const Roadmap: React.FC = () => {
                 canonicalPath="/roadmap"
             />
 
-            {/* Background decorative elements */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-                <div className="absolute top-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-[var(--color-primary)]/5 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[-20%] left-[-10%] w-[40vw] h-[40vw] bg-yellow-500/5 rounded-full blur-[120px]" />
+            {/* ============================================================
+                Background Effects (matching Pricing page)
+            ============================================================ */}
+            <div className="pointer-events-none absolute inset-0" aria-hidden>
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '-10%',
+                        left: '-10%',
+                        width: '40vw',
+                        height: '40vw',
+                        borderRadius: '50%',
+                        background: 'var(--gradient-primary)',
+                        opacity: 0.08,
+                        filter: 'blur(100px)',
+                    }}
+                />
+                <div
+                    style={{
+                        position: 'absolute',
+                        bottom: '10%',
+                        right: '-5%',
+                        width: '35vw',
+                        height: '35vw',
+                        borderRadius: '50%',
+                        background: 'var(--color-primary)',
+                        opacity: 0.06,
+                        filter: 'blur(100px)',
+                    }}
+                />
+                <div
+                    className="absolute inset-0 opacity-[0.03]"
+                    style={{
+                        backgroundImage:
+                            'linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)',
+                        backgroundSize: '50px 50px',
+                    }}
+                />
             </div>
 
-            {/* Hero Section */}
-            <section className="relative py-20 md:py-28">
-                <div className="max-w-4xl mx-auto px-6 text-center">
+            {/* ============================================================
+                Section 1 — Hero
+            ============================================================ */}
+            <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+                <motion.div
+                    className="max-w-4xl mx-auto text-center"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
                     <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={fadeUp}
-                        transition={{ duration: 0.6 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6"
+                        variants={itemVariants}
                     >
-                        <span className="inline-block px-4 py-1.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-full mb-6 tracking-wider">
-                            {t('hero.badge')}
-                        </span>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text-primary)] mb-6 leading-tight">
-                            {t('hero.title')}
-                        </h1>
-                        <p className="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto leading-relaxed">
-                            {t('hero.description')}
-                        </p>
+                        <Rocket size={16} />
+                        <span>{t('hero.badge')}</span>
                     </motion.div>
+
+                    <motion.h1
+                        className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight"
+                        variants={itemVariants}
+                    >
+                        {t('hero.title')}
+                    </motion.h1>
+
+                    <motion.p
+                        className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-12"
+                        variants={itemVariants}
+                    >
+                        {t('hero.description')}
+                    </motion.p>
+
+                    {/* ── Horizontal Progress Stepper ── */}
+                    <motion.div
+                        className="max-w-2xl mx-auto"
+                        variants={itemVariants}
+                    >
+                        <div className="relative flex items-center justify-between">
+                            {/* Connecting line */}
+                            <div className="absolute top-5 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 opacity-30" />
+                            {/* Progress fill */}
+                            <div className="absolute top-5 left-[15%] h-0.5 bg-green-500 opacity-80" style={{ width: '20%' }} />
+
+                            {phases.map((phase, i) => {
+                                const Icon = phase.icon;
+                                return (
+                                    <div key={i} className="relative flex flex-col items-center z-10">
+                                        <div className={`w-10 h-10 ${phase.dotBg} rounded-full flex items-center justify-center shadow-lg ${phase.dotShadow} ring-4 ring-white dark:ring-gray-900`}>
+                                            <Icon size={18} className="text-white" />
+                                        </div>
+                                        <span className={`mt-2 text-xs font-bold ${phase.badgeText}`}>
+                                            {phase.badge}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+                </motion.div>
+            </section>
+
+            {/* ============================================================
+                Section 2 — Timeline Phase Cards
+            ============================================================ */}
+            <section className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-5xl mx-auto space-y-8">
+                    {phases.map((phase, i) => {
+                        const Icon = phase.icon;
+                        const isEven = i % 2 === 1;
+
+                        return (
+                            <motion.div
+                                key={i}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, margin: '-80px' }}
+                                variants={containerVariants}
+                            >
+                                <motion.div
+                                    className={`glass rounded-2xl overflow-hidden ${phase.status === 'live' ? 'border-green-500/30' : ''}`}
+                                    variants={itemVariants}
+                                    whileHover={{ y: -4 }}
+                                    transition={{ type: 'spring', stiffness: 300 }}
+                                >
+                                    {/* Accent top bar */}
+                                    <div className={`h-1 bg-gradient-to-r ${phase.glowColor} to-transparent`} />
+
+                                    <div className={`p-6 sm:p-8 md:p-10 ${isEven ? 'md:flex md:flex-row-reverse md:gap-10' : 'md:flex md:gap-10'}`}>
+                                        {/* Left: Info */}
+                                        <div className="flex-1 mb-6 md:mb-0">
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <div className={`w-11 h-11 ${phase.dotBg} rounded-xl flex items-center justify-center shadow-lg ${phase.dotShadow}`}>
+                                                    <Icon size={20} className="text-white" />
+                                                </div>
+                                                <div>
+                                                    <span className={`inline-block px-3 py-1 ${phase.badgeBg} ${phase.badgeText} text-xs font-bold rounded-full`}>
+                                                        {phase.badge}
+                                                    </span>
+                                                </div>
+                                                {phase.status === 'live' && (
+                                                    <div className="flex items-center gap-1.5 ml-auto">
+                                                        <span className="relative flex h-2.5 w-2.5">
+                                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                                                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                                                        </span>
+                                                        <span className="text-xs font-medium text-green-600 dark:text-green-400">Live</span>
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
+                                                {phase.title}
+                                            </h2>
+                                            <p className={`text-base font-medium ${phase.subtitleText} mb-3`}>
+                                                {phase.subtitle}
+                                            </p>
+                                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                                                {phase.description}
+                                            </p>
+                                        </div>
+
+                                        {/* Right: Feature list */}
+                                        <div className="flex-1">
+                                            <div className="bg-gray-50/50 dark:bg-gray-800/30 rounded-xl p-5 sm:p-6 border border-gray-100/50 dark:border-gray-700/30">
+                                                <ul className="space-y-3">
+                                                    {Array.isArray(phase.features) && phase.features.map((feature, fi) => (
+                                                        <motion.li
+                                                            key={fi}
+                                                            className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300"
+                                                            initial={{ opacity: 0, x: -10 }}
+                                                            whileInView={{ opacity: 1, x: 0 }}
+                                                            transition={{ delay: fi * 0.05 }}
+                                                            viewport={{ once: true }}
+                                                        >
+                                                            <CheckCircle className={`w-4.5 h-4.5 ${phase.bulletColor} flex-shrink-0 mt-0.5`} size={18} />
+                                                            <span>{feature}</span>
+                                                        </motion.li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </section>
 
-            {/* Timeline Section */}
-            <section className="relative py-16 md:py-24">
-                <div className="max-w-5xl mx-auto px-6 relative">
-
-                    {/* Vertical timeline line — visible on both mobile and desktop */}
-                    <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-green-500/40 via-blue-500/40 to-purple-500/40" />
-
-                    {/* Phase 1 - Now */}
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                        variants={fadeUp}
-                        transition={{ duration: 0.6 }}
-                        className="relative mb-20 md:mb-28 pl-16 md:pl-0"
-                    >
-                        {/* Timeline dot */}
-                        <div className="absolute left-6 md:left-1/2 top-0 -translate-x-1/2 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30 z-10">
-                            <BarChart3 size={22} className="text-white" />
+            {/* ============================================================
+                Section 3 — Why Join Now (Vision)
+            ============================================================ */}
+            <section className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+                <motion.div
+                    className="max-w-5xl mx-auto"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-50px' }}
+                >
+                    <motion.div className="text-center mb-16" variants={itemVariants}>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6">
+                            <Star size={16} />
+                            <span>{t('vision.badge')}</span>
                         </div>
-
-                        <div className="md:grid md:grid-cols-2 md:gap-16">
-                            <div className="md:text-right md:pr-12">
-                                <span className="inline-block px-3 py-1 bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-bold rounded-full mb-4">
-                                    {t('timeline.now.badge')}
-                                </span>
-                                <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-2">
-                                    {t('timeline.now.title')}
-                                </h2>
-                                <p className="text-lg font-medium text-[var(--color-primary)] mb-4">
-                                    {t('timeline.now.subtitle')}
-                                </p>
-                                <p className="text-[var(--color-text-secondary)] leading-relaxed">
-                                    {t('timeline.now.description')}
-                                </p>
-                            </div>
-                            <div className="mt-6 md:mt-0 md:pl-12">
-                                <div className="glass border border-[var(--glass-border)] rounded-2xl p-6">
-                                    <ul className="space-y-2.5">
-                                        {Array.isArray(nowFeatures) && nowFeatures.map((feature, i) => (
-                                            <li key={i} className="text-sm text-[var(--color-text-primary)] pl-4 relative before:content-[''] before:absolute before:left-0 before:top-[9px] before:w-1.5 before:h-1.5 before:rounded-full before:bg-green-500">
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Phase 2 - Soon (Meta Ads) */}
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                        variants={fadeUp}
-                        transition={{ duration: 0.6 }}
-                        className="relative mb-20 md:mb-28 pl-16 md:pl-0"
-                    >
-                        {/* Timeline dot */}
-                        <div className="absolute left-6 md:left-1/2 top-0 -translate-x-1/2 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30 z-10">
-                            <Target size={22} className="text-white" />
-                        </div>
-
-                        <div className="md:grid md:grid-cols-2 md:gap-16">
-                            <div className="md:order-2 md:pl-12">
-                                <span className="inline-block px-3 py-1 bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold rounded-full mb-4">
-                                    {t('timeline.soon.badge')}
-                                </span>
-                                <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-2">
-                                    {t('timeline.soon.title')}
-                                </h2>
-                                <p className="text-lg font-medium text-blue-600 dark:text-blue-400 mb-4">
-                                    {t('timeline.soon.subtitle')}
-                                </p>
-                                <p className="text-[var(--color-text-secondary)] leading-relaxed">
-                                    {t('timeline.soon.description')}
-                                </p>
-                            </div>
-                            <div className="mt-6 md:mt-0 md:order-1 md:pr-12">
-                                <div className="glass border border-[var(--glass-border)] rounded-2xl p-6">
-                                    <ul className="space-y-2.5">
-                                        {Array.isArray(soonFeatures) && soonFeatures.map((feature, i) => (
-                                            <li key={i} className="text-sm text-[var(--color-text-primary)] pl-4 relative before:content-[''] before:absolute before:left-0 before:top-[9px] before:w-1.5 before:h-1.5 before:rounded-full before:bg-blue-500">
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Phase 3 - Future (Super App) */}
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                        variants={fadeUp}
-                        transition={{ duration: 0.6 }}
-                        className="relative pl-16 md:pl-0"
-                    >
-                        {/* Timeline dot */}
-                        <div className="absolute left-6 md:left-1/2 top-0 -translate-x-1/2 w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 z-10">
-                            <Rocket size={22} className="text-white" />
-                        </div>
-
-                        <div className="md:grid md:grid-cols-2 md:gap-16">
-                            <div className="md:text-right md:pr-12">
-                                <span className="inline-block px-3 py-1 bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-bold rounded-full mb-4">
-                                    {t('timeline.future.badge')}
-                                </span>
-                                <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-2">
-                                    {t('timeline.future.title')}
-                                </h2>
-                                <p className="text-lg font-medium text-purple-600 dark:text-purple-400 mb-4">
-                                    {t('timeline.future.subtitle')}
-                                </p>
-                                <p className="text-[var(--color-text-secondary)] leading-relaxed">
-                                    {t('timeline.future.description')}
-                                </p>
-                            </div>
-                            <div className="mt-6 md:mt-0 md:pl-12">
-                                <div className="glass border border-[var(--glass-border)] rounded-2xl p-6">
-                                    <ul className="space-y-2.5">
-                                        {Array.isArray(futureFeatures) && futureFeatures.map((feature, i) => (
-                                            <li key={i} className="text-sm text-[var(--color-text-primary)] pl-4 relative before:content-[''] before:absolute before:left-0 before:top-[9px] before:w-1.5 before:h-1.5 before:rounded-full before:bg-purple-500">
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Why Now Section */}
-            <section className="relative py-16 md:py-24">
-                <div className="max-w-5xl mx-auto px-6">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                        variants={fadeUp}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-12"
-                    >
-                        <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-4">
+                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
                             {t('vision.title')}
                         </h2>
-                        <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+                        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                             {t('vision.description')}
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <motion.div
+                        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                        variants={containerVariants}
+                    >
                         {Array.isArray(visionPoints) && visionPoints.map((point, i) => {
-                            const icons = [Users, Lock, TrendingUp];
-                            const Icon = icons[i] || Sparkles;
+                            const Icon = visionIcons[i] || Zap;
                             return (
                                 <motion.div
                                     key={i}
-                                    initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true, margin: "-50px" }}
-                                    variants={fadeUp}
-                                    transition={{ duration: 0.5, delay: i * 0.15 }}
-                                    className="glass border border-[var(--glass-border)] rounded-2xl p-6 text-center"
+                                    className="glass rounded-2xl p-6 sm:p-8 text-center group"
+                                    variants={itemVariants}
+                                    whileHover={{ y: -5 }}
                                 >
-                                    <div className="w-12 h-12 mx-auto mb-4 bg-[var(--color-primary)]/10 rounded-xl flex items-center justify-center">
-                                        <Icon size={24} className="text-[var(--color-primary)]" />
+                                    <div className="w-14 h-14 mx-auto mb-5 bg-[var(--color-primary)]/10 rounded-2xl flex items-center justify-center group-hover:bg-[var(--color-primary)]/15 transition-colors">
+                                        <Icon size={26} className="text-[var(--color-primary)]" />
                                     </div>
-                                    <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
                                         {point.title}
                                     </h3>
-                                    <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                                         {point.description}
                                     </p>
                                 </motion.div>
                             );
                         })}
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </section>
 
-            {/* Lifetime Deal CTA Section */}
-            <section className="relative py-16 md:py-24">
-                <div className="max-w-3xl mx-auto px-6">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                        variants={fadeUp}
-                        transition={{ duration: 0.6 }}
-                        className="bg-gradient-to-br from-yellow-50 via-[#FFF8E1] to-yellow-100 dark:from-yellow-900/20 dark:via-yellow-800/15 dark:to-yellow-900/25 rounded-3xl border-2 border-yellow-400 dark:border-yellow-500/50 p-8 md:p-12 relative overflow-hidden shadow-xl shadow-yellow-300/20 dark:shadow-yellow-900/30"
-                    >
-                        {/* Decorative elements */}
-                        <div className="absolute -top-8 -right-8 w-40 h-40 bg-gradient-to-br from-yellow-300/40 to-transparent rounded-full blur-3xl" />
-                        <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-tr from-yellow-400/20 to-transparent rounded-full blur-2xl" />
-                        <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white text-[10px] font-bold px-4 py-1.5 rounded-bl-xl z-10">
+            {/* ============================================================
+                Section 4 — Lifetime Deal CTA (Premium golden card)
+            ============================================================ */}
+            <section className="relative py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+                <motion.div
+                    className="max-w-3xl mx-auto"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    viewport={{ once: true }}
+                >
+                    <div className="relative glass rounded-2xl border-2 border-yellow-400 dark:border-yellow-500/50 overflow-hidden">
+                        {/* Top accent gradient */}
+                        <div className="h-1 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600" />
+
+                        {/* Badge */}
+                        <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white text-[10px] font-bold px-5 py-1.5 rounded-bl-xl z-10">
                             {t('cta.badge')}
                         </div>
 
-                        <div className="relative text-center">
-                            <h2 className="text-3xl md:text-4xl font-bold text-yellow-900 dark:text-yellow-200 mb-4">
+                        {/* Glow orbs */}
+                        <div className="absolute -top-16 -right-16 w-48 h-48 bg-gradient-to-br from-yellow-300/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+                        <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-gradient-to-tr from-yellow-400/15 to-transparent rounded-full blur-2xl pointer-events-none" />
+
+                        <div className="relative p-8 sm:p-12 text-center">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/10 dark:bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 rounded-full text-sm font-medium mb-6">
+                                <Crown size={16} />
+                                <span>{t('cta.includes')}</span>
+                            </div>
+
+                            <h2 className="text-3xl sm:text-4xl font-bold text-yellow-900 dark:text-yellow-200 mb-4 tracking-tight">
                                 {t('cta.title')}
                             </h2>
-                            <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-xl mx-auto">
+                            <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-xl mx-auto">
                                 {t('cta.description')}
                             </p>
 
                             {/* Price */}
-                            <div className="mb-6">
-                                <p className="text-5xl md:text-6xl font-bold text-yellow-600 dark:text-yellow-400">
-                                    {t('cta.price')}<span className="text-2xl">{'\u20AC'}</span>
-                                </p>
-                                <p className="text-sm text-yellow-700/80 dark:text-yellow-400/80 mt-1">
+                            <div className="mb-8">
+                                <span className="text-5xl sm:text-6xl font-extrabold text-yellow-600 dark:text-yellow-400">
+                                    {t('cta.price')}{'€'}
+                                </span>
+                                <p className="text-sm text-yellow-700/80 dark:text-yellow-400/80 mt-1.5">
                                     {t('cta.priceLabel')}
                                 </p>
                             </div>
 
-                            {/* Includes */}
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/10 dark:bg-yellow-500/20 rounded-full mb-8">
-                                <span className="text-sm font-medium text-yellow-900 dark:text-yellow-200">
-                                    {t('cta.includes')}
-                                </span>
-                            </div>
-
                             {/* CTA Button */}
-                            <div className="mb-6">
-                                <button
+                            <div className="mb-8">
+                                <motion.button
                                     onClick={handleLifetimePurchase}
                                     disabled={isCheckoutLoading}
-                                    className="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white text-lg font-bold rounded-xl border-none shadow-[0_4px_16px_rgba(234,179,8,0.4)] hover:shadow-[0_8px_24px_rgba(234,179,8,0.5)] hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-3 mx-auto"
+                                    className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white text-lg font-bold rounded-xl border-none shadow-[0_4px_16px_rgba(234,179,8,0.4)] hover:shadow-[0_8px_24px_rgba(234,179,8,0.5)] transition-all duration-200 flex items-center justify-center gap-3 mx-auto"
+                                    whileHover={{ scale: 1.02, y: -2 }}
+                                    whileTap={{ scale: 0.98 }}
                                 >
                                     {isCheckoutLoading ? (
                                         <>
@@ -333,24 +441,24 @@ const Roadmap: React.FC = () => {
                                             <ArrowRight size={20} />
                                         </>
                                     )}
-                                </button>
+                                </motion.button>
                             </div>
 
                             {/* Trust signals */}
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-yellow-700/80 dark:text-yellow-400/70">
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-gray-600 dark:text-gray-400">
                                 <div className="flex items-center gap-1.5">
                                     <Shield size={14} className="text-green-600 dark:text-green-500" />
                                     <span>{t('cta.guarantee')}</span>
                                 </div>
-                                <div className="hidden sm:block w-1 h-1 rounded-full bg-yellow-600/40" />
+                                <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-400/40" />
                                 <div className="flex items-center gap-1.5">
                                     <Lock size={14} className="text-green-600 dark:text-green-500" />
                                     <span>{t('cta.noSubscription')}</span>
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
-                </div>
+                    </div>
+                </motion.div>
             </section>
 
             {/* Bottom spacer */}
