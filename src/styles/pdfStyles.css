@@ -6,7 +6,7 @@
     min-height: 297mm;
     box-sizing: border-box;
     font-family: inherit;
-    color: var(--text-color, #1f2937);
+    color: var(--text-color, #262729);
 }
 
 .pdf-header {
@@ -32,7 +32,7 @@
     margin: 0;
     font-size: 24px;
     font-weight: bold;
-    color: var(--text-color, #1f2937);
+    color: var(--text-color, #262729);
 }
 
 .pdf-footer {

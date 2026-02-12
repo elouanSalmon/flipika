@@ -35,7 +35,7 @@ interface FontProviderProps {
  * - Prevents FOIT by waiting for fonts to be ready
  */
 export const FontProvider: React.FC<FontProviderProps> = ({
-    fontFamily = 'Inter, sans-serif',
+    fontFamily = 'DM Sans, sans-serif',
     headingFontFamily,
     children,
 }) => {

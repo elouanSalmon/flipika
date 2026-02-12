@@ -14,7 +14,7 @@
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: #0f172a;
+    color: #141415;
     margin-bottom: 8px;
 }
 
@@ -30,7 +30,7 @@
     justify-content: space-between;
     padding: 12px 16px;
     background: #fff;
-    border: 2px solid #e2e8f0;
+    border: 2px solid #dcdde0;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -61,7 +61,7 @@
 
 .font-select-value {
     flex: 1;
-    color: #0f172a;
+    color: #141415;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -72,11 +72,11 @@
 }
 
 .font-select-trigger:not(.has-value) .font-select-value {
-    color: #94a3b8;
+    color: #8e9199;
 }
 
 .font-select-chevron {
-    color: #64748b;
+    color: #6b6e77;
     transition: transform 0.2s ease;
     flex-shrink: 0;
     margin-left: 8px;
@@ -91,7 +91,7 @@
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-    border: 1px solid #e2e8f0;
+    border: 1px solid #dcdde0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -121,9 +121,9 @@
     display: flex;
     align-items: center;
     padding: 12px 16px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #dcdde0;
     gap: 10px;
-    background: #f8fafc;
+    background: #f6f6f7;
 }
 
 .dark .font-select-search {
@@ -132,7 +132,7 @@
 }
 
 .font-select-search-icon {
-    color: #94a3b8;
+    color: #8e9199;
     flex-shrink: 0;
 }
 
@@ -141,7 +141,7 @@
     border: none;
     background: transparent;
     font-size: 14px;
-    color: #0f172a;
+    color: #141415;
     outline: none;
 }
 
@@ -150,7 +150,7 @@
 }
 
 .font-select-search-input::placeholder {
-    color: #94a3b8;
+    color: #8e9199;
 }
 
 .font-select-search-clear {
@@ -160,15 +160,15 @@
     padding: 4px;
     background: none;
     border: none;
-    color: #94a3b8;
+    color: #8e9199;
     cursor: pointer;
     border-radius: 4px;
     transition: all 0.15s ease;
 }
 
 .font-select-search-clear:hover {
-    background: #e2e8f0;
-    color: #0f172a;
+    background: #dcdde0;
+    color: #141415;
 }
 
 .dark .font-select-search-clear:hover {
@@ -182,7 +182,7 @@
     align-items: center;
     padding: 8px 12px;
     gap: 4px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #dcdde0;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -206,7 +206,7 @@
     font-size: 12px;
     font-weight: 500;
     line-height: 1;
-    color: #64748b;
+    color: #6b6e77;
     cursor: pointer;
     border-radius: 6px;
     white-space: nowrap;
@@ -215,7 +215,7 @@
 
 .font-select-category:hover {
     background: #f1f5f9;
-    color: #0f172a;
+    color: #141415;
 }
 
 .dark .font-select-category:hover {
@@ -261,7 +261,7 @@
 .font-select-empty {
     padding: 24px;
     text-align: center;
-    color: #94a3b8;
+    color: #8e9199;
     font-size: 14px;
 }
 
@@ -301,7 +301,7 @@
 .font-select-option-name {
     flex: 1;
     font-size: 14px;
-    color: #0f172a;
+    color: #141415;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -314,7 +314,7 @@
 .font-select-option-category {
     font-size: 10px;
     font-weight: 500;
-    color: #94a3b8;
+    color: #8e9199;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     background: #f1f5f9;
@@ -324,7 +324,7 @@
 
 .dark .font-select-option-category {
     background: rgba(51, 65, 85, 0.5);
-    color: #94a3b8;
+    color: #8e9199;
 }
 
 .font-select-option-loading {
@@ -340,11 +340,11 @@
 /* Footer */
 .font-select-footer {
     padding: 8px 16px;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid #dcdde0;
     font-size: 11px;
-    color: #94a3b8;
+    color: #8e9199;
     text-align: center;
-    background: #f8fafc;
+    background: #f6f6f7;
 }
 
 .dark .font-select-footer {
