@@ -60,12 +60,12 @@ const EmailCapture: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' as const }
+      transition: { duration: 0.7, ease: "easeOut" as const }
     }
   };
 
   return (
-    <section id="email-capture" className="relative py-16">
+    <section id="email-capture" className="relative py-20">
       <div className="absolute inset-0 pointer-events-none">
         <div
           style={{
@@ -77,8 +77,8 @@ const EmailCapture: React.FC = () => {
             height: '50vw',
             borderRadius: '50%',
             background: 'var(--gradient-primary)',
-            opacity: 0.1,
-            filter: 'blur(100px)',
+            opacity: 0.08,
+            filter: 'blur(120px)',
           }}
         />
       </div>
@@ -94,7 +94,7 @@ const EmailCapture: React.FC = () => {
 
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <motion.div
-          className="relative p-8 sm:p-10 glass rounded-3xl shadow-xl overflow-hidden"
+          className="relative p-10 sm:p-12 glass rounded-3xl shadow-2xl overflow-hidden border border-white/15 dark:border-white/5"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -103,17 +103,28 @@ const EmailCapture: React.FC = () => {
           {/* Top accent gradient */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary-light to-primary" />
 
+          {/* Subtle glow behind the card */}
+          <div
+            className="absolute -inset-4 -z-10"
+            style={{
+              background: 'var(--gradient-primary)',
+              opacity: 0.06,
+              filter: 'blur(40px)',
+              borderRadius: '40px',
+            }}
+          />
+
           {/* Header */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-6">
               <Mail size={28} className="text-primary" />
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
               {t('common:emailCapture.title')}
             </h2>
 
-            <p className="text-gray-600 dark:text-gray-400 max-w-lg mx-auto">
+            <p className="text-gray-600 dark:text-gray-400 max-w-lg mx-auto leading-relaxed">
               {t('common:emailCapture.subtitle')}
             </p>
           </div>
@@ -128,7 +139,7 @@ const EmailCapture: React.FC = () => {
                   placeholder={t('common:emailCapture.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-gray-700/50 border-2 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-0 focus:border-primary focus:bg-white dark:focus:bg-gray-700/70 focus:shadow-lg focus:shadow-primary/10 ${status === 'error' ? 'border-primary' : 'border-gray-200/50 dark:border-gray-600/50'
+                  className={`w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-gray-700/50 border-2 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-0 focus:border-primary focus:bg-white dark:focus:bg-gray-700/70 focus:shadow-lg focus:shadow-primary/10 ${status === 'error' ? 'border-primary' : 'border-gray-200/50 dark:border-gray-600/50'
                     }`}
                   disabled={isSubmitting}
                 />
@@ -136,7 +147,7 @@ const EmailCapture: React.FC = () => {
 
               <motion.button
                 type="submit"
-                className="flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-primary to-primary-light text-white font-semibold rounded-xl shadow-lg shadow-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/40 disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
+                className="flex items-center justify-center gap-2 px-7 py-4 bg-gradient-to-r from-primary to-primary-light text-white font-semibold rounded-2xl shadow-lg shadow-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/40 disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
                 disabled={isSubmitting}
                 whileHover={{ scale: isSubmitting ? 1 : 1.02, y: isSubmitting ? 0 : -2 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
@@ -159,7 +170,7 @@ const EmailCapture: React.FC = () => {
             {/* Status Message */}
             {status !== 'idle' && (
               <motion.div
-                className={`flex items-center justify-center gap-2 p-3 rounded-lg text-sm font-medium ${status === 'success'
+                className={`flex items-center justify-center gap-2 p-4 rounded-xl text-sm font-medium ${status === 'success'
                   ? 'bg-primary/10 text-primary border border-primary/20'
                   : 'bg-primary/10 text-primary border border-primary/20'
                   }`}
@@ -184,31 +195,21 @@ const EmailCapture: React.FC = () => {
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-wrap justify-center gap-8">
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-2xl font-extrabold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-                127
-              </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                {t('common:emailCapture.trust.activeBeta')}
-              </span>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-2xl font-extrabold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-                73
-              </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                {t('common:emailCapture.trust.remainingSpots')}
-              </span>
-            </div>
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-2xl font-extrabold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-                +340%
-              </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                {t('common:emailCapture.trust.averageRoas')}
-              </span>
-            </div>
+          <div className="flex flex-wrap justify-center gap-10">
+            {[
+              { value: '127', label: t('common:emailCapture.trust.activeBeta') },
+              { value: '73', label: t('common:emailCapture.trust.remainingSpots') },
+              { value: '+340%', label: t('common:emailCapture.trust.averageRoas') }
+            ].map((stat) => (
+              <div key={stat.label} className="flex flex-col items-center gap-1">
+                <span className="text-2xl font-extrabold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+                  {stat.value}
+                </span>
+                <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
           </div>
         </motion.div>
       </div>

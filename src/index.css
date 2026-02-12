@@ -521,13 +521,13 @@ h6,
   -webkit-backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
-  transition: all var(--transition-normal);
+  transition: all var(--transition-normal) cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .glass:hover {
   background: var(--glass-bg-hover);
   border-color: var(--color-primary-light);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(var(--primary-rgb), 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Gradient text */

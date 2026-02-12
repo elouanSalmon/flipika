@@ -69,11 +69,11 @@ const Differentiation: React.FC = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
   };
 
   return (
-    <section className="relative py-24">
+    <section className="relative py-28">
       <div className="absolute inset-0 pointer-events-none">
         <div
           style={{
@@ -84,8 +84,8 @@ const Differentiation: React.FC = () => {
             height: '30vw',
             borderRadius: '50%',
             background: 'var(--gradient-primary)',
-            opacity: 0.08,
-            filter: 'blur(100px)',
+            opacity: 0.06,
+            filter: 'blur(120px)',
           }}
         />
         <div
@@ -97,7 +97,7 @@ const Differentiation: React.FC = () => {
             height: '25vw',
             borderRadius: '50%',
             background: 'var(--color-primary)',
-            opacity: 0.06,
+            opacity: 0.04,
             filter: 'blur(100px)',
           }}
         />
@@ -118,43 +118,53 @@ const Differentiation: React.FC = () => {
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6 border border-white/10 dark:border-white/5">
             <Shield size={16} />
             <span>{t('common:differentiation.title')}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white mb-5 tracking-tight">
             {t('common:differentiation.subtitle')}
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
             {t('common:differentiation.description')}
           </p>
         </motion.div>
 
-        {/* Differentiators Grid */}
+        {/* Differentiators Grid — Bento style: 2 large + 2 small */}
         <motion.div
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {differentiators.map((diff) => (
+          {differentiators.map((diff, index) => (
             <motion.div
               key={diff.title}
-              className="group p-6 glass rounded-2xl"
+              className={`group p-7 glass rounded-3xl border border-white/10 dark:border-white/5 overflow-hidden ${index < 2 ? 'lg:col-span-2' : ''
+                }`}
               variants={itemVariants}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -6, transition: { type: "spring", stiffness: 300 } }}
             >
-              <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-4 group-hover:scale-110 transition-transform duration-300">
-                <diff.icon size={24} className="text-primary" />
+              {/* Top accent */}
+              <div
+                className="absolute top-0 left-6 right-6 h-px"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, var(--color-primary), transparent)',
+                  opacity: 0.2,
+                }}
+              />
+
+              <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-5 group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
+                <diff.icon size={26} className="text-primary" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1.5">
                 {diff.title}
               </h3>
-              <p className="text-sm font-medium text-primary mb-2">
+              <p className="text-sm font-semibold text-primary mb-3">
                 {diff.subtitle}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -169,21 +179,21 @@ const Differentiation: React.FC = () => {
           className="mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           viewport={{ once: true }}
         >
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3">
               {t('common:differentiation.comparison.title')}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
               {t('common:differentiation.comparison.subtitle')}
             </p>
           </div>
 
-          <div className="glass rounded-2xl overflow-hidden">
+          <div className="glass rounded-3xl overflow-hidden border border-white/10 dark:border-white/5">
             {/* Table Header */}
-            <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50/50 dark:bg-gray-900/50 border-b border-gray-200/50 dark:border-gray-700/50">
+            <div className="grid grid-cols-3 gap-4 p-5 bg-gray-50/50 dark:bg-gray-900/50 border-b border-gray-200/50 dark:border-gray-700/50">
               <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">
                 {t('common:differentiation.comparison.featureHeader')}
               </div>
@@ -201,7 +211,7 @@ const Differentiation: React.FC = () => {
               {comparison.map((item) => (
                 <div
                   key={item.feature}
-                  className="grid grid-cols-3 gap-4 p-4 hover:bg-primary/5 transition-colors"
+                  className="grid grid-cols-3 gap-4 p-5 hover:bg-primary/5 transition-colors duration-200"
                 >
                   <div className="text-sm text-gray-700 dark:text-gray-300">
                     {item.feature}
@@ -228,14 +238,14 @@ const Differentiation: React.FC = () => {
 
         {/* Bottom CTA */}
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 glass rounded-2xl"
+          className="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 glass rounded-3xl border border-white/10 dark:border-white/5"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           viewport={{ once: true }}
         >
           <div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
               {t('common:differentiation.cta')}
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
@@ -243,10 +253,11 @@ const Differentiation: React.FC = () => {
             </p>
           </div>
           <motion.button
-            className="btn btn-primary inline-flex items-center gap-2 whitespace-nowrap"
+            className="btn btn-primary inline-flex items-center gap-2 whitespace-nowrap rounded-2xl px-6 py-3 shadow-lg shadow-primary/25"
             onClick={scrollToEmailForm}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400 }}
           >
             <span>{t('common:hero.cta')}</span>
             <ArrowRight size={18} />

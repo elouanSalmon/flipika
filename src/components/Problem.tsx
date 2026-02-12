@@ -11,7 +11,7 @@ const Problem: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
         delayChildren: 0.1
       }
     }
@@ -22,7 +22,7 @@ const Problem: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
+      transition: { duration: 0.6, ease: "easeOut" as const }
     }
   };
 
@@ -45,7 +45,7 @@ const Problem: React.FC = () => {
   ];
 
   return (
-    <section id="problem" className="relative py-24">
+    <section id="problem" className="relative py-28">
       <div className="absolute inset-0 pointer-events-none">
         <div
           style={{
@@ -56,8 +56,8 @@ const Problem: React.FC = () => {
             height: '30vw',
             borderRadius: '50%',
             background: 'var(--gradient-primary)',
-            opacity: 0.08,
-            filter: 'blur(100px)',
+            opacity: 0.06,
+            filter: 'blur(120px)',
           }}
         />
       </div>
@@ -80,35 +80,43 @@ const Problem: React.FC = () => {
           viewport={{ once: true, amount: 0.3 }}
         >
           {/* Section Header */}
-          <motion.div className="mb-12" variants={itemVariants}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6">
+          <motion.div className="mb-14" variants={itemVariants}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6 border border-white/10 dark:border-white/5">
               <AlertTriangle size={18} />
               <span>{t('common:problem.title')}</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
               {t('common:problem.subtitle')}
             </h2>
           </motion.div>
 
           {/* Problem Cards */}
           <motion.div
-            className="grid md:grid-cols-3 gap-6 mb-12"
+            className="grid md:grid-cols-3 gap-5 mb-14"
             variants={containerVariants}
           >
             {problems.map((problem, index) => (
               <motion.div
                 key={index}
-                className="group relative p-6 glass rounded-2xl"
+                className="group relative p-7 glass rounded-3xl border border-white/10 dark:border-white/5 overflow-hidden"
                 variants={itemVariants}
-                whileHover={{ y: -5, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                whileHover={{ y: -6, transition: { type: "spring", stiffness: 300 } }}
               >
-                <div className="flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 border border-primary/10 mb-5 mx-auto group-hover:scale-110 transition-transform duration-300">
-                  <problem.icon size={24} className="text-primary" />
+                {/* Subtle gradient accent on top */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-px"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, var(--color-primary), transparent)',
+                    opacity: 0.2,
+                  }}
+                />
+
+                <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 border border-primary/10 mb-6 mx-auto group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
+                  <problem.icon size={26} className="text-primary" />
                 </div>
 
                 <div className="text-left">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
                     {problem.title}
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">

@@ -39,7 +39,7 @@ const Testimonials: React.FC = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 }
+      transition: { staggerChildren: 0.12 }
     }
   };
 
@@ -48,12 +48,12 @@ const Testimonials: React.FC = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5 }
+      transition: { duration: 0.6, ease: "easeOut" as const }
     }
   };
 
   return (
-    <section id="testimonials" className="relative py-24">
+    <section id="testimonials" className="relative py-28">
       <div className="absolute inset-0 pointer-events-none">
         <div
           style={{
@@ -64,8 +64,8 @@ const Testimonials: React.FC = () => {
             height: '30vw',
             borderRadius: '50%',
             background: 'var(--gradient-primary)',
-            opacity: 0.08,
-            filter: 'blur(100px)',
+            opacity: 0.06,
+            filter: 'blur(120px)',
           }}
         />
         <div
@@ -77,7 +77,7 @@ const Testimonials: React.FC = () => {
             height: '25vw',
             borderRadius: '50%',
             background: 'var(--color-primary)',
-            opacity: 0.06,
+            opacity: 0.04,
             filter: 'blur(100px)',
           }}
         />
@@ -95,23 +95,23 @@ const Testimonials: React.FC = () => {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Header */}
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-14"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white mb-5 tracking-tight">
             {t('common:testimonials.title')}
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
             {t('common:testimonials.subtitle')}
           </p>
         </motion.div>
 
         {/* Stats */}
         <motion.div
-          className="flex flex-wrap justify-center gap-8 mb-16"
+          className="flex flex-wrap justify-center gap-5 mb-16"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -120,11 +120,12 @@ const Testimonials: React.FC = () => {
           {stats.map((stat) => (
             <motion.div
               key={stat.label}
-              className="flex items-center gap-4 px-6 py-4 glass rounded-xl"
+              className="flex items-center gap-4 px-6 py-4 glass rounded-2xl border border-white/10 dark:border-white/5"
               variants={itemVariants}
+              whileHover={{ y: -4, transition: { type: "spring", stiffness: 300 } }}
             >
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
-                <stat.icon size={20} className="text-primary" />
+              <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10">
+                <stat.icon size={22} className="text-primary" />
               </div>
               <div>
                 <div className="text-2xl font-bold text-primary">{stat.value}</div>
@@ -136,7 +137,7 @@ const Testimonials: React.FC = () => {
 
         {/* Testimonials Grid */}
         <motion.div
-          className="grid md:grid-cols-2 gap-6 mb-12"
+          className="grid md:grid-cols-2 gap-6 mb-14"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -145,22 +146,31 @@ const Testimonials: React.FC = () => {
           {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
-              className="relative p-6 glass rounded-2xl"
+              className="relative p-7 glass rounded-3xl border border-white/10 dark:border-white/5 overflow-hidden"
               variants={itemVariants}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -6, transition: { type: "spring", stiffness: 300 } }}
             >
+              {/* Top accent */}
+              <div
+                className="absolute top-0 left-0 right-0 h-px"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, var(--color-primary), transparent)',
+                  opacity: 0.2,
+                }}
+              />
+
               {/* Quote icon */}
-              <div className="absolute top-4 right-4 text-primary/20">
-                <Quote size={32} />
+              <div className="absolute top-5 right-5 text-primary/15">
+                <Quote size={36} />
               </div>
 
               {/* Content */}
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pr-8">
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pr-10 text-base">
                 "{testimonial.content}"
               </p>
 
               {/* Metric badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary text-sm font-medium rounded-full mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary text-sm font-medium rounded-xl mb-6">
                 <Clock size={14} />
                 <span>{testimonial.metric}</span>
               </div>
@@ -170,11 +180,12 @@ const Testimonials: React.FC = () => {
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-white dark:border-gray-700 shadow-sm"
+                  className="w-13 h-13 rounded-2xl object-cover border-2 border-white dark:border-gray-700 shadow-sm"
+                  style={{ width: '52px', height: '52px' }}
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-gray-900 dark:text-white">
+                    <span className="font-bold text-gray-900 dark:text-white">
                       {testimonial.name}
                     </span>
                     <div className="flex gap-0.5">
@@ -204,15 +215,16 @@ const Testimonials: React.FC = () => {
           viewport={{ once: true }}
         >
           <motion.button
-            className="btn btn-primary inline-flex items-center gap-2"
+            className="btn btn-primary inline-flex items-center gap-2 rounded-2xl px-6 py-3 shadow-lg shadow-primary/25"
             onClick={() => navigate('/login')}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400 }}
           >
             <span>{t('common:testimonials.cta')}</span>
             <ArrowRight size={18} />
           </motion.button>
-          <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
             {t('common:testimonials.ctaSubtitle')}
           </p>
         </motion.div>
