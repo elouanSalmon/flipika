@@ -1,20 +1,47 @@
-import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import SimpleHeader from '../components/SimpleHeader';
 import Hero from '../components/Hero';
-import Problem from '../components/Problem';
-import Features from '../components/Features';
-import Differentiation from '../components/Differentiation';
-import SocialProof from '../components/Testimonials';
-import EmailCapture from '../components/EmailCapture';
-import RoadmapPreview from '../components/RoadmapPreview';
+import TrustBar from '../components/TrustBar';
+import BigStatement from '../components/BigStatement';
+import FeatureShowcase from '../components/FeatureShowcase';
+import Testimonials from '../components/Testimonials';
+import ClosingCTA from '../components/ClosingCTA';
 import Footer from '../components/Footer';
 import CookieConsent from '../components/CookieConsent';
 import SEO from '../components/SEO';
 
 const Landing = () => {
     const { t } = useTranslation('seo');
+    const { t: tc } = useTranslation('common');
+
+    // Showcase data from i18n
+    const showcases = [
+        {
+            badge: tc('showcase.templates.badge'),
+            title: tc('showcase.templates.title'),
+            description: tc('showcase.templates.description'),
+            bullets: tc('showcase.templates.bullets', { returnObjects: true }) as string[],
+            imagePlaceholder: tc('showcase.templates.imagePlaceholder'),
+            imagePosition: 'right' as const,
+        },
+        {
+            badge: tc('showcase.ai.badge'),
+            title: tc('showcase.ai.title'),
+            description: tc('showcase.ai.description'),
+            bullets: tc('showcase.ai.bullets', { returnObjects: true }) as string[],
+            imagePlaceholder: tc('showcase.ai.imagePlaceholder'),
+            imagePosition: 'left' as const,
+        },
+        {
+            badge: tc('showcase.scheduling.badge'),
+            title: tc('showcase.scheduling.title'),
+            description: tc('showcase.scheduling.description'),
+            bullets: tc('showcase.scheduling.bullets', { returnObjects: true }) as string[],
+            imagePlaceholder: tc('showcase.scheduling.imagePlaceholder'),
+            imagePosition: 'right' as const,
+        },
+    ];
 
     return (
         <>
@@ -24,52 +51,25 @@ const Landing = () => {
                 keywords={t('landing.keywords')}
                 canonicalPath="/"
             />
-            <div className="bg-gradient"></div>
 
             <SimpleHeader />
 
             <main>
                 <Hero />
-                <Problem />
-                <Features />
-                <Differentiation />
-                <SocialProof />
-                <RoadmapPreview />
-                <EmailCapture />
+                <TrustBar />
+                <BigStatement />
+                {showcases.map((showcase, index) => (
+                    <FeatureShowcase key={index} {...showcase} />
+                ))}
+                <Testimonials />
+                <ClosingCTA />
             </main>
 
             <Footer />
 
-            {/* Floating elements for visual appeal */}
-            <motion.div
-                className="floating-orb orb-1"
-                animate={{
-                    x: [0, 100, 0],
-                    y: [0, -100, 0],
-                }}
-                transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear"
-                }}
-            />
-            <motion.div
-                className="floating-orb orb-2"
-                animate={{
-                    x: [0, -150, 0],
-                    y: [0, 150, 0],
-                }}
-                transition={{
-                    duration: 25,
-                    repeat: Infinity,
-                    ease: "linear"
-                }}
-            />
-
             <CookieConsent />
 
             {/* Structured Data for Google Knowledge Graph */}
-            {/* Note: aggregateRating is commented out until more reviews are visible on the page to avoid penalties */}
             <Helmet>
                 <script type="application/ld+json">
                     {`
@@ -79,13 +79,6 @@ const Landing = () => {
                           "name": "Flipika",
                           "operatingSystem": "Web, iOS, Android",
                           "applicationCategory": "ProductivityApplication",
-                          /* 
-                          "aggregateRating": {
-                            "@type": "AggregateRating",
-                            "ratingValue": "4.8",
-                            "ratingCount": "127"
-                          },
-                          */
                           "offers": {
                             "@type": "Offer",
                             "price": "0",

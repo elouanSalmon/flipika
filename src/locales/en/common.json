@@ -44,13 +44,13 @@
   },
   "hero": {
     "badge": "Powered by AI",
-    "title": "Google Ads Reports: From 3h to 2 min.",
-    "subtitle": "Auto-generated. Visually validated. Sent in one click.",
+    "title": "Your Google Ads reports, ready in 2 minutes.",
+    "subtitle": "Flawless client reports, auto-generated from your Google Ads data. You review, you send. It's that simple.",
     "description": "Flipika connects to your Google Ads accounts, generates client reports, and submits them for your review. You check, you send. Zero formatting, zero stress.",
     "getStarted": "See a sample report",
     "noCreditCard": "14-day free trial",
-    "cta": "Try for free",
-    "ctaSecondary": "See a sample report",
+    "cta": "Get started for free",
+    "ctaSecondary": "See an example",
     "stats": {
       "reportTime": {
         "value": "2 min",
@@ -66,22 +66,42 @@
       }
     }
   },
-  "problem": {
-    "title": "Google Ads Reporting is Killing Your Productivity",
-    "subtitle": "Hours wasted on repetitive tasks",
-    "description": "Between exports, dashboards, and explaining performance, client reporting becomes a recurring chore.",
-    "issues": {
-      "timeManagement": "3-5 hours per client, every month",
-      "budgetWaste": "Endless copy-pasting of data",
-      "inconsistentCampaigns": "Formatting to redo every time",
-      "difficultToScale": "Impossible to scale with this process",
-      "expensiveAgency": "Clients who don't read your reports",
-      "costlyAndTime": "Stress before every deadline"
+  "workflow": {
+    "badge": "Simple as 1-2-3",
+    "title": "Reporting on autopilot.",
+    "subtitle": "Connect your accounts. Generate your reports. Send in one click.",
+    "step1": {
+      "title": "Connect",
+      "description": "Link your Google Ads accounts in seconds.",
+      "bullets": [
+        "Secure OAuth connection",
+        "Multi-account support",
+        "Real-time data sync"
+      ]
+    },
+    "step2": {
+      "title": "Generate",
+      "description": "Your reports are created automatically with the right data.",
+      "bullets": [
+        "Professional ready-to-use templates",
+        "Built-in contextual AI insights",
+        "Per-client theme and branding"
+      ]
+    },
+    "step3": {
+      "title": "Send",
+      "description": "Visually validate and share in one click.",
+      "bullets": [
+        "Pre-flight check before every send",
+        "PDF export or secure link",
+        "Automatic scheduling"
+      ]
     }
   },
   "features": {
-    "title": "Google Ads Reporting, Finally Stress-Free",
-    "subtitle": "Automatic preparation, human validation",
+    "title": "Everything you need for flawless reporting.",
+    "subtitle": "Reports that impress your clients, effortlessly.",
+    "viewAll": "View all features",
     "aiGeneration": {
       "title": "Ready-to-use Templates",
       "description": "Pick a template, select the Google Ads account and campaigns: your report is ready. Never format manually again."
@@ -100,7 +120,7 @@
     },
     "createCampaigns": {
       "title": "Slides Connected to Google Ads",
-      "subtitle": "Real-time data, auto-synced",
+      "subtitle": "Your data, always up to date",
       "description": "Our slides pull directly from your clients' Google Ads accounts. Impressions, clicks, conversions, ROAS: everything syncs automatically.",
       "benefits": [
         "Zero copy-pasting",
@@ -109,8 +129,8 @@
       ]
     },
     "autoOptimize": {
-      "title": "Narrative Layer: Contextual Comments",
-      "subtitle": "Numbers with meaning",
+      "title": "Narrative Layer",
+      "subtitle": "Numbers that make sense",
       "description": "Add your analysis and explanations directly in the report. Your expertise brings the real value to the client.",
       "benefits": [
         "Integrated rich text editor",
@@ -121,7 +141,7 @@
     "actionableInsights": {
       "title": "Smart Scheduling",
       "subtitle": "Auto-prepared, validated by you",
-      "description": "Your reports are generated on schedule and wait for your approval. One glance, one click, sent. You keep final control.",
+      "description": "Your reports are generated on schedule and wait for your approval. One glance, one click, sent.",
       "benefits": [
         "Scheduled generation",
         "Mandatory visual validation",
@@ -150,32 +170,32 @@
     }
   },
   "differentiation": {
-    "title": "Why Media Buyers use Flipika",
-    "subtitle": "Built for Google Ads client reporting",
-    "description": "Flipika simplifies your reporting workflow without replacing your expertise.",
+    "title": "Why Flipika",
+    "subtitle": "Built for Media Buyers, not generalist marketers.",
+    "description": "We don't replace your expertise. We eliminate the work that shouldn't exist.",
     "notCopywritingTool": {
       "title": "Not another dashboard",
-      "subtitle": "A real client reporting tool",
-      "description": "Flipika transforms your Google Ads data into understandable and actionable reports."
+      "subtitle": "A real client report",
+      "description": "Your clients receive a clear, understandable report — not a link to a dashboard."
     },
     "designedForMediaBuyers": {
-      "title": "Designed for Media Buyers",
-      "subtitle": "Freelancers and agencies",
-      "description": "Every feature is designed to save time on reporting."
+      "title": "Built by Media Buyers",
+      "subtitle": "For freelancers and agencies",
+      "description": "Every feature addresses a real reporting pain point from the field."
     },
     "usesRealData": {
-      "title": "Real Google Ads data",
-      "subtitle": "Secure API connection",
-      "description": "Your reports are generated from your actual data."
+      "title": "Real data, no approximation",
+      "subtitle": "Secure Google Ads API",
+      "description": "Your reports reflect exactly what's happening on the accounts."
     },
     "learnsAndImproves": {
-      "title": "AI for reporting",
-      "subtitle": "Not at the center",
-      "description": "AI detects variations and structures client communication."
+      "title": "AI that assists you",
+      "subtitle": "You stay in control",
+      "description": "AI detects trends and writes analysis. You review and validate."
     },
     "comparison": {
-      "title": "Flipika vs Traditional Solutions",
-      "subtitle": "Honest comparison of what makes us unique",
+      "title": "Flipika vs the rest",
+      "subtitle": "What truly sets us apart",
       "featureHeader": "Feature",
       "flipikaHeader": "Flipika",
       "othersHeader": "Other tools",
@@ -186,14 +206,14 @@
       "continuousLearning": "Data snapshots",
       "genericText": "Generic templates"
     },
-    "cta": "Ready to transform your reporting?",
-    "ctaSubtitle": "Join Media Buyers saving time with Flipika."
+    "cta": "Ready to automate your reporting?",
+    "ctaSubtitle": "Join the Media Buyers who stopped wasting time."
   },
   "testimonials": {
-    "title": "Adopted by Media Buyers",
-    "subtitle": "Less reporting, more client value",
-    "cta": "Join the beta",
-    "ctaSubtitle": "Free early access",
+    "title": "They're transforming their reporting with Flipika",
+    "subtitle": "Media Buyers saving time every week",
+    "cta": "Get started for free",
+    "ctaSubtitle": "14-day free trial",
     "stats": {
       "earlyAdopters": "early adopters",
       "reportsGenerated": "reports generated",
@@ -213,6 +233,20 @@
         "company": "Media Buying Agency",
         "content": "Reporting was a real bottleneck for the agency. Flipika allows us to send clear, structured, and ready-to-send reports without wasting time on formatting.",
         "metric": "Reporting time cut in half"
+      },
+      "sarah": {
+        "name": "Sarah L.",
+        "role": "SEA Consultant",
+        "company": "Freelance \u2013 8 clients",
+        "content": "Flipika allowed me to spend more time optimizing campaigns and less on formatting reports. My clients love the clarity of the presentations.",
+        "metric": "3h saved / week"
+      },
+      "thomas": {
+        "name": "Thomas D.",
+        "role": "Founder",
+        "company": "Digital agency \u2013 25 accounts",
+        "content": "We eliminated the reporting bottleneck. Our Account Managers can finally focus on client relationships instead of spending hours on slides.",
+        "metric": "Scaled 3x without hiring"
       }
     }
   },
@@ -227,19 +261,63 @@
     "futureDescription": "Our vision",
     "cta": "See the full roadmap"
   },
+  "bigStatement": {
+    "title": "Flawless Google Ads reports, on autopilot.",
+    "subtitle": "Flipika does the work you shouldn't have to do."
+  },
+  "showcase": {
+    "templates": {
+      "badge": "Templates",
+      "title": "Professional reports in a single click.",
+      "description": "Pick a template, select the Google Ads account and campaigns: your report is generated instantly. Per-client theme, synced data, zero formatting.",
+      "bullets": [
+        "Ready-to-use templates",
+        "One theme (colors, logo, typography) per client",
+        "Google Ads data synced automatically"
+      ],
+      "imagePlaceholder": "Screenshot: Report template"
+    },
+    "ai": {
+      "badge": "Built-in AI",
+      "title": "AI analyzes your performance, you stay in control.",
+      "description": "Flipika AI detects trends, identifies anomalies, and writes contextual analysis. You review, adjust, validate. The final report is yours.",
+      "bullets": [
+        "Automatic AI analysis per campaign",
+        "Add your comments directly in the report",
+        "Your clients finally understand performance"
+      ],
+      "imagePlaceholder": "Screenshot: AI Analysis"
+    },
+    "scheduling": {
+      "badge": "Automation",
+      "title": "Your reports arrive on time, every month.",
+      "description": "Schedule generation, visually validate with pre-flight check, share via secure link or PDF. No more missed deadlines.",
+      "bullets": [
+        "Automatic scheduled generation",
+        "Pre-flight check before every send",
+        "PDF export or password-protected link"
+      ],
+      "imagePlaceholder": "Screenshot: Scheduling"
+    }
+  },
+  "closingCta": {
+    "title": "Google Ads reporting, reimagined.",
+    "subtitle": "Join the Media Buyers who stopped wasting time.",
+    "cta": "Get started for free"
+  },
   "emailCapture": {
-    "title": "Tired of wasting time on your Google Ads reporting?",
-    "subtitle": "Access the private beta and generate your reports automatically",
-    "emailPlaceholder": "Enter your work email",
-    "submitButton": "Access the beta",
+    "title": "Ready to ditch manual reporting?",
+    "subtitle": "Join the Media Buyers saving hours every week.",
+    "emailPlaceholder": "Your work email",
+    "submitButton": "Get started for free",
     "successMessage": "Welcome! Your access is coming by email.",
     "errorEmailRequired": "Please enter your email",
     "errorEmailInvalid": "Please enter a valid email",
     "errorGeneric": "An error occurred. Please try again.",
     "benefits": {
-      "freeBeta": "Free beta access",
+      "freeBeta": "14-day free trial",
       "prioritySupport": "Priority support",
-      "influence": "Access to new features"
+      "influence": "No commitment"
     },
     "trust": {
       "activeBeta": "active users",

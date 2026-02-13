@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, Clock, RefreshCw, UserX } from 'lucide-react';
+import { Link2, FileText, Send, CheckCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Problem: React.FC = () => {
@@ -26,26 +26,32 @@ const Problem: React.FC = () => {
     }
   };
 
-  const problems = [
+  const steps = [
     {
-      icon: Clock,
-      title: t('common:problem.issues.timeManagement'),
-      description: t('common:problem.issues.budgetWaste')
+      number: '01',
+      icon: Link2,
+      title: t('common:workflow.step1.title'),
+      description: t('common:workflow.step1.description'),
+      bullets: t('common:workflow.step1.bullets', { returnObjects: true }) as string[]
     },
     {
-      icon: RefreshCw,
-      title: t('common:problem.issues.inconsistentCampaigns'),
-      description: t('common:problem.issues.difficultToScale')
+      number: '02',
+      icon: FileText,
+      title: t('common:workflow.step2.title'),
+      description: t('common:workflow.step2.description'),
+      bullets: t('common:workflow.step2.bullets', { returnObjects: true }) as string[]
     },
     {
-      icon: UserX,
-      title: t('common:problem.issues.expensiveAgency'),
-      description: t('common:problem.issues.costlyAndTime')
+      number: '03',
+      icon: Send,
+      title: t('common:workflow.step3.title'),
+      description: t('common:workflow.step3.description'),
+      bullets: t('common:workflow.step3.bullets', { returnObjects: true }) as string[]
     }
   ];
 
   return (
-    <section id="problem" className="relative py-28">
+    <section id="workflow" className="relative py-28">
       <div className="absolute inset-0 pointer-events-none">
         <div
           style={{
@@ -82,27 +88,29 @@ const Problem: React.FC = () => {
           {/* Section Header */}
           <motion.div className="mb-14" variants={itemVariants}>
             <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6 border border-white/10 dark:border-white/5">
-              <AlertTriangle size={18} />
-              <span>{t('common:problem.title')}</span>
+              <span>{t('common:workflow.badge')}</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-              {t('common:problem.subtitle')}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-5">
+              {t('common:workflow.title')}
             </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              {t('common:workflow.subtitle')}
+            </p>
           </motion.div>
 
-          {/* Problem Cards */}
+          {/* Workflow Steps */}
           <motion.div
-            className="grid md:grid-cols-3 gap-5 mb-14"
+            className="grid md:grid-cols-3 gap-6"
             variants={containerVariants}
           >
-            {problems.map((problem, index) => (
+            {steps.map((step, index) => (
               <motion.div
                 key={index}
-                className="group relative p-7 glass rounded-3xl border border-white/10 dark:border-white/5 overflow-hidden"
+                className="group relative p-7 glass rounded-3xl border border-white/10 dark:border-white/5 overflow-hidden text-left"
                 variants={itemVariants}
                 whileHover={{ y: -6, transition: { type: "spring", stiffness: 300 } }}
               >
-                {/* Subtle gradient accent on top */}
+                {/* Top accent */}
                 <div
                   className="absolute top-0 left-0 right-0 h-px"
                   style={{
@@ -111,32 +119,32 @@ const Problem: React.FC = () => {
                   }}
                 />
 
-                <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 border border-primary/10 mb-6 mx-auto group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
-                  <problem.icon size={26} className="text-primary" />
+                {/* Step number */}
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/10 border border-primary/10 group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
+                    <step.icon size={24} className="text-primary" />
+                  </div>
+                  <span className="text-4xl font-black text-primary/15 dark:text-primary/10">{step.number}</span>
                 </div>
 
-                <div className="text-left">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                    {problem.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {problem.description}
-                  </p>
-                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
+                  {step.description}
+                </p>
+
+                {/* Bullets */}
+                <ul className="space-y-2.5">
+                  {Array.isArray(step.bullets) && step.bullets.map((bullet, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-sm text-gray-600 dark:text-gray-400">
+                      <CheckCircle size={16} className="text-primary flex-shrink-0 mt-0.5" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             ))}
-          </motion.div>
-
-          {/* Transition */}
-          <motion.div
-            className="flex items-center gap-6 max-w-2xl mx-auto"
-            variants={itemVariants}
-          >
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-            <p className="text-lg font-medium bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent px-4 text-center">
-              {t('common:problem.description')}
-            </p>
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
           </motion.div>
         </motion.div>
       </div>
