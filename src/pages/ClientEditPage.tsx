@@ -65,20 +65,20 @@ export default function ClientEditPage() {
                 <div className="flex flex-wrap items-center gap-4">
                     <button
                         onClick={() => navigate('/app/clients')}
-                        className="flex items-center text-sm font-medium text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary-light transition-colors group"
+                        className="flex items-center text-sm font-medium text-neutral-500 hover:text-primary dark:text-neutral-400 dark:hover:text-primary-light transition-colors group"
                     >
                         <ArrowLeft className="w-4 h-4 mr-1.5 transform group-hover:-translate-x-1 transition-transform" />
                         {t('form.buttons.cancel')}
                     </button>
 
-                    <div className="h-5 w-px bg-gray-300 dark:bg-gray-700 hidden sm:block"></div>
+                    <div className="h-5 w-px bg-neutral-300 dark:bg-neutral-700 hidden sm:block"></div>
 
                     <div className="flex items-center gap-3">
-                        <h1 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+                        <h1 className="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">
                             {isEditing ? t('form.title.edit') : t('form.title.create')}
                         </h1>
-                        <span className="text-gray-300 dark:text-gray-600 hidden sm:inline">|</span>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 hidden sm:block">
+                        <span className="text-neutral-300 dark:text-neutral-600 hidden sm:inline">|</span>
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400 hidden sm:block">
                             {t('form.sections.basicInfoDescription')}
                         </p>
                     </div>

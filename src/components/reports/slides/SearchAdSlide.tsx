@@ -38,7 +38,7 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
                 }}>
                     {/* Ad Label & URL */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '11px', fontWeight: 700, color: design?.colorScheme?.text || (design?.mode === 'dark' ? '#f8fafc' : '#0f172a') }}>Sponsorisé</span>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: design?.colorScheme?.text || (design?.mode === 'dark' ? '#f8fafc' : '#141415') }}>Sponsorisé</span>
                         <span style={{ color: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontSize: '10px' }}>•</span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                             <Globe size={14} style={{ color: design?.colorScheme?.primary || 'var(--color-primary)' }} />

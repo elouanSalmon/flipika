@@ -73,7 +73,7 @@ const Settings = () => {
                         {t('title')}
                     </h1>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg">
+                <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-lg">
                     {t('description')}
                 </p>
             </motion.div>

@@ -79,7 +79,7 @@ const Copilot = () => {
             <div className="grid gap-4">
                 <h2 className="text-xl font-bold mb-2">Recommandations Prioritaires</h2>
                 {auditItems.map((item) => (
-                    <div key={item.id} className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:shadow-md transition-all group">
+                    <div key={item.id} className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 hover:shadow-md transition-all group">
                         <div className="flex items-start gap-4 p-5">
                             <div className={`mt-1 p-2 rounded-lg ${item.severity === 'high' ? 'bg-red-50 text-red-500' :
                                 item.severity === 'medium' ? 'bg-orange-50 text-orange-500' : 'bg-blue-50 text-blue-500'
@@ -93,9 +93,9 @@ const Copilot = () => {
                                         item.severity === 'medium' ? 'badge-warning' : 'badge-info'
                                         }`}>{item.severity}</span>
                                 </div>
-                                <p className="text-gray-500">{item.description}</p>
+                                <p className="text-neutral-500">{item.description}</p>
                             </div>
-                            <button className="btn btn-ghost group-hover:bg-gray-100 dark:group-hover:bg-gray-700 self-center">
+                            <button className="btn btn-ghost group-hover:bg-neutral-100 dark:group-hover:bg-neutral-700 self-center">
                                 <span className="mr-2">{item.action}</span>
                                 <ArrowRight size={16} />
                             </button>

@@ -8,7 +8,7 @@
   /* Unified Card System */
 
   .listing-card {
-    @apply bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-5 shadow-sm hover:shadow-md transition-all duration-300 relative cursor-pointer flex flex-col h-full;
+    @apply bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 p-5 shadow-sm hover:shadow-md transition-all duration-300 relative cursor-pointer flex flex-col h-full;
     overflow: visible !important;
   }
 
@@ -26,11 +26,11 @@
   }
 
   .listing-card-title {
-    @apply text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1 truncate leading-tight group-hover:text-primary dark:group-hover:text-primary-light transition-colors;
+    @apply text-lg font-semibold text-neutral-900 dark:text-neutral-50 mb-1 truncate leading-tight group-hover:text-primary dark:group-hover:text-primary-light transition-colors;
   }
 
   .listing-card-subtitle {
-    @apply text-sm text-gray-500 dark:text-gray-400 truncate flex items-center gap-2;
+    @apply text-sm text-neutral-500 dark:text-neutral-400 truncate flex items-center gap-2;
   }
 
   /* Status Badges */
@@ -56,7 +56,7 @@
 
   .status-badge.neutral,
   .status-badge.archived {
-    @apply bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700;
+    @apply bg-neutral-50 text-neutral-700 border-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700;
   }
 
   /* Content/Body */
@@ -65,7 +65,7 @@
   }
 
   .listing-card-row {
-    @apply flex items-center justify-between text-sm text-gray-600 dark:text-gray-400;
+    @apply flex items-center justify-between text-sm text-neutral-600 dark:text-neutral-400;
   }
 
   .listing-card-info-item {
@@ -73,7 +73,7 @@
   }
 
   .listing-card-info-item svg {
-    @apply w-4 h-4 text-gray-400 dark:text-gray-500 flex-shrink-0;
+    @apply w-4 h-4 text-neutral-400 dark:text-neutral-500 flex-shrink-0;
   }
 
   .listing-card-info-item span {
@@ -82,7 +82,7 @@
 
   /* Footer & Stats */
   .listing-card-footer {
-    @apply mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between;
+    @apply mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-700 flex items-center justify-between;
   }
 
   .listing-card-stats {
@@ -94,22 +94,22 @@
   }
 
   .listing-card-stat-value {
-    @apply text-sm font-semibold text-gray-900 dark:text-gray-200;
+    @apply text-sm font-semibold text-neutral-900 dark:text-neutral-100;
   }
 
   .listing-card-stat-label {
-    @apply text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wide;
+    @apply text-xs text-neutral-500 dark:text-neutral-400 uppercase tracking-wide;
   }
 
   /* Actions */
   .listing-card-actions {
-    @apply flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity absolute top-4 right-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-1 shadow-sm border border-gray-100 dark:border-gray-700 z-10;
+    @apply flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity absolute top-4 right-4 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-lg p-1 shadow-sm border border-neutral-100 dark:border-neutral-700 z-10;
     overflow: visible !important;
   }
 
   /* Persistent actions (always visible or different style) can be handled separately */
   .action-btn-icon {
-    @apply p-2 rounded-md text-gray-500 hover:text-primary hover:bg-primary/5 dark:text-gray-400 dark:hover:text-primary-light dark:hover:bg-primary/10 transition-colors;
+    @apply p-2 rounded-md text-neutral-500 hover:text-primary hover:bg-primary/5 dark:text-neutral-400 dark:hover:text-primary-light dark:hover:bg-primary/10 transition-colors;
   }
 
   .action-btn-icon.destructive {

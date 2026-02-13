@@ -277,32 +277,32 @@ export const SlideItem: React.FC<SlideItemProps & {
                 {/* Content Configuration Panel for Structural Slides */}
                 {!isPublicView && isSelected && showScopePanel && onUpdate && !isDragging && (
                     (slide.type === SlideType.SECTION_TITLE || slide.type === SlideType.RICH_TEXT) && (
-                        <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
+                        <div className="mt-4 p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-xl border border-neutral-200 dark:border-neutral-700" onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center gap-2 mb-4">
                                 <Settings size={18} className="text-blue-600 dark:text-blue-400" />
-                                <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+                                <h4 className="font-semibold text-neutral-900 dark:text-neutral-100">
                                     Configuration du contenu
                                 </h4>
                             </div>
                             {slide.type === SlideType.SECTION_TITLE && (
                                 <div className="space-y-4">
                                     <div className="space-y-2">
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Titre</label>
+                                        <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Titre</label>
                                         <input
                                             type="text"
                                             value={slide.title || ''}
                                             onChange={(e) => onUpdate({ title: e.target.value })}
-                                            className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-gray-900 dark:text-gray-100"
+                                            className="w-full px-4 py-2 bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100"
                                             placeholder="Titre de la section"
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Sous-titre</label>
+                                        <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Sous-titre</label>
                                         <input
                                             type="text"
                                             value={slide.subtitle || ''}
                                             onChange={(e) => onUpdate({ subtitle: e.target.value })}
-                                            className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-gray-900 dark:text-gray-100"
+                                            className="w-full px-4 py-2 bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100"
                                             placeholder="Sous-titre optionnel"
                                         />
                                     </div>
@@ -310,12 +310,12 @@ export const SlideItem: React.FC<SlideItemProps & {
                             )}
                             {slide.type === SlideType.RICH_TEXT && (
                                 <div className="space-y-2">
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Contenu</label>
+                                    <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Contenu</label>
                                     <textarea
                                         value={slide.body || ''}
                                         onChange={(e) => onUpdate({ body: e.target.value })}
                                         rows={6}
-                                        className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-gray-900 dark:text-gray-100"
+                                        className="w-full px-4 py-2 bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100"
                                         placeholder="Saisissez votre texte ici..."
                                     />
                                 </div>

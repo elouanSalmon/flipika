@@ -54,11 +54,11 @@ const ErrorState: React.FC<ErrorStateProps> = ({
                 {icon}
             </div>
 
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
                 {title}
             </h3>
 
-            <p className="text-gray-600 dark:text-gray-400 mb-2 max-w-md">
+            <p className="text-neutral-600 dark:text-neutral-400 mb-2 max-w-md">
                 {message}
             </p>
 
@@ -81,7 +81,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({
                             : (translations?.retry || 'Retry')}
                     </button>
                     {retryCount > 0 && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                        <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2">
                             {translations?.attemptCount || `Attempt ${retryCount}/${maxRetries}`}
                         </p>
                     )}
@@ -89,7 +89,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({
             )}
 
             {!canRetry && onRetry && (
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
                     {translations?.maxAttempts || 'Maximum retry attempts reached'}
                 </p>
             )}
@@ -98,15 +98,15 @@ const ErrorState: React.FC<ErrorStateProps> = ({
                 <div className="w-full max-w-md">
                     <button
                         onClick={() => setShowDetails(!showDetails)}
-                        className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 mx-auto"
+                        className="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 mx-auto"
                     >
                         {showDetails ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                         {translations?.technicalDetails || 'Technical details'}
                     </button>
 
                     {showDetails && (
-                        <div className="mt-3 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg text-left">
-                            <pre className="text-xs text-gray-600 dark:text-gray-400 whitespace-pre-wrap break-words font-mono">
+                        <div className="mt-3 p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg text-left">
+                            <pre className="text-xs text-neutral-600 dark:text-neutral-400 whitespace-pre-wrap break-words font-mono">
                                 {technicalDetails}
                             </pre>
                         </div>

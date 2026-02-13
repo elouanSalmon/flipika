@@ -1,7 +1,7 @@
 .theme-preview {
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid var(--border-color, #e2e8f0);
+    border: 1px solid var(--border-color, #dcdde0);
     background: #fff;
     transition: all 0.2s ease;
 }
@@ -30,12 +30,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f8fafc;
+    background: #f6f6f7;
     border-style: dashed;
 }
 
 .theme-preview-placeholder {
-    color: #94a3b8;
+    color: #8e9199;
     font-size: 14px;
     text-align: center;
 }
@@ -76,14 +76,14 @@
 
 .theme-preview-details {
     padding: 12px;
-    border-top: 1px solid var(--border-color, #e2e8f0);
-    background: #f8fafc;
+    border-top: 1px solid var(--border-color, #dcdde0);
+    background: #f6f6f7;
 }
 
 .theme-preview-name {
     font-weight: 600;
     font-size: 14px;
-    color: #0f172a;
+    color: #141415;
     margin-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
@@ -92,7 +92,7 @@
 
 .theme-preview-description {
     font-size: 12px;
-    color: #64748b;
+    color: #6b6e77;
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;

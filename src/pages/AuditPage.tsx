@@ -112,7 +112,7 @@ const AuditPage = () => {
             {/* Header */}
             <div>
                 <h1 className="text-2xl md:text-3xl font-bold">Audit de campagne</h1>
-                <p className="text-gray-500 mt-1 text-sm md:text-base">Analyse approfondie et recommandations d'optimisation</p>
+                <p className="text-neutral-500 mt-1 text-sm md:text-base">Analyse approfondie et recommandations d'optimisation</p>
             </div>
 
             {/* Main Content */}
@@ -120,12 +120,12 @@ const AuditPage = () => {
 
 
                 {/* Configuration */}
-                <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-4 md:p-6">
+                <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-4 md:p-6">
                     <h3 className="text-base md:text-lg font-bold mb-4">Configuration de l'audit</h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">{/* Account selection */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                                 Compte Google Ads
                             </label>
                             <select
@@ -135,7 +135,7 @@ const AuditPage = () => {
                                     loadCampaigns(e.target.value);
                                     setAuditResult(null);
                                 }}
-                                className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-blue-500"
                             >
                                 {accounts.map(account => (
                                     <option key={account.id} value={account.id}>
@@ -147,7 +147,7 @@ const AuditPage = () => {
 
                         {/* Campaign selection */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                                 Campagne
                             </label>
                             <select
@@ -156,7 +156,7 @@ const AuditPage = () => {
                                     setSelectedCampaignId(e.target.value);
                                     setAuditResult(null);
                                 }}
-                                className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="all">Toutes les campagnes</option>
                                 {campaigns.map(campaign => (
@@ -169,13 +169,13 @@ const AuditPage = () => {
 
                         {/* Period selection */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                                 Période d'analyse
                             </label>
                             <select
                                 value={period}
                                 onChange={(e) => setPeriod(e.target.value as '30' | '60' | '90')}
-                                className="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="30">30 derniers jours</option>
                                 <option value="60">60 derniers jours</option>
@@ -222,18 +222,18 @@ const AuditPage = () => {
 
                         {/* Quick stats */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Recommandations totales</p>
+                            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+                                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">Recommandations totales</p>
                                 <p className="text-3xl font-bold">{auditResult.recommendations.length}</p>
                             </div>
-                            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Priorité urgente</p>
+                            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+                                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">Priorité urgente</p>
                                 <p className="text-3xl font-bold text-red-600 dark:text-red-400">
                                     {auditResult.recommendations.filter(r => r.priority === 'URGENT').length}
                                 </p>
                             </div>
-                            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Impact élevé</p>
+                            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+                                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">Impact élevé</p>
                                 <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
                                     {auditResult.recommendations.filter(r => r.impact === 'HIGH').length}
                                 </p>
@@ -268,10 +268,10 @@ const AuditPage = () => {
 
                 {/* Empty state */}
                 {!auditResult && !loading && (
-                    <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-12 text-center">
-                        <RefreshCw size={48} className="mx-auto mb-4 text-gray-400" />
+                    <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-12 text-center">
+                        <RefreshCw size={48} className="mx-auto mb-4 text-neutral-400" />
                         <h3 className="text-lg font-semibold mb-2">Aucun audit en cours</h3>
-                        <p className="text-gray-500">
+                        <p className="text-neutral-500">
                             Sélectionnez un compte et une campagne, puis cliquez sur "Lancer l'audit" pour commencer l'analyse.
                         </p>
                     </div>

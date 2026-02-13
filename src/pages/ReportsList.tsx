@@ -231,7 +231,7 @@ const ReportsList: React.FC = () => {
                 </div>
                 <div className="flex gap-3">
                     <button
-                        className="create-report-btn-secondary bg-white dark:bg-slate-800 text-primary border-primary/20 hover:border-primary hover:bg-primary/5 shadow-sm"
+                        className="create-report-btn-secondary bg-white dark:bg-neutral-800 text-primary border-primary/20 hover:border-primary hover:bg-primary/5 shadow-sm"
                         onClick={() => navigate('/app/templates')}
                         disabled={!hasAccess}
                         style={{

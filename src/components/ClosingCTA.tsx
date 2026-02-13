@@ -47,7 +47,7 @@ const ClosingCTA: React.FC = () => {
                 </motion.p>
 
                 <motion.button
-                    className="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-gray-900 font-semibold rounded-xl shadow-2xl hover:shadow-3xl transition-shadow text-base"
+                    className="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-neutral-900 font-semibold rounded-xl shadow-2xl hover:shadow-3xl transition-shadow text-base"
                     onClick={() => navigate(getLangPath('/login'))}
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.97 }}

@@ -487,7 +487,7 @@ const ReportPreview: React.FC = () => {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen">
                 <Spinner />
-                <p className="mt-4 text-gray-600 dark:text-gray-400">
+                <p className="mt-4 text-neutral-600 dark:text-neutral-400">
                     {t('preFlight.loading.title')}
                 </p>
             </div>
@@ -526,7 +526,7 @@ const ReportPreview: React.FC = () => {
                     <div className="mt-6 flex justify-center">
                         <button
                             onClick={handleBack}
-                            className="flex items-center gap-2 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                            className="flex items-center gap-2 px-4 py-2 border-2 border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                         >
                             <ArrowLeft size={20} />
                             {t('preFlight.actions.back')}
@@ -569,15 +569,15 @@ const ReportPreview: React.FC = () => {
 
     return (
         <ErrorBoundary>
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+            <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
                 {/* Header */}
-                <header className="sticky top-0 z-20 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-200">
+                <header className="sticky top-0 z-20 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-700 shadow-sm transition-all duration-200">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between h-16">
                             <div className="flex items-center gap-4">
                                 <button
                                     onClick={handleBack}
-                                    className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors mr-2"
+                                    className="p-2 text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors mr-2"
                                     title="Retour"
                                 >
                                     <ArrowLeft size={24} />
@@ -600,13 +600,13 @@ const ReportPreview: React.FC = () => {
                                 </motion.div>
 
                                 {/* Divider */}
-                                <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
+                                <div className="h-8 w-px bg-neutral-200 dark:bg-neutral-700 mx-2 hidden sm:block"></div>
 
                                 <div className="hidden sm:block">
-                                    <h1 className="text-lg font-semibold text-gray-900 dark:text-white line-clamp-1">
+                                    <h1 className="text-lg font-semibold text-neutral-900 dark:text-white line-clamp-1">
                                         {report.title}
                                     </h1>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+                                    <p className="text-xs text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5">
                                         <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500"></span>
                                         {formatDate(report.startDate)} - {formatDate(report.endDate)}
                                     </p>
@@ -617,14 +617,14 @@ const ReportPreview: React.FC = () => {
                                 <div className="flex items-center gap-3">
                                     <button
                                         onClick={handleEdit}
-                                        className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-sm font-medium"
+                                        className="px-4 py-2 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors flex items-center gap-2 text-sm font-medium"
                                     >
                                         <Edit size={16} />
                                         <span className="hidden sm:inline">{t('preFlight.actions.edit')}</span>
                                     </button>
                                     <button
                                         onClick={() => setShowTroubleshoot(true)}
-                                        className="p-2 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                        className="p-2 text-neutral-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                                         title={t('preFlight.postSend.troubleshoot.button')}
                                     >
                                         <HelpCircle size={20} />
@@ -660,14 +660,14 @@ const ReportPreview: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6"
                     >
-                        <div className="bg-white/40 dark:bg-gray-800/40 backdrop-blur-md border border-white/20 dark:border-gray-700/50 rounded-2xl p-6 shadow-xl flex items-center justify-between gap-6 transition-all group hover:bg-white/50 dark:hover:bg-gray-800/50">
+                        <div className="bg-white/40 dark:bg-neutral-800/40 backdrop-blur-md border border-white/20 dark:border-neutral-700/50 rounded-2xl p-6 shadow-xl flex items-center justify-between gap-6 transition-all group hover:bg-white/50 dark:hover:bg-neutral-800/50">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 bg-blue-500/10 dark:bg-blue-500/20 rounded-2xl border border-blue-500/20 group-hover:scale-110 transition-transform">
                                     <Check size={24} className="text-blue-600 dark:text-blue-400" />
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">{t('preFlight.reassurance.title')}</h4>
-                                    <p className="text-gray-600 dark:text-gray-400 max-w-2xl text-sm leading-relaxed">{t('preFlight.reassurance.description')}</p>
+                                    <h4 className="text-lg font-bold text-neutral-900 dark:text-white mb-1">{t('preFlight.reassurance.title')}</h4>
+                                    <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl text-sm leading-relaxed">{t('preFlight.reassurance.description')}</p>
                                 </div>
                             </div>
                         </div>
@@ -681,7 +681,7 @@ const ReportPreview: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
                     >
-                        <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20 dark:border-gray-700/50">
+                        <div className="bg-white/60 dark:bg-neutral-800/60 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20 dark:border-neutral-700/50">
                             {/* Stepper integrated in success card */}
                             <div className="flex items-center gap-2 mb-10 px-4 py-2 bg-green-500/10 dark:bg-green-500/20 rounded-full border border-green-500/20 w-fit mx-auto">
                                 <div className="flex items-center gap-1.5 opacity-50">
@@ -702,10 +702,10 @@ const ReportPreview: React.FC = () => {
                                     <Check size={32} className="text-green-600 dark:text-green-400" />
                                 </div>
                                 <div className="flex-1">
-                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                                    <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
                                         {t('preFlight.postSend.title')}
                                     </h2>
-                                    <p className="text-gray-600 dark:text-gray-400 text-lg">
+                                    <p className="text-neutral-600 dark:text-neutral-400 text-lg">
                                         {t('preFlight.postSend.description')}
                                     </p>
                                 </div>
@@ -713,20 +713,20 @@ const ReportPreview: React.FC = () => {
 
                             {/* New Instructions Section */}
                             <div className="mb-10">
-                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                                <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-2">
                                     <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 text-xs">?</span>
                                     {t('preFlight.postSend.instructions.title')}
                                 </h3>
 
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     {[1, 2, 3].map((step) => (
-                                        <div key={step} className="p-4 rounded-2xl bg-white/40 dark:bg-gray-800/40 backdrop-blur-sm border border-white/20 dark:border-gray-700/50 shadow-sm relative overflow-hidden group">
+                                        <div key={step} className="p-4 rounded-2xl bg-white/40 dark:bg-neutral-800/40 backdrop-blur-sm border border-white/20 dark:border-neutral-700/50 shadow-sm relative overflow-hidden group">
                                             <div className="absolute top-0 left-0 w-1 h-full bg-blue-500 opacity-20 group-hover:opacity-100 transition-opacity"></div>
                                             <div className="text-4xl font-black text-blue-500/10 absolute -right-2 -bottom-2 group-hover:scale-110 transition-transform">{step}</div>
-                                            <h4 className="font-bold text-gray-900 dark:text-white mb-1 text-sm">
+                                            <h4 className="font-bold text-neutral-900 dark:text-white mb-1 text-sm">
                                                 {t(`preFlight.postSend.instructions.step${step}.title`)}
                                             </h4>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                                            <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
                                                 {t(`preFlight.postSend.instructions.step${step}.description`)}
                                             </p>
                                         </div>
@@ -735,9 +735,9 @@ const ReportPreview: React.FC = () => {
                             </div>
 
                             {/* Troubleshooting Integrated Section */}
-                            <div className="bg-white/30 dark:bg-gray-900/40 backdrop-blur-md rounded-2xl border border-white/20 dark:border-gray-700/50 p-6 space-y-8">
-                                <div className="flex items-center justify-between border-b border-white/10 dark:border-gray-700/30 pb-4 mb-2">
-                                    <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                            <div className="bg-white/30 dark:bg-neutral-900/40 backdrop-blur-md rounded-2xl border border-white/20 dark:border-neutral-700/50 p-6 space-y-8">
+                                <div className="flex items-center justify-between border-b border-white/10 dark:border-neutral-700/30 pb-4 mb-2">
+                                    <h3 className="text-sm font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-widest flex items-center gap-2">
                                         {t('preFlight.postSend.troubleshoot.fallback')}
                                     </h3>
                                     <div className="flex items-center gap-2">
@@ -748,7 +748,7 @@ const ReportPreview: React.FC = () => {
                                                     navigate(`/app/clients/${reportData.clientId}`);
                                                 }
                                             }}
-                                            className="text-xs font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 whitespace-nowrap"
+                                            className="text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1.5 px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 whitespace-nowrap"
                                         >
                                             <Edit size={14} />
                                             {t('preFlight.postSend.troubleshoot.editEmail')}
@@ -767,7 +767,7 @@ const ReportPreview: React.FC = () => {
                                 <div className="space-y-4">
                                     <button
                                         onClick={handleDownloadPDF}
-                                        className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/50 hover:bg-white/80 dark:hover:bg-gray-700/80 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded-xl transition-all flex items-center justify-center gap-3 text-sm font-bold shadow-sm"
+                                        className="w-full px-4 py-3 bg-white/50 dark:bg-neutral-800/50 hover:bg-white/80 dark:hover:bg-neutral-700/80 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-600 rounded-xl transition-all flex items-center justify-center gap-3 text-sm font-bold shadow-sm"
                                     >
                                         <Download size={18} />
                                         {t('preFlight.actions.downloadPdf')}
@@ -776,7 +776,7 @@ const ReportPreview: React.FC = () => {
 
                                 {/* Client Email */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">
+                                    <label className="block text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-2 uppercase tracking-wide">
                                         {t('preFlight.postSend.recipientLabel')}
                                     </label>
                                     <div className="flex gap-2 group">
@@ -784,11 +784,11 @@ const ReportPreview: React.FC = () => {
                                             type="text"
                                             value={emailData.clientEmail}
                                             readOnly
-                                            className="flex-1 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
+                                            className="flex-1 px-4 py-2.5 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg text-neutral-900 dark:text-white font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
                                         />
                                         <button
                                             onClick={() => handleCopy(emailData.clientEmail, t('preFlight.postSend.recipientLabel'))}
-                                            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all flex items-center gap-2 shadow-sm"
+                                            className="px-4 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all flex items-center gap-2 shadow-sm"
                                         >
                                             <Copy size={18} />
                                         </button>
@@ -797,7 +797,7 @@ const ReportPreview: React.FC = () => {
 
                                 {/* Subject */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">
+                                    <label className="block text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-2 uppercase tracking-wide">
                                         {t('preFlight.postSend.subjectLabel')}
                                     </label>
                                     <div className="flex gap-2 group">
@@ -805,11 +805,11 @@ const ReportPreview: React.FC = () => {
                                             type="text"
                                             value={emailData.subject}
                                             readOnly
-                                            className="flex-1 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
+                                            className="flex-1 px-4 py-2.5 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg text-neutral-900 dark:text-white font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
                                         />
                                         <button
                                             onClick={() => handleCopy(emailData.subject, t('preFlight.postSend.subjectLabel'))}
-                                            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all flex items-center gap-2 shadow-sm"
+                                            className="px-4 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 text-neutral-600 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all flex items-center gap-2 shadow-sm"
                                         >
                                             <Copy size={18} />
                                         </button>
@@ -818,7 +818,7 @@ const ReportPreview: React.FC = () => {
 
                                 {/* Email Body */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">
+                                    <label className="block text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-2 uppercase tracking-wide">
                                         {t('preFlight.postSend.bodyLabel')}
                                     </label>
                                     <div className="relative group">
@@ -826,11 +826,11 @@ const ReportPreview: React.FC = () => {
                                             value={emailData.body}
                                             readOnly
                                             rows={8}
-                                            className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white resize-none font-mono text-sm leading-relaxed focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
+                                            className="w-full px-4 py-3 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg text-neutral-900 dark:text-white resize-none font-mono text-sm leading-relaxed focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
                                         />
                                         <button
                                             onClick={() => handleCopy(emailData.body, t('preFlight.postSend.bodyLabel'))}
-                                            className="absolute top-3 right-3 p-2 bg-white dark:bg-gray-700 border border-2 border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 rounded-md hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-600 transition-all shadow-sm opacity-0 group-hover:opacity-100"
+                                            className="absolute top-3 right-3 p-2 bg-white dark:bg-neutral-700 border border-2 border-neutral-200 dark:border-neutral-600 text-neutral-500 dark:text-neutral-400 rounded-md hover:text-blue-600 dark:hover:text-blue-400 hover:bg-neutral-50 dark:hover:bg-neutral-600 transition-all shadow-sm opacity-0 group-hover:opacity-100"
                                             title={t('preFlight.actions.copy')}
                                         >
                                             <Copy size={16} />
@@ -869,7 +869,7 @@ const ReportPreview: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
                         ref={reportPreviewRef}
-                        className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700/50"
+                        className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl p-8 border border-neutral-100 dark:border-neutral-700/50"
                     >
                         {isTiptapContent(report.content) ? (
                             <TiptapReadOnlyRenderer

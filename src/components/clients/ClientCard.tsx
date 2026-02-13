@@ -87,19 +87,19 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete
                     {/* Configuration Chips */}
                     <div className="flex flex-wrap gap-2 mt-2">
                         {hasTheme && (
-                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-gray-50 dark:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-600">
+                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-neutral-50 dark:bg-neutral-700 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-600">
                                 <Palette size={10} />
                                 <span>{t('card.config.theme', { defaultValue: 'Thème' })}</span>
                             </div>
                         )}
                         {hasTemplate && (
-                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-gray-50 dark:bg-gray-700 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-600">
+                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-neutral-50 dark:bg-neutral-700 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-600">
                                 <Layout size={10} />
                                 <span>{t('card.config.template', { defaultValue: 'Modèle' })}</span>
                             </div>
                         )}
                         {!hasTheme && !hasTemplate && (
-                            <span className="text-xs text-gray-400 italic">{t('card.config.none', { defaultValue: 'Aucune config.' })}</span>
+                            <span className="text-xs text-neutral-400 italic">{t('card.config.none', { defaultValue: 'Aucune config.' })}</span>
                         )}
                     </div>
                 </div>
@@ -108,7 +108,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete
             {/* Footer / Stats Section - Placeholder for now or removed if minimal */}
             {/* <div className="listing-card-footer">
                   <div className="listing-card-stats">
-                       <span className="text-xs text-gray-400">ID: {client.id.slice(0, 8)}...</span>
+                       <span className="text-xs text-neutral-400">ID: {client.id.slice(0, 8)}...</span>
                   </div>
              </div> */}
 
@@ -131,7 +131,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete
                     </button>
 
                     {showMenu && (
-                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 py-1">
+                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 z-50 py-1">
                             <button
                                 onClick={() => handleAction(() => onDelete(client))}
                                 className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"

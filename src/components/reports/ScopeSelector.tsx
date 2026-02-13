@@ -139,24 +139,24 @@ const ScopeSelector: React.FC<ScopeSelectorProps> = ({
     };
 
     return (
-        <div className="scope-selector p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div className="scope-selector p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-xl border border-neutral-200 dark:border-neutral-700">
             <div className="flex items-center gap-2 mb-4">
                 <Target size={18} className="text-blue-600 dark:text-blue-400" />
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+                <h4 className="font-semibold text-neutral-900 dark:text-neutral-100">
                     Portée des données
                 </h4>
             </div>
 
             {/* Scope Type Selector */}
             <div className="space-y-2 mb-4">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
                     Type de portée
                 </label>
                 <div className="relative">
                     <select
                         value={scopeType}
                         onChange={(e) => handleScopeTypeChange(e.target.value as SlideScope['type'])}
-                        className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-gray-900 dark:text-gray-100 appearance-none pr-10"
+                        className="w-full px-4 py-2 bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100 appearance-none pr-10"
                     >
                         {availableScopeTypes.map(type => (
                             <option key={type} value={type}>
@@ -164,9 +164,9 @@ const ScopeSelector: React.FC<ScopeSelectorProps> = ({
                             </option>
                         ))}
                     </select>
-                    <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
                     {SCOPE_DESCRIPTIONS[scopeType]}
                 </p>
             </div>
@@ -174,34 +174,34 @@ const ScopeSelector: React.FC<ScopeSelectorProps> = ({
             {/* Campaign Selector (shown for specific_campaigns and single_campaign) */}
             {(scopeType === 'specific_campaigns' || scopeType === 'single_campaign') && (
                 <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
                         {scopeType === 'single_campaign' ? 'Campagne' : 'Campagnes'}
                     </label>
                     {isLoadingCampaigns ? (
-                        <div className="text-sm text-gray-500 dark:text-gray-400 py-2">
+                        <div className="text-sm text-neutral-500 dark:text-neutral-400 py-2">
                             Chargement des campagnes...
                         </div>
                     ) : campaigns.length === 0 ? (
-                        <div className="text-sm text-gray-500 dark:text-gray-400 py-2">
+                        <div className="text-sm text-neutral-500 dark:text-neutral-400 py-2">
                             Aucune campagne disponible dans ce rapport
                         </div>
                     ) : (
-                        <div className="max-h-48 overflow-y-auto space-y-1 border border-gray-200 dark:border-gray-600 rounded-xl p-2 bg-white dark:bg-gray-700">
+                        <div className="max-h-48 overflow-y-auto space-y-1 border border-neutral-200 dark:border-neutral-600 rounded-xl p-2 bg-white dark:bg-neutral-700">
                             {campaigns.map(campaign => {
                                 const isChecked = value?.campaignIds?.includes(campaign.id) || false;
                                 return (
                                     <label
                                         key={campaign.id}
-                                        className="flex items-center gap-2 p-2 hover:bg-gray-50 dark:hover:bg-gray-600/50 rounded-lg cursor-pointer transition-colors"
+                                        className="flex items-center gap-2 p-2 hover:bg-neutral-50 dark:hover:bg-neutral-600/50 rounded-lg cursor-pointer transition-colors"
                                     >
                                         <input
                                             type={scopeType === 'single_campaign' ? 'radio' : 'checkbox'}
                                             name={scopeType === 'single_campaign' ? 'campaign' : undefined}
                                             checked={isChecked}
                                             onChange={(e) => handleCampaignChange(campaign.id, e.target.checked)}
-                                            className="w-4 h-4 text-blue-600 border-gray-300 dark:border-gray-500 rounded focus:ring-2 focus:ring-blue-500/20"
+                                            className="w-4 h-4 text-blue-600 border-neutral-300 dark:border-neutral-500 rounded focus:ring-2 focus:ring-blue-500/20"
                                         />
-                                        <span className="text-sm text-gray-900 dark:text-gray-100">
+                                        <span className="text-sm text-neutral-900 dark:text-neutral-100">
                                             {campaign.name}
                                         </span>
                                     </label>

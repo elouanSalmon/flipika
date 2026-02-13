@@ -33,7 +33,7 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ data, loading = false }) 
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 h-80 flex items-center justify-center">
+            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-80 flex items-center justify-center">
                 <Spinner size={32} />
             </div>
         );
@@ -41,8 +41,8 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ data, loading = false }) 
 
     if (!data || data.length === 0) {
         return (
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 h-80 flex items-center justify-center">
-                <div className="text-gray-400">Aucune donnée disponible</div>
+            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-80 flex items-center justify-center">
+                <div className="text-neutral-400">Aucune donnée disponible</div>
             </div>
         );
     }
@@ -57,8 +57,8 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ data, loading = false }) 
     });
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-bold mb-6 dark:text-gray-100">Évolution des dépenses</h3>
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+            <h3 className="text-lg font-bold mb-6 dark:text-neutral-100">Évolution des dépenses</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />

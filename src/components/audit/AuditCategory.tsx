@@ -45,10 +45,10 @@ const AuditCategory: React.FC<AuditCategoryProps> = ({
     };
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 overflow-hidden">
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 overflow-hidden">
             <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="w-full p-6 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors"
+                className="w-full p-6 flex items-center justify-between hover:bg-neutral-50 dark:hover:bg-neutral-700/30 transition-colors"
             >
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-3">
@@ -58,7 +58,7 @@ const AuditCategory: React.FC<AuditCategoryProps> = ({
                     <span className={`text-2xl font-bold ${getScoreColor(score)}`}>{score}/100</span>
                 </div>
                 <div className="flex items-center gap-4">
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-neutral-500">
                         {categoryData.recommendations.length} recommandation{categoryData.recommendations.length > 1 ? 's' : ''}
                     </span>
                     {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
@@ -66,7 +66,7 @@ const AuditCategory: React.FC<AuditCategoryProps> = ({
             </button>
 
             {isExpanded && categoryData.recommendations.length > 0 && (
-                <div className="border-t border-gray-100 dark:border-gray-700 p-6 space-y-4 bg-gray-50 dark:bg-gray-700/20">
+                <div className="border-t border-neutral-100 dark:border-neutral-700 p-6 space-y-4 bg-neutral-50 dark:bg-neutral-700/20">
                     {categoryData.recommendations.map(rec => (
                         <RecommendationCard
                             key={rec.id}
@@ -79,7 +79,7 @@ const AuditCategory: React.FC<AuditCategoryProps> = ({
             )}
 
             {isExpanded && categoryData.recommendations.length === 0 && (
-                <div className="border-t border-gray-100 dark:border-gray-700 p-6 text-center text-gray-500">
+                <div className="border-t border-neutral-100 dark:border-neutral-700 p-6 text-center text-neutral-500">
                     <p>Aucune recommandation pour cette catégorie. Excellent travail ! 🎉</p>
                 </div>
             )}

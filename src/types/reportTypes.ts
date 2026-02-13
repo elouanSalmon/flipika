@@ -201,11 +201,11 @@ export interface ReportTemplate {
 export const defaultReportDesign: ReportDesign = {
     mode: 'light',
     colorScheme: {
-        primary: '#0066ff',
-        secondary: '#3385ff',
+        primary: '#1963d5',
+        secondary: '#61abf7',
         accent: '#00d4ff',
         background: '#ffffff',
-        text: '#0f172a',
+        text: '#141415',
     },
     typography: {
         fontFamily: 'Inter, sans-serif',

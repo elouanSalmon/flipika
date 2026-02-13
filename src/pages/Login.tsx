@@ -50,22 +50,22 @@ const Login = () => {
 
   // Mock data for the "Wall of Cards" on the right - STRICT PRIMARY BLUE THEME
   const mockCards = [
-    { title: "Rapport Mensuel", subtitle: "Google Ads • Octobre", icon: <BarChart3 size={20} />, color: "bg-[#0066FF]" },
-    { title: "Audit Performance", subtitle: "Analyse IA", icon: <Zap size={20} />, color: "bg-[#0066FF]" },
-    { title: "Note Stratégique", subtitle: "Q4 2025", icon: <FileText size={20} />, color: "bg-[#0066FF]" },
-    { title: "Campagne Black Friday", subtitle: "Conversion +15%", icon: <Sparkles size={20} />, color: "bg-[#0066FF]" },
-    { title: "Review Hebdomadaire", subtitle: "Client: Nike", icon: <BarChart3 size={20} />, color: "bg-[#0066FF]" },
-    { title: "Opportunités IA", subtitle: "Recommandations", icon: <Zap size={20} />, color: "bg-[#0066FF]" },
+    { title: "Rapport Mensuel", subtitle: "Google Ads • Octobre", icon: <BarChart3 size={20} />, color: "bg-[#1963D5]" },
+    { title: "Audit Performance", subtitle: "Analyse IA", icon: <Zap size={20} />, color: "bg-[#1963D5]" },
+    { title: "Note Stratégique", subtitle: "Q4 2025", icon: <FileText size={20} />, color: "bg-[#1963D5]" },
+    { title: "Campagne Black Friday", subtitle: "Conversion +15%", icon: <Sparkles size={20} />, color: "bg-[#1963D5]" },
+    { title: "Review Hebdomadaire", subtitle: "Client: Nike", icon: <BarChart3 size={20} />, color: "bg-[#1963D5]" },
+    { title: "Opportunités IA", subtitle: "Recommandations", icon: <Zap size={20} />, color: "bg-[#1963D5]" },
   ];
 
   const benefits = [
-    { text: t('auth.benefits.reports'), icon: <Zap size={18} className="text-[#0066FF]" /> },
-    { text: t('auth.benefits.ai'), icon: <Sparkles size={18} className="text-[#0066FF]" /> },
-    { text: t('auth.benefits.security'), icon: <Shield size={18} className="text-[#0066FF]" /> },
+    { text: t('auth.benefits.reports'), icon: <Zap size={18} className="text-[#1963D5]" /> },
+    { text: t('auth.benefits.ai'), icon: <Sparkles size={18} className="text-[#1963D5]" /> },
+    { text: t('auth.benefits.security'), icon: <Shield size={18} className="text-[#1963D5]" /> },
   ];
 
   return (
-    <div className="flex flex-col bg-white dark:bg-slate-900 font-sans">
+    <div className="flex flex-col bg-white dark:bg-neutral-900 font-sans">
       <SEO
         title={tSeo('login.title')}
         description={tSeo('login.description')}
@@ -76,7 +76,7 @@ const Login = () => {
       <div className="min-h-screen w-full flex relative">
 
         {/* LEFT COLUMN - LOGIN */}
-        <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-between p-8 lg:p-12 xl:p-16 relative z-10 bg-gradient-to-br from-blue-50/50 via-white to-blue-50/30 dark:from-slate-900 dark:to-slate-800 border-r border-slate-100 dark:border-slate-800">
+        <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-between p-8 lg:p-12 xl:p-16 relative z-10 bg-gradient-to-br from-blue-50/50 via-white to-blue-50/30 dark:from-neutral-900 dark:to-neutral-800 border-r border-neutral-100 dark:border-neutral-800">
 
           {/* Minimal Header - Logo + Language */}
           <div className="flex items-center justify-between w-full mb-8">
@@ -88,10 +88,10 @@ const Login = () => {
           <div className="flex flex-col max-w-sm w-full mx-auto space-y-8 relative z-20 flex-1 justify-center">
 
             <div className="space-y-3">
-              <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+              <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
                 {t('auth.login.title')}
               </h1>
-              <p className="text-slate-500 dark:text-slate-400 text-lg">
+              <p className="text-neutral-500 dark:text-neutral-400 text-lg">
                 {t('auth.login.subtitle')} <br className="hidden lg:block" />
                 <span className="text-blue-600 font-medium">{t('auth.login.subtitle2')}</span>
               </p>
@@ -101,7 +101,7 @@ const Login = () => {
               <button
                 onClick={handleLogin}
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-[#0066FF] hover:bg-[#0052cc] text-white font-medium transition-all duration-200 shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group"
+                className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-[#1963D5] hover:bg-[#0741e0] text-white font-medium transition-all duration-200 shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group"
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -128,16 +128,16 @@ const Login = () => {
               )}
 
               <div className="flex items-center gap-4 py-4">
-                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700"></div>
-                <span className="text-sm text-slate-500 dark:text-slate-400">{t('auth.benefits.title')}</span>
-                <div className="h-px flex-1 bg-slate-200 dark:bg-slate-700"></div>
+                <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-700"></div>
+                <span className="text-sm text-neutral-500 dark:text-neutral-400">{t('auth.benefits.title')}</span>
+                <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-700"></div>
               </div>
 
               {/* Reassurance/Benefits */}
               <div className="space-y-4 pt-2">
                 {benefits.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 text-slate-600 dark:text-slate-300">
-                    <div className="shrink-0 w-8 h-8 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center border border-slate-100 dark:border-slate-700 shadow-sm">
+                  <div key={idx} className="flex items-center gap-3 text-neutral-600 dark:text-neutral-300">
+                    <div className="shrink-0 w-8 h-8 rounded-full bg-white dark:bg-neutral-800 flex items-center justify-center border border-neutral-100 dark:border-neutral-700 shadow-sm">
                       {item.icon}
                     </div>
                     <span className="text-sm font-medium">{item.text}</span>
@@ -149,7 +149,7 @@ const Login = () => {
           </div>
 
           {/* Reassurance text (Footer handled by PublicLayout) */}
-          <div className="text-xs text-slate-400 dark:text-slate-400 relative z-20 mt-8">
+          <div className="text-xs text-neutral-400 dark:text-neutral-400 relative z-20 mt-8">
             {t('auth.footer.rights')}
           </div>
         </div>
@@ -182,18 +182,18 @@ const Login = () => {
                   initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + (idx * 0.1), duration: 0.8, ease: "easeOut" }}
-                  className="p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] dark:shadow-none border border-slate-200/60 dark:border-slate-800 flex flex-col gap-6 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-500 will-change-transform"
+                  className="p-6 bg-white dark:bg-neutral-900 rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] dark:shadow-none border border-neutral-200/60 dark:border-neutral-800 flex flex-col gap-6 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-500 will-change-transform"
                 >
                   {/* Fake Image Content */}
-                  <div className="h-40 w-full bg-slate-50 dark:bg-slate-800 rounded-2xl overflow-hidden relative group border border-slate-100 dark:border-slate-700/50">
+                  <div className="h-40 w-full bg-neutral-50 dark:bg-neutral-800 rounded-2xl overflow-hidden relative group border border-neutral-100 dark:border-neutral-700/50">
                     <div className={`absolute top-4 left-4 w-10 h-10 rounded-xl ${card.color} text-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 duration-300`}>
                       {card.icon}
                     </div>
 
                     {/* Abstract UI content */}
                     <div className="absolute top-20 left-4 right-4 space-y-3 opacity-60">
-                      <div className="h-2 w-3/4 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
-                      <div className="h-2 w-1/2 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+                      <div className="h-2 w-3/4 bg-neutral-200 dark:bg-neutral-700 rounded-full"></div>
+                      <div className="h-2 w-1/2 bg-neutral-200 dark:bg-neutral-700 rounded-full"></div>
                       <div className="flex gap-2 mt-4">
                         <div className="h-12 w-1/3 bg-blue-100/50 dark:bg-blue-900/20 rounded-lg"></div>
                         <div className="h-12 w-1/3 bg-indigo-100/50 dark:bg-indigo-900/20 rounded-lg"></div>
@@ -203,9 +203,9 @@ const Login = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="font-bold text-lg text-slate-900 dark:text-white leading-tight">{card.title}</h3>
+                    <h3 className="font-bold text-lg text-neutral-900 dark:text-white leading-tight">{card.title}</h3>
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-slate-500">{card.subtitle}</p>
+                      <p className="text-sm font-medium text-neutral-500">{card.subtitle}</p>
                       <div className="text-xs font-semibold px-2 py-1 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">Success</div>
                     </div>
                   </div>

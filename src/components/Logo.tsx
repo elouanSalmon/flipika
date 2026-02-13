@@ -52,7 +52,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', onClick, scale = 1.0
                     background: 'none',
                     WebkitTextFillColor: 'initial',
                     backgroundClip: 'border-box',
-                    fontFamily: "'Space Grotesk', 'Inter', sans-serif"
+                    fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif"
                 }}>Flipika</span>
                 <span className="logo-subtitle" style={{
                     fontSize: '0.75rem',

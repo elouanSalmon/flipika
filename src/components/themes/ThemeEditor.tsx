@@ -98,11 +98,11 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                 newBackground = '#ffffff';
             }
             if (!isColorDark(design.colorScheme.text)) {
-                newText = '#0f172a';
+                newText = '#141415';
             }
         } else {
             if (!isColorDark(design.colorScheme.background)) {
-                newBackground = '#0f172a';
+                newBackground = '#141415';
             }
             if (isColorDark(design.colorScheme.text)) {
                 newText = '#f1f5f9';

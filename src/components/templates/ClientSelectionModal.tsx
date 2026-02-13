@@ -98,7 +98,7 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="relative w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700"
+                        className="relative w-full max-w-md bg-white dark:bg-neutral-800 rounded-2xl shadow-xl overflow-hidden border border-neutral-100 dark:border-neutral-700"
                     >
                         <div className="p-6">
                             <div className="flex items-start gap-4">
@@ -107,16 +107,16 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
                                 </div>
 
                                 <div className="flex-1">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
                                         {title || t('clientSelector.title', { defaultValue: 'Sélectionner un client' })}
                                     </h3>
-                                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 whitespace-pre-line">
+                                    <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400 whitespace-pre-line">
                                         {message || t('clientSelector.message', { defaultValue: 'Veuillez sélectionner le client pour qui créer ce rapport.' })}
                                     </p>
 
                                     <div className="mt-4">
                                         {loadingClients ? (
-                                            <div className="flex items-center gap-2 text-sm text-gray-500 py-2">
+                                            <div className="flex items-center gap-2 text-sm text-neutral-500 py-2">
                                                 <Loader2 size={16} className="animate-spin" />
                                                 <span>Chargement des clients...</span>
                                             </div>
@@ -125,7 +125,7 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
                                                 <select
                                                     value={selectedClientId}
                                                     onChange={(e) => setSelectedClientId(e.target.value)}
-                                                    className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-gray-900 dark:text-gray-100"
+                                                    className="w-full px-4 py-2 bg-neutral-50 dark:bg-neutral-700/50 border border-neutral-200 dark:border-neutral-600 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100"
                                                     disabled={isLoading}
                                                 >
                                                     <option value="">{t('clientSelector.placeholder', { defaultValue: 'Choisir un client...' })}</option>
@@ -150,7 +150,7 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
                                 <button
                                     onClick={onClose}
                                     disabled={isLoading}
-                                    className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="text-neutral-400 hover:text-neutral-500 dark:hover:text-neutral-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <X size={20} />
                                 </button>
@@ -160,7 +160,7 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
                                 <button
                                     onClick={onClose}
                                     disabled={isLoading}
-                                    className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {cancelLabel || t('common.cancel', { defaultValue: 'Annuler' })}
                                 </button>

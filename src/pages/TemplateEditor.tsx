@@ -409,12 +409,12 @@ const TemplateEditor: React.FC = () => {
             {/* Theme Manager Modal */}
             {showThemeManager && (
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+                    <div className="relative bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
                         <div className="p-6">
                             <ThemeManager clients={clients} />
                             <button
                                 onClick={() => setShowThemeManager(false)}
-                                className="mt-6 w-full px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                                className="mt-6 w-full px-4 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-white rounded-xl font-medium hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors"
                             >
                                 {t('editor.close')}
                             </button>

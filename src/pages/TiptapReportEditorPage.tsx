@@ -548,7 +548,7 @@ const TiptapReportEditorPage: React.FC = () => {
 
     if (isLoading) {
         return (
-            <div className="flex items-center justify-center h-screen bg-gray-50 dark:bg-gray-900">
+            <div className="flex items-center justify-center h-screen bg-neutral-50 dark:bg-neutral-900">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
             </div>
         );
@@ -592,7 +592,7 @@ const TiptapReportEditorPage: React.FC = () => {
                         <AutoSaveIndicator status={autoSaveStatus} lastSaved={lastSaved} />
                     </div>
 
-                    <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
+                    <div className="h-6 w-px bg-neutral-200 dark:bg-neutral-700 mx-2 hidden sm:block"></div>
 
                     {/* Presentation Mode Button */}
 
@@ -611,7 +611,7 @@ const TiptapReportEditorPage: React.FC = () => {
 
 
 
-                    <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
+                    <div className="h-6 w-px bg-neutral-200 dark:bg-neutral-700 mx-2 hidden sm:block"></div>
 
                     {/* Presentation Mode Button */}
                     <button

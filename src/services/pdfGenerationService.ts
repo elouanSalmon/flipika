@@ -272,7 +272,7 @@ class PDFGenerationService {
             }
             .pdf-overlay-title {
                 font-size: 24px;
-                font-family: 'Inter', sans-serif;
+                font-family: 'DM Sans', sans-serif;
                 font-weight: 700;
                 margin: 0 0 8px 0;
                 background: var(--gradient-primary);

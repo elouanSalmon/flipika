@@ -125,10 +125,10 @@ const Features: React.FC = () => {
           transition={{ duration: 0.7, ease: "easeOut" as const }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white mb-5 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white mb-5 tracking-tight">
             {t('common:features.title')}
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+          <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
             {t('common:features.subtitle')}
           </p>
         </motion.div>
@@ -170,13 +170,13 @@ const Features: React.FC = () => {
 
               {/* Content */}
               <div className="flex-1 flex flex-col gap-3">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-primary transition-colors duration-300">
                   {solution.title}
                 </h3>
                 <h4 className="text-sm font-semibold text-primary">
                   {solution.subtitle}
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                   {solution.description}
                 </p>
 
@@ -185,7 +185,7 @@ const Features: React.FC = () => {
                   {solution.benefits.map((benefit, idx) => (
                     <motion.div
                       key={idx}
-                      className="flex items-center gap-2.5 text-sm text-gray-600 dark:text-gray-400"
+                      className="flex items-center gap-2.5 text-sm text-neutral-600 dark:text-neutral-400"
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 * idx }}

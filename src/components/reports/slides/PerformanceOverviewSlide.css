@@ -40,7 +40,7 @@
 .widget-header h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--color-text-primary, #0f172a);
+    color: var(--color-text-primary, #141415);
     margin: 0;
 }
 
@@ -109,7 +109,7 @@
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, var(--color-primary, #0066ff), var(--color-accent, #00d4ff));
+    background: linear-gradient(90deg, var(--color-primary, #1963d5), var(--color-accent, #00d4ff));
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -128,7 +128,7 @@
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+    background: linear-gradient(135deg, #1963d5 0%, #0741e0 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -184,7 +184,7 @@
     align-items: center;
     justify-content: center;
     padding: 60px 20px;
-    color: var(--color-text-secondary, #64748b);
+    color: var(--color-text-secondary, #6b6e77);
     font-size: 1rem;
 }
 
@@ -229,7 +229,7 @@
 }
 
 [data-theme="dark"] .widget-metric-label {
-    color: var(--color-secondary, #94a3b8);
+    color: var(--color-secondary, #8e9199);
 }
 
 [data-theme="dark"] .widget-metric-value {

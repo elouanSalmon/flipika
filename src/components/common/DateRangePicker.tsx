@@ -71,9 +71,9 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ value, onChange }) =>
     };
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-4">
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-4">
             <div className="flex items-center gap-2 mb-4">
-                <Calendar size={18} className="text-gray-500" />
+                <Calendar size={18} className="text-neutral-500" />
                 <h3 className="font-semibold text-sm">Période</h3>
             </div>
 
@@ -86,7 +86,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ value, onChange }) =>
                             onClick={() => handlePresetClick(preset.value)}
                             className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${value.preset === preset.value
                                     ? 'bg-blue-600 text-white'
-                                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
                                 }`}
                         >
                             {preset.label}
@@ -96,27 +96,27 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ value, onChange }) =>
 
                 {/* Custom date inputs */}
                 {value.preset === 'custom' && (
-                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-gray-600">
+                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-neutral-200 dark:border-neutral-600">
                         <div>
-                            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                            <label className="block text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-1">
                                 Date de début
                             </label>
                             <input
                                 type="date"
                                 value={value.start.toISOString().split('T')[0]}
                                 onChange={(e) => handleDateChange('start', e.target.value)}
-                                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
                         <div>
-                            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                            <label className="block text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-1">
                                 Date de fin
                             </label>
                             <input
                                 type="date"
                                 value={value.end.toISOString().split('T')[0]}
                                 onChange={(e) => handleDateChange('end', e.target.value)}
-                                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
                     </div>

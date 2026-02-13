@@ -14,11 +14,11 @@ export const defaultThemePresets: ThemePreset[] = [
         design: {
             ...defaultReportDesign,
             colorScheme: {
-                primary: '#0066ff',
+                primary: '#1963d5',
                 secondary: '#2563eb',
                 accent: '#0369a1',    // Darkened to Sky 700 (> 4.5:1 on white)
                 background: '#ffffff',
-                text: '#0f172a',
+                text: '#141415',
             },
         },
         defaultModules: {
@@ -39,7 +39,7 @@ export const defaultThemePresets: ThemePreset[] = [
                 primary: '#a78bfa',
                 secondary: '#c4b5fd',
                 accent: '#ddd6fe',
-                background: '#0f172a',
+                background: '#141415',
                 text: '#f1f5f9',
             },
             typography: {

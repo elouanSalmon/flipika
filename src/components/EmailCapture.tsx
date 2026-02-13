@@ -120,11 +120,11 @@ const EmailCapture: React.FC = () => {
               <Mail size={28} className="text-primary" />
             </div>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white mb-4 tracking-tight">
               {t('common:emailCapture.title')}
             </h2>
 
-            <p className="text-gray-600 dark:text-gray-400 max-w-lg mx-auto leading-relaxed">
+            <p className="text-neutral-600 dark:text-neutral-400 max-w-lg mx-auto leading-relaxed">
               {t('common:emailCapture.subtitle')}
             </p>
           </div>
@@ -139,7 +139,7 @@ const EmailCapture: React.FC = () => {
                   placeholder={t('common:emailCapture.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-gray-700/50 border-2 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-0 focus:border-primary focus:bg-white dark:focus:bg-gray-700/70 focus:shadow-lg focus:shadow-primary/10 ${status === 'error' ? 'border-primary' : 'border-gray-200/50 dark:border-gray-600/50'
+                  className={`w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-neutral-700/50 border-2 rounded-2xl text-neutral-900 dark:text-white placeholder-neutral-400 transition-all duration-300 focus:outline-none focus:ring-0 focus:border-primary focus:bg-white dark:focus:bg-neutral-700/70 focus:shadow-lg focus:shadow-primary/10 ${status === 'error' ? 'border-primary' : 'border-neutral-200/50 dark:border-neutral-600/50'
                     }`}
                   disabled={isSubmitting}
                 />
@@ -187,7 +187,7 @@ const EmailCapture: React.FC = () => {
           {/* Benefits */}
           <div className="flex flex-wrap justify-center gap-6 mb-8">
             {['freeBeta', 'prioritySupport', 'influence'].map((key) => (
-              <div key={key} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <div key={key} className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
                 <CheckCircle size={16} className="text-primary flex-shrink-0" />
                 <span>{t(`common:emailCapture.benefits.${key}`)}</span>
               </div>
@@ -205,7 +205,7 @@ const EmailCapture: React.FC = () => {
                 <span className="text-2xl font-extrabold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
                   {stat.value}
                 </span>
-                <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                <span className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">
                   {stat.label}
                 </span>
               </div>

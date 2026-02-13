@@ -68,18 +68,18 @@ LIMIT 10`);
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                    <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <div className="bg-white p-4 rounded-lg shadow border border-neutral-200">
+                        <label className="block text-sm font-medium text-neutral-700 mb-2">
                             GAQL Query
                         </label>
                         <textarea
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            className="w-full h-96 font-mono text-sm p-4 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500 bg-gray-50 text-gray-800"
+                            className="w-full h-96 font-mono text-sm p-4 border border-neutral-300 rounded focus:ring-blue-500 focus:border-blue-500 bg-neutral-50 text-neutral-800"
                             placeholder="SELECT ..."
                         />
                         <div className="mt-4 flex justify-between items-center">
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-neutral-500">
                                 Customer ID: {customerId || 'Not Selected'}
                             </span>
                             <button
@@ -97,8 +97,8 @@ LIMIT 10`);
                         </div>
                     </div>
 
-                    <div className="bg-white p-4 rounded-lg shadow border border-gray-200">
-                        <h3 className="text-sm font-medium text-gray-700 mb-2">Useful Snippets</h3>
+                    <div className="bg-white p-4 rounded-lg shadow border border-neutral-200">
+                        <h3 className="text-sm font-medium text-neutral-700 mb-2">Useful Snippets</h3>
                         <div className="space-y-2 text-xs">
                             <button onClick={() => setQuery(`SELECT campaign.id, campaign.name, metrics.clicks FROM campaign LIMIT 5`)} className="block text-blue-600 hover:underline">
                                 Get Campaigns
@@ -113,14 +113,14 @@ LIMIT 10`);
                     </div>
                 </div>
 
-                <div className="bg-gray-900 rounded-lg shadow overflow-hidden flex flex-col h-[600px]">
-                    <div className="bg-gray-800 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
-                        <span className="text-gray-300 text-sm font-mono flex items-center">
+                <div className="bg-neutral-900 rounded-lg shadow overflow-hidden flex flex-col h-[600px]">
+                    <div className="bg-neutral-800 px-4 py-2 border-b border-neutral-700 flex justify-between items-center">
+                        <span className="text-neutral-300 text-sm font-mono flex items-center">
                             <FileJson className="h-4 w-4 mr-2" />
                             Results
                         </span>
                         {results && (
-                            <span className="text-gray-400 text-xs">
+                            <span className="text-neutral-400 text-xs">
                                 {results.length} rows
                             </span>
                         )}
@@ -136,7 +136,7 @@ LIMIT 10`);
                                 {JSON.stringify(results, null, 2)}
                             </pre>
                         ) : (
-                            <div className="text-gray-500 font-mono text-sm italic">
+                            <div className="text-neutral-500 font-mono text-sm italic">
                                 Run a query to see results...
                             </div>
                         )}

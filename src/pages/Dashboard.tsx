@@ -138,13 +138,13 @@ const Dashboard = () => {
 
     if (step === 'CONNECT') {
         return (
-            <div className="flex flex-col items-center justify-center text-center space-y-8 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-12">
+            <div className="flex flex-col items-center justify-center text-center space-y-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-100 dark:border-neutral-700 shadow-sm p-12">
                 <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-full">
                     <BarChart3 size={48} className="text-blue-600" />
                 </div>
                 <div className="max-w-md space-y-3">
                     <h2 className="text-2xl font-bold">{t('connect.title')}</h2>
-                    <p className="text-gray-500">{t('connect.description')}</p>
+                    <p className="text-neutral-500">{t('connect.description')}</p>
                 </div>
 
                 {error && <ErrorCard title={t('errors.connection')} message={error} />}
@@ -162,7 +162,7 @@ const Dashboard = () => {
             <div className="max-w-md mx-auto space-y-8">
                 <div className="space-y-3">
                     <h2 className="text-2xl font-bold text-center">{t('accountSelector.title')}</h2>
-                    <p className="text-gray-500 text-center text-sm">{t('accountSelector.description')}</p>
+                    <p className="text-neutral-500 text-center text-sm">{t('accountSelector.description')}</p>
                 </div>
 
                 {error && <ErrorCard message={error} />}
@@ -191,10 +191,10 @@ const Dashboard = () => {
     // DASHBOARD VIEW
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
+            <div className="flex justify-between items-center bg-white dark:bg-neutral-800 p-6 rounded-2xl border border-neutral-100 dark:border-neutral-700 shadow-sm">
                 <div className="space-y-1">
                     <h1 className="text-2xl font-bold">{t('campaigns.title')}</h1>
-                    <p className="text-gray-500 text-sm">{t('accountSelector.accountLabel', { name: accounts.find(a => a.id === customerId)?.name || customerId })}</p>
+                    <p className="text-neutral-500 text-sm">{t('accountSelector.accountLabel', { name: accounts.find(a => a.id === customerId)?.name || customerId })}</p>
                 </div>
                 <div className="flex gap-3">
                     <button onClick={() => loadCampaigns()} className="btn btn-ghost" title={t('campaigns.refresh')}>
@@ -208,10 +208,10 @@ const Dashboard = () => {
 
             {error && <ErrorCard message={error} />}
 
-            <div className="card overflow-hidden bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700">
+            <div className="card overflow-hidden bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700">
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-50 dark:bg-gray-700/50 text-left text-xs uppercase tracking-wider text-gray-500">
+                        <thead className="bg-neutral-50 dark:bg-neutral-700/50 text-left text-xs uppercase tracking-wider text-neutral-500">
                             <tr>
                                 <th className="p-4">{t('table.headers.name')}</th>
                                 <th className="p-4">{t('table.headers.status')}</th>
@@ -223,12 +223,12 @@ const Dashboard = () => {
                                 <th className="p-4 text-right">{t('table.headers.averageCpc')}</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                        <tbody className="divide-y divide-neutral-100 dark:divide-neutral-700">
                             {campaigns.length > 0 ? campaigns.map((c) => (
-                                <tr key={c.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
+                                <tr key={c.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-700/30 transition-colors">
                                     <td className="p-4 font-medium">{c.name}</td>
                                     <td className="p-4"><span className={`badge badge-sm ${c.status === 'ENABLED' ? 'badge-success' : 'badge-ghost'}`}>{c.status}</span></td>
-                                    <td className="p-4 text-xs text-gray-500">{c.type || t('table.unknown')}</td>
+                                    <td className="p-4 text-xs text-neutral-500">{c.type || t('table.unknown')}</td>
                                     <td className="p-4 text-right font-medium">{c.cost ? c.cost.toFixed(2) + ' €' : '-'}</td>
                                     <td className="p-4 text-right">{c.impressions?.toLocaleString() || '-'}</td>
                                     <td className="p-4 text-right">{c.clicks?.toLocaleString() || '-'}</td>
@@ -236,7 +236,7 @@ const Dashboard = () => {
                                     <td className="p-4 text-right">{c.averageCpc ? c.averageCpc.toFixed(2) + ' €' : '-'}</td>
                                 </tr>
                             )) : (
-                                <tr><td colSpan={8} className="p-8 text-center text-gray-500">{t('campaigns.noCampaigns')}</td></tr>
+                                <tr><td colSpan={8} className="p-8 text-center text-neutral-500">{t('campaigns.noCampaigns')}</td></tr>
                             )}
                         </tbody>
                     </table>

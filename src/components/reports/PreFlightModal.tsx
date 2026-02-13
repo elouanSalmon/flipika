@@ -109,13 +109,13 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
                         }}
                     >
                         {/* Header */}
-                        <div className="p-6 border-b border-gray-100 dark:border-gray-800">
+                        <div className="p-6 border-b border-neutral-100 dark:border-neutral-800">
                             <div className="flex items-start justify-between">
                                 <div>
                                     <h2 className="text-2xl font-bold gradient-text">
                                         {t('preFlight.title')}
                                     </h2>
-                                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                    <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
                                         {state.status === 'success'
                                             ? `${state.report.title} • ${formatDate(state.report.startDate)} - ${formatDate(state.report.endDate)}`
                                             : t('preFlight.loading.subtitle')
@@ -124,7 +124,7 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
                                 </div>
                                 <button
                                     onClick={onClose}
-                                    className="p-2 text-gray-400 hover:text-gray-500 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                    className="p-2 text-neutral-400 hover:text-neutral-500 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                                 >
                                     <X size={20} />
                                 </button>
@@ -137,10 +137,10 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
                             {state.status === 'loading' && (
                                 <div className="flex flex-col items-center justify-center py-12">
                                     <Loader2 size={48} className="animate-spin text-blue-600 dark:text-blue-400 mb-4" />
-                                    <p className="text-lg font-medium text-gray-900 dark:text-white">
+                                    <p className="text-lg font-medium text-neutral-900 dark:text-white">
                                         {t('preFlight.loading.title')}
                                     </p>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                                    <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
                                         {t('preFlight.loading.subtitle')}
                                     </p>
                                 </div>
@@ -152,10 +152,10 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
                                     <div className="p-4 rounded-full bg-red-50 dark:bg-red-900/20 mb-4">
                                         <AlertCircle size={48} className="text-red-600 dark:text-red-400" />
                                     </div>
-                                    <p className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                                    <p className="text-lg font-medium text-neutral-900 dark:text-white mb-2">
                                         {t('preFlight.error.title')}
                                     </p>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-md">
+                                    <p className="text-sm text-neutral-500 dark:text-neutral-400 text-center max-w-md">
                                         {state.error}
                                     </p>
                                     <button
@@ -183,7 +183,7 @@ const PreFlightModal: React.FC<PreFlightModalProps> = ({
                         </div>
 
                         {/* Footer Actions */}
-                        <div className="p-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-3">
+                        <div className="p-6 border-t border-neutral-100 dark:border-neutral-800 flex justify-end gap-3">
                             <button
                                 onClick={onClose}
                                 className="btn btn-outline"

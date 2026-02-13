@@ -90,7 +90,7 @@ export default function ClientsPage() {
                     <button
                         className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'grid'
                             ? 'bg-primary text-white border-primary'
-                            : 'bg-white dark:bg-gray-800 text-gray-500 border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary'
+                            : 'bg-white dark:bg-neutral-800 text-neutral-500 border-neutral-200 dark:border-neutral-700 hover:border-primary hover:text-primary'
                             }`}
                         onClick={() => setViewMode('grid')}
                         title={t('gridView', { defaultValue: 'Vue grille' })}
@@ -100,7 +100,7 @@ export default function ClientsPage() {
                     <button
                         className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'list'
                             ? 'bg-primary text-white border-primary'
-                            : 'bg-white dark:bg-gray-800 text-gray-500 border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary'
+                            : 'bg-white dark:bg-neutral-800 text-neutral-500 border-neutral-200 dark:border-neutral-700 hover:border-primary hover:text-primary'
                             }`}
                         onClick={() => setViewMode('list')}
                         title={t('listView', { defaultValue: 'Vue liste' })}

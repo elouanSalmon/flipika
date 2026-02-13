@@ -51,7 +51,7 @@ export default function SubscriptionCard() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
-                className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
+                className="bg-white/50 dark:bg-neutral-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
             >
                 <div className="flex items-center justify-center py-8">
                     <Loader2 className="w-6 h-6 animate-spin text-primary" />
@@ -67,18 +67,18 @@ export default function SubscriptionCard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.2 }}
-            className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
+            className="bg-white/50 dark:bg-neutral-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
         >
             <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
                     <div>
-                        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                        <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
                             <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                                 <CreditCard size={20} className="text-primary dark:text-primary-light" />
                             </div>
                             {t('subscription.title')}
                         </h2>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
                             {t('subscription.description')}
                         </p>
                     </div>
@@ -89,7 +89,7 @@ export default function SubscriptionCard() {
                                 ? 'bg-blue-100 text-primary-dark dark:bg-blue-900/30 dark:text-primary-light'
                                 : isActive
                                     ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                                    : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-400'
+                                    : 'bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-400'
                             }`}>
                             {subscription?.cancelAtPeriodEnd ? (
                                 <>
@@ -143,27 +143,27 @@ export default function SubscriptionCard() {
                             <div className="flex items-start space-x-3">
                                 <Users className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
-                                    <p className="text-xs text-gray-600 dark:text-gray-400">{t('subscription.info.seats')}</p>
-                                    <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{subscription.currentSeats}</p>
+                                    <p className="text-xs text-neutral-600 dark:text-neutral-400">{t('subscription.info.seats')}</p>
+                                    <p className="text-lg font-bold text-neutral-900 dark:text-neutral-100">{subscription.currentSeats}</p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-3">
                                 <CreditCard className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
-                                    <p className="text-xs text-gray-600 dark:text-gray-400">{t('subscription.info.monthlyAmount')}</p>
-                                    <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{totalMonthly} €</p>
-                                    <p className="text-xs text-gray-600 dark:text-gray-400">{PRICE_PER_SEAT}€ × {subscription.currentSeats}</p>
+                                    <p className="text-xs text-neutral-600 dark:text-neutral-400">{t('subscription.info.monthlyAmount')}</p>
+                                    <p className="text-lg font-bold text-neutral-900 dark:text-neutral-100">{totalMonthly} €</p>
+                                    <p className="text-xs text-neutral-600 dark:text-neutral-400">{PRICE_PER_SEAT}€ × {subscription.currentSeats}</p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-3">
                                 <Calendar className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
-                                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                                    <p className="text-xs text-neutral-600 dark:text-neutral-400">
                                         {subscription.status === 'trialing' ? t('subscription.info.trialEnd') : t('subscription.info.nextPayment')}
                                     </p>
-                                    <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                    <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
                                         {subscription.status === 'trialing' && subscription.trialEndsAt
                                             ? new Date(subscription.trialEndsAt).toLocaleDateString('fr-FR')
                                             : subscription.currentPeriodEnd
@@ -220,17 +220,17 @@ export default function SubscriptionCard() {
                     <>
                         {/* No Subscription */}
                         <div className="mb-6 space-y-3">
-                            <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-lg border border-gray-200 dark:border-gray-600 p-4">
-                                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('subscription.noSubscription.title')}</h3>
-                                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                            <div className="bg-white/70 dark:bg-neutral-700/50 backdrop-blur-sm rounded-lg border border-neutral-200 dark:border-neutral-600 p-4">
+                                <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-2">{t('subscription.noSubscription.title')}</h3>
+                                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
                                     {t('subscription.noSubscription.description')}
                                 </p>
-                                <div className="mb-3 p-3 bg-gradient-to-br from-white to-gray-50 dark:from-gray-600 dark:to-gray-700 rounded-lg border border-gray-200 dark:border-gray-500">
-                                    <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">{t('subscription.noSubscription.pricing')}</p>
-                                    <p className="text-2xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}€<span className="text-sm text-gray-600 dark:text-gray-400">{t('subscription.noSubscription.perMonth')}</span></p>
-                                    <p className="text-xs text-gray-600 dark:text-gray-400">{t('subscription.noSubscription.perAccount')}</p>
+                                <div className="mb-3 p-3 bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-600 dark:to-neutral-700 rounded-lg border border-neutral-200 dark:border-neutral-500">
+                                    <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-1">{t('subscription.noSubscription.pricing')}</p>
+                                    <p className="text-2xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}€<span className="text-sm text-neutral-600 dark:text-neutral-400">{t('subscription.noSubscription.perMonth')}</span></p>
+                                    <p className="text-xs text-neutral-600 dark:text-neutral-400">{t('subscription.noSubscription.perAccount')}</p>
                                 </div>
-                                <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1.5">
+                                <ul className="text-sm text-neutral-700 dark:text-neutral-300 space-y-1.5">
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
                                         <span>{t('subscription.noSubscription.features.unlimitedReports')}</span>
@@ -247,7 +247,7 @@ export default function SubscriptionCard() {
                             </div>
 
                             {/* Security Badge */}
-                            <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                            <div className="flex items-center justify-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
                                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
@@ -274,7 +274,7 @@ export default function SubscriptionCard() {
                             <p className="text-sm font-semibold text-yellow-900 dark:text-yellow-200">
                                 {t('subscription.lifetime.title', 'Passez en accès à vie')}
                             </p>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                            <p className="text-xs text-neutral-600 dark:text-neutral-400">
                                 {t('subscription.lifetime.description', 'Un paiement, accès permanent')}
                             </p>
                         </div>

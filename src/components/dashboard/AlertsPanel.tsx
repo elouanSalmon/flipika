@@ -33,13 +33,13 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
                 <h3 className="text-lg font-bold mb-4">Alertes et notifications</h3>
                 <div className="space-y-3">
                     {[1, 2, 3].map(i => (
-                        <div key={i} className="animate-pulse p-4 bg-gray-100 dark:bg-gray-700 rounded-xl">
-                            <div className="h-4 bg-gray-200 dark:bg-gray-600 rounded w-3/4 mb-2"></div>
-                            <div className="h-3 bg-gray-200 dark:bg-gray-600 rounded w-1/2"></div>
+                        <div key={i} className="animate-pulse p-4 bg-neutral-100 dark:bg-neutral-700 rounded-xl">
+                            <div className="h-4 bg-neutral-200 dark:bg-neutral-600 rounded w-3/4 mb-2"></div>
+                            <div className="h-3 bg-neutral-200 dark:bg-neutral-600 rounded w-1/2"></div>
                         </div>
                     ))}
                 </div>
@@ -49,9 +49,9 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
 
     if (alerts.length === 0) {
         return (
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
                 <h3 className="text-lg font-bold mb-4">Alertes et notifications</h3>
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-neutral-500">
                     <Info size={48} className="mx-auto mb-3 opacity-50" />
                     <p>Aucune alerte pour le moment</p>
                 </div>
@@ -60,7 +60,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
     }
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-bold">Alertes et notifications</h3>
                 <span className="px-2.5 py-1 text-xs font-semibold bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-full">
@@ -79,7 +79,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
                             <div className="shrink-0 mt-0.5">{getAlertIcon(alert.severity)}</div>
                             <div className="flex-1 min-w-0">
                                 <h4 className="font-semibold text-sm mb-1">{alert.title}</h4>
-                                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{alert.message}</p>
+                                <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">{alert.message}</p>
                                 {alert.actionUrl && (
                                     <a
                                         href={alert.actionUrl}
@@ -92,7 +92,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
                             {onDismiss && (
                                 <button
                                     onClick={() => onDismiss(alert.id)}
-                                    className="shrink-0 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
+                                    className="shrink-0 p-1 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded transition-colors"
                                 >
                                     <X size={16} />
                                 </button>

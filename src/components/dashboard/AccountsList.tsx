@@ -27,7 +27,7 @@ const AccountsList: React.FC<AccountsListProps> = ({
     const getStatusBadge = (status: Account['status']) => {
         const styles = {
             active: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
-            inactive: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-400',
+            inactive: 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-400',
             paused: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400',
         };
 
@@ -46,11 +46,11 @@ const AccountsList: React.FC<AccountsListProps> = ({
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
                 <h3 className="text-lg font-bold mb-4">Comptes clients</h3>
                 <div className="space-y-3">
                     {[1, 2, 3].map(i => (
-                        <div key={i} className="animate-pulse p-4 bg-gray-100 dark:bg-gray-700 rounded-xl h-20"></div>
+                        <div key={i} className="animate-pulse p-4 bg-neutral-100 dark:bg-neutral-700 rounded-xl h-20"></div>
                     ))}
                 </div>
             </div>
@@ -58,8 +58,8 @@ const AccountsList: React.FC<AccountsListProps> = ({
     }
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 overflow-hidden">
-            <div className="p-6 border-b border-gray-100 dark:border-gray-700">
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 overflow-hidden">
+            <div className="p-6 border-b border-neutral-100 dark:border-neutral-700">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-bold">Comptes clients</h3>
                     <div className="flex gap-2">
@@ -75,43 +75,43 @@ const AccountsList: React.FC<AccountsListProps> = ({
 
             <div className="overflow-x-auto">
                 <table className="w-full">
-                    <thead className="bg-gray-50 dark:bg-gray-700/30">
+                    <thead className="bg-neutral-50 dark:bg-neutral-700/30">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
                                 Compte
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
                                 Statut
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
                                 Budget
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
                                 Dépenses
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
                                 Campagnes
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="px-6 py-3 text-left text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
                                 Performance
                             </th>
-                            <th className="px-6 py-3 text-right text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                            <th className="px-6 py-3 text-right text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
                                 Actions
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                    <tbody className="divide-y divide-neutral-100 dark:divide-neutral-700">
                         {accounts.map(account => {
                             const spendPercentage = account.budgetMonthly
                                 ? (account.currentSpend / account.budgetMonthly) * 100
                                 : 0;
 
                             return (
-                                <tr key={account.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
+                                <tr key={account.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-700/30 transition-colors">
                                     <td className="px-6 py-4">
                                         <div>
-                                            <p className="font-semibold text-gray-900 dark:text-gray-100">{account.name}</p>
-                                            <p className="text-xs text-gray-500">{account.id}</p>
+                                            <p className="font-semibold text-neutral-900 dark:text-neutral-100">{account.name}</p>
+                                            <p className="text-xs text-neutral-500">{account.id}</p>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">{getStatusBadge(account.status)}</td>
@@ -123,7 +123,7 @@ const AccountsList: React.FC<AccountsListProps> = ({
                                             })}{' '}
                                             €
                                         </p>
-                                        <p className="text-xs text-gray-500">/ mois</p>
+                                        <p className="text-xs text-neutral-500">/ mois</p>
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="space-y-1">
@@ -134,14 +134,14 @@ const AccountsList: React.FC<AccountsListProps> = ({
                                                 })}{' '}
                                                 €
                                             </p>
-                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                                            <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-1.5">
                                                 <div
                                                     className={`h-1.5 rounded-full ${spendPercentage > 90 ? 'bg-red-500' : spendPercentage > 70 ? 'bg-orange-500' : 'bg-green-500'
                                                         }`}
                                                     style={{ width: `${Math.min(spendPercentage, 100)}%` }}
                                                 ></div>
                                             </div>
-                                            <p className="text-xs text-gray-500">{spendPercentage.toFixed(0)}% du budget</p>
+                                            <p className="text-xs text-neutral-500">{spendPercentage.toFixed(0)}% du budget</p>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">

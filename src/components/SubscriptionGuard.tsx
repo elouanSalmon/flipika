@@ -13,7 +13,7 @@ export default function SubscriptionGuard({ children }: SubscriptionGuardProps) 
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
                 <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
             </div>
         );
@@ -27,7 +27,7 @@ export default function SubscriptionGuard({ children }: SubscriptionGuardProps) 
     // If subscription is past_due, show warning but allow access
     if (subscription.status === 'past_due') {
         return (
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen bg-neutral-50">
                 <div className="bg-yellow-50 border-b border-yellow-200 p-4">
                     <div className="max-w-7xl mx-auto flex items-center space-x-3">
                         <Lock className="w-5 h-5 text-yellow-600" />

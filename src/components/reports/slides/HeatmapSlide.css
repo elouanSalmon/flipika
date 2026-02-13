@@ -17,7 +17,7 @@
 .heatmap-metric-selector {
     padding: 0.5rem;
     border-radius: 6px;
-    border: 1px solid var(--border-color, #e2e8f0);
+    border: 1px solid var(--border-color, #dcdde0);
     background-color: var(--bg-surface, #ffffff);
     color: var(--text-primary, #1e293b);
     font-size: 0.875rem;
@@ -46,7 +46,7 @@
     align-items: center;
     justify-content: center;
     font-size: 0.75rem;
-    color: var(--text-secondary, #64748b);
+    color: var(--text-secondary, #6b6e77);
     padding: 4px;
     font-weight: 500;
 }
@@ -61,7 +61,7 @@
     padding-right: 8px;
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--text-secondary, #64748b);
+    color: var(--text-secondary, #6b6e77);
 }
 
 /* Data Cell */

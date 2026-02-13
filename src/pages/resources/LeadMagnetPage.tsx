@@ -56,8 +56,8 @@ const LeadMagnetPage: React.FC = () => {
             <div className="flex min-h-screen flex-col">
 
                 {/* Header */}
-                <header className="h-20 border-b border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-black/20 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 w-full">
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                <header className="h-20 border-b border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-black/20 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 w-full">
+                    <div className="flex items-center gap-2 text-sm text-neutral-500">
                         <span>Resources</span>
                         <ChevronRight size={16} />
                         <span className="text-primary font-medium">{t('common.preview')}</span>
@@ -79,7 +79,7 @@ const LeadMagnetPage: React.FC = () => {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 p-8 md:p-12 shadow-sm relative overflow-hidden"
+                                className="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 p-8 md:p-12 shadow-sm relative overflow-hidden"
                             >
                                 <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
                                     {getIcon()}
@@ -104,10 +104,10 @@ const LeadMagnetPage: React.FC = () => {
 
                                 {/* Features List */}
                                 <div className="mb-12">
-                                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">{t('common.whatsInside')}</h3>
+                                    <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-widest mb-6">{t('common.whatsInside')}</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {(t(`pages.${magnet.slug}.features`, { returnObjects: true }) as string[]).map((feature, i) => (
-                                            <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800">
+                                            <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800">
                                                 <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center shrink-0">
                                                     <Check size={14} strokeWidth={3} />
                                                 </div>
@@ -119,16 +119,16 @@ const LeadMagnetPage: React.FC = () => {
 
                                 {/* FAQ */}
                                 <div>
-                                    <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">{t('common.faq')}</h3>
+                                    <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-widest mb-6">{t('common.faq')}</h3>
                                     <div className="space-y-3">
                                         {(t(`pages.${magnet.slug}.faq`, { returnObjects: true }) as any[]).map((item, i) => (
-                                            <div key={i} className="border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden">
+                                            <div key={i} className="border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden">
                                                 <button
                                                     onClick={() => toggleFaq(i)}
-                                                    className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                                                    className="w-full flex items-center justify-between p-5 text-left hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
                                                 >
                                                     <span className="font-bold text-primary">{item.q}</span>
-                                                    <ChevronDown size={18} className={`text-gray-400 transition-transform ${activeFaq === i ? 'rotate-180' : ''}`} />
+                                                    <ChevronDown size={18} className={`text-neutral-400 transition-transform ${activeFaq === i ? 'rotate-180' : ''}`} />
                                                 </button>
                                                 <AnimatePresence>
                                                     {activeFaq === i && (
@@ -137,7 +137,7 @@ const LeadMagnetPage: React.FC = () => {
                                                             animate={{ height: 'auto', opacity: 1 }}
                                                             exit={{ height: 0, opacity: 0 }}
                                                         >
-                                                            <div className="p-5 pt-0 text-secondary leading-relaxed border-t border-gray-100 dark:border-gray-800/50">
+                                                            <div className="p-5 pt-0 text-secondary leading-relaxed border-t border-neutral-100 dark:border-neutral-800/50">
                                                                 {item.a}
                                                             </div>
                                                         </motion.div>
@@ -157,7 +157,7 @@ const LeadMagnetPage: React.FC = () => {
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.2 }}
-                                className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 p-8 shadow-xl shadow-blue-900/5 sticky top-28"
+                                className="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 p-8 shadow-xl shadow-blue-900/5 sticky top-28"
                             >
                                 {status === 'success' ? (
                                     <div className="text-center py-8">
@@ -178,16 +178,16 @@ const LeadMagnetPage: React.FC = () => {
                                         </div>
 
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Email Professionnel</label>
+                                            <label className="block text-xs font-bold text-neutral-500 uppercase mb-2">Email Professionnel</label>
                                             <div className="relative">
-                                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" size={18} />
                                                 <input
                                                     type="email"
                                                     required
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
                                                     placeholder={t('common.emailPlaceholder')}
-                                                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium text-sm"
+                                                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium text-sm"
                                                 />
                                             </div>
                                         </div>
@@ -205,7 +205,7 @@ const LeadMagnetPage: React.FC = () => {
                                             )}
                                         </button>
 
-                                        <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                                        <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">
                                             <Lock size={10} />
                                             {t('common.secure')}
                                         </div>
@@ -218,14 +218,14 @@ const LeadMagnetPage: React.FC = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3 }}
-                                className="bg-gradient-to-br from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-6 border border-gray-200 dark:border-gray-700"
+                                className="bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 rounded-3xl p-6 border border-neutral-200 dark:border-neutral-700"
                             >
-                                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">{t('common.whoFor')}</h3>
+                                <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-4">{t('common.whoFor')}</h3>
                                 <div className="space-y-3">
                                     {(t(`pages.${magnet.slug}.personas`, { returnObjects: true }) as string[]).map((persona, i) => (
                                         <div key={i} className="flex items-center gap-3">
                                             <div className="w-8 h-8 rounded-full bg-white dark:bg-black/20 flex items-center justify-center shadow-sm">
-                                                <User size={14} className="text-gray-500" />
+                                                <User size={14} className="text-neutral-500" />
                                             </div>
                                             <span className="text-sm font-medium text-secondary">{persona}</span>
                                         </div>

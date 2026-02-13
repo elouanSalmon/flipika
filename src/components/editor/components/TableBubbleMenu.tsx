@@ -34,19 +34,19 @@ export const TableBubbleMenu: React.FC<TableBubbleMenuProps> = ({ editor }) => {
             shouldShow={shouldShow}
             className="tiptap-bubble-menu"
         >
-            <div className="flex bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden divide-x divide-gray-200 dark:divide-gray-700">
+            <div className="flex bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden divide-x divide-neutral-200 dark:divide-neutral-700">
                 {/* Columns */}
                 <div className="flex p-1 gap-1">
                     <button
                         onClick={() => editor.chain().focus().addColumnBefore().run()}
-                        className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-700 dark:text-gray-300"
+                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded text-neutral-700 dark:text-neutral-300"
                         title="Ajouter colonne avant"
                     >
                         <BetweenHorizonalStart size={16} />
                     </button>
                     <button
                         onClick={() => editor.chain().focus().addColumnAfter().run()}
-                        className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-700 dark:text-gray-300"
+                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded text-neutral-700 dark:text-neutral-300"
                         title="Ajouter colonne après"
                     >
                         <BetweenHorizonalEnd size={16} />
@@ -64,14 +64,14 @@ export const TableBubbleMenu: React.FC<TableBubbleMenuProps> = ({ editor }) => {
                 <div className="flex p-1 gap-1">
                     <button
                         onClick={() => editor.chain().focus().addRowBefore().run()}
-                        className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-700 dark:text-gray-300"
+                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded text-neutral-700 dark:text-neutral-300"
                         title="Ajouter ligne avant"
                     >
                         <BetweenVerticalStart size={16} />
                     </button>
                     <button
                         onClick={() => editor.chain().focus().addRowAfter().run()}
-                        className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-700 dark:text-gray-300"
+                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded text-neutral-700 dark:text-neutral-300"
                         title="Ajouter ligne après"
                     >
                         <BetweenVerticalEnd size={16} />
@@ -89,7 +89,7 @@ export const TableBubbleMenu: React.FC<TableBubbleMenuProps> = ({ editor }) => {
                 <div className="flex p-1 gap-1">
                     <button
                         onClick={() => editor.chain().focus().mergeCells().run()}
-                        className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-700 dark:text-gray-300"
+                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded text-neutral-700 dark:text-neutral-300"
                         title="Fusionner les cellules"
                         disabled={!editor.can().mergeCells()}
                     >
@@ -97,7 +97,7 @@ export const TableBubbleMenu: React.FC<TableBubbleMenuProps> = ({ editor }) => {
                     </button>
                     <button
                         onClick={() => editor.chain().focus().splitCell().run()}
-                        className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-700 dark:text-gray-300"
+                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded text-neutral-700 dark:text-neutral-300"
                         title="Diviser la cellule"
                         disabled={!editor.can().splitCell()}
                     >
@@ -109,7 +109,7 @@ export const TableBubbleMenu: React.FC<TableBubbleMenuProps> = ({ editor }) => {
                 <div className="flex p-1 gap-1">
                     <button
                         onClick={() => editor.chain().focus().toggleHeaderRow().run()}
-                        className={`p-1.5 rounded ${editor.isActive('tableHeader') ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'}`}
+                        className={`p-1.5 rounded ${editor.isActive('tableHeader') ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' : 'hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
                         title="En-tête"
                     >
                         <Grid3X3 size={16} />

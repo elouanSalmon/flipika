@@ -90,7 +90,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
 
             <div className="listing-card-body">
                 {template.description && (
-                    <p className="text-sm text-gray-500 line-clamp-2 mb-3 h-10">
+                    <p className="text-sm text-neutral-500 line-clamp-2 mb-3 h-10">
                         {template.description}
                     </p>
                 )}
@@ -126,12 +126,12 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                 {!template.content && template.slideConfigs.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-3">
                         {template.slideConfigs.slice(0, 3).map((slide, index) => (
-                            <span key={index} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded text-xs">
+                            <span key={index} className="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 rounded text-xs">
                                 {getSlideTypeName(slide.type, t)}
                             </span>
                         ))}
                         {template.slideConfigs.length > 3 && (
-                            <span className="px-2 py-0.5 bg-gray-50 dark:bg-gray-800 text-gray-500 rounded text-xs">
+                            <span className="px-2 py-0.5 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 rounded text-xs">
                                 +{template.slideConfigs.length - 3}
                             </span>
                         )}
@@ -145,7 +145,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                         <span className="listing-card-stat-value">{template.usageCount}</span>
                         <span className="listing-card-stat-label">{t('card.uses')}</span>
                     </div>
-                    <div className="listing-card-stat border-l border-gray-200 dark:border-gray-700 pl-4">
+                    <div className="listing-card-stat border-l border-neutral-200 dark:border-neutral-700 pl-4">
                         <span className="listing-card-stat-value">
                             {template.content ? countTiptapSlides(template.content) : template.slideConfigs.length}
                         </span>
@@ -184,16 +184,16 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
                     </button>
 
                     {showMenu && (
-                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] w-auto whitespace-nowrap bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 py-1">
+                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] w-auto whitespace-nowrap bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 z-50 py-1">
                             <button
                                 onClick={() => handleAction(() => onDuplicate(template))}
-                                className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
+                                className="w-full px-4 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 flex items-center gap-2"
                             >
                                 <Copy size={14} /> {t('card.actions.duplicate')}
                             </button>
                             <button
                                 onClick={() => handleAction(() => onDelete(template))}
-                                className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2 border-t border-gray-100 dark:border-gray-700 mt-1"
+                                className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2 border-t border-neutral-100 dark:border-neutral-700 mt-1"
                             >
                                 <Trash2 size={14} /> {t('card.actions.delete')}
                             </button>

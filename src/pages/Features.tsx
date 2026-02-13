@@ -152,14 +152,14 @@ const Features: React.FC = () => {
                     </motion.div>
 
                     <motion.h1
-                        className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight"
+                        className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white mb-6 tracking-tight"
                         variants={itemVariants}
                     >
                         {t('hero.title')}
                     </motion.h1>
 
                     <motion.p
-                        className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                        className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto"
                         variants={itemVariants}
                     >
                         {t('hero.subtitle')}
@@ -202,13 +202,13 @@ const Features: React.FC = () => {
                                     </div>
 
                                     {/* Title & Subtitle */}
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
+                                    <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
                                         {feature.title}
                                     </h3>
                                     <p className="text-sm font-medium text-primary mb-3">
                                         {feature.subtitle}
                                     </p>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-5">
+                                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-5">
                                         {feature.description}
                                     </p>
 
@@ -217,7 +217,7 @@ const Features: React.FC = () => {
                                         {feature.benefits.slice(0, 3).map((benefit, bi) => (
                                             <li
                                                 key={bi}
-                                                className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300"
+                                                className="flex items-start gap-2 text-sm text-neutral-700 dark:text-neutral-300"
                                             >
                                                 <CheckCircle
                                                     className="w-4.5 h-4.5 text-blue-500 flex-shrink-0 mt-0.5"
@@ -256,10 +256,10 @@ const Features: React.FC = () => {
                         <div className="h-1 bg-gradient-to-r from-primary via-primary/60 to-blue-500" />
 
                         <div className="p-8 sm:p-12 text-center">
-                            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
                                 {t('cta.title')}
                             </h2>
-                            <p className="text-base text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto">
+                            <p className="text-base text-neutral-600 dark:text-neutral-400 mb-8 max-w-lg mx-auto">
                                 {t('cta.subtitle')}
                             </p>
 
@@ -275,7 +275,7 @@ const Features: React.FC = () => {
                                 </motion.button>
                             </div>
 
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                            <p className="text-xs text-neutral-500 dark:text-neutral-400">
                                 {t('cta.trustLine')}
                             </p>
                         </div>

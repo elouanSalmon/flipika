@@ -79,13 +79,13 @@ const InfoModal: React.FC<InfoModalProps> = ({
 
                                 <button
                                     onClick={handleClose}
-                                    className="p-2 -mr-2 text-gray-400 hover:text-gray-500 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                    className="p-2 -mr-2 text-neutral-400 hover:text-neutral-500 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                                 >
                                     <X size={20} />
                                 </button>
                             </div>
 
-                            <div className="mt-6 flex justify-end border-t border-gray-100 dark:border-gray-800 pt-4">
+                            <div className="mt-6 flex justify-end border-t border-neutral-100 dark:border-neutral-800 pt-4">
                                 <button
                                     onClick={handleClose}
                                     className="px-6 py-2.5 text-sm font-medium text-white rounded-xl transition-all duration-200 shadow-lg"

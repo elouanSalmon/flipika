@@ -52,7 +52,7 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                 secondary: theme.design.colorScheme.secondary || '#60a5fa',
                 accent: theme.design.colorScheme.accent || '#93c5fd',
                 background: theme.design.colorScheme.background || '#ffffff',
-                text: theme.design.colorScheme.text || '#0f172a',
+                text: theme.design.colorScheme.text || '#141415',
             },
             typography: theme.design.typography || design.typography, // Utiliser la typo du thème ou garder l'existante
             layout: theme.design.layout || design.layout, // Utiliser le layout du thème ou garder l'existant
@@ -79,14 +79,14 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                         <Palette size={18} />
                         <h4 className="design-section-title">Thème du Rapport</h4>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
                         Sélectionnez un thème pour définir les couleurs et le style du rapport (y compris le mode clair/sombre).
                     </p>
                     {loadingThemes ? (
-                        <div className="text-center py-4 text-gray-500">Chargement...</div>
+                        <div className="text-center py-4 text-neutral-500">Chargement...</div>
                     ) : userThemes.length === 0 ? (
                         <div className="empty-themes">
-                            <p className="text-sm text-gray-500 mb-2">Aucun thème créé</p>
+                            <p className="text-sm text-neutral-500 mb-2">Aucun thème créé</p>
                             <a
                                 href="/app/themes"
                                 className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
@@ -113,7 +113,7 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                                         </div>
                                         <div className="flex flex-col flex-1">
                                             <span className="theme-preset-name">{theme.name}</span>
-                                            <span className="text-xs text-gray-500">
+                                            <span className="text-xs text-neutral-500">
                                                 {theme.design.mode === 'dark' ? '🌙 Sombre' : '☀️ Clair'}
                                             </span>
                                         </div>
@@ -124,7 +124,7 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                     {!loadingThemes && userThemes.length > 0 && (
                         <a
                             href="/app/themes"
-                            className="text-sm text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 flex items-center gap-1 mt-3"
+                            className="text-sm text-neutral-600 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 flex items-center gap-1 mt-3"
                             target="_blank"
                             rel="noopener noreferrer"
                         >

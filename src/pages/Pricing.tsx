@@ -161,14 +161,14 @@ export default function Pricing() {
                         </motion.div>
 
                         <motion.h1
-                            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight"
+                            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white mb-6 tracking-tight"
                             variants={itemVariants}
                         >
                             {t('billing:pricing.hero.title')}
                         </motion.h1>
 
                         <motion.p
-                            className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                            className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto"
                             variants={itemVariants}
                         >
                             {t('billing:pricing.hero.subtitle')}
@@ -199,7 +199,7 @@ export default function Pricing() {
                             </div>
 
                             {/* ── Row 1: Title ── */}
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-4 mb-6">
+                            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mt-4 mb-6">
                                 {t('billing:pricing.monthlyCard.title')}
                             </h3>
 
@@ -208,10 +208,10 @@ export default function Pricing() {
                                 <span className="text-5xl font-extrabold text-primary dark:text-primary-light">
                                     {PRICE_PER_SEAT}€
                                 </span>
-                                <span className="text-lg text-gray-500 dark:text-gray-400 ml-1">
+                                <span className="text-lg text-neutral-500 dark:text-neutral-400 ml-1">
                                     {t('billing:pricing.monthlyCard.priceSuffix')}
                                 </span>
-                                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
                                     {t('billing:pricing.monthlyCard.perAccountLabel')}
                                 </p>
                             </div>
@@ -219,11 +219,11 @@ export default function Pricing() {
                             {/* ── Row 3: Slider estimate ── */}
                             <div className="mb-6">
                                 <div className="flex items-baseline justify-between mb-4">
-                                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
                                         {t('billing:pricing.accountsCount', { count: sliderAccounts })}
                                     </span>
                                     <span className="text-2xl font-extrabold text-primary dark:text-primary-light">
-                                        {PRICE_PER_SEAT * sliderAccounts}€<span className="text-sm font-normal text-gray-500 dark:text-gray-400">/{t('billing:pricing.monthlyCard.priceSuffix').replace('/', '')}</span>
+                                        {PRICE_PER_SEAT * sliderAccounts}€<span className="text-sm font-normal text-neutral-500 dark:text-neutral-400">/{t('billing:pricing.monthlyCard.priceSuffix').replace('/', '')}</span>
                                     </span>
                                 </div>
                                 <input
@@ -235,7 +235,7 @@ export default function Pricing() {
                                     className="pricing-slider w-full"
                                     style={{ '--val': sliderAccounts } as React.CSSProperties}
                                 />
-                                <div className="flex justify-between text-xs text-gray-400 dark:text-gray-500 mt-1.5">
+                                <div className="flex justify-between text-xs text-neutral-400 dark:text-neutral-500 mt-1.5">
                                     <span>1</span>
                                     <span>20</span>
                                 </div>
@@ -252,7 +252,7 @@ export default function Pricing() {
                             <div className="flex-grow">
                                 <ul className="space-y-3 mb-8">
                                     {features.map((feature, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-sm text-gray-700 dark:text-gray-300">
+                                        <li key={i} className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
                                             <CheckCircle className="w-5 h-5 text-primary dark:text-primary-light flex-shrink-0" />
                                             <span>{feature}</span>
                                         </li>
@@ -261,7 +261,7 @@ export default function Pricing() {
                             </div>
 
                             {/* ── Row 5: CTA (always at bottom) ── */}
-                            <div className="pt-6 border-t border-gray-200/50 dark:border-gray-700/50 mt-auto">
+                            <div className="pt-6 border-t border-neutral-200/50 dark:border-neutral-700/50 mt-auto">
                                 <Link to="/login">
                                     <motion.div
                                         className="btn btn-outline w-full py-3.5 text-base font-semibold flex items-center justify-center gap-2"
@@ -272,7 +272,7 @@ export default function Pricing() {
                                         <ArrowRight size={18} />
                                     </motion.div>
                                 </Link>
-                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
+                                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-3 text-center">
                                     {t('billing:pricing.monthlyCard.trialNote')}
                                 </p>
                             </div>
@@ -310,7 +310,7 @@ export default function Pricing() {
                             </div>
 
                             {/* ── Row 3: Middle content (unique to this card) ── */}
-                            <p className="text-base text-gray-700 dark:text-gray-300 mb-8">
+                            <p className="text-base text-neutral-700 dark:text-neutral-300 mb-8">
                                 {t('billing:lifetime.description')}
                             </p>
 
@@ -366,10 +366,10 @@ export default function Pricing() {
                                 <BarChart3 size={16} />
                                 <span>{t('billing:pricing.comparison.badge')}</span>
                             </div>
-                            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-4 tracking-tight">
                                 {t('billing:pricing.comparison.title')}
                             </h2>
-                            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
                                 {t('billing:pricing.comparison.subtitle')}
                             </p>
                         </motion.div>
@@ -379,8 +379,8 @@ export default function Pricing() {
                             variants={itemVariants}
                         >
                             {/* Table header */}
-                            <div className="grid grid-cols-3 gap-4 px-6 py-4 bg-gray-50/50 dark:bg-gray-800/50 border-b border-gray-200/50 dark:border-gray-700/50">
-                                <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                            <div className="grid grid-cols-3 gap-4 px-6 py-4 bg-neutral-50/50 dark:bg-neutral-800/50 border-b border-neutral-200/50 dark:border-neutral-700/50">
+                                <div className="text-sm font-semibold text-neutral-900 dark:text-white">
                                     {t('billing:pricing.comparison.feature')}
                                 </div>
                                 <div className="text-sm font-semibold text-primary text-center">
@@ -396,22 +396,22 @@ export default function Pricing() {
                                 <motion.div
                                     key={row.key}
                                     className={`grid grid-cols-3 gap-4 px-6 py-3.5 ${i % 2 === 0
-                                        ? 'bg-white/30 dark:bg-gray-900/20'
-                                        : 'bg-gray-50/30 dark:bg-gray-800/20'
-                                        } ${i < comparisonRows.length - 1 ? 'border-b border-gray-100/50 dark:border-gray-700/30' : ''}`}
+                                        ? 'bg-white/30 dark:bg-neutral-900/20'
+                                        : 'bg-neutral-50/30 dark:bg-neutral-800/20'
+                                        } ${i < comparisonRows.length - 1 ? 'border-b border-neutral-100/50 dark:border-neutral-700/30' : ''}`}
                                     initial={{ opacity: 0, x: -10 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ delay: i * 0.05 }}
                                     viewport={{ once: true }}
                                 >
-                                    <div className="text-sm text-gray-700 dark:text-gray-300">
+                                    <div className="text-sm text-neutral-700 dark:text-neutral-300">
                                         {t(`billing:pricing.comparison.${row.key}`)}
                                     </div>
                                     <div className="flex justify-center">
                                         {row.monthly ? (
                                             <CheckCircle className="w-5 h-5 text-green-500" />
                                         ) : (
-                                            <XIcon className="w-5 h-5 text-gray-300 dark:text-gray-600" />
+                                            <XIcon className="w-5 h-5 text-neutral-300 dark:text-neutral-600" />
                                         )}
                                     </div>
                                     <div className="flex justify-center">
@@ -447,8 +447,8 @@ export default function Pricing() {
                                     whileHover={{ y: -4 }}
                                 >
                                     <stat.icon className="w-6 h-6 text-primary" />
-                                    <span className="text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</span>
-                                    <span className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</span>
+                                    <span className="text-2xl font-bold text-neutral-900 dark:text-white">{stat.value}</span>
+                                    <span className="text-sm text-neutral-600 dark:text-neutral-400">{stat.label}</span>
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -461,7 +461,7 @@ export default function Pricing() {
                             {trustBadges.map((badge) => (
                                 <motion.div
                                     key={badge.label}
-                                    className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm text-gray-600 dark:text-gray-400"
+                                    className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm text-neutral-600 dark:text-neutral-400"
                                     variants={itemVariants}
                                     whileHover={{ y: -2 }}
                                 >
@@ -489,10 +489,10 @@ export default function Pricing() {
                                 <HelpCircle size={16} />
                                 <span>{t('billing:pricing.faq.badge')}</span>
                             </div>
-                            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-4 tracking-tight">
                                 {t('billing:pricing.faq.title')}
                             </h2>
-                            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
                                 {t('billing:pricing.faq.subtitle')}
                             </p>
                         </motion.div>
@@ -508,7 +508,7 @@ export default function Pricing() {
                                         onClick={() => setOpenFaq(openFaq === i ? null : i)}
                                         className="w-full flex items-center justify-between gap-4 p-5 text-left"
                                     >
-                                        <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                        <span className="text-sm font-medium text-neutral-900 dark:text-white">
                                             {item.question}
                                         </span>
                                         <motion.div
@@ -516,7 +516,7 @@ export default function Pricing() {
                                             transition={{ duration: 0.2 }}
                                             className="flex-shrink-0"
                                         >
-                                            <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                                            <ChevronDown className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
                                         </motion.div>
                                     </button>
 
@@ -529,7 +529,7 @@ export default function Pricing() {
                                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                                                 className="overflow-hidden"
                                             >
-                                                <div className="px-5 pb-5 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                                <div className="px-5 pb-5 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                                                     {item.answer}
                                                 </div>
                                             </motion.div>
@@ -557,10 +557,10 @@ export default function Pricing() {
                             <div className="h-1 bg-gradient-to-r from-primary via-primary/60 to-yellow-500" />
 
                             <div className="p-8 sm:p-12 text-center">
-                                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                                <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
                                     {t('billing:pricing.finalCta.title')}
                                 </h2>
-                                <p className="text-base text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto">
+                                <p className="text-base text-neutral-600 dark:text-neutral-400 mb-8 max-w-lg mx-auto">
                                     {t('billing:pricing.finalCta.subtitle')}
                                 </p>
 
@@ -587,7 +587,7 @@ export default function Pricing() {
                                     </Link>
                                 </div>
 
-                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                <p className="text-xs text-neutral-500 dark:text-neutral-400">
                                     {t('billing:pricing.finalCta.trustLine')}
                                 </p>
                             </div>

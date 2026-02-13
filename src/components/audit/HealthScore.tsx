@@ -30,7 +30,7 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score, previousScore, breakdo
     const change = previousScore ? score - previousScore : 0;
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-8">
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-8">
             <h3 className="text-lg font-bold mb-6">Score de santé global</h3>
 
             <div className="flex items-center gap-8">
@@ -45,7 +45,7 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score, previousScore, breakdo
                             stroke="currentColor"
                             strokeWidth="12"
                             fill="none"
-                            className="text-gray-200 dark:text-gray-700"
+                            className="text-neutral-200 dark:text-neutral-700"
                         />
                         {/* Progress circle */}
                         <circle
@@ -68,7 +68,7 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score, previousScore, breakdo
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                         <span className={`text-5xl font-bold ${getScoreColor(score)}`}>{score}</span>
-                        <span className="text-sm text-gray-500">/100</span>
+                        <span className="text-sm text-neutral-500">/100</span>
                         {change !== 0 && (
                             <span className={`text-sm font-semibold mt-1 ${change > 0 ? 'text-green-600' : 'text-red-600'}`}>
                                 {change > 0 ? '+' : ''}{change}
@@ -79,7 +79,7 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score, previousScore, breakdo
 
                 {/* Category breakdown */}
                 <div className="flex-1 space-y-3">
-                    <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">Détail par catégorie</h4>
+                    <h4 className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 mb-3">Détail par catégorie</h4>
                     {Object.entries(breakdown).map(([key, value]) => {
                         const labels: Record<string, string> = {
                             structure: 'Structure',
@@ -94,7 +94,7 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score, previousScore, breakdo
                         return (
                             <div key={key} className="flex items-center gap-3">
                                 <span className="text-sm font-medium w-32">{labels[key]}</span>
-                                <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div className="flex-1 bg-neutral-200 dark:bg-neutral-700 rounded-full h-2">
                                     <div
                                         className={`h-2 rounded-full bg-gradient-to-r ${getScoreBg(value)}`}
                                         style={{ width: `${value}%` }}

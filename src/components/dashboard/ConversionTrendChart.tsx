@@ -23,7 +23,7 @@ const ConversionTrendChart: React.FC<ConversionTrendChartProps> = ({ data, loadi
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 h-80 flex items-center justify-center">
+            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-80 flex items-center justify-center">
                 <Spinner size={32} />
             </div>
         );
@@ -31,8 +31,8 @@ const ConversionTrendChart: React.FC<ConversionTrendChartProps> = ({ data, loadi
 
     if (!data || data.length === 0) {
         return (
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 h-80 flex items-center justify-center">
-                <div className="text-gray-400">Aucune donnée disponible</div>
+            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-80 flex items-center justify-center">
+                <div className="text-neutral-400">Aucune donnée disponible</div>
             </div>
         );
     }
@@ -46,7 +46,7 @@ const ConversionTrendChart: React.FC<ConversionTrendChartProps> = ({ data, loadi
     });
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
             <h3 className="text-lg font-bold mb-6">Tendance des conversions</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>

@@ -24,7 +24,7 @@ const OfflineAlert: React.FC<OfflineAlertProps> = ({ isOnline }) => {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full shadow-2xl border border-gray-200 dark:border-gray-700 text-center"
+                        className="relative bg-white dark:bg-neutral-800 rounded-2xl p-8 max-w-md w-full shadow-2xl border border-neutral-200 dark:border-neutral-700 text-center"
                     >
                         <div className="flex justify-center mb-6">
                             <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-full">
@@ -32,11 +32,11 @@ const OfflineAlert: React.FC<OfflineAlertProps> = ({ isOnline }) => {
                             </div>
                         </div>
 
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                        <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
                             Pas de connexion Internet
                         </h2>
 
-                        <p className="text-gray-600 dark:text-gray-400 mb-8">
+                        <p className="text-neutral-600 dark:text-neutral-400 mb-8">
                             Il semble que vous soyez hors ligne. Veuillez vérifier votre connexion pour continuer à utiliser Flipika.
                         </p>
 

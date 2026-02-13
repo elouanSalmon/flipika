@@ -183,7 +183,7 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = React.memo((
 
     // Use OPAQUE background from report theme, not app theme (matches SlideComponent.tsx)
     const themeBg = design?.colorScheme?.background || (isDarkMode ? '#1e293b' : '#f9fafb');
-    const themeTextColor = design?.colorScheme?.text || (isDarkMode ? '#f1f5f9' : '#0f172a');
+    const themeTextColor = design?.colorScheme?.text || (isDarkMode ? '#f1f5f9' : '#141415');
 
     const finalBackgroundColor = slide.backgroundColor || themeBg;
 
@@ -262,8 +262,8 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = React.memo((
         backgroundColor: finalBackgroundColor,
         color: finalTextColor,
         fontFamily: fontFamily,
-        '--color-primary': design?.colorScheme?.primary || '#0066ff',
-        '--color-secondary': design?.colorScheme?.secondary || '#3385ff',
+        '--color-primary': design?.colorScheme?.primary || '#1963d5',
+        '--color-secondary': design?.colorScheme?.secondary || '#61abf7',
         '--color-accent': design?.colorScheme?.accent || '#00d4ff',
         '--color-bg-primary': themeBg,
         '--color-text-primary': finalTextColor,

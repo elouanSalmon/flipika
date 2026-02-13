@@ -55,12 +55,12 @@ const Hero: React.FC = () => {
             </motion.div>
 
             {/* Title */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white leading-[1.1] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white leading-[1.1] tracking-tight">
               {t('common:hero.title')}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl">
+            <p className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
               {t('common:hero.subtitle')}
             </p>
 
@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Trust line */}
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
               {t('common:hero.noCreditCard')}
             </p>
           </motion.div>
@@ -102,12 +102,12 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" as const }}
           >
             <div
-              className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-gray-200/60 dark:border-gray-700/40 shadow-2xl"
+              className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-neutral-200/60 dark:border-neutral-700/40 shadow-2xl"
               style={{
                 background: 'linear-gradient(135deg, #f0f4ff 0%, #e8edff 50%, #dde5ff 100%)',
               }}
             >
-              <span className="text-gray-400 dark:text-gray-500 text-sm font-medium px-6 text-center">
+              <span className="text-neutral-400 dark:text-neutral-500 text-sm font-medium px-6 text-center">
                 Image / GIF du produit
               </span>
             </div>

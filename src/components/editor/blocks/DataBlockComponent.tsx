@@ -294,7 +294,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                                 className="max-h-16 object-contain"
                             />
                         ) : (
-                            <div className="text-gray-400 italic">Logo Client</div>
+                            <div className="text-neutral-400 italic">Logo Client</div>
                         )}
                         {editor.isEditable && (
                             <button
@@ -329,8 +329,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                 );
             default:
                 return (
-                    <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-dashed border-gray-300">
-                        <p className="text-gray-600 dark:text-gray-400">
+                    <div className="p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg border border-dashed border-neutral-300">
+                        <p className="text-neutral-600 dark:text-neutral-400">
                             Unsupported block type: {blockType}
                         </p>
                     </div>

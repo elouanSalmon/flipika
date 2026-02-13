@@ -76,7 +76,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ design, onChange, 
                 secondary: theme.design.colorScheme.secondary || '#60a5fa',
                 accent: theme.design.colorScheme.accent || '#93c5fd',
                 background: theme.design.colorScheme.background || '#ffffff',
-                text: theme.design.colorScheme.text || '#0f172a',
+                text: theme.design.colorScheme.text || '#141415',
             },
             typography: theme.design.typography || design.typography,
             layout: theme.design.layout || design.layout,
@@ -205,7 +205,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ design, onChange, 
                                                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <button
                                                         onClick={(e) => handleEditTheme(e, theme)}
-                                                        className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                                        className="p-1.5 text-neutral-500 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
                                                         title="Modifier le thème"
                                                     >
                                                         <Pencil size={14} />

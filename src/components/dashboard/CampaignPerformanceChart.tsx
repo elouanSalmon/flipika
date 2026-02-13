@@ -52,18 +52,18 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 h-96 flex items-center justify-center">
+            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-96 flex items-center justify-center">
                 <Spinner size={32} />
             </div>
         );
     }
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
             <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold">Performance des campagnes (Top 5)</h3>
                 <select
-                    className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700"
+                    className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700"
                     defaultValue={metric}
                 >
                     <option value="cost">Dépenses</option>

@@ -27,7 +27,7 @@
 .section-library-title {
     font-size: 1.125rem;
     font-weight: 700;
-    color: #0f172a;
+    color: #141415;
     margin-bottom: 0.25rem;
 }
 
@@ -37,11 +37,11 @@
 
 .section-library-subtitle {
     font-size: 0.75rem;
-    color: #64748b;
+    color: #6b6e77;
 }
 
 .dark .section-library-subtitle {
-    color: #94a3b8;
+    color: #8e9199;
 }
 
 .section-library-list {
@@ -104,7 +104,7 @@
 .section-library-item-title {
     font-size: 0.875rem;
     font-weight: 600;
-    color: #0f172a;
+    color: #141415;
     margin-bottom: 0.25rem;
 }
 
@@ -114,12 +114,12 @@
 
 .section-library-item-description {
     font-size: 0.75rem;
-    color: #64748b;
+    color: #6b6e77;
     line-height: 1.4;
 }
 
 .dark .section-library-item-description {
-    color: #94a3b8;
+    color: #8e9199;
 }
 
 .section-library-item-badge {

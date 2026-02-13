@@ -219,7 +219,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                     <div className="form-group">
                         <label htmlFor="client">{t('config.clientLabel', { defaultValue: 'Client' })}</label>
                         {loadingClients ? (
-                            <div className="flex items-center gap-2 text-sm text-gray-500">
+                            <div className="flex items-center gap-2 text-sm text-neutral-500">
                                 <Loader2 size={16} className="animate-spin" />
                                 {t('config.loadingClients', { defaultValue: 'Chargement des clients...' })}
                             </div>
@@ -259,7 +259,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                         )}
                         {/* Selected Account Display (Read-only info) */}
                         {selectedClientId && selectedAccountId && (
-                            <div className="mt-2 text-sm text-gray-500 flex items-center gap-1">
+                            <div className="mt-2 text-sm text-neutral-500 flex items-center gap-1">
                                 <span className="font-medium">Compte Google Ads :</span>
                                 {accounts.find(a => a.id === selectedAccountId)?.name || selectedAccountId}
                             </div>
@@ -342,7 +342,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                             {isLoadingCampaigns ? (
                                 <div className="flex flex-col items-center justify-center p-8 space-y-3">
                                     <Loader2 className="animate-spin text-primary-500" size={32} />
-                                    <p className="text-sm text-gray-500">{t('config.loadingCampaigns', { defaultValue: 'Chargement des campagnes...' })}</p>
+                                    <p className="text-sm text-neutral-500">{t('config.loadingCampaigns', { defaultValue: 'Chargement des campagnes...' })}</p>
                                 </div>
                             ) : campaigns.length === 0 ? (
                                 <div className="empty-campaigns">

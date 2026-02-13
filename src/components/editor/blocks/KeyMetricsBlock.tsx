@@ -13,8 +13,8 @@ export const KeyMetricsBlock: React.FC<KeyMetricsBlockProps> = () => {
     ];
 
     return (
-        <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+        <div className="p-6 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl border border-neutral-200/50 dark:border-neutral-700/50 shadow-lg">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
                 <Target size={20} className="text-blue-600" />
                 Key Metrics
             </h3>
@@ -22,11 +22,11 @@ export const KeyMetricsBlock: React.FC<KeyMetricsBlockProps> = () => {
                 {metrics.map((metric) => (
                     <div
                         key={metric.label}
-                        className={`p-4 bg-gradient-to-br ${metric.bg} rounded-lg border border-gray-200/50 dark:border-gray-600/50`}
+                        className={`p-4 bg-gradient-to-br ${metric.bg} rounded-lg border border-neutral-200/50 dark:border-neutral-600/50`}
                     >
                         <div className={`mb-2 ${metric.color}`}>{metric.icon}</div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{metric.label}</p>
-                        <p className="text-2xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">{metric.label}</p>
+                        <p className="text-2xl font-bold text-neutral-900 dark:text-white">{metric.value}</p>
                     </div>
                 ))}
             </div>

@@ -33,19 +33,19 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
             </div>
 
             {/* Title */}
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 dark:text-white leading-tight tracking-tight">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white leading-tight tracking-tight">
                 {title}
             </h3>
 
             {/* Description */}
-            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg">
+            <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-lg">
                 {description}
             </p>
 
             {/* Bullets */}
             <ul className="flex flex-col gap-3 mt-1">
                 {bullets.map((bullet, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">
+                    <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-neutral-700 dark:text-neutral-300">
                         <CheckCircle size={18} className="text-primary flex-shrink-0 mt-0.5" />
                         <span>{bullet}</span>
                     </li>
@@ -63,12 +63,12 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
             viewport={{ once: true }}
         >
             <div
-                className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-gray-200/60 dark:border-gray-700/40 shadow-xl"
+                className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-neutral-200/60 dark:border-neutral-700/40 shadow-xl"
                 style={{
                     background: 'linear-gradient(135deg, #f0f4ff 0%, #e8edff 50%, #dde5ff 100%)',
                 }}
             >
-                <span className="text-gray-400 dark:text-gray-500 text-sm font-medium px-6 text-center">
+                <span className="text-neutral-400 dark:text-neutral-500 text-sm font-medium px-6 text-center">
                     {imagePlaceholder}
                 </span>
             </div>

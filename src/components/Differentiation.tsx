@@ -125,10 +125,10 @@ const Differentiation: React.FC = () => {
             <Shield size={16} />
             <span>{t('common:differentiation.title')}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white mb-5 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white mb-5 tracking-tight">
             {t('common:differentiation.subtitle')}
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
             {t('common:differentiation.description')}
           </p>
         </motion.div>
@@ -161,13 +161,13 @@ const Differentiation: React.FC = () => {
               <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-5 group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
                 <diff.icon size={26} className="text-primary" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1.5">
+              <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-1.5">
                 {diff.title}
               </h3>
               <p className="text-sm font-semibold text-primary mb-3">
                 {diff.subtitle}
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 {diff.description}
               </p>
             </motion.div>
@@ -183,51 +183,51 @@ const Differentiation: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="text-center mb-8">
-            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3">
+            <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-3">
               {t('common:differentiation.comparison.title')}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
               {t('common:differentiation.comparison.subtitle')}
             </p>
           </div>
 
           <div className="glass rounded-3xl overflow-hidden border border-white/10 dark:border-white/5">
             {/* Table Header */}
-            <div className="grid grid-cols-3 gap-4 p-5 bg-gray-50/50 dark:bg-gray-900/50 border-b border-gray-200/50 dark:border-gray-700/50">
-              <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+            <div className="grid grid-cols-3 gap-4 p-5 bg-neutral-50/50 dark:bg-neutral-900/50 border-b border-neutral-200/50 dark:border-neutral-700/50">
+              <div className="text-sm font-semibold text-neutral-600 dark:text-neutral-400">
                 {t('common:differentiation.comparison.featureHeader')}
               </div>
               <div className="flex items-center justify-center gap-2 text-sm font-bold text-primary">
                 <Zap size={16} />
                 <span>{t('common:differentiation.comparison.flipikaHeader')}</span>
               </div>
-              <div className="text-sm font-semibold text-gray-500 dark:text-gray-400 text-center">
+              <div className="text-sm font-semibold text-neutral-500 dark:text-neutral-400 text-center">
                 {t('common:differentiation.comparison.othersHeader')}
               </div>
             </div>
 
             {/* Table Rows */}
-            <div className="divide-y divide-gray-200/50 dark:divide-gray-700/50">
+            <div className="divide-y divide-neutral-200/50 dark:divide-neutral-700/50">
               {comparison.map((item) => (
                 <div
                   key={item.feature}
                   className="grid grid-cols-3 gap-4 p-5 hover:bg-primary/5 transition-colors duration-200"
                 >
-                  <div className="text-sm text-gray-700 dark:text-gray-300">
+                  <div className="text-sm text-neutral-700 dark:text-neutral-300">
                     {item.feature}
                   </div>
                   <div className="flex justify-center">
                     {item.flipika ? (
                       <CheckCircle size={20} className="text-primary" />
                     ) : (
-                      <X size={20} className="text-gray-300 dark:text-gray-600" />
+                      <X size={20} className="text-neutral-300 dark:text-neutral-600" />
                     )}
                   </div>
                   <div className="flex justify-center">
                     {item.others ? (
                       <CheckCircle size={20} className="text-primary" />
                     ) : (
-                      <X size={20} className="text-gray-300 dark:text-gray-600" />
+                      <X size={20} className="text-neutral-300 dark:text-neutral-600" />
                     )}
                   </div>
                 </div>
@@ -245,10 +245,10 @@ const Differentiation: React.FC = () => {
           viewport={{ once: true }}
         >
           <div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
               {t('common:differentiation.cta')}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-neutral-600 dark:text-neutral-400">
               {t('common:differentiation.ctaSubtitle') || 'Discover why Media Buyers choose Flipika'}
             </p>
           </div>

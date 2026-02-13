@@ -33,8 +33,8 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ competitor }) => {
                                     </td>
                                     <td className="px-8 py-6">
                                         {feature.hasCompetitor ? (
-                                            <div className="w-8 h-8 rounded-full bg-slate-500/10 flex items-center justify-center">
-                                                <Check className="w-5 h-5 text-slate-500" />
+                                            <div className="w-8 h-8 rounded-full bg-neutral-500/10 flex items-center justify-center">
+                                                <Check className="w-5 h-5 text-neutral-500" />
                                             </div>
                                         ) : (
                                             <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center">

@@ -109,13 +109,13 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                                 <button
                                     onClick={handleClose}
                                     disabled={isLoading}
-                                    className="p-2 -mr-2 text-gray-400 hover:text-gray-500 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
+                                    className="p-2 -mr-2 text-neutral-400 hover:text-neutral-500 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors disabled:opacity-50"
                                 >
                                     <X size={20} />
                                 </button>
                             </div>
 
-                            <div className="mt-8 flex justify-end gap-3 border-t border-gray-100 dark:border-gray-800 pt-4">
+                            <div className="mt-8 flex justify-end gap-3 border-t border-neutral-100 dark:border-neutral-800 pt-4">
                                 <button
                                     onClick={handleClose}
                                     disabled={isLoading}

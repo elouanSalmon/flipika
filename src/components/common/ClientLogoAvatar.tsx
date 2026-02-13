@@ -44,7 +44,7 @@ const ClientLogoAvatar: React.FC<ClientLogoAvatarProps> = ({
 
     if (logo) {
         return (
-            <div className={`${baseClasses} bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600`}>
+            <div className={`${baseClasses} bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-600`}>
                 <img
                     src={logo}
                     alt={name || 'Client logo'}
@@ -69,7 +69,7 @@ const ClientLogoAvatar: React.FC<ClientLogoAvatarProps> = ({
     }
 
     return (
-        <div className={`${baseClasses} bg-gray-100 dark:bg-gray-700 text-gray-400`}>
+        <div className={`${baseClasses} bg-neutral-100 dark:bg-neutral-700 text-neutral-400`}>
             <Building size={iconSizes[size]} />
         </div>
     );

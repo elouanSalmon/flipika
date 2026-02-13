@@ -91,10 +91,10 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             {/* Header Section */}
             <div className="flex justify-between items-start mb-3">
                 <div className="flex-1 min-w-0 pr-2">
-                    <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 truncate flex items-center gap-2 group-hover:text-primary transition-colors">
+                    <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 truncate flex items-center gap-2 group-hover:text-primary transition-colors">
                         {schedule.name}
                     </h3>
-                    <div className="flex items-center gap-2 mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center gap-2 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
                         <RefreshCw size={12} className={schedule.isActive ? 'text-primary' : ''} />
                         <span className="truncate">{formatScheduleConfig(schedule.scheduleConfig)}</span>
                     </div>
@@ -104,7 +104,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
             {/* Description (if any) */}
             {schedule.description && (
-                <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4 h-10">
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 mb-4 h-10">
                     {schedule.description}
                 </p>
             )}
@@ -113,7 +113,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             {/* Hero Section: Next Execution or Paused State */}
             <div className={`rounded-xl p-4 mb-4 border relative overflow-hidden ${schedule.isActive
                 ? 'bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary/10 dark:border-primary/20'
-                : 'bg-gray-50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700'
+                : 'bg-neutral-50 dark:bg-neutral-800/50 border-neutral-100 dark:border-neutral-700'
                 }`}>
                 {schedule.isActive ? (
                     <>
@@ -125,7 +125,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
                             <div className="flex items-end justify-between">
                                 <div>
-                                    <div className="text-2xl font-bold text-gray-900 dark:text-white leading-none mb-1">
+                                    <div className="text-2xl font-bold text-neutral-900 dark:text-white leading-none mb-1">
                                         {nextRun ? nextRun.toLocaleString('fr-FR', {
                                             hour: '2-digit',
                                             minute: '2-digit',
@@ -133,7 +133,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                                             month: 'short'
                                         }) : '-'}
                                     </div>
-                                    <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                                    <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">
                                         {t('card.nextRun.localTime')}
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                                             {timeUntil}
                                         </div>
                                     )}
-                                    <div className="text-[10px] text-gray-400 dark:text-gray-500 flex items-center justify-end gap-1">
+                                    <div className="text-[10px] text-neutral-400 dark:text-neutral-500 flex items-center justify-end gap-1">
                                         <span>UTC:</span>
                                         {nextRun ? nextRun.toLocaleString('fr-FR', {
                                             hour: '2-digit',
@@ -161,7 +161,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                         </div>
                     </>
                 ) : (
-                    <div className="flex flex-col items-center justify-center py-2 text-gray-500 dark:text-gray-400">
+                    <div className="flex flex-col items-center justify-center py-2 text-neutral-500 dark:text-neutral-400">
                         <PowerOff size={24} className="mb-2 opacity-50" />
                         <span className="text-sm font-medium">{t('card.paused.title')}</span>
                         <span className="text-xs opacity-75">{t('card.paused.description')}</span>
@@ -172,30 +172,30 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             {/* Context Chips */}
             <div className="flex flex-wrap gap-2 mb-4">
                 {clientLogo && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-50 dark:bg-gray-800 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-50 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-700">
                         <ClientLogoAvatar logo={clientLogo} name={accountName} size="xs" />
                     </div>
                 )}
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-50 dark:bg-gray-800 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700 max-w-full" title={templateName}>
-                    <BarChart2 size={12} className="text-gray-400" />
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-50 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-700 max-w-full" title={templateName}>
+                    <BarChart2 size={12} className="text-neutral-400" />
                     <span className="truncate max-w-[120px]">{templateName || 'Template'}</span>
                 </div>
                 {accountName && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-50 dark:bg-gray-800 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-700 max-w-full" title={accountName}>
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-50 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-700 max-w-full" title={accountName}>
                         <span className="truncate max-w-[120px]">{accountName}</span>
                     </div>
                 )}
             </div>
 
             {/* Footer Stats & Last Run */}
-            <div className="pt-3 border-t border-gray-100 dark:border-gray-700 mt-auto">
+            <div className="pt-3 border-t border-neutral-100 dark:border-neutral-700 mt-auto">
                 <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                         <div className="flex flex-col">
-                            <span className="text-[10px] uppercase text-gray-400 font-semibold">{t('card.stats.total')}</span>
-                            <span className="text-sm font-bold text-gray-700 dark:text-gray-200">{schedule.totalRuns}</span>
+                            <span className="text-[10px] uppercase text-neutral-400 font-semibold">{t('card.stats.total')}</span>
+                            <span className="text-sm font-bold text-neutral-700 dark:text-neutral-200">{schedule.totalRuns}</span>
                         </div>
-                        <div className="w-px h-6 bg-gray-200 dark:bg-gray-700"></div>
+                        <div className="w-px h-6 bg-neutral-200 dark:bg-neutral-700"></div>
                         <div className="flex flex-col text-green-600 dark:text-green-400">
                             <span className="text-[10px] uppercase font-semibold">{t('card.stats.success')}</span>
                             <span className="text-sm font-bold">{schedule.successfulRuns}</span>
@@ -208,7 +208,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 </div>
 
                 {lastRun && (
-                    <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 rounded px-2 py-1.5">
+                    <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-800/50 rounded px-2 py-1.5">
                         <div className="flex items-center gap-1.5">
                             <Calendar size={12} />
                             <span>{t('card.lastRun', { date: lastRun.toLocaleDateString() })}</span>
@@ -231,7 +231,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             {/* Hover Actions */}
             <div className="listing-card-actions">
                 <button
-                    className={`action-btn-icon ${schedule.isActive ? 'text-green-600 hover:bg-green-50' : 'text-gray-400'}`}
+                    className={`action-btn-icon ${schedule.isActive ? 'text-green-600 hover:bg-green-50' : 'text-neutral-400'}`}
                     onClick={() => onToggleStatus(schedule, !schedule.isActive)}
                     title={schedule.isActive ? t('card.actions.pause') : t('card.actions.activate')}
                 >
@@ -255,7 +255,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                     </button>
 
                     {showMenu && (
-                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 py-1">
+                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 z-50 py-1">
                             <button
                                 onClick={() => handleAction(() => onDelete(schedule))}
                                 className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"

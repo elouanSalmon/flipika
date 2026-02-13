@@ -40,7 +40,7 @@ const KPICard: React.FC<KPICardProps> = ({
             case 'down':
                 return <TrendingDown size={16} className="text-red-600 dark:text-red-400" />;
             default:
-                return <Minus size={16} className="text-gray-400" />;
+                return <Minus size={16} className="text-neutral-400" />;
         }
     };
 
@@ -51,34 +51,34 @@ const KPICard: React.FC<KPICardProps> = ({
             case 'down':
                 return 'text-red-600 dark:text-red-400';
             default:
-                return 'text-gray-500';
+                return 'text-neutral-500';
         }
     };
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 animate-pulse">
+            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 animate-pulse">
                 <div className="flex items-start justify-between mb-4">
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-                    <div className="h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
+                    <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-24"></div>
+                    <div className="h-10 w-10 bg-neutral-200 dark:bg-neutral-700 rounded-xl"></div>
                 </div>
-                <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-32 mb-2"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                <div className="h-8 bg-neutral-200 dark:bg-neutral-700 rounded w-32 mb-2"></div>
+                <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-16"></div>
             </div>
         );
     }
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow">
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-start justify-between mb-4">
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{title}</p>
+                <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">{title}</p>
                 <div className="p-2.5 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
                     {icon}
                 </div>
             </div>
 
             <div className="space-y-2">
-                <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                <h3 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100">
                     {formatValue(value)}
                 </h3>
 
@@ -88,7 +88,7 @@ const KPICard: React.FC<KPICardProps> = ({
                         <span className={`text-sm font-semibold ${getTrendColor()}`}>
                             {change > 0 ? '+' : ''}{change.toFixed(1)}%
                         </span>
-                        <span className="text-xs text-gray-500">vs période précédente</span>
+                        <span className="text-xs text-neutral-500">vs période précédente</span>
                     </div>
                 )}
             </div>

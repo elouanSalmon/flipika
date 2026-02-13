@@ -298,7 +298,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                         <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
                             Bienvenue sur Flipika !
                         </h2>
-                        <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
+                        <p className="text-neutral-600 dark:text-neutral-400 mb-8 max-w-md mx-auto">
                             Configurons votre profil en quelques étapes rapides pour commencer à créer des rapports Google Ads professionnels.
                         </p>
                         <button
@@ -318,15 +318,15 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                         exit={{ opacity: 0, x: -20 }}
                         className="py-6"
                     >
-                        <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">
+                        <h2 className="text-2xl font-bold mb-2 text-neutral-900 dark:text-neutral-100">
                             {t('common:onboarding.username.title')}
                         </h2>
-                        <p className="text-gray-600 dark:text-gray-400 mb-6">
+                        <p className="text-neutral-600 dark:text-neutral-400 mb-6">
                             {t('common:onboarding.username.description')}
                         </p>
 
                         <div className="mb-6">
-                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                                 {t('common:onboarding.username.label')}
                             </label>
                             <div className="relative">
@@ -335,12 +335,12 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     placeholder="mon-identifiant"
-                                    className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-700/30 border-2 ${errors.username
+                                    className={`w-full px-4 py-3 bg-neutral-50 dark:bg-neutral-700/30 border-2 ${errors.username
                                         ? 'border-red-500'
                                         : usernameAvailable === true
                                             ? 'border-green-500'
                                             : 'border-primary/30 dark:border-primary/40'
-                                        } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300`}
+                                        } rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300`}
                                 />
                                 {usernameChecking && (
                                     <Loader2 size={20} className="absolute right-4 top-1/2 -translate-y-1/2 text-primary animate-spin" />
@@ -355,11 +355,11 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             {usernameAvailable === true && (
                                 <p className="mt-2 text-sm text-green-500">{t('common:onboarding.username.available')}</p>
                             )}
-                            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                            <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
                                 {t('common:onboarding.username.rules')}
                             </p>
                             <div className="mt-3 p-3 bg-primary/5 dark:bg-primary/10 rounded-lg">
-                                <p className="text-sm text-gray-700 dark:text-gray-300">
+                                <p className="text-sm text-neutral-700 dark:text-neutral-300">
                                     {t('common:onboarding.username.sharePreview')}<br />
                                     <span className="font-mono text-primary dark:text-primary-light">
                                         flipika.com/report/{username || 'votre-identifiant'}/...
@@ -371,7 +371,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setCurrentStep('welcome')}
-                                className="px-6 py-3 h-14 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 flex items-center gap-2"
+                                className="px-6 py-3 h-14 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-semibold rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-all duration-200 flex items-center gap-2"
                             >
                                 <ChevronLeft size={20} />
                                 {t('common:onboarding.back')}
@@ -396,16 +396,16 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                         exit={{ opacity: 0, x: -20 }}
                         className="py-6"
                     >
-                        <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">
+                        <h2 className="text-2xl font-bold mb-2 text-neutral-900 dark:text-neutral-100">
                             {t('common:onboarding.details.title')}
                         </h2>
-                        <p className="text-gray-600 dark:text-gray-400 mb-6">
+                        <p className="text-neutral-600 dark:text-neutral-400 mb-6">
                             {t('common:onboarding.details.description')}
                         </p>
 
                         <div className="space-y-4 mb-6">
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                                     Prénom <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -413,8 +413,8 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                     placeholder="Jean"
-                                    className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-700/30 border-2 ${errors.firstName ? 'border-red-500' : 'border-primary/30 dark:border-primary/40'
-                                        } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300`}
+                                    className={`w-full px-4 py-3 bg-neutral-50 dark:bg-neutral-700/30 border-2 ${errors.firstName ? 'border-red-500' : 'border-primary/30 dark:border-primary/40'
+                                        } rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300`}
                                 />
                                 {errors.firstName && (
                                     <p className="mt-2 text-sm text-red-500">{errors.firstName}</p>
@@ -422,7 +422,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
                                     Nom <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -430,8 +430,8 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
                                     placeholder="Dupont"
-                                    className={`w-full px-4 py-3 bg-gray-50 dark:bg-gray-700/30 border-2 ${errors.lastName ? 'border-red-500' : 'border-primary/30 dark:border-primary/40'
-                                        } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300`}
+                                    className={`w-full px-4 py-3 bg-neutral-50 dark:bg-neutral-700/30 border-2 ${errors.lastName ? 'border-red-500' : 'border-primary/30 dark:border-primary/40'
+                                        } rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300`}
                                 />
                                 {errors.lastName && (
                                     <p className="mt-2 text-sm text-red-500">{errors.lastName}</p>
@@ -439,8 +439,8 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                                    Entreprise <span className="text-gray-400 text-xs">(optionnel)</span>
+                                <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
+                                    Entreprise <span className="text-neutral-400 text-xs">(optionnel)</span>
                                 </label>
                                 <div className="relative">
                                     <Building size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70 dark:text-primary-light/70 pointer-events-none" />
@@ -449,14 +449,14 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                         value={company}
                                         onChange={(e) => setCompany(e.target.value)}
                                         placeholder="Mon Agence"
-                                        className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-gray-700/30 border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
+                                        className="w-full pl-12 pr-4 py-3 bg-neutral-50 dark:bg-neutral-700/30 border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                                    Description <span className="text-gray-400 text-xs">(optionnel)</span>
+                                <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">
+                                    Description <span className="text-neutral-400 text-xs">(optionnel)</span>
                                 </label>
                                 <div className="relative">
                                     <FileText size={18} className="absolute left-4 top-4 text-primary/70 dark:text-primary-light/70 pointer-events-none" />
@@ -466,10 +466,10 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                         placeholder="Media Buyer spécialisé en e-commerce..."
                                         rows={3}
                                         maxLength={500}
-                                        className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-gray-700/30 border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 resize-none"
+                                        className="w-full pl-12 pr-4 py-3 bg-neutral-50 dark:bg-neutral-700/30 border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all duration-300 resize-none"
                                     />
                                 </div>
-                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 text-right">
+                                <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 text-right">
                                     {description.length}/500
                                 </p>
                             </div>
@@ -479,7 +479,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             <button
                                 onClick={() => setCurrentStep('username')}
                                 disabled={loading}
-                                className="px-6 py-3 h-14 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 transition-all duration-200 flex items-center gap-2"
+                                className="px-6 py-3 h-14 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-semibold rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 disabled:opacity-50 transition-all duration-200 flex items-center gap-2"
                             >
                                 <ChevronLeft size={20} />
                                 {t('common:onboarding.back')}
@@ -518,10 +518,10 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg" alt="Google Ads" className="w-10 h-10" />
                             </div>
                         </div>
-                        <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">
+                        <h2 className="text-2xl font-bold mb-2 text-neutral-900 dark:text-neutral-100">
                             {t('common:onboarding.googleAds.title')}
                         </h2>
-                        <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
+                        <p className="text-neutral-600 dark:text-neutral-400 mb-8 max-w-md mx-auto">
                             {t('common:onboarding.googleAds.description')}
                         </p>
 
@@ -529,7 +529,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             <div className="flex gap-3 w-full">
                                 <button
                                     onClick={() => setCurrentStep('details')}
-                                    className="px-6 py-3 h-14 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 flex items-center gap-2"
+                                    className="px-6 py-3 h-14 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-semibold rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-all duration-200 flex items-center gap-2"
                                 >
                                     <ChevronLeft size={20} />
                                     {t('common:onboarding.back')}
@@ -562,7 +562,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             </div>
                         </div>
 
-                        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/50 py-2 px-4 rounded-full max-w-fit mx-auto border border-gray-100 dark:border-gray-700/50">
+                        <div className="mt-6 flex items-center justify-center gap-2 text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-800/50 py-2 px-4 rounded-full max-w-fit mx-auto border border-neutral-100 dark:border-neutral-700/50">
                             <Lock size={12} className="text-green-600 dark:text-green-500" />
                             <span>{t('common:onboarding.googleAds.secure')}</span>
                         </div>
@@ -584,10 +584,10 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-primary to-primary-light rounded-full flex items-center justify-center shadow-lg shadow-primary/20">
                                 <CreditCard size={40} className="text-white" />
                             </div>
-                            <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">
+                            <h2 className="text-2xl font-bold mb-2 text-neutral-900 dark:text-neutral-100">
                                 {t('common:onboarding.subscription.title')}
                             </h2>
-                            <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                            <p className="text-neutral-600 dark:text-neutral-400 max-w-md mx-auto">
                                 {t('common:onboarding.subscription.description')}
                             </p>
                         </div>
@@ -595,24 +595,24 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                         {/* Two payment options */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             {/* Trial Subscription Card */}
-                            <div className="bg-white/70 dark:bg-gray-700/50 backdrop-blur-sm rounded-xl border-2 border-primary/30 dark:border-primary/40 p-6 hover:border-primary hover:shadow-lg transition-all duration-300">
+                            <div className="bg-white/70 dark:bg-neutral-700/50 backdrop-blur-sm rounded-xl border-2 border-primary/30 dark:border-primary/40 p-6 hover:border-primary hover:shadow-lg transition-all duration-300">
                                 <div className="text-center">
                                     <div className="inline-block px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light text-xs font-bold rounded-full mb-3">
                                         {t('common:onboarding.subscription.trial.badge')}
                                     </div>
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                                    <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
                                         {t('common:onboarding.subscription.trial.title')}
                                     </h3>
                                     <div className="mb-4">
                                         <p className="text-3xl font-bold text-primary dark:text-primary-light">
                                             {PRICE_PER_SEAT}€
-                                            <span className="text-base text-gray-600 dark:text-gray-400">{t('common:onboarding.subscription.trial.period')}</span>
+                                            <span className="text-base text-neutral-600 dark:text-neutral-400">{t('common:onboarding.subscription.trial.period')}</span>
                                         </p>
-                                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                                        <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
                                             {t('common:onboarding.subscription.trial.perAccount')}
                                         </p>
                                     </div>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
                                         {t('common:onboarding.subscription.trial.description')}
                                     </p>
                                     <button
@@ -655,7 +655,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                             {t('common:onboarding.subscription.lifetime.oneTime')}
                                         </p>
                                     </div>
-                                    <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+                                    <p className="text-sm text-neutral-700 dark:text-neutral-300 mb-4">
                                         {t('common:onboarding.subscription.lifetime.description')}
                                     </p>
                                     <button
@@ -681,7 +681,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             <button
                                 onClick={() => setCurrentStep('googleAds')}
                                 disabled={loading || isCreatingLifetimeCheckout}
-                                className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 transition-all duration-200 flex items-center gap-2"
+                                className="px-6 py-3 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 font-semibold rounded-xl hover:bg-neutral-200 dark:hover:bg-neutral-600 disabled:opacity-50 transition-all duration-200 flex items-center gap-2"
                             >
                                 <ChevronLeft size={20} />
                                 {t('common:onboarding.subscription.back')}
@@ -689,7 +689,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                             <button
                                 onClick={handleSkipSubscription}
                                 disabled={loading || isCreatingLifetimeCheckout}
-                                className="flex-1 px-4 py-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-medium transition-colors text-sm disabled:opacity-50"
+                                className="flex-1 px-4 py-3 text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 font-medium transition-colors text-sm disabled:opacity-50"
                             >
                                 {loading ? t('common:onboarding.subscription.skipping') : t('common:onboarding.subscription.skip')}
                             </button>
@@ -709,10 +709,10 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                                 <Check size={40} />
                             </div>
                         </div>
-                        <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+                        <h2 className="text-3xl font-bold mb-4 text-neutral-900 dark:text-neutral-100">
                             Profil créé avec succès !
                         </h2>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <p className="text-neutral-600 dark:text-neutral-400">
                             Vous allez être redirigé vers l'application...
                         </p>
                     </motion.div>
@@ -730,10 +730,10 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-100 dark:border-gray-700 relative text-left"
+                className="bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-neutral-100 dark:border-neutral-700 relative text-left"
             >
                 {/* Progress bar */}
-                <div className="h-1 bg-gray-100 dark:bg-gray-700 sticky top-0 z-10">
+                <div className="h-1 bg-neutral-100 dark:bg-neutral-700 sticky top-0 z-10">
                     <motion.div
                         className="h-full bg-gradient-to-r from-primary to-primary-light"
                         initial={{ width: 0 }}
@@ -746,7 +746,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
                 <div className="flex justify-end px-8 pt-4">
                     <button
                         onClick={handleLogout}
-                        className="flex items-center gap-1.5 text-sm text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+                        className="flex items-center gap-1.5 text-sm text-neutral-400 dark:text-neutral-500 hover:text-red-500 dark:hover:text-red-400 transition-colors"
                     >
                         <LogOut size={14} />
                         {t('common:onboarding.logout')}

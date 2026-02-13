@@ -79,7 +79,7 @@
     align-items: center;
     justify-content: center;
     padding: 100px 20px;
-    color: #64748b;
+    color: #6b6e77;
     font-size: 1rem;
 }
 
@@ -103,14 +103,14 @@
 
 .empty-state p {
     margin: 0;
-    color: #64748b;
+    color: #6b6e77;
     font-size: 1rem;
 }
 
 .empty-state .empty-hint {
     margin-top: 8px;
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: #8e9199;
 }
 
 /* Recharts Customization */

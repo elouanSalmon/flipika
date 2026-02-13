@@ -14,8 +14,8 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', showLabel = f
         <div className={`flex items-center gap-3 ${className}`}>
             {showLabel && (
                 <div>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100">Thème</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="font-semibold text-neutral-900 dark:text-neutral-100">Thème</p>
+                    <p className="text-sm text-neutral-500 dark:text-neutral-400">
                         {theme === 'light' ? 'Mode clair' : 'Mode sombre'}
                     </p>
                 </div>

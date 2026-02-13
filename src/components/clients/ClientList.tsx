@@ -28,12 +28,12 @@ export const ClientList: React.FC<ClientListProps> = ({
         return (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[1, 2, 3].map((i) => (
-                    <div key={i} className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-100 dark:border-gray-700 animate-pulse h-[88px]">
+                    <div key={i} className="bg-white dark:bg-neutral-800 rounded-xl p-4 border border-neutral-100 dark:border-neutral-700 animate-pulse h-[88px]">
                         <div className="flex items-center gap-4 h-full">
-                            <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+                            <div className="w-12 h-12 bg-neutral-200 dark:bg-neutral-700 rounded-lg"></div>
                             <div className="flex-1 space-y-2">
-                                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
-                                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                                <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-1/2"></div>
+                                <div className="h-3 bg-neutral-200 dark:bg-neutral-700 rounded w-3/4"></div>
                             </div>
                         </div>
                     </div>
@@ -44,9 +44,9 @@ export const ClientList: React.FC<ClientListProps> = ({
 
     if (clients.length === 0) {
         return (
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
+            <div className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-100 dark:border-neutral-700">
                 <EmptyState
-                    icon={<Users size={48} className="text-gray-300 dark:text-gray-600" />}
+                    icon={<Users size={48} className="text-neutral-300 dark:text-neutral-600" />}
                     title={t('emptyState.title', { defaultValue: 'Aucun compte' })}
                     message={t('emptyState.message', { defaultValue: "Vous n'avez pas encore ajouté de compte. Créez-en un pour commencer." })}
                     action={{

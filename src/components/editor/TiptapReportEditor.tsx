@@ -473,7 +473,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
         : '#1e293b'; // Dark text on light highlight usually better
 
     // Get fonts from theme
-    const fontFamily = design?.typography?.fontFamily || 'Inter, sans-serif';
+    const fontFamily = design?.typography?.fontFamily || 'DM Sans, sans-serif';
     const headingFontFamily = design?.typography?.headingFontFamily || fontFamily;
 
     return (

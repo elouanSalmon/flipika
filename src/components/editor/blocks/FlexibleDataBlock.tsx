@@ -16,7 +16,7 @@ import {
     XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
-const COLORS = ['#0066ff', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
+const COLORS = ['#1963d5', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 // Computed Metrics Definition
 const COMPUTED_METRICS: Record<string, { dependencies: string[], calculate: (row: any) => number }> = {
@@ -375,14 +375,14 @@ const DataRenderer: React.FC<{
                     <div className="space-y-2 overflow-auto custom-scrollbar">
                         <div className="space-y-1">
                             <span className="text-[9px] text-blue-400 font-bold uppercase tracking-tighter">Current Period</span>
-                            <pre className="bg-gray-800 text-blue-200 p-3 rounded-xl text-[10px] border border-white/5 font-mono whitespace-pre-wrap">
+                            <pre className="bg-neutral-800 text-blue-200 p-3 rounded-xl text-[10px] border border-white/5 font-mono whitespace-pre-wrap">
                                 {queries.current}
                             </pre>
                         </div>
                         {queries.comparison && (
                             <div className="space-y-1">
                                 <span className="text-[9px] text-purple-400 font-bold uppercase tracking-tighter">Comparison Period</span>
-                                <pre className="bg-gray-800 text-purple-200 p-3 rounded-xl text-[10px] border border-white/5 font-mono whitespace-pre-wrap">
+                                <pre className="bg-neutral-800 text-purple-200 p-3 rounded-xl text-[10px] border border-white/5 font-mono whitespace-pre-wrap">
                                     {queries.comparison}
                                 </pre>
                             </div>
@@ -391,7 +391,7 @@ const DataRenderer: React.FC<{
                 </div>
                 <div className="flex-1 overflow-hidden flex flex-col">
                     <span className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">Raw JSON Output ({rawResults.length} records)</span>
-                    <pre className="flex-1 bg-gray-900 text-green-400 p-4 rounded-xl text-[10px] overflow-auto custom-scrollbar font-mono border border-white/5">
+                    <pre className="flex-1 bg-neutral-900 text-green-400 p-4 rounded-xl text-[10px] overflow-auto custom-scrollbar font-mono border border-white/5">
                         {JSON.stringify(rawResults, null, 2)}
                     </pre>
                 </div>
@@ -399,7 +399,7 @@ const DataRenderer: React.FC<{
         );
     }
 
-    if (data.length === 0) return <div className="flex items-center justify-center p-8 text-gray-400 text-sm border-2 border-dashed border-[var(--color-border)] rounded-2xl">{t('flexibleBlock.emptyState')}</div>;
+    if (data.length === 0) return <div className="flex items-center justify-center p-8 text-neutral-400 text-sm border-2 border-dashed border-[var(--color-border)] rounded-2xl">{t('flexibleBlock.emptyState')}</div>;
 
     const tooltipStyle = {
         backgroundColor: design?.colorScheme?.background || 'var(--color-bg-primary)',

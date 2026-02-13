@@ -58,11 +58,11 @@ export const PerformanceBlock: React.FC<PerformanceBlockProps> = ({ config }) =>
 
     if (isLoading) {
         return (
-            <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg animate-pulse">
-                <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-1/3 mb-4" />
+            <div className="p-6 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl border border-neutral-200/50 dark:border-neutral-700/50 shadow-lg animate-pulse">
+                <div className="h-6 bg-neutral-200 dark:bg-neutral-700 rounded w-1/3 mb-4" />
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[...Array(4)].map((_, i) => (
-                        <div key={i} className="h-24 bg-gray-200 dark:bg-gray-700 rounded-lg" />
+                        <div key={i} className="h-24 bg-neutral-200 dark:bg-neutral-700 rounded-lg" />
                     ))}
                 </div>
             </div>
@@ -70,8 +70,8 @@ export const PerformanceBlock: React.FC<PerformanceBlockProps> = ({ config }) =>
     }
 
     return (
-        <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+        <div className="p-6 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl border border-neutral-200/50 dark:border-neutral-700/50 shadow-lg">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
                 <TrendingUp size={20} className="text-blue-600" />
                 Performance Overview
             </h3>
@@ -79,11 +79,11 @@ export const PerformanceBlock: React.FC<PerformanceBlockProps> = ({ config }) =>
                 {metrics.map((metric) => (
                     <div
                         key={metric.label}
-                        className="p-4 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-700 rounded-lg border border-gray-200/50 dark:border-gray-600/50"
+                        className="p-4 bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-800 dark:to-neutral-700 rounded-lg border border-neutral-200/50 dark:border-neutral-600/50"
                     >
                         <div className={`mb-2 ${metric.color}`}>{metric.icon}</div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{metric.label}</p>
-                        <p className="text-xl font-bold text-gray-900 dark:text-white">{metric.value}</p>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">{metric.label}</p>
+                        <p className="text-xl font-bold text-neutral-900 dark:text-white">{metric.value}</p>
                         {metric.change && (
                             <p className={`text-sm ${metric.change.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
                                 {metric.change}

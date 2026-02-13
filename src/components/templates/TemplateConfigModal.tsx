@@ -309,13 +309,13 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                 <div className="form-group">
                                     <label htmlFor="template-client">{t('configModal.client.label', { defaultValue: 'Client' })}</label>
                                     {loadingClients ? (
-                                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                                        <div className="flex items-center gap-2 text-sm text-neutral-500">
                                             <Loader2 size={16} className="animate-spin" />
                                             {t('common:loading', { defaultValue: 'Chargement...' })}
                                         </div>
                                     ) : (
                                         <div className="relative">
-                                            <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={18} />
+                                            <Users className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" size={18} />
                                             <select
                                                 id="template-client"
                                                 value={selectedClientId}
@@ -337,7 +337,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
 
                                     {/* Account Feedback */}
                                     {selectedClientId && accountId && (
-                                        <div className="mt-2 text-sm text-gray-500 flex items-center gap-1 bg-gray-50 dark:bg-gray-800/50 p-2 rounded-md border border-gray-100 dark:border-gray-700">
+                                        <div className="mt-2 text-sm text-neutral-500 flex items-center gap-1 bg-neutral-50 dark:bg-neutral-800/50 p-2 rounded-md border border-neutral-100 dark:border-neutral-700">
                                             <span className="font-medium">Compte Google Ads :</span>
                                             {accounts.find(a => a.id === accountId)?.name || accountId}
                                         </div>

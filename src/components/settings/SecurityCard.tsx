@@ -89,9 +89,9 @@ const SecurityCard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
-                className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
+                className="bg-white/50 dark:bg-neutral-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
             >
-                <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-900 dark:text-gray-100">
+                <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-neutral-900 dark:text-neutral-100">
                     <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                         <Shield size={20} className="text-primary dark:text-primary-light" />
                     </div>
@@ -101,17 +101,17 @@ const SecurityCard = () => {
                 <div className="space-y-3">
                     <button
                         onClick={() => setShowPasswordModal(true)}
-                        className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-gray-700/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-gray-700/50 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5 group"
+                        className="w-full flex items-center justify-between p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-neutral-700/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-neutral-700/50 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5 group"
                     >
                         <div className="flex items-center gap-3">
                             <div className="p-2.5 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg group-hover:from-primary/20 group-hover:to-primary/20 dark:group-hover:from-primary/30 dark:group-hover:to-primary/30 transition-all duration-300 border border-primary/20">
                                 <Lock size={18} className="text-primary dark:text-primary-light" />
                             </div>
                             <div className="text-left">
-                                <p className="font-semibold text-gray-900 dark:text-gray-100">
+                                <p className="font-semibold text-neutral-900 dark:text-neutral-100">
                                     {hasPassword ? t('security.password.change') : t('security.password.create')}
                                 </p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                <p className="text-sm text-neutral-500 dark:text-neutral-400">
                                     {hasPassword ? t('security.password.lastModified') : t('security.password.addAlternative')}
                                 </p>
                             </div>
@@ -152,30 +152,30 @@ const SecurityCard = () => {
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.95, opacity: 0, y: 20 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full shadow-2xl border border-primary/20 dark:border-primary/30"
+                            className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full shadow-2xl border border-primary/20 dark:border-primary/30"
                         >
                             <div className="flex items-center justify-between mb-6">
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                                <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100">
                                     {hasPassword ? t('security.modal.changePassword') : t('security.modal.createPassword')}
                                 </h3>
                                 <button
                                     onClick={() => setShowPasswordModal(false)}
-                                    className="p-2 hover:bg-gray-100/50 dark:hover:bg-gray-700/50 rounded-lg transition-colors duration-200"
+                                    className="p-2 hover:bg-neutral-100/50 dark:hover:bg-neutral-700/50 rounded-lg transition-colors duration-200"
                                 >
-                                    <X size={20} className="text-gray-500 dark:text-gray-400" />
+                                    <X size={20} className="text-neutral-500 dark:text-neutral-400" />
                                 </button>
                             </div>
 
                             <div className="space-y-4">
                                 {hasPassword && (
                                     <div>
-                                        <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('security.modal.currentPassword')}</label>
+                                        <label className="block text-sm font-semibold mb-2 text-neutral-700 dark:text-neutral-300">{t('security.modal.currentPassword')}</label>
                                         <div className="relative">
                                             <input
                                                 type={showPassword.current ? "text" : "password"}
                                                 value={passwordForm.current}
                                                 onChange={(e) => setPasswordForm({ ...passwordForm, current: e.target.value })}
-                                                className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50"
+                                                className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-100 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50"
                                             />
                                             <button
                                                 type="button"
@@ -189,13 +189,13 @@ const SecurityCard = () => {
                                 )}
 
                                 <div>
-                                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('security.modal.newPassword')}</label>
+                                    <label className="block text-sm font-semibold mb-2 text-neutral-700 dark:text-neutral-300">{t('security.modal.newPassword')}</label>
                                     <div className="relative">
                                         <input
                                             type={showPassword.new ? "text" : "password"}
                                             value={passwordForm.new}
                                             onChange={(e) => setPasswordForm({ ...passwordForm, new: e.target.value })}
-                                            className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50"
+                                            className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-100 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50"
                                         />
                                         <button
                                             type="button"
@@ -208,15 +208,15 @@ const SecurityCard = () => {
                                     {passwordForm.new && (
                                         <div className="mt-2">
                                             <div className="flex items-center gap-2 mb-1">
-                                                <div className="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                                <div className="flex-1 h-1.5 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
                                                     <div
                                                         className={`h-full ${passwordStrength.color} transition-all duration-300`}
                                                         style={{ width: `${passwordStrength.score}%` }}
                                                     />
                                                 </div>
-                                                <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">{passwordStrength.label}</span>
+                                                <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">{passwordStrength.label}</span>
                                             </div>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                            <p className="text-xs text-neutral-500 dark:text-neutral-400">
                                                 {t('security.modal.passwordRequirements')}
                                             </p>
                                         </div>
@@ -224,13 +224,13 @@ const SecurityCard = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">{t('security.modal.confirmPassword')}</label>
+                                    <label className="block text-sm font-semibold mb-2 text-neutral-700 dark:text-neutral-300">{t('security.modal.confirmPassword')}</label>
                                     <div className="relative">
                                         <input
                                             type={showPassword.confirm ? "text" : "password"}
                                             value={passwordForm.confirm}
                                             onChange={(e) => setPasswordForm({ ...passwordForm, confirm: e.target.value })}
-                                            className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50"
+                                            className="w-full px-4 py-3 pr-10 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-100 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50"
                                         />
                                         <button
                                             type="button"

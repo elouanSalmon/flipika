@@ -7,7 +7,7 @@ interface ErrorCardProps {
 
 const ErrorCard = ({ title = 'Erreur', message }: ErrorCardProps) => {
     return (
-        <div className="card bg-white dark:bg-gray-800 border-2 border-[var(--color-error)] shadow-lg">
+        <div className="card bg-white dark:bg-neutral-800 border-2 border-[var(--color-error)] shadow-lg">
             <div className="p-6">
                 <div className="flex items-start gap-4">
                     <div className="shrink-0 p-3 bg-red-50 dark:bg-red-900/20 rounded-full">
@@ -15,7 +15,7 @@ const ErrorCard = ({ title = 'Erreur', message }: ErrorCardProps) => {
                     </div>
                     <div className="flex-1">
                         <h3 className="text-lg font-bold text-[var(--color-error)] mb-2">{title}</h3>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{message}</p>
+                        <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">{message}</p>
                     </div>
                 </div>
             </div>

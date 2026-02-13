@@ -43,7 +43,7 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
 
     return (
         <div
-            className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 flex items-center justify-start text-sm shadow-sm z-30"
+            className="bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 px-4 flex items-center justify-start text-sm shadow-sm z-30"
             style={{
                 position: 'fixed',
                 top: 'var(--page-header-height)',
@@ -56,7 +56,7 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
             <div className="flex items-center space-x-6 overflow-x-auto no-scrollbar max-w-fit h-full mr-6">
                 {/* Dates */}
                 <div
-                    className="flex items-center text-gray-600 dark:text-gray-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-colors"
+                    className="flex items-center text-neutral-600 dark:text-neutral-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-700 px-2 py-1 rounded transition-colors"
                     onClick={onOpenSettings}
                 >
                     <Calendar size={16} className="mr-1.5 opacity-70" />
@@ -66,11 +66,11 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
                     </span>
                 </div>
 
-                <div className="h-3 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+                <div className="h-3 w-px bg-neutral-200 dark:bg-neutral-700 hidden sm:block"></div>
 
                 {/* Client */}
                 <div
-                    className="flex items-center text-gray-600 dark:text-gray-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-colors"
+                    className="flex items-center text-neutral-600 dark:text-neutral-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-700 px-2 py-1 rounded transition-colors"
                     onClick={onOpenSettings}
                 >
                     <Briefcase size={16} className="mr-1.5 opacity-70" />
@@ -80,11 +80,11 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
                     </span>
                 </div>
 
-                <div className="h-3 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+                <div className="h-3 w-px bg-neutral-200 dark:bg-neutral-700 hidden sm:block"></div>
 
                 {/* Campaigns */}
                 <div
-                    className="flex items-center text-gray-600 dark:text-gray-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded transition-colors"
+                    className="flex items-center text-neutral-600 dark:text-neutral-300 whitespace-nowrap min-w-fit cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-700 px-2 py-1 rounded transition-colors"
                     onClick={onOpenSettings}
                 >
                     <Target size={16} className="mr-1.5 opacity-70" />
@@ -109,7 +109,7 @@ const ReportScopeHeader: React.FC<ReportScopeHeaderProps> = ({
                 </div>
             </div>
 
-            <div className="h-3 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block mr-6"></div>
+            <div className="h-3 w-px bg-neutral-200 dark:bg-neutral-700 hidden sm:block mr-6"></div>
 
             {/* Scale Actions (Theme, Settings) */}
             <div className="flex items-center space-x-2">

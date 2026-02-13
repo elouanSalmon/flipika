@@ -66,11 +66,11 @@ class ErrorBoundary extends Component<Props, State> {
                         <AlertTriangle size={48} className="text-red-600 dark:text-red-400" />
                     </div>
 
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-white mb-2">
                         An error occurred
                     </h2>
 
-                    <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
+                    <p className="text-neutral-600 dark:text-neutral-400 mb-6 max-w-md">
                         An unexpected problem occurred. Please try again or go back to home.
                     </p>
 
@@ -85,7 +85,7 @@ class ErrorBoundary extends Component<Props, State> {
 
                         <button
                             onClick={this.handleGoHome}
-                            className="flex items-center gap-2 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                            className="flex items-center gap-2 px-4 py-2 border-2 border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                         >
                             <Home size={18} />
                             Home
@@ -95,10 +95,10 @@ class ErrorBoundary extends Component<Props, State> {
                     {/* Technical details (development only) */}
                     {import.meta.env.DEV && this.state.error && (
                         <details className="mt-6 w-full max-w-2xl text-left">
-                            <summary className="cursor-pointer text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                            <summary className="cursor-pointer text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300">
                                 Technical details
                             </summary>
-                            <pre className="mt-2 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-xs text-red-600 dark:text-red-400 overflow-auto">
+                            <pre className="mt-2 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg text-xs text-red-600 dark:text-red-400 overflow-auto">
                                 {this.state.error.toString()}
                                 {this.state.errorInfo?.componentStack}
                             </pre>

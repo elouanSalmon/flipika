@@ -40,7 +40,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
         const styles = {
             URGENT: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400',
             IMPORTANT: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400',
-            MINOR: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-400',
+            MINOR: 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-400',
         };
 
         const labels = {
@@ -82,13 +82,13 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
     };
 
     return (
-        <div className="card bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 p-6">
+        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
             <div className="space-y-4">
                 {/* Header */}
                 <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                         <h4 className="text-lg font-bold mb-2">{recommendation.title}</h4>
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{recommendation.description}</p>
+                        <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">{recommendation.description}</p>
                     </div>
                     {recommendation.status === 'COMPLETED' && (
                         <div className="shrink-0 p-2 bg-green-100 dark:bg-green-900/30 rounded-full">
@@ -120,13 +120,13 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
                 {/* Action items */}
                 {recommendation.actionItems.length > 0 && (
                     <div className="space-y-2">
-                        <h5 className="text-sm font-semibold text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                        <h5 className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 flex items-center gap-2">
                             <Wrench size={16} />
                             Actions à entreprendre
                         </h5>
                         <ul className="space-y-1.5 ml-6">
                             {recommendation.actionItems.map((item, index) => (
-                                <li key={index} className="text-sm text-gray-700 dark:text-gray-300 list-disc">
+                                <li key={index} className="text-sm text-neutral-700 dark:text-neutral-300 list-disc">
                                     {item}
                                 </li>
                             ))}
@@ -136,15 +136,15 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
 
                 {/* Notes section */}
                 {showNotes && (
-                    <div className="space-y-2 pt-3 border-t border-gray-200 dark:border-gray-600">
-                        <label className="text-sm font-semibold text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                    <div className="space-y-2 pt-3 border-t border-neutral-200 dark:border-neutral-600">
+                        <label className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 flex items-center gap-2">
                             <StickyNote size={16} />
                             Notes personnelles
                         </label>
                         <textarea
                             value={noteText}
                             onChange={(e) => setNoteText(e.target.value)}
-                            className="w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm"
+                            className="w-full px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-sm"
                             rows={3}
                             placeholder="Ajoutez vos notes..."
                         />

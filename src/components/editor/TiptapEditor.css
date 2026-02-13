@@ -166,7 +166,7 @@
 
 .tiptap-status-badge.status-archived {
     background: #e5e7eb;
-    color: #4b5563;
+    color: #545660;
 }
 
 /* Header title group (legacy, keep for compatibility) */
@@ -790,7 +790,7 @@
 [data-theme="dark"] .slide-separator {
     background: linear-gradient(to right,
             transparent,
-            #4b5563,
+            #545660,
             transparent);
 }
 
@@ -1106,20 +1106,20 @@
 
 /* Dark mode */
 [data-theme="dark"] .custom-drag-handle {
-    background-color: #1f2937;
-    border-color: #374151;
+    background-color: #262729;
+    border-color: #3d3f47;
     color: #9ca3af;
 }
 
 [data-theme="dark"] .custom-drag-handle:hover {
-    background-color: #374151;
+    background-color: #3d3f47;
     color: #60a5fa;
     border-color: #60a5fa;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .custom-drag-handle:active {
-    background-color: #4b5563;
+    background-color: #545660;
 }
 
 .slide-nav-number {
@@ -1405,8 +1405,8 @@
 
 /* Page Header */
 [data-theme="dark"] .tiptap-page-header {
-    background: #1f2937;
-    border-color: #374151;
+    background: #262729;
+    border-color: #3d3f47;
 }
 
 [data-theme="dark"] .tiptap-header-title {
@@ -1418,14 +1418,14 @@
 }
 
 [data-theme="dark"] .tiptap-header-btn:hover {
-    background: #374151;
+    background: #3d3f47;
     color: #f9fafb;
 }
 
 /* Toolbar */
 [data-theme="dark"] .tiptap-toolbar {
-    background: #1f2937;
-    border-color: #374151;
+    background: #262729;
+    border-color: #3d3f47;
 }
 
 [data-theme="dark"] .tiptap-toolbar-btn {
@@ -1433,22 +1433,22 @@
 }
 
 [data-theme="dark"] .tiptap-toolbar-btn:hover {
-    background: #374151;
+    background: #3d3f47;
     color: #f9fafb;
 }
 
 [data-theme="dark"] .tiptap-toolbar-separator {
-    background: #374151;
+    background: #3d3f47;
 }
 
 /* Slide Navigation */
 [data-theme="dark"] .slide-navigation {
-    background: #1f2937;
-    border-color: #374151;
+    background: #262729;
+    border-color: #3d3f47;
 }
 
 [data-theme="dark"] .slide-nav-header {
-    border-color: #374151;
+    border-color: #3d3f47;
 }
 
 [data-theme="dark"] .slide-nav-title {
@@ -1456,12 +1456,12 @@
 }
 
 [data-theme="dark"] .slide-nav-count {
-    background: #374151;
+    background: #3d3f47;
     color: #9ca3af;
 }
 
 [data-theme="dark"] .slide-nav-item:hover {
-    background: #374151;
+    background: #3d3f47;
 }
 
 [data-theme="dark"] .slide-nav-item.active {
@@ -1478,19 +1478,19 @@
 }
 
 [data-theme="dark"] .data-block-drag-handle {
-    background: #1f2937;
-    border-color: #374151;
+    background: #262729;
+    border-color: #3d3f47;
     color: #6b7280;
 }
 
 [data-theme="dark"] .data-block-drag-handle:hover {
-    background: #374151;
+    background: #3d3f47;
     border-color: #60a5fa;
     color: #60a5fa;
 }
 
 [data-theme="dark"] .slide-move-btn {
-    background: #1f2937;
+    background: #262729;
     border-color: #6b6e77;
     color: #8e9199;
 }
@@ -1503,7 +1503,7 @@
 
 [data-theme="dark"] .slide-move-btn:disabled {
     background: #1a1a1c;
-    border-color: #374151;
+    border-color: #3d3f47;
     color: #545660;
 }
 
@@ -1512,7 +1512,7 @@
 }
 
 [data-theme="dark"] .slide-nav-thumbnail {
-    border-color: #374151;
+    border-color: #3d3f47;
 }
 
 /* Editor Content Area */
@@ -1707,7 +1707,7 @@
 [data-theme="dark"] .slide-content-editable hr,
 [data-theme="dark"] .tiptap-editor-content hr,
 [data-theme="dark"] .ProseMirror hr {
-    border-top-color: #374151;
+    border-top-color: #3d3f47;
 }
 
 /* Text Alignment - Must use !important to override layout defaults */

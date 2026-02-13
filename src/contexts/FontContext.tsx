@@ -140,8 +140,8 @@ export function useFontContext(): FontContextValue {
         // This allows components to work outside of a report context
         return {
             fontsReady: true,
-            fontFamily: 'Inter, sans-serif',
-            headingFontFamily: 'Inter, sans-serif',
+            fontFamily: 'DM Sans, sans-serif',
+            headingFontFamily: 'DM Sans, sans-serif',
             isLoadingFonts: false,
             fontVersion: 0,
             loadFont: async () => true,

@@ -151,7 +151,7 @@ export const TutorialWidget = () => {
                     >
                         <Rocket size={32} />
                         {progress > 0 && progress < 100 && (
-                            <span className="absolute -top-1 -right-1 text-xs font-bold bg-white text-gray-900 px-1.5 py-0.5 rounded-full shadow-sm border border-gray-100">
+                            <span className="absolute -top-1 -right-1 text-xs font-bold bg-white text-neutral-900 px-1.5 py-0.5 rounded-full shadow-sm border border-neutral-100">
                                 {progress}%
                             </span>
                         )}
@@ -165,24 +165,24 @@ export const TutorialWidget = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden w-full backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95"
+                            className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl border border-neutral-100 dark:border-neutral-700 overflow-hidden w-full backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95"
                         >
                             {/* Header */}
-                            <div className="px-4 py-3 bg-gradient-to-r from-primary/5 to-transparent border-b border-gray-100 dark:border-gray-700">
+                            <div className="px-4 py-3 bg-gradient-to-r from-primary/5 to-transparent border-b border-neutral-100 dark:border-neutral-700">
                                 <div className="flex justify-between items-start mb-2">
                                     <div className="flex-1">
-                                        <h3 className="font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                                        <h3 className="font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
                                             <Rocket size={18} className="text-primary" />
                                             {t('tutorial:title')}
                                         </h3>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                        <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
                                             {completedSteps}/{steps.length} étapes complétées
                                         </p>
                                     </div>
                                     <div className="flex gap-1">
                                         <button
                                             onClick={() => setIsExpanded(false)}
-                                            className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-400 hover:text-gray-600 transition-colors"
+                                            className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg text-neutral-400 hover:text-neutral-600 transition-colors"
                                             title={t('tutorial:collapse')}
                                         >
                                             <ChevronDown size={18} />
@@ -191,8 +191,8 @@ export const TutorialWidget = () => {
                                             onClick={() => isComplete && setShowConfirmDismiss(true)}
                                             disabled={!isComplete}
                                             className={`p-1 rounded-lg transition-colors ${isComplete
-                                                ? 'hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-400 hover:text-red-500'
-                                                : 'opacity-30 cursor-not-allowed text-gray-300 dark:text-gray-600'
+                                                ? 'hover:bg-red-50 dark:hover:bg-red-900/20 text-neutral-400 hover:text-red-500'
+                                                : 'opacity-30 cursor-not-allowed text-neutral-300 dark:text-neutral-600'
                                                 }`}
                                             title={isComplete ? t('tutorial:dismiss') : t('tutorial:cannotDismiss')}
                                         >
@@ -206,10 +206,10 @@ export const TutorialWidget = () => {
                                     <motion.div
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="flex items-center gap-2 bg-white dark:bg-gray-700 px-3 py-1.5 rounded-lg shadow-sm border border-primary/20"
+                                        className="flex items-center gap-2 bg-white dark:bg-neutral-700 px-3 py-1.5 rounded-lg shadow-sm border border-primary/20"
                                     >
                                         <Clock className="text-primary flex-shrink-0" size={14} />
-                                        <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                                        <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
                                             Encore {remainingMinutes} min pour terminer
                                         </span>
                                     </motion.div>
@@ -217,7 +217,7 @@ export const TutorialWidget = () => {
                             </div>
 
                             {/* Progress Bar with Shimmer Effect */}
-                            <div className="h-2 bg-gray-100 dark:bg-gray-700 w-full relative overflow-hidden">
+                            <div className="h-2 bg-neutral-100 dark:bg-neutral-700 w-full relative overflow-hidden">
                                 <motion.div
                                     className="h-full bg-gradient-to-r from-primary to-primary-light relative overflow-hidden"
                                     initial={{ width: 0 }}
@@ -253,7 +253,7 @@ export const TutorialWidget = () => {
                                                 animate={{ opacity: 1, x: 0 }}
                                                 className={`px-3 py-2.5 rounded-xl flex items-center gap-3 transition-colors ${isCompleted
                                                     ? 'bg-green-50/50 dark:bg-green-900/10'
-                                                    : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                                                    : 'hover:bg-neutral-50 dark:hover:bg-neutral-700/50'
                                                     }`}
                                             >
                                                 <div className="flex-shrink-0 relative">
@@ -281,7 +281,7 @@ export const TutorialWidget = () => {
                                                                 key="incomplete"
                                                                 initial={{ scale: 0 }}
                                                                 animate={{ scale: 1 }}
-                                                                className="text-gray-300 dark:text-gray-600"
+                                                                className="text-neutral-300 dark:text-neutral-600"
                                                             >
                                                                 <Circle size={20} />
                                                             </motion.div>
@@ -291,8 +291,8 @@ export const TutorialWidget = () => {
 
                                                 <div className="flex-1 min-w-0">
                                                     <p className={`text-sm font-medium ${isCompleted
-                                                        ? 'text-gray-500 dark:text-gray-500 line-through decoration-gray-400'
-                                                        : 'text-gray-700 dark:text-gray-200'
+                                                        ? 'text-neutral-500 dark:text-neutral-500 line-through decoration-neutral-400'
+                                                        : 'text-neutral-700 dark:text-neutral-200'
                                                         }`}>
                                                         {t(`tutorial:steps.${step.id}.label`)}
                                                     </p>
@@ -323,7 +323,7 @@ export const TutorialWidget = () => {
                                                 {!isCompleted && (
                                                     <div className="flex-shrink-0 flex items-center gap-1 bg-primary/10 dark:bg-primary/20 px-2.5 py-1.5 rounded-lg">
                                                         <Clock size={12} className="text-primary" />
-                                                        <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                                                        <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
                                                             {step.estimatedMinutes} min
                                                         </span>
                                                     </div>
@@ -333,7 +333,7 @@ export const TutorialWidget = () => {
                                                 {step.infoNamespace && (
                                                     <button
                                                         onClick={() => setActiveInfoModal(step.infoNamespace)}
-                                                        className="flex-shrink-0 p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-gray-400 hover:text-primary transition-colors"
+                                                        className="flex-shrink-0 p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg text-neutral-400 hover:text-primary transition-colors"
                                                         title={t(`${step.infoNamespace}:info.buttonLabel`)}
                                                     >
                                                         <Info size={16} />
@@ -374,7 +374,7 @@ export const TutorialWidget = () => {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ delay: 0.5 }}
-                                        className="text-xs text-gray-600 dark:text-gray-400 mt-1"
+                                        className="text-xs text-neutral-600 dark:text-neutral-400 mt-1"
                                     >
                                         Vous êtes maintenant un expert Flipika! 🚀
                                     </motion.p>

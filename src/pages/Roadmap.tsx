@@ -191,14 +191,14 @@ const Roadmap: React.FC = () => {
                     </motion.div>
 
                     <motion.h1
-                        className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight"
+                        className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white mb-6 tracking-tight"
                         variants={itemVariants}
                     >
                         {t('hero.title')}
                     </motion.h1>
 
                     <motion.p
-                        className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-12"
+                        className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-12"
                         variants={itemVariants}
                     >
                         {t('hero.description')}
@@ -219,7 +219,7 @@ const Roadmap: React.FC = () => {
                                 const Icon = phase.icon;
                                 return (
                                     <div key={i} className="relative flex flex-col items-center z-10">
-                                        <div className={`w-10 h-10 ${phase.dotBg} rounded-full flex items-center justify-center shadow-lg ${phase.dotShadow} ring-4 ring-white dark:ring-gray-900`}>
+                                        <div className={`w-10 h-10 ${phase.dotBg} rounded-full flex items-center justify-center shadow-lg ${phase.dotShadow} ring-4 ring-white dark:ring-neutral-900`}>
                                             <Icon size={18} className="text-white" />
                                         </div>
                                         <span className={`mt-2 text-xs font-bold ${phase.badgeText}`}>
@@ -282,25 +282,25 @@ const Roadmap: React.FC = () => {
                                                 )}
                                             </div>
 
-                                            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
+                                            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">
                                                 {phase.title}
                                             </h2>
                                             <p className={`text-base font-medium ${phase.subtitleText} mb-3`}>
                                                 {phase.subtitle}
                                             </p>
-                                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                                            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
                                                 {phase.description}
                                             </p>
                                         </div>
 
                                         {/* Right: Feature list */}
                                         <div className="flex-1">
-                                            <div className="bg-gray-50/50 dark:bg-gray-800/30 rounded-xl p-5 sm:p-6 border border-gray-100/50 dark:border-gray-700/30">
+                                            <div className="bg-neutral-50/50 dark:bg-neutral-800/30 rounded-xl p-5 sm:p-6 border border-neutral-100/50 dark:border-neutral-700/30">
                                                 <ul className="space-y-3">
                                                     {Array.isArray(phase.features) && phase.features.map((feature, fi) => (
                                                         <motion.li
                                                             key={fi}
-                                                            className="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300"
+                                                            className="flex items-start gap-3 text-sm text-neutral-700 dark:text-neutral-300"
                                                             initial={{ opacity: 0, x: -10 }}
                                                             whileInView={{ opacity: 1, x: 0 }}
                                                             transition={{ delay: fi * 0.05 }}
@@ -337,10 +337,10 @@ const Roadmap: React.FC = () => {
                             <Star size={16} />
                             <span>{t('vision.badge')}</span>
                         </div>
-                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+                        <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-4 tracking-tight">
                             {t('vision.title')}
                         </h2>
-                        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                        <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
                             {t('vision.description')}
                         </p>
                     </motion.div>
@@ -361,10 +361,10 @@ const Roadmap: React.FC = () => {
                                     <div className="w-14 h-14 mx-auto mb-5 bg-[var(--color-primary)]/10 rounded-2xl flex items-center justify-center group-hover:bg-[var(--color-primary)]/15 transition-colors">
                                         <Icon size={26} className="text-[var(--color-primary)]" />
                                     </div>
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-3">
                                         {point.title}
                                     </h3>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                                         {point.description}
                                     </p>
                                 </motion.div>
@@ -407,7 +407,7 @@ const Roadmap: React.FC = () => {
                             <h2 className="text-3xl sm:text-4xl font-bold text-yellow-900 dark:text-yellow-200 mb-4 tracking-tight">
                                 {t('cta.title')}
                             </h2>
-                            <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-xl mx-auto">
+                            <p className="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 mb-8 max-w-xl mx-auto">
                                 {t('cta.description')}
                             </p>
 
@@ -445,12 +445,12 @@ const Roadmap: React.FC = () => {
                             </div>
 
                             {/* Trust signals */}
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-neutral-600 dark:text-neutral-400">
                                 <div className="flex items-center gap-1.5">
                                     <Shield size={14} className="text-green-600 dark:text-green-500" />
                                     <span>{t('cta.guarantee')}</span>
                                 </div>
-                                <div className="hidden sm:block w-1 h-1 rounded-full bg-gray-400/40" />
+                                <div className="hidden sm:block w-1 h-1 rounded-full bg-neutral-400/40" />
                                 <div className="flex items-center gap-1.5">
                                     <Lock size={14} className="text-green-600 dark:text-green-500" />
                                     <span>{t('cta.noSubscription')}</span>

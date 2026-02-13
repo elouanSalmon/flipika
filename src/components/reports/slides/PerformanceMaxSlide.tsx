@@ -42,7 +42,7 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
 
     return (
         <div className="h-full flex flex-col p-4" style={{
-            fontFamily: design?.typography?.fontFamily || 'Inter, sans-serif',
+            fontFamily: design?.typography?.fontFamily || 'DM Sans, sans-serif',
             color: textColor,
             backgroundColor: bgColor,
         }}>
@@ -78,7 +78,7 @@ const PerformanceMaxSlide: React.FC<PerformanceMaxSlideProps> = ({ data, design 
                                 crossOrigin="anonymous" // Attempt to handle CORS if proxy is not standard
                             />
                         ) : (
-                            <div className="flex items-center justify-center h-full text-gray-400">
+                            <div className="flex items-center justify-center h-full text-neutral-400">
                                 <ImageIcon size={48} className="opacity-20" />
                             </div>
                         )}

@@ -18,7 +18,7 @@ const AdCreativeCardDemo: React.FC = () => {
                 primary: '#3b82f6',
                 secondary: '#94a3b8',
                 accent: '#06b6d4',
-                background: '#0f172a',
+                background: '#141415',
                 text: '#f1f5f9',
             }
             : defaultReportDesign.colorScheme,

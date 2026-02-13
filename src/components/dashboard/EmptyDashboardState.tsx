@@ -62,7 +62,7 @@ const EmptyDashboardState = () => {
                         </h2>
 
                         {/* Description */}
-                        <p className="text-gray-600 dark:text-gray-300 text-lg max-w-md mx-auto">
+                        <p className="text-neutral-600 dark:text-neutral-300 text-lg max-w-md mx-auto">
                             Connectez votre compte Google Ads pour visualiser vos données ou activez le mode démo pour explorer l'application.
                         </p>
 
@@ -88,14 +88,14 @@ const EmptyDashboardState = () => {
                             {/* Secondary Button - Demo Mode */}
                             <button
                                 onClick={handleEnableDemoMode}
-                                className="px-8 py-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-blue-500/30 text-gray-700 dark:text-gray-200 font-semibold hover:bg-white/70 dark:hover:bg-gray-800/70 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 shadow-md"
+                                className="px-8 py-4 rounded-xl bg-white/50 dark:bg-neutral-800/50 backdrop-blur-sm border border-blue-500/30 text-neutral-700 dark:text-neutral-200 font-semibold hover:bg-white/70 dark:hover:bg-neutral-800/70 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 shadow-md"
                             >
                                 Activer le mode démo
                             </button>
                         </div>
 
                         {/* Info Text */}
-                        <p className="text-sm text-gray-500 dark:text-gray-400 pt-4">
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400 pt-4">
                             Le mode démo vous permet d'explorer toutes les fonctionnalités avec des données fictives
                         </p>
                     </div>

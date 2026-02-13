@@ -56,10 +56,10 @@ const Testimonials: React.FC = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight mb-4">
             {t('common:testimonials.title')}
           </h2>
-          <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto">
             {t('common:testimonials.subtitle')}
           </p>
         </motion.div>
@@ -69,7 +69,7 @@ const Testimonials: React.FC = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              className="relative flex flex-col p-6 bg-white dark:bg-gray-800/60 rounded-2xl border border-gray-200/60 dark:border-gray-700/40 shadow-sm"
+              className="relative flex flex-col p-6 bg-white dark:bg-neutral-800/60 rounded-2xl border border-neutral-200/60 dark:border-neutral-700/40 shadow-sm"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
@@ -79,7 +79,7 @@ const Testimonials: React.FC = () => {
               <Quote size={24} className="text-primary/15 mb-3" />
 
               {/* Content */}
-              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-5 flex-1">
+              <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed mb-5 flex-1">
                 "{testimonial.content}"
               </p>
 
@@ -98,7 +98,7 @@ const Testimonials: React.FC = () => {
                 />
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                    <span className="text-sm font-semibold text-neutral-900 dark:text-white">
                       {testimonial.name}
                     </span>
                     <div className="flex gap-0.5">
@@ -107,7 +107,7 @@ const Testimonials: React.FC = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs text-neutral-500 dark:text-neutral-400">
                     {testimonial.role} · {testimonial.company}
                   </div>
                 </div>
