@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Send, Edit, Copy, Download, Check, Loader2, Zap, HelpCircle } from 'lucide-react';
+import { ArrowLeft, Send, Edit, Copy, Download, Check, Loader2, HelpCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { getReportWithSlides } from '../services/reportService';
@@ -23,6 +23,7 @@ import type { EditableReport, SlideConfig } from '../types/reportTypes';
 import type { Campaign } from '../types/business';
 import { EMAIL_PRESET_KEYS, getFullKey } from '../constants/emailDefaults';
 import TroubleshootModal from '../components/reports/TroubleshootModal';
+import Logo from '../components/Logo';
 import '../components/Header.css';
 
 /**
@@ -584,20 +585,10 @@ const ReportPreview: React.FC = () => {
                                 </button>
 
                                 {/* Logo Wrapper */}
-                                <motion.div
-                                    className="logo"
-                                    whileHover={{ scale: 1.05 }}
-                                    transition={{ duration: 0.2 }}
+                                <Logo
+                                    subtitle="beta"
                                     onClick={() => navigate('/app/reports')}
-                                >
-                                    <div className="logo-icon">
-                                        <Zap size={24} />
-                                    </div>
-                                    <div className="logo-content">
-                                        <span className="logo-text gradient-text">Flipika</span>
-                                        <span className="logo-subtitle">IA</span>
-                                    </div>
-                                </motion.div>
+                                />
 
                                 {/* Divider */}
                                 <div className="h-8 w-px bg-neutral-200 dark:bg-neutral-700 mx-2 hidden sm:block"></div>
