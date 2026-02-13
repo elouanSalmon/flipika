@@ -447,16 +447,22 @@ const Templates: React.FC = () => {
                                 />
                             </div>
 
-                            <div className="view-controls">
+                            <div className="view-controls flex justify-end gap-2">
                                 <button
-                                    className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                                    className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'grid'
+                                        ? 'bg-primary text-white border-primary'
+                                        : 'bg-white dark:bg-neutral-800 text-neutral-500 border-neutral-200 dark:border-neutral-700 hover:border-primary hover:text-primary'
+                                        }`}
                                     onClick={() => setViewMode('grid')}
                                     title={t('gridView')}
                                 >
                                     <Grid size={18} />
                                 </button>
                                 <button
-                                    className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+                                    className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'list'
+                                        ? 'bg-primary text-white border-primary'
+                                        : 'bg-white dark:bg-neutral-800 text-neutral-500 border-neutral-200 dark:border-neutral-700 hover:border-primary hover:text-primary'
+                                        }`}
                                     onClick={() => setViewMode('list')}
                                     title={t('listView')}
                                 >

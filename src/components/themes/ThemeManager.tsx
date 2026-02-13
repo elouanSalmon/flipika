@@ -327,7 +327,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                     ) : (
                         <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "flex flex-col gap-4"}>
                             {filteredThemes.map(theme => (
-                                <div key={theme.id} className={`listing-card group ${viewMode === 'list' ? 'flex flex-row p-0 overflow-hidden' : 'p-0'}`}>
+                                <div key={theme.id} className={`listing-card group !overflow-hidden ${viewMode === 'list' ? 'flex flex-row p-0' : 'p-0'}`}>
                                     {/* Preview Area */}
                                     <div className={`relative bg-neutral-5 dark:bg-neutral-900/50 border-b border-neutral-100 dark:border-neutral-700 ${viewMode === 'list' ? 'w-48 border-b-0 border-r shrink-0 p-2 flex items-center justify-center' : 'p-4'}`}>
                                         <ThemePreview theme={theme} size={viewMode === 'list' ? 'small' : 'medium'} />
