@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     BarChart3,
     TrendingUp,
@@ -13,13 +13,17 @@ import {
     Feather,
     Edit2,
     Loader2,
+    FileText,
+    Presentation,
+    Globe,
+    Eye,
+    ChevronRight,
+    ChevronLeft,
+    Maximize2
 } from 'lucide-react';
 import { SiGoogleads } from 'react-icons/si';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-/* ─────────────────────────────────────────────
-   Shared wrapper
-   ───────────────────────────────────────────── */
 /* ─────────────────────────────────────────────
    Shared wrapper
    ───────────────────────────────────────────── */
@@ -56,12 +60,6 @@ const IllustrationShell: React.FC<{ children: React.ReactNode, className?: strin
 
 /* ─────────────────────────────────────────────
    1. HERO — Animated Dashboard with Growth
-   ───────────────────────────────────────────── */
-/* ─────────────────────────────────────────────
-   1. HERO — 3D Floating Dashboard (High Impact)
-   ───────────────────────────────────────────── */
-/* ─────────────────────────────────────────────
-   1. HERO — Simplified "Fast Report" Illustration
    ───────────────────────────────────────────── */
 export const HeroDashboardIllustration: React.FC = () => {
     // Animation cycle to demonstrate speed
@@ -615,6 +613,301 @@ export const SchedulingIllustration: React.FC = () => {
                     <span className="text-[7px] md:text-[9px] font-medium text-neutral-600 dark:text-neutral-300">Next: <strong>Feb 1, 09:00 AM</strong></span>
                 </motion.div>
             </motion.div>
+        </IllustrationShell>
+    );
+};
+
+/* ─────────────────────────────────────────────
+   5. MULTI-FORMAT EXPORTS — Central Doc Splitting
+   ───────────────────────────────────────────── */
+export const MultiFormatIllustration: React.FC = () => {
+    return (
+        <IllustrationShell className="bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center p-3 md:p-6 min-h-[300px] md:min-h-[380px] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
+            <div className="relative flex items-center justify-center w-full h-full">
+                {/* Central Report Icon */}
+                <motion.div
+                    className="z-20 w-16 h-20 md:w-20 md:h-24 bg-white dark:bg-neutral-800 rounded-xl shadow-xl border border-neutral-200 dark:border-white/10 flex flex-col items-center justify-center gap-2 p-2 relative"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <FileText className="text-primary w-4 h-4 md:w-5 md:h-5" />
+                    </div>
+                    <div className="h-1 w-8 bg-neutral-200 dark:bg-neutral-700 rounded-full" />
+                    <div className="h-1 w-6 bg-neutral-200 dark:bg-neutral-700 rounded-full" />
+                </motion.div>
+
+                {/* Orbiting Formats - Circular Animation */}
+                <motion.div
+                    className="absolute w-[220px] h-[220px] rounded-full border border-dashed border-neutral-300 dark:border-neutral-700 opacity-30"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                />
+
+                {[
+                    { icon: FileText, label: "PDF", color: "text-red-500", bg: "bg-red-50 dark:bg-red-900/20", border: "border-red-100 dark:border-red-900/30", delay: 0 },
+                    { icon: Presentation, label: "PPTX", color: "text-orange-500", bg: "bg-orange-50 dark:bg-orange-900/20", border: "border-orange-100 dark:border-orange-900/30", delay: 1.5 },
+                    { icon: Globe, label: "Web", color: "text-blue-500", bg: "bg-blue-50 dark:bg-blue-900/20", border: "border-blue-100 dark:border-blue-900/30", delay: 3 },
+                    // { icon: Mail, label: "Email", color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-900/20", border: "border-emerald-100 dark:border-emerald-900/30", delay: 4.5 }, // Added simplified email icon
+                ].map((item, i) => (
+                    <OrbitingIcon key={i} item={item} index={i} total={3} />
+                ))}
+
+            </div>
+        </IllustrationShell>
+    );
+};
+
+const OrbitingIcon: React.FC<{ item: any, index: number, total: number }> = ({ item, index, total }) => {
+    const angle = (index / total) * 360;
+    const radius = 110; // Distance from center
+
+    return (
+        <motion.div
+            className={`absolute w-12 h-14 md:w-16 md:h-20 rounded-lg ${item.bg} border ${item.border} flex flex-col items-center justify-center gap-1 shadow-lg backdrop-blur-sm z-10`}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{
+                opacity: 1,
+                scale: 1,
+                rotate: 360, // Counter-rotate to keep icon upright if container rotates (but here we animate x/y)
+            }}
+            style={{
+                x: 0,
+                y: 0,
+            }}
+        >
+            <motion.div
+                animate={{
+                    x: [
+                        Math.cos((angle * Math.PI) / 180) * radius,
+                        Math.cos(((angle + 120) * Math.PI) / 180) * radius,
+                        Math.cos(((angle + 240) * Math.PI) / 180) * radius,
+                        Math.cos(((angle + 360) * Math.PI) / 180) * radius
+                    ],
+                    y: [
+                        Math.sin((angle * Math.PI) / 180) * radius,
+                        Math.sin(((angle + 120) * Math.PI) / 180) * radius,
+                        Math.sin(((angle + 240) * Math.PI) / 180) * radius,
+                        Math.sin(((angle + 360) * Math.PI) / 180) * radius
+                    ]
+                }}
+                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                className="flex flex-col items-center justify-center w-full h-full"
+
+            >
+                <item.icon className={`${item.color} w-4 h-4 md:w-6 md:h-6`} />
+                <span className={`text-[8px] md:text-[10px] font-bold ${item.color}`}>{item.label}</span>
+            </motion.div>
+        </motion.div>
+    );
+}
+
+/* ─────────────────────────────────────────────
+   6. EMAIL SENDING — Message & Sent Status
+   ───────────────────────────────────────────── */
+export const EmailSendingIllustration: React.FC = () => {
+    const [status, setStatus] = useState<'draft' | 'sending' | 'sent' | 'opened'>('draft');
+
+    useEffect(() => {
+        const sequence = async () => {
+            while (true) {
+                setStatus('draft');
+                await new Promise(r => setTimeout(r, 2000));
+                setStatus('sending');
+                await new Promise(r => setTimeout(r, 1000));
+                setStatus('sent');
+                await new Promise(r => setTimeout(r, 1500));
+                setStatus('opened');
+                await new Promise(r => setTimeout(r, 3000));
+            }
+        };
+        sequence();
+    }, []);
+
+    return (
+        <IllustrationShell className="bg-neutral-50 dark:bg-neutral-900 flex flex-col items-center justify-center p-4 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
+            <motion.div
+                className="w-full max-w-[280px] bg-white dark:bg-neutral-800 rounded-xl shadow-xl overflow-hidden border border-neutral-200 dark:border-white/10"
+                layout
+            >
+                {/* Email Header */}
+                <div className="bg-neutral-100 dark:bg-white/5 p-3 border-b border-neutral-200 dark:border-white/5 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                    </div>
+                    <div className="text-[8px] font-medium text-neutral-400">New Message</div>
+                    <div className="w-4" />
+                </div>
+
+                <div className="p-4 flex flex-col gap-3">
+                    {/* To Field */}
+                    <div className="flex items-center gap-2 border-b border-neutral-100 dark:border-white/5 pb-2">
+                        <span className="text-[10px] text-neutral-400 font-medium">To:</span>
+                        <div className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-md text-[10px] flex items-center gap-1">
+                            <span>Client Acme Corp</span>
+                        </div>
+                    </div>
+
+                    {/* Subject */}
+                    <div className="flex items-center gap-2 border-b border-neutral-100 dark:border-white/5 pb-2">
+                        <span className="text-[10px] text-neutral-400 font-medium">Subject:</span>
+                        <span className="text-[10px] text-neutral-700 dark:text-neutral-300 font-medium">Rapport Mensuel - Janvier 2026</span>
+                    </div>
+
+                    {/* Attachment */}
+                    <div className="p-2 border border-neutral-200 dark:border-white/10 rounded-lg flex items-center gap-3 bg-neutral-50/50 dark:bg-white/5">
+                        <div className="w-8 h-8 bg-red-100 dark:bg-red-900/20 rounded-md flex items-center justify-center text-red-500">
+                            <FileText size={16} />
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-[10px] font-bold text-neutral-700 dark:text-neutral-200">performance_report.pdf</span>
+                            <span className="text-[8px] text-neutral-400">1.2 MB</span>
+                        </div>
+                    </div>
+
+                    {/* Button Area */}
+                    <div className="flex justify-between items-center mt-2">
+                        {status === 'sending' ? (
+                            <div className="flex items-center gap-2 text-primary">
+                                <Loader2 size={14} className="animate-spin" />
+                                <span className="text-[10px] font-medium">Sending...</span>
+                            </div>
+                        ) : status === 'sent' ? (
+                            <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
+                                <CheckCircle size={14} />
+                                <span className="text-[10px] font-medium">Sent</span>
+                            </div>
+                        ) : status === 'opened' ? (
+                            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                                <Eye size={14} />
+                                <span className="text-[10px] font-medium">Opened just now</span>
+                            </div>
+                        ) : (
+                            <button className="px-4 py-1.5 bg-primary text-white text-[10px] font-bold rounded-lg shadow-md hover:bg-primary-dark transition-colors flex items-center gap-1.5">
+                                Send Now <Send size={10} />
+                            </button>
+                        )}
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* Notification Toast for "Opened" */}
+            <AnimatePresence>
+                {status === 'opened' && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                        className="absolute bottom-4 right-4 bg-white dark:bg-neutral-800 shadow-xl rounded-lg p-3 border border-neutral-200 dark:border-white/10 flex items-start gap-3 w-48 z-20"
+                    >
+                        <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5" />
+                        <div>
+                            <div className="text-[10px] font-bold text-neutral-900 dark:text-white">Email Opened</div>
+                            <div className="text-[8px] text-neutral-500">Acme Corp viewed report</div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </IllustrationShell>
+    );
+};
+
+/* ─────────────────────────────────────────────
+   7. SLIDESHOW MODE — Presentation View
+   ───────────────────────────────────────────── */
+export const SlideshowModeIllustration: React.FC = () => {
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % 3);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <IllustrationShell className="bg-neutral-900 flex items-center justify-center p-4 md:p-8 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px]">
+            {/* Screen Container */}
+            <div className="w-full aspect-video bg-black rounded-lg border-4 border-neutral-700 shadow-2xl relative overflow-hidden flex flex-col">
+                {/* Slide Content */}
+                <div className="flex-1 relative bg-white dark:bg-neutral-900 p-4 md:p-8 flex flex-col overflow-hidden">
+                    <AnimatePresence mode="wait">
+                        {currentSlide === 0 && (
+                            <motion.div
+                                key="slide1"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                className="flex flex-col items-center justify-center h-full text-center gap-4"
+                            >
+                                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-2">
+                                    <TrendingUp size={32} className="text-primary" />
+                                </div>
+                                <h3 className="text-xl md:text-2xl font-bold text-neutral-900 dark:text-white">Q1 Performance</h3>
+                                <p className="text-sm text-neutral-500">Google Ads Report • 2026</p>
+                            </motion.div>
+                        )}
+                        {currentSlide === 1 && (
+                            <motion.div
+                                key="slide2"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                className="h-full flex flex-col"
+                            >
+                                <h4 className="text-lg font-bold mb-4 text-neutral-900 dark:text-white">Key Metrics</h4>
+                                <div className="grid grid-cols-2 gap-4 flex-1">
+                                    <div className="bg-neutral-100 dark:bg-white/5 rounded-lg p-4 flex flex-col justify-center">
+                                        <span className="text-xs text-neutral-500">Clicks</span>
+                                        <span className="text-2xl font-bold text-neutral-900 dark:text-white">12.5k</span>
+                                    </div>
+                                    <div className="bg-neutral-100 dark:bg-white/5 rounded-lg p-4 flex flex-col justify-center">
+                                        <span className="text-xs text-neutral-500">Conv. Rate</span>
+                                        <span className="text-2xl font-bold text-neutral-900 dark:text-white">3.2%</span>
+                                    </div>
+                                    <div className="col-span-2 bg-neutral-100 dark:bg-white/5 rounded-lg flex items-end p-2 gap-1 h-20">
+                                        {[40, 60, 50, 80, 70, 90, 60].map((h, i) => (
+                                            <div key={i} className="flex-1 bg-primary rounded-t-sm" style={{ height: `${h}%` }} />
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                        {currentSlide === 2 && (
+                            <motion.div
+                                key="slide3"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                className="h-full flex flex-col items-center justify-center"
+                            >
+                                <h4 className="text-lg font-bold mb-6 text-neutral-900 dark:text-white">Next Steps</h4>
+                                <ul className="space-y-3 w-full max-w-xs">
+                                    {[1, 2, 3].map((i) => (
+                                        <div key={i} className="flex items-center gap-3">
+                                            <CheckCircle size={16} className="text-green-500" />
+                                            <div className="h-2 flex-1 bg-neutral-100 dark:bg-white/10 rounded-full" />
+                                        </div>
+                                    ))}
+                                </ul>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Progress Bar */}
+                    <div className="absolute bottom-0 left-0 h-1 bg-primary transition-all duration-300" style={{ width: `${((currentSlide + 1) / 3) * 100}%` }} />
+                </div>
+
+                {/* Overlaid UI Controls (Simulated) */}
+                <div className="absolute bottom-2 right-4 flex gap-2 opacity-50">
+                    <div className="p-1 rounded bg-black/50 text-white"><ChevronLeft size={12} /></div>
+                    <div className="p-1 rounded bg-black/50 text-white"><ChevronRight size={12} /></div>
+                    <div className="p-1 rounded bg-black/50 text-white"><Maximize2 size={12} /></div>
+                </div>
+            </div>
         </IllustrationShell>
     );
 };

@@ -15,6 +15,15 @@ import {
     Mail,
     Presentation,
 } from 'lucide-react';
+import {
+    HeroDashboardIllustration,
+    TemplateIllustration,
+    AIInsightIllustration,
+    SchedulingIllustration,
+    MultiFormatIllustration,
+    EmailSendingIllustration,
+    SlideshowModeIllustration,
+} from '../components/LandingIllustrations';
 import SEO from '../components/SEO';
 
 const containerVariants = {
@@ -48,6 +57,16 @@ const iconMap: Record<string, typeof FileBarChart> = {
     Presentation,
 };
 
+const illustrationMap: Record<string, React.FC> = {
+    'report-generation': HeroDashboardIllustration,
+    'ai-narration': AIInsightIllustration,
+    'custom-templates': TemplateIllustration,
+    'scheduling-automation': SchedulingIllustration,
+    'multi-format-exports': MultiFormatIllustration,
+    'email-sending': EmailSendingIllustration,
+    'slideshow-mode': SlideshowModeIllustration,
+};
+
 const FeatureDetailPage: React.FC = () => {
     const { featureId } = useParams<{ featureId: string }>();
     const { t, i18n } = useTranslation('features');
@@ -78,6 +97,7 @@ const FeatureDetailPage: React.FC = () => {
     }
 
     const Icon = iconMap[feature.icon] || Sparkles;
+    const FeatureIllustration = illustrationMap[featureId];
 
     const details = t(`featureDetails.${featureId}`, { returnObjects: true }) as {
         hero: { title: string; subtitle: string; cta: string };
@@ -195,6 +215,15 @@ const FeatureDetailPage: React.FC = () => {
                         <span>{details.hero.cta}</span>
                         <ArrowRight size={18} />
                     </motion.button>
+
+                    {FeatureIllustration && (
+                        <motion.div
+                            className="mt-16 w-full max-w-5xl mx-auto"
+                            variants={itemVariants}
+                        >
+                            <FeatureIllustration />
+                        </motion.div>
+                    )}
                 </motion.div>
             </section>
 

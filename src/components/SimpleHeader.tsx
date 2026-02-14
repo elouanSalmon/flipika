@@ -117,7 +117,7 @@ const SimpleHeader = () => {
                                     <motion.div
                                         className="absolute top-full left-0 mt-2 rounded-xl shadow-xl overflow-hidden z-50"
                                         style={{
-                                            width: '400px',
+                                            width: '500px',
                                             backgroundColor: 'var(--color-bg-secondary)',
                                             backdropFilter: 'blur(12px)',
                                             border: '1px solid var(--color-border)',
@@ -129,16 +129,12 @@ const SimpleHeader = () => {
                                     >
                                         <div className="py-1">
                                             {features.map((feature) => {
-                                                const Icon = iconMap[feature.icon] || Sparkles;
                                                 return (
                                                     <Link
                                                         key={feature.id}
                                                         to={getLangPath(`/features/${feature.id}`)}
-                                                        className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                                        className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
                                                     >
-                                                        <div className="w-4 h-4 flex items-center justify-center flex-shrink-0">
-                                                            <Icon size={16} className="text-primary" />
-                                                        </div>
                                                         <span className="text-sm text-[var(--color-text-primary)]">
                                                             {feature.title}
                                                         </span>
