@@ -102,7 +102,16 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" as const }}
           >
-            <HeroDashboardIllustration />
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <HeroDashboardIllustration />
+            </motion.div>
           </motion.div>
         </div>
       </div>

@@ -171,7 +171,7 @@ export const TemplateIllustration: React.FC = () => {
     const currentTheme = themes[themeIndex];
 
     return (
-        <IllustrationShell className="bg-neutral-50 dark:bg-neutral-900 flex flex-col items-center justify-center p-6">
+        <IllustrationShell className="bg-neutral-50 dark:bg-neutral-900 flex flex-col items-center justify-center p-6 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
             <motion.div
                 className="w-full max-w-[280px] bg-white dark:bg-neutral-800 rounded-xl shadow-lg overflow-hidden border border-neutral-200 dark:border-white/5"
                 layout
@@ -373,7 +373,7 @@ export const AIInsightIllustration: React.FC = () => {
    ───────────────────────────────────────────── */
 export const SchedulingIllustration: React.FC = () => {
     return (
-        <IllustrationShell className="bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center p-6 relative overflow-hidden">
+        <IllustrationShell className="bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center p-6 relative overflow-hidden bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
             {/* Background Calendar fading out */}
             <div className="absolute inset-0 opacity-10 pointer-events-none scale-110">
                 <div className="grid grid-cols-7 gap-1 p-4">
@@ -469,7 +469,7 @@ export const SchedulingIllustration: React.FC = () => {
                         </div>
                         {/* Colored Circle Reveal */}
                         <motion.div
-                            className="w-6 h-6 rounded-full bg-white border-2 border-primary text-primary flex items-center justify-center text-[10px] shadow-sm ring-4 ring-white dark:ring-neutral-800 relative"
+                            className="w-6 h-6 rounded-full bg-white dark:bg-neutral-900 border-2 border-primary text-primary flex items-center justify-center text-[10px] shadow-sm ring-4 ring-white dark:ring-neutral-800 relative"
                             initial={{ scale: 0, opacity: 0 }}
                             whileInView={{ scale: 1, opacity: 1 }}
                             transition={{ duration: 0.4, delay: 2.6, type: "spring" as const }}
