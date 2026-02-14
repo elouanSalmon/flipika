@@ -82,5 +82,10 @@
         "keywords": "Google Ads reporting alternatives, Looker Studio alternative, AgencyAnalytics alternative, best PPC reporting tool, DashThis vs Flipika",
         "ogTitle": "Google Ads Reporting Alternatives - Flipika Comparisons",
         "ogDescription": "Compare the best Google Ads reporting tools and find the right solution for your business."
+    },
+    "solutions": {
+        "title": "Google Ads Reporting Solutions for {persona} | Flipika",
+        "description": "Discover how Flipika helps {persona} automate their Google Ads reports, save time, and improve client satisfaction.",
+        "keywords": "Google Ads reporting {persona}, {persona} report automation, PPC tool for {persona}, reporting time saver"
     }
 }

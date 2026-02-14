@@ -23,6 +23,7 @@ import frTemplatesPillar from './locales/fr/templates-pillar.json';
 import frLeadMagnets from './locales/fr/lead-magnets.json';
 import frRoadmap from './locales/fr/roadmap.json';
 import frFeatures from './locales/fr/features.json';
+import frSolutions from './locales/fr/solutions.json';
 import frSeo from './locales/fr/seo.json';
 import frLookerStudio from './locales/fr/alternatives/looker-studio.json';
 import frAgencyAnalytics from './locales/fr/alternatives/agency-analytics.json';
@@ -49,6 +50,7 @@ import enTemplatesPillar from './locales/en/templates-pillar.json';
 import enLeadMagnets from './locales/en/lead-magnets.json';
 import enRoadmap from './locales/en/roadmap.json';
 import enFeatures from './locales/en/features.json';
+import enSolutions from './locales/en/solutions.json';
 import enSeo from './locales/en/seo.json';
 import enLookerStudio from './locales/en/alternatives/looker-studio.json';
 import enAgencyAnalytics from './locales/en/alternatives/agency-analytics.json';
@@ -99,6 +101,7 @@ const resources = {
     'lead-magnets': enLeadMagnets,
     roadmap: enRoadmap,
     features: enFeatures,
+    solutions: enSolutions,
     'looker-studio': enLookerStudio,
     'agency-analytics': enAgencyAnalytics,
     'dashthis': enDashThis,
@@ -136,6 +139,7 @@ const resources = {
     'lead-magnets': frLeadMagnets,
     roadmap: frRoadmap,
     features: frFeatures,
+    solutions: frSolutions,
     'looker-studio': frLookerStudio,
     'agency-analytics': frAgencyAnalytics,
     'dashthis': frDashThis,
@@ -208,6 +212,7 @@ i18n
       'templates-real-estate',
       'templates-freelancer',
       'templates-saas',
+      'solutions',
       'seo'
     ],
     load: 'languageOnly',

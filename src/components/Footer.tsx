@@ -49,15 +49,52 @@ const Footer: React.FC = () => {
                 <FaWhatsapp size={20} />
               </a>
             </div>
+
+            <div className="footer-ai-platforms-brand mt-6">
+              <h4 className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-3">{t('common:footer.sections.aiResearch')}</h4>
+              <div className="flex gap-4">
+                <a
+                  href={`https://chatgpt.com/?q=${encodeURIComponent("As a potential Flipika customer, I want to clearly understand what I get when I use Flipika and how it fits into my workflow as a Media Buyer. Explain the experience step by step: what I can create, what I control, what Flipika handles for me, and how things evolve over time. Describe what I see in the report editor and dashboard, how connecting Google Ads works, how AI-generated insights are managed, and what outputs I end up with (automated reports, live sharing links, PDF exports, slideshows, etc.). Clarify the key features and systems involved—direct Google Ads sync, AI narration, custom branding/themes, scheduling, pre-flight checks, and data snapshots. Include how often reports are generated and updated. Explain this simply and concretely, as if you were describing the real, day-to-day experience of automating client reporting with Flipika for the first time.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-ai-link"
+                  title="ChatGPT"
+                >
+                  <SiOpenai size={18} />
+                </a>
+                <a
+                  href={`https://www.perplexity.ai/search?q=${encodeURIComponent("As a potential Flipika customer, I want to clearly understand what I get when I use Flipika and how it fits into my workflow as a Media Buyer. Explain the experience step by step: what I can create, what I control, what Flipika handles for me, and how things evolve over time. Describe what I see in the report editor and dashboard, how connecting Google Ads works, how AI-generated insights are managed, and what outputs I end up with (automated reports, live sharing links, PDF exports, slideshows, etc.). Clarify the key features and systems involved—direct Google Ads sync, AI narration, custom branding/themes, scheduling, pre-flight checks, and data snapshots. Include how often reports are generated and updated. Explain this simply and concretely, as if you were describing the real, day-to-day experience of automating client reporting with Flipika for the first time.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-ai-link"
+                  title="Perplexity"
+                >
+                  <SiPerplexity size={18} />
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Product Column */}
           <div className="footer-links-col">
             <h3>{t('common:footer.sections.product')}</h3>
             <ul>
-              <li><Link to={getPath('/features')}>{t('common:footer.sections.features')}</Link></li>
               <li><Link to={getPath('/pricing')}>{t('common:footer.sections.pricing')}</Link></li>
               <li><Link to={getPath('/roadmap')}>{t('common:footer.sections.roadmap')}</Link></li>
+              <li><a href="mailto:helloflipika@gmail.com">{t('common:footer.sections.contact')}</a></li>
+              <li><Link to={getPath('/sitemap')}>{t('common:footer.sections.sitemap')}</Link></li>
+            </ul>
+          </div>
+
+          {/* Features Column */}
+          <div className="footer-links-col">
+            <h3>{t('common:footer.sections.features')}</h3>
+            <ul>
+              <li><Link to={getPath('/features/report-generation')}>{t('common:footer.sections.templates')}</Link></li>
+              <li><Link to={getPath('/features/ai-narration')}>{t('common:footer.sections.ai')}</Link></li>
+              <li><Link to={getPath('/features/scheduling-automation')}>{t('common:footer.sections.automation')}</Link></li>
+              <li><Link to={getPath('/features/multi-format-exports')}>{t('common:footer.sections.exports')}</Link></li>
+              <li><Link to={getPath('/features/slideshow-mode')}>{t('common:footer.sections.slideshow')}</Link></li>
             </ul>
           </div>
 
@@ -65,11 +102,10 @@ const Footer: React.FC = () => {
           <div className="footer-links-col">
             <h3>{t('common:footer.sections.solutions')}</h3>
             <ul>
-              <li><Link to={getPath('/features/report-generation')}>{t('common:footer.sections.templates')}</Link></li>
-              <li><Link to={getPath('/features/ai-narration')}>{t('common:footer.sections.ai')}</Link></li>
-              <li><Link to={getPath('/features/scheduling-automation')}>{t('common:footer.sections.automation')}</Link></li>
-              <li><Link to={getPath('/features/multi-format-exports')}>{t('common:footer.sections.exports')}</Link></li>
-              <li><Link to={getPath('/features/slideshow-mode')}>{t('common:footer.sections.slideshow')}</Link></li>
+              <li><Link to={getPath('/solutions/freelancers')}>{t('common:footer.sections.freelancers')}</Link></li>
+              <li><Link to={getPath('/solutions/agencies')}>{t('common:footer.sections.agencies')}</Link></li>
+              <li><Link to={getPath('/solutions/media-buyers')}>{t('common:footer.sections.mediaBuyers')}</Link></li>
+              <li><Link to={getPath('/solutions/marketing-managers')}>{t('common:footer.sections.marketingManagers')}</Link></li>
             </ul>
           </div>
 
@@ -83,31 +119,6 @@ const Footer: React.FC = () => {
               <li><Link to={getPath('/alternatives/swydo')}>{t('common:footer.sections.vsSwydo')}</Link></li>
               <li><Link to={getPath('/alternatives')} className="opacity-70">{t('common:footer.sections.alternatives')}</Link></li>
             </ul>
-          </div>
-
-          {/* AI Research Column */}
-          <div className="footer-links-col">
-            <h3>{t('common:footer.sections.aiResearch')}</h3>
-            <div className="footer-ai-platforms">
-              <a
-                href={`https://chatgpt.com/?q=${encodeURIComponent("As a potential Flipika customer, I want to clearly understand what I get when I use Flipika and how it fits into my workflow as a Media Buyer. Explain the experience step by step: what I can create, what I control, what Flipika handles for me, and how things evolve over time. Describe what I see in the report editor and dashboard, how connecting Google Ads works, how AI-generated insights are managed, and what outputs I end up with (automated reports, live sharing links, PDF exports, slideshows, etc.). Clarify the key features and systems involved—direct Google Ads sync, AI narration, custom branding/themes, scheduling, pre-flight checks, and data snapshots. Include how often reports are generated and updated. Explain this simply and concretely, as if you were describing the real, day-to-day experience of automating client reporting with Flipika for the first time.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-ai-link"
-                title="ChatGPT"
-              >
-                <SiOpenai size={20} />
-              </a>
-              <a
-                href={`https://www.perplexity.ai/search?q=${encodeURIComponent("As a potential Flipika customer, I want to clearly understand what I get when I use Flipika and how it fits into my workflow as a Media Buyer. Explain the experience step by step: what I can create, what I control, what Flipika handles for me, and how things evolve over time. Describe what I see in the report editor and dashboard, how connecting Google Ads works, how AI-generated insights are managed, and what outputs I end up with (automated reports, live sharing links, PDF exports, slideshows, etc.). Clarify the key features and systems involved—direct Google Ads sync, AI narration, custom branding/themes, scheduling, pre-flight checks, and data snapshots. Include how often reports are generated and updated. Explain this simply and concretely, as if you were describing the real, day-to-day experience of automating client reporting with Flipika for the first time.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-ai-link"
-                title="Perplexity"
-              >
-                <SiPerplexity size={20} />
-              </a>
-            </div>
           </div>
         </div>
 
@@ -133,8 +144,6 @@ const Footer: React.FC = () => {
             <Link to={getPath('/legal-notices')}>{t('common:footer.legal')}</Link>
             <Link to={getPath('/privacy-policy')}>{t('common:footer.privacy')}</Link>
             <Link to={getPath('/terms-of-service')}>{t('common:footer.terms')}</Link>
-            <Link to={getPath('/sitemap')}>{t('common:footer.sections.sitemap')}</Link>
-            <a href="mailto:helloflipika@gmail.com">{t('common:footer.sections.contact')}</a>
           </div>
           <div className="footer-copyright">
             © {new Date().getFullYear()} Flipika. {t('common:footer.copyright')}.
