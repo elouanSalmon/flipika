@@ -57,7 +57,7 @@ const RoadmapPreview: React.FC = () => {
                     {logos.map((Logo, i) => (
                         <motion.div
                             key={i}
-                            whileHover={{ scale: 1.1, opacity: 1 }}
+                            whileHover={{ opacity: 1 }}
                             className="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors"
                         >
                             <Logo size={40} className="md:w-14 md:h-14" />
