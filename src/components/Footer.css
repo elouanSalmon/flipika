@@ -45,16 +45,23 @@
   color: var(--color-primary);
 }
 
-.footer-linkedin-link {
+.footer-social-links {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.footer-social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--color-text-secondary);
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
-.footer-linkedin-link:hover {
+.footer-social-link:hover {
   color: var(--color-primary);
+  transform: translateY(-2px);
 }
 
 .footer-simple-copyright {
