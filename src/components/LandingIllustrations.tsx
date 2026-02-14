@@ -2,152 +2,193 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
     BarChart3,
-    MousePointerClick,
     TrendingUp,
-    Target,
-    Palette,
-    Calendar,
-    Clock,
     CheckCircle,
-    Send,
-    ArrowUpRight,
-    LayoutGrid,
     Zap,
-    Feather
+    LayoutGrid,
+    Palette,
+    Clock,
+    Send,
+    Calendar,
+    Feather,
 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
-
-/* ─────────────────────────────────────────────
-   Shared — Animation Variants
-   ───────────────────────────────────────────── */
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.2
-        }
-    }
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 15, scale: 0.95 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: { type: "spring" as const, stiffness: 300, damping: 20 }
-    }
-};
 
 /* ─────────────────────────────────────────────
    Shared wrapper
    ───────────────────────────────────────────── */
 const IllustrationShell: React.FC<{ children: React.ReactNode, className?: string }> = ({ children, className = "" }) => (
-    <div
-        className={`w-full aspect-[4/3] rounded-2xl overflow-hidden border border-neutral-200/60 dark:border-white/10 shadow-xl select-none pointer-events-none bg-white dark:bg-neutral-950 relative ${className}`}
-        aria-hidden="true"
-    >
-        {children}
+    <div className="w-full relative group" style={{ perspective: "1200px" }}>
+        <motion.div
+            className={`w-full aspect-[4/3] rounded-2xl overflow-hidden border border-neutral-200/60 dark:border-white/10 shadow-2xl select-none bg-white dark:bg-neutral-950 relative ${className}`}
+            initial={{ rotateY: -12, rotateX: 5, scale: 0.95 }}
+            whileHover={{ rotateY: 0, rotateX: 0, scale: 1, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
+            transition={{ duration: 0.6, type: "spring", stiffness: 100, damping: 20 }}
+            style={{ transformStyle: "preserve-3d" }}
+            aria-hidden="true"
+        >
+            {children}
+
+            {/* Glass reflection overlay for enhanced 3D feel */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+        </motion.div>
     </div>
 );
 
 /* ─────────────────────────────────────────────
    1. HERO — Animated Dashboard with Growth
    ───────────────────────────────────────────── */
+/* ─────────────────────────────────────────────
+   1. HERO — 3D Floating Dashboard (High Impact)
+   ───────────────────────────────────────────── */
+/* ─────────────────────────────────────────────
+   1. HERO — Simplified "Fast Report" Illustration
+   ───────────────────────────────────────────── */
 export const HeroDashboardIllustration: React.FC = () => {
+    // Animation cycle to demonstrate speed
+    const [state, setState] = useState<'loading' | 'done'>('done');
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setState('loading');
+            setTimeout(() => setState('done'), 800); // 0.8s loading to cycle the "speed" message
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <IllustrationShell className="flex flex-col">
-            {/* Top Bar with Avatar */}
-            <div className="h-10 border-b border-neutral-100 dark:border-white/5 flex items-center justify-between px-4 bg-white/50 dark:bg-black/20 backdrop-blur-sm z-10">
-                <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
+            {/* Header: Source & Speed */}
+            <div className="h-14 border-b border-neutral-100 dark:border-white/5 flex items-center px-6 justify-between bg-neutral-50/50 dark:bg-white/5 backdrop-blur-sm shrink-0">
+                <div className="flex items-center gap-3">
+                    <div className="grid grid-cols-2 gap-0.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-[9px] uppercase tracking-wider font-bold text-neutral-400">Source</span>
+                        <span className="text-xs font-semibold text-neutral-800 dark:text-neutral-200 leading-none">Google Ads</span>
+                    </div>
                 </div>
-                {/* User Avatar */}
-                <div className="flex items-center gap-2">
-                    <div className="text-[9px] font-medium text-neutral-400 hidden sm:block">Mathis • Admin</div>
-                    <img
-                        src="https://randomuser.me/api/portraits/men/46.jpg"
-                        alt="User"
-                        className="w-6 h-6 rounded-full object-cover ring-2 ring-white dark:ring-black"
-                    />
+
+                <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-colors duration-300 ${state === 'loading' ? 'bg-neutral-100 dark:bg-neutral-800' : 'bg-green-100 dark:bg-green-900/30'}`}>
+                    <Zap size={12} className={state === 'loading' ? 'text-neutral-400' : 'text-green-600 dark:text-green-400 fill-green-600 dark:fill-green-400'} />
+                    <span className={`text-[10px] font-bold ${state === 'loading' ? 'text-neutral-500' : 'text-green-700 dark:text-green-400'}`}>
+                        {state === 'loading' ? 'Génération...' : '0.4s'}
+                    </span>
                 </div>
             </div>
 
-            <motion.div
-                className="flex-1 p-4 flex flex-col gap-4 bg-neutral-50/50 dark:bg-neutral-900/20"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-20%" }}
-            >
-                {/* KPI Cards */}
-                <div className="grid grid-cols-2 gap-3">
-                    <motion.div variants={itemVariants} className="bg-white dark:bg-neutral-900 p-3 rounded-2xl shadow-sm border border-neutral-100 dark:border-white/5 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <MousePointerClick size={40} className="text-primary" />
+            <div className="flex-1 flex overflow-hidden">
+                {/* Mini Sidebar for realism */}
+                <div className="w-14 border-r border-neutral-100 dark:border-white/5 flex flex-col items-center py-6 gap-4 bg-neutral-50/30 dark:bg-white/5 shrink-0">
+                    {[LayoutGrid, BarChart3, Clock, Palette].map((Icon, i) => (
+                        <div key={i} className={`w-8 h-8 rounded-lg flex items-center justify-center ${i === 1 ? 'bg-primary/10 text-primary' : 'text-neutral-400'}`}>
+                            <Icon size={18} />
                         </div>
-                        <div className="text-[10px] text-neutral-500 font-medium mb-1">Clicks</div>
-                        <div className="text-2xl font-bold text-neutral-800 dark:text-neutral-100 tracking-tight">12.4k</div>
-                        <div className="flex items-center gap-1 text-[10px] font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 w-fit px-1.5 py-0.5 rounded-full mt-2">
-                            <TrendingUp size={10} />
-                            <span>+18%</span>
-                        </div>
-                    </motion.div>
-
-                    <motion.div variants={itemVariants} className="bg-white dark:bg-neutral-900 p-3 rounded-2xl shadow-sm border border-neutral-100 dark:border-white/5 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <Target size={40} className="text-accent" />
-                        </div>
-                        <div className="text-[10px] text-neutral-500 font-medium mb-1">Conv. Rate</div>
-                        <div className="text-2xl font-bold text-neutral-800 dark:text-neutral-100 tracking-tight">3.2%</div>
-                        <div className="flex items-center gap-1 text-[10px] font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 w-fit px-1.5 py-0.5 rounded-full mt-2">
-                            <ArrowUpRight size={10} />
-                            <span>+0.4%</span>
-                        </div>
-                    </motion.div>
+                    ))}
                 </div>
 
-                {/* Animated Chart Area */}
-                <motion.div variants={itemVariants} className="flex-1 bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-neutral-100 dark:border-white/5 p-4 flex flex-col relative overflow-hidden">
-                    <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                                <BarChart3 size={16} className="text-primary" />
-                            </div>
-                            <div>
-                                <div className="text-[10px] font-bold text-neutral-800 dark:text-neutral-200">Revenue Growth</div>
-                                <div className="text-[8px] text-neutral-400">Last 30 days</div>
-                            </div>
-                        </div>
+                {/* Main Content Pane */}
+                <div className="flex-1 p-6 flex flex-col gap-6 overflow-hidden bg-white dark:bg-neutral-900">
+                    <div className="flex flex-col gap-1 shrink-0">
+                        {state === 'loading' ? (
+                            <div className="h-5 w-48 bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse" />
+                        ) : (
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col">
+                                <div className="text-lg font-bold text-neutral-900 dark:text-white">Rapport Performance Mensuel</div>
+                                <div className="text-xs text-neutral-500">Période du 1 Jan - 31 Jan 2026</div>
+                            </motion.div>
+                        )}
                     </div>
 
-                    {/* Living Chart */}
-                    <div className="flex-1 flex items-end justify-between gap-1 sm:gap-2 px-1">
-                        {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
+                    {state === 'loading' ? (
+                        <div className="flex-1 flex flex-col gap-4">
+                            <div className="grid grid-cols-3 gap-4 shrink-0">
+                                {[1, 2, 3].map(i => (
+                                    <div key={i} className="h-24 bg-neutral-50 dark:bg-neutral-800/50 rounded-xl border border-neutral-100 dark:border-white/5 animate-pulse" />
+                                ))}
+                            </div>
+                            <div className="flex-1 bg-neutral-50 dark:bg-neutral-800/50 rounded-xl border border-neutral-100 dark:border-white/5 animate-pulse" />
+                        </div>
+                    ) : (
+                        <div className="flex-1 flex flex-col gap-6 min-h-0">
+                            {/* Metric Grid - Now 3 Columns */}
+                            <div className="grid grid-cols-3 gap-4 shrink-0">
+                                {[
+                                    { label: 'Clics', value: '2,450', color: 'blue', icon: TrendingUp },
+                                    { label: 'Conv.', value: '142', color: 'indigo', icon: CheckCircle },
+                                    { label: 'ROAS', value: '4.8x', color: 'green', icon: Zap }
+                                ].map((metric, i) => (
+                                    <motion.div
+                                        key={metric.label}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.4, delay: i * 0.1 }}
+                                        className={`p-4 rounded-xl bg-${metric.color}-50/50 dark:bg-${metric.color}-900/10 border border-${metric.color}-100 dark:border-${metric.color}-800/20`}
+                                    >
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <div className={`p-1.5 rounded-md bg-${metric.color}-100 dark:bg-${metric.color}-900/40 text-${metric.color}-600 dark:text-${metric.color}-400`}>
+                                                <metric.icon size={12} />
+                                            </div>
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{metric.label}</span>
+                                        </div>
+                                        <div className="text-2xl font-bold text-neutral-900 dark:text-white tracking-tight">{metric.value}</div>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* Large Detailed Chart */}
                             <motion.div
-                                key={i}
-                                className="w-full bg-primary dark:bg-primary rounded-t-sm md:rounded-t-md relative group"
-                                initial={{ height: "10%" }}
-                                whileInView={{ height: `${h}%` }}
-                                transition={{ duration: 1, delay: i * 0.1, type: "spring" as const }}
-                                viewport={{ once: true }}
+                                className="flex-1 bg-neutral-50/50 dark:bg-neutral-800/30 rounded-xl border border-neutral-100 dark:border-white/5 p-6 flex flex-col relative overflow-hidden"
+                                initial={{ opacity: 0, scale: 0.98 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
                             >
-                                {/* Hover tooltip hint */}
-                                <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-neutral-800 text-white text-[8px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                                    {h}k
+                                <div className="flex justify-between items-center mb-8 shrink-0">
+                                    <div className="flex gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-2 h-2 rounded-full bg-primary" />
+                                            <span className="text-[10px] font-medium text-neutral-500">Données réelles</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-2 h-2 rounded-full bg-neutral-300 dark:bg-neutral-700" />
+                                            <span className="text-[10px] font-medium text-neutral-500">Moyenne secteur</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex-1 flex items-end gap-3 relative z-10 min-h-0">
+                                    {[40, 65, 50, 85, 60, 95, 75, 90, 65, 80, 55, 70].map((h, i) => (
+                                        <div key={i} className="flex-1 flex flex-col justify-end gap-1 group h-full">
+                                            <motion.div
+                                                className="w-full bg-gradient-to-t from-primary/80 to-primary rounded-t-[3px] shadow-sm"
+                                                initial={{ height: 0 }}
+                                                animate={{ height: `${h}%` }}
+                                                transition={{ duration: 0.6, delay: 0.4 + (i * 0.04), type: "spring", stiffness: 100 }}
+                                            />
+                                            <div className="h-1 w-full bg-neutral-100 dark:bg-white/5 rounded-full" />
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Grid Lines */}
+                                <div className="absolute inset-0 flex flex-col justify-between p-6 opacity-10 pointer-events-none">
+                                    {[1, 2, 3, 4].map(i => (
+                                        <div key={i} className="w-full h-px bg-neutral-400 dark:bg-white" />
+                                    ))}
                                 </div>
                             </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
-            </motion.div>
+                        </div>
+                    )}
+                </div>
+            </div>
         </IllustrationShell>
     );
 };
+
 
 /* ─────────────────────────────────────────────
    2. TEMPLATES — Animated Theme Switcher
@@ -221,16 +262,13 @@ export const TemplateIllustration: React.FC = () => {
             </motion.div>
 
             {/* Tag label */}
-            <motion.div
+            <div
                 key={themeIndex}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="mt-4 px-3 py-1 rounded-full bg-white dark:bg-neutral-800 shadow-sm text-[10px] font-medium text-neutral-500 flex items-center gap-2"
+                className="mt-4 px-3 py-1 rounded-full bg-white dark:bg-neutral-800 shadow-sm text-[10px] font-medium text-neutral-500 flex items-center gap-2 transition-all duration-300"
             >
-                <div className={`w-2 h-2 rounded-full ${currentTheme.color}`} />
-                <span>{currentTheme.name}</span>
-            </motion.div>
+                <div className={`w-2 h-2 rounded-full ${currentTheme.color} transition-colors duration-500`} />
+                <span className="transition-opacity duration-300">{currentTheme.name}</span>
+            </div>
         </IllustrationShell>
     );
 };

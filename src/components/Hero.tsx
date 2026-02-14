@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { HeroDashboardIllustration } from './LandingIllustrations';
 import { useNavigate } from 'react-router-dom';
@@ -44,16 +44,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" as const }}
           >
-            {/* Badge */}
-            <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-primary bg-primary/8 dark:bg-primary/15 w-fit"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.5 }}
-            >
-              <Sparkles size={16} />
-              <span>{t('common:hero.badge')}</span>
-            </motion.div>
+
 
             {/* Title */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-neutral-200 leading-[1.1] tracking-tight">
@@ -102,14 +93,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" as const }}
           >
-            <motion.div
-              animate={{ y: [0, -12, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
+            <motion.div>
               <HeroDashboardIllustration />
             </motion.div>
           </motion.div>

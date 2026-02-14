@@ -109,6 +109,15 @@ export default {
                 'ease-out-custom': 'cubic-bezier(0, 0, 0.2, 1)',
                 'ease-in-out-custom': 'cubic-bezier(0.4, 0, 0.2, 1)',
             },
+            keyframes: {
+                marquee: {
+                    '0%': { transform: 'translateX(0%)' },
+                    '100%': { transform: 'translateX(-100%)' },
+                },
+            },
+            animation: {
+                marquee: 'marquee 25s linear infinite',
+            },
         },
     },
     plugins: [],
