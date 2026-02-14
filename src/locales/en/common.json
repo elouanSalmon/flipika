@@ -251,15 +251,9 @@
     }
   },
   "roadmapPreview": {
-    "title": "And this is just the beginning",
-    "description": "Flipika is growing to become the all-in-one platform for media buyers.",
-    "now": "Google Ads Reporting",
-    "nowDescription": "Available now",
-    "soon": "Meta Ads Reporting",
-    "soonDescription": "Coming soon",
-    "future": "The Media Buyer Super App",
-    "futureDescription": "Our vision",
-    "cta": "See the full roadmap"
+    "title": "All your ad platforms, one place.",
+    "description": "From Google Ads to TikTok, we are building the ultimate reporting hub for every media buyer.",
+    "cta": "See our Roadmap"
   },
   "bigStatement": {
     "title": "Flawless Google Ads reports, on autopilot.",

@@ -4,9 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
     ArrowRight, Loader2, Shield, Rocket,
-    BarChart3, Target, TrendingUp, Lock, Users,
-    CheckCircle, Zap, Crown, Star
+    TrendingUp, Lock, Users,
+    CheckCircle, Zap, Crown, Star,
+    MousePointerClick, Layout, Palette, Share2, CalendarClock, FileDown,
+    Link, FileBarChart, GitMerge, Activity, LayoutTemplate, ArrowLeftRight,
+    Globe, LayoutDashboard, Bot, Bell, Workflow
 } from 'lucide-react';
+import {
+    SiGoogleads, SiMeta,
+    SiTiktok, SiLinkedin, SiPinterest,
+    SiAmazon, SiSnapchat, SiX, SiReddit
+} from 'react-icons/si';
 import SEO from '../components/SEO';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
@@ -66,13 +74,14 @@ const Roadmap: React.FC = () => {
 
     const phases = [
         {
-            icon: BarChart3,
+            icon: SiGoogleads,
             color: 'green',
             badge: t('timeline.now.badge'),
             title: t('timeline.now.title'),
             subtitle: t('timeline.now.subtitle'),
             description: t('timeline.now.description'),
             features: nowFeatures,
+            featureIcons: [MousePointerClick, Layout, Palette, Share2, CalendarClock, FileDown],
             dotBg: 'bg-green-500',
             dotShadow: 'shadow-green-500/30',
             badgeBg: 'bg-green-500/10',
@@ -84,13 +93,14 @@ const Roadmap: React.FC = () => {
             status: 'live' as const,
         },
         {
-            icon: Target,
+            icon: SiMeta,
             color: 'blue',
             badge: t('timeline.soon.badge'),
             title: t('timeline.soon.title'),
             subtitle: t('timeline.soon.subtitle'),
             description: t('timeline.soon.description'),
             features: soonFeatures,
+            featureIcons: [Link, FileBarChart, GitMerge, Activity, LayoutTemplate, ArrowLeftRight],
             dotBg: 'bg-primary-500',
             dotShadow: 'shadow-primary/30',
             badgeBg: 'bg-primary-500/10',
@@ -109,6 +119,8 @@ const Roadmap: React.FC = () => {
             subtitle: t('timeline.future.subtitle'),
             description: t('timeline.future.description'),
             features: futureFeatures,
+            featureIcons: [Globe, LayoutDashboard, Bot, Bell, Workflow, Users],
+            footerLogos: [SiTiktok, SiLinkedin, SiPinterest, SiAmazon, SiSnapchat, SiX, SiReddit],
             dotBg: 'bg-purple-500',
             dotShadow: 'shadow-purple-500/30',
             badgeBg: 'bg-purple-500/10',
@@ -294,24 +306,38 @@ const Roadmap: React.FC = () => {
                                         </div>
 
                                         {/* Right: Feature list */}
-                                        <div className="flex-1">
+                                        <div className="flex-1 flex flex-col gap-6">
                                             <div className="bg-neutral-50/50 dark:bg-black/30 rounded-xl p-5 sm:p-6 border border-neutral-100/50 dark:border-white/10">
                                                 <ul className="space-y-3">
-                                                    {Array.isArray(phase.features) && phase.features.map((feature, fi) => (
-                                                        <motion.li
-                                                            key={fi}
-                                                            className="flex items-start gap-3 text-sm text-neutral-700 dark:text-neutral-300"
-                                                            initial={{ opacity: 0, x: -10 }}
-                                                            whileInView={{ opacity: 1, x: 0 }}
-                                                            transition={{ delay: fi * 0.05 }}
-                                                            viewport={{ once: true }}
-                                                        >
-                                                            <CheckCircle className={`w-4.5 h-4.5 ${phase.bulletColor} flex-shrink-0 mt-0.5`} size={18} />
-                                                            <span>{feature}</span>
-                                                        </motion.li>
-                                                    ))}
+                                                    {Array.isArray(phase.features) && phase.features.map((feature, fi) => {
+                                                        const FeatureIcon = phase.featureIcons[fi] || CheckCircle;
+                                                        return (
+                                                            <motion.li
+                                                                key={fi}
+                                                                className="flex items-start gap-3 text-sm text-neutral-700 dark:text-neutral-300"
+                                                                initial={{ opacity: 0, x: -10 }}
+                                                                whileInView={{ opacity: 1, x: 0 }}
+                                                                transition={{ delay: fi * 0.05 }}
+                                                                viewport={{ once: true }}
+                                                            >
+                                                                <FeatureIcon className={`w-4.5 h-4.5 ${phase.bulletColor} flex-shrink-0 mt-0.5`} size={18} />
+                                                                <span>{feature}</span>
+                                                            </motion.li>
+                                                        );
+                                                    })}
                                                 </ul>
                                             </div>
+
+                                            {phase.footerLogos && (
+                                                <div className="flex flex-col gap-3 px-2">
+                                                    <span className="text-xs font-semibold uppercase tracking-wider opacity-70 text-neutral-400 dark:text-neutral-600">Coming Next:</span>
+                                                    <div className="flex flex-wrap items-center gap-3">
+                                                        {phase.footerLogos.map((Logo, li) => (
+                                                            <Logo key={li} size={20} className="text-neutral-300 dark:text-neutral-700 hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors" />
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </motion.div>

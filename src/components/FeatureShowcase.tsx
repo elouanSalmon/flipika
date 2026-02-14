@@ -9,6 +9,7 @@ interface FeatureShowcaseProps {
     bullets: string[];
     imagePlaceholder: string;
     imagePosition: 'left' | 'right';
+    illustration?: React.ReactNode;
 }
 
 const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
@@ -18,6 +19,7 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
     bullets,
     imagePlaceholder,
     imagePosition,
+    illustration,
 }) => {
     const textContent = (
         <motion.div
@@ -62,16 +64,20 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" as const }}
             viewport={{ once: true }}
         >
-            <div
-                className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-neutral-200/60 dark:border-white/10 shadow-xl"
-                style={{
-                    background: 'linear-gradient(135deg, #f0f4ff 0%, #e8edff 50%, #dde5ff 100%)',
-                }}
-            >
-                <span className="text-neutral-400 dark:text-neutral-500 text-sm font-medium px-6 text-center">
-                    {imagePlaceholder}
-                </span>
-            </div>
+            {illustration ? (
+                illustration
+            ) : (
+                <div
+                    className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-neutral-200/60 dark:border-white/10 shadow-xl"
+                    style={{
+                        background: 'linear-gradient(135deg, #f0f4ff 0%, #e8edff 50%, #dde5ff 100%)',
+                    }}
+                >
+                    <span className="text-neutral-400 dark:text-neutral-500 text-sm font-medium px-6 text-center">
+                        {imagePlaceholder}
+                    </span>
+                </div>
+            )}
         </motion.div>
     );
 

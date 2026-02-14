@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { HeroDashboardIllustration } from './LandingIllustrations';
 import { useNavigate } from 'react-router-dom';
 
 const Hero: React.FC = () => {
@@ -101,16 +102,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" as const }}
           >
-            <div
-              className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-neutral-200/60 dark:border-white/10 shadow-2xl"
-              style={{
-                background: 'linear-gradient(135deg, #f0f4ff 0%, #e8edff 50%, #dde5ff 100%)',
-              }}
-            >
-              <span className="text-neutral-400 dark:text-neutral-500 text-sm font-medium px-6 text-center">
-                Image / GIF du produit
-              </span>
-            </div>
+            <HeroDashboardIllustration />
           </motion.div>
         </div>
       </div>

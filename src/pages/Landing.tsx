@@ -5,11 +5,13 @@ import Hero from '../components/Hero';
 import TrustBar from '../components/TrustBar';
 import BigStatement from '../components/BigStatement';
 import FeatureShowcase from '../components/FeatureShowcase';
+import { TemplateIllustration, AIInsightIllustration, SchedulingIllustration } from '../components/LandingIllustrations';
 import Testimonials from '../components/Testimonials';
 import ClosingCTA from '../components/ClosingCTA';
 import Footer from '../components/Footer';
 import CookieConsent from '../components/CookieConsent';
 import SEO from '../components/SEO';
+import RoadmapPreview from '../components/RoadmapPreview';
 
 const Landing = () => {
     const { t } = useTranslation('seo');
@@ -24,6 +26,7 @@ const Landing = () => {
             bullets: tc('showcase.templates.bullets', { returnObjects: true }) as string[],
             imagePlaceholder: tc('showcase.templates.imagePlaceholder'),
             imagePosition: 'right' as const,
+            illustration: <TemplateIllustration />,
         },
         {
             badge: tc('showcase.ai.badge'),
@@ -32,6 +35,7 @@ const Landing = () => {
             bullets: tc('showcase.ai.bullets', { returnObjects: true }) as string[],
             imagePlaceholder: tc('showcase.ai.imagePlaceholder'),
             imagePosition: 'left' as const,
+            illustration: <AIInsightIllustration />,
         },
         {
             badge: tc('showcase.scheduling.badge'),
@@ -40,6 +44,7 @@ const Landing = () => {
             bullets: tc('showcase.scheduling.bullets', { returnObjects: true }) as string[],
             imagePlaceholder: tc('showcase.scheduling.imagePlaceholder'),
             imagePosition: 'right' as const,
+            illustration: <SchedulingIllustration />,
         },
     ];
 
@@ -62,6 +67,7 @@ const Landing = () => {
                     <FeatureShowcase key={index} {...showcase} />
                 ))}
                 <Testimonials />
+                <RoadmapPreview />
                 <ClosingCTA />
             </main>
 
