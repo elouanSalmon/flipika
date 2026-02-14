@@ -101,6 +101,24 @@
   transform: translateY(-2px);
 }
 
+.footer-ai-platforms {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-sm);
+}
+
+.footer-ai-link {
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+  opacity: 0.7;
+}
+
+.footer-ai-link:hover {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
 .footer-trust-row {
   display: flex;
   flex-wrap: wrap;
