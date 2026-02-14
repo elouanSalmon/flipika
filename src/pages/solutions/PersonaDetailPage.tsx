@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -116,6 +117,10 @@ const PersonaDetailPage: React.FC = () => {
                 description={tSeo('solutions.description', { persona: personaTitle })}
                 keywords={tSeo('solutions.keywords', { persona: personaTitle })}
                 canonicalPath={`/solutions/${personaId}`}
+                breadcrumbs={[
+                    { name: 'Flipika', path: '/' },
+                    { name: personaTitle, path: `/solutions/${personaId}` },
+                ]}
             />
 
             {/* Background Effects */}
@@ -476,6 +481,26 @@ const PersonaDetailPage: React.FC = () => {
                     </div>
                 </motion.div>
             </section>
+
+            {/* FAQPage Structured Data */}
+            {details.faq && details.faq.length > 0 && (
+                <Helmet>
+                    <script type="application/ld+json">
+                        {JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'FAQPage',
+                            'mainEntity': details.faq.map((item) => ({
+                                '@type': 'Question',
+                                'name': item.question,
+                                'acceptedAnswer': {
+                                    '@type': 'Answer',
+                                    'text': item.answer,
+                                },
+                            })),
+                        })}
+                    </script>
+                </Helmet>
+            )}
 
             {/* Bottom spacer */}
             <div className="h-12" />

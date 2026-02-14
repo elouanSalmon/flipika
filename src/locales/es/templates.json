@@ -1,0 +1,219 @@
+{
+    "featureName": "plantillas",
+    "title": "Plantillas de Informes",
+    "description": "Crea plantillas reutilizables para generar informes en un solo clic",
+    "newTemplate": "Nueva Plantilla",
+    "connectRequired": "Conecta Google Ads para crear plantillas",
+    "searchPlaceholder": "Buscar una plantilla...",
+    "viewGrid": "Vista de cuadrícula",
+    "viewList": "Vista de lista",
+    "sessionExpired": "Se requiere conexión a Google Ads",
+    "sessionExpiredDescription": "No se han podido recuperar tus cuentas de Google Ads. La sesión probablemente ha caducado. Volver a conectar cuenta",
+    "emptyState": {
+        "title": "No hay plantillas",
+        "noTemplates": "Sin plantillas",
+        "noResults": "Ninguna plantilla coincide con tu búsqueda",
+        "createFirst": "Crea tu primera plantilla para generar informes rápidamente",
+        "createButton": "Crear una plantilla"
+    },
+    "connectToCreate": "Conecta Google Ads para crear plantillas",
+    "accountSelector": {
+        "title": "Seleccionar una cuenta",
+        "description": "Esta plantilla no especifica una cuenta de Google Ads. Por favor, selecciona una para generar el informe.",
+        "generate": "Generar informe"
+    },
+    "clientSelector": {
+        "title": "Seleccionar una cuenta",
+        "message": "Por favor, selecciona la cuenta para la cual quieres crear este informe.",
+        "placeholder": "Elegir una cuenta...",
+        "noAccount": "Esta cuenta no tiene ninguna cuenta de Google Ads vinculada."
+    },
+    "deleteConfirm": {
+        "title": "Eliminar plantilla",
+        "message": "¿Estás seguro de que quieres eliminar la plantilla \"{{name}}\"?",
+        "confirm": "Eliminar",
+        "checking": "Verificando...",
+        "withSchedules": "Esta plantilla es utilizada por {{count}} programación(es) ({{activeCount}} activa{s}): {{scheduleNames}}{{suffix}}",
+        "andOthers": " y {{count}} otra(s)",
+        "activeCount": "{{count}} activa{s}"
+    },
+    "toast": {
+        "created": "¡Plantilla creada con éxito!",
+        "createError": "Error al crear la plantilla",
+        "updated": "¡Plantilla actualizada!",
+        "updateError": "Error al actualizar la plantilla",
+        "deletedWithSchedules": "Plantilla y programaciones asociadas eliminadas",
+        "deleted": "Plantilla eliminada",
+        "duplicated": "¡Plantilla duplicada!",
+        "duplicateError": "Error al duplicar la plantilla",
+        "reportCreated": "¡Informe creado a partir de la plantilla!",
+        "reportError": "Error al crear el informe"
+    },
+    "errors": {
+        "loadingTemplates": "Error al cargar las plantillas",
+        "checkingUsage": "Error al verificar el uso",
+        "deleting": "Error al eliminar: {{message}}",
+        "creatingReport": "Error al crear el informe",
+        "unknown": "Error desconocido"
+    },
+    "card": {
+        "noAccount": "No definido",
+        "campaigns_one": "{{count}} Campaña",
+        "campaigns_other": "{{count}} Campañas",
+        "noCampaigns": "Sin campañas",
+        "usedOn": "Utilizada el {{date}}",
+        "createdOn": "Creada el {{date}}",
+        "connectToUse": "Conectar Google Ads",
+        "useTemplate": "Usar esta plantilla",
+        "uses": "Usos",
+        "slides": "Diapositivas",
+        "actions": {
+            "edit": "Editar",
+            "createReport": "Crear informe",
+            "duplicate": "Duplicar",
+            "delete": "Eliminar"
+        },
+        "slideTypes": {
+            "performance": "Perf.",
+            "chart": "Gráfico",
+            "metrics": "Métricas",
+            "creatives": "Anuncios",
+            "text": "Texto"
+        }
+    },
+    "configModal": {
+        "title": {
+            "create": "Nueva Plantilla de Informe",
+            "edit": "Editar Plantilla"
+        },
+        "info": {
+            "title": "Información de la Plantilla",
+            "nameLabel": "Nombre de la plantilla *",
+            "namePlaceholder": "Ej: Informe Semanal SEA",
+            "descLabel": "Descripción (opcional)",
+            "descPlaceholder": "Descripción de esta plantilla..."
+        },
+        "period": {
+            "title": "Periodo de Análisis",
+            "description": "Selecciona un periodo relativo. Las fechas se calcularán automáticamente al crear el informe."
+        },
+        "client": {
+            "label": "Cuenta *",
+            "placeholder": "Elegir una cuenta...",
+            "noAccount": "⚠️ Esta cuenta no tiene asociada ninguna cuenta de Google Ads. Por favor, vincula una cuenta en la página de Cuentas."
+        },
+        "account": {
+            "title": "Cuenta y Campañas",
+            "requiredBadge": "Obligatorio",
+            "description": "Selecciona la cuenta y las campañas a analizar para esta plantilla.",
+            "label": "Cuenta de Google Ads *",
+            "defaultOption": "-- Definir al usar --",
+            "campaignsLabel_one": "Campaña ({{count}} seleccionada) *",
+            "campaignsLabel_other": "Campañas ({{count}} seleccionadas) *",
+            "selectAll": "Seleccionar todas",
+            "deselectAll": "Deseleccionar todas",
+            "noCampaigns": "No se encontraron campañas para esta cuenta"
+        },
+        "slides": {
+            "title": "Diapositivas a incluir *",
+            "description": "Configura las diapositivas por defecto para esta plantilla.",
+            "addFirst": "Añadir una diapositiva",
+            "emptyTitle": "No hay diapositivas configuradas",
+            "emptyDesc": "Haz clic para añadir diapositivas a la plantilla"
+        },
+        "actions": {
+            "cancel": "Cancelar",
+            "create": "Crear plantilla",
+            "update": "Actualizar plantilla",
+            "creating": "Creando...",
+            "updating": "Actualizando..."
+        },
+        "validation": {
+            "nameRequired": "Por favor, introduce un nombre para la plantilla",
+            "clientRequired": "Por favor, selecciona una cuenta",
+            "accountRequired": "Por favor, selecciona una cuenta de Google Ads",
+            "campaignsRequired": "Por favor, selecciona al menos una campaña",
+            "slidesRequired": "Por favor, selecciona al menos una diapositiva"
+        },
+        "unsaved": {
+            "title": "Cambios sin guardar",
+            "message": "Tienes cambios sin guardar. ¿Estás seguro de que quieres cerrar sin guardar?",
+            "confirm": "Cerrar sin guardar"
+        },
+        "reassurance": {
+            "slides": "Tras la creación, podrás configurar las diapositivas de tu plantilla en el editor dedicado.",
+            "campaigns": "Puedes seleccionar múltiples campañas. Todas se incluirán en los informes generados con esta plantilla."
+        },
+        "slideTitles": {
+            "performance": "Resumen de rendimiento",
+            "metrics": "Métricas clave",
+            "chart": "Gráfico de campaña",
+            "creative": "Vista previa de anuncios",
+            "text": "Bloque de texto",
+            "custom": "Diapositiva personalizada"
+        },
+        "presets": {
+            "last_7_days": {
+                "label": "Últimos 7 días",
+                "description": "Los últimos 7 días"
+            },
+            "last_30_days": {
+                "label": "Últimos 30 días",
+                "description": "Los últimos 30 días"
+            },
+            "last_90_days": {
+                "label": "Últimos 90 días",
+                "description": "Los últimos 90 días"
+            },
+            "this_month": {
+                "label": "Este mes",
+                "description": "Desde el primer día hasta el último del mes actual"
+            },
+            "last_month": {
+                "label": "Mes pasado",
+                "description": "Desde el primer día hasta el último del mes anterior"
+            },
+            "this_quarter": {
+                "label": "Este trimestre",
+                "description": "Desde el primer día del trimestre actual hasta hoy"
+            },
+            "last_quarter": {
+                "label": "Trimestre pasado",
+                "description": "Trimestre anterior completo"
+            },
+            "this_year": {
+                "label": "Este año",
+                "description": "Desde el 1 de enero hasta hoy"
+            },
+            "last_year": {
+                "label": "Año pasado",
+                "description": "Año anterior completo"
+            }
+        }
+    },
+    "info": {
+        "buttonLabel": "Información",
+        "modalTitle": "¿Qué son las Plantillas?",
+        "modalContent": "Las plantillas son configuraciones de informes reutilizables que te permiten generar informes de Google Ads consistentes con un solo clic.\n\nCon las plantillas, puedes:\n• Definir un conjunto estándar de diapositivas y métricas para informes recurrentes\n• Pre-configurar cuentas y campañas de Google Ads para analizar\n• Establecer periodos de análisis por defecto (últimos 7 días, mes pasado, etc.)\n• Crear informes al instante sin volver a configurar los ajustes cada vez\n• Usar plantillas como base para informes automáticos programados\n\nLas plantillas son perfectas para estandarizar tu proceso de informes y asegurar la consistencia en todos tus entregables."
+    },
+    "editor": {
+        "backToTemplates": "Volver a las plantillas",
+        "namePlaceholder": "Nombre de la plantilla",
+        "templateBadge": "Plantilla",
+        "settings": "Ajustes",
+        "loading": "Cargando...",
+        "save": "Guardar",
+        "saveTemplate": "Guardar plantilla",
+        "close": "Cerrar",
+        "notFound": "Plantilla no encontrada",
+        "unauthorized": "No tienes autorización para editar esta plantilla",
+        "loadError": "Error al cargar la plantilla",
+        "messages": {
+            "saved": "¡Plantilla guardada!",
+            "saveError": "Error al guardar la plantilla",
+            "campaignsLoadError": "Error al cargar las campañas",
+            "settingsUpdated": "¡Ajustes actualizados!",
+            "settingsUpdateError": "Error al actualizar los ajustes"
+        }
+    }
+}

@@ -50,6 +50,11 @@ const LeadMagnetPage: React.FC = () => {
             <SEO
                 title={t(`pages.${magnet.slug}.title`)}
                 description={t(`pages.${magnet.slug}.metaDescription`)}
+                canonicalPath={`/resources/${magnet.slug}`}
+                breadcrumbs={[
+                    { name: 'Flipika', path: '/' },
+                    { name: t(`pages.${magnet.slug}.title`).split(' | ')[0], path: `/resources/${magnet.slug}` },
+                ]}
             />
 
             {/* Fake App Container for "App-Like" Feel - No Sidebar */}

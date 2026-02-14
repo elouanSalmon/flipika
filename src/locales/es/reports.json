@@ -1,0 +1,698 @@
+{
+    "featureName": "los informes",
+    "list": {
+        "title": "Mis Informes",
+        "description": "Gestiona y organiza tus informes de Google Ads",
+        "createFromTemplate": "Crear desde plantilla",
+        "newReport": "Nuevo informe",
+        "connectRequired": "Conecta Google Ads para crear informes",
+        "searchPlaceholder": "Buscar un informe...",
+        "viewGrid": "Vista de cuadrícula",
+        "viewList": "Vista de lista",
+        "loading": "Cargando informes...",
+        "tabs": {
+            "all": "Todos ({{count}})",
+            "drafts": "Borradores ({{count}})",
+            "published": "Publicados ({{count}})",
+            "archived": "Archivados ({{count}})"
+        },
+        "emptyState": {
+            "noReports": "No se encontraron informes",
+            "trySearch": "Prueba a modificar tu búsqueda",
+            "createFirst": "Crea tu primer informe para empezar",
+            "createButton": "Crear un informe"
+        },
+        "gridView": "Vista de cuadrícula",
+        "listView": "Vista de lista",
+        "connectToCreate": "Conecta Google Ads para crear informes"
+    },
+    "common": {
+        "period": "Periodo",
+        "client": "Cuenta",
+        "account": "Cuenta de Google Ads",
+        "campaigns": "Campañas",
+        "allCampaigns": "Todas las campañas",
+        "selected": "seleccionadas"
+    },
+    "config": {
+        "title": "Configuración del Informe",
+        "settings": "Ajustes del informe",
+        "reportTitle": "Título del informe",
+        "titlePlaceholder": "Ej: Informe Mensual Diciembre 2024",
+        "clientLabel": "Cuenta",
+        "loadingClients": "Cargando cuentas...",
+        "noClients": "No se encontraron cuentas.",
+        "createClient": "Crear una cuenta",
+        "selectClient": "Seleccionar una cuenta",
+        "googleAdsAccount": "Cuenta de Google Ads",
+        "analysisPeriod": "Periodo de análisis",
+        "periods": {
+            "last7Days": "Últimos 7 días",
+            "last_7_days": "Últimos 7 días",
+            "last30Days": "Últimos 30 días",
+            "last_30_days": "Últimos 30 días",
+            "last90Days": "Últimos 90 días",
+            "last_90_days": "Últimos 90 días",
+            "thisMonth": "Este mes",
+            "this_month": "Este mes",
+            "lastMonth": "Mes pasado",
+            "last_month": "Mes pasado",
+            "lastYear": "Año pasado",
+            "last_year": "Año pasado",
+            "this_year": "Este año",
+            "this_quarter": "Este trimestre",
+            "last_quarter": "Trimestre pasado",
+            "custom": "Personalizado"
+        },
+        "dateRange": {
+            "from": "Desde",
+            "to": "Hasta",
+            "display": "Del {{start}} al {{end}}"
+        },
+        "campaigns": {
+            "title_one": "Campaña ({{count}} seleccionada)",
+            "title_other": "Campañas ({{count}} seleccionadas)",
+            "selectAll": "Seleccionar todas",
+            "deselectAll": "Deseleccionar todas",
+            "noCampaigns": "No hay campañas disponibles",
+            "atLeastOne": "Por favor, selecciona al menos una campaña"
+        },
+        "actions": {
+            "cancel": "Cancelar",
+            "create": "Crear el informe",
+            "update": "Actualizar",
+            "updating": "Actualizando..."
+        }
+    },
+    "header": {
+        "backToReports": "Volver a los informes",
+        "titlePlaceholder": "Título del informe",
+        "saving": "Guardando...",
+        "loading": "Cargando...",
+        "settings": "Ajustes",
+        "save": "Guardar",
+        "publish": "Publicar",
+        "share": "Compartir",
+        "moreActions": "Más acciones",
+        "archive": "Archivar",
+        "delete": "Eliminar",
+        "copyLink": "Copiar enlace",
+        "openInNewTab": "Abrir en una pestaña nueva",
+        "linkCopied": "¡Enlace copiado al portapapeles!",
+        "present": "Presentar",
+        "deleteModal": {
+            "title": "Eliminar informe",
+            "message": "¿Estás seguro de que quieres eliminar este informe?",
+            "confirm": "Eliminar"
+        },
+        "managePassword": "Gestionar contraseña",
+        "protectPassword": "Proteger con contraseña",
+        "shareEmail": "Compartir por email",
+        "exportGoogleSlides": "Exportar a Google Slides",
+        "export": {
+            "title": "Exportar a Google Slides",
+            "description": "Crea una presentación de Google Slides a partir de este informe",
+            "slideCount_one": "Se exportará {{count}} diapositiva",
+            "slideCount_other": "Se exportarán {{count}} diapositivas",
+            "info": "La presentación se creará en tu Google Drive y se abrirá automáticamente.",
+            "note": "Deberás autorizar a Flipika para acceder a tu Google Drive la primera vez.",
+            "noteLabel": "Nota",
+            "extracting": "Extrayendo datos...",
+            "ready_one": "{{count}} diapositiva lista",
+            "ready_other": "{{count}} diapositivas listas",
+            "preparing": "Preparando exportación...",
+            "cancel": "Cancelar",
+            "export": "Exportar",
+            "connect": "Conectar con Google",
+            "sessionExpired": "Sesión de Google caducada. Por favor, vuelve a conectarte.",
+            "creating": "Creando la presentación...",
+            "success": "¡Presentación creada!",
+            "error": "Error durante la exportación",
+            "errorFirestore": "Error de permisos de Firestore",
+            "errorAPI": "Error de la API de Google Slides",
+            "noSlides": "No hay diapositivas para exportar"
+        },
+        "autoSave": {
+            "saved": "Guardado",
+            "saving": "Guardando...",
+            "error": "Error al guardar",
+            "justNow": "ahora mismo",
+            "ago_minutes": "hace {{count}} min",
+            "ago_hours": "hace {{count}}h"
+        }
+    },
+    "editor": {
+        "notFound": "Informe no encontrado",
+        "notAvailable": "N/D",
+        "unauthorized": "Acceso no autorizado",
+        "loadError": "Error al cargar el informe",
+        "close": "Cerrar",
+        "messages": {
+            "saved": "Informe guardado",
+            "saveError": "Error al guardar",
+            "published": "¡Informe publicado!",
+            "publishError": "Error al publicar",
+            "archived": "Informe archivado",
+            "archiveError": "Error al archivar",
+            "deleted": "Informe eliminado",
+            "deleteError": "Error al eliminar",
+            "settingsUpdated": "Ajustes actualizados",
+            "settingsUpdateError": "Error al actualizar los ajustes",
+            "campaignsLoadError": "Error al cargar las campañas",
+            "usernameRequired": "Por favor, configura tu nombre de usuario en los ajustes",
+            "passwordEnabled": "Protección por contraseña activada",
+            "passwordDisabled": "Protección por contraseña desactivada",
+            "passwordError": "Error al actualizar la contraseña",
+            "emailOpened": "¡Correo pre-completado abierto!",
+            "emailError": "Error al generar el correo electrónico",
+            "presetThemeApplied": "Tema \"{{themeName}}\" aplicado desde las preferencias del cliente"
+        },
+        "email": {
+            "subject": "Informe de Google Ads - {{title}}",
+            "greeting": "Hola,",
+            "intro": "Te comparto el siguiente informe de análisis de Google Ads...",
+            "reportTitle": "Informe: {{title}}",
+            "period": "Periodo: {{startDate}} - {{endDate}}",
+            "campaigns": "Campañas analizadas: {{names}}",
+            "accessLink": "Enlace de acceso: {{url}}",
+            "password": "Contraseña: {{password}}",
+            "passwordProtected": "Este informe está protegido por contraseña (contraseña no disponible - por favor, compártela por separado)",
+            "questions": "No dudes en contactarme si tienes alguna pregunta.",
+            "signature": "Saludos cordiales,",
+            "signatureName": "{{name}}",
+            "signatureCompany": "{{company}}"
+        }
+    },
+    "slideLibrary": {
+        "title": "Biblioteca de Diapositivas",
+        "subtitle": "Arrastra o haz clic para añadir",
+        "categoryLabel": "Categoría",
+        "scopeLabel": "Alcance",
+        "categories": {
+            "all": "Todas",
+            "analytics": "Analítica",
+            "content": "Contenido"
+        },
+        "scopes": {
+            "all": "Todos",
+            "modifiable": "Modificable",
+            "multiple_campaigns": "Múltiples campañas",
+            "single_campaign": "Campaña única"
+        },
+        "add": "Añadir"
+    },
+    "canvas": {
+        "empty": {
+            "title": "Empieza tu informe",
+            "description": "Arrastra diapositivas desde la biblioteca o haz clic para añadirlas",
+            "hint": "Arrastrar y Soltar desde la izquierda"
+        }
+    },
+    "slides": {
+        "types": {
+            "performance_overview": {
+                "title": "Resumen de rendimiento",
+                "description": "Métricas clave: impresiones, clics, coste, conversiones"
+            },
+            "key_metrics": {
+                "title": "Métricas Clave",
+                "description": "Gasto, Ingresos, ROAS y CPA con variaciones"
+            },
+            "campaign_chart": {
+                "title": "Gráfico de campaña",
+                "description": "Visualización de datos de campaña"
+            },
+            "ad_creative": {
+                "title": "Vista previa de anuncio",
+                "description": "Mockup de anuncio de Google Ads con rendimiento"
+            },
+            "funnel_analysis": {
+                "title": "Análisis de embudo",
+                "description": "Conversión: Impresiones → Clics → Conversiones"
+            },
+            "text_block": {
+                "title": "Bloque de texto",
+                "description": "Texto enriquecido con formato"
+            },
+            "heatmap": {
+                "title": "Mapa de calor Día/Hora",
+                "description": "Rendimiento por día y hora"
+            },
+            "custom": {
+                "title": "Diapositiva personalizada",
+                "description": "Crea tu propia diapositiva"
+            },
+            "device_platform_split": {
+                "title": "Dispositivos y Plataformas",
+                "description": "Desglose por dispositivo y red"
+            },
+            "top_performers": {
+                "title": "Mejores rendimientos",
+                "description": "Clasificación (Palabras clave, Anuncios...)"
+            },
+            "section_title": {
+                "title": "Título de sección",
+                "description": "Separador con título y subtítulo"
+            },
+            "rich_text": {
+                "title": "Texto enriquecido",
+                "description": "Párrafo de texto libre"
+            }
+        }
+    },
+    "security": {
+        "title": "Seguridad del informe",
+        "description": "Protege tu informe con una contraseña",
+        "passwordProtection": "Protección por contraseña",
+        "enabledDescription": "Los visitantes deberán introducir una contraseña para acceder al informe",
+        "disabledDescription": "El informe es accesible públicamente sin contraseña",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "Mínimo 6 caracteres",
+        "passwordHelp": "Esta contraseña se solicitará a los visitantes para acceder al informe. Compártela de forma segura.",
+        "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+        "passwordCopied": "¡Contraseña copiada!",
+        "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
+        "updateError": "Error al actualizar",
+        "protectionEnabled": "Protección por contraseña activada",
+        "protectionDisabled": "Protección por contraseña desactivada",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "saving": "Guardando...",
+        "actions": {
+            "save": "Guardar",
+            "saving": "Guardando...",
+            "show": "Mostrar",
+            "hide": "Ocultar",
+            "copy": "Copiar contraseña"
+        }
+    },
+    "whiteLabelPortal": {
+        "title": "Pre-Flight Check integrado",
+        "subtitle": "Cero errores, cero estrés",
+        "description": "Antes de cada envío, valida visualmente: cuenta correcta, logotipo correcto, datos correctos. Consulta segura por contraseña o exportación a PDF. Cumplimiento del RGPD.",
+        "benefits": [
+            "Personalización de la interfaz con tu logotipo y colores",
+            "Acceso seguro para tus cuentas con protección por contraseña",
+            "Exportación a PDF en marca blanca para una distribución profesional",
+            "Cumplimiento del RGPD para la protección de datos"
+        ]
+    },
+    "toast": {
+        "created": "¡Informe creado!",
+        "createError": "Error al crear el informe"
+    },
+    "slashCommand": {
+        "performanceOverview": {
+            "title": "Resumen de rendimiento",
+            "description": "Insertar una cuadrícula de métricas de rendimiento"
+        },
+        "flexibleData": {
+            "title": "Datos flexibles",
+            "description": "Bloque de datos personalizable (Tabla, Gráfico, Tarjeta de puntuación)"
+        },
+        "chart": {
+            "title": "Gráfico",
+            "description": "Insertar un gráfico de líneas, barras o áreas"
+        },
+        "keyMetrics": {
+            "title": "Métricas clave",
+            "description": "Insertar una cuadrícula de 2x2 con KPIs clave"
+        },
+        "adCreative": {
+            "title": "Creatividad de anuncio",
+            "description": "Mostrar las creatividades de anuncios con mejor rendimiento"
+        },
+        "funnelAnalysis": {
+            "title": "Análisis de embudo",
+            "description": "Visualizar el embudo de conversión"
+        },
+        "heatmap": {
+            "title": "Mapa de calor",
+            "description": "Ver el mapa de calor de rendimiento"
+        },
+        "devicePlatformSplit": {
+            "title": "Desglose por dispositivo/plataforma",
+            "description": "Desglose por dispositivo o plataforma"
+        },
+        "table": {
+            "title": "Tabla",
+            "description": "Insertar una tabla"
+        },
+        "topPerformers": {
+            "title": "Mejores rendimientos",
+            "description": "Lista de las mejores campañas o grupos de anuncios"
+        },
+        "clientLogo": {
+            "title": "Logotipo del cliente",
+            "description": "Muestra el logotipo del cliente del informe"
+        },
+        "columns": {
+            "title": "Columnas",
+            "description": "Dividir la diapositiva en 2 columnas"
+        },
+        "coverPage": {
+            "title": "Portada",
+            "description": "Insertar una diapositiva de portada editable"
+        },
+        "conclusionPage": {
+            "title": "Conclusión",
+            "description": "Insertar una diapositiva de conclusión editable"
+        }
+    },
+    "coverPage": {
+        "defaultTitle": "Título del informe",
+        "defaultPeriod": "Periodo de análisis",
+        "defaultClient": "Nombre del cliente",
+        "defaultUser": "Tu nombre",
+        "preparedFor": "Preparado para:",
+        "preparedBy": "Preparado por:",
+        "inserted": "Portada añadida"
+    },
+    "conclusionPage": {
+        "thankYou": "¡Gracias por leer!",
+        "contactPrompt": "Para cualquier pregunta, no dudes en contactarnos:",
+        "defaultEmail": "tu@email.com",
+        "inserted": "Página de conclusión añadida"
+    },
+    "variables": {
+        "title": "Variables dinámicas",
+        "noResults": "No se encontraron variables",
+        "clientName": "Nombre del cliente",
+        "reportTitle": "Título del informe",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha de fin",
+        "dateRange": "Periodo (inicio - fin)",
+        "userName": "Nombre de usuario",
+        "userEmail": "Correo electrónico",
+        "userCompany": "Empresa",
+        "currentDate": "Fecha actual"
+    },
+    "card": {
+        "status": {
+            "draft": "Borrador",
+            "published": "Publicado",
+            "archived": "Archivado"
+        },
+        "noAccount": "No definido",
+        "campaigns_one": "{{count}} Campaña",
+        "campaigns_other": "{{count}} Campañas",
+        "noCampaigns": "Ninguna campaña",
+        "modifiedOn": "Modificado el {{date}}",
+        "sections": "Secciones",
+        "slides": "Diapositivas",
+        "actions": {
+            "viewPublic": "Ver público",
+            "shareByEmail": "Compartir por email",
+            "edit": "Editar",
+            "duplicate": "Duplicar",
+            "archive": "Archivar",
+            "delete": "Eliminar"
+        },
+        "toast": {
+            "duplicated": "Informe duplicado con éxito",
+            "duplicateError": "Error al duplicar",
+            "archived": "Informe archivado",
+            "archiveError": "Error al archivar",
+            "deleted": "Informe eliminado",
+            "deleteError": "Error al eliminar"
+        },
+        "deleteConfirm": {
+            "title": "Eliminar informe",
+            "message": "¿Estás seguro de que quieres eliminar el informe \"{{title}}\"?",
+            "confirm": "Eliminar"
+        }
+    },
+    "preFlight": {
+        "title": "Vista previa del informe",
+        "subtitle": "{{clientName}} • {{dateRange}}",
+        "loading": {
+            "title": "Cargando datos...",
+            "subtitle": "Recuperando KPIs desde Google Ads"
+        },
+        "error": {
+            "title": "Error de carga",
+            "noData": "No hay datos disponibles para este periodo",
+            "generic": "Error al cargar los datos",
+            "retry": "Reintentar",
+            "retrying": "Reintentando...",
+            "attemptCount": "Intento {{count}}/{{max}}",
+            "maxAttempts": "Se ha alcanzado el número máximo de intentos",
+            "technicalDetails": "Detalles técnicos",
+            "types": {
+                "AUTHENTICATION_ERROR": {
+                    "message": "Tu conexión con Google Ads ha caducado.",
+                    "suggestion": "Por favor, vuelve a conectarte a Google Ads."
+                },
+                "PERMISSION_ERROR": {
+                    "message": "No tienes los permisos necesarios para acceder a esta cuenta.",
+                    "suggestion": "Verifica tus permisos de acceso en la cuenta de Google Ads."
+                },
+                "RATE_LIMIT_ERROR": {
+                    "message": "Se han enviado demasiadas solicitudes.",
+                    "suggestion": "Por favor, espera unos instantes e inténtalo de nuevo."
+                },
+                "TIMEOUT_ERROR": {
+                    "message": "La solicitud ha tardado demasiado tiempo.",
+                    "suggestion": "Por favor, inténtalo de nuevo. Si el problema persiste, intenta con un periodo más corto."
+                },
+                "NETWORK_ERROR": {
+                    "message": "Conexión de red interrumpida.",
+                    "suggestion": "Verifica tu conexión a internet e inténtalo de nuevo."
+                },
+                "NO_DATA": {
+                    "message": "No hay datos disponibles para este periodo.",
+                    "suggestion": "Intenta seleccionar un periodo diferente."
+                },
+                "INVALID_PERIOD": {
+                    "message": "El periodo seleccionado no es válido.",
+                    "suggestion": "Por favor, selecciona fechas válidas."
+                },
+                "ACCOUNT_NOT_FOUND": {
+                    "message": "Cuenta de Google Ads no encontrada.",
+                    "suggestion": "Verifica que la cuenta esté vinculada a Flipika."
+                },
+                "UNKNOWN_ERROR": {
+                    "message": "Ha ocurrido un error inesperado.",
+                    "suggestion": "Por favor, inténtalo de nuevo. Si el problema persiste, contacta con el soporte."
+                }
+            }
+        },
+        "emptyState": {
+            "title": "No hay datos disponibles",
+            "message": "Este informe no contiene diapositivas. Añade diapositivas para visualizar tus datos de Google Ads.",
+            "suggestion": "Vuelve al editor para añadir diapositivas a tu informe.",
+            "editReport": "Editar informe",
+            "backToReports": "Volver a los informes"
+        },
+        "errorBoundary": {
+            "title": "Ha ocurrido un error",
+            "message": "Ha ocurrido un problema inesperado. Por favor, inténtalo de nuevo o vuelve al inicio.",
+            "retry": "Reintentar",
+            "home": "Inicio"
+        },
+        "warnings": {
+            "title": "Advertencias",
+            "noImpressions": "No se registraron impresiones",
+            "lowCtr": "CTR bajo (< 1%) con más de 1000 impresiones",
+            "noConversions": "Ninguna conversión con más de 100 clics"
+        },
+        "kpis": {
+            "cost": "Coste Total",
+            "clicks": "Clics",
+            "impressions": "Impresiones",
+            "ctr": "CTR",
+            "cpc": "CPC Medio",
+            "campaigns": "Campañas"
+        },
+        "actions": {
+            "cancel": "Cancelar",
+            "send": "Generar PDF y Enviar",
+            "edit": "Editar",
+            "back": "Volver a los informes",
+            "viewPreview": "Ver vista previa",
+            "downloadPdf": "Descargar PDF",
+            "generating": "Generando...",
+            "copy": "Copiar"
+        },
+        "steps": {
+            "preview": "Verificación",
+            "send": "Envío"
+        },
+        "reassurance": {
+            "title": "¡Todo listo!",
+            "description": "El informe está preparado. Haz clic arriba para generarlo en formato PDF y preparar el correo para tu cliente."
+        },
+        "pdf": {
+            "success": "PDF generado con éxito",
+            "error": "Error al generar el PDF",
+            "progress": "Generación del PDF: {{progress}}%",
+            "overlay": {
+                "title": "Generación del PDF",
+                "preparing": "Preparando...",
+                "creatingDocument": "Creando documento...",
+                "coverPage": "Portada...",
+                "slideProgress": "Diapositiva {{current}} / {{total}}...",
+                "finalizing": "Finalizando...",
+                "saving": "Guardando...",
+                "complete": "¡Terminado!",
+                "pleaseWait": "Por favor, espera...",
+                "generatedOn": "Generado el {{date}}"
+            }
+        },
+        "postSend": {
+            "title": "Documento PDF descargado y aplicación de correo abierta",
+            "description": "Tu informe en PDF ya se ha descargado. Tu aplicación de correo debería haberse abierto con un mensaje preparado.",
+            "recipientLabel": "Destinatario",
+            "subjectLabel": "Asunto",
+            "bodyLabel": "Mensaje del correo",
+            "emailOpened": "¡Aplicación de correo abierta!",
+            "copied": "¡{{label}} copiado!",
+            "copyError": "Error al copiar",
+            "pdfTodo": "Descarga de PDF por implementar",
+            "troubleshoot": {
+                "button": "¿Algún problema?",
+                "title": "¿No se abrió el correo?",
+                "description": "Si tu aplicación de correo no se abrió automáticamente, aquí tienes cómo corregirlo:",
+                "steps": {
+                    "desktop": {
+                        "title": "En ordenador",
+                        "mac": "macOS: Mail > Ajustes > General > Aplicación de correo predeterminada.",
+                        "windows": "Windows: Configuración > Aplicaciones > Aplicaciones predeterminadas > Correo electrónico."
+                    },
+                    "mobile": {
+                        "title": "En móvil",
+                        "ios": "iOS: Ajustes > [App Mail] > App de correo predeterminada.",
+                        "android": "Android: Ajustes > Apps > Elegir apps predeterminadas > App de correo electrónico."
+                    }
+                },
+                "fallback": "ACCIONES MANUALES",
+                "editEmail": "Editar modelo de correo"
+            },
+            "instructions": {
+                "title": "¿Cómo finalizar el envío?",
+                "step1": {
+                    "title": "Recupera el PDF",
+                    "description": "El archivo PDF se ha descargado automáticamente en tu dispositivo."
+                },
+                "step2": {
+                    "title": "Arrastra y suelta",
+                    "description": "Arrastra el archivo descargado a la ventana de tu correo electrónico."
+                },
+                "step3": {
+                    "title": "¡Envía!",
+                    "description": "Verifica una última vez y haz clic en enviar."
+                }
+            }
+        }
+    },
+    "info": {
+        "buttonLabel": "Información",
+        "modalTitle": "¿Qué es un informe?",
+        "modalContent": "Los informes son documentos personalizables de rendimiento de Google Ads que puedes crear y compartir con tus clientes o partes interesadas.\n\nCon los informes, puedes:\n• Combinar múltiples tipos de diapositivas (métricas, gráficos, texto, creatividades) en presentaciones completas\n• Analizar campañas y periodos de tiempo específicos\n• Guardar como borrador, publicar o archivar para organización\n• Proteger informes con contraseña para un intercambio seguro\n• Generar exportaciones a PDF para distribución offline\n• Compartir por correo con contenido pre-completado\n\nLos informes pueden crearse desde cero o generarse a partir de plantillas para entregas más rápidas y consistentes."
+    },
+    "flexibleBlock": {
+        "modalTitle": "Configuración del Bloque de Datos",
+        "modalSubtitle": "Personaliza tu visualización de métricas",
+        "previewTitle": "Vista Previa en Tiempo Real",
+        "previewSubtitle": "Vista previa",
+        "waitingContext": "Esperando el contexto de la cuenta...",
+        "fields": {
+            "title": "Título del bloque",
+            "titlePlaceholder": "ej. Rendimiento por Campaña",
+            "visualStyle": "Estilo visual",
+            "dimension": "Dimensión",
+            "limit": "Límite",
+            "metrics": "Métricas",
+            "none": "Ninguna (Totales)",
+            "comparison": "Comparar periodo",
+            "comparisonDescription": "Activar comparación N-1"
+        },
+        "comparisonTypes": {
+            "previous_period": "Periodo anterior",
+            "previous_year": "Año anterior"
+        },
+        "visualizations": {
+            "table": "Tabla",
+            "bar": "Barras",
+            "line": "Líneas",
+            "pie": "Circular",
+            "scorecard": "Tarjeta de puntuación"
+        },
+        "dimensions": {
+            "date": "Fecha",
+            "campaign": "Campaña",
+            "ad_group": "Grupo de anuncios",
+            "device": "Dispositivo"
+        },
+        "metricsList": {
+            "impressions": "Impresiones",
+            "clicks": "Clics",
+            "cost": "Coste",
+            "cost_micros": "Coste",
+            "ctr": "CTR",
+            "cpc": "CPC Medio",
+            "average_cpc": "CPC Medio",
+            "conversions": "Conversiones",
+            "convValue": "Valor de conv.",
+            "conversions_value": "Valor de conv.",
+            "costPerConv": "Coste / Conv.",
+            "cost_per_conversion": "Coste / Conv.",
+            "conversions_value_per_cost": "ROAS"
+        },
+        "actions": {
+            "cancel": "Cancelar",
+            "create": "Generar bloque",
+            "update": "Actualizar contenido"
+        },
+        "emptyState": "Configura una cuenta para mostrar datos.",
+        "ai": {
+            "title": "Análisis narrativo",
+            "subtitle": "Generar comentario narrativo",
+            "generate": "Analizar",
+            "generating": "Analizando...",
+            "placeholder": "Haz clic en \"Analizar\" para generar un comentario basado en los datos del gráfico, o escribe tu propio análisis...",
+            "stale": "Desactualizado",
+            "staleHint": "Los parámetros han cambiado desde el último análisis",
+            "regenerate": "Regenerar",
+            "errorNoDate": "Por favor, define un periodo de análisis",
+            "errorGeneric": "Error al generar el análisis"
+        }
+    },
+    "toolbar": {
+        "generateAllAnalyses": "Generar todos los análisis",
+        "generatingAll": "Generando...",
+        "generationComplete": "{{completed}}/{{total}} análisis generados",
+        "generationFailed": "{{failed}} error(es)",
+        "noDataBlocks": "No se encontraron bloques de datos",
+        "allBlocksHaveAnalysis": "Todos los bloques ya tienen análisis",
+        "generationStarted": "Generación iniciada para {{count}} bloques",
+        "undo": "Deshacer última acción (Ctrl+Z)",
+        "redo": "Rehacer última acción (Ctrl+Y)",
+        "h1": "Título 1 (Grande)",
+        "h2": "Título 2 (Mediano)",
+        "h3": "Título 3 (Pequeño)",
+        "bold": "Activar negrita (Ctrl+B)",
+        "italic": "Activar cursiva (Ctrl+I)",
+        "underline": "Activar subrayado (Ctrl+U)",
+        "strike": "Tachar texto",
+        "code": "Activar formato de código",
+        "highlight": "Resaltar texto",
+        "alignLeft": "Alinear a la izquierda (Ctrl+Shift+L)",
+        "alignCenter": "Centrar (Ctrl+Shift+E)",
+        "alignRight": "Alinear a la derecha (Ctrl+Shift+R)",
+        "justify": "Justificar texto (Ctrl+Shift+J)",
+        "bulletList": "Activar lista de viñetas",
+        "orderedList": "Activar lista numerada",
+        "table": "Insertar tabla",
+        "columns": "Insertar 2 columnas",
+        "link": "Añadir enlace",
+        "unlink": "Eliminar enlace",
+        "image": "Insertar imagen desde la biblioteca",
+        "textColor": "Cambiar color de texto",
+        "highlightColor": "Cambiar color de resaltado",
+        "horizontalRule": "Insertar regla horizontal",
+        "insertVariable": "Insertar variable dinámica [var]",
+        "coverPage": "Insertar portada",
+        "conclusionPage": "Insertar página de conclusión"
+    }
+}

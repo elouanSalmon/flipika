@@ -1,0 +1,130 @@
+{
+    "featureName": "informes programados",
+    "title": "Informes Programados",
+    "description": "Automatiza la generación de informes de forma regular",
+    "newSchedule": "Nueva programación",
+    "searchPlaceholder": "Buscar una programación...",
+    "viewGrid": "Vista de cuadrícula",
+    "viewList": "Vista de lista",
+    "sessionExpired": "Se requiere conexión a Google Ads",
+    "sessionExpiredDescription": "No se pueden recuperar tus cuentas de Google Ads. La sesión probablemente ha expirado. Reconecta la cuenta",
+    "tabs": {
+        "all": "Todos ({{count}})",
+        "active": "Activos ({{count}})",
+        "paused": "Pausados ({{count}})"
+    },
+    "emptyState": {
+        "noTemplates": {
+            "title": "No hay plantillas disponibles",
+            "description": "La programación requiere una plantilla para generar informes. Tus informes actuales (página de Informes) no son plantillas.",
+            "action": "Crear una plantilla"
+        },
+        "noSchedules": {
+            "title": "Sin informes programados",
+            "description": "Crea tu primera programación para automatizar la generación de informes.",
+            "action": "Crear una programación"
+        }
+    },
+    "deleteConfirm": {
+        "title": "Eliminar programación",
+        "message": "¿Estás seguro de que quieres eliminar la programación \"{{name}}\"?",
+        "confirm": "Eliminar"
+    },
+    "connectToCreate": "Conecta Google Ads para crear programaciones",
+    "createTemplateFirst": "Crea una plantilla primero",
+    "unknownTemplate": "Plantilla desconocida",
+    "unknownAccount": "Cuenta desconocida",
+    "toast": {
+        "updated": "Programación actualizada correctamente",
+        "created": "Programación creada correctamente",
+        "activated": "Programación activada",
+        "paused": "Programación pausada",
+        "deleted": "Programación eliminada correctamente"
+    },
+    "errors": {
+        "sessionExpired": "La sesión de Google Ads ha expirado. Por favor, reconecta en ajustes.",
+        "sessionExpiredText": "Tu sesión de Google Ads ha expirado. Por favor, reconecta.",
+        "loadingData": "Error al cargar los datos",
+        "noAccount": "La plantilla seleccionada no está vinculada a ninguna cuenta de Google Ads",
+        "saving": "Error al guardar",
+        "toggleStatus": "Error al cambiar el estado",
+        "deleting": "Error al eliminar la programación",
+        "connectionRequired": "Se requiere conexión a Google Ads",
+        "reconnect": "Reconectar"
+    },
+    "card": {
+        "status": {
+            "active": "Activo",
+            "paused": "Pausado",
+            "error": "Error"
+        },
+        "nextRun": {
+            "title": "Siguiente ejecución",
+            "localTime": "Tu hora"
+        },
+        "paused": {
+            "title": "Programación pausada",
+            "description": "Activa para reanudar"
+        },
+        "stats": {
+            "total": "Total",
+            "success": "Éxito",
+            "failed": "Fallo"
+        },
+        "lastRun": "Última: {{date}}",
+        "viewReport": "Ver",
+        "failed": "Fallido",
+        "actions": {
+            "pause": "Pausar",
+            "activate": "Activar",
+            "edit": "Editar",
+            "delete": "Eliminar"
+        }
+    },
+    "info": {
+        "buttonLabel": "Información",
+        "modalTitle": "¿Qué son los Informes Programados?",
+        "modalContent": "Los Informes Programados generan automáticamente tus informes de Google Ads de forma recurrente, con diapositivas rellenadas con datos actualizados y analizadas por la IA de Narrative Layer.\n\nCon los informes programados puedes:\n• Generar informes automáticamente diaria, semanal o mensualmente\n• Obtener datos frescos para el periodo seleccionado en cada generación\n• Beneficiarte del análisis impulsado por IA de las tendencias de rendimiento y perspectivas\n• Revisar los informes antes de enviarlos a las cuentas (el envío sigue siendo manual)\n• Usar plantillas como base para los informes automatizados\n• Rastrear el historial de ejecución y las tasas de éxito\n\nLos informes programados te ahorran tiempo al automatizar la recopilación y el análisis de datos, mientras mantienes el control de las comunicaciones con el cliente."
+    },
+    "config": {
+        "title": "Nueva programación",
+        "editTitle": "Editar programación",
+        "generalInfo": "Información general",
+        "configuration": "Configuración",
+        "frequency": "Frecuencia de generación",
+        "name": {
+            "label": "Nombre de la programación",
+            "placeholder": "Ej: Informe semanal",
+            "required": "El nombre es obligatorio"
+        },
+        "description": {
+            "label": "Descripción",
+            "placeholder": "Descripción de la programación...",
+            "optional": "(opcional)"
+        },
+        "template": {
+            "label": "Plantilla",
+            "placeholder": "Seleccionar una plantilla",
+            "required": "Por favor, selecciona una plantilla"
+        },
+        "preview": {
+            "period": "Periodo",
+            "slides": "Diapositivas"
+        },
+        "actions": {
+            "cancel": "Cancelar",
+            "create": "Crear programación",
+            "save": "Guardar",
+            "updating": "Actualizando..."
+        },
+        "unsavedChanges": {
+            "title": "Cambios sin guardar",
+            "message": "Tienes cambios sin guardar. ¿Estás seguro de que quieres cerrar sin guardar?",
+            "confirm": "Cerrar sin guardar"
+        },
+        "reassurance": {
+            "firstRun": "La primera ejecución ocurrirá en la fecha y hora definidas abajo. Recibirás una notificación.",
+            "frequency": "Los informes se generarán automáticamente según esta frecuencia y esperarán a tu validación antes de ser enviados."
+        }
+    }
+}

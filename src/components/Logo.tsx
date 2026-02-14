@@ -19,8 +19,8 @@ export const Logo: React.FC<LogoProps> = ({ className = '', onClick, scale = 1.0
         if (onClick) {
             onClick();
         } else {
-            const isFrench = i18n.language === 'fr';
-            navigate(isFrench ? '/fr' : '/');
+            const lang = i18n.language;
+            navigate(lang === 'fr' || lang === 'es' ? `/${lang}` : '/');
         }
     };
 

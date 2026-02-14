@@ -68,6 +68,12 @@ const TemplateLandingPage: React.FC = () => {
             <SEO
                 title={tr('page.title')}
                 description={tr('page.metaDescription')}
+                canonicalPath={`/templates/${slug}`}
+                breadcrumbs={[
+                    { name: 'Flipika', path: '/' },
+                    { name: 'Templates', path: '/templates/google-ads' },
+                    { name: tr('page.title').split(' | ')[0], path: `/templates/${slug}` },
+                ]}
             />
 
             {/* JSON-LD Structured Data */}

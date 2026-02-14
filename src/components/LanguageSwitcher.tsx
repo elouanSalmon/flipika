@@ -9,8 +9,9 @@ const LanguageSwitcher = () => {
   const navigate = useNavigate();
 
   const languages = [
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
     { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
   ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
@@ -27,16 +28,18 @@ const LanguageSwitcher = () => {
     // For public routes, change the URL silo
     let newPath = location.pathname;
 
-    if (languageCode === 'fr') {
-      // Go to French silo
-      if (!newPath.startsWith('/fr')) {
-        newPath = `/fr${newPath === '/' ? '' : newPath}`;
+    // Remove existing language prefix if any
+    const prefixes = ['/fr', '/es'];
+    for (const prefix of prefixes) {
+      if (newPath.startsWith(prefix)) {
+        newPath = newPath.substring(prefix.length) || '/';
+        break;
       }
-    } else {
-      // Go to English silo (Root)
-      if (newPath.startsWith('/fr')) {
-        newPath = newPath.substring(3) || '/';
-      }
+    }
+
+    // Add new prefix if not English
+    if (languageCode !== 'en') {
+      newPath = `/${languageCode}${newPath === '/' ? '' : newPath}`;
     }
 
     i18n.changeLanguage(languageCode);

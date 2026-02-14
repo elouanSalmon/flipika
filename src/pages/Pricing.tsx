@@ -8,6 +8,7 @@ import {
     ChevronDown,
     ArrowRight,
 } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import PricingInfoModal from '../components/billing/PricingInfoModal';
 import RoadmapPreview from '../components/RoadmapPreview';
 import TrustBar from '../components/TrustBar';
@@ -543,6 +544,24 @@ export default function Pricing() {
                 onClose={() => setShowPricingModal(false)}
                 pricePerSeat={PRICE_PER_SEAT}
             />
+
+            {/* FAQPage Structured Data */}
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'FAQPage',
+                        'mainEntity': faqItems.map((item) => ({
+                            '@type': 'Question',
+                            'name': item.question,
+                            'acceptedAnswer': {
+                                '@type': 'Answer',
+                                'text': item.answer,
+                            },
+                        })),
+                    })}
+                </script>
+            </Helmet>
         </>
     );
 }

@@ -548,8 +548,9 @@ h6,
   border-radius: 10px;
   font-weight: 500;
   font-size: 0.9375rem;
+  line-height: 1;
   text-decoration: none;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
   transition: all 0.2s;
   position: relative;

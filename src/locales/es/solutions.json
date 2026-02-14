@@ -1,0 +1,429 @@
+{
+    "hero": {
+        "badge": "Soluciones",
+        "title": "Una solución a medida para cada perfil",
+        "subtitle": "Ya seas freelance, agencia o responsable de marketing, Flipika se adapta a tus necesidades para automatizar tus informes de Google Ads."
+    },
+    "solutions": [
+        {
+            "id": "freelancers",
+            "icon": "User",
+            "title": "Freelancers",
+            "subtitle": "Ahorra tiempo e impresiona a tus clientes",
+            "description": "Libérate de horas de informes manuales. Flipika te permite gestionar más clientes ofreciendo una calidad de informe digna de las agencias más grandes.",
+            "benefits": [
+                "Informes automatizados en 2 minutos",
+                "Diseño profesional y marca blanca",
+                "Narración por IA para perspectivas expertas",
+                "Precios adaptados a tu crecimiento"
+            ]
+        },
+        {
+            "id": "agencies",
+            "icon": "Building2",
+            "title": "Agencias",
+            "subtitle": "Escala tus informes y operaciones",
+            "description": "Estandariza la calidad de tus informes en todas tus cuentas. Automatiza las tareas de bajo valor para centrarte en la estrategia.",
+            "benefits": [
+                "Gobernanza y centralización de plantillas",
+                "Multicuenta y multiusuario",
+                "Envío automatizado a clientes",
+                "Productividad del equipo multiplicada por 10"
+            ]
+        },
+        {
+            "id": "media-buyers",
+            "icon": "Target",
+            "title": "Media Buyers",
+            "subtitle": "La herramienta definitiva para la gestión del rendimiento",
+            "description": "Deja de perder tiempo en Looker Studio. Accede instantáneamente a los KPIs que importan y genera análisis relevantes para tus clientes.",
+            "benefits": [
+                "Datos de Google Ads en tiempo real",
+                "Detección automática de anomalías por IA",
+                "Modo presentación para tus revisiones semanales",
+                "Enfoque total en la optimización"
+            ]
+        },
+        {
+            "id": "marketing-managers",
+            "icon": "PieChart",
+            "title": "Marketing Managers",
+            "subtitle": "Gestión clara y serena de tus inversiones",
+            "description": "Obtén una visión cristalina de tu rendimiento en Google Ads sin esfuerzo técnico. Informes legibles para ti y para tu dirección.",
+            "benefits": [
+                "Paneles claros y accionables",
+                "Resumen impulsado por IA (voz/texto)",
+                "Intercambio simplificado con la dirección",
+                "Independencia de obstáculos técnicos"
+            ]
+        }
+    ],
+    "solutionDetails": {
+        "freelancers": {
+            "hero": {
+                "title": "Flipika para Freelancers de Google Ads",
+                "subtitle": "Automatiza tus informes, mantén a tus clientes por más tiempo y gestiona más cuentas sin estrés.",
+                "cta": "Empezar gratis"
+            },
+            "whyItMatters": {
+                "title": "Por qué Flipika es el aliado de los freelancers",
+                "description": "Como freelance, tu tiempo es tu recurso más valioso. Flipika transforma 3 horas de informes tediosos en 2 minutos de automatización inteligente.",
+                "points": [
+                    {
+                        "title": "Ahorra 1 día al mes",
+                        "description": "Ahorra una media de 8 horas al mes por cada 10 clientes gestionados."
+                    },
+                    {
+                        "title": "Cero errores",
+                        "description": "Olvida los errores de copiar y pegar en Excel o Google Sheets."
+                    },
+                    {
+                        "title": "Imagen de marca de élite",
+                        "description": "Ofrece informes de diseño premium que justifiquen tus honorarios."
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Tu nuevo flujo de trabajo como freelance",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Conecta tus cuentas",
+                        "description": "Vincula todas las cuentas de tus clientes en un instante a través de OAuth."
+                    },
+                    {
+                        "number": "2",
+                        "title": "Crea tu plantilla única",
+                        "description": "Configura una plantilla que refleje tu marca una vez y úsala en todas partes."
+                    },
+                    {
+                        "number": "3",
+                        "title": "Automatiza el envío",
+                        "description": "Programa el envío automático el día 1 del mes y relájate."
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Informes mensuales premium",
+                    "description": "Envía hermosos informes en PDF que demuestren tu valor."
+                },
+                {
+                    "title": "Auditoría de cuenta de prospectos",
+                    "description": "Usa nuestras herramientas para impresionar a tus futuros clientes desde la presentación de ventas."
+                },
+                {
+                    "title": "Seguimiento semanal rápido",
+                    "description": "Envía un resumen de rendimiento por correo electrónico en un clic."
+                }
+            ],
+            "beforeAfter": {
+                "title": "La vida del freelance con vs sin Flipika",
+                "before": {
+                    "title": "Antes de Flipika",
+                    "points": [
+                        "Tardes enteras copiando datos",
+                        "Estrés por los plazos de fin de mes",
+                        "Informes de Looker Studio que se rompen todo el tiempo",
+                        "Poco tiempo para la optimización real"
+                    ]
+                },
+                "after": {
+                    "title": "Después de Flipika",
+                    "points": [
+                        "Informes generados mientras tomas café",
+                        "Serenidad total el día 1 del mes",
+                        "Clientes impresionados por la claridad",
+                        "Capacidad para aceptar 2 o 3 clientes más"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Puedo usar mi propio logo?",
+                    "answer": "Sí, Flipika es completamente marca blanca. Tus clientes solo ven tu logotipo."
+                },
+                {
+                    "question": "¿Es el precio adecuado para un freelance?",
+                    "answer": "Nuestras ofertas empiezan con una tarifa muy accesible, que se amortiza tras el primer informe generado."
+                }
+            ]
+        },
+        "agencies": {
+            "hero": {
+                "title": "Flipika para Agencias SEA",
+                "subtitle": "Industrializa la producción de tus informes y aumenta la rentabilidad de tu departamento SEA.",
+                "cta": "Solicitar una demo"
+            },
+            "whyItMatters": {
+                "title": "La solución de informes para agencias ambiciosas",
+                "description": "No dejes que tus consultores pasen el 20% de su tiempo en tareas que pueden automatizarse. Estandariza la calidad y escala tus ingresos.",
+                "points": [
+                    {
+                        "title": "Estandarización total",
+                        "description": "Asegúrate de que cada consultor entregue la misma calidad de informes."
+                    },
+                    {
+                        "title": "Incorporación rápida de consultores",
+                        "description": "Un recién llegado está operativo en la elaboración de informes en 10 minutos."
+                    },
+                    {
+                        "title": "Fidelización de clientes (LTV)",
+                        "description": "Reduce la rotación de clientes mediante una comunicación transparente y regular."
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Despliegue en la agencia",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Configuración maestra",
+                        "description": "Crea las plantillas oficiales de tu agencia y despliégalas."
+                    },
+                    {
+                        "number": "2",
+                        "title": "Asignación",
+                        "description": "Asigna cada cliente a sus respectivos consultores."
+                    },
+                    {
+                        "number": "3",
+                        "title": "Monitoreo",
+                        "description": "Mantén un ojo en toda la cartera de clientes desde un panel centralizado."
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Informes multicuenta",
+                    "description": "Gestiona cientos de cuentas con una única interfaz de software."
+                },
+                {
+                    "title": "Revisiones de negocio trimestrales (QBR)",
+                    "description": "Genera presentaciones estratégicas en modo diapositiva para tus cuentas grandes."
+                },
+                {
+                    "title": "Informes de marca blanca",
+                    "description": "Personaliza la interfaz y las exportaciones con los colores de la agencia."
+                }
+            ],
+            "beforeAfter": {
+                "title": "Estandarización de la agencia",
+                "before": {
+                    "title": "Informes disparatados",
+                    "points": [
+                        "Cada consultor hace sus propios informes",
+                        "Calidad inconsistente, a veces falta el logotipo",
+                        "Tiempo de producción no controlado",
+                        "Dificultad en el traspaso de cuentas"
+                    ]
+                },
+                "after": {
+                    "title": "Informes controlados",
+                    "points": [
+                        "Informes unificados y profesionales",
+                        "Tiempo de producción dividido por 5",
+                        "Consultores centrados en el rendimiento",
+                        "Traspaso de cuentas ultra fluido"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Ofrecen gestión multiusuario?",
+                    "answer": "Sí, nuestra oferta para agencias te permite invitar a todo tu equipo con permisos específicos."
+                },
+                {
+                    "question": "¿Podemos conectar cientos de cuentas?",
+                    "answer": "Flipika está diseñado para escalar. Gestionamos agencias con más de 500 cuentas de Google Ads."
+                }
+            ]
+        },
+        "media-buyers": {
+            "hero": {
+                "title": "Flipika para Media Buyers",
+                "subtitle": "Menos procesamiento de datos, más optimización. La herramienta diseñada para quienes gestionan presupuestos.",
+                "cta": "Probar la herramienta"
+            },
+            "whyItMatters": {
+                "title": "Construido por Media Buyers, para Media Buyers",
+                "description": "Porque prefieres testar nuevas arquitecturas de campaña que depurar gráficos de Looker Studio.",
+                "points": [
+                    {
+                        "title": "Fiabilidad de los datos",
+                        "description": "Conexión directa con la API de Google Ads, sin conectores de terceros inestables."
+                    },
+                    {
+                        "title": "Narración por IA",
+                        "description": "La IA escribe las variaciones de rendimiento por ti."
+                    },
+                    {
+                        "title": "Ejecución rápida",
+                        "description": "Cambia un periodo, un filtro y mira los resultados al instante."
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "La interfaz de rendimiento",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Sincronización directa",
+                        "description": "Sin latencia, tus datos de Google Ads se sincronizan en tiempo real."
+                    },
+                    {
+                        "number": "2",
+                        "title": "Análisis asistido",
+                        "description": "Usa Flipika Copilot para encontrar oportunidades ocultas."
+                    },
+                    {
+                        "number": "3",
+                        "title": "Exportación flexible",
+                        "description": "Desde PDF para el cliente hasta diapositivas para reuniones estratégicas."
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Gestión diaria",
+                    "description": "Revisa tus KPIs clave en una interfaz limpia durante el desayuno."
+                },
+                {
+                    "title": "Detección de anomalías",
+                    "description": "Detecta cuándo tus CPCs se disparan o tus conversiones caen."
+                },
+                {
+                    "title": "Presentación de rendimiento",
+                    "description": "Usa el modo presentación para tus llamadas de clientes de los lunes."
+                }
+            ],
+            "beforeAfter": {
+                "title": "El día a día del Media Buyer",
+                "before": {
+                    "title": "El infierno de Looker Studio",
+                    "points": [
+                        "Gráficos que muestran 'Error'",
+                        "Latencia insoportable al cambiar fechas",
+                        "Conectores de pago e inestables",
+                        "Diseños complejos y rígidos"
+                    ]
+                },
+                "after": {
+                    "title": "El paraíso de Flipika",
+                    "points": [
+                        "Interfaz ultra rápida y estable",
+                        "Datos garantizados 100% precisos",
+                        "Análisis de IA listos para usar",
+                        "Exportaciones en un clic sin fricción"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Qué métricas están disponibles?",
+                    "answer": "Todas las métricas estándar de Google Ads (PMAX, Search, Display, Shopping, YouTube)."
+                },
+                {
+                    "question": "¿Realmente la IA ofrece buenos análisis?",
+                    "answer": "Nuestra IA está entrenada específicamente para SEA. Sus análisis son relevantes, lógicos y editables."
+                }
+            ]
+        },
+        "marketing-managers": {
+            "hero": {
+                "title": "Flipika para Responsables de Marketing",
+                "subtitle": "Mantén el control sobre tu rendimiento SEA sin convertirte en un experto técnico en plataformas.",
+                "cta": "Ver los informes"
+            },
+            "whyItMatters": {
+                "title": "Tu cabina de mando de marketing",
+                "description": "Para tomar las decisiones correctas, necesitas claridad, no 50 columnas de datos en bruto. Flipika traduce los datos en negocio.",
+                "points": [
+                    {
+                        "title": "Claridad de negocio",
+                        "description": "Céntrate en el ROAS, CPA e ingresos, no en los detalles técnicos."
+                    },
+                    {
+                        "title": "Autonomía total",
+                        "description": "Se acabó el esperar a que la agencia te dé un número."
+                    },
+                    {
+                        "title": "Informes de gestión",
+                        "description": "Informes elegantes listos para ser enviados al CMO o CEO."
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Simplicidad y visibilidad",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Vista general",
+                        "description": "Una visión consolidada de tus inversiones en Google Ads."
+                    },
+                    {
+                        "number": "2",
+                        "title": "Perspectivas clave",
+                        "description": "La IA resume lo que necesitas saber de la semana pasada."
+                    },
+                    {
+                        "number": "3",
+                        "title": "Compartir",
+                        "description": "Distribuye los resultados a las partes interesadas a través de un simple enlace web."
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Informes internos",
+                    "description": "Justifica tus presupuestos de marketing con datos claros."
+                },
+                {
+                    "title": "Seguimiento del crecimiento",
+                    "description": "Analiza el impacto de tus campañas en tu facturación mes tras mes."
+                },
+                {
+                    "title": "Supervisión de agencias",
+                    "description": "Verifica que el rendimiento anunciado coincide con la realidad."
+                }
+            ],
+            "beforeAfter": {
+                "title": "Visión de marketing",
+                "before": {
+                    "title": "Datos opacos",
+                    "points": [
+                        "Esperar el informe de la agencia",
+                        "Dificultad para leer los datos brutos de Ads",
+                        "Falta de síntesis comprensible",
+                        "Informes que llevan demasiado tiempo"
+                    ]
+                },
+                "after": {
+                    "title": "Datos accionables",
+                    "points": [
+                        "Números accesibles 24/7",
+                        "Resumen de IA claro e inteligible",
+                        "Decisiones basadas en la realidad",
+                        "Informes fluidos para la dirección"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Necesito saber programar para usar Flipika?",
+                    "answer": "Absolutamente no. Si sabes hacer clic, sabes usar Flipika."
+                },
+                {
+                    "question": "¿Podemos comparar con el año pasado?",
+                    "answer": "Sí, todas las comparaciones temporales se gestionan de forma nativa."
+                }
+            ]
+        }
+    },
+    "cta": {
+        "title": "Únete a quienes eligieron la claridad",
+        "subtitle": "Flipika ya ayuda a cientos de usuarios en sus informes diarios.",
+        "button": "Crear mi cuenta gratuita",
+        "trustLine": "Sin compromiso • Configuración instantánea"
+    }
+}

@@ -80,6 +80,46 @@ import enRealEstate from './locales/en/templates/real-estate.json';
 import enFreelancer from './locales/en/templates/freelancer.json';
 import enSaas from './locales/en/templates/saas.json';
 
+// Authenticated Pages - Spanish
+import esCommon from './locales/es/common.json';
+import esDashboard from './locales/es/dashboard.json';
+import esReports from './locales/es/reports.json';
+import esTemplates from './locales/es/templates.json';
+import esSchedules from './locales/es/schedules.json';
+import esSettings from './locales/es/settings.json';
+import esBilling from './locales/es/billing.json';
+import esCopilot from './locales/es/copilot.json';
+import esAudit from './locales/es/audit.json';
+import esThemes from './locales/es/themes.json';
+import esClients from './locales/es/clients.json';
+import esTutorial from './locales/es/tutorial.json';
+import esAlternatives from './locales/es/alternatives.json';
+import esTemplatesPillar from './locales/es/templates-pillar.json';
+import esLeadMagnets from './locales/es/lead-magnets.json';
+import esRoadmap from './locales/es/roadmap.json';
+import esFeatures from './locales/es/features.json';
+import esSolutions from './locales/es/solutions.json';
+import esSeo from './locales/es/seo.json';
+
+// Alternatives - Spanish
+import esLookerStudio from './locales/es/alternatives/looker-studio.json';
+import esAgencyAnalytics from './locales/es/alternatives/agency-analytics.json';
+import esDashThis from './locales/es/alternatives/dashthis.json';
+import esExcel from './locales/es/alternatives/excel-spreadsheets.json';
+import esSwydo from './locales/es/alternatives/swydo.json';
+import esReportGarden from './locales/es/alternatives/reportgarden.json';
+import esWhatagraph from './locales/es/alternatives/whatagraph.json';
+
+// Templates - Spanish
+import esGoogleAds from './locales/es/templates/google-ads.json';
+import esPpc from './locales/es/templates/ppc.json';
+import esMarketingAgency from './locales/es/templates/marketing-agency.json';
+import esEcommerce from './locales/es/templates/ecommerce.json';
+import esExecutive from './locales/es/templates/executive.json';
+import esRealEstate from './locales/es/templates/real-estate.json';
+import esFreelancer from './locales/es/templates/freelancer.json';
+import esSaas from './locales/es/templates/saas.json';
+
 // ... other imports
 
 const resources = {
@@ -159,6 +199,44 @@ const resources = {
     'templates-saas': frSaas,
     seo: frSeo,
   },
+  es: {
+    common: esCommon,
+    dashboard: esDashboard,
+    reports: esReports,
+    templates: esTemplates,
+    schedules: esSchedules,
+    settings: esSettings,
+    billing: esBilling,
+    copilot: esCopilot,
+    audit: esAudit,
+    themes: esThemes,
+    clients: esClients,
+    tutorial: esTutorial,
+    alternatives: esAlternatives,
+    'templates-pillar': esTemplatesPillar,
+    'lead-magnets': esLeadMagnets,
+    roadmap: esRoadmap,
+    features: esFeatures,
+    solutions: esSolutions,
+    'looker-studio': esLookerStudio,
+    'agency-analytics': esAgencyAnalytics,
+    'dashthis': esDashThis,
+    'excel-spreadsheets': esExcel,
+    'swydo': esSwydo,
+    'reportgarden': esReportGarden,
+    'whatagraph': esWhatagraph,
+
+    // New Template Namespaces
+    'templates-google-ads': esGoogleAds,
+    'templates-ppc': esPpc,
+    'templates-marketing-agency': esMarketingAgency,
+    'templates-ecommerce': esEcommerce,
+    'templates-executive': esExecutive,
+    'templates-real-estate': esRealEstate,
+    'templates-freelancer': esFreelancer,
+    'templates-saas': esSaas,
+    seo: esSeo,
+  },
 };
 
 const detectionOptions = {
@@ -173,7 +251,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: ['en', 'fr'],
+    fallbackLng: ['en', 'fr', 'es'],
     debug: false,
     detection: detectionOptions,
     interpolation: {

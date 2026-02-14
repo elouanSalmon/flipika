@@ -1,0 +1,176 @@
+{
+    "page": {
+        "seoTitle": "La mejor alternativa a DashThis en 2026 | Flipika",
+        "seoDescription": "Se acabaron los widgets estáticos limitados. Flipika ofrece informes interactivos y modernos que encantarán a tus clientes.",
+        "h1Title": "Por qué Flipika reemplaza a DashThis",
+        "subtitle": "Pasa de los widgets estáticos a las presentaciones interactivas.",
+        "painPointsTitle": "El problema con DashThis",
+        "painPointsSubtitle": "Los paneles de 2015 no son suficientes en 2026.",
+        "comparisonTitle": "Flipika vs DashThis",
+        "comparisonSubtitle": "Modernidad frente a tradición.",
+        "costTitle": "El coste de la rigidez",
+        "costSubtitle": "Por qué el límite de widgets te cuesta dinero",
+        "tipsTitle": "Dejar DashThis",
+        "tipsSubtitle": "Moderniza tus informes sin perder datos",
+        "useCasesTitle": "Casos de uso: Modernización",
+        "migrationCtaTitle": "Moderniza los informes de tus clientes",
+        "migrationCtaDesc": "Sustituye tus widgets estáticos por presentaciones interactivas.",
+        "benefitsTitle": "Por qué elegir Flipika",
+        "benefitsSubtitle": "Todo lo que necesitas para informes profesionales de Google Ads",
+        "faqTitle": "Preguntas frecuentes",
+        "useCasesSubtitle": "Flipika se adapta a todos los tipos de negocios"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Rápido como el rayo",
+            "description": "Se acabaron las ruedas de carga. Tus informes se muestran en menos de un segundo, incluso con millones de filas de datos."
+        },
+        "realtime": {
+            "title": "Datos en tiempo real",
+            "description": "Tus informes se actualizan automáticamente. Se acabó el refrescar manualmente o esperar a la sincronización."
+        },
+        "design": {
+            "title": "Diseño Premium",
+            "description": "Informes profesionales con un diseño moderno de glassmorphism que impresiona a tus clientes desde el primer vistazo."
+        },
+        "whitelabel": {
+            "title": "Marca blanca completa",
+            "description": "Tu logotipo, tus colores, tu dominio personalizado. Flipika desaparece tras tu marca."
+        },
+        "ai": {
+            "title": "Perspectivas por IA",
+            "description": "Nuestra IA analiza tus campañas y genera automáticamente recomendaciones accionables."
+        },
+        "support": {
+            "title": "Soporte experto",
+            "description": "Un equipo dedicado disponible vía chat los 7 días de la semana para apoyarte en tu migración."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "E-commerce y Shopping Ads",
+            "description": "Rastrea el rendimiento de tus Shopping Ads con informes detallados sobre productos, categorías y ROAS por SKU. Perfecto para tiendas online que gestionan catálogos de miles de referencias.",
+            "metrics": [
+                "ROAS por producto",
+                "Rendimiento por categoría",
+                "Tasa de conversión de Shopping"
+            ]
+        },
+        "leadgen": {
+            "title": "Generación de Leads B2B",
+            "description": "Optimiza tus campañas de generación de leads con informes que rastrean todo el recorrido: desde el clic hasta la conversión cualificada. Integraciones con CRM disponibles.",
+            "metrics": [
+                "Coste por lead",
+                "Tasa de cualificación",
+                "ROI por campaña"
+            ]
+        },
+        "agency": {
+            "title": "Agencias de Marketing",
+            "description": "Gestiona múltiples clientes desde una sola interfaz. Informes automatizados, marca blanca completa y facturación integrada para un flujo de trabajo de agencia optimizado.",
+            "metrics": [
+                "Informes multi-cliente",
+                "Marca blanca",
+                "Automatización total"
+            ]
+        },
+        "local": {
+            "title": "Negocios Locales",
+            "description": "Rastrea tus campañas locales (Google Maps, llamadas, indicaciones) con métricas geolocalizadas. Perfecto para franquicias y redes multi-ubicación.",
+            "metrics": [
+                "Llamadas telefónicas",
+                "Indicaciones para llegar",
+                "Rendimiento por zona"
+            ]
+        },
+        "saas": {
+            "title": "SaaS y Software",
+            "description": "Rastrea todo tu embudo de adquisición: pruebas gratuitas, conversiones de pago, LTV. Integraciones con Stripe, Paddle y las principales herramientas SaaS.",
+            "metrics": [
+                "CAC por canal",
+                "Ratio LTV/CAC",
+                "Conversión prueba a pago"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecta tus fuentes",
+            "description": "Al igual que en DashThis, conecta tus cuentas de marketing. Pero con Flipika, los datos se obtienen en vivo, no capturas estáticas."
+        },
+        "step2": {
+            "title": "Libera tu diseño",
+            "description": "Olvida la cuadrícula rígida. Coloca tus métricas donde quieras, cambia el tamaño, superpone elementos. Es tu diapositiva."
+        },
+        "step3": {
+            "title": "Enriquece el contenido",
+            "description": "Añade imágenes, vídeos, contexto. No te limites a widgets de números fríos."
+        },
+        "step4": {
+            "title": "Efecto Wow",
+            "description": "Comparte un enlace interactivo con tus clientes. La experiencia de navegación es fluida, animada y moderna."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Límite de widgets",
+            "description": "DashThis suele cobrar por panel con un límite de widgets. Para un cliente complejo, tienes que dividirlo en 3 paneles... y pagar 3 veces."
+        },
+        "maintenance": {
+            "title": "Coste por panel",
+            "description": "El modelo de DashThis desincentiva la creación de informes específicos. Flipika te anima a crear tantos informes como necesites sin coste extra."
+        },
+        "opportunity": {
+            "title": "Imagen de marca",
+            "description": "Enviar un panel con 'aspecto de los 2010' da una imagen anticuada a tu agencia. Un diseño moderno justifica tus tarifas premium."
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Replantea tus KPIs",
+            "description": "No te limites a copiar tus widgets de DashThis a ciegas. Flipika permite visualizaciones diferentes, aprovéchalas para mejorar la legibilidad."
+        },
+        "tip2": {
+            "title": "Usa múltiples páginas",
+            "description": "DashThis fomenta el scroll infinito. Flipika gestiona mejor los informes de varias páginas estructurados como una presentación."
+        },
+        "tip3": {
+            "title": "Añade contexto",
+            "description": "Esta es la fuerza de Flipika. Añade diapositivas de texto, explicaciones y estrategia estándar entre tus diapositivas de datos."
+        },
+        "tip4": {
+            "title": "Crea plantillas",
+            "description": "El sistema de plantillas de Flipika es más potente. Crea una 'Plantilla Maestra' y despliégala."
+        },
+        "tip5": {
+            "title": "Olvida el límite de 50",
+            "description": "No hay un límite arbitrario de widgets por página en Flipika. Pon tantas métricas como sean necesarias."
+        },
+        "tip6": {
+            "title": "Exporta tus ajustes preestablecidos",
+            "description": "Anota tus filtros y segmentos personalizados en DashThis para recrearlos rápidamente en Flipika."
+        },
+        "tip7": {
+            "title": "Prueba la interactividad",
+            "description": "Muestra a tus clientes que pueden pasar el ratón por los gráficos para ver detalles, algo que era limitado en DashThis."
+        }
+    },
+    "faq": {
+        "q1": "¿Puedo tener más de 50 widgets?",
+        "a1": "Sí, no hay un límite técnico estricto. Sin embargo, para mejorar la legibilidad, aconsejamos distribuirlos en varias diapositivas, que son ilimitadas.",
+        "q2": "¿Vuestros widgets son estáticos?",
+        "a2": "No, son 100% dinámicos. Cambias la fecha y todo se actualiza. Filtras y todo se adapta. No es una imagen congelada.",
+        "q3": "¿Es más caro que DashThis?",
+        "a3": "A menudo más barato para el mismo volumen. DashThis se vuelve muy caro cuando tienes muchos paneles. Flipika tiene un precio más plano y predecible.",
+        "q4": "¿Aceptáis CSVs?",
+        "a4": "Sí, puedes importar datos externos mediante Google Sheets, que suele ser más flexible que el gestor de CSV de DashThis.",
+        "q5": "¿Cómo son los gráficos?",
+        "a5": "Usamos una biblioteca de gráficos moderna (Recharts) que es más fluida, atractiva e interactiva que los gráficos estándar.",
+        "q6": "¿Hay periodos predefinidos?",
+        "a6": "Sí, pero también tienes un selector de fechas totalmente libre. No hay necesidad de crear un panel 'Mensual' y otro 'Semanal'. Es el mismo informe.",
+        "q7": "¿Puedo agrupar widgets?",
+        "a7": "Sí, nuestro editor permite agrupar, alinear y distribuir tus elementos con precisión de píxel.",
+        "q8": "¿Es buena la exportación a PDF?",
+        "a8": "Es vectorial y de alta definición. No corta las tablas a la mitad como ocurre a veces en otros sitios."
+    }
+}

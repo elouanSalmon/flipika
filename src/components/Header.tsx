@@ -13,8 +13,11 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const getLangPath = (path: string) => {
-    const isFrench = i18n.language === 'fr';
-    return isFrench ? `/fr${path}` : path;
+    const lang = i18n.language;
+    if (lang === 'fr' || lang === 'es') {
+      return `/${lang}${path}`;
+    }
+    return path;
   };
 
   const handleNavigation = (sectionId: string) => {

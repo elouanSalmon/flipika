@@ -1,0 +1,263 @@
+{
+    "page": {
+        "title": "Plantilla de Informe Ejecutivo | Informes para la Junta de Google Ads",
+        "metaDescription": "El panel ejecutivo de una sola página para Google Ads. KPIs de alto nivel para la alta dirección, miembros de la junta e inversores. Claro, conciso y centrado en el impacto.",
+        "h1": "El informe de una página\nque tu CEO realmente leerá.",
+        "subtitle": "Los ejecutivos no necesitan clics ni CTR. Necesitan ROAS, Gasto y Net Promoters. Flipika ofrece la visión general en un formato listo para la sala de juntas al instante.",
+        "cta": "Ver resumen ejecutivo",
+        "galleryTitle": "Vistas ejecutivas",
+        "comparisonTitle": "Flipika vs Presentaciones de PowerPoint",
+        "hookTitle": "Creado para la toma de decisiones",
+        "faqTitle": "Preguntas frecuentes ejecutivas",
+        "costTitle": "El coste de la sobrecarga de información",
+        "costSubtitle": "Los directivos se ahogan en datos pero están ávidos de perspectivas. Deja de enviar PDFs de 50 páginas.",
+        "metricsTitle": "Los únicos KPIs que importan a nivel directivo",
+        "metricsSubtitle": "Céntrate en el resultado final. Crecimiento, Rentabilidad y Salud.",
+        "howItWorksTitle": "Proceso optimizado",
+        "howItWorksSubtitle": "Del dato a la decisión en minutos",
+        "benefitsTitle": "Por qué los CMOs y CFOs confían en Flipika",
+        "benefitsSubtitle": "Claridad, Control y Confianza",
+        "testimonialsTitle": "Feedback de liderazgo",
+        "testimonialsSubtitle": "Utilizado por VPs en empresas Fortune 500 y Startups",
+        "useCasesTitle": "Escenarios ejecutivos",
+        "useCasesSubtitle": "Desde reuniones de junta hasta actualizaciones de inversores",
+        "tipsTitle": "7 Consejos para informes a la junta",
+        "tipsSubtitle": "Cómo presentar datos a personas ajenas al marketing",
+        "socialProof": "Avalado por líderes en empresas tecnológicas y marcas"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecta fuentes de datos",
+            "description": "Conexión segura de solo lectura a Google Ads. Cumplimiento de seguridad de nivel empresarial."
+        },
+        "step2": {
+            "title": "Selecciona vista ejecutiva",
+            "description": "Elige la plantilla 'Lista para la sala de juntas'. Elimina métricas granulares, resalta tendencias de alto nivel e impacto financiero."
+        },
+        "step3": {
+            "title": "Añade comentarios",
+            "description": "Usa el bloque de texto 'Resumen ejecutivo' para añadir contexto cualitativo junto a los datos cuantitativos."
+        },
+        "step4": {
+            "title": "Exporta o comparte",
+            "description": "Genera un PDF limpio para la presentación de la junta, o comparte un enlace en vivo protegido por contraseña."
+        }
+    },
+    "gallery": {
+        "executive": {
+            "title": "El Resumen Ejecutivo",
+            "description": "Perfecto para informes a directivos y presentaciones de junta. Se centra en KPIs de alto nivel como ROAS, gasto total y valor de conversión. Diseñado para responder a la pregunta: '¿Se está gastando bien mi dinero?' en 10 segundos. Incluye gráficos de series temporales, comparaciones mes a mes y alertas automáticas sobre anomalías de rendimiento. Ideal para CMOs, CFOs y emprendedores que quieren la visión general sin ahogarse en detalles técnicos."
+        },
+        "ecommerce": {
+            "title": "El Rastreador de ROAS para Ecommerce",
+            "description": "Rendimiento granular por producto, análisis de campañas de shopping y atribución de ingresos. Profundiza por categoría de producto, ID de artículo o ubicación para identificar tus segmentos más rentables. Rastrea el valor medio del pedido, la tasa de conversión y el margen por producto. Compara el rendimiento entre diferentes estrategias de puja (ROAS objetivo, Maximizar conversiones). Perfecto para negocios de ecommerce que gestionan catálogos de más de 100 productos y necesitan saber exactamente qué productos impulsan el mejor ROI publicitario."
+        },
+        "agency": {
+            "title": "La Visión General para Agencias",
+            "description": "¿Gestionas múltiples clientes? Obtén una visión unificada del rendimiento de todas tus cuentas en un solo lugar. Detecta cuentas de bajo rendimiento al instante y asigna tu tiempo donde más importa. Panel multicuenta con alertas en tiempo real, informes automáticos enviados cada lunes por la mañana y exportación de marca blanca para presentaciones a clientes. Rastrea el presupuesto gastado frente al asignado, identifica oportunidades de venta cruzada y demuestra tu valor con métricas claras."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Funcionalidad",
+            "excel": "PDF de 50 páginas",
+            "flipika": "Panel Ejecutivo de 1 página"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Legibilidad",
+                "excel": "Saturado y técnico",
+                "flipika": "Tarjetas ejecutivas limpias"
+            },
+            "maintenance": {
+                "feature": "Frecuencia",
+                "excel": "Solo mensual",
+                "flipika": "Disponible 24/7"
+            },
+            "sharing": {
+                "feature": "Formato",
+                "excel": "Tablas aburridas",
+                "flipika": "Líneas de tendencia visuales"
+            },
+            "design": {
+                "feature": "Impacto",
+                "excel": "Bajo (Ignorado)",
+                "flipika": "Alto (Listo para la junta)"
+            }
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Informe de lunes por la mañana",
+            "description": "Resumen automático por email enviado a la alta dirección cada lunes a las 8 AM. Empiezan la semana informados."
+        },
+        "realtime": {
+            "title": "Control del presupuesto",
+            "description": "A los CFOs les encanta. Vista en tiempo real del gasto del mes hasta la fecha frente al límite de presupuesto. Sin sorpresas a final de mes."
+        },
+        "design": {
+            "title": "Estética de sala de juntas",
+            "description": "Diseño limpio y sin distracciones. Números grandes, líneas de tendencia claras. Se ve genial en un proyector o en un iPad."
+        },
+        "whitelabel": {
+            "title": "Marca interna",
+            "description": "El logotipo y los colores de tu empresa. Parece una herramienta de BI interna propia."
+        },
+        "multidevice": {
+            "title": "Listo para iPad",
+            "description": "Perfecto para ejecutivos que revisan el rendimiento en su tableta durante los desplazamientos."
+        },
+        "support": {
+            "title": "Fiabilidad empresarial",
+            "description": "99,9% de tiempo de actividad. Los datos siempre están ahí cuando los necesitas para una reunión crítica."
+        }
+    },
+    "hook": {
+        "speed": {
+            "title": "Carga ultra rápida",
+            "description": "Looker Studio puede tardar más de 10 segundos en cargar. Flipika carga en milisegundos gracias a nuestra capa de caché optimizada."
+        },
+        "branding": {
+            "title": "Perfección en marca blanca",
+            "description": "Sin el logotipo de 'Google' por todas partes. Tu marca, tus colores, tu dominio."
+        },
+        "stability": {
+            "title": "Simplemente funciona",
+            "description": "Se acabaron las desconexiones aleatorias de conectores o visualizaciones rotas."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Esperando respuestas",
+            "description": "El CEO pregunta '¿Cómo vamos?' y espera 2 días por un informe. Este panel da la respuesta en 2 segundos."
+        },
+        "errors": {
+            "title": "Sobrecarga de datos",
+            "description": "Los ejecutivos ignoran los PDFs de 50 páginas. Necesitan una única página de verdad. La complejidad es un error de comunicación."
+        },
+        "opportunity": {
+            "title": "Agilidad estratégica",
+            "description": "Un acceso más rápido a los datos de alto nivel significa giros estratégicos más rápidos. No dirijas el barco mirando la estela."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "No tengo tiempo para entrar en Google Ads. El resumen semanal de Flipika me da todo lo que necesito saber en 30 segundos.",
+            "author": "Michael S.",
+            "role": "CEO",
+            "company": "FinTech Startup"
+        },
+        "testimonial2": {
+            "quote": "Finalmente, un informe que habla mi idioma. Gasto, Ingresos, ROI. Sin jerga de marketing.",
+            "author": "Linda G.",
+            "role": "CFO",
+            "company": "Cadena de Retail"
+        },
+        "testimonial3": {
+            "quote": "Mi director de marketing usa Flipika para presentar en las reuniones de la junta. Nos ayuda a tomar decisiones de asignación de presupuesto más rápidas.",
+            "author": "Robert D.",
+            "role": "Miembro de la Junta",
+            "company": "Firma de Capital Riesgo"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Actualización para inversores",
+            "description": "Muestra a los inversores una economía unitaria saludable. Estabilización del CAC y crecimiento del volumen en un solo gráfico.",
+            "metrics": [
+                "CAC combinado",
+                "Gasto mensual",
+                "Ingresos totales",
+                "Crecimiento interanual"
+            ]
+        },
+        "leadgen": {
+            "title": "Alineación de ventas",
+            "description": "Alinea marketing y ventas. Muestra tendencias de volumen de leads superpuestas con el valor del pipeline.",
+            "metrics": [
+                "Leads cualificados por marketing",
+                "Coste por MQL",
+                "Pipeline generado",
+                "Impacto de conversión"
+            ]
+        },
+        "agency": {
+            "title": "QBR (Revisión Trimestral del Negocio)",
+            "description": "El apoyo visual perfecto para las QBR. Muestra claramente las mejoras trimestre tras trimestre.",
+            "metrics": [
+                "Crecimiento trimestral",
+                "Ganancias de eficiencia",
+                "Iniciativas estratégicas",
+                "Previsión"
+            ]
+        },
+        "local": {
+            "title": "Actualización para franquiciados",
+            "description": "Indicadores sencillos en rojo/verde para los dueños de franquicias. '¿Estamos subiendo o bajando respecto al año pasado?'",
+            "metrics": [
+                "Ingresos interanuales",
+                "Afluencia local",
+                "Notoriedad de marca",
+                "Cuota de mercado"
+            ]
+        },
+        "saas": {
+            "title": "Presentación de junta directiva",
+            "description": "Gráficos listos para copiar y pegar en la presentación. Tasa de gasto frente a adquisición de clientes.",
+            "metrics": [
+                "Burn Rate (Ads)",
+                "Nuevos logos",
+                "Payback del CAC",
+                "Tendencia del LTV"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "El contexto es el rey",
+            "description": "Los números sin contexto son peligrosos. Usa siempre el widget de texto para explicar POR QUÉ ha cambiado un número (ej. 'Estacionalidad', 'Nuevo competidor')."
+        },
+        "tip2": {
+            "title": "Fíjate en las tendencias, no en capturas",
+            "description": "A los ejecutivos les importa la dirección. ¿La línea sube o baja? Muestra gráficos de los últimos 12 meses."
+        },
+        "tip3": {
+            "title": "Agrega los datos",
+            "description": "No muestres datos a nivel de campaña. Agrúpalos por canal o región. Mantén el nivel estratégico."
+        },
+        "tip4": {
+            "title": "Resalta la eficiencia",
+            "description": "Muestra el ROAS o el CPA de forma destacada. Demuestra que el presupuesto se está usando de forma eficiente."
+        },
+        "tip5": {
+            "title": "Incluye puntos de referencia (benchmarks)",
+            "description": "Compara el rendimiento con los estándares de la industria o los objetivos/previsiones internos."
+        },
+        "tip6": {
+            "title": "Que sea de una sola página",
+            "description": "Si tienen que hacer mucho scroll, los has perdido. Las métricas clave deben caber en una sola pantalla."
+        },
+        "tip7": {
+            "title": "Prepara las respuestas",
+            "description": "El panel generará preguntas. '¿Por qué ha subido el CPA?' Estate listo para responder basándote en los datos detallados que tienes disponibles."
+        }
+    },
+    "faq": {
+        "q1": "¿Puedo proteger el informe con contraseña?",
+        "a1": "Sí, los datos financieros sensibles deben estar seguros. Puedes proteger cualquier enlace público con contraseña.",
+        "q2": "¿Se integra con Salesforce?",
+        "a2": "Extraemos datos de Google Ads. Si importas conversiones de Salesforce a Google Ads (recomendado), podemos informar sobre ellas (ej. 'Acuerdos cerrados').",
+        "q3": "¿Puedo exportar para PowerPoint?",
+        "a3": "Puedes exportar imágenes de los gráficos o un PDF completo para soltarlo en tu presentación.",
+        "q4": "¿Cómo de seguros están los datos?",
+        "a4": "Infraestructura que cumple con SOC 2. Acceso de solo lectura. Nos tomamos la seguridad muy en serio para clientes enterprise.",
+        "q5": "¿Puedo ver el ritmo del presupuesto (budget pacing)?",
+        "a5": "Sí, el widget de 'Ritmo' es uno de los favoritos de los CFOs. Proyecta el gasto de final de mes basándose en el ritmo actual.",
+        "q6": "¿Es fácil de leer en el móvil?",
+        "a6": "Diseñado para ejecutivos ocupados sobre la marcha. Mantiene la claridad en pantallas de iPhone y iPad.",
+        "q7": "¿Puedo personalizar el logotipo?",
+        "a7": "Sí, marca blanca completa. Pon la marca de tu empresa.",
+        "q8": "¿Necesito un acceso a Google Ads?",
+        "a8": "No. Una vez conectado por el equipo de marketing, los ejecutivos pueden ver el panel de Flipika mediante un simple enlace sin necesidad de acceso a Google Ads."
+    }
+}

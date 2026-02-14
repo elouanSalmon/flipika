@@ -1,0 +1,107 @@
+{
+    "list": {
+        "title": "Mis Temas",
+        "pageTitle": "Mis Temas de Informes",
+        "pageSubtitle": "Crea y gestiona tus temas personalizados para informes de Google Ads",
+        "newButton": "Nuevo",
+        "createButton": "Crear Tema",
+        "loading": "Cargando temas..."
+    },
+    "emptyState": {
+        "noCustomThemes": "No hay temas personalizados",
+        "createFirstButton": "Crear mi primer tema",
+        "createFirstDescription": "Crea tu primer tema para personalizar el aspecto de tus informes y aplicarlo automáticamente a tus cuentas de Google Ads.",
+        "notFoundTitle": "No se encontraron temas",
+        "notFoundDescription": "No hay temas asociados a esta cuenta.",
+        "viewAllButton": "Ver todos los temas"
+    },
+    "card": {
+        "defaultBadge": "Por defecto",
+        "linkedClients": "{{count}} cuenta vinculada",
+        "linkedClients_plural": "{{count}} cuentas vinculadas",
+        "noLinkedClients": "Sin cuentas vinculadas",
+        "actions": {
+            "edit": "Editar",
+            "duplicate": "Duplicar",
+            "delete": "Eliminar"
+        }
+    },
+    "messages": {
+        "loadError": "Error al cargar los temas",
+        "duplicateSuccess": "Tema duplicado",
+        "duplicateError": "Error al duplicar el tema",
+        "deleteSuccess": "Tema eliminado",
+        "deleteError": "Error al eliminar el tema",
+        "deleteConfirmTitle": "Eliminar Tema",
+        "deleteConfirmMessage": "¿Estás seguro de que quieres eliminar el tema \"{{name}}\"?",
+        "deleteConfirmButton": "Eliminar"
+    },
+    "selector": {
+        "label": "Tema del informe",
+        "loading": "Cargando temas...",
+        "defaultThemeButton": "Tema por defecto",
+        "header": "Seleccionar un Tema",
+        "defaultThemeTitle": "Tema por defecto",
+        "defaultThemeDesc": "Diseño estándar de Flipika",
+        "defaultBadge": "Por defecto",
+        "linkedBadge": "Vinculado a la cuenta",
+        "createButton": "+ Crear nuevo tema"
+    },
+    "editor": {
+        "titleCreate": "Crear Tema",
+        "titleEdit": "Editar Tema",
+        "close": "Cerrar",
+        "quickStartTitle": "Inicio Rápido",
+        "quickStartDesc": "Elige un tema preestablecido como base",
+        "presetApplied": "Tema \"{{name}}\" aplicado",
+        "infoTitle": "Información",
+        "nameLabel": "Nombre del Tema *",
+        "namePlaceholder": "Ej: Tema Corporativo",
+        "descLabel": "Descripción",
+        "descPlaceholder": "Descripción del tema...",
+        "modeTitle": "Modo de Visualización",
+        "modeDesc": "Elige el modo claro u oscuro para tu tema",
+        "modeLight": "Claro",
+        "modeDark": "Oscuro",
+        "modeLightHint": "💡 Modo claro: El fondo será automáticamente claro y el texto oscuro",
+        "modeDarkHint": "🌙 Modo oscuro: El fondo será automáticamente oscuro y el texto claro",
+        "colorsTitle": "Colores",
+        "primaryColor": "Color Primario",
+        "secondaryColor": "Color Secundario",
+        "accentColor": "Color de Acento",
+        "contrastFixed": "Contraste auto-corregido",
+        "autoFix": "Auto-corregir",
+        "autoFixTooltip": "Ajustar automáticamente el color para cumplir con los estándares de accesibilidad",
+        "accessibilityError": "Corrige los problemas de accesibilidad antes de guardar",
+        "accessibilityWarning": "Algunos colores no tienen suficiente contraste (mín 4.5:1)",
+        "typographyTitle": "Tipografía",
+        "typographyDesc": "Elige las fuentes para el texto y los títulos de tu informe",
+        "fontLabel": "Fuente del cuerpo",
+        "fontPlaceholder": "Seleccionar una fuente...",
+        "headingFontLabel": "Fuente de los títulos",
+        "headingFontPlaceholder": "Seleccionar una fuente para los títulos...",
+        "fontSearchPlaceholder": "Buscar fuentes...",
+        "noFontsFound": "No se encontraron fuentes",
+        "linkedClientsTitle": "Cuentas Vinculadas",
+        "linkedClientsDesc": "Aplicación automática para estas cuentas",
+        "setAsDefault": "Establecer como tema por defecto",
+        "previewTitle": "Vista Previa en Vivo",
+        "cancel": "Cancelar",
+        "save": "Crear Tema",
+        "update": "Actualizar Tema",
+        "saving": "Guardando...",
+        "errorNameRequired": "Por favor, introduce un nombre para el tema",
+        "successUpdate": "Tema actualizado",
+        "successCreate": "Tema creado",
+        "errorSave": "Error al guardar el tema",
+        "reassurance": {
+            "preview": "La vista previa refleja tus cambios en tiempo real. El resultado final será idéntico a lo que ves aquí.",
+            "linkedClients": "Las cuentas seleccionadas utilizarán automáticamente este tema para sus informes."
+        }
+    },
+    "info": {
+        "buttonLabel": "Información",
+        "modalTitle": "¿Qué son los Temas?",
+        "modalContent": "Los temas te permiten personalizar la apariencia visual de tus informes de Google Ads para que coincidan con la identidad de marca de tus cuentas.\n\nCon los temas, puedes:\n• Definir colores personalizados (primario y secundario)\n• Elegir entre modos claro y oscuro\n• Seleccionar fuentes personalizadas para tus informes\n• Vincular temas a cuentas específicas de Google Ads para su aplicación automática\n• Establecer un tema por defecto para todos tus informes\n\nLos temas se aplican al generar informes en PDF, asegurando una imagen de marca consistente en todos los entregables de tus cuentas."
+    }
+}

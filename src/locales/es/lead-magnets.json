@@ -1,0 +1,197 @@
+{
+    "common": {
+        "downloadCTA": "Acceder a la Plantilla",
+        "emailPlaceholder": "nombre@empresa.com",
+        "secure": "Acceso Instantáneo • Sin Tarjeta de Crédito",
+        "downloading": "Procesando...",
+        "success": "¡Revisa tu bandeja de entrada!",
+        "successMessage": "El recurso ha sido enviado a tu correo electrónico.",
+        "whatsInside": "Contenido de la Plantilla",
+        "whoFor": "Perfecto Para",
+        "faq": "Guía Detallada y Preguntas Frecuentes",
+        "preview": "Vista Previa"
+    },
+    "pages": {
+        "google-ads-excel-template": {
+            "title": "Plantilla Definitiva de Informe de Google Ads en Excel (Edición 2026)",
+            "metaDescription": "Deja de perder tiempo en informes manuales. Descarga la plantilla de Excel estándar del sector para Google Ads. Incluye fórmulas automatizadas para ROAS, CPA y seguimiento de conversiones.",
+            "h1": "La Última Plantilla de Google Ads en Excel que Necesitarás.",
+            "subtitle": "Copiar y pegar manualmente CSVs en Excel es cosa del pasado. Pero si debes usar Excel, usa esta plantilla probada en mil batallas.",
+            "painTitle": "El Coste Oculto de los Informes en Excel",
+            "painPoints": [
+                "Más de 3 horas por cliente/mes actualizando datos manualmente",
+                "Alto riesgo de error humano (errores al copiar y pegar)",
+                "Datos estáticos que caducan en el momento en que haces clic en enviar"
+            ],
+            "trap": {
+                "title": "Por qué las Agencias Profesionales están abandonando Excel",
+                "text": "Excel fue creado para las finanzas, no para datos de marketing en vivo. Las agencias líderes han cambiado a paneles automatizados para ahorrar el 80% de su tiempo de informes."
+            },
+            "solution": {
+                "title": "La Alternativa Automatizada",
+                "text": "Flipika se conecta directamente a la API. Tus clientes obtienen un enlace en vivo y tú nunca más tendrás que tocar una hoja de cálculo."
+            },
+            "features": [
+                "Pestaña de Resumen Ejecutivo con cálculos de MoM (Mes a Mes) y YoY (Año a Año)",
+                "Seguimiento de Rendimiento de Campañas (Búsqueda, Display, Shopping)",
+                "Hoja de Análisis de Palabras Clave con formato de Puntuación de Calidad",
+                "Calculadoras Automatizadas de ROAS y CPA",
+                "Gráficos de Consultas de Búsqueda (deben actualizarse manualmente)",
+                "Fórmula de Ayuda para el Ritmo del Presupuesto"
+            ],
+            "personas": [
+                "Freelancers de Marketing",
+                "Agencias Boutique",
+                "Gestores de PPC In-house"
+            ],
+            "faq": [
+                {
+                    "q": "¿Cómo importo mis datos de Google Ads en esta plantilla de Excel?",
+                    "a": "Para usar esta plantilla, primero debes iniciar sesión en tu cuenta de Google Ads. Ve a la pestaña 'Campañas', ajusta tus columnas para que coincidan con el esquema de la plantilla (Clics, Impresiones, CTR, Coste, Conversiones, Coste/conv., Tasa de conv.) y luego haz clic en 'Descargar' > 'Excel .csv'. Abre el CSV, copia el rango de datos y pégalo en la pestaña 'Datos Brutos' de nuestra plantilla. Las fórmulas en la pestaña 'Panel de Control' se actualizarán automáticamente. Nota: Debes repetir este proceso cada vez que quieras refrescar el rango de fechas."
+                },
+                {
+                    "q": "¿Puedo automatizar este proceso usando scripts de Google Sheets?",
+                    "a": "Sí, es posible usar Google Apps Script para obtener datos, pero requiere conocimientos de programación y mantenimiento. Si Google cambia su API, tu script dejará de funcionar. Por eso los profesionales utilizan conectores dedicados como Flipika, que se encarga del mantenimiento de la API y ofrece una interfaz de arrastrar y soltar para crear informes."
+                },
+                {
+                    "q": "¿Qué Indicadores Clave de Rendimiento (KPIs) se incluyen?",
+                    "a": "La plantilla cubre todas las métricas estándar de PPC: Impresiones, Clics, Tasa de Clic (CTR), Coste por Clic Medio (CPC), Coste, Conversiones, Coste por Conversión (CPA), Tasa de Conversión (CVR) y Retorno de la Inversión Publicitaria (ROAS). También incluye campos calculados para Conversiones Post-impresión si tienes campañas de Display."
+                },
+                {
+                    "q": "¿Es esta plantilla compatible con Mac Numbers o Google Sheets?",
+                    "a": "Sí. El archivo es un `.xlsx` estándar. Puedes subirlo a Google Drive para convertirlo en una Google Sheet. La mayoría de las fórmulas (SUMAR.SI, BUSCARV) son universales. Sin embargo, las reglas de formato condicional podrían necesitar ligeros ajustes al cambiar de plataforma."
+                },
+                {
+                    "q": "¿Por qué mi ROAS aparece como un error?",
+                    "a": "Esto suele ocurrir si tu 'Coste' es cero, causando un error de división por cero. Nuestra plantilla tiene funciones `SI.ERROR` para manejar esto, pero si estás editando las fórmulas, asegúrate de validar que el denominador sea mayor que cero."
+                },
+                {
+                    "q": "¿Cómo visualizar el crecimiento Mes a Mes (MoM)?",
+                    "a": "La pestaña 'Resumen Ejecutivo' incluye una tabla pre-construida para la comparación MoM. Simplemente necesitas pegar los datos del mes pasado en las columnas de 'Mes Anterior'. Flipika automatiza esto permitiéndote seleccionar 'Comparar con: Periodo anterior' en los ajustes del panel, generando instantáneamente los cambios porcentuales en rojo/verde sin entrada manual."
+                },
+                {
+                    "q": "¿Soporta esta plantilla campañas de Performance Max (PMax)?",
+                    "a": "Sí, las campañas PMax aparecerán en la lista de campañas. Sin embargo, debido a que PMax se comporta de forma distinta (sin palabras clave), la pestaña de 'Análisis de Palabras Clave' permanecerá vacía para esas campañas específicas. Para informes detallados de PMax (Grupos de Activos, Grupos de Fichas), recomendamos usar una herramienta especializada como Flipika."
+                }
+            ]
+        },
+        "google-ads-powerpoint-template": {
+            "title": "Plantilla Premium de Presentación de Google Ads en PowerPoint",
+            "metaDescription": "Descarga una plantilla de PPT de Google Ads lista para clientes. Diapositivas diseñadas profesionalmente para revisiones de negocio mensuales y trimestrales (QBR).",
+            "h1": "Convierte los Datos Aburridos en una Historia Convincente.",
+            "subtitle": "Deja de hacer capturas de pantalla. Esta plantilla de PowerPoint te ofrece una estructura profesional para tus reuniones mensuales con clientes.",
+            "painTitle": "Por qué los Informes en PPT son un dolor",
+            "painPoints": [
+                "Capturas de pantalla y recortes infinitos",
+                "Pesadillas con el formato de las diapositivas",
+                "Cero interactividad durante las presentaciones"
+            ],
+            "trap": {
+                "title": "La Trampa de la Captura de Pantalla",
+                "text": "Una captura de pantalla muestra un momento, pero pierde el contexto. Cuando un cliente pregunta '¿Por qué?', no puedes profundizar en una imagen estática."
+            },
+            "solution": {
+                "title": "Modo Presentación 2.0",
+                "text": "Flipika incluye un Modo Presentación nativo. Presenta datos en vivo directamente desde el panel. Filtra, profundiza y responde preguntas sobre la marcha."
+            },
+            "features": [
+                "Más de 20 Diapositivas Maestras Diseñadas Profesionalmente",
+                "Diseños para Revisiones de Negocio Mensuales y Trimestrales (QBR)",
+                "Desgloses de Rendimiento de Campañas y Grupos de Anuncios",
+                "Análisis de la Competencia y Diapositivas de Cuota de Mercado",
+                "Secciones de Próximos Pasos, Estrategia y Recomendación de Presupuesto",
+                "Gráficos y Tablas de Datos Editables"
+            ],
+            "personas": [
+                "Gestores de Cuentas",
+                "Directores de Marketing",
+                "Consultores"
+            ],
+            "faq": [
+                {
+                    "q": "¿Cómo actualizo los gráficos en este PowerPoint?",
+                    "a": "Para actualizar los gráficos, haz clic derecho en el elemento del gráfico y selecciona 'Editar datos en Excel'. Esto abrirá una mini-hoja de cálculo donde puedes pegar los últimos datos de tu campaña. Los visuales del gráfico se actualizarán para reflejar los nuevos números. Este proceso manual asegura que tus diapositivas parezcan hechas a medida, pero puede consumir mucho tiempo para cuentas grandes."
+                },
+                {
+                    "q": "¿Es esta plantilla adecuada para una Revisión de Negocio Trimestral (QBR)?",
+                    "a": "Absolutamente. Hemos incluido diapositivas específicas para revisiones estratégicas de alto nivel, incluyendo crecimiento año tras año, tendencias del mercado y planificación de la hoja de ruta a largo plazo. Estas diapositivas son distintas de las tácticas mensuales, ayudándote a elevar la conversación con tus clientes."
+                },
+                {
+                    "q": "¿Puedo aplicar la marca/colores de mi agencia?",
+                    "a": "Sí. Esta plantilla utiliza la función 'Patrón de diapositivas' de PowerPoint. Ve a 'Vista' > 'Patrón de diapositivas' y podrás cambiar los colores del tema, las fuentes y añadir tu logotipo al pie de página de cada diapositiva en un solo clic. Todos los gráficos y formas de la presentación están vinculados a los colores del tema, por lo que se actualizarán automáticamente."
+                },
+                {
+                    "q": "¿Cuál es la mejor manera de presentar datos de Google Ads a un CEO?",
+                    "a": "A los CEOs les importa el beneficio final. Evita empantanarte en 'Tasas de Clic' o 'Puntuaciones de Calidad' en la primera diapositiva. Usa la diapositiva de 'Resumen Ejecutivo' para destacar el Gasto, los Ingresos y el ROAS (Retorno de la Inversión Publicitaria). Solo profundiza en métricas a nivel de campaña si se te pregunta. El ajuste preestablecido 'Vista Ejecutiva' de Flipika está diseñado específicamente para este caso de uso."
+                },
+                {
+                    "q": "¿Cómo manejar el análisis por 'Día de la semana' o 'Hora del día' en PPT?",
+                    "a": "Esta plantilla incluye un diseño de diapositiva de 'Mapa de calor'. Necesitarás exportar tus datos de segmentación de Google Ads, aplicar formato condicional en Excel para crear una escala de colores y luego pegarlo como una imagen o tabla en la diapositiva de PPT. Es un visual potente para explicar los ajustes de puja."
+                },
+                {
+                    "q": "¿Por qué el tamaño de mi archivo de presentación se vuelve tan grande?",
+                    "a": "Las capturas de pantalla de alta resolución y las hojas de Excel incrustadas pueden inflar el tamaño de tu archivo. Recomendamos comprimir las imágenes (Seleccionar Imagen > Formato > Comprimir imágenes) antes de enviarlas por correo. Alternativamente, enviar un enlace de Flipika en vivo no requiere almacenamiento y siempre carga los últimos datos."
+                }
+            ]
+        },
+        "google-ads-pdf-example": {
+            "title": "Ejemplo Perfecto de Informe de Google Ads en PDF (Benchmark)",
+            "metaDescription": "¿No estás seguro de qué informar? Descarga este ejemplo profesional de informe de Google Ads en PDF para ver las mejores prácticas del sector.",
+            "h1": "El Estándar de Oro de los Informes de PPC.",
+            "subtitle": "Mira exactamente qué incluyen las agencias de primer nivel en sus informes. Usa este PDF como referencia para tus propios entregables a clientes.",
+            "painTitle": "Las Limitaciones del PDF",
+            "painPoints": [
+                "Archivos perdidos en los correos electrónicos",
+                "Ilegible en dispositivos móviles",
+                "Imposible filtrar o cambiar las fechas"
+            ],
+            "trap": {
+                "title": "Los PDFs son Documentos 'Muertos'",
+                "text": "Un PDF es una lápida para los datos. Muestra lo que sucedió en el pasado, pero no ofrece interactividad para explorar el futuro."
+            },
+            "solution": {
+                "title": "Compartir Enlaces en Vivo",
+                "text": "Envía un enlace seguro de Flipika. Parece un documento, pero se comporta como una aplicación. Protegido por contraseña, adaptable a móviles y vivo."
+            },
+            "features": [
+                "Resumen Ejecutivo de KPIs (Las métricas 'Estrella Polar')",
+                "Análisis de Embudo Visual (Impresiones -> Conversiones)",
+                "Mapas de Calor de Rendimiento por Dispositivo y Ubicación",
+                "Muestra de los Anuncios/Copy con Mejor Rendimiento",
+                "Visuales de Ritmo y Proyección de Presupuesto",
+                "Glosario de Términos para Clientes No Técnicos"
+            ],
+            "personas": [
+                "Fundadores de Agencias",
+                "Estudiantes de Marketing",
+                "CMOs de lado del cliente"
+            ],
+            "faq": [
+                {
+                    "q": "¿Qué hace que un informe de Google Ads sea 'perfecto'?",
+                    "a": "Un informe perfecto equilibra la granularidad con la claridad. Debe responder a tres preguntas de inmediato: '¿Cuánto gastamos?', '¿Qué obtuvimos a cambio?' y '¿Qué haremos a continuación?'. Este ejemplo en PDF demuestra el flujo ideal: comenzando con KPIs de alto nivel, pasando al rendimiento de la campaña y terminando con perspectivas accionables."
+                },
+                {
+                    "q": "¿Debo incluir 'Todas las conversiones' o solo 'Conversiones'?",
+                    "a": "Es un debate común. 'Conversiones' suele referirse a tus objetivos principales (compras, leads), mientras que 'Todas las conversiones' incluye acciones secundarias (añadir al carrito, vista de página). Recomendamos centrar tu informe en PDF en las 'Conversiones' principales para evitar inflar los números, pero manteniendo 'Todas las conversiones' en un apéndice o tabla secundaria."
+                },
+                {
+                    "q": "¿Con qué frecuencia debo enviar un informe en PDF?",
+                    "a": "Tradicionalmente, las agencias envían informes en PDF mensualmente. Sin embargo, en la era de la automatización, los clientes esperan comentarios más rápidos. Los PDFs semanales pueden ser abrumadores. La mejor práctica moderna es proporcionar un enlace a un panel en vivo (como Flipika) para consultar en cualquier momento, complementado con un correo electrónico mensual de perspectivas seleccionadas."
+                },
+                {
+                    "q": "¿Cómo explicar los 'Modelos de Atribución' en un PDF estático?",
+                    "a": "Es difícil. La atribución (Basada en datos, Último clic) cambia cómo se asigna el crédito. En un PDF estático, debes añadir una nota al pie explicando qué modelo se está utilizando. En herramientas interactivas, los usuarios a menudo pueden alternar entre modelos para ver la diferencia."
+                },
+                {
+                    "q": "¿Puedo editar el texto de este ejemplo en PDF?",
+                    "a": "No, este archivo específico es un benchmark de solo lectura. Sirve como guía visual de cómo estructurar tus propios informes. Para crear el tuyo, necesitarías construir un diseño en Word, PowerPoint o similar y exportarlo a PDF, o usar un generador de informes."
+                },
+                {
+                    "q": "¿Por qué el texto es tan pequeño en el móvil?",
+                    "a": "Los PDFs están diseñados para imprimirse en papel A4/Carta, no para pantallas de iPhone. Este es el mayor inconveniente del formato. Un informe web adaptable se ajusta al tamaño de la pantalla, lo que facilita mucho a los clientes ocupados revisar los números en sus desplazamientos."
+                }
+            ]
+        }
+    }
+}

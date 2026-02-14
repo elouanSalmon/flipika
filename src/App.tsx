@@ -125,7 +125,7 @@ const AppRoutes = () => {
     return 'settings'; // Fallback to settings if nothing else is enabled
   };
 
-  const renderPublicRoutes = (lang?: 'en' | 'fr') => (
+  const renderPublicRoutes = (lang?: 'en' | 'fr' | 'es') => (
     <>
       {/* Login page - standalone without header/footer */}
       <Route path="login" element={<Login />} />
@@ -162,6 +162,12 @@ const AppRoutes = () => {
       <Route path="/fr">
         <Route index element={<Landing />} />
         {renderPublicRoutes('fr')}
+      </Route>
+
+      {/* Spanish Silo */}
+      <Route path="/es">
+        <Route index element={<Landing />} />
+        {renderPublicRoutes('es')}
       </Route>
 
       <Route path="/app" element={

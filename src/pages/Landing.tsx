@@ -80,20 +80,42 @@ const Landing = () => {
             {/* Structured Data for Google Knowledge Graph */}
             <Helmet>
                 <script type="application/ld+json">
-                    {`
-                        {
-                          "@context": "https://schema.org",
-                          "@type": "SoftwareApplication",
-                          "name": "Flipika",
-                          "operatingSystem": "Web, iOS, Android",
-                          "applicationCategory": "ProductivityApplication",
-                          "offers": {
-                            "@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "EUR"
-                          }
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "SoftwareApplication",
+                        "name": "Flipika",
+                        "url": "https://flipika.com",
+                        "image": "https://flipika.com/og-image.png",
+                        "description": "Generate professional Google Ads reports in 2 minutes. Automated data sync, AI-powered insights, white-label ready.",
+                        "operatingSystem": "Web",
+                        "applicationCategory": "BusinessApplication",
+                        "offers": {
+                            "@type": "AggregateOffer",
+                            "lowPrice": "0",
+                            "highPrice": "100",
+                            "priceCurrency": "EUR",
+                            "offerCount": "3"
+                        },
+                        "aggregateRating": {
+                            "@type": "AggregateRating",
+                            "ratingValue": "4.9",
+                            "ratingCount": "150",
+                            "bestRating": "5",
+                            "worstRating": "1"
                         }
-                    `}
+                    })}
+                </script>
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "Organization",
+                        "name": "Flipika",
+                        "url": "https://flipika.com",
+                        "logo": "https://flipika.com/logo.png",
+                        "description": "Automated Google Ads reporting platform for media buyers, agencies and freelancers.",
+                        "foundingDate": "2024",
+                        "sameAs": []
+                    })}
                 </script>
             </Helmet>
         </>

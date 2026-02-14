@@ -65,6 +65,12 @@ const ComparisonPage: React.FC = () => {
             <SEO
                 title={t(`${competitor.slug}:page.seoTitle`, { competitor: competitor.name, year: '2026' })}
                 description={t(`${competitor.slug}:page.seoDescription`, { competitor: competitor.name })}
+                canonicalPath={`/alternatives/${competitor.slug}`}
+                breadcrumbs={[
+                    { name: 'Flipika', path: '/' },
+                    { name: 'Alternatives', path: '/alternatives' },
+                    { name: competitor.name, path: `/alternatives/${competitor.slug}` },
+                ]}
             />
 
             {/* JSON-LD Structured Data */}

@@ -1,0 +1,201 @@
+{
+    "title": "Ajustes",
+    "description": "Gestiona tu cuenta y preferencias",
+    "profile": {
+        "title": "Perfil",
+        "labels": {
+            "username": "Identificador único",
+            "firstName": "Nombre",
+            "lastName": "Apellido",
+            "email": "Correo electrónico",
+            "company": "Empresa",
+            "description": "Descripción"
+        },
+        "optional": "opcional",
+        "shareLink": "Enlace para compartir: flipika.com/report/{{username}}/...",
+        "characterCount": "{{count}}/{{max}}",
+        "buttons": {
+            "edit": "Editar perfil",
+            "cancel": "Cancelar",
+            "save": "Guardar",
+            "saving": "Guardando..."
+        },
+        "errors": {
+            "invalidUsername": "Nombre de usuario no válido",
+            "usernameTaken": "Este nombre de usuario ya está ocupado",
+            "firstNameRequired": "El nombre es obligatorio",
+            "lastNameRequired": "El apellido es obligatorio",
+            "usernameRequired": "El nombre de usuario es obligatorio",
+            "usernameNotAvailable": "Este nombre de usuario no está disponible"
+        },
+        "toast": {
+            "updated": "Perfil actualizado con éxito",
+            "updateError": "Error al actualizar el perfil"
+        }
+    },
+    "security": {
+        "title": "Seguridad",
+        "password": {
+            "change": "Cambiar contraseña",
+            "create": "Crear una contraseña",
+            "lastModified": "Modificada hace 30 días",
+            "addAlternative": "Añadir un método de autenticación alternativo"
+        },
+        "logout": {
+            "title": "Cerrar sesión",
+            "description": "Cerrar sesión en tu cuenta"
+        },
+        "modal": {
+            "changePassword": "Cambiar contraseña",
+            "createPassword": "Crear una contraseña",
+            "currentPassword": "Contraseña actual",
+            "newPassword": "Nueva contraseña",
+            "confirmPassword": "Confirmar",
+            "passwordRequirements": "Mín 8 caracteres, 1 mayúscula, 1 número, 1 especial",
+            "passwordMismatchError": "Las contraseñas no coinciden",
+            "cancel": "Cancelar",
+            "change": "Cambiar",
+            "create": "Crear"
+        },
+        "passwordStrength": {
+            "weak": "Débil",
+            "medium": "Media",
+            "strong": "Fuerte"
+        },
+        "errors": {
+            "logout": "Error al cerrar sesión",
+            "passwordMismatch": "Las contraseñas no coinciden",
+            "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+            "currentPasswordRequired": "Por favor, introduce tu contraseña actual",
+            "wrongPassword": "La contraseña actual es incorrecta",
+            "weakPassword": "La contraseña es demasiado débil",
+            "changePasswordError": "Error al cambiar la contraseña",
+            "createPasswordError": "Error al crear la contraseña"
+        },
+        "toast": {
+            "passwordChanged": "Contraseña cambiada con éxito",
+            "passwordCreated": "Contraseña creada con éxito"
+        }
+    },
+    "connections": {
+        "title": "Conexiones",
+        "google": {
+            "title": "Cuenta de Google",
+            "notConnected": "No conectado",
+            "primaryAuth": "Método de autenticación principal"
+        },
+        "googleAds": {
+            "title": "Google Ads",
+            "description": "Conecta tu cuenta de publicidad",
+            "defaultAccount": "Cuenta predeterminada",
+            "selectAccount": "-- Selecciona una cuenta --",
+            "defaultAccountHelp": "Esta cuenta se utilizará por defecto en el panel de control."
+        },
+        "status": {
+            "connected": "Conectado",
+            "notConnected": "No conectado"
+        },
+        "actions": {
+            "connect": "Conectar",
+            "disconnect": "Desconectar",
+            "connecting": "Conectando..."
+        },
+        "modal": {
+            "disconnectTitle": "Desconectar Google Ads",
+            "disconnectMessage": "¿Estás seguro de que quieres desconectar tu cuenta de Google Ads? Ya no podrás generar informes.",
+            "disconnectConfirm": "Desconectar"
+        },
+        "toast": {
+            "googleAdsInitiated": "Conexión a Google Ads iniciada",
+            "googleAdsError": "Error al conectar con Google Ads",
+            "googleConnected": "Cuenta de Google conectada con éxito",
+            "googleError": "Error al conectar con Google",
+            "googleAdsDisconnected": "Cuenta de Google Ads desconectada",
+            "disconnectError": "Error al desconectar",
+            "defaultAccountUpdated": "Cuenta predeterminada actualizada"
+        }
+    },
+    "subscription": {
+        "title": "Suscripción",
+        "description": "Consulta tu plan actual y gestiona tus opciones de facturación",
+        "pricingInfoLabel": "Información de precios",
+        "status": {
+            "trialCanceled": "Prueba cancelada",
+            "canceled": "Cancelada",
+            "activeUntil": "Activa hasta",
+            "trial": "Prueba",
+            "daysRemaining": "{{count}}d restantes",
+            "active": "Activa",
+            "inactive": "Inactiva"
+        },
+        "messages": {
+            "trialPeriod": "Estás en el periodo de prueba gratuito hasta el {{date}}",
+            "paymentFailed": "Tu pago falló. Por favor, actualiza tu método de pago."
+        },
+        "info": {
+            "seats": "Cuentas de Google Ads",
+            "monthlyAmount": "Importe mensual",
+            "trialEnd": "Fin de la prueba",
+            "nextPayment": "Próximo pago"
+        },
+        "buttons": {
+            "manage": "Gestionar suscripción",
+            "viewBilling": "Ver facturación",
+            "redirecting": "Redirigiendo..."
+        },
+        "noSubscription": {
+            "title": "Sin suscripción activa",
+            "description": "14 días de prueba gratuita, luego facturación automática según tus necesidades",
+            "pricing": "Precios simples",
+            "perMonth": "/mes",
+            "perAccount": "por cuenta de Google Ads conectada",
+            "features": {
+                "unlimitedReports": "Informes ilimitados",
+                "autoSync": "Sincronización automática",
+                "customSlides": "Diapositivas personalizables"
+            },
+            "securePayment": "Pago seguro por",
+            "startTrial": "Iniciar prueba gratuita"
+        },
+        "lifetime": {
+            "title": "Cambiar al Plan de por vida",
+            "description": "Un solo pago, acceso permanente",
+            "cta": "Desbloquear"
+        }
+    },
+    "appearance": {
+        "title": "Apariencia"
+    },
+    "themes": {
+        "title": "Temas de Informes",
+        "subtitle": "Personaliza la apariencia de tus informes",
+        "description": "Crea temas personalizados para tus informes de Google Ads y vincúlalos a tus cuentas para su aplicación automática.",
+        "manageButton": "Gestionar mis temas",
+        "closeButton": "Cerrar"
+    },
+    "language": {
+        "title": "Idioma",
+        "interfaceLanguage": "Idioma de la interfaz"
+    },
+    "demoMode": {
+        "title": "Modo Demo",
+        "enable": "Activar",
+        "fakeData": "Datos ficticios",
+        "accounts": "Cuentas ({{count}})",
+        "complexity": {
+            "label": "Complejidad",
+            "simple": "Simple",
+            "medium": "Media",
+            "advanced": "Avanzada"
+        },
+        "industry": {
+            "label": "Industria",
+            "ecommerce": "E-commerce",
+            "services": "Servicios",
+            "saas": "SaaS",
+            "local": "Local",
+            "b2b": "B2B"
+        },
+        "reset": "Restablecer"
+    }
+}

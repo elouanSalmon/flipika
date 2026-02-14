@@ -1,0 +1,180 @@
+{
+    "page": {
+        "title": "Plantilla de Informe de Google Ads para SaaS y Tech 2026",
+        "metaDescription": "Rastrea CAC, LTV y conversiones de prueba. Informes avanzados para empresas SaaS y startups tecnológicas.",
+        "h1": "Escala tu SaaS con\nmejores datos.",
+        "subtitle": "Deja de optimizar para los clics. Empieza a optimizar para el MRR. La única plantilla creada para modelos de negocio de suscripción.",
+        "cta": "Obtener plantilla SaaS",
+        "galleryTitle": "Plantillas para el crecimiento",
+        "comparisonTitle": "Flipika vs Informes generales",
+        "hookTitle": "Creado para Tech",
+        "faqTitle": "Preguntas frecuentes sobre informes SaaS",
+        "costTitle": "El coste de la innovación",
+        "costSubtitle": "Los datos lentos matan los bucles de crecimiento.",
+        "metricsTitle": "KPIs que los fundadores aman",
+        "metricsSubtitle": "CAC, LTV, Periodo de recuperación",
+        "howItWorksTitle": "Flujo de trabajo de crecimiento",
+        "howItWorksSubtitle": "Configuración del bucle de datos",
+        "benefitsTitle": "Por qué los unicornios SaaS eligen Flipika",
+        "benefitsSubtitle": "Visibilidad profunda del embudo",
+        "testimonialsTitle": "Reseñas de responsables de crecimiento",
+        "testimonialsSubtitle": "Potenciando startups de YC",
+        "useCasesTitle": "Tipos de SaaS",
+        "useCasesSubtitle": "B2B, B2C, PLG",
+        "tipsTitle": "Guía de métricas SaaS",
+        "tipsSubtitle": "Informa a la junta de forma efectiva",
+        "socialProof": "Rastreando más de 500 embudos SaaS"
+    },
+    "gallery": {
+        "executive": {
+            "title": "Vista para la Junta",
+            "description": "Métricas de alto nivel para inversores. Eficiencia de la tasa de gasto, CAC combinado y crecimiento mes a mes."
+        },
+        "ecommerce": {
+            "title": "Movimiento de Producto PLG",
+            "description": "Rastrea desde el registro hasta la activación. Conecta el gasto publicitario con el comportamiento del usuario dentro de tu app."
+        },
+        "agency": {
+            "title": "B2B Enterprise",
+            "description": "Para ventas de ticket alto. Rastrea leads cualificados (MQL/SQL) y la contribución al valor del pipeline."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecta fuentes de datos",
+            "description": "Google Ads para el gasto, GA4/Segment para eventos del backend."
+        },
+        "step2": {
+            "title": "Define eventos",
+            "description": "Mapea tus acciones de conversión de 'Registro', 'Inicio de prueba' y 'Compra'."
+        },
+        "step3": {
+            "title": "Calcula el CAC",
+            "description": "Dividimos automáticamente el gasto por las conversiones personalizadas para mostrar el Coste de Adquisición de Cliente real."
+        },
+        "step4": {
+            "title": "Comparte con el equipo",
+            "description": "Da acceso a Producto, Ventas y Fundadores. Alinea a todos con los objetivos de crecimiento."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Vista del embudo completo",
+            "description": "No veas solo el clic. Mira el registro, la activación y los ingresos."
+        },
+        "realtime": {
+            "title": "Pulso diario",
+            "description": "Las startups que se mueven rápido necesitan datos diarios. Revisa tu ritmo y el CAC cada mañana."
+        },
+        "design": {
+            "title": "Diseño nativo tecnológico",
+            "description": "Diseñado para usuarios del modo oscuro. Encaja perfectamente en tu ecosistema junto a Linear y Vercel."
+        },
+        "whitelabel": {
+            "title": "Dominio personalizado",
+            "description": "Aloja las métricas en metricas.tustartup.com. La transparencia construye cultura."
+        },
+        "multidevice": {
+            "title": "Responsivo",
+            "description": "Consulta las estadísticas de crecimiento desde tu teléfono durante las reuniones con inversores."
+        },
+        "support": {
+            "title": "Ingenieros de datos",
+            "description": "Nuestro equipo de soporte habla SQL y API. Te ayudamos a depurar el rastreo."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Funcionalidad",
+            "excel": "Data Studio",
+            "flipika": "Plantilla SaaS"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Velocidad",
+                "excel": "Lento / Problemas de caché",
+                "flipika": "Flujo en tiempo real"
+            },
+            "maintenance": {
+                "feature": "Conversiones",
+                "excel": "Objetivos simples",
+                "flipika": "Fórmulas personalizadas (CAC)"
+            },
+            "sharing": {
+                "feature": "Estética",
+                "excel": "Corporativa aburrida",
+                "flipika": "Tech moderna"
+            },
+            "design": {
+                "feature": "Permisos",
+                "excel": "G-Drive desordenado",
+                "flipika": "Roles RBAC"
+            }
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Rastrea el CAC combinado",
+            "description": "El gasto en anuncios es solo una parte de la historia. Añade el contexto del tráfico orgánico para ver la eficiencia combinada."
+        },
+        "tip2": {
+            "title": "Análisis de cohortes",
+            "description": "Usa la comparación de fechas para ver cómo los registros del mes pasado están convirtiendo hoy."
+        },
+        "tip3": {
+            "title": "Marca vs Genéricas",
+            "description": "Divide tus informes. No dejes que los clics de marca baratos oculten un CAC de genéricas caro."
+        },
+        "tip4": {
+            "title": "Pujas basadas en el valor",
+            "description": "Informa sobre el ROAS basándote en predicciones de LTV, no solo en el valor de la primera compra."
+        },
+        "tip5": {
+            "title": "Velocidad del pipeline",
+            "description": "Para B2B, rastrea el tiempo de cierre. ¿Están los anuncios trayendo ciclos de venta más cortos?"
+        },
+        "tip6": {
+            "title": "Micro-conversiones",
+            "description": "Si los ciclos de venta son largos, informa sobre 'Vistas de páginas clave' o 'Descargas de PDF' como indicadores adelantados."
+        },
+        "tip7": {
+            "title": "Registro de experimentos",
+            "description": "Mantén un registro de cambios en el informe. 'Cambio en la página de precios' - mira el impacto en las conversiones."
+        }
+    },
+    "faq": {
+        "q1": "¿Puedo calcular el LTV?",
+        "a1": "Sí, puedes introducir un valor de LTV fijo o calcularlo dinámicamente si pasas datos de ingresos.",
+        "q2": "¿Funciona para B2B?",
+        "a2": "Sí, excelente para el rastreo de generación de leads B2B de ticket alto.",
+        "q3": "¿Es seguro?",
+        "a3": "Estándares que cumplen con SOC2. Los datos de tus clientes están a salvo.",
+        "q4": "¿Se integra con Hubspot?",
+        "a4": "Integración nativa con Hubspot próximamente. Por ahora, rastreamos vía importación de conversiones de GAds.",
+        "q5": "¿Para apps móviles?",
+        "a5": "Sí, soportamos el rastreo de conversiones de Firebase para instalaciones de aplicaciones.",
+        "q6": "¿Puedo presentar a la Junta?",
+        "a6": "Usa el Modo Presentación. Parece una presentación de diapositivas pulida, pero en vivo.",
+        "q7": "¿Alertas?",
+        "a7": "Establece alertas para cuando el CPA suba por encima de tu umbral objetivo.",
+        "q8": "¿Colaboración en equipo?",
+        "a8": "Comenta directamente en los gráficos para discutir anomalías con tu equipo."
+    },
+    "cost": {
+        "time": {
+            "error": "SQL manual",
+            "value": "Tiempo de ingeniería caro",
+            "flipika": "Auto-mágico"
+        },
+        "errors": {
+            "error": "Datos erróneos",
+            "value": "Decisiones equivocadas",
+            "flipika": "Única fuente de verdad"
+        },
+        "opportunity": {
+            "error": "Bucles lentos",
+            "value": "La competencia gana",
+            "flipika": "Iteración rápida"
+        }
+    }
+}

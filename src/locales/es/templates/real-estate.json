@@ -1,0 +1,180 @@
+{
+    "page": {
+        "title": "Plantilla de Informe de Google Ads para Inmobiliarias 2026",
+        "metaDescription": "Rastrea leads, consultas de propiedades y visibilidad local. La plantilla de informe de Google Ads perfecta para agencias inmobiliarias y promotores.",
+        "h1": "Informes que venden más\npropiedades.",
+        "subtitle": "El marketing inmobiliario es local y rápido. Muestra a tus clientes exactamente cuántas consultas cualificadas generaste para cada anuncio de propiedad.",
+        "cta": "Obtener plantilla inmobiliaria",
+        "galleryTitle": "Diseñado para el sector inmobiliario",
+        "comparisonTitle": "Flipika vs Informes generales",
+        "hookTitle": "Creado para agentes y promotores",
+        "faqTitle": "Preguntas frecuentes inmobiliarias",
+        "costTitle": "El coste de unos informes deficientes",
+        "costSubtitle": "La pérdida de leads significa pérdida de comisiones.",
+        "metricsTitle": "KPIs que importan a los agentes",
+        "metricsSubtitle": "Llamadas, reservas y jornadas de puertas abiertas",
+        "howItWorksTitle": "Flujo de trabajo para agentes",
+        "howItWorksSubtitle": "Del anuncio al informe de venta",
+        "benefitsTitle": "Por qué las mejores agencias inmobiliarias eligen Flipika",
+        "benefitsSubtitle": "La transparencia capta mandatos",
+        "testimonialsTitle": "Feedback de agentes",
+        "testimonialsSubtitle": "Avalado por brokers de todo el mundo",
+        "useCasesTitle": "Escenarios inmobiliarios",
+        "useCasesSubtitle": "Residencial, Comercial, Lujo",
+        "tipsTitle": "7 Consejos de informes inmobiliarios",
+        "tipsSubtitle": "Cómo impresionar a los promotores de propiedades",
+        "socialProof": "Rastreando más de 200 millones de dólares en gasto publicitario inmobiliario"
+    },
+    "gallery": {
+        "executive": {
+            "title": "Visión General para el Broker",
+            "description": "Visión de alto nivel para directores de agencia. Rastrea el gasto y el volumen de leads de todos los agentes y territorios."
+        },
+        "ecommerce": {
+            "title": "Inmobiliaria Comercial",
+            "description": "Análisis profundo de leads B2B para oficinas y locales comerciales. CPAs más altos, ciclos más largos."
+        },
+        "agency": {
+            "title": "Plantilla Multi-Ubicación",
+            "description": "Perfecto para agencias que gestionan redes de franquicias inmobiliarias. Compara el rendimiento de las sucursales."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecta Google Ads",
+            "description": "Vincula tu cuenta. Extraemos los datos de ubicación y las métricas de las extensiones de llamada automáticamente."
+        },
+        "step2": {
+            "title": "Filtra por ubicación",
+            "description": "Crea secciones separadas para cada barrio o proyecto de promoción."
+        },
+        "step3": {
+            "title": "Añade imágenes de propiedades",
+            "description": "Sube fotos de los anuncios al informe para hacerlo visual y atractivo."
+        },
+        "step4": {
+            "title": "Envío auto a agentes",
+            "description": "Programa correos semanales para que los agentes tengan sus números de leads antes de la reunión de los lunes."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Informes por anuncio",
+            "description": "Agrupa automáticamente las estadísticas por campaña/anuncio. Muestra a los vendedores exactamente a qué se destinó su presupuesto de marketing."
+        },
+        "realtime": {
+            "title": "Rastreador de leads en vivo",
+            "description": "No hagas esperar a los agentes. Dales un panel en vivo de las llamadas entrantes y los formularios completados."
+        },
+        "design": {
+            "title": "Estética de lujo",
+            "description": "El sector inmobiliario se basa en la imagen. Tus informes deben ser tan premium como las propiedades que vendes."
+        },
+        "whitelabel": {
+            "title": "Marca de la agencia",
+            "description": "Tu logotipo, tus colores. Establece a tu agencia como líder del mercado."
+        },
+        "multidevice": {
+            "title": "Apto para móviles",
+            "description": "Los agentes viven pegados al teléfono. Tus informes funcionan perfectamente en dispositivos móviles."
+        },
+        "support": {
+            "title": "Soporte de ubicación",
+            "description": "Entendemos la segmentación local y podemos ayudarte a visualizar el rendimiento geográfico."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Funcionalidad",
+            "excel": "Informe genérico",
+            "flipika": "Plantilla inmobiliaria"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Datos geográficos",
+                "excel": "Tablas desordenadas",
+                "flipika": "Mapas interactivos"
+            },
+            "maintenance": {
+                "feature": "Fotos del anuncio",
+                "excel": "Solo texto",
+                "flipika": "Galería visual"
+            },
+            "sharing": {
+                "feature": "Detalles del lead",
+                "excel": "Solo números",
+                "flipika": "Contexto de calidad"
+            },
+            "design": {
+                "feature": "Estilo",
+                "excel": "Hoja de cálculo",
+                "flipika": "Folleto de lujo"
+            }
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Muestra el mapa",
+            "description": "El sector inmobiliario es ubicación. Usa el widget de mapa geográfico para mostrar desde dónde buscan los compradores."
+        },
+        "tip2": {
+            "title": "Llamadas > Clics",
+            "description": "Los agentes quieren llamadas telefónicas. Destaca las métricas de las 'Extensiones de llamada' en la parte superior."
+        },
+        "tip3": {
+            "title": "Coste por lead",
+            "description": "Contextualiza siempre el CPL con el valor de la propiedad. Un lead de 50$ para una casa de 1M$ es barato."
+        },
+        "tip4": {
+            "title": "Información de la competencia",
+            "description": "Usa las Comparativas de subasta para mostrar qué otras agencias están pujando por tus palabras clave."
+        },
+        "tip5": {
+            "title": "Estadísticas móviles",
+            "description": "La mayoría de las búsquedas de casas ocurren en el móvil. Muestra la cuota de tráfico móvil para justificar el gasto en anuncios móviles."
+        },
+        "tip6": {
+            "title": "Anuncios visuales",
+            "description": "Incluye vistas previas de los anuncios de imagen con mejor rendimiento. A los vendedores les encanta ver su casa en internet."
+        },
+        "tip7": {
+            "title": "Términos locales",
+            "description": "Destaca los términos de búsqueda con nombres de barrios para demostrar la relevancia local."
+        }
+    },
+    "faq": {
+        "q1": "¿Puedo informar por ciudad?",
+        "a1": "Sí, nuestra segmentación geográfica permite desglosar el rendimiento por ciudad o radio de distancia.",
+        "q2": "¿Rastreáis las llamadas telefónicas?",
+        "a2": "Obtenemos los datos directamente de las extensiones de llamada de Google Ads y de los anuncios de solo llamada.",
+        "q3": "¿Puedo mostrar fotos de los anuncios?",
+        "a3": "Sí, puedes subir imágenes al informe para hacerlo más visual.",
+        "q4": "¿Es adecuado para promotores?",
+        "a4": "Perfecto para nuevos proyectos de promoción donde necesitas informar a los inversores.",
+        "q5": "¿Puedo usar marca blanca?",
+        "a5": "Sí, pon el logotipo de tu agencia.",
+        "q6": "¿Qué tan rápida es la configuración?",
+        "a6": "Selecciona la plantilla inmobiliaria y conecta tu cuenta. Listo en 2 minutos.",
+        "q7": "¿Pueden acceder los agentes?",
+        "a7": "Puedes generar enlaces de solo lectura para que tus agentes los vean en cualquier momento.",
+        "q8": "¿Facebook Ads?",
+        "a8": "Próximamente. Actualmente nos centramos en capturar el tráfico de búsqueda de alta intención."
+    },
+    "cost": {
+        "time": {
+            "error": "Montaje manual",
+            "value": "2-3h / semana",
+            "flipika": "0min"
+        },
+        "errors": {
+            "error": "Desajuste de datos",
+            "value": "Alto riesgo",
+            "flipika": "0% Riesgo"
+        },
+        "opportunity": {
+            "error": "Leads perdidos",
+            "value": "No tienen precio",
+            "flipika": "Capturados"
+        }
+    }
+}

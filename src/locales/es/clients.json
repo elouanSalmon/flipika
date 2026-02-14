@@ -1,0 +1,110 @@
+{
+    "list": {
+        "title": "Cuentas",
+        "subtitle": "Gestiona tu cartera de cuentas",
+        "createButton": "Nueva Cuenta"
+    },
+    "emptyState": {
+        "title": "No hay cuentas",
+        "message": "Aún no has añadido ninguna cuenta. Crea una para empezar.",
+        "action": "Añadir una cuenta"
+    },
+    "form": {
+        "title": {
+            "create": "Nueva Cuenta",
+            "edit": "Editar Cuenta"
+        },
+        "sections": {
+            "basicInfo": "Información Básica",
+            "basicInfoDescription": "Nombre de la cuenta, logotipo y datos de contacto"
+        },
+        "logo": {
+            "label": "Logotipo",
+            "upload": "Subir",
+            "change": "Cambiar",
+            "remove": "Eliminar / Restablecer",
+            "helper": "Se recomienda PNG, JPG o SVG. Máx 2 MB",
+            "alt": "Vista previa del logotipo"
+        },
+        "name": {
+            "label": "Nombre de la Cuenta *",
+            "placeholder": "Ej: Acme Corp",
+            "error": "El nombre es obligatorio"
+        },
+        "googleAds": {
+            "label": "Cuenta de Google Ads *",
+            "placeholder": "Seleccionar una cuenta",
+            "helper": "Selecciona la cuenta de Google Ads para asociarla con esta cuenta.",
+            "error": {
+                "required": "El ID de Google Ads es obligatorio",
+                "format": "El ID debe contener 10 dígitos"
+            },
+            "noConnection": "Debes conectar tu cuenta de Google Ads para seleccionar una cuenta."
+        },
+        "email": {
+            "label": "Correo de contacto",
+            "placeholder": "contacto@cliente.com",
+            "error": "Formato de correo no válido"
+        },
+        "presets": {
+            "title": "Configuración por Defecto",
+            "description": "Estos ajustes se aplicarán automáticamente al crear nuevos informes para esta cuenta.",
+            "template": {
+                "label": "Plantilla por defecto",
+                "placeholder": "Seleccionar una plantilla"
+            },
+            "theme": {
+                "label": "Tema por defecto",
+                "placeholder": "Seleccionar un tema"
+            },
+            "clear": "Limpiar configuración"
+        },
+        "emailConfig": {
+            "title": "Configuración de Correo",
+            "description": "Personaliza el asunto y el mensaje del correo para esta cuenta.",
+            "variables": {
+                "label": "Variables",
+                "tooltips": {
+                    "client_name": "Nombre de la Cuenta",
+                    "period": "Periodo del Informe",
+                    "campaigns": "Lista de Campañas",
+                    "user_name": "Tu Nombre",
+                    "company": "Tu Empresa"
+                }
+            },
+            "subject": {
+                "label": "Asunto",
+                "placeholder": "Informe para [client_name]",
+                "default": "Informe [period] para [client_name]"
+            },
+            "body": {
+                "label": "Mensaje",
+                "placeholder": "Hola,\n\nAdjunto encontrarás tu informe.\n\nSaludos cordiales,",
+                "default": "Hola [client_name],\n\nAdjunto encontrarás tu informe para [period], que cubre las siguientes campañas:\n[campaigns]\n\nQuedo a tu disposición para cualquier pregunta.\n\nSaludos cordiales,\n[user_name]"
+            }
+        },
+        "buttons": {
+            "cancel": "Cancelar",
+            "create": "Crear Cuenta",
+            "update": "Actualizar",
+            "creating": "Creando...",
+            "updating": "Actualizando..."
+        },
+        "reassurance": {
+            "banner": "Tus cambios se guardarán solo después de hacer clic en el botón de guardar.",
+            "logo": "Tu logotipo se optimizará automáticamente para una visualización óptima en los informes.",
+            "emailConfig": "Estos ajustes personalizan el correo enviado con los informes. Usa las variables entre corchetes para insertar información dinámicamente."
+        }
+    },
+    "info": {
+        "buttonLabel": "Información",
+        "modalTitle": "¿Qué son las Cuentas?",
+        "modalContent": "Las cuentas representan a tus clientes o unidades de negocio en Flipika, permitiéndote organizar y gestionar tus informes de Google Ads por cuenta.\n\nCon las cuentas, puedes:\n• Asociar cada cuenta con una cuenta específica de Google Ads\n• Subir logotipos personalizados para informes con marca blanca\n• Establecer plantillas y temas por defecto para su aplicación automática\n• Almacenar información de contacto para enviar informes automáticamente al correo de la cuenta\n• Organizar tus informes por cuenta para un acceso fácil\n\nLas cuentas te ayudan a agilizar tu flujo de trabajo y asegurar informes consistentes y profesionales para cada cliente."
+    },
+    "delete": {
+        "title": "Eliminar Cuenta",
+        "message": "¿Estás seguro de que quieres eliminar la cuenta \"{{name}}\"? Esta acción no se puede deshacer.",
+        "confirm": "Eliminar",
+        "cancel": "Cancelar"
+    }
+}

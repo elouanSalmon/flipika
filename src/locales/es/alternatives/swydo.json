@@ -1,0 +1,205 @@
+{
+    "page": {
+        "seoTitle": "La mejor alternativa a Swydo en 2026 | Flipika",
+        "seoDescription": "Los informes de Swydo parecen obsoletos. Pásate a Flipika para obtener paneles modernos con estilo glassmorphism que sorprendan a los clientes.",
+        "h1Title": "La alternativa moderna a Swydo",
+        "subtitle": "Tus clientes merecen informes que parezcan hechos en 2026, no en 2015.",
+        "painPointsTitle": "Por qué las agencias cambian desde Swydo",
+        "painPointsSubtitle": "Una gran herramienta básica, pero empieza a notar el paso del tiempo.",
+        "comparisonTitle": "Flipika vs Swydo",
+        "comparisonSubtitle": "Comparativa de diseño y modernidad.",
+        "costTitle": "El coste de un diseño anticuado",
+        "costSubtitle": "¿Qué le está costando a la percepción de tu marca un informe 'suficientemente bueno'?",
+        "tipsTitle": "Migrar desde Swydo",
+        "tipsSubtitle": "Actualiza tu stack de informes",
+        "useCasesTitle": "Casos de uso: Informes modernos",
+        "migrationCtaTitle": "Mejora la imagen de marca de tu agencia",
+        "migrationCtaDesc": "Únete a las agencias que ofrecen experiencias interactivas y premium.",
+        "benefitsTitle": "Por qué elegir Flipika",
+        "benefitsSubtitle": "Una generación por delante en diseño y usabilidad",
+        "faqTitle": "Preguntas frecuentes sobre la migración",
+        "useCasesSubtitle": "Escenarios donde el diseño cierra acuerdos"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Renderizado instantáneo",
+            "description": "Swydo puede ser lento con cuentas pesadas. Flipika está construido sobre tecnología moderna para una carga instantánea."
+        },
+        "realtime": {
+            "title": "Tiempo real verdadero",
+            "description": "Enlaces en vivo que realmente se sienten vivos. Gráficos interactivos en los que los clientes pueden profundizar."
+        },
+        "design": {
+            "title": "Interfaz Glassmorphism",
+            "description": "No nos limitamos al 'diseño plano'. Usamos una estética moderna que coincide con la calidad del trabajo de tu agencia."
+        },
+        "whitelabel": {
+            "title": "Más allá del logotipo",
+            "description": "Dominios personalizados, colores personalizados, fuentes personalizadas. Haz que la plataforma sea realmente tuya."
+        },
+        "ai": {
+            "title": "Narrativa por IA",
+            "description": "En Swydo tienes que escribir tú los comentarios. Flipika escribe la historia por ti basándose en los datos."
+        },
+        "support": {
+            "title": "Soporte moderno",
+            "description": "Soporte vía chat que se siente como hablar con un colega, no como un sistema de tickets."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Marcas de venta directa",
+            "description": "A las marcas DTC les importa la estética. Envíales un informe que coincida con el estilo de su tienda Shopify.",
+            "metrics": [
+                "ROAS de la tienda",
+                "Abandono del carrito",
+                "Anuncios visuales de producto"
+            ]
+        },
+        "leadgen": {
+            "title": "Clientes SaaS",
+            "description": "Los clientes tecnológicos esperan informes tecnológicamente avanzados. No les envíes un PDF estático.",
+            "metrics": [
+                "Velocidad de MQL",
+                "Valor del pipeline",
+                "Métricas SaaS"
+            ]
+        },
+        "agency": {
+            "title": "Agencias creativas",
+            "description": "Si vendes servicios creativos, tus informes no pueden ser feos. Daña tu credibilidad.",
+            "metrics": [
+                "Rendimiento creativo",
+                "Interacción con activos",
+                "Reconocimiento de marca"
+            ]
+        },
+        "local": {
+            "title": "Franquicias",
+            "description": "Dale a los propietarios de franquicias un panel sencillo y atractivo que puedan entender de un vistazo.",
+            "metrics": [
+                "Tráfico local",
+                "Volumen de llamadas",
+                "Visitas a la tienda"
+            ]
+        },
+        "saas": {
+            "title": "App Marketing",
+            "description": "Informes diseñados para móviles para productos diseñados para móviles. Se ve perfecto en cualquier dispositivo.",
+            "metrics": [
+                "Tasa de instalación",
+                "Acciones integradas",
+                "Retención"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecta datos",
+            "description": "Conexión en un clic a Google Ads. Recopilamos el historial instantáneamente."
+        },
+        "step2": {
+            "title": "Personaliza el aspecto",
+            "description": "Establece tus colores de marca. Mira cómo toda la interfaz se transforma para coincidir con tu identidad."
+        },
+        "step3": {
+            "title": "Recrea plantillas",
+            "description": "Nuestro editor flexible te permite reconstruir tus mejores plantillas de Swydo en minutos, pero mejor."
+        },
+        "step4": {
+            "title": "Impresiona a los clientes",
+            "description": "Envía el nuevo enlace en vivo. Espera el mensaje de '¡Vaya, esto se ve genial!'."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Formato manual",
+            "description": "¿Pasas tiempo intentando que Swydo se vea 'aceptable'? Flipika se ve increíble por defecto."
+        },
+        "maintenance": {
+            "title": "Mantenimiento de plantillas",
+            "description": "Actualizar plantillas en herramientas antiguas es una tarea pesada. Aquí es global e instantáneo."
+        },
+        "opportunity": {
+            "title": "Percepción del cliente",
+            "description": "Los informes de la vieja escuela señalan 'agencia de la vieja escuela'. Los informes modernos señalan 'partner de vanguardia'."
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Céntrate en la experiencia de usuario (UX)",
+            "description": "Tus clientes usan aplicaciones como Linear y Notion. Dales una experiencia de informes que esté a ese nivel."
+        },
+        "tip2": {
+            "title": "Interactivo vs Estático",
+            "description": "Deja de acostumbrar a los clientes a leer PDFs. Acostumbralos a explorar los datos de forma interactiva."
+        },
+        "tip3": {
+            "title": "Experiencia móvil",
+            "description": "Abre un informe de Swydo en el móvil. Luego abre Flipika. Verás por qué necesitas el cambio."
+        },
+        "tip4": {
+            "title": "Perspectivas automatizadas",
+            "description": "Usa la IA para añadir contexto. Te ahorra escribir el párrafo de 'lo que ha pasado'."
+        },
+        "tip5": {
+            "title": "Consolida herramientas",
+            "description": "Si usas Swydo para informes y otra herramienta para paneles, combínalas todas aquí."
+        },
+        "tip6": {
+            "title": "Presume",
+            "description": "Usa el modo presentación durante las llamadas de Zoom. Es mucho más atractivo que compartir pantalla con un PDF."
+        },
+        "tip7": {
+            "title": "Dominios personalizados",
+            "description": "Esencial para la coherencia de marca. informes.tuagencia.com genera confianza."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Función",
+            "swydo": "Swydo",
+            "flipika": "Flipika"
+        },
+        "rows": {
+            "design": {
+                "feature": "Diseño de interfaz",
+                "swydo": "Funcional (era de 2015)",
+                "flipika": "Moderno (Glassmorphism)"
+            },
+            "speed": {
+                "feature": "Carga de página",
+                "swydo": "Media",
+                "flipika": "Instantánea"
+            },
+            "mobile": {
+                "feature": "Experiencia móvil",
+                "swydo": "Respuesta básica",
+                "flipika": "App optimizada para móvil"
+            },
+            "presentation": {
+                "feature": "Modo presentación",
+                "swydo": "No",
+                "flipika": "Sí (Vista de diapositivas)"
+            }
+        }
+    },
+    "faq": {
+        "q1": "¿Es difícil mover las plantillas?",
+        "a1": "Para nada. Nuestro editor por bloques es intuitivo. Puedes recrear cualquier diseño que tuvieras en Swydo.",
+        "q2": "¿Tenéis emails programados?",
+        "a2": "Sí, la programación de PDFs y enlaces funciona exactamente igual. No perderás esa automatización.",
+        "q3": "¿Es más caro?",
+        "a3": "Probablemente más barato o comparable, pero obtienes clientes ilimitados en nuestros planes estándar.",
+        "q4": "¿Puedo exportar a PDF?",
+        "a4": "Sí, y se ven mejor. Exportaciones vectoriales en alta resolución que se imprimen perfectamente.",
+        "q5": "¿Qué pasa con las integraciones?",
+        "a5": "Profundizamos más en los datos de Google Ads, obteniendo campos que otros omiten. Más integraciones pronto.",
+        "q6": "¿Hay contrato?",
+        "a6": "No, mensual o anual. Cancela en cualquier momento.",
+        "q7": "¿Puedo probarlo?",
+        "a7": "Sí, hay una prueba gratuita disponible. Conecta tus datos y mira la diferencia de diseño al instante.",
+        "q8": "¿Es seguro?",
+        "a8": "Seguridad de nivel bancario. Acceso de solo lectura a tus cuentas publicitarias."
+    }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -122,10 +123,15 @@ const FeatureDetailPage: React.FC = () => {
     return (
         <div className="relative overflow-hidden">
             <SEO
-                title={`${feature.title} - ${tSeo('features.title')}`}
-                description={details.hero.subtitle}
-                keywords={tSeo('features.keywords')}
+                title={tSeo(`featureDetails.${featureId}.title`, { defaultValue: `${feature.title} | Flipika` })}
+                description={tSeo(`featureDetails.${featureId}.description`, { defaultValue: details.hero.subtitle })}
+                keywords={tSeo(`featureDetails.${featureId}.keywords`, { defaultValue: tSeo('features.keywords') })}
                 canonicalPath={`/features/${featureId}`}
+                breadcrumbs={[
+                    { name: 'Flipika', path: '/' },
+                    { name: tSeo('features.title').split(' | ')[0], path: '/features' },
+                    { name: feature.title, path: `/features/${featureId}` },
+                ]}
             />
 
             {/* Background Effects */}
@@ -487,6 +493,26 @@ const FeatureDetailPage: React.FC = () => {
                     </div>
                 </motion.div>
             </section>
+
+            {/* FAQPage Structured Data */}
+            {details.faq && details.faq.length > 0 && (
+                <Helmet>
+                    <script type="application/ld+json">
+                        {JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'FAQPage',
+                            'mainEntity': details.faq.map((item) => ({
+                                '@type': 'Question',
+                                'name': item.question,
+                                'acceptedAnswer': {
+                                    '@type': 'Answer',
+                                    'text': item.answer,
+                                },
+                            })),
+                        })}
+                    </script>
+                </Helmet>
+            )}
 
             {/* Bottom spacer */}
             <div className="h-12" />

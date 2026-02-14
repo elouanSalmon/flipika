@@ -1,0 +1,774 @@
+{
+    "hero": {
+        "badge": "Funcionalidades",
+        "title": "Todo lo que necesitas para tus informes de Google Ads",
+        "subtitle": "Descubre cómo Flipika transforma tus informes de clientes en un proceso automatizado, profesional y totalmente personalizable."
+    },
+    "stats": {
+        "timeSaved": "90% de ahorro de tiempo",
+        "timeSavedDesc": "En tus informes mensuales",
+        "automation": "100% automatizado",
+        "automationDesc": "Desde la sincronización hasta la entrega",
+        "satisfaction": "98% de satisfacción",
+        "satisfactionDesc": "Clientes encantados"
+    },
+    "features": [
+        {
+            "id": "report-generation",
+            "icon": "FileBarChart",
+            "title": "Generación de informes",
+            "subtitle": "Informes automáticos en pocos clics",
+            "description": "Crea informes profesionales de Google Ads en 2 minutos en lugar de 3 horas. Sincronización automática de datos, diseño optimizado.",
+            "benefits": [
+                "Sincronización automática con Google Ads",
+                "Diseño profesional preconfigurado",
+                "Datos en tiempo real siempre actualizados",
+                "Ahorro masivo de tiempo en informes"
+            ]
+        },
+        {
+            "id": "ai-narration",
+            "icon": "Sparkles",
+            "title": "Narración por IA",
+            "subtitle": "Perspectivas generadas automáticamente",
+            "description": "Nuestra IA analiza tus datos y genera comentarios relevantes, sugerencias de optimización y perspectivas accionables para tus clientes.",
+            "benefits": [
+                "Análisis inteligente del rendimiento",
+                "Sugerencias de optimización personalizadas",
+                "Detección automática de anomalías",
+                "Comentarios escritos en lenguaje natural"
+            ]
+        },
+        {
+            "id": "custom-templates",
+            "icon": "FileText",
+            "title": "Plantillas personalizadas",
+            "subtitle": "Adapta cada informe a tu marca",
+            "description": "Crea y guarda plantillas personalizadas con tu imagen de marca, tus KPIs favoritos y un diseño a medida.",
+            "benefits": [
+                "Editor visual intuitivo de arrastrar y soltar",
+                "Imagen de marca y marca blanca",
+                "Biblioteca de plantillas reutilizables",
+                "KPIs y métricas personalizables"
+            ]
+        },
+        {
+            "id": "scheduling-automation",
+            "icon": "Calendar",
+            "title": "Programación y automatización",
+            "subtitle": "Automatiza tus informes recurrentes",
+            "description": "Programa el envío automático de tus informes: diario, semanal o mensual. Tus clientes reciben sus perspectivas sin ningún esfuerzo por tu parte.",
+            "benefits": [
+                "Programación flexible (diaria, semanal, mensual)",
+                "Envío automático por correo electrónico",
+                "Sincronización automática de datos",
+                "Gestión simplificada multicliente"
+            ]
+        },
+        {
+            "id": "multi-format-exports",
+            "icon": "Download",
+            "title": "Exportaciones a PDF, Slides y Web",
+            "subtitle": "Exporta en el formato que elijas",
+            "description": "Genera tus informes en PDF para imprimir, diapositivas de PowerPoint para presentaciones o enlaces web interactivos para visualización online.",
+            "benefits": [
+                "Exportación a PDF de alta calidad",
+                "Exportación a PowerPoint editable",
+                "Enlaces web interactivos compartibles",
+                "Personalización por formato"
+            ]
+        },
+        {
+            "id": "email-sending",
+            "icon": "Mail",
+            "title": "Envío por correo electrónico",
+            "subtitle": "Entrega directa a tus clientes",
+            "description": "Envía tus informes directamente desde Flipika con un mensaje personalizado. Seguimiento de apertura e historial completo de envíos.",
+            "benefits": [
+                "Envío directo desde la plataforma",
+                "Mensaje personalizable por cliente",
+                "Seguimiento de apertura",
+                "Historial de envíos accesible"
+            ]
+        },
+        {
+            "id": "slideshow-mode",
+            "icon": "Presentation",
+            "title": "Modo presentación",
+            "subtitle": "Presenta como un profesional",
+            "description": "Transforma tus informes en presentaciones interactivas a pantalla completa. Ideal para reuniones con clientes y revisiones de rendimiento.",
+            "benefits": [
+                "Modo interactivo a pantalla completa",
+                "Navegación intuitiva por teclado",
+                "Transiciones fluidas entre páginas",
+                "Ideal para presentaciones a clientes"
+            ]
+        }
+    ],
+    "featureDetails": {
+        "report-generation": {
+            "hero": {
+                "title": "Generación automática de informes",
+                "subtitle": "Crea informes profesionales de Google Ads en 2 minutos en lugar de 3 horas",
+                "cta": "Probar gratis"
+            },
+            "whyItMatters": {
+                "title": "Por qué es revolucionario",
+                "description": "Los informes manuales llevan horas cada mes. Flipika automatiza todo el proceso, desde la sincronización de datos hasta el diseño profesional.",
+                "points": [
+                    {
+                        "title": "Ahorro masivo de tiempo",
+                        "description": "90% de tiempo ahorrado en tus informes mensuales"
+                    },
+                    {
+                        "title": "Siempre actualizado",
+                        "description": "Sincronización en tiempo real con tus campañas de Google Ads"
+                    },
+                    {
+                        "title": "Cero errores",
+                        "description": "Elimina errores de copiar y pegar y omisiones"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Cómo funciona",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Conectar Google Ads",
+                        "description": "Conexión OAuth segura en un clic"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Seleccionar tus KPIs",
+                        "description": "Elige las métricas importantes para tu cliente"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Generar el informe",
+                        "description": "Un clic y tu informe está listo en 30 segundos"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Informes mensuales de clientes",
+                    "description": "Envía automáticamente tus informes mensuales con los últimos datos de rendimiento"
+                },
+                {
+                    "title": "Reuniones estratégicas",
+                    "description": "Prepara tus presentaciones a clientes en minutos"
+                },
+                {
+                    "title": "Seguimiento de multicampañas",
+                    "description": "Gestiona fácilmente los informes de docenas de cuentas de clientes"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Antes / Después de Flipika",
+                "before": {
+                    "title": "Sin Flipika",
+                    "points": [
+                        "3 horas de trabajo manual por informe",
+                        "Tedioso copiado y pegado de datos",
+                        "Riesgo de errores y omisiones",
+                        "Diseño a rehacer cada vez"
+                    ]
+                },
+                "after": {
+                    "title": "Con Flipika",
+                    "points": [
+                        "2 minutos exactos por informe",
+                        "Sincronización automática",
+                        "Datos siempre precisos",
+                        "Plantilla infinitamente reutilizable"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Puedo personalizar el diseño del informe?",
+                    "answer": "¡Absolutamente! Puedes crear plantillas personalizadas con tu imagen de marca, colores y logotipo."
+                },
+                {
+                    "question": "¿Se actualizan los datos en tiempo real?",
+                    "answer": "Sí, cada apertura del informe sincroniza los últimos datos de tus campañas de Google Ads."
+                },
+                {
+                    "question": "¿Cuánto tiempo se tarda en generar un informe?",
+                    "answer": "De media 30 segundos para un informe completo con todas tus métricas."
+                }
+            ]
+        },
+        "ai-narration": {
+            "hero": {
+                "title": "Narración inteligente por IA",
+                "subtitle": "La IA escribe tus análisis y recomendaciones automáticamente",
+                "cta": "Descubrir la IA"
+            },
+            "whyItMatters": {
+                "title": "Análisis que marcan la diferencia",
+                "description": "Tus clientes no solo quieren números, quieren entender. Nuestra IA analiza los datos y genera comentarios relevantes en lenguaje natural.",
+                "points": [
+                    {
+                        "title": "Perspectivas accionables",
+                        "description": "Recomendaciones concretas basadas en el rendimiento"
+                    },
+                    {
+                        "title": "Detección de anomalías",
+                        "description": "Detecta automáticamente aumentos y disminuciones inusuales"
+                    },
+                    {
+                        "title": "Lenguaje natural",
+                        "description": "Comentarios escritos como un experto humano"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "La IA en acción",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Análisis de datos",
+                        "description": "La IA escanea todas tus métricas y tendencias"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Detección de patrones",
+                        "description": "Identifica oportunidades y puntos de atención"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Generación de comentarios",
+                        "description": "Escritura automática de análisis relevantes"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Informes enriquecidos",
+                    "description": "Añade valor con análisis automáticos"
+                },
+                {
+                    "title": "Ahorro de tiempo en redacción",
+                    "description": "Sin necesidad de escribir manualmente tus comentarios"
+                },
+                {
+                    "title": "Detección proactiva",
+                    "description": "Recibe alertas de anomalías antes que tus clientes"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Antes / Después de la IA",
+                "before": {
+                    "title": "Análisis manual",
+                    "points": [
+                        "1 hora analizando datos",
+                        "Redacción manual de comentarios",
+                        "Riesgo de pasar por alto perspectivas",
+                        "Consistencia variable debido al cansancio"
+                    ]
+                },
+                "after": {
+                    "title": "Con la IA de Flipika",
+                    "points": [
+                        "Análisis instantáneo",
+                        "Comentarios generados automáticamente",
+                        "Todas las perspectivas detectadas",
+                        "Garantía de calidad constante"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Puede la IA reemplazar realmente mi análisis?",
+                    "answer": "La IA te ayuda generando un primer análisis completo. Siempre puedes editarlo y enriquecerlo según sea necesario."
+                },
+                {
+                    "question": "¿Son personalizables los comentarios?",
+                    "answer": "¡Sí! Puedes editar cada comentario generado por la IA para adaptarlo a tu tono y estilo."
+                },
+                {
+                    "question": "¿Qué tipos de perspectivas puede detectar la IA?",
+                    "answer": "Variaciones de rendimiento, tendencias, comparaciones de periodo contra periodo, oportunidades de optimización y más."
+                }
+            ]
+        },
+        "custom-templates": {
+            "hero": {
+                "title": "Plantillas 100% personalizables",
+                "subtitle": "Crea informes a tu imagen con nuestro editor visual",
+                "cta": "Crear mi plantilla"
+            },
+            "whyItMatters": {
+                "title": "Tu marca, tu estilo",
+                "description": "Cada agencia tiene su identidad. Con Flipika, crea plantillas que reflejen tu marca e impresionen a tus clientes.",
+                "points": [
+                    {
+                        "title": "Marca blanca total",
+                        "description": "Logo, colores, tipografía: todo es personalizable"
+                    },
+                    {
+                        "title": "Reutilización infinita",
+                        "description": "Crea una vez, usa infinitamente para todos tus clientes"
+                    },
+                    {
+                        "title": "Editor de arrastrar y soltar",
+                        "description": "Interfaz intuitiva, sin necesidad de habilidades técnicas"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Crea tu plantilla perfecta",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Elegir una base",
+                        "description": "Empieza desde una plantilla en blanco o un modelo prediseñado"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Personalizar el diseño",
+                        "description": "Añade tu logo, colores y elementos visuales"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Seleccionar tus KPIs",
+                        "description": "Arrastra y suelta las métricas importantes"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Plantillas por industria",
+                    "description": "Crea plantillas específicas para e-commerce, B2B, local, etc."
+                },
+                {
+                    "title": "Plantillas por cliente",
+                    "description": "Personaliza una plantilla con los colores de cada cliente"
+                },
+                {
+                    "title": "Biblioteca de la agencia",
+                    "description": "Construye una colección de plantillas reutilizables"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Máxima flexibilidad",
+                "before": {
+                    "title": "Informes genéricos",
+                    "points": [
+                        "Mismo diseño para todos los clientes",
+                        "Sin personalización",
+                        "Apariencia amateur",
+                        "Sin marca blanca"
+                    ]
+                },
+                "after": {
+                    "title": "Con las plantillas de Flipika",
+                    "points": [
+                        "Diseño único por cliente",
+                        "100% personalizable",
+                        "Renderizado ultra profesional",
+                        "Marca blanca completa"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Cuántas plantillas puedo crear?",
+                    "answer": "¡Ilimitadas! Crea tantas plantillas como quieras."
+                },
+                {
+                    "question": "¿Puedo duplicar una plantilla existente?",
+                    "answer": "Sí, puedes clonar cualquier plantilla para modificarla."
+                },
+                {
+                    "question": "¿Necesito habilidades de diseño?",
+                    "answer": "No, el editor de arrastrar y soltar está diseñado para ser usado por cualquier persona, sin formación previa."
+                }
+            ]
+        },
+        "scheduling-automation": {
+            "hero": {
+                "title": "Automatización completa",
+                "subtitle": "Programa tus informes y olvídate de los informes manuales",
+                "cta": "Automatizar mis informes"
+            },
+            "whyItMatters": {
+                "title": "Informes que funcionan solos",
+                "description": "Configura una vez, benefíciate de por vida. Tus informes se generan y envían automáticamente según el programa que definas.",
+                "points": [
+                    {
+                        "title": "Cero esfuerzo recurrente",
+                        "description": "Tus clientes reciben sus informes sin ninguna acción por tu parte"
+                    },
+                    {
+                        "title": "Puntualidad garantizada",
+                        "description": "Nunca más vuelvas a llegar tarde a tus plazos de entrega de informes"
+                    },
+                    {
+                        "title": "Multicliente fácil",
+                        "description": "Gestiona docenas de clientes con la misma simplicidad"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Configura y relájate",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Definir frecuencia",
+                        "description": "Diaria, semanal, mensual o personalizada"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Elegir destinatarios",
+                        "description": "Añade los correos de tus clientes"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Activar automatización",
+                        "description": "¡Y ya está! Tus informes saldrán automáticamente"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Informes mensuales recurrentes",
+                    "description": "Automatiza el envío de tus informes mensuales el día 1 de cada mes"
+                },
+                {
+                    "title": "Resumen semanal de rendimiento",
+                    "description": "Envía un resumen semanal cada lunes por la mañana"
+                },
+                {
+                    "title": "Alertas diarias",
+                    "description": "Configura informes diarios para campañas críticas"
+                }
+            ],
+            "beforeAfter": {
+                "title": "De manual a automático",
+                "before": {
+                    "title": "Carga manual",
+                    "points": [
+                        "Recordatorios y plazos estresantes",
+                        "Riesgo de olvidos o retrasos",
+                        "Tiempo perdido cada periodo",
+                        "Carga mental constante"
+                    ]
+                },
+                "after": {
+                    "title": "Con la automatización",
+                    "points": [
+                        "Configuración única (set & forget)",
+                        "Entrega puntual garantizada",
+                        "Tiempo liberado para tu negocio principal",
+                        "Tranquilidad total"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Puedo editar un informe programado antes del envío?",
+                    "answer": "Sí, siempre puedes editar un informe generado automáticamente antes de su envío programado."
+                },
+                {
+                    "question": "¿Qué pasa si Google Ads no funciona?",
+                    "answer": "El sistema reintenta automáticamente. Se te notificará si hay un problema persistente."
+                },
+                {
+                    "question": "¿Puedo programar diferentes informes para cada cliente?",
+                    "answer": "¡Absolutamente! Cada cliente puede tener su propia frecuencia y plantilla."
+                }
+            ]
+        },
+        "multi-format-exports": {
+            "hero": {
+                "title": "Exporta en todos los formatos",
+                "subtitle": "PDF, PowerPoint o enlace web: elige según tus necesidades",
+                "cta": "Ver formatos"
+            },
+            "whyItMatters": {
+                "title": "Un informe, tres formatos",
+                "description": "Cada situación requiere un formato diferente. Flipika genera tus informes en el formato óptimo para cada uso.",
+                "points": [
+                    {
+                        "title": "PDF profesional",
+                        "description": "Alta calidad para imprimir o enviar por correo"
+                    },
+                    {
+                        "title": "PowerPoint editable",
+                        "description": "Edita y presenta desde PowerPoint"
+                    },
+                    {
+                        "title": "Enlace web interactivo",
+                        "description": "Comparte fácilmente, visible desde cualquier lugar"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Exportación en un clic",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Generar tu informe",
+                        "description": "Crea tu informe como de costumbre"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Elegir el formato",
+                        "description": "PDF, PPTX o enlace web según tus necesidades"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Descargar o compartir",
+                        "description": "Tu informe está listo en el formato elegido"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Correos electrónicos a clientes",
+                    "description": "Envía un PDF limpio y profesional"
+                },
+                {
+                    "title": "Presentaciones",
+                    "description": "Exporta a PowerPoint para tus reuniones"
+                },
+                {
+                    "title": "Compartir rápido",
+                    "description": "Genera un enlace web para consulta inmediata"
+                }
+            ],
+            "beforeAfter": {
+                "title": "Flexibilidad máxima",
+                "before": {
+                    "title": "Exportación limitada",
+                    "points": [
+                        "Solo un formato disponible",
+                        "Calidad variable",
+                        "Requiere manipulación adicional",
+                        "Tiempo perdido en la conversión"
+                    ]
+                },
+                "after": {
+                    "title": "Multiformato Flipika",
+                    "points": [
+                        "3 formatos para elegir",
+                        "Calidad óptima para cada formato",
+                        "Exportación directa sin manipulación",
+                        "Ahorro inmediato de tiempo"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Son de alta calidad las exportaciones a PDF?",
+                    "answer": "Sí, nuestros archivos PDF se generan en alta resolución, perfectos para imprimir."
+                },
+                {
+                    "question": "¿Es editable el archivo de PowerPoint?",
+                    "answer": "Sí, puedes modificar todos los elementos del PPTX en PowerPoint."
+                },
+                {
+                    "question": "¿Caducan los enlaces web?",
+                    "answer": "No, los enlaces web permanecen activos mientras no los elimines."
+                }
+            ]
+        },
+        "email-sending": {
+            "hero": {
+                "title": "Envía directamente desde la plataforma",
+                "subtitle": "Entrega tus informes por correo con seguimiento e historial completo",
+                "cta": "Probar envío"
+            },
+            "whyItMatters": {
+                "title": "Entrega profesional",
+                "description": "Envía tus informes directamente desde Flipika con un mensaje personalizado. Rastrea las aperturas y mantén un historial completo.",
+                "points": [
+                    {
+                        "title": "Envío profesional",
+                        "description": "Correo con tu imagen de marca y mensaje personalizado"
+                    },
+                    {
+                        "title": "Seguimiento de apertura",
+                        "description": "Sabe quién abrió, cuándo y cuántas veces"
+                    },
+                    {
+                        "title": "Historial completo",
+                        "description": "Visualiza todos tus envíos pasados de un vistazo"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Envío simplificado",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Escribir tu mensaje",
+                        "description": "Personaliza el correo electrónico de acompañamiento"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Añadir destinatarios",
+                        "description": "Uno o más contactos de clientes"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Enviar",
+                        "description": "Haz clic y se envía, con seguimiento automático"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Entrega rápida",
+                    "description": "Envía tus informes en segundos"
+                },
+                {
+                    "title": "Seguimiento de compromiso",
+                    "description": "Verifica que tus clientes hayan visto el informe"
+                },
+                {
+                    "title": "Seguimientos segmentados",
+                    "description": "Haz un seguimiento de los clientes que no han abierto el informe"
+                }
+            ],
+            "beforeAfter": {
+                "title": "De correo básico a correo profesional",
+                "before": {
+                    "title": "Correo clásico",
+                    "points": [
+                        "Adjunto pesado",
+                        "Sin seguimiento",
+                        "Mensaje genérico",
+                        "Sin historial centralizado"
+                    ]
+                },
+                "after": {
+                    "title": "Envío Flipika",
+                    "points": [
+                        "Enlace ligero y rápido",
+                        "Seguimiento de apertura",
+                        "Mensaje personalizado",
+                        "Historial completo disponible"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Puedo personalizar el correo para cada cliente?",
+                    "answer": "Sí, puedes escribir un mensaje único para cada envío."
+                },
+                {
+                    "question": "¿Funciona realmente el seguimiento?",
+                    "answer": "¡Sí! Verás exactamente quién abrió, cuándo y cuántas veces."
+                },
+                {
+                    "question": "¿Hay un límite de envío?",
+                    "answer": "No, puedes enviar tantos informes como quieras."
+                }
+            ]
+        },
+        "slideshow-mode": {
+            "hero": {
+                "title": "Modo presentación inmersivo",
+                "subtitle": "Transforma tus informes en presentaciones cautivadoras a pantalla completa",
+                "cta": "Ver en acción"
+            },
+            "whyItMatters": {
+                "title": "Presenta como un profesional",
+                "description": "Tus reuniones con clientes merecen algo mejor que un simple PDF. El modo presentación transforma tus informes en presentaciones profesionales interactivas.",
+                "points": [
+                    {
+                        "title": "Pantalla completa inmersiva",
+                        "description": "Interfaz limpia que resalta tus datos"
+                    },
+                    {
+                        "title": "Navegación fluida",
+                        "description": "Controles de teclado para una presentación natural"
+                    },
+                    {
+                        "title": "Máximo impacto",
+                        "description": "Impresiona a tus clientes con un renderizado profesional"
+                    }
+                ]
+            },
+            "howItWorks": {
+                "title": "Presentación en un clic",
+                "steps": [
+                    {
+                        "number": "1",
+                        "title": "Abrir tu informe",
+                        "description": "Carga el informe que quieres presentar"
+                    },
+                    {
+                        "number": "2",
+                        "title": "Activar el modo presentación",
+                        "description": "Un clic en el icono de presentación"
+                    },
+                    {
+                        "number": "3",
+                        "title": "Presentar",
+                        "description": "Navega con las flechas, impresiona a tus clientes"
+                    }
+                ]
+            },
+            "useCases": [
+                {
+                    "title": "Reuniones con clientes",
+                    "description": "Presenta tus resultados profesionalmente"
+                },
+                {
+                    "title": "Revisiones de rendimiento",
+                    "description": "Repasa los KPIs con tu equipo"
+                },
+                {
+                    "title": "Presentaciones de ventas",
+                    "description": "Demuestra tus resultados durante la prospección"
+                }
+            ],
+            "beforeAfter": {
+                "title": "De ordinario a extraordinario",
+                "before": {
+                    "title": "Presentación en PDF",
+                    "points": [
+                        "Desplazamiento manual poco fluido",
+                        "Distracciones visuales",
+                        "Apariencia amateur",
+                        "Navegación aproximada"
+                    ]
+                },
+                "after": {
+                    "title": "Modo presentación",
+                    "points": [
+                        "Navegación fluida por teclado",
+                        "Enfoque total en el contenido",
+                        "Renderizado ultra profesional",
+                        "Transiciones elegantes"
+                    ]
+                }
+            },
+            "faq": [
+                {
+                    "question": "¿Puedo usar el modo presentación en cualquier informe?",
+                    "answer": "Sí, todos los informes de Flipika son compatibles con el modo presentación."
+                },
+                {
+                    "question": "¿Son intuitivos los comandos del teclado?",
+                    "answer": "¡Mucho! Flechas para navegar, Esc para salir. Simple y efectivo."
+                },
+                {
+                    "question": "¿Puedo compartir el enlace en modo presentación?",
+                    "answer": "Sí, puedes generar un enlace que se abre directamente en modo presentación."
+                }
+            ]
+        }
+    },
+    "cta": {
+        "title": "¿Listo para transformar tus informes?",
+        "subtitle": "Únete a los media buyers que ya han adoptado Flipika y ahorra horas cada semana.",
+        "button": "Empezar gratis",
+        "trustLine": "Prueba gratuita • Configuración en 2 minutos"
+    }
+}

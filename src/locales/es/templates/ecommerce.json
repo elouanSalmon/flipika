@@ -1,0 +1,263 @@
+{
+    "page": {
+        "title": "Plantilla para Ecommerce de Google Ads 2026 | Rastrea ROAS y Ventas",
+        "metaDescription": "El panel definitivo para Ecommerce en Google Ads. Rastrea ROAS, ingresos, campañas de Shopping y rendimiento de productos. Seguimiento de ventas en tiempo real.",
+        "h1": "Rastrea Ingresos y ROAS,\nNo solo Clics.",
+        "subtitle": "Para las marcas de Ecommerce, solo importa una métrica: el beneficio por cada dólar gastado. La plantilla de Ecommerce de Flipika está diseñada para visualizar tu ROI al instante.",
+        "cta": "Empezar a rastrear el ROAS",
+        "galleryTitle": "Paneles de Ecommerce",
+        "comparisonTitle": "Ecommerce: Flipika vs Informes Genéricos",
+        "hookTitle": "Creado para tiendas online",
+        "faqTitle": "Preguntas Frecuentes sobre Ecommerce",
+        "costTitle": "El coste de una rentabilidad desconocida",
+        "costSubtitle": "Si no rastreas el ROAS en tiempo real, estás quemando margen.",
+        "metricsTitle": "Métricas de E-com que importan",
+        "metricsSubtitle": "Olvida el CTR. Hablemos de Ventas y Margen.",
+        "howItWorksTitle": "Configuración en 3 minutos",
+        "howItWorksSubtitle": "Conecta. Visualiza. Escala.",
+        "benefitsTitle": "Por qué las marcas de E-com aman Flipika",
+        "benefitsSubtitle": "Claridad total sobre la rentabilidad de tu gasto publicitario",
+        "testimonialsTitle": "Casos de éxito de vendedores",
+        "testimonialsSubtitle": "Utilizado por tiendas Shopify y WooCommerce en todo el mundo",
+        "useCasesTitle": "Escenarios de Retail",
+        "useCasesSubtitle": "Desde dropshipping de un solo producto hasta catálogos enormes",
+        "tipsTitle": "7 Consejos para aumentar el ROAS",
+        "tipsSubtitle": "Consejos de optimización incluidos en tu panel",
+        "socialProof": "Rastreando más de 50 millones de dólares en gasto publicitario anualmente"
+    },
+    "gallery": {
+        "executive": {
+            "title": "El Resumen Ejecutivo",
+            "description": "Perfecto para informes a directivos y presentaciones de junta. Se centra en KPIs de alto nivel como ROAS, gasto total y valor de conversión. Diseñado para responder a la pregunta: '¿Se está gastando bien mi dinero?' en 10 segundos. Incluye gráficos de series temporales, comparaciones mes a mes y alertas automáticas sobre anomalías de rendimiento. Ideal para CMOs, CFOs y emprendedores que quieren la visión general sin ahogarse en detalles técnicos."
+        },
+        "ecommerce": {
+            "title": "El Rastreador de ROAS para Ecommerce",
+            "description": "Rendimiento granular por producto, análisis de campañas de shopping y atribución de ingresos. Profundiza por categoría de producto, ID de artículo o ubicación para identificar tus segmentos más rentables. Rastrea el valor medio del pedido, la tasa de conversión y el margen por producto. Compara el rendimiento entre diferentes estrategias de puja (ROAS objetivo, Maximizar conversiones). Perfecto para negocios de ecommerce que gestionan catálogos de más de 100 productos y necesitan saber exactamente qué productos impulsan el mejor ROI publicitario."
+        },
+        "agency": {
+            "title": "La Visión General para Agencias",
+            "description": "¿Gestionas múltiples clientes? Obtén una visión unificada del rendimiento de todas tus cuentas en un solo lugar. Detecta cuentas de bajo rendimiento al instante y asigna tu tiempo donde más importa. Panel multicuenta con alertas en tiempo real, informes automáticos enviados cada lunes por la mañana y exportación de marca blanca para presentaciones a clientes. Rastrea el presupuesto gastado frente al asignado, identifica oportunidades de venta cruzada y demuestra tu valor con métricas claras."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Funcionalidad",
+            "excel": "Hoja de cálculo básica",
+            "flipika": "Rastreador E-com de Flipika"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Datos de productos",
+                "excel": "Sin imágenes/detalles",
+                "flipika": "Visualización rica de productos"
+            },
+            "maintenance": {
+                "feature": "Actualización de stock",
+                "excel": "A menudo desactualizado",
+                "flipika": "Sincronizado con el feed"
+            },
+            "sharing": {
+                "feature": "Estadísticas de beneficio",
+                "excel": "Calculado manualmente",
+                "flipika": "Métricas de margen automático"
+            },
+            "design": {
+                "feature": "Visuales",
+                "excel": "Filas aburridas",
+                "flipika": "Galería de productos"
+            }
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecta los anuncios de la tienda",
+            "description": "Vincula Google Ads. Detectamos automáticamente tus campañas de Shopping y feeds de Merchant Center."
+        },
+        "step2": {
+            "title": "Elige el diseño Ecom",
+            "description": "Selecciona la plantilla 'Foco en ROAS'. Prioriza ingresos, valor del carrito y coste de venta sobre métricas de vanidad."
+        },
+        "step3": {
+            "title": "Visualiza productos",
+            "description": "Mira qué productos son tus ganadores y perdedores. Profundiza por marca, categoría o ID de artículo."
+        },
+        "step4": {
+            "title": "Escala los ganadores",
+            "description": "Usa las perspectivas para eliminar grupos de anuncios que desperdician presupuesto y apuesta por los productos rentables inmediatamente."
+        }
+    },
+    "hook": {
+        "speed": {
+            "title": "Carga ultra rápida",
+            "description": "Looker Studio puede tardar más de 10 segundos en cargar. Flipika carga en milisegundos gracias a nuestra capa de caché optimizada."
+        },
+        "branding": {
+            "title": "Perfección en marca blanca",
+            "description": "Sin el logotipo de 'Google' por todas partes. Tu marca, tus colores, tu dominio."
+        },
+        "stability": {
+            "title": "Simplemente funciona",
+            "description": "Se acabaron las desconexiones aleatorias de conectores o visualizaciones rotas."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Infierno de mapeo de productos",
+            "description": "Mapear manualmente los SKUs con las métricas de rendimiento en Excel es doloroso. Nosotros mapeamos los IDs de producto con el ROAS automáticamente."
+        },
+        "errors": {
+            "title": "Desajuste de inventario",
+            "description": "¿Publicar anuncios de productos agotados porque los informes tienen una semana de antigüedad? Eso es gasto publicitario desperdiciado."
+        },
+        "opportunity": {
+            "title": "Optimización del margen",
+            "description": "Deja de optimizar para el ROAS, empieza a optimizar para el Beneficio. El rastreo de productos en tiempo real revela a tus verdaderos ganadores."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Resumen diario matinal",
+            "description": "Despierta con un email que muestra exactamente cuánto gastaste y ganaste ayer. Empieza el día conociendo tus números."
+        },
+        "realtime": {
+            "title": "Preparado para el Black Friday",
+            "description": "Durante la temporada alta, necesitas datos en vivo. Vigila tu gasto por hora frente a los ingresos para maximizar los días de grandes ventas."
+        },
+        "design": {
+            "title": "Listo para inversores",
+            "description": "¿Necesitas mostrar números a inversores o socios? Nuestros visuales financieros profesionales generan confianza."
+        },
+        "whitelabel": {
+            "title": "Dominio personalizado",
+            "description": "Aloja tu panel en métricas.tutienda.com. Mantén tus datos profesionales y con tu marca."
+        },
+        "multidevice": {
+            "title": "Consulta sobre la marcha",
+            "description": "¿Ha saltado una notificación de Shopify? Consulta el coste publicitario de esa venta al instante en tu teléfono."
+        },
+        "support": {
+            "title": "Expertos en datos de Ecom",
+            "description": "Entendemos los errores de Merchant Center y el retraso en el valor de conversión. Nuestro soporte habla de ecommerce."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Finalmente sé exactamente cuánto beneficio obtengo por cada dólar publicitario. El desglose a nivel de producto me ha salvado la vida.",
+            "author": "Alex T.",
+            "role": "Propietario",
+            "company": "SneakerStreet"
+        },
+        "testimonial2": {
+            "quote": "Publicar anuncios sin Flipika era como volar a ciegas. Ahora puedo ver qué SKU está bajando el ROAS y eliminarlo.",
+            "author": "Jessica L.",
+            "role": "Directora de Marketing",
+            "company": "BeautyCo"
+        },
+        "testimonial3": {
+            "quote": "El informe semanal automatizado me ahorra 2 horas cada lunes. Y se ve mucho mejor que mis antiguas hojas de cálculo.",
+            "author": "Ryan P.",
+            "role": "Fundador",
+            "company": "TechGadgets"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Análisis de Performance Max",
+            "description": "Abre la caja negra. Mira el rendimiento de los grupos de activos y las fichas de producto de las campañas PMax.",
+            "metrics": [
+                "ROAS de PMax",
+                "Fuerza de los activos",
+                "Grupos de fichas",
+                "Coste/Conv"
+            ]
+        },
+        "leadgen": {
+            "title": "Ventas de ticket alto",
+            "description": "Para tiendas con un valor medio de pedido alto (>500$). Rastrea ciclos de venta largos y conversiones asistidas.",
+            "metrics": [
+                "Conv. asistidas",
+                "Longitud de ruta",
+                "Retraso temporal",
+                "Ingresos"
+            ]
+        },
+        "agency": {
+            "title": "Pruebas de Dropshipping",
+            "description": "Prueba productos rápidamente. Visualización de la rentabilidad diaria por producto para encontrar ganadores rápido.",
+            "metrics": [
+                "Beneficio diario",
+                "ROAS de equilibrio",
+                "% de margen",
+                "Coste de prueba"
+            ]
+        },
+        "local": {
+            "title": "Retail Omnicanal",
+            "description": "Combina ventas online con métricas de 'Visitas a la tienda' para ver el impacto total de los anuncios en los ingresos.",
+            "metrics": [
+                "Ventas online",
+                "Visitas a la tienda",
+                "ROAS total",
+                "Acciones locales"
+            ]
+        },
+        "saas": {
+            "title": "Caja de suscripción",
+            "description": "Rastrea el contexto de CAC frente a LTV. Comprende la rentabilidad inicial frente al valor de vida del cliente.",
+            "metrics": [
+                "Valor primer pedido",
+                "CAC",
+                "Suscriptores",
+                "Ingresos recurrentes"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Rastrea la cuota de impresiones de búsqueda",
+            "description": "¿Tus competidores están pujando por tu propia marca? Vigila de cerca la cuota de impresiones de búsqueda de marca."
+        },
+        "tip2": {
+            "title": "Vigila la higiene de los productos",
+            "description": "Mantente atento a los 'Productos listos para mostrar'. Si esto cae, estás perdiendo ventas potenciales debido a errores en el feed."
+        },
+        "tip3": {
+            "title": "Desglose por categoría",
+            "description": "No mires solo el ROAS combinado. Quizás los zapatos son rentables pero los calcetines están perdiendo dinero. ¡Segmenta!"
+        },
+        "tip4": {
+            "title": "Vigila el 'retraso temporal'",
+            "description": "No pauses una campaña tras 1 día si tu cliente medio tarda 14 días en comprar. Revisa el informe de retraso."
+        },
+        "tip5": {
+            "title": "Optimiza para el margen, no para los ingresos",
+            "description": "Un ROAS alto no significa un beneficio alto si vendes artículos con poco margen. Conoce tu ROAS de equilibrio."
+        },
+        "tip6": {
+            "title": "Usa etiquetas personalizadas",
+            "description": "Agrupa productos por margen (Alto/Bajo) o temporada (Invierno/Verano) en tu feed, luego informa sobre estas etiquetas en Flipika."
+        },
+        "tip7": {
+            "title": "La velocidad móvil importa",
+            "description": "Si el tráfico móvil tiene una tasa de rebote alta, tu sitio es demasiado lento. Arréglalo o deja de comprar tráfico móvil."
+        }
+    },
+    "faq": {
+        "q1": "¿Funciona con Shopify?",
+        "a1": "Sí, si tu Google Ads envía los datos a tu tienda Shopify (cosa que debería hacer), Flipika rastrea los resultados perfectamente.",
+        "q2": "¿Puedo ver el beneficio, no solo los ingresos?",
+        "a2": "Actualmente obtenemos el 'Valor de conversión' de Google Ads. Si pasas los datos del margen de beneficio a Google, podemos mostrarlos.",
+        "q3": "¿Rastrea Performance Max?",
+        "a3": "Sí, tenemos soporte completo para los informes de campañas PMax, grupos de activos y grupos de fichas de producto.",
+        "q4": "¿Con qué frecuencia se actualizan los datos?",
+        "a4": "Cada hora. Esencial para monitorizar ventas flash o el Black Friday.",
+        "q5": "¿Puedo filtrar por tipo de producto?",
+        "a5": "Sí, nuestras tablas interactivas permiten filtrar por campaña, grupo de anuncios o ID del producto.",
+        "q6": "¿Es bueno para el dropshipping?",
+        "a6": "Perfecto para ello. Claridad rápida sobre qué funciona para que puedas eliminar anuncios malos pronto.",
+        "q7": "¿Qué pasa si tengo varias tiendas?",
+        "a7": "Cambia entre cuentas de tienda con un solo clic, o usa nuestra vista de agencia para verlas en paralelo.",
+        "q8": "¿Necesito conocimientos técnicos?",
+        "a8": "Ninguno. Si puedes iniciar sesión en Google, puedes usar Flipika. Es enchufar y listo."
+    }
+}

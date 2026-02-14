@@ -1,0 +1,42 @@
+{
+    "title": "Guía de Inicio",
+    "description": "Domina Flipika paso a paso.",
+    "progress": "{{percent}}% completado",
+    "dismiss": "Ocultar guía",
+    "cannotDismiss": "Completa los pasos para ocultar",
+    "expand": "Abrir guía",
+    "collapse": "Contraer",
+    "completed": "Hecho",
+    "steps": {
+        "createClient": {
+            "label": "Crea tu primera Cuenta",
+            "action": "Añadir Cuenta"
+        },
+        "createTheme": {
+            "label": "Configura un Tema de Marca",
+            "action": "Crear Tema"
+        },
+        "createTemplate": {
+            "label": "Define una Plantilla de Informe",
+            "action": "Crear Plantilla"
+        },
+        "createSchedule": {
+            "label": "Programa un informe automático",
+            "action": "Programar"
+        },
+        "generateReport": {
+            "label": "Crea tu primer informe",
+            "action": "Crear"
+        },
+        "sendReport": {
+            "label": "Envía el informe por email",
+            "action": "Ver Informes"
+        }
+    },
+    "confirmDismiss": {
+        "title": "¿Ocultar la guía?",
+        "message": "Ya no verás este panel de ayuda.\nSiempre podrás encontrar estos pasos en la documentación.",
+        "confirm": "Ocultar permanentemente",
+        "cancel": "Mantener guía"
+    }
+}

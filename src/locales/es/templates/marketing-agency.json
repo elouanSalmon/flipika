@@ -1,0 +1,263 @@
+{
+    "page": {
+        "title": "Plantilla de Informes para Agencias 2026 | Informes para Clientes con Marca Blanca",
+        "metaDescription": "Escala tu agencia con informes automatizados de Google Ads con marca blanca. Gestiona más de 50 clientes sin esfuerzo. Paneles en tiempo real personalizados con tu marca.",
+        "h1": "Informes para clientes que\nescalan con tu agencia.",
+        "subtitle": "Deja de perder horas facturables en capturas de pantalla. Flipika permite a las agencias automatizar informes premium de marca blanca para cientos de clientes en minutos.",
+        "cta": "Obtener plantilla para agencias",
+        "galleryTitle": "Diseñado para agencias",
+        "comparisonTitle": "Por qué las agencias cambian a Flipika",
+        "hookTitle": "Creado para agencias de alto crecimiento",
+        "faqTitle": "Preguntas frecuentes para agencias",
+        "costTitle": "El coste de los informes no facturables",
+        "costSubtitle": "Cada hora que tus Gestores de Cuentas pasan en Excel es una hora que no dedican a la estrategia.",
+        "metricsTitle": "KPIs que los clientes realmente entienden",
+        "metricsSubtitle": "Simplifica lo complejo. Muestra el valor al instante.",
+        "howItWorksTitle": "Tu nuevo flujo de trabajo",
+        "howItWorksSubtitle": "Da de alta a un nuevo cliente en menos de 5 minutos",
+        "benefitsTitle": "Por qué las mejores agencias eligen Flipika",
+        "benefitsSubtitle": "Retención, Eficiencia e Imagen de Marca",
+        "testimonialsTitle": "A los dueños de agencias les encantamos",
+        "testimonialsSubtitle": "Potenciando los informes de más de 200 agencias de marketing",
+        "useCasesTitle": "Casos de uso para agencias",
+        "useCasesSubtitle": "Desde pequeñas agencias boutique hasta grandes redes",
+        "tipsTitle": "7 Consejos para retener clientes con informes",
+        "tipsSubtitle": "Convierte los informes de una tarea pesada en una herramienta de retención",
+        "socialProof": "Avalado por más de 200 agencias en todo el mundo"
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecta la cuenta MCC",
+            "description": "Vincula tu cuenta MCC de Google Ads una sola vez. Todas las subcuentas estarán disponibles al instante para los informes. Sin necesidad de inicios de sesión individuales."
+        },
+        "step2": {
+            "title": "Establece tu imagen de marca global",
+            "description": "Sube el logotipo de tu agencia, establece tus colores hexadecimales y mapea tu dominio personalizado (informes.tuagencia.com). Esto aplica tu marca específica a todos los informes."
+        },
+        "step3": {
+            "title": "Asigna plantillas",
+            "description": "Crea una 'Plantilla Maestra' y aplícala a 50 clientes con un solo clic. Las actualizaciones en la plantilla maestra se propagan a todas partes."
+        },
+        "step4": {
+            "title": "Automatiza el envío",
+            "description": "Establece reglas: 'Enviar informe estándar el lunes a las 9 AM'. Relájate y deja que Flipika gestione las actualizaciones semanales."
+        }
+    },
+    "gallery": {
+        "executive": {
+            "title": "El Resumen Ejecutivo",
+            "description": "Perfecto para informes a directivos y presentaciones de junta. Se centra en KPIs de alto nivel como ROAS, gasto total y valor de conversión. Diseñado para responder a la pregunta: '¿Se está gastando bien mi dinero?' en 10 segundos. Incluye gráficos de series temporales, comparaciones mes a mes y alertas automáticas sobre anomalías de rendimiento. Ideal para CMOs, CFOs y emprendedores que quieren la visión general sin ahogarse en detalles técnicos."
+        },
+        "ecommerce": {
+            "title": "El Rastreador de ROAS para Ecommerce",
+            "description": "Rendimiento granular por producto, análisis de campañas de shopping y atribución de ingresos. Profundiza por categoría de producto, ID de artículo o ubicación para identificar tus segmentos más rentables. Rastrea el valor medio del pedido, la tasa de conversión y el margen por producto. Compara el rendimiento entre diferentes estrategias de puja (ROAS objetivo, Maximizar conversiones). Perfecto para negocios de ecommerce que gestionan catálogos de más de 100 productos y necesitan saber exactamente qué productos impulsan el mejor ROI publicitario."
+        },
+        "agency": {
+            "title": "La Visión General para Agencias",
+            "description": "¿Gestionas múltiples clientes? Obtén una visión unificada del rendimiento de todas tus cuentas en un solo lugar. Detecta cuentas de bajo rendimiento al instante y asigna tu tiempo donde más importa. Panel multicuenta con alertas en tiempo real, informes automáticos enviados cada lunes por la mañana y exportación de marca blanca para presentaciones a clientes. Rastrea el presupuesto gastado frente al asignado, identifica oportunidades de venta cruzada y demuestra tu valor con métricas claras."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Funcionalidad",
+            "excel": "Informe de agencia genérico",
+            "flipika": "Portal del cliente de Flipika"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Multicliente",
+                "excel": "Abrir 50 pestañas",
+                "flipika": "Un solo panel maestro"
+            },
+            "maintenance": {
+                "feature": "Carga de trabajo mensual",
+                "excel": "1 semana al mes",
+                "flipika": "Cero intervención"
+            },
+            "sharing": {
+                "feature": "Acceso para el cliente",
+                "excel": "Esperar al email",
+                "flipika": "Portal del cliente 24/7"
+            },
+            "design": {
+                "feature": "Marca blanca",
+                "excel": "Limitada (Solo logotipo)",
+                "flipika": "Total (Dominio y colores)"
+            }
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Ahorro masivo de tiempo",
+            "description": "Reduce el tiempo de informes en un 90%. Un gestor de cuentas puede manejar el doble de clientes si no pasa los viernes creando informes."
+        },
+        "realtime": {
+            "title": "Portal del cliente",
+            "description": "Dale a tus clientes un enlace permanente. Pueden consultar las estadísticas en cualquier momento. La transparencia genera confianza y reduce los emails de '¿cómo vamos?'."
+        },
+        "design": {
+            "title": "Imagen de marca premium",
+            "description": "Tus informes parecerán un software personalizado construido por tu agencia. Impresiona a los clientes potenciales durante las reuniones con demostraciones de paneles en vivo."
+        },
+        "whitelabel": {
+            "title": "100% Marca blanca",
+            "description": "Tu dominio, tu remitente de email (SMTP), tu logotipo. Flipika es completamente invisible para tus clientes finales."
+        },
+        "multidevice": {
+            "title": "Modo Pitch",
+            "description": "Usa el panel en una tablet durante las reuniones con clientes. Los datos interactivos te hacen parecer más preparado y profesional."
+        },
+        "support": {
+            "title": "Soporte prioritario para agencias",
+            "description": "Las agencias cuentan con un gestor de cuentas dedicado. Te ayudamos a migrar tus informes antiguos y a formar a tu equipo."
+        }
+    },
+    "hook": {
+        "speed": {
+            "title": "Carga ultra rápida",
+            "description": "Looker Studio puede tardar más de 10 segundos en cargar. Flipika carga en milisegundos gracias a nuestra capa de caché optimizada."
+        },
+        "branding": {
+            "title": "Perfección en marca blanca",
+            "description": "Sin el logotipo de 'Google' por todas partes. Tu marca, tus colores, tu dominio."
+        },
+        "stability": {
+            "title": "Simplemente funciona",
+            "description": "Se acabaron las desconexiones aleatorias de conectores o visualizaciones rotas."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Informes mensuales interminables",
+            "description": "Generar 50 informes de clientes por separado solía llevar la 'Semana de informes'. Ahora lleva 0 minutos."
+        },
+        "errors": {
+            "title": "Datos de clientes equivocados",
+            "description": "Enviar los datos de la Empresa A a la Empresa B es un escenario de pesadilla. La automatización elimina los riesgos de la manipulación manual."
+        },
+        "opportunity": {
+            "title": "Retención de clientes",
+            "description": "Los clientes se van cuando se sienten descuidados. Los paneles en vivo les dan visibilidad 24/7, generando una confianza enorme."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Cambiar a Flipika nos ahorró el equivalente al salario de un empleado a tiempo completo en horas de informes. El ROI fue inmediato.",
+            "author": "David K.",
+            "role": "Fundador de agencia",
+            "company": "ScaleUp Media"
+        },
+        "testimonial2": {
+            "quote": "A nuestros clientes les encanta el enlace en vivo. Se sienten más en control y nosotros pasamos menos tiempo respondiendo preguntas básicas sobre el estado de las cuentas.",
+            "author": "Elena R.",
+            "role": "Directora de clientes",
+            "company": "SearchWins"
+        },
+        "testimonial3": {
+            "quote": "La función de marca blanca es impecable. Los clientes nos preguntan '¿cuánto ha costado desarrollar este software de paneles?' Nos hace parecer mucho más grandes.",
+            "author": "Marc B.",
+            "role": "CEO",
+            "company": "Boutique Ads"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Informe mensual para cliente Ecom",
+            "description": "Céntrate en el ROAS y las ventas. Muestra claramente el impacto directo en los ingresos del trabajo de tu agencia.",
+            "metrics": [
+                "Ingresos totales",
+                "Gasto publicitario",
+                "ROAS",
+                "Nuevos clientes"
+            ]
+        },
+        "leadgen": {
+            "title": "Actualización semanal de Lead Gen",
+            "description": "Mantén contentos a los equipos de ventas con actualizaciones semanales sobre el flujo de leads. Métricas de calidad y volumen en primer plano.",
+            "metrics": [
+                "Leads esta semana",
+                "CPL",
+                "Calidad del lead",
+                "Ritmo de presupuesto"
+            ]
+        },
+        "agency": {
+            "title": "Vista de cartera interna",
+            "description": "Para dueños de agencias. Mira el rendimiento de todos los clientes en una tabla. Detecta qué clientes no están contentos (bajo ROAS) antes de que se vayan.",
+            "metrics": [
+                "Gasto gestionado total",
+                "ROAS medio de clientes",
+                "Riesgo de abandono",
+                "Rendimiento del equipo"
+            ]
+        },
+        "local": {
+            "title": "Informes para franquicias",
+            "description": "Gestiona franquicias multi-ubicación. Informa sobre el rendimiento por tienda/ciudad mientras ofreces a la central una visión global.",
+            "metrics": [
+                "Visitas a la tienda",
+                "ROAS local",
+                "Ránking por ciudad",
+                "CPV global"
+            ]
+        },
+        "saas": {
+            "title": "Alta de nuevos clientes",
+            "description": "Sorprende a los nuevos clientes en los primeros 7 días. Envía un informe de 'Primeras Victorias' mostrando el impacto inmediato de tu gestión.",
+            "metrics": [
+                "Nivel de optimización",
+                "Gasto desperdiciado ahorrado",
+                "Mejora del CTR",
+                "Victorias rápidas"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Usa resúmenes ejecutivos",
+            "description": "Los clientes están ocupados. Añade un widget de texto al principio con 3 puntos clave escritos por el gestor. No te limites a mostrar gráficos."
+        },
+        "tip2": {
+            "title": "Automatiza alertas de 'malas noticias'",
+            "description": "Establece alertas internas si las métricas de un cliente caen. Arréglalo antes de que se den cuenta y te llamen. Proactivo > Reactivo."
+        },
+        "tip3": {
+            "title": "Muestra el año tras año (YoY)",
+            "description": "La estacionalidad importa. Compara siempre este mes con el mismo mes del año pasado para mostrar el crecimiento real."
+        },
+        "tip4": {
+            "title": "Educa con descripciones (Tooltips)",
+            "description": "Los clientes no saben qué es la 'Cuota de impresiones'. Flipika tiene definiciones integradas para que no tengas que explicar acrónimos cada vez."
+        },
+        "tip5": {
+            "title": "Coherencia de marca",
+            "description": "Asegúrate de que cada informe use exactamente el mismo diseño. La coherencia genera confianza y hace que tu agencia parezca organizada."
+        },
+        "tip6": {
+            "title": "La transparencia es clave",
+            "description": "No ocultes el gasto. Muestra exactamente lo que va a Google frente a tus honorarios, si aplica. La transparencia reduce los problemas de facturación."
+        },
+        "tip7": {
+            "title": "Vende más con datos",
+            "description": "Resalta la 'Cuota de impresiones perdida por presupuesto'. Es la forma más fácil de pedir un aumento de presupuesto."
+        }
+    },
+    "faq": {
+        "q1": "¿Cómo funcionan los precios para agencias?",
+        "a1": "Tenemos un plan fijo para agencias o precios por cliente, lo que mejor se adapte a tu escala. Sin cargos ocultos por añadir miembros al equipo.",
+        "q2": "¿Puedo usar mi propio dominio?",
+        "a2": "Sí, el soporte CNAME está incluido en los planes de Agencia. Tus clientes verán informes.tuagencia.com.",
+        "q3": "¿Soportáis cuentas MCC?",
+        "a3": "Sí, conecta tu MCC de nivel superior y todas las subcuentas se importarán y sincronizarán automáticamente.",
+        "q4": "¿Puedo crear plantillas para mis informes?",
+        "a4": "Sí, crea una 'Plantilla Estándar de Agencia' y aplícala a todos los nuevos clientes con un solo clic. Un ahorro de tiempo masivo.",
+        "q5": "¿Hay un límite de clientes?",
+        "a5": "No hay límites estrictos. Tenemos agencias gestionando más de 500 cuentas en Flipika. La infraestructura escala automáticamente.",
+        "q6": "¿Pueden los clientes editar el informe?",
+        "a6": "No, los clientes tienen acceso de 'Solo Lectura'. Pueden interactuar con los filtros de fecha pero no pueden romper el diseño ni cambiar los datos.",
+        "q7": "¿Puedo exportar a PDF?",
+        "a7": "Sí, exportaciones a PDF ilimitadas. Ideal para reuniones presenciales o clientes que insisten en los adjuntos por email.",
+        "q8": "¿Qué tan rápida es la puesta en marcha?",
+        "a8": "Puedes conectar un MCC y generar tus primeros 10 informes en menos de 15 minutos. Es llegar y empezar."
+    }
+}

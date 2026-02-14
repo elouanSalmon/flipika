@@ -1,0 +1,52 @@
+{
+    "title": "Panel de control",
+    "connect": {
+        "title": "Conectar Google Ads",
+        "description": "Accede a tus campañas para empezar la optimización.",
+        "button": "Conectar una cuenta",
+        "connecting": "Conectando...",
+        "cancel": "Cancelar"
+    },
+    "accountSelector": {
+        "title": "Elige una cuenta",
+        "description": "Selecciona la cuenta de Google Ads a utilizar",
+        "noAccounts": "No se encontraron cuentas de Google Ads.",
+        "accountLabel": "Cuenta: {name}"
+    },
+    "campaigns": {
+        "title": "Tus campañas",
+        "overview": "Resumen de tus campañas de Google Ads",
+        "overviewDemo": "Modo Demo - Resumen de tus campañas de Google Ads",
+        "noCampaigns": "No se encontraron campañas activas.",
+        "createReport": "Crear un informe",
+        "refresh": "Actualizar"
+    },
+    "table": {
+        "headers": {
+            "name": "Nombre",
+            "status": "Estado",
+            "type": "Tipo",
+            "spend": "Gasto",
+            "impressions": "Impr.",
+            "clicks": "Clics",
+            "ctr": "CTR",
+            "averageCpc": "CPC medio"
+        },
+        "unknown": "Desconocido"
+    },
+    "errors": {
+        "connection": "Error de conexión",
+        "auth": "Error de autenticación OAuth",
+        "sessionExpired": "Tu sesión de Google Ads ha caducado. Por favor, vuelve a conectarte.",
+        "loadingCampaigns": "Error al cargar las campañas.",
+        "connectionFailed": "La conexión falló.",
+        "problemTitle": "Problema de conexión",
+        "noPermission": "No tienes permiso para acceder a esta cuenta.",
+        "authRequired": "Autenticación necesaria. Por favor, vuelve a conectar tu cuenta.",
+        "connectionError": "Error al conectar con Google Ads ({error})",
+        "reconnect": "Volver a conectar cuenta"
+    },
+    "actions": {
+        "disconnect": "Desconectar"
+    }
+}

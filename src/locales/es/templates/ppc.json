@@ -1,0 +1,263 @@
+{
+    "page": {
+        "title": "Plantilla Gratuita de Informe PPC 2026 | Para Google Ads y Bing",
+        "metaDescription": "Descarga la plantilla definitiva de informe PPC para 2026. Rastrea campañas de Búsqueda, Display y Vídeo en un solo lugar. Automatizado, en tiempo real y listo para clientes.",
+        "h1": "Deja de agrupar manualmente\ndatos PPC para tus clientes.",
+        "subtitle": "Las hojas de Excel estáticas no pueden seguir el ritmo de la complejidad del PPC moderno. Pásate a la Plantilla PPC en Vivo de Flipika: vistas agregadas, perspectivas automáticas y cero mantenimiento.",
+        "cta": "Usar esta plantilla gratis",
+        "galleryTitle": "Selecciona tu panel PPC",
+        "comparisonTitle": "Por qué Flipika supera a Excel para PPC",
+        "hookTitle": "Por qué es mejor que los informes manuales",
+        "faqTitle": "Preguntas frecuentes",
+        "costTitle": "El coste de los informes PPC manuales",
+        "costSubtitle": "¿Sigues copiando y pegando de Google Ads a Excel? Este es el coste real.",
+        "metricsTitle": "Métricas clave de PPC en 2026",
+        "metricsSubtitle": "Los clics son vanidad. Aquí están las métricas de sensateZ que necesitas.",
+        "howItWorksTitle": "Cómo funciona",
+        "howItWorksSubtitle": "De la conexión a las perspectivas en 3 minutos",
+        "benefitsTitle": "¿Por qué elegir Flipika para PPC?",
+        "benefitsSubtitle": "Informes que demuestran tu ROI y justifican tus honorarios de gestión",
+        "testimonialsTitle": "Lo que dicen los gestores de PPC",
+        "testimonialsSubtitle": "Únete a más de 500 profesionales que mejoraron sus informes",
+        "useCasesTitle": "Casos de uso de PPC",
+        "useCasesSubtitle": "Adaptado para cada tipo de campaña de pago en medios",
+        "tipsTitle": "7 Consejos pro para informes PPC",
+        "tipsSubtitle": "Mejores prácticas de las mejores agencias de rendimiento",
+        "socialProof": "Avalado por más de 500 agencias de PPC en todo el mundo"
+    },
+    "hook": {
+        "speed": {
+            "title": "Carga ultra rápida",
+            "description": "Looker Studio puede tardar más de 10 segundos en cargar. Flipika carga en milisegundos gracias a nuestra capa de caché optimizada."
+        },
+        "branding": {
+            "title": "Perfección en marca blanca",
+            "description": "Sin el logotipo de 'Google' por todas partes. Tu marca, tus colores, tu dominio."
+        },
+        "stability": {
+            "title": "Simplemente funciona",
+            "description": "Se acabaron las desconexiones aleatorias de conectores o visualizaciones rotas."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "5h / Semana por cuenta",
+            "description": "Agrupar datos de campañas de Búsqueda, Display y Vídeo lleva siglos. Flipika unifica todo al instante."
+        },
+        "errors": {
+            "title": "Fórmulas rotas",
+            "description": "Las hojas de Excel complejas suelen tener errores de referencia. Nuestro panel automatizado es siempre 100% preciso."
+        },
+        "opportunity": {
+            "title": "Tiempo de reacción",
+            "description": "Para cuando detectas un CPA alto en un informe semanal manual, ya has desperdiciado presupuesto. Los datos en vivo te permiten reaccionar al instante."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecta cuentas publicitarias",
+            "description": "Conecta Google Ads de forma segura mediante la API oficial. Bing y Meta Ads próximamente. El acceso de solo lectura garantiza la seguridad."
+        },
+        "step2": {
+            "title": "Selecciona plantilla PPC",
+            "description": "Elige entre diseños 'Centrado en búsqueda', 'Funnel completo' o 'Resumen ejecutivo' adaptados para el rendimiento PPC."
+        },
+        "step3": {
+            "title": "Personaliza KPIs",
+            "description": "Arrastra y suelta widgets para mostrar exactamente lo que importa: CPA por dispositivo, ROAS por ubicación o Cuota de impr. perdida."
+        },
+        "step4": {
+            "title": "Automatiza la entrega",
+            "description": "Programa correos semanales a tus clientes o interesados. Recibirán un enlace en vivo o un PDF perfecto."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "100% Automatizado",
+            "description": "Nunca más hagas una captura de pantalla de Google Ads. Tus datos están en vivo, son precisos y siempre están listos para una reunión."
+        },
+        "realtime": {
+            "title": "Ajustes en tiempo real",
+            "description": "Detecta el desperdicio de presupuesto inmediatamente. Los paneles en vivo te permiten reaccionar a picos de CPA antes de que arruinen el rendimiento mensual."
+        },
+        "design": {
+            "title": "Diseño nivel agencia",
+            "description": "Parece un consultor premium. El diseño de glassmorphism y los gráficos interactivos hacen que parezca que vales cada céntimo que cobras."
+        },
+        "whitelabel": {
+            "title": "Tu marca, no la nuestra",
+            "description": "Elimina la marca de Flipika. Usa tu dominio (informe.tuagencia.com) y tu logotipo. Sé el dueño total de la experiencia del cliente."
+        },
+        "multidevice": {
+            "title": "Listo para el móvil",
+            "description": "Los clientes revisan los emails en el móvil. Asegúrate de que tu informe se vea perfecto con nuestro diseño responsivo."
+        },
+        "support": {
+            "title": "Soporte experto en PPC",
+            "description": "Creado por profesionales de PPC para profesionales de PPC. Nuestro equipo de soporte te ayuda a visualizar métricas complejas como los modelos de atribución."
+        }
+    },
+    "testimonials": {
+        "testimonial1": {
+            "quote": "Solía pasar cada lunes por la mañana peleándome con tablas dinámicas de Excel. Ahora mis informes PPC se generan solos. He recuperado 4 horas a la semana.",
+            "author": "James C.",
+            "role": "Gestor de PPC",
+            "company": "Growth Digital"
+        },
+        "testimonial2": {
+            "quote": "Los clientes realmente leen estos informes. Los gráficos interactivos de ROAS frente a gasto ayudaron a maximizar nuestras tasas de aprobación de presupuesto.",
+            "author": "Sarah Jenkins",
+            "role": "Responsable de Búsqueda de Pago",
+            "company": "Ecom Scalers"
+        },
+        "testimonial3": {
+            "quote": "La capacidad de personalizar columnas para el Nivel de Calidad y la Cuota de Impresiones Perdida directamente en el widget de tabla es un antes y un después para mi flujo de trabajo de optimización.",
+            "author": "Mike T.",
+            "role": "Freelancer",
+            "company": "MikePPC"
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "Shopping y Retail",
+            "description": "Visualiza el rendimiento del feed de Shopping. Rastrea los ingresos por grupo de producto y el estado de Merchant Center. Métricas: ROAS, valor del carrito, tasa de compra.",
+            "metrics": [
+                "ROAS de Shopping",
+                "Valor medio de pedido",
+                "Abandono de carrito",
+                "Salud del feed"
+            ]
+        },
+        "leadgen": {
+            "title": "Generación de leads B2B",
+            "description": "Sigue la calidad del lead. Conecta conversiones offline para ver qué palabras clave impulsan contratos reales, no solo formularios. Métricas: Coste/Lead, calidad del lead, valor del pipeline.",
+            "metrics": [
+                "CPA",
+                "Calidad del lead",
+                "Tasa conv. formulario",
+                "Valor del pipeline"
+            ]
+        },
+        "agency": {
+            "title": "Gestión multicliente",
+            "description": "Mira todas tus cuentas gestionadas en una vista maestra. Detecta presupuestos con bajo rendimiento y alertas críticas al instante. Métricas: gasto global, conteo de alertas, ROAS de cartera.",
+            "metrics": [
+                "Gasto de cartera",
+                "Ritmo de presupuesto",
+                "Puntuación de salud",
+                "Alertas críticas"
+            ]
+        },
+        "local": {
+            "title": "Anuncios de servicios locales",
+            "description": "Rastrea llamadas y acciones de ubicación. Perfecto para fontaneros, abogados y negocios locales. Métricas: llamadas, indicaciones, visitas a la tienda.",
+            "metrics": [
+                "Llamadas telefónicas",
+                "Visitas a la tienda",
+                "Acciones locales",
+                "Coste por llamada"
+            ]
+        },
+        "saas": {
+            "title": "Adquisición de usuarios SaaS",
+            "description": "Mide el embudo completo desde la impresión hasta la prueba y el usuario de pago. Optimiza para el LTV. Métricas: CAC, ratio de prueba, contribución al abandono.",
+            "metrics": [
+                "CAC",
+                "De prueba a pago",
+                "Registros",
+                "LTV/CAC"
+            ]
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Vigila la cuota de impr. perdida (Presupuesto)",
+            "description": "Si es alta, estás perdiendo victorias fáciles. Usa esta métrica en Flipika para justificar aumentos de presupuesto a tus clientes."
+        },
+        "tip2": {
+            "title": "Segmenta por tipo de concordancia",
+            "description": "El rendimiento de Amplia vs Exacta suele variar mucho. Usa nuestra función 'Segmentar por' para visualizar la diferencia de ROAS al instante."
+        },
+        "tip3": {
+            "title": "Análisis por día de la semana",
+            "description": "Las campañas B2B suelen quemar dinero los fines de semana. Usa la visualización de mapa de calor para identificar horas de gasto desperdiciado."
+        },
+        "tip4": {
+            "title": "Rastreo del Nivel de Calidad",
+            "description": "No te fijes solo en el QS actual. Rastrea su historial. Flipika registra instantáneas diarias para que puedas demostrar que tu optimización mejoró la puntuación."
+        },
+        "tip5": {
+            "title": "Rendimiento por dispositivo",
+            "description": "Las tasas de conversión móvil suelen ser más bajas. ¿Deberías bajar la puja? Revisa el gráfico de comparación de dispositivos antes de decidirlo."
+        },
+        "tip6": {
+            "title": "Términos de búsqueda reales",
+            "description": "Muestra a los clientes por qué están pagando. Una nube de palabras de los términos de búsqueda reales puede ser muy reveladora y generar mucha confianza."
+        },
+        "tip7": {
+            "title": "Retraso de la conversión",
+            "description": "Explica por qué los resultados de la semana pasada parecen bajos. Usa el informe de retraso temporal para mostrar a los clientes que las conversiones tardan en madurar."
+        }
+    },
+    "gallery": {
+        "executive": {
+            "title": "El Resumen Ejecutivo",
+            "description": "Perfecto para informes a directivos y presentaciones de junta. Se centra en KPIs de alto nivel como ROAS, gasto total y valor de conversión. Diseñado para responder a la pregunta: '¿Se está gastando bien mi dinero?' en 10 segundos. Incluye gráficos de series temporales, comparaciones mes a mes y alertas automáticas sobre anomalías de rendimiento. Ideal para CMOs, CFOs y emprendedores que quieren la visión general sin ahogarse en detalles técnicos."
+        },
+        "ecommerce": {
+            "title": "El Rastreador de ROAS para Ecommerce",
+            "description": "Rendimiento granular por producto, análisis de campañas de shopping y atribución de ingresos. Profundiza por categoría de producto, ID de artículo o ubicación para identificar tus segmentos más rentables. Rastrea el valor medio del pedido, la tasa de conversión y el margen por producto. Compara el rendimiento entre diferentes estrategias de puja (ROAS objetivo, Maximizar conversiones). Perfecto para negocios de ecommerce que gestionan catálogos de más de 100 productos y necesitan saber exactamente qué productos impulsan el mejor ROI publicitario."
+        },
+        "agency": {
+            "title": "La Visión General para Agencias",
+            "description": "¿Gestionas múltiples clientes? Obtén una visión unificada del rendimiento de todas tus cuentas en un solo lugar. Detecta cuentas de bajo rendimiento al instante y asigna tu tiempo donde más importa. Panel multicuenta con alertas en tiempo real, informes automáticos enviados cada lunes por la mañana y exportación de marca blanca para presentaciones a clientes. Rastrea el presupuesto gastado frente al asignado, identifica oportunidades de venta cruzada y demuestra tu valor con métricas claras."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Funcionalidad",
+            "excel": "Informe manual de Excel",
+            "flipika": "Panel PPC de Flipika"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Rastreo de presupuesto",
+                "excel": "Retrasado (Riesgo de sobregasto)",
+                "flipika": "En tiempo real (Evita sobregasto)"
+            },
+            "maintenance": {
+                "feature": "Agregación de datos",
+                "excel": "Descarga y unión manual",
+                "flipika": "Sincronización auto con Google Ads"
+            },
+            "sharing": {
+                "feature": "Entrega",
+                "excel": "Adjunto PDF estático",
+                "flipika": "Enlace en vivo + Email auto"
+            },
+            "design": {
+                "feature": "Diseño visual",
+                "excel": "Gráficos básicos",
+                "flipika": "Imagen de agencia profesional"
+            }
+        }
+    },
+    "faq": {
+        "q1": "¿Es esta plantilla adecuada para presupuestos pequeños?",
+        "a1": "Sí, absolutamente. Tanto si gastas 500$ como 500.000$, las métricas (CPA, CTR, ROAS) siguen siendo los indicadores clave del éxito. Flipika escala contigo.",
+        "q2": "¿Puedo combinar datos de Google y Bing?",
+        "a2": "Actualmente la integración nativa es con Google Ads. La integración con Microsoft Ads (Bing) está en nuestra hoja de ruta para finales de 2026. Mientras tanto, puedes usar bloques de datos manuales para Bing.",
+        "q3": "¿Qué tan precisos son los datos?",
+        "a3": "100% precisos. Extraemos directamente de la API de Google Ads sin muestreo. Lo que ves en Flipika coincide exactamente con tu panel de Google Ads.",
+        "q4": "¿Puedo compartir esto con mi equipo?",
+        "a4": "Sí, puedes invitar a ilimitados miembros del equipo para ver o editar los informes dependiendo de sus permisos. Excelente para la colaboración interna.",
+        "q5": "¿Soporta conversiones personalizadas?",
+        "a5": "Sí, todas las acciones de conversión definidas en tu cuenta de Google Ads se pueden importar. Puedes filtrar los informes para mostrar solo etiquetas de conversión específicas.",
+        "q6": "¿Hay un límite para los datos históricos?",
+        "a6": "Normalmente extraemos los últimos 24 meses de datos al conectar, lo que te permite hacer comparaciones año tras año de inmediato.",
+        "q7": "¿Puedo poner marca blanca a la URL?",
+        "a7": "Sí, en nuestro plan de Agencia puedes mapear un dominio personalizado (ej. informes.agencia.com) para que el cliente nunca vea 'Flipika'.",
+        "q8": "¿Qué tan segura es la conexión?",
+        "a8": "Usamos OAuth 2.0 con alcances de solo lectura estrictos. No podemos cambiar tus anuncios ni gastar tu presupuesto. Estamos verificados por la seguridad de Google."
+    }
+}

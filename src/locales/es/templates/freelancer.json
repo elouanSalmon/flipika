@@ -1,0 +1,180 @@
+{
+    "page": {
+        "title": "Plantilla de Informe de Google Ads para Freelancers 2026",
+        "metaDescription": "Informes profesionales de Google Ads para Freelancers. Parezca una gran agencia sin los costes de una gran agencia.",
+        "h1": "Parezca un profesional,\ncobre como un profesional.",
+        "subtitle": "Deje de enviar capturas de pantalla. Impresione a sus clientes con informes automáticos de marca blanca que justifiquen sus honorarios.",
+        "cta": "Empezar como freelancer",
+        "galleryTitle": "Plantillas para Solopreneurs",
+        "comparisonTitle": "Flipika vs Capturas de pantalla manuales",
+        "hookTitle": "Creado para Freelancers",
+        "faqTitle": "Preguntas frecuentes para freelancers",
+        "costTitle": "El impuesto del freelancer",
+        "costSubtitle": "El tiempo dedicado a los informes es tiempo que no se factura.",
+        "metricsTitle": "KPIs que los clientes entienden",
+        "metricsSubtitle": "Simples, limpios y centrados en el ROI",
+        "howItWorksTitle": "Flujo de trabajo para freelancers",
+        "howItWorksSubtitle": "Automatice sus informes mensuales",
+        "benefitsTitle": "Por qué los freelancers aman Flipika",
+        "benefitsSubtitle": "Libertad frente a las hojas de cálculo",
+        "testimonialsTitle": "Reseñas de freelancers",
+        "testimonialsSubtitle": "Utilizado por más de 500 expertos en marketing independientes",
+        "useCasesTitle": "Tipos de cliente",
+        "useCasesSubtitle": "Pymes, Ecom, Negocios locales",
+        "tipsTitle": "Guía de informes para freelance",
+        "tipsSubtitle": "Retenga a sus clientes por más tiempo",
+        "socialProof": "Ahorrando a los freelancers 10h/semana"
+    },
+    "gallery": {
+        "executive": {
+            "title": "El Resumen Mensual",
+            "description": "Resumen simple de una página. Perfecto para clientes de pequeñas empresas que solo quieren saber '¿está funcionando?'."
+        },
+        "ecommerce": {
+            "title": "Freelancer de E-com",
+            "description": "Plantilla centrada en el ROAS para sus clientes de dropshipping en Shopify o tiendas boutique."
+        },
+        "agency": {
+            "title": "Partner de Marca Blanca",
+            "description": "Si trabaja en marca blanca para agencias, use esta plantilla neutra que se adapta a cualquier marca."
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecte la cuenta del cliente",
+            "description": "Conexión segura mediante inicio de sesión de Google. Nunca tocamos el presupuesto publicitario."
+        },
+        "step2": {
+            "title": "Aplique el tema 'Freelancer Pro'",
+            "description": "Un aspecto limpio y moderno que le hace parecer caro."
+        },
+        "step3": {
+            "title": "Escriba su análisis",
+            "description": "Use el bloque de texto para explicar qué ha hecho este mes. Los clientes pagan por su cerebro, no solo por gráficos."
+        },
+        "step4": {
+            "title": "Programe el PDF",
+            "description": "Configúrelo para que llegue a su bandeja de entrada el día 1 del mes. Usted cobra, nosotros enviamos el informe."
+        }
+    },
+    "benefits": {
+        "automation": {
+            "title": "Cero tiempo de administración",
+            "description": "Usted hace de todo. Los informes no deberían ocupar un día entero. Automatícelos por completo."
+        },
+        "realtime": {
+            "title": "Enlace para el cliente",
+            "description": "Dé a los clientes exigentes un enlace para que dejen de escribirle '¿cómo vamos?' todos los días."
+        },
+        "design": {
+            "title": "Calidad de agencia",
+            "description": "Entregue informes que se vean mejor que los que envían las grandes agencias. Aumente su valor percibido."
+        },
+        "whitelabel": {
+            "title": "Su marca personal",
+            "description": "Ponga su logotipo de freelancer en el encabezado. Construya su propio valor de marca."
+        },
+        "multidevice": {
+            "title": "Listo para el móvil",
+            "description": "Los clientes revisan los emails sobre la marcha. Su informe se verá perfecto en su iPhone."
+        },
+        "support": {
+            "title": "Comunidad",
+            "description": "Únase a otros freelancers. Compartimos consejos sobre cómo explicar métricas negativas."
+        }
+    },
+    "comparison": {
+        "columns": {
+            "feature": "Funcionalidad",
+            "excel": "Capturas manuales",
+            "flipika": "Plantilla para Freelancer"
+        },
+        "rows": {
+            "realtime": {
+                "feature": "Actualizaciones",
+                "excel": "Manuales y estáticas",
+                "flipika": "Automáticas y en vivo"
+            },
+            "maintenance": {
+                "feature": "Coste de tiempo",
+                "excel": "2h por cliente",
+                "flipika": "0h (Automatizado)"
+            },
+            "sharing": {
+                "feature": "Profesionalismo",
+                "excel": "Amateur",
+                "flipika": "Experto"
+            },
+            "design": {
+                "feature": "Formato",
+                "excel": "Email feo",
+                "flipika": "Página web atractiva"
+            }
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Manténgalo simple",
+            "description": "Los clientes pequeños se agobian. Muestre primero 3 números grandes (Gasto, Leads, CPA)."
+        },
+        "tip2": {
+            "title": "Explíquelo todo",
+            "description": "Añada un glosario o use nuestra función 'Métricas explicadas'. Los clientes formados abandonan menos."
+        },
+        "tip3": {
+            "title": "Resalte las victorias",
+            "description": "Use el widget 'Victorias clave' para destacar el anuncio o la palabra clave con mejor rendimiento."
+        },
+        "tip4": {
+            "title": "Transparencia",
+            "description": "Muestre la lista completa de términos de búsqueda. Demuestre que no está desperdiciando el presupuesto en clics malos."
+        },
+        "tip5": {
+            "title": "Paseo en vídeo",
+            "description": "Grabe un vídeo de 2 minutos recorriendo el informe de Flipika. Genera una confianza enorme."
+        },
+        "tip6": {
+            "title": "Comparación",
+            "description": "Compare siempre con el 'Periodo anterior'. El contexto es clave para la retención."
+        },
+        "tip7": {
+            "title": "Siguientes pasos",
+            "description": "Termine cada informe con 'Qué voy a hacer el próximo mes'. Vende la continuidad del servicio."
+        }
+    },
+    "faq": {
+        "q1": "¿Es asequible?",
+        "a1": "Sí, tenemos un plan específico para freelancers. Se paga solo con retener a un solo cliente.",
+        "q2": "¿Puedo tener múltiples clientes?",
+        "a2": "Sí, gestione todos sus clientes desde un solo panel.",
+        "q3": "¿Puede llevar mi logotipo?",
+        "a3": "Sí, la marca blanca completa está incluida.",
+        "q4": "¿Hay contrato de permanencia?",
+        "a4": "No, cancele en cualquier momento si pierde clientes.",
+        "q5": "¿Puedo exportar a PDF?",
+        "a5": "Sí, perfecto para adjuntarlo a su factura mensual.",
+        "q6": "¿Necesito conocimientos técnicos?",
+        "a6": "Ninguno. Si sabe usar Google Ads, sabe usar Flipika.",
+        "q7": "¿Están seguros los datos?",
+        "a7": "Usamos las APIs oficiales de Google. No vemos la información de su tarjeta de crédito.",
+        "q8": "¿Puedo personalizarlo?",
+        "a8": "Sí, arrastre y suelte widgets para adaptarlo a su estilo específico de informes."
+    },
+    "cost": {
+        "time": {
+            "error": "Informes manuales",
+            "value": "5h+ / mes",
+            "flipika": "5min / mes"
+        },
+        "errors": {
+            "error": "Pérdida de clientes",
+            "value": "Alto riesgo",
+            "flipika": "Retención de clientes"
+        },
+        "opportunity": {
+            "error": "Horas facturables",
+            "value": "Perdidas",
+            "flipika": "Maximizadas"
+        }
+    }
+}

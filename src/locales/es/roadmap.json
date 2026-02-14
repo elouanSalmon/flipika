@@ -1,0 +1,87 @@
+{
+    "page": {
+        "title": "Hoja de ruta de Flipika - El futuro de los informes para Media Buyers",
+        "metaDescription": "Descubre la visión de Flipika: desde informes de Google Ads hasta Meta Ads, hacia la Super App definitiva para Media Buyers. Únete ahora."
+    },
+    "hero": {
+        "badge": "HOJA DE RUTA 2026-2027",
+        "title": "Construyamos la herramienta que cada media buyer merece",
+        "description": "Flipika no es solo una herramienta de informes. Es una visión: crear la plataforma todo en uno que transforma el trabajo diario de los media buyers. Esto es lo que viene."
+    },
+    "timeline": {
+        "now": {
+            "badge": "DISPONIBLE AHORA",
+            "title": "Informes de Google Ads",
+            "subtitle": "La mejor herramienta de informes de Google Ads del mercado",
+            "description": "Informes profesionales en pocos clics. Plantillas personalizables, exportaciones automáticas, marca blanca para clientes, enlaces compartibles públicamente.",
+            "features": [
+                "Informes de Google Ads en un clic",
+                "Plantillas personalizables de arrastrar y soltar",
+                "Imagen de marca y temas por cliente",
+                "Enlaces compartibles públicamente",
+                "Informes automáticos programados",
+                "Exportación a PDF y Google Slides"
+            ]
+        },
+        "soon": {
+            "badge": "PRÓXIMAMENTE",
+            "title": "Informes de Meta Ads",
+            "subtitle": "Facebook e Instagram Ads en la misma herramienta",
+            "description": "Conecta tus cuentas de Meta Business y genera informes multiplataforma Google + Meta. Una visión unificada de tu rendimiento publicitario.",
+            "features": [
+                "Conexión con Meta Business Manager",
+                "Informes nativos de Meta Ads",
+                "Informes multiplataforma Google + Meta",
+                "Métricas unificadas multiplataforma",
+                "Plantillas dedicadas para Meta Ads",
+                "Comparación de rendimiento entre canales"
+            ]
+        },
+        "future": {
+            "badge": "VISIÓN",
+            "title": "La Super App del Media Buyer",
+            "subtitle": "Todo lo que necesitas, en un solo lugar",
+            "description": "Nuestra ambición: convertirnos en la herramienta esencial para cada media buyer. Informes, análisis, automatización, colaboración - todo en una sola plataforma.",
+            "features": [
+                "TikTok Ads, LinkedIn Ads, Pinterest Ads",
+                "Panel unificado multifuente",
+                "Copilot de IA para análisis de campañas",
+                "Alertas y recomendaciones inteligentes",
+                "Automatizaciones y flujos de trabajo personalizados",
+                "Colaboración en equipo en tiempo real"
+            ]
+        }
+    },
+    "vision": {
+        "badge": "VENTAJA PARA ADOPTANTES TEMPRANOS",
+        "title": "¿Por qué unirse a Flipika ahora?",
+        "description": "Los adoptantes tempranos que se unan hoy obtendrán todos los beneficios futuros. Cada nueva funcionalidad, cada nueva integración - incluida en tu acceso de por vida.",
+        "points": [
+            {
+                "title": "Dale forma al producto",
+                "description": "Tus comentarios dan forma directamente a nuestra hoja de ruta. Los primeros usuarios tienen un impacto real en las funcionalidades que construimos."
+            },
+            {
+                "title": "Precio garantizado para siempre",
+                "description": "El precio de hoy es el más bajo que tendrá Flipika. A medida que añadimos funciones, el valor aumenta - pero no tu factura."
+            },
+            {
+                "title": "Todo incluido, para siempre",
+                "description": "Meta Ads, TikTok Ads, Copilot de IA, automatizaciones - todo lo que está en esta hoja de ruta estará incluido en tu acceso de por vida."
+            }
+        ]
+    },
+    "cta": {
+        "badge": "OFERTA PARA ADOPTANTES TEMPRANOS",
+        "title": "Asegura tu acceso de por vida",
+        "description": "Únete a los media buyers que ya han elegido Flipika. Un solo pago, acceso ilimitado a todas las funciones actuales y futuras.",
+        "price": "100",
+        "currency": "EUR",
+        "priceLabel": "pago único",
+        "includes": "Google Ads + Meta Ads + todas las futuras integraciones",
+        "button": "Obtener acceso de por vida",
+        "redirecting": "Redirigiendo...",
+        "guarantee": "Garantía de devolución de 30 días",
+        "noSubscription": "Sin suscripción. Sin cargos ocultos."
+    }
+}

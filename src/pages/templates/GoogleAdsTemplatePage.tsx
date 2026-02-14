@@ -51,6 +51,11 @@ const GoogleAdsTemplatePage: React.FC = () => {
             <SEO
                 title={t('page.title')}
                 description={t('page.metaDescription')}
+                canonicalPath="/templates/google-ads"
+                breadcrumbs={[
+                    { name: 'Flipika', path: '/' },
+                    { name: t('page.title').split(' | ')[0], path: '/templates/google-ads' },
+                ]}
             />
 
             {/* JSON-LD Structured Data */}

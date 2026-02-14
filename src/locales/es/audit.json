@@ -1,0 +1,32 @@
+{
+    "title": "Auditoría de Campaña",
+    "description": "Análisis en profundidad y recomendaciones de optimización",
+    "config": {
+        "title": "Configuración de la auditoría",
+        "googleAdsAccount": "Cuenta de Google Ads",
+        "campaign": "Campaña",
+        "analysisPeriod": "Periodo de análisis",
+        "allCampaigns": "Todas las campañas",
+        "periods": {
+            "last30Days": "Últimos 30 días",
+            "last60Days": "Últimos 60 días",
+            "last90Days": "Últimos 90 días"
+        },
+        "launch": "Lanzar auditoría",
+        "analyzing": "Analizando..."
+    },
+    "export": {
+        "pdf": "Exportar como PDF",
+        "pdfInDevelopment": "Exportación a PDF en desarrollo"
+    },
+    "stats": {
+        "totalRecommendations": "Total de recomendaciones",
+        "urgentPriority": "Prioridad urgente",
+        "highImpact": "Alto impacto",
+        "recommendationsByCategory": "Recomendaciones por categoría"
+    },
+    "empty": {
+        "title": "Sin auditoría en curso",
+        "description": "Selecciona una cuenta y una campaña, luego haz clic en \"Lanzar auditoría\" para empezar el análisis."
+    }
+}

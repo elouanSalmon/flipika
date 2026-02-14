@@ -101,22 +101,43 @@
   transform: translateY(-2px);
 }
 
-.footer-ai-platforms {
+.footer-ai-platforms-brand {
   display: flex;
-  gap: var(--spacing-lg);
-  margin-top: var(--spacing-sm);
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+.footer-ai-platforms-brand h4 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-primary);
+  margin: 0;
 }
 
 .footer-ai-link {
   color: var(--color-text-secondary);
   transition: all var(--transition-fast);
   opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
 }
 
 .footer-ai-link:hover {
   color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: var(--glass-bg);
   opacity: 1;
   transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .footer-trust-row {

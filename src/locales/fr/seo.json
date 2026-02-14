@@ -87,5 +87,42 @@
         "title": "Solutions de Reporting Google Ads pour {persona} | Flipika",
         "description": "Découvrez comment Flipika aide les {persona} à automatiser leurs rapports Google Ads, gagner du temps et améliorer la satisfaction client.",
         "keywords": "reporting Google Ads {persona}, automatisation rapports {persona}, outil PPC {persona}, gain de temps reporting"
+    },
+    "featureDetails": {
+        "report-generation": {
+            "title": "Génération automatique de rapports | Flipika - Reporting Google Ads",
+            "description": "Créez des rapports Google Ads professionnels en 2 minutes. Synchronisation automatique, mise en page optimisée, données en temps réel.",
+            "keywords": "générateur rapports Google Ads, rapports PPC automatisés, synchronisation données Google Ads, mise en page rapports"
+        },
+        "ai-narration": {
+            "title": "Narration IA & Insights | Flipika - Reporting Intelligent",
+            "description": "Laissez l'IA analyser vos données Google Ads et générer des insights, suggestions d'optimisation et commentaires en langage naturel.",
+            "keywords": "analyse IA Google Ads, insights automatisés, suggestions optimisation PPC, narration IA rapports"
+        },
+        "custom-templates": {
+            "title": "Templates personnalisés | Flipika - Reporting Marque Blanche",
+            "description": "Créez et sauvegardez des templates Google Ads personnalisés avec votre branding, KPIs favoris et mise en page sur mesure. Marque blanche incluse.",
+            "keywords": "templates Google Ads personnalisés, rapports PPC marque blanche, templates de rapports brandés, éditeur drag and drop"
+        },
+        "scheduling-automation": {
+            "title": "Planification & Automatisation | Flipika - Reporting Automatique",
+            "description": "Planifiez l'envoi automatique de rapports Google Ads : quotidien, hebdomadaire ou mensuel. Vos clients reçoivent leurs insights sans effort.",
+            "keywords": "planification rapports automatique, automatisation reporting Google Ads, rapports PPC récurrents, envoi email automatique"
+        },
+        "multi-format-exports": {
+            "title": "Exports PDF, Slides & Web | Flipika - Reporting Multi-Format",
+            "description": "Exportez vos rapports Google Ads en PDF, diapositives PowerPoint ou liens web interactifs. Le format idéal pour chaque client.",
+            "keywords": "export PDF Google Ads, rapport PPC PowerPoint, rapport web interactif, export multi-format"
+        },
+        "email-sending": {
+            "title": "Envoi de rapports par email | Flipika - Reporting Direct",
+            "description": "Envoyez vos rapports Google Ads directement depuis Flipika avec un message personnalisé. Suivi des ouvertures et historique complet.",
+            "keywords": "envoi rapports Google Ads, livraison directe rapports, suivi ouvertures, reporting email client"
+        },
+        "slideshow-mode": {
+            "title": "Mode Diaporama | Flipika - Présentez comme un Pro",
+            "description": "Transformez vos rapports Google Ads en présentations interactives plein écran. Parfait pour les réunions clients et bilans de performance.",
+            "keywords": "présentation Google Ads, diaporama PPC, mode présentation rapports, reporting réunion client"
+        }
     }
 }

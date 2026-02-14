@@ -1,0 +1,176 @@
+{
+    "page": {
+        "seoTitle": "Alternativa a Excel para informes de Google Ads | Flipika",
+        "seoDescription": "Deja de copiar y pegar manualmente. Automatiza tus informes de Google Ads y elimina los errores humanos.",
+        "h1Title": "Por qué Flipika reemplaza a tus hojas de cálculo de Excel",
+        "subtitle": "El error humano es inevitable. La automatización de Flipika es esencial.",
+        "painPointsTitle": "El problema con Excel",
+        "painPointsSubtitle": "Tus mañanas de lunes merecen algo mejor que copiar y pegar.",
+        "comparisonTitle": "Flipika vs Excel",
+        "comparisonSubtitle": "Manual frente a Automático.",
+        "costTitle": "El coste de lo manual",
+        "costSubtitle": "Calculando el ROI de la automatización",
+        "tipsTitle": "De Excel a lo automático",
+        "tipsSubtitle": "Cómo dejar el trabajo manual sin perder el control",
+        "useCasesTitle": "Casos de uso: Automatización",
+        "migrationCtaTitle": "La automatización empieza aquí",
+        "migrationCtaDesc": "Di adiós a los errores manuales y deja que Flipika haga el trabajo.",
+        "benefitsTitle": "Por qué elegir Flipika",
+        "benefitsSubtitle": "Todo lo que necesitas para informes profesionales de Google Ads",
+        "faqTitle": "Preguntas frecuentes",
+        "useCasesSubtitle": "Flipika se adapta a todos los tipos de negocios"
+    },
+    "benefits": {
+        "speed": {
+            "title": "Rápido como el rayo",
+            "description": "Se acabaron las ruedas de carga. Tus informes se muestran en menos de un segundo, incluso con millones de filas de datos."
+        },
+        "realtime": {
+            "title": "Datos en tiempo real",
+            "description": "Tus informes se actualizan automáticamente. Se acabó el refrescar manualmente o esperar a la sincronización."
+        },
+        "design": {
+            "title": "Diseño Premium",
+            "description": "Informes profesionales con un diseño moderno de glassmorphism que impresiona a tus clientes desde el primer vistazo."
+        },
+        "whitelabel": {
+            "title": "Marca blanca completa",
+            "description": "Tu logotipo, tus colores, tu dominio personalizado. Flipika desaparece tras tu marca."
+        },
+        "ai": {
+            "title": "Perspectivas por IA",
+            "description": "Nuestra IA analiza tus campañas y genera automáticamente recomendaciones accionables."
+        },
+        "support": {
+            "title": "Soporte experto",
+            "description": "Un equipo dedicado disponible vía chat los 7 días de la semana para apoyarte en tu migración."
+        }
+    },
+    "useCases": {
+        "ecommerce": {
+            "title": "E-commerce y Shopping Ads",
+            "description": "Rastrea el rendimiento de tus Shopping Ads con informes detallados sobre productos, categorías y ROAS por SKU. Perfecto para tiendas online que gestionan catálogos de miles de referencias.",
+            "metrics": [
+                "ROAS por producto",
+                "Rendimiento por categoría",
+                "Tasa de conversión de Shopping"
+            ]
+        },
+        "leadgen": {
+            "title": "Generación de Leads B2B",
+            "description": "Optimiza tus campañas de generación de leads con informes que rastrean todo el recorrido: desde el clic hasta la conversión cualificada. Integraciones con CRM disponibles.",
+            "metrics": [
+                "Coste por lead",
+                "Tasa de cualificación",
+                "ROI por campaña"
+            ]
+        },
+        "agency": {
+            "title": "Agencias de Marketing",
+            "description": "Gestiona múltiples clientes desde una sola interfaz. Informes automatizados, marca blanca completa y facturación integrada para un flujo de trabajo de agencia optimizado.",
+            "metrics": [
+                "Informes multi-cliente",
+                "Marca blanca",
+                "Automatización total"
+            ]
+        },
+        "local": {
+            "title": "Negocios Locales",
+            "description": "Rastrea tus campañas locales (Google Maps, llamadas, indicaciones) con métricas geolocalizadas. Perfecto para franquicias y redes multi-ubicación.",
+            "metrics": [
+                "Llamadas telefónicas",
+                "Indicaciones para llegar",
+                "Rendimiento por zona"
+            ]
+        },
+        "saas": {
+            "title": "SaaS y Software",
+            "description": "Rastrea todo tu embudo de adquisición: pruebas gratuitas, conversiones de pago, LTV. Integraciones con Stripe, Paddle y las principales herramientas SaaS.",
+            "metrics": [
+                "CAC por canal",
+                "Ratio LTV/CAC",
+                "Conversión prueba a pago"
+            ]
+        }
+    },
+    "howItWorks": {
+        "step1": {
+            "title": "Conecta tus cuentas",
+            "description": "En lugar de descargar CSVs, conecta tus cuentas de Google Ads en modo solo lectura."
+        },
+        "step2": {
+            "title": "Elige tus métricas",
+            "description": "Selecciona los KPIs que tenías en tus columnas de Excel (CPC, CTR, Tasa Conv...)."
+        },
+        "step3": {
+            "title": "Deja que el robot trabaje",
+            "description": "Flipika recupera los datos, realiza los cálculos y rellena las tablas por ti. Todos los días."
+        },
+        "step4": {
+            "title": "Analiza en lugar de teclear",
+            "description": "Usa el tiempo ahorrado para analizar los números y aportar valor estratégico."
+        }
+    },
+    "cost": {
+        "time": {
+            "title": "Horas hombre",
+            "description": "Si pasas 2h por semana actualizando Excels para 10 clientes, son 80h al mes. Eso es medio puesto de trabajo solo para introducir datos."
+        },
+        "maintenance": {
+            "title": "Errores de fórmulas",
+            "description": "Un error al copiar y pegar o una fórmula rota en Excel pueden sesgar un informe y romper la confianza del cliente. El coste del error es enorme."
+        },
+        "opportunity": {
+            "title": "Diseño pobre",
+            "description": "Incluso con esfuerzo, un Excel sigue siendo un Excel. Es difícil justificar los honorarios de tu agencia con una hoja de cálculo cruda."
+        }
+    },
+    "tips": {
+        "tip1": {
+            "title": "Haz una lista de tus columnas",
+            "description": "Coge tu Excel típico y haz una lista de todas las columnas. Comprueba que existen como métricas estándar."
+        },
+        "tip2": {
+            "title": "Recrea tus fórmulas",
+            "description": "¿Tenías cálculos de margen personalizados? Usa los campos calculados de Flipika para hacer lo mismo."
+        },
+        "tip3": {
+            "title": "Olvida el BUSCARV",
+            "description": "No hace falta hacer búsquedas verticales complejas para cruzar datos. Flipika lo hace de forma nativa."
+        },
+        "tip4": {
+            "title": "Piensa en gráficos",
+            "description": "Transforma tus tablas de números indigeribles en gráficos de evolución. Es hora de visualizar."
+        },
+        "tip5": {
+            "title": "Mantén el control",
+            "description": "¿Te gustaba Excel por el control? Flipika te permite editar, comentar y ajustar. No pierdes el mando."
+        },
+        "tip6": {
+            "title": "Archiva los archivos antiguos",
+            "description": "Guarda tus viejos Excels como copia de seguridad pero no los actualices más. Corta el cordón umbilical."
+        },
+        "tip7": {
+            "title": "Automatiza el envío",
+            "description": "Ya no hace falta enviar el archivo por email. Programa el envío automático de un enlace cada lunes a las 9 AM."
+        }
+    },
+    "faq": {
+        "q1": "¿Puedo subir mi Excel?",
+        "a1": "Sí, si tienes datos que no son de Google Ads (objetivos, offline...), puedes ponerlos en una Google Sheet y conectarla a Flipika.",
+        "q2": "¿Es tan flexible como Excel?",
+        "a2": "Casi. No puedes colorear cada celda individualmente, pero para informes de marketing, ganas muchísimo en estructura y fiabilidad.",
+        "q3": "Mis fórmulas son complejas.",
+        "a3": "Nuestro motor de campos calculados gestiona operaciones (+ - * /) y paréntesis. Eso cubre el 99% de las necesidades de marketing.",
+        "q4": "¿Es de pago?",
+        "a4": "Sí, pero compara el precio de la suscripción con tu tarifa horaria multiplicada por las horas ahorradas. El ROI es inmediato.",
+        "q5": "¿Puedo exportar a Excel?",
+        "a5": "Puedes exportar los datos de los gráficos a CSV si necesitas hacer un análisis ad-hoc en Excel.",
+        "q6": "¿Hay tablas dinámicas?",
+        "a6": "Las tablas de Flipika permiten agrupar por dimensiones (Campaña, GrupoAnuncios, PalabraClave...), lo que equivale a una tabla dinámica.",
+        "q7": "Mis clientes prefieren el Excel.",
+        "a7": "Dicen eso, pero nunca han visto un informe interactivo atractivo. Prueba un mes y no querrán volver atrás.",
+        "q8": "¿Es seguro?",
+        "a8": "Mucho más que un archivo Excel dando vueltas por los correos electrónicos. El acceso está controlado y es revocable."
+    }
+}
