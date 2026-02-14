@@ -319,6 +319,35 @@
       "averageRoas": "Average time saved"
     }
   },
+  "pricingPreview": {
+    "title": "Simple and Transparent Pricing",
+    "subtitle": "Start for free, pay when you see the value.",
+    "monthly": {
+      "title": "Monthly",
+      "price": "10€",
+      "period": "/month",
+      "perAccount": "per client account",
+      "cta": "Start Free Trial",
+      "features": [
+        "Unlimited reports",
+        "All features",
+        "Priority support"
+      ]
+    },
+    "lifetime": {
+      "badge": "LIMITED OFFER",
+      "title": "Lifetime Access",
+      "price": "100€",
+      "period": "one-time payment",
+      "cta": "Get Lifetime Access",
+      "features": [
+        "Unlimited accounts",
+        "Lifetime updates",
+        "No subscription"
+      ]
+    },
+    "seeMore": "See all details"
+  },
   "footer": {
     "copyright": "All rights reserved",
     "legal": "Legal Notices",

@@ -47,23 +47,28 @@ const RoadmapPreview: React.FC = () => {
                     </Link>
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
-                >
-                    {logos.map((Logo, i) => (
-                        <motion.div
-                            key={i}
-                            whileHover={{ opacity: 1 }}
-                            className="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors"
-                        >
-                            <Logo size={40} className="md:w-14 md:h-14" />
-                        </motion.div>
-                    ))}
-                </motion.div>
+                {/* Logos Marquee */}
+                <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] group">
+                    <motion.div
+                        className="flex w-max items-center gap-16 md:gap-24"
+                        animate={{ x: "-50%" }}
+                        transition={{
+                            duration: 20,
+                            ease: "linear",
+                            repeat: Infinity,
+                        }}
+                    >
+                        {[...logos, ...logos].map((Logo, i) => (
+                            <motion.div
+                                key={i}
+                                whileHover={{ opacity: 1, scale: 1.1 }}
+                                className="text-[var(--color-text-secondary)] opacity-60 grayscale hover:grayscale-0 hover:text-[var(--color-primary)] transition-all duration-300 flex items-center justify-center shrink-0"
+                            >
+                                <Logo size={40} className="md:w-12 md:h-12" />
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
             </div>
         </section>
     );

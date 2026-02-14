@@ -1,10 +1,15 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useAnimationFrame } from 'framer-motion';
 import { Star, Quote, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Testimonials: React.FC = () => {
   const { t } = useTranslation();
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [contentWidth, setContentWidth] = React.useState(0);
+  const x = useMotionValue(0);
+  const [isHovered, setIsHovered] = React.useState(false);
+  const [isDragging, setIsDragging] = React.useState(false);
 
   const testimonials = [
     {
@@ -45,8 +50,61 @@ const Testimonials: React.FC = () => {
     }
   ];
 
+  // We duplicate enough times to ensure smooth scrolling on large screens
+  // 4 items * 3 = 12 items. Enough for > 4000px width.
+  const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
+
+  React.useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        const totalWidth = containerRef.current.scrollWidth;
+        const oneSetWidth = totalWidth / 3;
+        setContentWidth(oneSetWidth);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  useAnimationFrame((_time: number, delta: number) => {
+    if (isHovered || isDragging || contentWidth === 0) return;
+
+    // Move left
+    // Adjust speed here: Higher is faster. 0.05 is decent.
+    const moveBy = 0.05 * delta;
+    let newX = x.get() - moveBy;
+
+    // Wrap logic
+    // If we've scrolled past one full set width, reset by adding that width
+    if (newX <= -contentWidth) {
+      newX += contentWidth;
+    }
+    // If somehow we are positive (dragged right too much), wrap back
+    else if (newX > 0) {
+      newX -= contentWidth;
+    }
+
+    x.set(newX);
+  });
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    // Align? Optional. For marquee we usually don't align.
+    // Ensure we are within bounds?
+    // The auto-scroll loop will handle bounds on next frame locally,
+    // but if user dragged WAY off, we might want to wrap immediately.
+    const currentX = x.get();
+    if (currentX <= -contentWidth) {
+      x.set(currentX % contentWidth);
+    } else if (currentX > 0) {
+      x.set(-contentWidth + (currentX % contentWidth));
+    }
+  };
+
   return (
-    <section id="testimonials" className="py-20 sm:py-28">
+    <section id="testimonials" className="py-20 sm:py-28 bg-[var(--color-bg-primary)] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -65,22 +123,22 @@ const Testimonials: React.FC = () => {
         </motion.div>
 
         {/* Testimonials Marquee */}
-        <div className="relative w-full overflow-hidden mask-gradient group">
-          {/* Side Fade Effects */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-32 bg-gradient-to-r from-[var(--color-bg-primary)] to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-32 bg-gradient-to-l from-[var(--color-bg-primary)] to-transparent" />
-
+        <div
+          className="relative w-full group cursor-grab active:cursor-grabbing [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {/* Scrolling Container */}
           <motion.div
+            ref={containerRef}
             className="flex w-max"
-            animate={{ x: "-50%" }}
-            transition={{
-              duration: 30,
-              ease: "linear",
-              repeat: Infinity,
-            }}
+            style={{ x }}
+            drag="x"
+            dragConstraints={{ left: -contentWidth * 2, right: 0 }} // Relaxed constraints
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={handleDragEnd}
           >
-            {[...testimonials, ...testimonials].map((testimonial, i) => (
+            {duplicatedTestimonials.map((testimonial, i) => (
               <div key={`testimonial-${i}`} className="mr-6 h-full">
                 <TestimonialCard testimonial={testimonial} />
               </div>
@@ -93,12 +151,12 @@ const Testimonials: React.FC = () => {
 };
 
 const TestimonialCard = ({ testimonial }: { testimonial: any }) => (
-  <div className="relative flex flex-col p-6 w-[350px] shrink-0 bg-white dark:bg-black/60 rounded-2xl border border-neutral-200/60 dark:border-white/10 shadow-sm transition-transform hover:-translate-y-1 duration-300 h-full">
+  <div className="relative flex flex-col p-6 w-[350px] shrink-0 bg-white dark:bg-black/60 rounded-2xl border border-neutral-200/60 dark:border-white/10 shadow-sm transition-transform hover:-translate-y-1 duration-300 h-full select-none">
     {/* Quote */}
     <Quote size={24} className="text-primary/15 mb-3" />
 
     {/* Content */}
-    <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed mb-5 flex-1">
+    <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed mb-5 flex-1 line-clamp-5">
       "{testimonial.content}"
     </p>
 
@@ -113,7 +171,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: any }) => (
       <img
         src={testimonial.avatar}
         alt={testimonial.name}
-        className="w-10 h-10 rounded-full object-cover"
+        className="w-10 h-10 rounded-full object-cover pointer-events-none"
       />
       <div>
         <div className="flex items-center gap-1.5">

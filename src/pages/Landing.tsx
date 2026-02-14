@@ -12,6 +12,7 @@ import Footer from '../components/Footer';
 import CookieConsent from '../components/CookieConsent';
 import SEO from '../components/SEO';
 import RoadmapPreview from '../components/RoadmapPreview';
+import PricingPreview from '../components/PricingPreview';
 
 const Landing = () => {
     const { t } = useTranslation('seo');
@@ -67,6 +68,7 @@ const Landing = () => {
                     <FeatureShowcase key={index} {...showcase} />
                 ))}
                 <Testimonials />
+                <PricingPreview />
                 <RoadmapPreview />
                 <ClosingCTA />
             </main>

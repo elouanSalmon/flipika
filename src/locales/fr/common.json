@@ -319,6 +319,35 @@
       "averageRoas": "Temps gagné moyen"
     }
   },
+  "pricingPreview": {
+    "title": "Une tarification simple et transparente",
+    "subtitle": "Commencez gratuitement, payez quand vous validez la valeur.",
+    "monthly": {
+      "title": "Mensuel",
+      "price": "10€",
+      "period": "/mois",
+      "perAccount": "par compte client",
+      "cta": "Essayer gratuitement",
+      "features": [
+        "Rapports illimités",
+        "Toutes les fonctionnalités",
+        "Support prioritaire"
+      ]
+    },
+    "lifetime": {
+      "badge": "OFFRE LIMITÉE",
+      "title": "Accès à vie",
+      "price": "100€",
+      "period": "paiement unique",
+      "cta": "Obtenir l'accès à vie",
+      "features": [
+        "Comptes illimités",
+        "Mises à jour à vie",
+        "Pas d'abonnement"
+      ]
+    },
+    "seeMore": "Voir tous les détails"
+  },
   "footer": {
     "copyright": "Tous droits réservés",
     "legal": "Mentions Légales",
