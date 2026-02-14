@@ -11,6 +11,7 @@ import {
     Send,
     Calendar,
     Feather,
+    Edit2,
 } from 'lucide-react';
 import { SiGoogleads } from 'react-icons/si';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
@@ -109,9 +110,25 @@ export const HeroDashboardIllustration: React.FC = () => {
                         {state === 'loading' ? (
                             <div className="h-4 w-32 md:h-5 md:w-48 bg-neutral-100 dark:bg-neutral-800 rounded animate-pulse" />
                         ) : (
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col">
-                                <div className="text-xs md:text-lg font-bold text-neutral-900 dark:text-white">Rapport Performance Mensuel</div>
-                                <div className="text-[8px] md:text-xs text-neutral-500">Période du 1 Jan - 31 Jan 2026</div>
+                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col flex-1">
+                                <div className="flex items-start justify-between">
+                                    <div className="flex flex-col">
+                                        <div className="text-xs md:text-lg font-bold text-neutral-900 dark:text-white">Rapport Performance Mensuel</div>
+                                        <div className="text-[8px] md:text-xs text-neutral-500">Période du 1 Jan - 31 Jan 2026</div>
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="flex items-center gap-1.5 md:gap-2">
+                                        <div className="px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-neutral-200 dark:border-white/10 text-neutral-500 dark:text-neutral-400 text-[8px] md:text-[10px] font-medium flex items-center gap-1">
+                                            <Edit2 className="w-2 h-2 md:w-3 md:h-3" />
+                                            <span>Modifier</span>
+                                        </div>
+                                        <div className="px-2 py-1 md:px-3 md:py-1.5 rounded-lg bg-primary text-white shadow-lg shadow-primary/20 text-[8px] md:text-[10px] font-medium flex items-center gap-1">
+                                            <Send className="w-2 h-2 md:w-3 md:h-3" />
+                                            <span>Envoyer</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </motion.div>
                         )}
                     </div>
@@ -221,6 +238,34 @@ export const HeroDashboardIllustration: React.FC = () => {
                     )}
                 </div>
             </div>
+            {/* Animated 3D Paper Plane (Sending Reports) */}
+            <motion.div
+                className="absolute z-50 pointer-events-none"
+                initial={{ left: "10%", top: "70%", opacity: 0, scale: 0.5, rotate: 0 }}
+                animate={{
+                    left: ["10%", "40%", "85%"],
+                    top: ["70%", "30%", "15%"],
+                    opacity: [0, 1, 0],
+                    scale: [0.8, 1.1, 0.6],
+                    rotate: [0, 5, 15]
+                }}
+                transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    repeatDelay: 2
+                }}
+            >
+                <div
+                    className="w-10 h-10 md:w-14 md:h-14 bg-white/90 dark:bg-neutral-800/90 rounded-2xl shadow-prominent border border-white/40 dark:border-white/10 flex items-center justify-center backdrop-blur-md"
+                    style={{ transform: "rotateY(-15deg) rotateX(5deg) scale(1.1)" }}
+                >
+                    <Send className="w-5 h-5 md:w-7 md:h-7 text-primary fill-primary/20 -ml-0.5 mt-0.5" strokeWidth={2.5} />
+
+                    {/* Motion trail effect */}
+                    <div className="absolute -left-4 top-1/2 w-8 h-12 bg-gradient-to-r from-transparent to-white/20 blur-md transform -translate-y-1/2 -rotate-12" />
+                </div>
+            </motion.div>
         </IllustrationShell>
     );
 };
