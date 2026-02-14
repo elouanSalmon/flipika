@@ -167,13 +167,21 @@ const SimpleHeader = () => {
                         <LanguageSwitcher />
                         <ThemeToggle />
 
-                        {/* CTA - desktop only */}
-                        <button
-                            className="btn btn-primary cta-button"
-                            onClick={() => navigate(getLangPath('/login'))}
-                        >
-                            {t('common:header.login')}
-                        </button>
+                        {/* Auth Actions - Desktop only */}
+                        <div className="auth-actions">
+                            <button
+                                className="btn btn-secondary login-button"
+                                onClick={() => navigate(getLangPath('/login'))}
+                            >
+                                {t('common:header.login')}
+                            </button>
+                            <button
+                                className="btn btn-primary signup-button"
+                                onClick={() => navigate(getLangPath('/login'))}
+                            >
+                                {t('common:header.signup')}
+                            </button>
+                        </div>
 
                         {/* Burger menu - mobile only */}
                         <button
@@ -255,13 +263,22 @@ const SimpleHeader = () => {
 
                                 <div className="my-2 border-t border-[var(--color-border)]" />
 
-                                <Link
-                                    to={getLangPath('/login')}
-                                    className="btn btn-primary w-full text-center py-3"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    {t('common:header.login')}
-                                </Link>
+                                <div className="flex flex-col gap-2 mt-4">
+                                    <Link
+                                        to={getLangPath('/login')}
+                                        className="btn btn-secondary w-full text-center py-3"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {t('common:header.login')}
+                                    </Link>
+                                    <Link
+                                        to={getLangPath('/login')}
+                                        className="btn btn-primary w-full text-center py-3"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {t('common:header.signup')}
+                                    </Link>
+                                </div>
                             </div>
                         </motion.nav>
                     </motion.div>

@@ -88,18 +88,32 @@ const Header: React.FC = () => {
             <ThemeToggle />
           </motion.div>
 
-          {/* CTA Button - Desktop only */}
-          <motion.button
-            className="btn btn-primary cta-button"
-            onClick={() => navigate(getLangPath('/login'))}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {t('common:hero.cta')}
-          </motion.button>
+          {/* Auth Actions - Desktop only */}
+          <div className="auth-actions">
+            <motion.button
+              className="btn btn-secondary login-button"
+              onClick={() => navigate(getLangPath('/login'))}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {t('common:header.login')}
+            </motion.button>
+
+            <motion.button
+              className="btn btn-primary signup-button"
+              onClick={() => navigate(getLangPath('/login'))}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.7 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {t('common:header.signup')}
+            </motion.button>
+          </div>
         </div>
       </div>
     </motion.header>

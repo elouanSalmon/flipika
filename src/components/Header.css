@@ -216,17 +216,30 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* CTA Button */
-.cta-button {
+/* Auth Actions */
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.login-button,
+.signup-button {
   font-size: var(--font-size-sm);
   font-weight: 600;
   white-space: nowrap;
   letter-spacing: 0.025em;
   overflow: hidden;
   position: relative;
+  padding: 0 24px !important;
+  height: 48px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: var(--radius-lg) !important;
 }
 
-.cta-button::before {
+.signup-button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -238,9 +251,10 @@
   pointer-events: none;
 }
 
-.cta-button:hover::before {
+.signup-button:hover::before {
   left: 100%;
 }
+
 
 /* Mobile styles removed - using theme toggle instead of hamburger menu */
 
@@ -280,7 +294,7 @@
     display: none;
   }
 
-  .cta-button {
+  .auth-actions {
     display: none !important;
   }
 

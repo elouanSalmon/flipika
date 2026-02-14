@@ -11,7 +11,8 @@
     "problem": "Problèmes",
     "roadmap": "Roadmap",
     "alternatives": "Alternatives",
-    "login": "Connexion"
+    "login": "Connexion",
+    "signup": "S'inscrire"
   },
   "auth": {
     "login": {
