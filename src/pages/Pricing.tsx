@@ -6,19 +6,11 @@ import {
     CheckCircle,
     X as XIcon,
     ChevronDown,
-    Users,
-    FileText,
-    Clock,
-    Star,
-    Shield,
-    CreditCard,
     ArrowRight,
-    BarChart3,
-    HelpCircle,
-    Tag,
 } from 'lucide-react';
 import PricingInfoModal from '../components/billing/PricingInfoModal';
 import RoadmapPreview from '../components/RoadmapPreview';
+import TrustBar from '../components/TrustBar';
 import SEO from '../components/SEO';
 
 const containerVariants = {
@@ -71,20 +63,6 @@ export default function Pricing() {
         { key: 'row8', monthly: false, lifetime: true },
         { key: 'row9', monthly: false, lifetime: true },
         { key: 'row10', monthly: false, lifetime: true },
-    ];
-
-    const stats = [
-        { icon: Users, value: t('billing:pricing.social.stat1Value'), label: t('billing:pricing.social.stat1Label') },
-        { icon: FileText, value: t('billing:pricing.social.stat2Value'), label: t('billing:pricing.social.stat2Label') },
-        { icon: Clock, value: t('billing:pricing.social.stat3Value'), label: t('billing:pricing.social.stat3Label') },
-        { icon: Star, value: t('billing:pricing.social.stat4Value'), label: t('billing:pricing.social.stat4Label') },
-    ];
-
-    const trustBadges = [
-        { icon: CreditCard, label: t('billing:pricing.social.trustStripe') },
-        { icon: Shield, label: t('billing:pricing.social.trustTrial') },
-        { icon: CheckCircle, label: t('billing:pricing.social.trustCancel') },
-        { icon: Shield, label: t('billing:pricing.social.trustGdpr') },
     ];
 
     const faqItems = Array.from({ length: 8 }, (_, i) => ({
@@ -156,7 +134,6 @@ export default function Pricing() {
                             className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6"
                             variants={itemVariants}
                         >
-                            <Tag size={16} />
                             <span>{t('billing:pricing.hero.badge')}</span>
                         </motion.div>
 
@@ -175,6 +152,7 @@ export default function Pricing() {
                         </motion.p>
                     </motion.div>
                 </section>
+
 
                 {/* ============================================================
                     Section 2 — Pricing Cards
@@ -350,6 +328,8 @@ export default function Pricing() {
                     </motion.div>
                 </section>
 
+                <TrustBar />
+
                 {/* ============================================================
                     Section 3 — Feature Comparison Table
                 ============================================================ */}
@@ -363,7 +343,6 @@ export default function Pricing() {
                     >
                         <motion.div className="text-center mb-16" variants={itemVariants}>
                             <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6">
-                                <BarChart3 size={16} />
                                 <span>{t('billing:pricing.comparison.badge')}</span>
                             </div>
                             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-neutral-200 mb-4 tracking-tight">
@@ -423,55 +402,7 @@ export default function Pricing() {
                     </motion.div>
                 </section>
 
-                {/* ============================================================
-                    Section 4 — Social Proof / Stats
-                ============================================================ */}
-                <section className="relative py-24 px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                        className="max-w-5xl mx-auto"
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: '-50px' }}
-                    >
-                        {/* Stats row */}
-                        <motion.div
-                            className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10"
-                            variants={containerVariants}
-                        >
-                            {stats.map((stat) => (
-                                <motion.div
-                                    key={stat.label}
-                                    className="flex flex-col items-center gap-2 p-5 glass rounded-xl text-center"
-                                    variants={itemVariants}
-                                    whileHover={{ y: -4 }}
-                                >
-                                    <stat.icon className="w-6 h-6 text-primary" />
-                                    <span className="text-2xl font-bold text-neutral-900 dark:text-neutral-200">{stat.value}</span>
-                                    <span className="text-sm text-neutral-600 dark:text-neutral-400">{stat.label}</span>
-                                </motion.div>
-                            ))}
-                        </motion.div>
 
-                        {/* Trust badges */}
-                        <motion.div
-                            className="flex flex-wrap items-center justify-center gap-3"
-                            variants={containerVariants}
-                        >
-                            {trustBadges.map((badge) => (
-                                <motion.div
-                                    key={badge.label}
-                                    className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm text-neutral-600 dark:text-neutral-400"
-                                    variants={itemVariants}
-                                    whileHover={{ y: -2 }}
-                                >
-                                    <badge.icon size={14} />
-                                    <span>{badge.label}</span>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    </motion.div>
-                </section>
 
                 {/* ============================================================
                     Section 5 — FAQ Accordion
@@ -486,7 +417,6 @@ export default function Pricing() {
                     >
                         <motion.div className="text-center mb-16" variants={itemVariants}>
                             <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6">
-                                <HelpCircle size={16} />
                                 <span>{t('billing:pricing.faq.badge')}</span>
                             </div>
                             <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-neutral-200 mb-4 tracking-tight">
@@ -539,6 +469,15 @@ export default function Pricing() {
                             ))}
                         </div>
                     </motion.div>
+                </section>
+
+                {/* ============================================================
+                    Section 7 — Roadmap Preview (existing, unchanged)
+                ============================================================ */}
+                <section className="relative pb-24 px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-6xl mx-auto">
+                        <RoadmapPreview />
+                    </div>
                 </section>
 
                 {/* ============================================================
@@ -595,14 +534,7 @@ export default function Pricing() {
                     </motion.div>
                 </section>
 
-                {/* ============================================================
-                    Section 7 — Roadmap Preview (existing, unchanged)
-                ============================================================ */}
-                <section className="relative pb-24 px-4 sm:px-6 lg:px-8">
-                    <div className="max-w-6xl mx-auto">
-                        <RoadmapPreview />
-                    </div>
-                </section>
+
             </div>
 
             {/* Pricing Info Modal */}
