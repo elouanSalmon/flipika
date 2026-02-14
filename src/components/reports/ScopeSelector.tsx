@@ -139,10 +139,10 @@ const ScopeSelector: React.FC<ScopeSelectorProps> = ({
     };
 
     return (
-        <div className="scope-selector p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-xl border border-neutral-200 dark:border-neutral-700">
+        <div className="scope-selector p-4 bg-neutral-50 dark:bg-black/50 rounded-xl border border-neutral-200 dark:border-white/10">
             <div className="flex items-center gap-2 mb-4">
-                <Target size={18} className="text-blue-600 dark:text-blue-400" />
-                <h4 className="font-semibold text-neutral-900 dark:text-neutral-100">
+                <Target size={18} className="text-primary dark:text-primary-light" />
+                <h4 className="font-semibold text-neutral-900 dark:text-neutral-200">
                     Portée des données
                 </h4>
             </div>
@@ -156,7 +156,7 @@ const ScopeSelector: React.FC<ScopeSelectorProps> = ({
                     <select
                         value={scopeType}
                         onChange={(e) => handleScopeTypeChange(e.target.value as SlideScope['type'])}
-                        className="w-full px-4 py-2 bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100 appearance-none pr-10"
+                        className="w-full px-4 py-2 bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-neutral-900 dark:text-neutral-200 appearance-none pr-10"
                     >
                         {availableScopeTypes.map(type => (
                             <option key={type} value={type}>
@@ -186,7 +186,7 @@ const ScopeSelector: React.FC<ScopeSelectorProps> = ({
                             Aucune campagne disponible dans ce rapport
                         </div>
                     ) : (
-                        <div className="max-h-48 overflow-y-auto space-y-1 border border-neutral-200 dark:border-neutral-600 rounded-xl p-2 bg-white dark:bg-neutral-700">
+                        <div className="max-h-48 overflow-y-auto space-y-1 border border-neutral-200 dark:border-white/10 rounded-xl p-2 bg-white dark:bg-black">
                             {campaigns.map(campaign => {
                                 const isChecked = value?.campaignIds?.includes(campaign.id) || false;
                                 return (
@@ -199,9 +199,9 @@ const ScopeSelector: React.FC<ScopeSelectorProps> = ({
                                             name={scopeType === 'single_campaign' ? 'campaign' : undefined}
                                             checked={isChecked}
                                             onChange={(e) => handleCampaignChange(campaign.id, e.target.checked)}
-                                            className="w-4 h-4 text-blue-600 border-neutral-300 dark:border-neutral-500 rounded focus:ring-2 focus:ring-blue-500/20"
+                                            className="w-4 h-4 text-primary border-neutral-300 dark:border-white/10 rounded focus:ring-2 focus:ring-primary/20"
                                         />
-                                        <span className="text-sm text-neutral-900 dark:text-neutral-100">
+                                        <span className="text-sm text-neutral-900 dark:text-neutral-200">
                                             {campaign.name}
                                         </span>
                                     </label>

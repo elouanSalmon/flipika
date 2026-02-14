@@ -120,7 +120,7 @@ const EmailCapture: React.FC = () => {
               <Mail size={28} className="text-primary" />
             </div>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white mb-4 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-neutral-200 mb-4 tracking-tight">
               {t('common:emailCapture.title')}
             </h2>
 
@@ -139,7 +139,7 @@ const EmailCapture: React.FC = () => {
                   placeholder={t('common:emailCapture.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-neutral-700/50 border-2 rounded-2xl text-neutral-900 dark:text-white placeholder-neutral-400 transition-all duration-300 focus:outline-none focus:ring-0 focus:border-primary focus:bg-white dark:focus:bg-neutral-700/70 focus:shadow-lg focus:shadow-primary/10 ${status === 'error' ? 'border-primary' : 'border-neutral-200/50 dark:border-neutral-600/50'
+                  className={`w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-black/50 border-2 rounded-2xl text-neutral-900 dark:text-neutral-200 placeholder-neutral-400 transition-all duration-300 focus:outline-none focus:ring-0 focus:border-primary focus:bg-white dark:focus:bg-neutral-700/70 focus:shadow-lg focus:shadow-primary/10 ${status === 'error' ? 'border-primary' : 'border-neutral-200/50 dark:border-white/10'
                     }`}
                   disabled={isSubmitting}
                 />

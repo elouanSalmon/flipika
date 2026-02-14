@@ -20,7 +20,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
         const styles = {
             HIGH: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400',
             MEDIUM: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400',
-            LOW: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
+            LOW: 'bg-primary-100 dark:bg-primary-900/30 text-primary-dark dark:text-primary-light',
         };
 
         const labels = {
@@ -40,7 +40,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
         const styles = {
             URGENT: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400',
             IMPORTANT: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400',
-            MINOR: 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-400',
+            MINOR: 'bg-neutral-100 dark:bg-black text-neutral-700 dark:text-neutral-400',
         };
 
         const labels = {
@@ -82,7 +82,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
     };
 
     return (
-        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
             <div className="space-y-4">
                 {/* Header */}
                 <div className="flex items-start justify-between gap-4">
@@ -106,9 +106,9 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
 
                 {/* Impact value */}
                 {recommendation.impactValue && (
-                    <div className="flex items-center gap-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                        <TrendingUp size={18} className="text-blue-600 dark:text-blue-400" />
-                        <span className="font-semibold text-blue-900 dark:text-blue-100">
+                    <div className="flex items-center gap-2 p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg border border-primary-200 dark:border-primary-800">
+                        <TrendingUp size={18} className="text-primary dark:text-primary-light" />
+                        <span className="font-semibold text-primary-dark dark:text-primary-light">
                             Impact estimé :{' '}
                             {recommendation.impactValue.unit === 'EUR'
                                 ? `${recommendation.impactValue.amount.toFixed(2)} €/mois`
@@ -136,7 +136,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
 
                 {/* Notes section */}
                 {showNotes && (
-                    <div className="space-y-2 pt-3 border-t border-neutral-200 dark:border-neutral-600">
+                    <div className="space-y-2 pt-3 border-t border-neutral-200 dark:border-white/10">
                         <label className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 flex items-center gap-2">
                             <StickyNote size={16} />
                             Notes personnelles
@@ -144,7 +144,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
                         <textarea
                             value={noteText}
                             onChange={(e) => setNoteText(e.target.value)}
-                            className="w-full px-3 py-2 rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-sm"
+                            className="w-full px-3 py-2 rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black text-sm"
                             rows={3}
                             placeholder="Ajoutez vos notes..."
                         />

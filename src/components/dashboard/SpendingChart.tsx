@@ -24,16 +24,16 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ data, loading = false }) 
 
     // Theme-aware colors
     const colors = {
-        grid: isDark ? '#374151' : '#e5e7eb',
-        axis: isDark ? '#9ca3af' : '#6b7280',
-        tooltipBg: isDark ? '#1f2937' : '#ffffff',
-        tooltipBorder: isDark ? '#374151' : '#e5e7eb',
-        tooltipText: isDark ? '#f3f4f6' : '#111827',
+        grid: isDark ? '#1a1a1a' : '#dcdde0',
+        axis: isDark ? '#8e9199' : '#6b6e77',
+        tooltipBg: isDark ? '#0a0a0a' : '#ffffff',
+        tooltipBorder: isDark ? '#1a1a1a' : '#dcdde0',
+        tooltipText: isDark ? '#f0f1f2' : '#050505',
     };
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-80 flex items-center justify-center">
+            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 h-80 flex items-center justify-center">
                 <Spinner size={32} />
             </div>
         );
@@ -41,7 +41,7 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ data, loading = false }) 
 
     if (!data || data.length === 0) {
         return (
-            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-80 flex items-center justify-center">
+            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 h-80 flex items-center justify-center">
                 <div className="text-neutral-400">Aucune donnée disponible</div>
             </div>
         );
@@ -57,8 +57,8 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ data, loading = false }) 
     });
 
     return (
-        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
-            <h3 className="text-lg font-bold mb-6 dark:text-neutral-100">Évolution des dépenses</h3>
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
+            <h3 className="text-lg font-bold mb-6 dark:text-neutral-200">Évolution des dépenses</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
@@ -87,9 +87,9 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ data, loading = false }) 
                         type="monotone"
                         dataKey="value"
                         name="Dépenses"
-                        stroke="#3b82f6"
+                        stroke="#1963d5"
                         strokeWidth={2}
-                        dot={{ fill: '#3b82f6', r: 4 }}
+                        dot={{ fill: '#1963d5', r: 4 }}
                         activeDot={{ r: 6 }}
                         isAnimationActive={false}
                     />

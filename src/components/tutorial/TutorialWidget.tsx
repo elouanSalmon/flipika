@@ -165,13 +165,13 @@ export const TutorialWidget = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl border border-neutral-100 dark:border-neutral-700 overflow-hidden w-full backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95"
+                            className="bg-white dark:bg-black rounded-2xl shadow-xl border border-neutral-100 dark:border-white/10 overflow-hidden w-full backdrop-blur-sm bg-opacity-95 dark:bg-opacity-95"
                         >
                             {/* Header */}
-                            <div className="px-4 py-3 bg-gradient-to-r from-primary/5 to-transparent border-b border-neutral-100 dark:border-neutral-700">
+                            <div className="px-4 py-3 bg-gradient-to-r from-primary/5 to-transparent border-b border-neutral-100 dark:border-white/10">
                                 <div className="flex justify-between items-start mb-2">
                                     <div className="flex-1">
-                                        <h3 className="font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-2">
+                                        <h3 className="font-bold text-neutral-900 dark:text-neutral-200 flex items-center gap-2">
                                             <Rocket size={18} className="text-primary" />
                                             {t('tutorial:title')}
                                         </h3>
@@ -182,7 +182,7 @@ export const TutorialWidget = () => {
                                     <div className="flex gap-1">
                                         <button
                                             onClick={() => setIsExpanded(false)}
-                                            className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg text-neutral-400 hover:text-neutral-600 transition-colors"
+                                            className="p-1 hover:bg-neutral-100 dark:hover:bg-white/5 rounded-lg text-neutral-400 hover:text-neutral-600 transition-colors"
                                             title={t('tutorial:collapse')}
                                         >
                                             <ChevronDown size={18} />
@@ -206,7 +206,7 @@ export const TutorialWidget = () => {
                                     <motion.div
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="flex items-center gap-2 bg-white dark:bg-neutral-700 px-3 py-1.5 rounded-lg shadow-sm border border-primary/20"
+                                        className="flex items-center gap-2 bg-white dark:bg-black px-3 py-1.5 rounded-lg shadow-sm border border-primary/20"
                                     >
                                         <Clock className="text-primary flex-shrink-0" size={14} />
                                         <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
@@ -217,7 +217,7 @@ export const TutorialWidget = () => {
                             </div>
 
                             {/* Progress Bar with Shimmer Effect */}
-                            <div className="h-2 bg-neutral-100 dark:bg-neutral-700 w-full relative overflow-hidden">
+                            <div className="h-2 bg-neutral-100 dark:bg-black w-full relative overflow-hidden">
                                 <motion.div
                                     className="h-full bg-gradient-to-r from-primary to-primary-light relative overflow-hidden"
                                     initial={{ width: 0 }}
@@ -253,7 +253,7 @@ export const TutorialWidget = () => {
                                                 animate={{ opacity: 1, x: 0 }}
                                                 className={`px-3 py-2.5 rounded-xl flex items-center gap-3 transition-colors ${isCompleted
                                                     ? 'bg-green-50/50 dark:bg-green-900/10'
-                                                    : 'hover:bg-neutral-50 dark:hover:bg-neutral-700/50'
+                                                    : 'hover:bg-neutral-50 dark:hover:bg-white/5'
                                                     }`}
                                             >
                                                 <div className="flex-shrink-0 relative">
@@ -333,7 +333,7 @@ export const TutorialWidget = () => {
                                                 {step.infoNamespace && (
                                                     <button
                                                         onClick={() => setActiveInfoModal(step.infoNamespace)}
-                                                        className="flex-shrink-0 p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg text-neutral-400 hover:text-primary transition-colors"
+                                                        className="flex-shrink-0 p-1.5 hover:bg-neutral-100 dark:hover:bg-white/5 rounded-lg text-neutral-400 hover:text-primary transition-colors"
                                                         title={t(`${step.infoNamespace}:info.buttonLabel`)}
                                                     >
                                                         <Info size={16} />

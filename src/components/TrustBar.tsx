@@ -13,7 +13,7 @@ const TrustBar: React.FC = () => {
     ];
 
     return (
-        <section className="py-10 border-y border-neutral-200/50 dark:border-neutral-700/30">
+        <section className="py-10 border-y border-neutral-200/50 dark:border-white/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     className="flex flex-wrap justify-center gap-10 sm:gap-16"
@@ -28,7 +28,7 @@ const TrustBar: React.FC = () => {
                                 <stat.icon size={20} className="text-primary" />
                             </div>
                             <div>
-                                <div className="text-2xl font-bold text-neutral-900 dark:text-white">{stat.value}</div>
+                                <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-200">{stat.value}</div>
                                 <div className="text-xs text-neutral-500 dark:text-neutral-400 font-medium">{stat.label}</div>
                             </div>
                         </div>

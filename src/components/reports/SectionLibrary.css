@@ -4,24 +4,24 @@
     height: 100%;
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
-    border-right: 1px solid rgba(59, 130, 246, 0.1);
+    border-right: 1px solid rgba(25, 99, 213, 0.1);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
 .dark .section-library {
-    background: rgba(31, 41, 55, 0.7);
-    border-right-color: rgba(59, 130, 246, 0.2);
+    background: rgba(0, 0, 0, 0.7);
+    border-right-color: rgba(25, 99, 213, 0.2);
 }
 
 .section-library-header {
     padding: 1.5rem;
-    border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+    border-bottom: 1px solid rgba(25, 99, 213, 0.1);
 }
 
 .dark .section-library-header {
-    border-bottom-color: rgba(59, 130, 246, 0.2);
+    border-bottom-color: rgba(25, 99, 213, 0.2);
 }
 
 .section-library-title {
@@ -32,7 +32,7 @@
 }
 
 .dark .section-library-title {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .section-library-subtitle {
@@ -59,7 +59,7 @@
     gap: 0.75rem;
     padding: 1rem;
     background: white;
-    border: 2px solid rgba(59, 130, 246, 0.1);
+    border: 2px solid rgba(25, 99, 213, 0.1);
     border-radius: 0.75rem;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -68,20 +68,20 @@
 }
 
 .dark .section-library-item {
-    background: rgba(51, 65, 85, 0.5);
-    border-color: rgba(59, 130, 246, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(25, 99, 213, 0.2);
 }
 
 .section-library-item:hover {
-    background: rgba(59, 130, 246, 0.05);
-    border-color: rgba(59, 130, 246, 0.3);
+    background: rgba(25, 99, 213, 0.05);
+    border-color: rgba(25, 99, 213, 0.3);
     transform: translateX(4px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 4px 12px rgba(25, 99, 213, 0.1);
 }
 
 .dark .section-library-item:hover {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: rgba(59, 130, 246, 0.4);
+    background: rgba(25, 99, 213, 0.1);
+    border-color: rgba(25, 99, 213, 0.4);
 }
 
 .section-library-item-icon {
@@ -91,7 +91,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: linear-gradient(135deg, #1963d5 0%, #0741e0 100%);
     border-radius: 0.5rem;
     color: white;
 }
@@ -109,7 +109,7 @@
 }
 
 .dark .section-library-item-title {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .section-library-item-description {
@@ -126,20 +126,20 @@
     display: inline-block;
     margin-top: 0.5rem;
     padding: 0.125rem 0.5rem;
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    background: rgba(25, 99, 213, 0.1);
+    border: 1px solid rgba(25, 99, 213, 0.2);
     border-radius: 0.25rem;
     font-size: 0.625rem;
     font-weight: 600;
-    color: #3b82f6;
+    color: #1963d5;
     text-transform: uppercase;
     letter-spacing: 0.025em;
 }
 
 .dark .section-library-item-badge {
-    background: rgba(59, 130, 246, 0.2);
-    border-color: rgba(59, 130, 246, 0.3);
-    color: #60a5fa;
+    background: rgba(25, 99, 213, 0.2);
+    border-color: rgba(25, 99, 213, 0.3);
+    color: #61abf7;
 }
 
 /* Scrollbar Styling */
@@ -152,10 +152,10 @@
 }
 
 .section-library-list::-webkit-scrollbar-thumb {
-    background: rgba(59, 130, 246, 0.2);
+    background: rgba(25, 99, 213, 0.2);
     border-radius: 3px;
 }
 
 .section-library-list::-webkit-scrollbar-thumb:hover {
-    background: rgba(59, 130, 246, 0.3);
+    background: rgba(25, 99, 213, 0.3);
 }

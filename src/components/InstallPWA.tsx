@@ -80,7 +80,7 @@ export default function InstallPWA() {
 
     return (
         <div className="fixed bottom-6 right-6 z-50 animate-slide-up">
-            <div className="relative bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700 p-6 max-w-sm backdrop-blur-xl bg-opacity-95 dark:bg-opacity-95">
+            <div className="relative bg-white dark:bg-black rounded-2xl shadow-2xl border border-neutral-200 dark:border-white/10 p-6 max-w-sm backdrop-blur-xl bg-opacity-95 dark:bg-opacity-95">
                 {/* Close button */}
                 <button
                     onClick={handleDismiss}
@@ -92,12 +92,12 @@ export default function InstallPWA() {
 
                 {/* Content */}
                 <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary to-primary rounded-xl flex items-center justify-center shadow-lg">
                         <Download className="w-6 h-6 text-white" />
                     </div>
 
                     <div className="flex-1 pr-6">
-                        <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-1">
+                        <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200 mb-1">
                             Installer Flipika
                         </h3>
                         <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4">
@@ -106,7 +106,7 @@ export default function InstallPWA() {
 
                         <button
                             onClick={handleInstallClick}
-                            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-2.5 px-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                            className="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary-dark text-white font-medium py-2.5 px-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
                         >
                             Installer maintenant
                         </button>
@@ -114,18 +114,18 @@ export default function InstallPWA() {
                 </div>
 
                 {/* Benefits */}
-                <div className="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-700">
+                <div className="mt-4 pt-4 border-t border-neutral-200 dark:border-white/10">
                     <ul className="space-y-2 text-xs text-neutral-600 dark:text-neutral-400">
                         <li className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                            <span className="w-1.5 h-1.5 bg-primary-500 rounded-full"></span>
                             Accès rapide depuis votre bureau ou écran d'accueil
                         </li>
                         <li className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                            <span className="w-1.5 h-1.5 bg-primary-500 rounded-full"></span>
                             Expérience plein écran sans distractions
                         </li>
                         <li className="flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                            <span className="w-1.5 h-1.5 bg-primary-500 rounded-full"></span>
                             Chargement plus rapide des pages
                         </li>
                     </ul>

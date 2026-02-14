@@ -82,7 +82,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                             background: 'var(--color-bg-card, #ffffff)',
                             borderRadius: '20px',
                             boxShadow: 'var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04))',
-                            border: '1px solid var(--color-border, #e5e7eb)',
+                            border: '1px solid var(--color-border, #dcdde0)',
                         }}
                     >
                         <div className="p-6">
@@ -92,16 +92,16 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                                         <AlertCircle size={24} />
                                     </div>
                                 ) : (
-                                    <div className="p-3 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
+                                    <div className="p-3 rounded-xl bg-primary-50 text-primary dark:bg-primary-900/20 dark:text-primary-light">
                                         <AlertCircle size={24} />
                                     </div>
                                 )}
 
                                 <div className="flex-1">
-                                    <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary, #111827)' }}>
+                                    <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary, #050505)' }}>
                                         {title}
                                     </h3>
-                                    <p className="mt-2 text-sm whitespace-pre-line" style={{ color: 'var(--color-text-secondary, #6b7280)' }}>
+                                    <p className="mt-2 text-sm whitespace-pre-line" style={{ color: 'var(--color-text-secondary, #6b6e77)' }}>
                                         {message}
                                     </p>
                                 </div>
@@ -115,23 +115,23 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                                 </button>
                             </div>
 
-                            <div className="mt-8 flex justify-end gap-3 border-t border-neutral-100 dark:border-neutral-800 pt-4">
+                            <div className="mt-8 flex justify-end gap-3 border-t border-neutral-100 dark:border-white/10 pt-4">
                                 <button
                                     onClick={handleClose}
                                     disabled={isLoading}
                                     className="px-4 py-2.5 text-sm font-medium rounded-xl transition-all duration-200"
                                     style={{
                                         background: 'transparent',
-                                        color: 'var(--color-text-secondary, #6b7280)',
-                                        border: '2px solid var(--color-border, #e5e7eb)',
+                                        color: 'var(--color-text-secondary, #6b6e77)',
+                                        border: '2px solid var(--color-border, #dcdde0)',
                                     }}
                                     onMouseEnter={(e) => {
-                                        (e.target as HTMLButtonElement).style.borderColor = 'var(--color-primary, #2563eb)';
-                                        (e.target as HTMLButtonElement).style.color = 'var(--color-primary, #2563eb)';
+                                        (e.target as HTMLButtonElement).style.borderColor = 'var(--color-primary, #0741e0)';
+                                        (e.target as HTMLButtonElement).style.color = 'var(--color-primary, #0741e0)';
                                     }}
                                     onMouseLeave={(e) => {
-                                        (e.target as HTMLButtonElement).style.borderColor = 'var(--color-border, #e5e7eb)';
-                                        (e.target as HTMLButtonElement).style.color = 'var(--color-text-secondary, #6b7280)';
+                                        (e.target as HTMLButtonElement).style.borderColor = 'var(--color-border, #dcdde0)';
+                                        (e.target as HTMLButtonElement).style.color = 'var(--color-text-secondary, #6b6e77)';
                                     }}
                                 >
                                     {cancelLabel}
@@ -141,7 +141,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                                     disabled={isLoading}
                                     className={`px-4 py-2.5 text-sm font-medium text-white rounded-xl transition-all duration-200 shadow-lg flex items-center gap-2`}
                                     style={{
-                                        background: isDestructive ? '#dc2626' : 'var(--gradient-primary, linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%))',
+                                        background: isDestructive ? '#dc2626' : 'var(--gradient-primary, linear-gradient(135deg, #0741e0 0%, #0541ae 100%))',
                                         boxShadow: isDestructive ? '0 4px 6px -1px rgba(220, 38, 38, 0.3)' : 'var(--shadow-md)',
                                     }}
                                 >

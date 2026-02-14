@@ -71,7 +71,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ value, onChange }) =>
     };
 
     return (
-        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-4">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-4">
             <div className="flex items-center gap-2 mb-4">
                 <Calendar size={18} className="text-neutral-500" />
                 <h3 className="font-semibold text-sm">Période</h3>
@@ -85,8 +85,8 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ value, onChange }) =>
                             key={preset.value}
                             onClick={() => handlePresetClick(preset.value)}
                             className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${value.preset === preset.value
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
+                                    ? 'bg-primary text-white'
+                                    : 'bg-neutral-100 dark:bg-black text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
                                 }`}
                         >
                             {preset.label}
@@ -96,7 +96,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ value, onChange }) =>
 
                 {/* Custom date inputs */}
                 {value.preset === 'custom' && (
-                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-neutral-200 dark:border-neutral-600">
+                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-neutral-200 dark:border-white/10">
                         <div>
                             <label className="block text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-1">
                                 Date de début
@@ -105,7 +105,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ value, onChange }) =>
                                 type="date"
                                 value={value.start.toISOString().split('T')[0]}
                                 onChange={(e) => handleDateChange('start', e.target.value)}
-                                className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black focus:ring-2 focus:ring-primary"
                             />
                         </div>
                         <div>
@@ -116,7 +116,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ value, onChange }) =>
                                 type="date"
                                 value={value.end.toISOString().split('T')[0]}
                                 onChange={(e) => handleDateChange('end', e.target.value)}
-                                className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 text-sm rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black focus:ring-2 focus:ring-primary"
                             />
                         </div>
                     </div>

@@ -172,7 +172,7 @@ const FeatureDetailPage: React.FC = () => {
                     </motion.div>
 
                     <motion.h1
-                        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white mb-4 tracking-tight"
+                        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-neutral-200 mb-4 tracking-tight"
                         variants={itemVariants}
                     >
                         {details.hero.title}
@@ -207,7 +207,7 @@ const FeatureDetailPage: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-4 text-center">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-4 text-center">
                         {details.whyItMatters.title}
                     </h2>
                     <p className="text-lg text-neutral-600 dark:text-neutral-400 text-center mb-12 max-w-3xl mx-auto">
@@ -228,7 +228,7 @@ const FeatureDetailPage: React.FC = () => {
                                 <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
                                     <CheckCircle className="text-primary" size={24} />
                                 </div>
-                                <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-2">
+                                <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-200 mb-2">
                                     {point.title}
                                 </h3>
                                 <p className="text-sm text-neutral-600 dark:text-neutral-400">
@@ -241,7 +241,7 @@ const FeatureDetailPage: React.FC = () => {
             </section>
 
             {/* How It Works Section */}
-            <section className="relative py-16 px-4 sm:px-6 lg:px-8 bg-neutral-50/50 dark:bg-neutral-900/20">
+            <section className="relative py-16 px-4 sm:px-6 lg:px-8 bg-neutral-50/50 dark:bg-black/20">
                 <motion.div
                     className="max-w-4xl mx-auto"
                     initial={{ opacity: 0, y: 30 }}
@@ -249,7 +249,7 @@ const FeatureDetailPage: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-12 text-center">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-12 text-center">
                         {details.howItWorks.title}
                     </h2>
 
@@ -267,7 +267,7 @@ const FeatureDetailPage: React.FC = () => {
                                     {step.number}
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-1">
+                                    <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-200 mb-1">
                                         {step.title}
                                     </h3>
                                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
@@ -289,7 +289,7 @@ const FeatureDetailPage: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-8 text-center">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-8 text-center">
                         {i18n.language === 'fr' ? "Cas d'usage" : 'Use Cases'}
                     </h2>
 
@@ -303,7 +303,7 @@ const FeatureDetailPage: React.FC = () => {
                                 viewport={{ once: true }}
                                 transition={{ delay: idx * 0.1 }}
                             >
-                                <h3 className="text-base font-bold text-neutral-900 dark:text-white mb-2">
+                                <h3 className="text-base font-bold text-neutral-900 dark:text-neutral-200 mb-2">
                                     {useCase.title}
                                 </h3>
                                 <p className="text-sm text-neutral-600 dark:text-neutral-400">
@@ -316,7 +316,7 @@ const FeatureDetailPage: React.FC = () => {
             </section>
 
             {/* Before/After Section */}
-            <section className="relative py-16 px-4 sm:px-6 lg:px-8 bg-neutral-50/50 dark:bg-neutral-900/20">
+            <section className="relative py-16 px-4 sm:px-6 lg:px-8 bg-neutral-50/50 dark:bg-black/20">
                 <motion.div
                     className="max-w-5xl mx-auto"
                     initial={{ opacity: 0, y: 30 }}
@@ -324,7 +324,7 @@ const FeatureDetailPage: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-12 text-center">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-12 text-center">
                         {details.beforeAfter.title}
                     </h2>
 
@@ -357,14 +357,14 @@ const FeatureDetailPage: React.FC = () => {
                             whileHover={{ scale: 1.02 }}
                         >
                             <div className="text-center mb-6">
-                                <div className="inline-block px-4 py-1.5 bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-full text-sm font-semibold mb-3">
+                                <div className="inline-block px-4 py-1.5 bg-primary-100 dark:bg-primary-900/20 text-primary-dark dark:text-primary-light rounded-full text-sm font-semibold mb-3">
                                     {details.beforeAfter.after.title}
                                 </div>
                             </div>
                             <ul className="space-y-3">
                                 {details.beforeAfter.after.points.map((point, idx) => (
                                     <li key={idx} className="flex items-start gap-2.5 text-sm text-neutral-700 dark:text-neutral-300">
-                                        <CheckCircle className="flex-shrink-0 w-5 h-5 text-blue-500 mt-0.5" size={20} />
+                                        <CheckCircle className="flex-shrink-0 w-5 h-5 text-primary mt-0.5" size={20} />
                                         <span>{point}</span>
                                     </li>
                                 ))}
@@ -383,7 +383,7 @@ const FeatureDetailPage: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-8 text-center">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-8 text-center">
                         {i18n.language === 'fr' ? 'Questions fréquentes' : 'Frequently Asked Questions'}
                     </h2>
 
@@ -401,7 +401,7 @@ const FeatureDetailPage: React.FC = () => {
                                     className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
                                     onClick={() => setOpenFaqIndex(openFaqIndex === idx ? null : idx)}
                                 >
-                                    <span className="font-semibold text-neutral-900 dark:text-white pr-4">
+                                    <span className="font-semibold text-neutral-900 dark:text-neutral-200 pr-4">
                                         {item.question}
                                     </span>
                                     <ChevronDown
@@ -436,7 +436,7 @@ const FeatureDetailPage: React.FC = () => {
                     transition={{ duration: 0.6 }}
                 >
                     <div className="glass rounded-2xl p-8 sm:p-12 text-center">
-                        <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-4">
                             {i18n.language === 'fr'
                                 ? 'Prêt à essayer ?'
                                 : 'Ready to try?'}

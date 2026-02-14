@@ -75,7 +75,7 @@ LIMIT 10`);
                         <textarea
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            className="w-full h-96 font-mono text-sm p-4 border border-neutral-300 rounded focus:ring-blue-500 focus:border-blue-500 bg-neutral-50 text-neutral-800"
+                            className="w-full h-96 font-mono text-sm p-4 border border-neutral-300 rounded focus:ring-primary focus:border-primary bg-neutral-50 text-neutral-800"
                             placeholder="SELECT ..."
                         />
                         <div className="mt-4 flex justify-between items-center">
@@ -85,7 +85,7 @@ LIMIT 10`);
                             <button
                                 onClick={handleRunQuery}
                                 disabled={loading || !customerId}
-                                className={`flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${loading || !customerId ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ${loading || !customerId ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 {loading ? 'Running...' : (
                                     <>
@@ -100,13 +100,13 @@ LIMIT 10`);
                     <div className="bg-white p-4 rounded-lg shadow border border-neutral-200">
                         <h3 className="text-sm font-medium text-neutral-700 mb-2">Useful Snippets</h3>
                         <div className="space-y-2 text-xs">
-                            <button onClick={() => setQuery(`SELECT campaign.id, campaign.name, metrics.clicks FROM campaign LIMIT 5`)} className="block text-blue-600 hover:underline">
+                            <button onClick={() => setQuery(`SELECT campaign.id, campaign.name, metrics.clicks FROM campaign LIMIT 5`)} className="block text-primary hover:underline">
                                 Get Campaigns
                             </button>
-                            <button onClick={() => setQuery(`SELECT ad_group_ad.ad.id, ad_group_ad.ad.type, ad_group_ad.ad.responsive_search_ad.headlines FROM ad_group_ad WHERE ad_group_ad.status = 'ENABLED' LIMIT 5`)} className="block text-blue-600 hover:underline">
+                            <button onClick={() => setQuery(`SELECT ad_group_ad.ad.id, ad_group_ad.ad.type, ad_group_ad.ad.responsive_search_ad.headlines FROM ad_group_ad WHERE ad_group_ad.status = 'ENABLED' LIMIT 5`)} className="block text-primary hover:underline">
                                 Get Responsive Search Ads
                             </button>
-                            <button onClick={() => setQuery(`SELECT asset.id, asset.name, asset.type, asset.image_asset.full_size.url FROM asset WHERE asset.type = 'IMAGE' LIMIT 5`)} className="block text-blue-600 hover:underline">
+                            <button onClick={() => setQuery(`SELECT asset.id, asset.name, asset.type, asset.image_asset.full_size.url FROM asset WHERE asset.type = 'IMAGE' LIMIT 5`)} className="block text-primary hover:underline">
                                 Get Image Assets
                             </button>
                         </div>

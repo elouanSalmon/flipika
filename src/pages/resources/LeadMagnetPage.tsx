@@ -56,7 +56,7 @@ const LeadMagnetPage: React.FC = () => {
             <div className="flex min-h-screen flex-col">
 
                 {/* Header */}
-                <header className="h-20 border-b border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-black/20 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 w-full">
+                <header className="h-20 border-b border-neutral-200 dark:border-white/10 bg-white/50 dark:bg-black/20 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 w-full">
                     <div className="flex items-center gap-2 text-sm text-neutral-500">
                         <span>Resources</span>
                         <ChevronRight size={16} />
@@ -79,7 +79,7 @@ const LeadMagnetPage: React.FC = () => {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 p-8 md:p-12 shadow-sm relative overflow-hidden"
+                                className="bg-white dark:bg-black rounded-3xl border border-neutral-200 dark:border-white/10 p-8 md:p-12 shadow-sm relative overflow-hidden"
                             >
                                 <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
                                     {getIcon()}
@@ -107,8 +107,8 @@ const LeadMagnetPage: React.FC = () => {
                                     <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-widest mb-6">{t('common.whatsInside')}</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         {(t(`pages.${magnet.slug}.features`, { returnObjects: true }) as string[]).map((feature, i) => (
-                                            <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800">
-                                                <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center shrink-0">
+                                            <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-neutral-50 dark:bg-black/50 border border-neutral-100 dark:border-white/10">
+                                                <div className="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary flex items-center justify-center shrink-0">
                                                     <Check size={14} strokeWidth={3} />
                                                 </div>
                                                 <span className="font-medium text-secondary">{feature}</span>
@@ -122,7 +122,7 @@ const LeadMagnetPage: React.FC = () => {
                                     <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-widest mb-6">{t('common.faq')}</h3>
                                     <div className="space-y-3">
                                         {(t(`pages.${magnet.slug}.faq`, { returnObjects: true }) as any[]).map((item, i) => (
-                                            <div key={i} className="border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden">
+                                            <div key={i} className="border border-neutral-200 dark:border-white/10 rounded-2xl overflow-hidden">
                                                 <button
                                                     onClick={() => toggleFaq(i)}
                                                     className="w-full flex items-center justify-between p-5 text-left hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
@@ -137,7 +137,7 @@ const LeadMagnetPage: React.FC = () => {
                                                             animate={{ height: 'auto', opacity: 1 }}
                                                             exit={{ height: 0, opacity: 0 }}
                                                         >
-                                                            <div className="p-5 pt-0 text-secondary leading-relaxed border-t border-neutral-100 dark:border-neutral-800/50">
+                                                            <div className="p-5 pt-0 text-secondary leading-relaxed border-t border-neutral-100 dark:border-white/10">
                                                                 {item.a}
                                                             </div>
                                                         </motion.div>
@@ -157,7 +157,7 @@ const LeadMagnetPage: React.FC = () => {
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.2 }}
-                                className="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 p-8 shadow-xl shadow-blue-900/5 sticky top-28"
+                                className="bg-white dark:bg-black rounded-3xl border border-neutral-200 dark:border-white/10 p-8 shadow-xl shadow-primary-dark/5 sticky top-28"
                             >
                                 {status === 'success' ? (
                                     <div className="text-center py-8">
@@ -167,7 +167,7 @@ const LeadMagnetPage: React.FC = () => {
                                         <h3 className="text-xl font-bold text-primary mb-2">{t('common.success')}</h3>
                                         <p className="text-secondary mb-6">{t('common.successMessage')}</p>
                                         <div className="flex justify-center">
-                                            <span className="loading loading-dots loading-md text-blue-600"></span>
+                                            <span className="loading loading-dots loading-md text-primary"></span>
                                         </div>
                                     </div>
                                 ) : (
@@ -187,7 +187,7 @@ const LeadMagnetPage: React.FC = () => {
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
                                                     placeholder={t('common.emailPlaceholder')}
-                                                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium text-sm"
+                                                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-neutral-50 dark:bg-black border border-neutral-200 dark:border-white/10 outline-none focus:ring-2 focus:ring-primary transition-all font-medium text-sm"
                                                 />
                                             </div>
                                         </div>
@@ -195,7 +195,7 @@ const LeadMagnetPage: React.FC = () => {
                                         <button
                                             type="submit"
                                             disabled={status === 'loading'}
-                                            className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-600/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 custom-button"
+                                            className="w-full py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 custom-button"
                                         >
                                             {status === 'loading' ? t('common.downloading') : (
                                                 <>
@@ -218,7 +218,7 @@ const LeadMagnetPage: React.FC = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3 }}
-                                className="bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 rounded-3xl p-6 border border-neutral-200 dark:border-neutral-700"
+                                className="bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 rounded-3xl p-6 border border-neutral-200 dark:border-white/10"
                             >
                                 <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-4">{t('common.whoFor')}</h3>
                                 <div className="space-y-3">

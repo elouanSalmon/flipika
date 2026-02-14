@@ -57,28 +57,28 @@ const KPICard: React.FC<KPICardProps> = ({
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 animate-pulse">
+            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 animate-pulse">
                 <div className="flex items-start justify-between mb-4">
-                    <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-24"></div>
-                    <div className="h-10 w-10 bg-neutral-200 dark:bg-neutral-700 rounded-xl"></div>
+                    <div className="h-4 bg-neutral-200 dark:bg-black rounded w-24"></div>
+                    <div className="h-10 w-10 bg-neutral-200 dark:bg-black rounded-xl"></div>
                 </div>
-                <div className="h-8 bg-neutral-200 dark:bg-neutral-700 rounded w-32 mb-2"></div>
-                <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-16"></div>
+                <div className="h-8 bg-neutral-200 dark:bg-black rounded w-32 mb-2"></div>
+                <div className="h-4 bg-neutral-200 dark:bg-black rounded w-16"></div>
             </div>
         );
     }
 
     return (
-        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 hover:shadow-lg transition-shadow">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-start justify-between mb-4">
                 <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">{title}</p>
-                <div className="p-2.5 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                <div className="p-2.5 bg-primary-50 dark:bg-primary-900/20 rounded-xl">
                     {icon}
                 </div>
             </div>
 
             <div className="space-y-2">
-                <h3 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+                <h3 className="text-3xl font-bold text-neutral-900 dark:text-neutral-200">
                     {formatValue(value)}
                 </h3>
 

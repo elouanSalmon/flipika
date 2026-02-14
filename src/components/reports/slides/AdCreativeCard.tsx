@@ -47,7 +47,7 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
 }) => {
     const getCardBackground = () => {
         if (design.mode === 'dark') {
-            return 'rgba(30, 41, 59, 0.6)';
+            return 'rgba(10, 10, 10, 0.6)';
         } else {
             return 'rgba(249, 250, 251, 0.9)';
         }
@@ -68,10 +68,10 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 <div className="ad-url" style={{ color: design.mode === 'dark' ? '#34d399' : '#059669' }}>
                     {adData.displayUrl}
                 </div>
-                <h3 className="ad-headline" style={{ color: design?.colorScheme?.primary || '#3b82f6' }}>
+                <h3 className="ad-headline" style={{ color: design?.colorScheme?.primary || '#1963d5' }}>
                     {adData.headline}
                 </h3>
-                <p className="ad-description" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(15, 23, 42, 0.7)' }}>
+                <p className="ad-description" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(5, 5, 5, 0.7)' }}>
                     {adData.description}
                 </p>
             </div>
@@ -93,7 +93,7 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 <div
                     className="ad-image-placeholder"
                     style={{
-                        background: design?.colorScheme?.primary || '#3b82f6',
+                        background: design?.colorScheme?.primary || '#1963d5',
                         color: '#ffffff'
                     }}
                 >
@@ -101,13 +101,13 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 </div>
             )}
             <div className="ad-content">
-                <h3 className="ad-headline" style={{ color: design?.colorScheme?.text || '#111827' }}>
+                <h3 className="ad-headline" style={{ color: design?.colorScheme?.text || '#050505' }}>
                     {adData.headline}
                 </h3>
-                <p className="ad-description" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(15, 23, 42, 0.7)' }}>
+                <p className="ad-description" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(5, 5, 5, 0.7)' }}>
                     {adData.description}
                 </p>
-                <div className="ad-url" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(15, 23, 42, 0.5)' }}>
+                <div className="ad-url" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(5, 5, 5, 0.5)' }}>
                     {adData.displayUrl}
                 </div>
             </div>
@@ -125,16 +125,16 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
                 <span
                     className="metric-icon"
                     style={{
-                        background: design?.colorScheme?.primary || '#3b82f6',
+                        background: design?.colorScheme?.primary || '#1963d5',
                         color: '#ffffff'
                     }}
                 >
                     {icon}
                 </span>
-                <span style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(15, 23, 42, 0.6)' }}>{label}</span>
+                <span style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(5, 5, 5, 0.6)' }}>{label}</span>
             </div>
             <div className="metric-value-container">
-                <span className="metric-value" style={{ color: design?.colorScheme?.text || '#111827' }}>
+                <span className="metric-value" style={{ color: design?.colorScheme?.text || '#050505' }}>
                     {value}
                 </span>
                 {change !== undefined && (
@@ -164,7 +164,7 @@ const AdCreativeCard: React.FC<AdCreativeCardProps> = ({
             </div>
 
             <div className="ad-creative-right">
-                <h4 className="metrics-title" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(15, 23, 42, 0.5)' }}>
+                <h4 className="metrics-title" style={{ color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(5, 5, 5, 0.5)' }}>
                     Performances
                 </h4>
                 <div className="metrics-table">

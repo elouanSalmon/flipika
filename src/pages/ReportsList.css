@@ -158,14 +158,14 @@
 
 .status-filter-btn.filter-archived.active {
     color: #545660;
-    background: #f3f4f6;
-    border: 1px solid #d1d5db;
+    background: #f0f1f2;
+    border: 1px solid #b8bac0;
 }
 
 .dark .status-filter-btn.filter-archived.active {
     background: rgba(107, 114, 128, 0.1);
     border-color: rgba(107, 114, 128, 0.3);
-    color: #9ca3af;
+    color: #8e9199;
 }
 
 /* Controls Bar */

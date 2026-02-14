@@ -137,7 +137,7 @@
   border: none;
   padding: var(--spacing-lg) var(--spacing-xl);
   border-radius: var(--radius-xl);
-  color: white;
+  color: var(--color-text-primary);
   font-weight: 600;
   font-size: var(--font-size-button);
   cursor: pointer;

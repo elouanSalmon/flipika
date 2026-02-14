@@ -125,7 +125,7 @@ const Differentiation: React.FC = () => {
             <Shield size={16} />
             <span>{t('common:differentiation.title')}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white mb-5 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-neutral-200 mb-5 tracking-tight">
             {t('common:differentiation.subtitle')}
           </h2>
           <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
@@ -161,7 +161,7 @@ const Differentiation: React.FC = () => {
               <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-5 group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
                 <diff.icon size={26} className="text-primary" />
               </div>
-              <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-1.5">
+              <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-200 mb-1.5">
                 {diff.title}
               </h3>
               <p className="text-sm font-semibold text-primary mb-3">
@@ -183,7 +183,7 @@ const Differentiation: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="text-center mb-8">
-            <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-3">
+            <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-3">
               {t('common:differentiation.comparison.title')}
             </h3>
             <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -193,7 +193,7 @@ const Differentiation: React.FC = () => {
 
           <div className="glass rounded-3xl overflow-hidden border border-white/10 dark:border-white/5">
             {/* Table Header */}
-            <div className="grid grid-cols-3 gap-4 p-5 bg-neutral-50/50 dark:bg-neutral-900/50 border-b border-neutral-200/50 dark:border-neutral-700/50">
+            <div className="grid grid-cols-3 gap-4 p-5 bg-neutral-50/50 dark:bg-black/50 border-b border-neutral-200/50 dark:border-white/10">
               <div className="text-sm font-semibold text-neutral-600 dark:text-neutral-400">
                 {t('common:differentiation.comparison.featureHeader')}
               </div>
@@ -207,7 +207,7 @@ const Differentiation: React.FC = () => {
             </div>
 
             {/* Table Rows */}
-            <div className="divide-y divide-neutral-200/50 dark:divide-neutral-700/50">
+            <div className="divide-y divide-neutral-200/50 dark:divide-white/10/50">
               {comparison.map((item) => (
                 <div
                   key={item.feature}
@@ -245,7 +245,7 @@ const Differentiation: React.FC = () => {
           viewport={{ once: true }}
         >
           <div>
-            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-200 mb-2">
               {t('common:differentiation.cta')}
             </h3>
             <p className="text-neutral-600 dark:text-neutral-400">

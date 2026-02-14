@@ -15,7 +15,7 @@ export const defaultThemePresets: ThemePreset[] = [
             ...defaultReportDesign,
             colorScheme: {
                 primary: '#1963d5',
-                secondary: '#2563eb',
+                secondary: '#0741e0',
                 accent: '#0369a1',    // Darkened to Sky 700 (> 4.5:1 on white)
                 background: '#ffffff',
                 text: '#141415',
@@ -40,7 +40,7 @@ export const defaultThemePresets: ThemePreset[] = [
                 secondary: '#c4b5fd',
                 accent: '#ddd6fe',
                 background: '#141415',
-                text: '#f1f5f9',
+                text: '#f0f1f2',
             },
             typography: {
                 fontFamily: 'Inter, sans-serif',
@@ -72,7 +72,7 @@ export const defaultThemePresets: ThemePreset[] = [
                 primary: '#f472b6',   // Pink 400 (Lightened for contrast)
                 secondary: '#fb923c', // Orange 400
                 accent: '#facc15',    // Yellow 400
-                background: '#1e293b', // Slate 800
+                background: '#0a0a0a', // Slate 800
                 text: '#f8fafc',
             },
             typography: {
@@ -135,11 +135,11 @@ export const defaultThemePresets: ThemePreset[] = [
         design: {
             mode: 'light',
             colorScheme: {
-                primary: '#475569',
-                secondary: '#64748b',
-                accent: '#64748b',   // Darkened (was #94a3b8)
+                primary: '#545660',
+                secondary: '#6b6e77',
+                accent: '#6b6e77',   // Darkened (was #8e9199)
                 background: '#ffffff',
-                text: '#1e293b',
+                text: '#0a0a0a',
             },
             typography: {
                 fontFamily: 'Roboto, sans-serif',

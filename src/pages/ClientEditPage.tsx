@@ -49,7 +49,7 @@ export default function ClientEditPage() {
     if (isEditing && !initialData && isLoadingClients) {
         return (
             <div className="flex h-full items-center justify-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
         );
     }
@@ -71,10 +71,10 @@ export default function ClientEditPage() {
                         {t('form.buttons.cancel')}
                     </button>
 
-                    <div className="h-5 w-px bg-neutral-300 dark:bg-neutral-700 hidden sm:block"></div>
+                    <div className="h-5 w-px bg-neutral-300 dark:bg-black hidden sm:block"></div>
 
                     <div className="flex items-center gap-3">
-                        <h1 className="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">
+                        <h1 className="text-xl font-bold text-neutral-900 dark:text-neutral-200 tracking-tight">
                             {isEditing ? t('form.title.edit') : t('form.title.create')}
                         </h1>
                         <span className="text-neutral-300 dark:text-neutral-600 hidden sm:inline">|</span>

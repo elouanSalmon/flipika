@@ -208,14 +208,14 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                                 className="fixed inset-0 z-40"
                                 onClick={() => setShowLinkInput(false)}
                             />
-                            <div className="absolute left-0 top-full mt-2 z-50 bg-white dark:bg-neutral-800 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 p-3 min-w-[280px]">
+                            <div className="absolute left-0 top-full mt-2 z-50 bg-white dark:bg-black rounded-lg shadow-lg border border-neutral-200 dark:border-white/10 p-3 min-w-[280px]">
                                 <div className="flex gap-2">
                                     <input
                                         type="url"
                                         value={linkUrl}
                                         onChange={(e) => setLinkUrl(e.target.value)}
                                         placeholder="https://exemple.com"
-                                        className="flex-1 px-3 py-2 text-sm border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="flex-1 px-3 py-2 text-sm border border-neutral-300 dark:border-white/10 rounded-lg bg-white dark:bg-black text-neutral-900 dark:text-neutral-200 focus:outline-none focus:ring-2 focus:ring-primary"
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
                                                 e.preventDefault();
@@ -229,7 +229,7 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                                     />
                                     <button
                                         onClick={setLink}
-                                        className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                                        className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark transition-colors"
                                     >
                                         OK
                                     </button>
@@ -338,7 +338,7 @@ export const TiptapToolbar: React.FC<TiptapToolbarProps> = ({ editor, onOpenMedi
                             tooltip={t('toolbar.image')}
                             className={btnClass}
                         />
-                        <div className="mx-1 w-px bg-neutral-200 dark:bg-neutral-700 h-6 self-center" />
+                        <div className="mx-1 w-px bg-neutral-200 dark:bg-black h-6 self-center" />
                     </>
                 )}
 

@@ -19,7 +19,7 @@
 }
 
 .dark .font-select-label {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 /* Trigger Button */
@@ -40,23 +40,23 @@
 }
 
 .dark .font-select-trigger {
-    background: rgba(51, 65, 85, 0.5);
-    border-color: rgba(148, 163, 184, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(142, 145, 153, 0.2);
 }
 
 .font-select-trigger:hover:not(:disabled) {
-    border-color: #3b82f6;
+    border-color: #1963d5;
 }
 
 .font-select-trigger:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #1963d5;
+    box-shadow: 0 0 0 3px rgba(25, 99, 213, 0.1);
 }
 
 .font-select.open .font-select-trigger {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #1963d5;
+    box-shadow: 0 0 0 3px rgba(25, 99, 213, 0.1);
 }
 
 .font-select-value {
@@ -68,7 +68,7 @@
 }
 
 .dark .font-select-value {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .font-select-trigger:not(.has-value) .font-select-value {
@@ -100,8 +100,8 @@
 }
 
 .dark .font-select-dropdown {
-    background: #1e293b;
-    border-color: rgba(148, 163, 184, 0.2);
+    background: #000000;
+    border-color: rgba(142, 145, 153, 0.2);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
@@ -127,8 +127,8 @@
 }
 
 .dark .font-select-search {
-    border-bottom-color: rgba(148, 163, 184, 0.2);
-    background: rgba(15, 23, 42, 0.5);
+    border-bottom-color: rgba(142, 145, 153, 0.2);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .font-select-search-icon {
@@ -146,7 +146,7 @@
 }
 
 .dark .font-select-search-input {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .font-select-search-input::placeholder {
@@ -172,8 +172,8 @@
 }
 
 .dark .font-select-search-clear:hover {
-    background: rgba(51, 65, 85, 0.5);
-    color: #f1f5f9;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f0f1f2;
 }
 
 /* Categories */
@@ -193,7 +193,7 @@
 }
 
 .dark .font-select-categories {
-    border-bottom-color: rgba(148, 163, 184, 0.2);
+    border-bottom-color: rgba(142, 145, 153, 0.2);
 }
 
 .font-select-category {
@@ -214,22 +214,22 @@
 }
 
 .font-select-category:hover {
-    background: #f1f5f9;
+    background: #f0f1f2;
     color: #141415;
 }
 
 .dark .font-select-category:hover {
-    background: rgba(51, 65, 85, 0.5);
-    color: #f1f5f9;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f0f1f2;
 }
 
 .font-select-category.active {
-    background: #3b82f6;
+    background: #1963d5;
     color: #fff;
 }
 
 .dark .font-select-category.active {
-    background: #3b82f6;
+    background: #1963d5;
 }
 
 /* Font List */
@@ -249,12 +249,12 @@
 }
 
 .font-select-list::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.3);
+    background: rgba(142, 145, 153, 0.3);
     border-radius: 3px;
 }
 
 .font-select-list::-webkit-scrollbar-thumb:hover {
-    background: rgba(148, 163, 184, 0.5);
+    background: rgba(142, 145, 153, 0.5);
 }
 
 /* Empty State */
@@ -282,20 +282,20 @@
 
 .font-select-option:hover,
 .font-select-option.highlighted {
-    background: #f1f5f9;
+    background: #f0f1f2;
 }
 
 .dark .font-select-option:hover,
 .dark .font-select-option.highlighted {
-    background: rgba(51, 65, 85, 0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .font-select-option.selected {
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(25, 99, 213, 0.1);
 }
 
 .dark .font-select-option.selected {
-    background: rgba(59, 130, 246, 0.2);
+    background: rgba(25, 99, 213, 0.2);
 }
 
 .font-select-option-name {
@@ -308,7 +308,7 @@
 }
 
 .dark .font-select-option-name {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .font-select-option-category {
@@ -317,23 +317,23 @@
     color: #8e9199;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    background: #f1f5f9;
+    background: #f0f1f2;
     padding: 2px 6px;
     border-radius: 4px;
 }
 
 .dark .font-select-option-category {
-    background: rgba(51, 65, 85, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     color: #8e9199;
 }
 
 .font-select-option-loading {
-    color: #3b82f6;
+    color: #1963d5;
     flex-shrink: 0;
 }
 
 .font-select-option-check {
-    color: #3b82f6;
+    color: #1963d5;
     flex-shrink: 0;
 }
 
@@ -348,8 +348,8 @@
 }
 
 .dark .font-select-footer {
-    border-top-color: rgba(148, 163, 184, 0.2);
-    background: rgba(15, 23, 42, 0.5);
+    border-top-color: rgba(142, 145, 153, 0.2);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Responsive */

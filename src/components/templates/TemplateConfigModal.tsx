@@ -337,7 +337,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
 
                                     {/* Account Feedback */}
                                     {selectedClientId && accountId && (
-                                        <div className="mt-2 text-sm text-neutral-500 flex items-center gap-1 bg-neutral-50 dark:bg-neutral-800/50 p-2 rounded-md border border-neutral-100 dark:border-neutral-700">
+                                        <div className="mt-2 text-sm text-neutral-500 flex items-center gap-1 bg-neutral-50 dark:bg-black/50 p-2 rounded-md border border-neutral-100 dark:border-white/10">
                                             <span className="font-medium">Compte Google Ads :</span>
                                             {accounts.find(a => a.id === accountId)?.name || accountId}
                                         </div>

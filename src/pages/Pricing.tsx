@@ -161,7 +161,7 @@ export default function Pricing() {
                         </motion.div>
 
                         <motion.h1
-                            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white mb-6 tracking-tight"
+                            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-neutral-200 mb-6 tracking-tight"
                             variants={itemVariants}
                         >
                             {t('billing:pricing.hero.title')}
@@ -194,12 +194,12 @@ export default function Pricing() {
                             whileHover={{ y: -5 }}
                         >
                             {/* Unique Subscription Badge */}
-                            <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-blue-600 text-white text-xs font-bold px-6 py-1.5 rounded-b-xl shadow-sm z-10 whitespace-nowrap">
+                            <div className="absolute -top-px left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-primary text-white text-xs font-bold px-6 py-1.5 rounded-b-xl shadow-sm z-10 whitespace-nowrap">
                                 {t('billing:pricing.monthlyCard.uniqueLabel')}
                             </div>
 
                             {/* ── Row 1: Title ── */}
-                            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mt-4 mb-6">
+                            <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-200 mt-4 mb-6">
                                 {t('billing:pricing.monthlyCard.title')}
                             </h3>
 
@@ -261,7 +261,7 @@ export default function Pricing() {
                             </div>
 
                             {/* ── Row 5: CTA (always at bottom) ── */}
-                            <div className="pt-6 border-t border-neutral-200/50 dark:border-neutral-700/50 mt-auto">
+                            <div className="pt-6 border-t border-neutral-200/50 dark:border-white/10 mt-auto">
                                 <Link to="/login">
                                     <motion.div
                                         className="btn btn-outline w-full py-3.5 text-base font-semibold flex items-center justify-center gap-2"
@@ -366,7 +366,7 @@ export default function Pricing() {
                                 <BarChart3 size={16} />
                                 <span>{t('billing:pricing.comparison.badge')}</span>
                             </div>
-                            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-4 tracking-tight">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-neutral-200 mb-4 tracking-tight">
                                 {t('billing:pricing.comparison.title')}
                             </h2>
                             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
@@ -379,8 +379,8 @@ export default function Pricing() {
                             variants={itemVariants}
                         >
                             {/* Table header */}
-                            <div className="grid grid-cols-3 gap-4 px-6 py-4 bg-neutral-50/50 dark:bg-neutral-800/50 border-b border-neutral-200/50 dark:border-neutral-700/50">
-                                <div className="text-sm font-semibold text-neutral-900 dark:text-white">
+                            <div className="grid grid-cols-3 gap-4 px-6 py-4 bg-neutral-50/50 dark:bg-black/50 border-b border-neutral-200/50 dark:border-white/10">
+                                <div className="text-sm font-semibold text-neutral-900 dark:text-neutral-200">
                                     {t('billing:pricing.comparison.feature')}
                                 </div>
                                 <div className="text-sm font-semibold text-primary text-center">
@@ -396,9 +396,9 @@ export default function Pricing() {
                                 <motion.div
                                     key={row.key}
                                     className={`grid grid-cols-3 gap-4 px-6 py-3.5 ${i % 2 === 0
-                                        ? 'bg-white/30 dark:bg-neutral-900/20'
-                                        : 'bg-neutral-50/30 dark:bg-neutral-800/20'
-                                        } ${i < comparisonRows.length - 1 ? 'border-b border-neutral-100/50 dark:border-neutral-700/30' : ''}`}
+                                        ? 'bg-white/30 dark:bg-black/20'
+                                        : 'bg-neutral-50/30 dark:bg-black/20'
+                                        } ${i < comparisonRows.length - 1 ? 'border-b border-neutral-100/50 dark:border-white/10' : ''}`}
                                     initial={{ opacity: 0, x: -10 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ delay: i * 0.05 }}
@@ -447,7 +447,7 @@ export default function Pricing() {
                                     whileHover={{ y: -4 }}
                                 >
                                     <stat.icon className="w-6 h-6 text-primary" />
-                                    <span className="text-2xl font-bold text-neutral-900 dark:text-white">{stat.value}</span>
+                                    <span className="text-2xl font-bold text-neutral-900 dark:text-neutral-200">{stat.value}</span>
                                     <span className="text-sm text-neutral-600 dark:text-neutral-400">{stat.label}</span>
                                 </motion.div>
                             ))}
@@ -489,7 +489,7 @@ export default function Pricing() {
                                 <HelpCircle size={16} />
                                 <span>{t('billing:pricing.faq.badge')}</span>
                             </div>
-                            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-4 tracking-tight">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-neutral-200 mb-4 tracking-tight">
                                 {t('billing:pricing.faq.title')}
                             </h2>
                             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
@@ -508,7 +508,7 @@ export default function Pricing() {
                                         onClick={() => setOpenFaq(openFaq === i ? null : i)}
                                         className="w-full flex items-center justify-between gap-4 p-5 text-left"
                                     >
-                                        <span className="text-sm font-medium text-neutral-900 dark:text-white">
+                                        <span className="text-sm font-medium text-neutral-900 dark:text-neutral-200">
                                             {item.question}
                                         </span>
                                         <motion.div
@@ -557,7 +557,7 @@ export default function Pricing() {
                             <div className="h-1 bg-gradient-to-r from-primary via-primary/60 to-yellow-500" />
 
                             <div className="p-8 sm:p-12 text-center">
-                                <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                                <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-4">
                                     {t('billing:pricing.finalCta.title')}
                                 </h2>
                                 <p className="text-base text-neutral-600 dark:text-neutral-400 mb-8 max-w-lg mx-auto">

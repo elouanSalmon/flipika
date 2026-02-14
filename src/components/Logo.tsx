@@ -38,9 +38,9 @@ export const Logo: React.FC<LogoProps> = ({ className = '', onClick, scale = 1.0
                 justifyContent: 'center',
                 width: '32px',
                 height: '32px',
-                background: 'var(--color-primary, #3b82f6)',
+                background: 'var(--color-primary, #1963d5)',
                 borderRadius: '8px',
-                color: 'white'
+                color: 'var(--color-bg-primary, white)'
             }}>
                 <Zap size={24} />
             </div>
@@ -48,7 +48,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', onClick, scale = 1.0
                 <span className="logo-text" style={{
                     fontWeight: 700,
                     fontSize: '1.125rem',
-                    color: 'var(--color-primary, #3b82f6)',
+                    color: 'var(--color-primary, #1963d5)',
                     background: 'none',
                     WebkitTextFillColor: 'initial',
                     backgroundClip: 'border-box',
@@ -57,7 +57,7 @@ export const Logo: React.FC<LogoProps> = ({ className = '', onClick, scale = 1.0
                 <span className="logo-subtitle" style={{
                     fontSize: '0.75rem',
                     fontWeight: 500,
-                    color: 'var(--color-text-secondary, #6b7280)'
+                    color: 'var(--color-text-secondary, #6b6e77)'
                 }}>{subtitle}</span>
             </div>
         </motion.div>

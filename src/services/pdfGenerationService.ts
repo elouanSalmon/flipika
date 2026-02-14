@@ -216,7 +216,7 @@ class PDFGenerationService {
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: rgba(15, 23, 42, 0.6);
+                background: rgba(5, 5, 5, 0.6);
                 backdrop-filter: blur(8px);
                 -webkit-backdrop-filter: blur(8px);
                 display: flex;

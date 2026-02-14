@@ -40,7 +40,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
     };
 
     return (
-        <div className={`flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-white dark:bg-neutral-800 p-4 rounded-xl border border-neutral-200 dark:border-neutral-700 shadow-sm mb-6 ${className}`}>
+        <div className={`flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-white dark:bg-black p-4 rounded-xl border border-neutral-200 dark:border-white/10 shadow-sm mb-6 ${className}`}>
             <div className="flex items-center gap-2 text-neutral-500 dark:text-neutral-400 mr-2">
                 <Filter size={20} />
                 <span className="font-medium text-sm">{t('filters.title')}</span>
@@ -51,7 +51,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
                 {accounts.length > 0 && onAccountChange && (
                     <div className="flex-1 sm:flex-none sm:min-w-[200px]">
                         <select
-                            className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                            className="w-full px-3 py-2 bg-neutral-50 dark:bg-black border border-neutral-200 dark:border-white/10 rounded-lg text-sm text-neutral-900 dark:text-neutral-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                             value={selectedAccountId}
                             onChange={(e) => onAccountChange(e.target.value)}
                         >
@@ -69,7 +69,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
                 {clients.length > 0 && onClientChange && (
                     <div className="flex-1 sm:flex-none sm:min-w-[200px]">
                         <select
-                            className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                            className="w-full px-3 py-2 bg-neutral-50 dark:bg-black border border-neutral-200 dark:border-white/10 rounded-lg text-sm text-neutral-900 dark:text-neutral-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                             value={selectedClientId}
                             onChange={(e) => onClientChange(e.target.value)}
                         >
@@ -87,7 +87,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
                 {onCampaignChange && selectedAccountId && (
                     <div className="flex-1 sm:flex-none sm:min-w-[200px]">
                         <select
-                            className="w-full px-3 py-2 bg-neutral-50 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all disabled:opacity-50"
+                            className="w-full px-3 py-2 bg-neutral-50 dark:bg-black border border-neutral-200 dark:border-white/10 rounded-lg text-sm text-neutral-900 dark:text-neutral-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all disabled:opacity-50"
                             value={selectedCampaignId}
                             onChange={(e) => onCampaignChange(e.target.value)}
                             disabled={loadingCampaigns}

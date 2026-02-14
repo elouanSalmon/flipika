@@ -26,7 +26,7 @@ const ComparisonIndex: React.FC = () => {
             />
             {/* Background decorative elements */}
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-                <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-blue-500/10 rounded-full blur-[120px]" />
+                <div className="absolute top-[-10%] left-[-5%] w-[40vw] h-[40vw] bg-primary-500/10 rounded-full blur-[120px]" />
                 <div className="absolute bottom-[10%] right-[-5%] w-[30vw] h-[30vw] bg-indigo-500/10 rounded-full blur-[100px]" />
             </div>
 
@@ -35,7 +35,7 @@ const ComparisonIndex: React.FC = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-6"
+                        className="inline-block px-4 py-1.5 rounded-full bg-primary-500/10 border border-primary/20 text-primary dark:text-primary-light text-sm font-semibold mb-6"
                     >
                         {t('alternatives:index.whyFlipika')}
                     </motion.div>
@@ -67,17 +67,17 @@ const ComparisonIndex: React.FC = () => {
                             onClick={() => navigate(getLangPath(`/alternatives/${competitor.slug}`))}
                             className="group relative"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-indigo-600/5 rounded-3xl blur-xl group-hover:opacity-100 transition-opacity opacity-0" />
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-indigo-600/5 rounded-3xl blur-xl group-hover:opacity-100 transition-opacity opacity-0" />
                             <div className="relative glass-card border border-white/20 dark:border-white/10 rounded-3xl p-8 hover:translate-y-[-4px] transition-all duration-300 cursor-pointer overflow-hidden h-full flex flex-col">
                                 <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <Zap size={80} className="text-blue-600" />
+                                    <Zap size={80} className="text-primary" />
                                 </div>
 
                                 <div className="flex items-center justify-between mb-8">
                                     <div className="px-4 py-1 rounded-lg bg-white/50 dark:bg-white/5 border border-white/20 dark:border-white/10 backdrop-blur-sm">
                                         <h3 className="text-2xl font-bold text-primary">{competitor.name}</h3>
                                     </div>
-                                    <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-blue-600/20">
+                                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-primary/20">
                                         <ArrowRight size={20} />
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@ const ComparisonIndex: React.FC = () => {
                                     {t(`alternatives:competitors.${competitor.slug}.indexDescription`)}
                                 </p>
 
-                                <div className="flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+                                <div className="flex items-center gap-2 text-sm font-bold text-primary dark:text-primary-light uppercase tracking-wider">
                                     <span>{t('alternatives:common.viewComparison')}</span>
                                     <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                                 </div>
@@ -101,7 +101,7 @@ const ComparisonIndex: React.FC = () => {
                     transition={{ delay: 0.6 }}
                     className="relative rounded-[2rem] p-1 shadow-2xl overflow-hidden"
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 animate-gradient-x" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-indigo-600 to-primary animate-gradient-x" />
                     <div className="relative bg-white/10 dark:bg-black/40 backdrop-blur-2xl rounded-[1.9rem] p-10 md:p-14 border border-white/20 flex flex-col md:flex-row items-center gap-12 text-white">
                         <div className="flex-1">
                             <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('alternatives:index.whyFlipika')}</h2>

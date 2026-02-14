@@ -55,7 +55,7 @@ const MetricsGrid: React.FC<MetricsGridProps> = ({ data, loading = false }) => {
             title: 'Comptes connectés',
             value: data.accountsConnected,
             change: data.changes?.accountsConnected,
-            icon: <Users size={24} className="text-blue-600 dark:text-blue-400" />,
+            icon: <Users size={24} className="text-primary dark:text-primary-light" />,
             trend: getTrend(data.changes?.accountsConnected),
         },
         {

@@ -90,7 +90,7 @@ const Problem: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6 border border-white/10 dark:border-white/5">
               <span>{t('common:workflow.badge')}</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight mb-5">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-neutral-200 tracking-tight mb-5">
               {t('common:workflow.title')}
             </h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
@@ -127,7 +127,7 @@ const Problem: React.FC = () => {
                   <span className="text-4xl font-black text-primary/15 dark:text-primary/10">{step.number}</span>
                 </div>
 
-                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
+                <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-200 mb-2">
                   {step.title}
                 </h3>
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-5">

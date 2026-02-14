@@ -87,7 +87,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   }, [currentUser, userProfile, loading, profileLoading, isOnline]);
 
   if (loading || profileLoading) {
-    return <div className="h-screen flex items-center justify-center text-blue-600">Loading...</div>;
+    return <div className="h-screen flex items-center justify-center text-primary">Loading...</div>;
   }
 
   if (!currentUser) {

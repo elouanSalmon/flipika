@@ -12,7 +12,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ competitor }) => {
 
     return (
         <div className="relative group">
-            <div className="absolute inset-0 bg-blue-600/5 rounded-[2.5rem] blur-2xl" />
+            <div className="absolute inset-0 bg-primary/5 rounded-[2.5rem] blur-2xl" />
             <div className="relative overflow-hidden rounded-[2.5rem] border border-white/20 dark:border-white/10 glass-card shadow-2xl">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
@@ -20,7 +20,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ competitor }) => {
                             <tr className="bg-white/40 dark:bg-white/5 border-b border-white/20 dark:border-white/10">
                                 <th className="px-8 py-6 text-sm font-bold text-secondary uppercase tracking-widest">{t(`${competitor.slug}:page.comparisonTitle`)}</th>
                                 <th className="px-8 py-6 text-sm font-bold text-secondary uppercase tracking-widest">{competitor.name}</th>
-                                <th className="px-8 py-6 text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest bg-blue-600/5">
+                                <th className="px-8 py-6 text-sm font-bold text-primary dark:text-primary-light uppercase tracking-widest bg-primary/5">
                                     Flipika
                                 </th>
                             </tr>
@@ -42,10 +42,10 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ competitor }) => {
                                             </div>
                                         )}
                                     </td>
-                                    <td className="px-8 py-6 bg-blue-600/5">
+                                    <td className="px-8 py-6 bg-primary/5">
                                         {feature.hasFlipika ? (
                                             <div className="flex items-center gap-3">
-                                                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-600/20">
+                                                <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/20">
                                                     <Check className="w-5 h-5" />
                                                 </div>
                                                 <span className="text-base font-bold text-primary">Inclus</span>

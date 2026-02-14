@@ -114,7 +114,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                         id: 'impressions',
                         label: 'Impressions',
                         value: impressions,
-                        color: design?.colorScheme?.primary || '#3b82f6',
+                        color: design?.colorScheme?.primary || '#1963d5',
                         percentage: 100, // Always full width
                         conversionRate: undefined, // First step
                     },
@@ -122,7 +122,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                         id: 'clicks',
                         label: 'Clics',
                         value: clicks,
-                        color: design?.colorScheme?.secondary || '#6b7280',
+                        color: design?.colorScheme?.secondary || '#6b6e77',
                         percentage: (clicks / maxVal) * 100,
                         conversionRate: impressions > 0 ? (clicks / impressions) * 100 : 0,
                     },
@@ -130,7 +130,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                         id: 'conversions',
                         label: 'Conversions',
                         value: conversions,
-                        color: design?.colorScheme?.accent || '#93c5fd',
+                        color: design?.colorScheme?.accent || '#a9d4fe',
                         percentage: (conversions / maxVal) * 100, // Relative to Impressions visually might be too small, key off previous? 
                         // Visualizing funnel usually keeps first bar 100%, but if dropoff is huge, bars become invisible.
                         // Better visualization: Scaled relative to previous? Or Log scale? 
@@ -348,10 +348,10 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                         {funnelData.map((step) => (
                             <div key={step.id} className="funnel-step relative flex flex-col justify-center flex-1">
                                 <div className="flex items-center justify-between mb-1 px-1">
-                                    <div className="funnel-label font-medium" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '12px' }}>
+                                    <div className="funnel-label font-medium" style={{ color: design?.colorScheme?.text || '#050505', fontSize: '12px' }}>
                                         {step.label}
                                     </div>
-                                    <div className="funnel-value font-bold" style={{ color: design?.colorScheme?.text || '#111827', fontSize: '12px' }}>
+                                    <div className="funnel-value font-bold" style={{ color: design?.colorScheme?.text || '#050505', fontSize: '12px' }}>
                                         {formatNumber(step.value)}
                                     </div>
                                 </div>
@@ -378,7 +378,7 @@ const FunnelAnalysisSlide: React.FC<FunnelAnalysisSlideProps> = ({
                                             className="text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm flex items-center gap-0.5"
                                             style={{
                                                 backgroundColor: design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'white',
-                                                color: design?.colorScheme?.text || '#111827',
+                                                color: design?.colorScheme?.text || '#050505',
                                                 border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
                                                 backdropFilter: 'blur(4px)'
                                             }}

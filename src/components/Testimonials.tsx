@@ -56,7 +56,7 @@ const Testimonials: React.FC = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-neutral-200 tracking-tight mb-4">
             {t('common:testimonials.title')}
           </h2>
           <p className="text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto">
@@ -69,7 +69,7 @@ const Testimonials: React.FC = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              className="relative flex flex-col p-6 bg-white dark:bg-neutral-800/60 rounded-2xl border border-neutral-200/60 dark:border-neutral-700/40 shadow-sm"
+              className="relative flex flex-col p-6 bg-white dark:bg-black/60 rounded-2xl border border-neutral-200/60 dark:border-white/10 shadow-sm"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
@@ -98,7 +98,7 @@ const Testimonials: React.FC = () => {
                 />
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-sm font-semibold text-neutral-900 dark:text-white">
+                    <span className="text-sm font-semibold text-neutral-900 dark:text-neutral-200">
                       {testimonial.name}
                     </span>
                     <div className="flex gap-0.5">

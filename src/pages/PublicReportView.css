@@ -58,7 +58,7 @@
 }
 
 [data-theme="dark"] .public-report-header {
-    background: rgba(17, 24, 39, 0.8);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .public-report-header-content {

@@ -252,7 +252,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                 attrs: {
                     id: `slide-cover-${Date.now()}`,
                     layout: 'content',
-                    backgroundColor: design?.colorScheme?.primary || '#3b82f6',
+                    backgroundColor: design?.colorScheme?.primary || '#1963d5',
                 },
                 content: [
                     // Client Logo at the top (using dynamic variable)
@@ -380,7 +380,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                 attrs: {
                     id: `slide-conclusion-${Date.now()}`,
                     layout: 'content',
-                    backgroundColor: design?.colorScheme?.primary || '#3b82f6',
+                    backgroundColor: design?.colorScheme?.primary || '#1963d5',
                 },
                 content: [
                     // Spacers at top for visual balance
@@ -470,7 +470,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
 
     const highlightTextColor = design?.mode === 'dark'
         ? (design?.colorScheme?.text || '#f8fafc')
-        : '#1e293b'; // Dark text on light highlight usually better
+        : '#0a0a0a'; // Dark text on light highlight usually better
 
     // Get fonts from theme
     const fontFamily = design?.typography?.fontFamily || 'DM Sans, sans-serif';

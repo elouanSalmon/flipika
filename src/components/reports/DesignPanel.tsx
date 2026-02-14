@@ -48,9 +48,9 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
         const newDesign: ReportDesign = {
             mode: theme.design.mode || 'light',
             colorScheme: {
-                primary: theme.design.colorScheme.primary || '#3b82f6',
-                secondary: theme.design.colorScheme.secondary || '#60a5fa',
-                accent: theme.design.colorScheme.accent || '#93c5fd',
+                primary: theme.design.colorScheme.primary || '#1963d5',
+                secondary: theme.design.colorScheme.secondary || '#61abf7',
+                accent: theme.design.colorScheme.accent || '#a9d4fe',
                 background: theme.design.colorScheme.background || '#ffffff',
                 text: theme.design.colorScheme.text || '#141415',
             },
@@ -89,7 +89,7 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                             <p className="text-sm text-neutral-500 mb-2">Aucun thème créé</p>
                             <a
                                 href="/app/themes"
-                                className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                                className="text-sm text-primary hover:text-primary-dark flex items-center gap-1"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -107,9 +107,9 @@ const DesignPanel: React.FC<DesignPanelProps> = ({ design, onChange, onClose }) 
                                         onClick={() => applyTheme(theme)}
                                     >
                                         <div className="theme-preset-colors">
-                                            <span style={{ background: theme.design.colorScheme.primary || '#3b82f6' }} />
-                                            <span style={{ background: theme.design.colorScheme.secondary || '#60a5fa' }} />
-                                            <span style={{ background: theme.design.colorScheme.accent || '#93c5fd' }} />
+                                            <span style={{ background: theme.design.colorScheme.primary || '#1963d5' }} />
+                                            <span style={{ background: theme.design.colorScheme.secondary || '#61abf7' }} />
+                                            <span style={{ background: theme.design.colorScheme.accent || '#a9d4fe' }} />
                                         </div>
                                         <div className="flex flex-col flex-1">
                                             <span className="theme-preset-name">{theme.name}</span>

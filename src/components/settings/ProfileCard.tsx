@@ -136,7 +136,7 @@ const ProfileCard = () => {
 
     if (profileLoading) {
         return (
-            <div className="bg-white/50 dark:bg-neutral-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg">
+            <div className="bg-white/50 dark:bg-black/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg">
                 <div className="flex items-center justify-center py-8">
                     <Loader2 size={32} className="text-primary animate-spin" />
                 </div>
@@ -149,9 +149,9 @@ const ProfileCard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-white/50 dark:bg-neutral-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
+            className="bg-white/50 dark:bg-black/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
         >
-            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-neutral-900 dark:text-neutral-100">
+            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-neutral-900 dark:text-neutral-200">
                 <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                     <User size={20} className="text-primary dark:text-primary-light" />
                 </div>
@@ -176,7 +176,7 @@ const ProfileCard = () => {
                                 : usernameAvailable === true && isEditing
                                     ? 'border-green-500'
                                     : 'border-primary/30 dark:border-primary/40'
-                                } rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed`}
+                                } rounded-xl text-neutral-900 dark:text-neutral-200 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed`}
                         />
                         {usernameChecking && (
                             <Loader2 size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-primary animate-spin" />
@@ -206,7 +206,7 @@ const ProfileCard = () => {
                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                         disabled={!isEditing}
                         className={`w-full px-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 ${errors.firstName ? 'border-red-500' : 'border-primary/30 dark:border-primary/40'
-                            } rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed`}
+                            } rounded-xl text-neutral-900 dark:text-neutral-200 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed`}
                     />
                     {errors.firstName && (
                         <p className="mt-2 text-sm text-red-500">{errors.firstName}</p>
@@ -224,7 +224,7 @@ const ProfileCard = () => {
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                         disabled={!isEditing}
                         className={`w-full px-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 ${errors.lastName ? 'border-red-500' : 'border-primary/30 dark:border-primary/40'
-                            } rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed`}
+                            } rounded-xl text-neutral-900 dark:text-neutral-200 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed`}
                     />
                     {errors.lastName && (
                         <p className="mt-2 text-sm text-red-500">{errors.lastName}</p>
@@ -242,7 +242,7 @@ const ProfileCard = () => {
                             type="email"
                             value={formData.email}
                             disabled
-                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 opacity-60 cursor-not-allowed"
+                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-200 placeholder-neutral-500 dark:placeholder-neutral-400 opacity-60 cursor-not-allowed"
                         />
                     </div>
                 </div>
@@ -259,7 +259,7 @@ const ProfileCard = () => {
                             value={formData.company}
                             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                             disabled={!isEditing}
-                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-200 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed"
                         />
                     </div>
                 </div>
@@ -277,7 +277,7 @@ const ProfileCard = () => {
                             disabled={!isEditing}
                             rows={3}
                             maxLength={500}
-                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-100 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed resize-none"
+                            className="w-full pl-12 pr-4 py-3 bg-white/10 dark:bg-white/5 backdrop-blur-sm border-2 border-primary/30 dark:border-primary/40 rounded-xl text-neutral-900 dark:text-neutral-200 placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/20 shadow-lg shadow-primary/10 transition-all duration-300 hover:border-primary/40 dark:hover:border-primary/50 disabled:opacity-60 disabled:cursor-not-allowed resize-none"
                         />
                     </div>
                     {isEditing && (

@@ -98,16 +98,16 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="relative w-full max-w-md bg-white dark:bg-neutral-800 rounded-2xl shadow-xl overflow-hidden border border-neutral-100 dark:border-neutral-700"
+                        className="relative w-full max-w-md bg-white dark:bg-black rounded-2xl shadow-xl overflow-hidden border border-neutral-100 dark:border-white/10"
                     >
                         <div className="p-6">
                             <div className="flex items-start gap-4">
-                                <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+                                <div className="p-3 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary dark:text-primary-light">
                                     <Users size={24} />
                                 </div>
 
                                 <div className="flex-1">
-                                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200">
                                         {title || t('clientSelector.title', { defaultValue: 'Sélectionner un client' })}
                                     </h3>
                                     <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400 whitespace-pre-line">
@@ -125,7 +125,7 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
                                                 <select
                                                     value={selectedClientId}
                                                     onChange={(e) => setSelectedClientId(e.target.value)}
-                                                    className="w-full px-4 py-2 bg-neutral-50 dark:bg-neutral-700/50 border border-neutral-200 dark:border-neutral-600 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100"
+                                                    className="w-full px-4 py-2 bg-neutral-50 dark:bg-black/50 border border-neutral-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-neutral-900 dark:text-neutral-200"
                                                     disabled={isLoading}
                                                 >
                                                     <option value="">{t('clientSelector.placeholder', { defaultValue: 'Choisir un client...' })}</option>
@@ -160,14 +160,14 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
                                 <button
                                     onClick={onClose}
                                     disabled={isLoading}
-                                    className="px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-200 bg-neutral-100 dark:bg-black hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {cancelLabel || t('common.cancel', { defaultValue: 'Annuler' })}
                                 </button>
                                 <button
                                     onClick={handleConfirm}
                                     disabled={isLoading || !selectedClientId || !hasLinkedAccount}
-                                    className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/20 rounded-xl transition-colors flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                                    className="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark shadow-lg shadow-primary/20 rounded-xl transition-colors flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
                                     {isLoading && <Loader2 size={16} className="animate-spin" />}
                                     {confirmLabel || t('common.continue', { defaultValue: 'Continuer' })}

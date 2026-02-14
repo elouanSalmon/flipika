@@ -133,7 +133,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
         return (
             <div className="w-full">
                 <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{t('list.title')}</h3>
+                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200">{t('list.title')}</h3>
                     <button
                         className="btn btn-primary btn-sm flex items-center gap-2"
                         onClick={handleCreateTheme}
@@ -149,7 +149,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                 </div>
 
                 {themes.length === 0 ? (
-                    <div className="text-center p-8 bg-white/50 dark:bg-neutral-800/50 backdrop-blur rounded-xl border border-neutral-100 dark:border-neutral-700">
+                    <div className="text-center p-8 bg-white/50 dark:bg-black/50 backdrop-blur rounded-xl border border-neutral-100 dark:border-white/10">
                         <p className="text-sm text-neutral-500 mb-3">{t('emptyState.noCustomThemes')}</p>
                         <button
                             className="btn btn-secondary btn-sm"
@@ -167,11 +167,11 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                         {themes.slice(0, 3).map(theme => (
                             <div key={theme.id} className="listing-card p-3 group">
-                                <div className="rounded-lg overflow-hidden mb-3 border border-neutral-100 dark:border-neutral-700">
+                                <div className="rounded-lg overflow-hidden mb-3 border border-neutral-100 dark:border-white/10">
                                     <ThemePreview theme={theme} size="small" />
                                 </div>
                                 <div className="flex items-center justify-between">
-                                    <div className="font-medium text-sm text-neutral-900 dark:text-neutral-100 truncate pr-2 flex items-center gap-2">
+                                    <div className="font-medium text-sm text-neutral-900 dark:text-neutral-200 truncate pr-2 flex items-center gap-2">
                                         {theme.name}
                                         <div className="status-badge success px-1.5 py-0.5 text-[10px]" title={t('card.status.ready', { defaultValue: 'Prêt' })}>
                                             <CheckCircle2 size={10} />
@@ -215,23 +215,23 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                             style={{
                                 padding: '0.5rem',
                                 background: 'transparent',
-                                border: '2px solid var(--color-border, #e5e7eb)',
+                                border: '2px solid var(--color-border, #dcdde0)',
                                 borderRadius: '8px',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 transition: 'all 0.2s',
-                                color: 'var(--color-text-secondary, #6b7280)'
+                                color: 'var(--color-text-secondary, #6b6e77)'
                             }}
                             title={t('info.buttonLabel')}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = 'var(--color-primary, #2563eb)';
-                                e.currentTarget.style.color = 'var(--color-primary, #2563eb)';
+                                e.currentTarget.style.borderColor = 'var(--color-primary, #0741e0)';
+                                e.currentTarget.style.color = 'var(--color-primary, #0741e0)';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = 'var(--color-border, #e5e7eb)';
-                                e.currentTarget.style.color = 'var(--color-text-secondary, #6b7280)';
+                                e.currentTarget.style.borderColor = 'var(--color-border, #dcdde0)';
+                                e.currentTarget.style.color = 'var(--color-text-secondary, #6b6e77)';
                             }}
                         >
                             <Info size={20} />
@@ -269,7 +269,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                         <button
                             className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'grid'
                                 ? 'bg-primary text-white border-primary'
-                                : 'bg-white dark:bg-neutral-800 text-neutral-500 border-neutral-200 dark:border-neutral-700 hover:border-primary hover:text-primary'
+                                : 'bg-white dark:bg-black text-neutral-500 border-neutral-200 dark:border-white/10 hover:border-primary hover:text-primary'
                                 }`}
                             onClick={() => setViewMode('grid')}
                             title={t('gridView', { defaultValue: 'Vue grille' })}
@@ -279,7 +279,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                         <button
                             className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'list'
                                 ? 'bg-primary text-white border-primary'
-                                : 'bg-white dark:bg-neutral-800 text-neutral-500 border-neutral-200 dark:border-neutral-700 hover:border-primary hover:text-primary'
+                                : 'bg-white dark:bg-black text-neutral-500 border-neutral-200 dark:border-white/10 hover:border-primary hover:text-primary'
                                 }`}
                             onClick={() => setViewMode('list')}
                             title={t('listView', { defaultValue: 'Vue liste' })}
@@ -303,11 +303,11 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                             </button>
                         </div>
                     ) : themes.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center p-20 text-center bg-white/50 dark:bg-neutral-800/50 backdrop-blur rounded-2xl border border-neutral-100 dark:border-neutral-700">
+                        <div className="flex flex-col items-center justify-center p-20 text-center bg-white/50 dark:bg-black/50 backdrop-blur rounded-2xl border border-neutral-100 dark:border-white/10">
                             <div className="w-16 h-16 flex items-center justify-center bg-primary/10 rounded-full mb-4">
                                 <Palette className="w-8 h-8 text-primary" />
                             </div>
-                            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-2">{t('emptyState.noCustomThemes')}</h3>
+                            <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-200 mb-2">{t('emptyState.noCustomThemes')}</h3>
                             <p className="text-neutral-500 mb-6 max-w-md">
                                 {t('emptyState.createFirstDescription')}
                             </p>
@@ -329,7 +329,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                             {filteredThemes.map(theme => (
                                 <div key={theme.id} className={`listing-card group !overflow-hidden ${viewMode === 'list' ? 'flex flex-row p-0' : 'p-0'}`}>
                                     {/* Preview Area */}
-                                    <div className={`relative bg-neutral-5 dark:bg-neutral-900/50 border-b border-neutral-100 dark:border-neutral-700 ${viewMode === 'list' ? 'w-48 border-b-0 border-r shrink-0 p-2 flex items-center justify-center' : 'p-4'}`}>
+                                    <div className={`relative bg-neutral-5 dark:bg-black/50 border-b border-neutral-100 dark:border-white/10 ${viewMode === 'list' ? 'w-48 border-b-0 border-r shrink-0 p-2 flex items-center justify-center' : 'p-4'}`}>
                                         <ThemePreview theme={theme} size={viewMode === 'list' ? 'small' : 'medium'} />
                                         {theme.isDefault && (
                                             <div className={`absolute bg-primary text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm ${viewMode === 'list' ? 'top-2 right-2 px-1.5 py-0.5 text-[10px]' : 'top-3 right-3 px-2 py-1'}`}>
@@ -342,7 +342,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                                         <div className={viewMode === 'list' ? 'flex justify-between items-start' : 'mb-4'}>
                                             <div className="w-full">
                                                 <div className="flex items-start justify-between gap-2">
-                                                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-1 truncate">{theme.name}</h3>
+                                                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200 mb-1 truncate">{theme.name}</h3>
                                                     {viewMode === 'grid' && (
                                                         <div className="status-badge success flex-shrink-0" title={t('card.status.ready', { defaultValue: 'Prêt' })}>
                                                             <CheckCircle2 size={12} />
@@ -406,7 +406,7 @@ const ThemeManager: React.FC<ThemeManagerProps> = ({ clients = [], compact = fal
                                                                 />
                                                             ))}
                                                             {linkedCount > maxDisplay && (
-                                                                <div className="w-6 h-6 rounded-full bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center text-[10px] font-semibold text-neutral-600 dark:text-neutral-300 ring-2 ring-white dark:ring-neutral-800">
+                                                                <div className="w-6 h-6 rounded-full bg-neutral-100 dark:bg-black flex items-center justify-center text-[10px] font-semibold text-neutral-600 dark:text-neutral-300 ring-2 ring-white dark:ring-neutral-800">
                                                                     +{linkedCount - maxDisplay}
                                                                 </div>
                                                             )}

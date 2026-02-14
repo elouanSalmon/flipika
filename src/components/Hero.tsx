@@ -55,7 +55,7 @@ const Hero: React.FC = () => {
             </motion.div>
 
             {/* Title */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white leading-[1.1] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-neutral-200 leading-[1.1] tracking-tight">
               {t('common:hero.title')}
             </h1>
 
@@ -102,7 +102,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" as const }}
           >
             <div
-              className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-neutral-200/60 dark:border-neutral-700/40 shadow-2xl"
+              className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-neutral-200/60 dark:border-white/10 shadow-2xl"
               style={{
                 background: 'linear-gradient(135deg, #f0f4ff 0%, #e8edff 50%, #dde5ff 100%)',
               }}

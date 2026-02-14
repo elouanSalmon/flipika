@@ -46,9 +46,9 @@ const ConnectionsCard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.3 }}
-            className="bg-white/50 dark:bg-neutral-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
+            className="bg-white/50 dark:bg-black/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300"
         >
-            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-neutral-900 dark:text-neutral-100">
+            <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-neutral-900 dark:text-neutral-200">
                 <div className="p-2 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-lg border border-primary/20">
                     <svg className="w-5 h-5 text-primary dark:text-primary-light" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
@@ -59,9 +59,9 @@ const ConnectionsCard = () => {
 
             <div className="space-y-6">
                 {/* Google Account */}
-                <div className="flex items-center justify-between p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-neutral-700/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-neutral-700/50 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5">
+                <div className="flex items-center justify-between p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-black/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-white/5 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-white dark:bg-neutral-800 flex items-center justify-center border-2 border-primary/20">
+                        <div className="w-12 h-12 rounded-full bg-white dark:bg-black flex items-center justify-center border-2 border-primary/20">
                             <svg className="w-6 h-6" viewBox="0 0 24 24">
                                 <path
                                     fill="#4285F4"
@@ -82,7 +82,7 @@ const ConnectionsCard = () => {
                             </svg>
                         </div>
                         <div className="flex-1">
-                            <h3 className="font-semibold text-neutral-900 dark:text-neutral-100">{t('connections.google.title')}</h3>
+                            <h3 className="font-semibold text-neutral-900 dark:text-neutral-200">{t('connections.google.title')}</h3>
                             <p className="text-sm text-neutral-600 dark:text-neutral-400">
                                 {currentUser ? currentUser.email : t('connections.google.notConnected')}
                             </p>
@@ -100,7 +100,7 @@ const ConnectionsCard = () => {
                             </span>
                         ) : (
                             <>
-                                <span className="px-3 py-1 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400">
+                                <span className="px-3 py-1 rounded-full text-xs font-medium bg-neutral-100 dark:bg-black text-neutral-600 dark:text-neutral-400">
                                     {t('connections.status.notConnected')}
                                 </span>
                                 <button
@@ -114,14 +114,14 @@ const ConnectionsCard = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-4 p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-neutral-700/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-neutral-700/50 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5">
+                <div className="flex flex-col gap-4 p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-black/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-white/5 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-white dark:bg-neutral-800 flex items-center justify-center border-2 border-primary/20">
+                            <div className="w-12 h-12 rounded-full bg-white dark:bg-black flex items-center justify-center border-2 border-primary/20">
                                 <img src="/google-ads.svg" alt="Google Ads" className="w-7 h-7" />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-neutral-900 dark:text-neutral-100">{t('connections.googleAds.title')}</h3>
+                                <h3 className="font-semibold text-neutral-900 dark:text-neutral-200">{t('connections.googleAds.title')}</h3>
                                 <p className="text-sm text-neutral-600 dark:text-neutral-400">
                                     {t('connections.googleAds.description')}
                                 </p>
@@ -130,7 +130,7 @@ const ConnectionsCard = () => {
                         <div className="flex items-center gap-3">
                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${isConnected
                                 ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                                : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400'
+                                : 'bg-neutral-100 dark:bg-black text-neutral-600 dark:text-neutral-400'
                                 }`}>
                                 {isConnected ? t('connections.status.connected') : t('connections.status.notConnected')}
                             </span>
@@ -169,7 +169,7 @@ const ConnectionsCard = () => {
                                             toast.success(t('connections.toast.defaultAccountUpdated'));
                                         }
                                     }}
-                                    className="w-full px-4 py-2.5 border-2 border-primary/30 dark:border-primary/40 rounded-xl bg-white/10 dark:bg-white/5 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 dark:hover:border-primary/50"
+                                    className="w-full px-4 py-2.5 border-2 border-primary/30 dark:border-primary/40 rounded-xl bg-white/10 dark:bg-white/5 text-neutral-900 dark:text-neutral-200 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 dark:hover:border-primary/50"
                                 >
                                     <option value="">{t('connections.googleAds.selectAccount')}</option>
                                     {accounts.map((account) => (

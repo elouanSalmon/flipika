@@ -104,7 +104,7 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
 
     const containerStyle: React.CSSProperties = isChromeless ? {
         backgroundColor: 'transparent',
-        color: design?.colorScheme?.text || '#111827',
+        color: design?.colorScheme?.text || '#050505',
         borderRadius: '0',
         boxShadow: 'none',
         border: 'none',
@@ -113,7 +113,7 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
         overflow: 'visible'
     } : {
         backgroundColor: design?.colorScheme?.background || '#ffffff',
-        color: design?.colorScheme?.text || '#111827',
+        color: design?.colorScheme?.text || '#050505',
         borderRadius: '16px',
         boxShadow: design?.mode === 'dark' ? '0 4px 6px -1px rgba(0, 0, 0, 0.2)' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
         border: design?.mode === 'dark' ? '1px solid rgba(255,255,255,0.05)' : 'none',
@@ -228,7 +228,7 @@ const ReportBlock: React.FC<ReportBlockProps> = ({
                         <div>
                             <p
                                 className="text-xs leading-relaxed line-clamp-3"
-                                style={{ color: design?.colorScheme?.text || '#111827' }}
+                                style={{ color: design?.colorScheme?.text || '#050505' }}
                             >
                                 {description}
                             </p>

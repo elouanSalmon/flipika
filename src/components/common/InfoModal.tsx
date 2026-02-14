@@ -56,22 +56,22 @@ const InfoModal: React.FC<InfoModalProps> = ({
                             background: 'var(--color-bg-card, #ffffff)',
                             borderRadius: '20px',
                             boxShadow: 'var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04))',
-                            border: '1px solid var(--color-border, #e5e7eb)',
+                            border: '1px solid var(--color-border, #dcdde0)',
                         }}
                     >
                         <div className="p-6">
                             <div className="flex items-start gap-4">
-                                <div className="p-3 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
+                                <div className="p-3 rounded-xl bg-primary-50 text-primary dark:bg-primary-900/20 dark:text-primary-light">
                                     <Info size={24} />
                                 </div>
 
                                 <div className="flex-1">
-                                    <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary, #111827)' }}>
+                                    <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary, #050505)' }}>
                                         {title}
                                     </h3>
                                     <div
                                         className="mt-3 text-sm whitespace-pre-line leading-relaxed"
-                                        style={{ color: 'var(--color-text-secondary, #6b7280)' }}
+                                        style={{ color: 'var(--color-text-secondary, #6b6e77)' }}
                                     >
                                         {content}
                                     </div>
@@ -85,12 +85,12 @@ const InfoModal: React.FC<InfoModalProps> = ({
                                 </button>
                             </div>
 
-                            <div className="mt-6 flex justify-end border-t border-neutral-100 dark:border-neutral-800 pt-4">
+                            <div className="mt-6 flex justify-end border-t border-neutral-100 dark:border-white/10 pt-4">
                                 <button
                                     onClick={handleClose}
                                     className="px-6 py-2.5 text-sm font-medium text-white rounded-xl transition-all duration-200 shadow-lg"
                                     style={{
-                                        background: 'var(--gradient-primary, linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%))',
+                                        background: 'var(--gradient-primary, linear-gradient(135deg, #0741e0 0%, #0541ae 100%))',
                                         boxShadow: 'var(--shadow-md)',
                                     }}
                                 >

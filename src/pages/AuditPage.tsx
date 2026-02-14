@@ -120,7 +120,7 @@ const AuditPage = () => {
 
 
                 {/* Configuration */}
-                <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-4 md:p-6">
+                <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-4 md:p-6">
                     <h3 className="text-base md:text-lg font-bold mb-4">Configuration de l'audit</h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">{/* Account selection */}
@@ -135,7 +135,7 @@ const AuditPage = () => {
                                     loadCampaigns(e.target.value);
                                     setAuditResult(null);
                                 }}
-                                className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black text-neutral-900 dark:text-neutral-200 focus:ring-2 focus:ring-primary"
                             >
                                 {accounts.map(account => (
                                     <option key={account.id} value={account.id}>
@@ -156,7 +156,7 @@ const AuditPage = () => {
                                     setSelectedCampaignId(e.target.value);
                                     setAuditResult(null);
                                 }}
-                                className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black text-neutral-900 dark:text-neutral-200 focus:ring-2 focus:ring-primary"
                             >
                                 <option value="all">Toutes les campagnes</option>
                                 {campaigns.map(campaign => (
@@ -175,7 +175,7 @@ const AuditPage = () => {
                             <select
                                 value={period}
                                 onChange={(e) => setPeriod(e.target.value as '30' | '60' | '90')}
-                                className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black text-neutral-900 dark:text-neutral-200 focus:ring-2 focus:ring-primary"
                             >
                                 <option value="30">30 derniers jours</option>
                                 <option value="60">60 derniers jours</option>
@@ -222,17 +222,17 @@ const AuditPage = () => {
 
                         {/* Quick stats */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+                            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
                                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">Recommandations totales</p>
                                 <p className="text-3xl font-bold">{auditResult.recommendations.length}</p>
                             </div>
-                            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+                            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
                                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">Priorité urgente</p>
                                 <p className="text-3xl font-bold text-red-600 dark:text-red-400">
                                     {auditResult.recommendations.filter(r => r.priority === 'URGENT').length}
                                 </p>
                             </div>
-                            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+                            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
                                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">Impact élevé</p>
                                 <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">
                                     {auditResult.recommendations.filter(r => r.impact === 'HIGH').length}
@@ -268,7 +268,7 @@ const AuditPage = () => {
 
                 {/* Empty state */}
                 {!auditResult && !loading && (
-                    <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-12 text-center">
+                    <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-12 text-center">
                         <RefreshCw size={48} className="mx-auto mb-4 text-neutral-400" />
                         <h3 className="text-lg font-semibold mb-2">Aucun audit en cours</h3>
                         <p className="text-neutral-500">

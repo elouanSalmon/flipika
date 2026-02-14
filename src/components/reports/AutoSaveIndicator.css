@@ -43,8 +43,8 @@
 
 /* Saving State */
 .auto-save-indicator.saving {
-    background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
+    background: rgba(25, 99, 213, 0.1);
+    color: #1963d5;
 }
 
 .auto-save-indicator.saving .indicator-icon {

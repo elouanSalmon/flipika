@@ -33,7 +33,7 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
             </div>
 
             {/* Title */}
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white leading-tight tracking-tight">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-neutral-200 leading-tight tracking-tight">
                 {title}
             </h3>
 
@@ -63,7 +63,7 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
             viewport={{ once: true }}
         >
             <div
-                className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-neutral-200/60 dark:border-neutral-700/40 shadow-xl"
+                className="w-full aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden border border-neutral-200/60 dark:border-white/10 shadow-xl"
                 style={{
                     background: 'linear-gradient(135deg, #f0f4ff 0%, #e8edff 50%, #dde5ff 100%)',
                 }}

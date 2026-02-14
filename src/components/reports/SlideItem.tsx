@@ -277,10 +277,10 @@ export const SlideItem: React.FC<SlideItemProps & {
                 {/* Content Configuration Panel for Structural Slides */}
                 {!isPublicView && isSelected && showScopePanel && onUpdate && !isDragging && (
                     (slide.type === SlideType.SECTION_TITLE || slide.type === SlideType.RICH_TEXT) && (
-                        <div className="mt-4 p-4 bg-neutral-50 dark:bg-neutral-800/50 rounded-xl border border-neutral-200 dark:border-neutral-700" onClick={(e) => e.stopPropagation()}>
+                        <div className="mt-4 p-4 bg-neutral-50 dark:bg-black/50 rounded-xl border border-neutral-200 dark:border-white/10" onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center gap-2 mb-4">
-                                <Settings size={18} className="text-blue-600 dark:text-blue-400" />
-                                <h4 className="font-semibold text-neutral-900 dark:text-neutral-100">
+                                <Settings size={18} className="text-primary dark:text-primary-light" />
+                                <h4 className="font-semibold text-neutral-900 dark:text-neutral-200">
                                     Configuration du contenu
                                 </h4>
                             </div>
@@ -292,7 +292,7 @@ export const SlideItem: React.FC<SlideItemProps & {
                                             type="text"
                                             value={slide.title || ''}
                                             onChange={(e) => onUpdate({ title: e.target.value })}
-                                            className="w-full px-4 py-2 bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100"
+                                            className="w-full px-4 py-2 bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-neutral-900 dark:text-neutral-200"
                                             placeholder="Titre de la section"
                                         />
                                     </div>
@@ -302,7 +302,7 @@ export const SlideItem: React.FC<SlideItemProps & {
                                             type="text"
                                             value={slide.subtitle || ''}
                                             onChange={(e) => onUpdate({ subtitle: e.target.value })}
-                                            className="w-full px-4 py-2 bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100"
+                                            className="w-full px-4 py-2 bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-neutral-900 dark:text-neutral-200"
                                             placeholder="Sous-titre optionnel"
                                         />
                                     </div>
@@ -315,7 +315,7 @@ export const SlideItem: React.FC<SlideItemProps & {
                                         value={slide.body || ''}
                                         onChange={(e) => onUpdate({ body: e.target.value })}
                                         rows={6}
-                                        className="w-full px-4 py-2 bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-neutral-900 dark:text-neutral-100"
+                                        className="w-full px-4 py-2 bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-neutral-900 dark:text-neutral-200"
                                         placeholder="Saisissez votre texte ici..."
                                     />
                                 </div>

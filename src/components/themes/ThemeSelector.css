@@ -11,7 +11,7 @@
 }
 
 .dark .theme-selector-label {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .theme-selector-loading {
@@ -41,8 +41,8 @@
 }
 
 .dark .theme-selector-button {
-    background: rgba(51, 65, 85, 0.5);
-    border-color: rgba(148, 163, 184, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-selector-button:hover {
@@ -51,8 +51,8 @@
 }
 
 .dark .theme-selector-button:hover {
-    border-color: rgba(148, 163, 184, 0.4);
-    background: rgba(51, 65, 85, 0.7);
+    border-color: rgba(142, 145, 153, 0.4);
+    background: rgba(0, 0, 0, 0.7);
 }
 
 .theme-selector-button:focus {
@@ -75,7 +75,7 @@
 }
 
 .dark .theme-selector-button-text {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .theme-selector-chevron {
@@ -116,8 +116,8 @@
 }
 
 .dark .theme-selector-menu {
-    background: #1e293b;
-    border-color: rgba(148, 163, 184, 0.2);
+    background: #000000;
+    border-color: rgba(255, 255, 255, 0.08);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
@@ -132,7 +132,7 @@
 }
 
 .dark .theme-selector-menu-header {
-    border-bottom-color: rgba(148, 163, 184, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
     color: #8e9199;
 }
 
@@ -149,15 +149,15 @@
     padding: 12px 16px;
     background: #fff;
     border: none;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f0f1f2;
     cursor: pointer;
     transition: background 0.2s ease;
     text-align: left;
 }
 
 .dark .theme-selector-option {
-    background: #1e293b;
-    border-bottom-color: rgba(148, 163, 184, 0.1);
+    background: #000000;
+    border-bottom-color: rgba(255, 255, 255, 0.05);
 }
 
 .theme-selector-option:hover {
@@ -165,17 +165,17 @@
 }
 
 .dark .theme-selector-option:hover {
-    background: rgba(51, 65, 85, 0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .theme-selector-option.selected {
-    background: #eff6ff;
+    background: #eaf2fe;
     border-left: 3px solid #1963d5;
 }
 
 .dark .theme-selector-option.selected {
-    background: rgba(59, 130, 246, 0.2);
-    border-left-color: #3b82f6;
+    background: rgba(25, 99, 213, 0.2);
+    border-left-color: #1963d5;
 }
 
 .theme-selector-option-preview {
@@ -199,7 +199,7 @@
 }
 
 .dark .theme-selector-option-name {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .theme-selector-option-description {
@@ -228,18 +228,18 @@
 }
 
 .dark .theme-selector-badge {
-    background: rgba(71, 85, 105, 0.5);
+    background: rgba(26, 26, 26, 0.5);
     color: #b8bac0;
 }
 
 .theme-selector-badge.linked {
-    background: #dbeafe;
+    background: #eaf2fe;
     color: #1e40af;
 }
 
 .dark .theme-selector-badge.linked {
-    background: rgba(59, 130, 246, 0.3);
-    color: #93c5fd;
+    background: rgba(25, 99, 213, 0.3);
+    color: #a9d4fe;
 }
 
 .theme-selector-menu-footer {
@@ -248,7 +248,7 @@
 }
 
 .dark .theme-selector-menu-footer {
-    border-top-color: rgba(148, 163, 184, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-selector-create-button {

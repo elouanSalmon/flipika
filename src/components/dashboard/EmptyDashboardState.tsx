@@ -32,14 +32,14 @@ const EmptyDashboardState = () => {
         <div className="min-h-[60vh] flex items-center justify-center p-8">
             <div className="max-w-2xl w-full">
                 {/* Glassmorphism Card */}
-                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 backdrop-blur-xl border border-blue-500/20 shadow-2xl p-12">
+                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 to-primary/10 backdrop-blur-xl border border-primary/20 shadow-2xl p-12">
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
 
                     <div className="relative z-10 text-center space-y-6">
                         {/* Icon */}
                         <div className="flex justify-center">
-                            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-primary flex items-center justify-center shadow-lg">
                                 <svg
                                     className="w-12 h-12 text-white"
                                     fill="none"
@@ -57,7 +57,7 @@ const EmptyDashboardState = () => {
                         </div>
 
                         {/* Title */}
-                        <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                        <h2 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                             Aucun compte connecté
                         </h2>
 
@@ -72,7 +72,7 @@ const EmptyDashboardState = () => {
                             <button
                                 onClick={handleConnectGoogleAds}
                                 disabled={isConnecting}
-                                className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                className="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                             >
                                 <span className="relative z-10 flex items-center justify-center gap-2">
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -88,7 +88,7 @@ const EmptyDashboardState = () => {
                             {/* Secondary Button - Demo Mode */}
                             <button
                                 onClick={handleEnableDemoMode}
-                                className="px-8 py-4 rounded-xl bg-white/50 dark:bg-neutral-800/50 backdrop-blur-sm border border-blue-500/30 text-neutral-700 dark:text-neutral-200 font-semibold hover:bg-white/70 dark:hover:bg-neutral-800/70 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 shadow-md"
+                                className="px-8 py-4 rounded-xl bg-white/50 dark:bg-black/50 backdrop-blur-sm border border-primary/30 text-neutral-700 dark:text-neutral-200 font-semibold hover:bg-white/70 dark:hover:bg-neutral-800/70 hover:border-primary/50 transition-all duration-300 hover:scale-105 shadow-md"
                             >
                                 Activer le mode démo
                             </button>

@@ -136,8 +136,8 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
             >
                 {/* Header */}
                 <div className="flex items-center justify-between p-5 border-b border-[var(--color-border)] bg-[var(--glass-bg)]">
-                    <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent flex items-center gap-2">
-                        <ImageIcon className="w-6 h-6 text-blue-500" />
+                    <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent flex items-center gap-2">
+                        <ImageIcon className="w-6 h-6 text-primary" />
                         Médiathèque
                     </h2>
                     <button
@@ -153,7 +153,7 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                     <button
                         onClick={() => setActiveTab('upload')}
                         className={`py-4 px-6 text-sm font-semibold border-b-2 transition-all ${activeTab === 'upload'
-                            ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                            ? 'border-primary text-primary dark:text-primary-light'
                             : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
                             }`}
                     >
@@ -162,7 +162,7 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                     <button
                         onClick={() => setActiveTab('library')}
                         className={`py-4 px-6 text-sm font-semibold border-b-2 transition-all ${activeTab === 'library'
-                            ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                            ? 'border-primary text-primary dark:text-primary-light'
                             : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
                             }`}
                     >
@@ -175,8 +175,8 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                     {activeTab === 'upload' ? (
                         <div
                             className={`h-full flex flex-col items-center justify-center border-2 border-dashed rounded-xl transition-all duration-300 ${dragActive
-                                ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/10 scale-[0.99]'
-                                : 'border-[var(--color-border)] hover:border-blue-400/50 hover:bg-[var(--color-bg-secondary)]'
+                                ? 'border-primary bg-primary-50/50 dark:bg-primary-900/10 scale-[0.99]'
+                                : 'border-[var(--color-border)] hover:border-primary-light/50 hover:bg-[var(--color-bg-secondary)]'
                                 }`}
                             onDragEnter={handleDrag}
                             onDragLeave={handleDrag}
@@ -194,14 +194,14 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
 
                             {isUploading ? (
                                 <div className="text-center">
-                                    <Loader2 className="w-12 h-12 animate-spin text-blue-500 mx-auto mb-4" />
+                                    <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
                                     <p className="text-[var(--color-text-primary)] font-medium text-lg">Optimisation et envoi en cours...</p>
                                     <p className="text-sm text-[var(--color-text-secondary)] mt-2">Conversion WebP & Redimensionnement</p>
                                 </div>
                             ) : (
                                 <div className="text-center space-y-6 max-w-md mx-auto">
-                                    <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-full w-24 h-24 flex items-center justify-center mx-auto shadow-sm">
-                                        <Upload className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+                                    <div className="bg-primary-50 dark:bg-primary-900/20 p-6 rounded-full w-24 h-24 flex items-center justify-center mx-auto shadow-sm">
+                                        <Upload className="w-10 h-10 text-primary dark:text-primary-light" />
                                     </div>
                                     <div>
                                         <p className="text-xl font-semibold text-[var(--color-text-primary)]">
@@ -230,7 +230,7 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                         <div className="h-full">
                             {isLoading ? (
                                 <div className="flex items-center justify-center h-full">
-                                    <Loader2 className="w-10 h-10 animate-spin text-blue-500" />
+                                    <Loader2 className="w-10 h-10 animate-spin text-primary" />
                                 </div>
                             ) : images.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center h-full text-[var(--color-text-secondary)]">
@@ -240,7 +240,7 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                                     <p className="text-lg font-medium">Aucune image dans votre galerie</p>
                                     <button
                                         onClick={() => setActiveTab('upload')}
-                                        className="mt-4 text-blue-600 hover:text-blue-700 font-medium btn-link"
+                                        className="mt-4 text-primary hover:text-primary-dark font-medium btn-link"
                                     >
                                         Commencer à uploader
                                     </button>
@@ -250,7 +250,7 @@ export const MediaManagerModal: React.FC<MediaManagerModalProps> = ({
                                     {images.map((image) => (
                                         <div
                                             key={image.id}
-                                            className="group relative aspect-square bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden border border-[var(--color-border)] cursor-pointer hover:border-blue-500 hover:shadow-lg transition-all duration-300"
+                                            className="group relative aspect-square bg-[var(--color-bg-secondary)] rounded-xl overflow-hidden border border-[var(--color-border)] cursor-pointer hover:border-primary hover:shadow-lg transition-all duration-300"
                                             onClick={() => {
                                                 onSelectImage(image.url);
                                                 onClose();

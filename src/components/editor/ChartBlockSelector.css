@@ -33,11 +33,11 @@
 }
 
 [data-theme='dark'] .chart-sidebar {
-    background: rgba(30, 41, 59, 0.95);
-    border-color: rgba(71, 85, 105, 0.3);
+    background: #000000;
+    border-color: rgba(255, 255, 255, 0.1);
     box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.2),
-        0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        0 4px 6px -1px rgba(0, 0, 0, 0.4),
+        0 10px 15px -3px rgba(0, 0, 0, 0.6);
 }
 
 .chart-sidebar-btn {
@@ -111,7 +111,7 @@
 }
 
 [data-theme='dark'] .sidebar-badge {
-    border-color: rgba(30, 41, 59, 0.95);
+    border-color: #000000;
 }
 
 [data-theme='dark'] .chart-sidebar-btn.is-active .sidebar-badge {
@@ -157,12 +157,12 @@
 }
 
 [data-theme='dark'] .chart-flyout {
-    background: rgba(15, 23, 42, 0.98);
-    border-color: rgba(71, 85, 105, 0.3);
+    background: #000000;
+    border-color: rgba(255, 255, 255, 0.1);
     box-shadow:
-        0 4px 6px -1px rgba(0, 0, 0, 0.2),
-        0 20px 25px -5px rgba(0, 0, 0, 0.3),
-        0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        0 4px 6px -1px rgba(0, 0, 0, 0.4),
+        0 20px 25px -5px rgba(0, 0, 0, 0.6),
+        0 10px 10px -5px rgba(0, 0, 0, 0.3);
 }
 
 /* ===========================
@@ -178,7 +178,7 @@
 }
 
 [data-theme='dark'] .chart-flyout-header {
-    border-color: rgba(51, 65, 85, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Search Input */
@@ -200,7 +200,7 @@
 .flyout-search-input {
     width: 100%;
     padding: 10px 12px 10px 38px;
-    background: rgba(241, 245, 249, 0.6);
+    background: rgba(246, 246, 247, 0.6);
     border: 1px solid rgba(226, 232, 240, 0.6);
     border-radius: 12px;
     font-size: 0.875rem;
@@ -214,8 +214,8 @@
 }
 
 [data-theme='dark'] .flyout-search-input {
-    background: rgba(30, 41, 59, 0.6);
-    border-color: rgba(71, 85, 105, 0.6);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
     color: #f6f6f7;
 }
 
@@ -230,7 +230,7 @@
 }
 
 [data-theme='dark'] .flyout-search-input:focus {
-    background: rgba(30, 41, 59, 0.9);
+    background: rgba(0, 0, 0, 0.9);
     border-color: #61abf7;
 }
 
@@ -283,11 +283,11 @@
 }
 
 .chart-flyout-content::-webkit-scrollbar-thumb:hover {
-    background: rgba(148, 163, 184, 0.7);
+    background: rgba(142, 145, 153, 0.7);
 }
 
 [data-theme='dark'] .chart-flyout-content::-webkit-scrollbar-thumb {
-    background: rgba(71, 85, 105, 0.5);
+    background: rgba(26, 26, 26, 0.5);
 }
 
 [data-theme='dark'] .chart-flyout-content::-webkit-scrollbar-thumb:hover {
@@ -320,8 +320,8 @@
 }
 
 [data-theme='dark'] .section-header {
-    background: rgba(15, 23, 42, 0.98);
-    border-color: rgba(51, 65, 85, 0.5);
+    background: #000000;
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .section-title {
@@ -433,7 +433,7 @@
 }
 
 [data-theme='dark'] .flyout-item-label {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .flyout-item-desc {

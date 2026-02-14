@@ -65,7 +65,7 @@ const Login = () => {
   ];
 
   return (
-    <div className="flex flex-col bg-white dark:bg-neutral-900 font-sans">
+    <div className="flex flex-col bg-white dark:bg-black font-sans">
       <SEO
         title={tSeo('login.title')}
         description={tSeo('login.description')}
@@ -76,7 +76,7 @@ const Login = () => {
       <div className="min-h-screen w-full flex relative">
 
         {/* LEFT COLUMN - LOGIN */}
-        <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-between p-8 lg:p-12 xl:p-16 relative z-10 bg-gradient-to-br from-blue-50/50 via-white to-blue-50/30 dark:from-neutral-900 dark:to-neutral-800 border-r border-neutral-100 dark:border-neutral-800">
+        <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col justify-between p-8 lg:p-12 xl:p-16 relative z-10 bg-gradient-to-br from-primary-50/50 via-white to-primary-50/30 dark:from-black dark:to-neutral-900 border-r border-neutral-100 dark:border-white/10 text-neutral-900 dark:text-neutral-200">
 
           {/* Minimal Header - Logo + Language */}
           <div className="flex items-center justify-between w-full mb-8">
@@ -88,12 +88,12 @@ const Login = () => {
           <div className="flex flex-col max-w-sm w-full mx-auto space-y-8 relative z-20 flex-1 justify-center">
 
             <div className="space-y-3">
-              <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+              <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-200">
                 {t('auth.login.title')}
               </h1>
               <p className="text-neutral-500 dark:text-neutral-400 text-lg">
                 {t('auth.login.subtitle')} <br className="hidden lg:block" />
-                <span className="text-blue-600 font-medium">{t('auth.login.subtitle2')}</span>
+                <span className="text-primary font-medium">{t('auth.login.subtitle2')}</span>
               </p>
             </div>
 
@@ -101,7 +101,7 @@ const Login = () => {
               <button
                 onClick={handleLogin}
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-[#1963D5] hover:bg-[#0741e0] text-white font-medium transition-all duration-200 shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group"
+                className="w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-[#1963D5] hover:bg-[#0741e0] text-white font-medium transition-all duration-200 shadow-lg shadow-primary/20 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group"
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -128,16 +128,16 @@ const Login = () => {
               )}
 
               <div className="flex items-center gap-4 py-4">
-                <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-700"></div>
+                <div className="h-px flex-1 bg-neutral-200 dark:bg-black"></div>
                 <span className="text-sm text-neutral-500 dark:text-neutral-400">{t('auth.benefits.title')}</span>
-                <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-700"></div>
+                <div className="h-px flex-1 bg-neutral-200 dark:bg-black"></div>
               </div>
 
               {/* Reassurance/Benefits */}
               <div className="space-y-4 pt-2">
                 {benefits.map((item, idx) => (
                   <div key={idx} className="flex items-center gap-3 text-neutral-600 dark:text-neutral-300">
-                    <div className="shrink-0 w-8 h-8 rounded-full bg-white dark:bg-neutral-800 flex items-center justify-center border border-neutral-100 dark:border-neutral-700 shadow-sm">
+                    <div className="shrink-0 w-8 h-8 rounded-full bg-white dark:bg-black flex items-center justify-center border border-neutral-100 dark:border-white/10 shadow-sm">
                       {item.icon}
                     </div>
                     <span className="text-sm font-medium">{item.text}</span>
@@ -155,15 +155,15 @@ const Login = () => {
         </div>
 
         {/* RIGHT COLUMN - VISUAL WALL */}
-        <div className="hidden lg:flex w-[55%] xl:w-[60%] items-center justify-center relative bg-[#F8FAFC] dark:bg-[#020617] overflow-hidden">
+        <div className="hidden lg:flex w-[55%] xl:w-[60%] items-center justify-center relative bg-[#F8FAFC] dark:bg-black overflow-hidden">
 
           {/* Subtle Background Gradients - Blue nuance only */}
-          <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
+          <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-[120px]" />
           <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[120px]" />
 
           {/* Masonry Grid Background Pattern */}
           <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-            style={{ backgroundImage: 'radial-gradient(#64748b 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
+            style={{ backgroundImage: 'radial-gradient(#6b6e77 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
           </div>
 
           {/* Tilted Card Wall Container */}
@@ -182,20 +182,20 @@ const Login = () => {
                   initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + (idx * 0.1), duration: 0.8, ease: "easeOut" }}
-                  className="p-6 bg-white dark:bg-neutral-900 rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] dark:shadow-none border border-neutral-200/60 dark:border-neutral-800 flex flex-col gap-6 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-500 will-change-transform"
+                  className="p-6 bg-white dark:bg-black rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] dark:shadow-none border border-neutral-200/60 dark:border-white/10 flex flex-col gap-6 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-500 will-change-transform"
                 >
                   {/* Fake Image Content */}
-                  <div className="h-40 w-full bg-neutral-50 dark:bg-neutral-800 rounded-2xl overflow-hidden relative group border border-neutral-100 dark:border-neutral-700/50">
+                  <div className="h-40 w-full bg-neutral-50 dark:bg-black rounded-2xl overflow-hidden relative group border border-neutral-100 dark:border-white/10">
                     <div className={`absolute top-4 left-4 w-10 h-10 rounded-xl ${card.color} text-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 duration-300`}>
                       {card.icon}
                     </div>
 
                     {/* Abstract UI content */}
                     <div className="absolute top-20 left-4 right-4 space-y-3 opacity-60">
-                      <div className="h-2 w-3/4 bg-neutral-200 dark:bg-neutral-700 rounded-full"></div>
-                      <div className="h-2 w-1/2 bg-neutral-200 dark:bg-neutral-700 rounded-full"></div>
+                      <div className="h-2 w-3/4 bg-neutral-200 dark:bg-black rounded-full"></div>
+                      <div className="h-2 w-1/2 bg-neutral-200 dark:bg-black rounded-full"></div>
                       <div className="flex gap-2 mt-4">
-                        <div className="h-12 w-1/3 bg-blue-100/50 dark:bg-blue-900/20 rounded-lg"></div>
+                        <div className="h-12 w-1/3 bg-primary-100/50 dark:bg-primary-900/20 rounded-lg"></div>
                         <div className="h-12 w-1/3 bg-indigo-100/50 dark:bg-indigo-900/20 rounded-lg"></div>
                         <div className="h-12 w-1/3 bg-sky-100/50 dark:bg-sky-900/20 rounded-lg"></div>
                       </div>
@@ -203,10 +203,10 @@ const Login = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <h3 className="font-bold text-lg text-neutral-900 dark:text-white leading-tight">{card.title}</h3>
+                    <h3 className="font-bold text-lg text-neutral-900 dark:text-neutral-200 leading-tight">{card.title}</h3>
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-medium text-neutral-500">{card.subtitle}</p>
-                      <div className="text-xs font-semibold px-2 py-1 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">Success</div>
+                      <div className="text-xs font-semibold px-2 py-1 rounded-full bg-primary-50 text-primary dark:bg-primary-900/30 dark:text-primary-light">Success</div>
                     </div>
                   </div>
                 </motion.div>
@@ -215,7 +215,7 @@ const Login = () => {
           </div>
 
           {/* Overlay to fade out edges - top and bottom */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-transparent to-[#F8FAFC] dark:from-[#020617] dark:to-[#020617] opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F8FAFC] via-transparent to-[#F8FAFC] dark:from-black dark:to-black opacity-60" />
         </div>
 
         {/* Floating Orbs - Blue Lights */}

@@ -205,23 +205,23 @@ const ReportsList: React.FC = () => {
                             style={{
                                 padding: '0.5rem',
                                 background: 'transparent',
-                                border: '2px solid var(--color-border, #e5e7eb)',
+                                border: '2px solid var(--color-border, #dcdde0)',
                                 borderRadius: '8px',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 transition: 'all 0.2s',
-                                color: 'var(--color-text-secondary, #6b7280)'
+                                color: 'var(--color-text-secondary, #6b6e77)'
                             }}
                             title={t('info.buttonLabel')}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = 'var(--color-primary, #2563eb)';
-                                e.currentTarget.style.color = 'var(--color-primary, #2563eb)';
+                                e.currentTarget.style.borderColor = 'var(--color-primary, #0741e0)';
+                                e.currentTarget.style.color = 'var(--color-primary, #0741e0)';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = 'var(--color-border, #e5e7eb)';
-                                e.currentTarget.style.color = 'var(--color-text-secondary, #6b7280)';
+                                e.currentTarget.style.borderColor = 'var(--color-border, #dcdde0)';
+                                e.currentTarget.style.color = 'var(--color-text-secondary, #6b6e77)';
                             }}
                         >
                             <Info size={20} />
@@ -231,7 +231,7 @@ const ReportsList: React.FC = () => {
                 </div>
                 <div className="flex gap-3">
                     <button
-                        className="create-report-btn-secondary bg-white dark:bg-neutral-800 text-primary border-primary/20 hover:border-primary hover:bg-primary/5 shadow-sm"
+                        className="create-report-btn-secondary bg-white dark:bg-black text-primary border-primary/20 hover:border-primary hover:bg-primary/5 shadow-sm"
                         onClick={() => navigate('/app/templates')}
                         disabled={!hasAccess}
                         style={{
@@ -318,7 +318,7 @@ const ReportsList: React.FC = () => {
                         <button
                             className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'grid'
                                 ? 'bg-primary text-white border-primary'
-                                : 'bg-white dark:bg-neutral-800 text-neutral-500 border-neutral-200 dark:border-neutral-700 hover:border-primary hover:text-primary'
+                                : 'bg-white dark:bg-black text-neutral-500 border-neutral-200 dark:border-white/10 hover:border-primary hover:text-primary'
                                 }`}
                             onClick={() => setViewMode('grid')}
                             title={t('list.gridView')}
@@ -328,7 +328,7 @@ const ReportsList: React.FC = () => {
                         <button
                             className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'list'
                                 ? 'bg-primary text-white border-primary'
-                                : 'bg-white dark:bg-neutral-800 text-neutral-500 border-neutral-200 dark:border-neutral-700 hover:border-primary hover:text-primary'
+                                : 'bg-white dark:bg-black text-neutral-500 border-neutral-200 dark:border-white/10 hover:border-primary hover:text-primary'
                                 }`}
                             onClick={() => setViewMode('list')}
                             title={t('list.listView')}

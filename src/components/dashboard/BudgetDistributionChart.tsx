@@ -9,21 +9,21 @@ interface BudgetDistributionChartProps {
     loading?: boolean;
 }
 
-const COLORS = ['#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#06b6d4'];
+const COLORS = ['#1963d5', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#06b6d4'];
 
 const BudgetDistributionChart: React.FC<BudgetDistributionChartProps> = ({ accounts, loading = false }) => {
     const { theme } = useTheme();
     const isDark = theme === 'dark';
 
     const colors = {
-        tooltipBg: isDark ? '#1f2937' : '#ffffff',
-        tooltipBorder: isDark ? '#374151' : '#e5e7eb',
-        tooltipText: isDark ? '#f3f4f6' : '#111827',
+        tooltipBg: isDark ? '#0a0a0a' : '#ffffff',
+        tooltipBorder: isDark ? '#1a1a1a' : '#dcdde0',
+        tooltipText: isDark ? '#f0f1f2' : '#050505',
     };
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-80 flex items-center justify-center">
+            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 h-80 flex items-center justify-center">
                 <Spinner size={32} />
             </div>
         );
@@ -31,7 +31,7 @@ const BudgetDistributionChart: React.FC<BudgetDistributionChartProps> = ({ accou
 
     if (!accounts || accounts.length === 0) {
         return (
-            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-80 flex items-center justify-center">
+            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 h-80 flex items-center justify-center">
                 <div className="text-neutral-400">Aucune donnée disponible</div>
             </div>
         );
@@ -44,7 +44,7 @@ const BudgetDistributionChart: React.FC<BudgetDistributionChartProps> = ({ accou
     }));
 
     return (
-        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
             <h3 className="text-lg font-bold mb-6">Répartition du budget par compte</h3>
             <ResponsiveContainer width="100%" height={300}>
                 <PieChart>

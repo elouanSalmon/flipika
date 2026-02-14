@@ -24,7 +24,7 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
                 fontFamily: design?.typography?.fontFamily || 'Inter, sans-serif',
                 // Explicitly set background and color from design
                 backgroundColor: design?.colorScheme?.background || '#ffffff',
-                color: design?.colorScheme?.text || '#111827',
+                color: design?.colorScheme?.text || '#050505',
                 borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
             }}
         >
@@ -42,7 +42,7 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
                         <span style={{ color: design?.colorScheme?.secondary || 'var(--color-text-muted)', fontSize: '10px' }}>•</span>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                             <Globe size={14} style={{ color: design?.colorScheme?.primary || 'var(--color-primary)' }} />
-                            <span style={{ fontSize: '14px', color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(15, 23, 42, 0.5)' }}>
+                            <span style={{ fontSize: '14px', color: design.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(5, 5, 5, 0.5)' }}>
                                 {data.displayUrl}
                             </span>
                         </div>
@@ -62,7 +62,7 @@ const SearchAdSlide: React.FC<SearchAdSlideProps> = ({ data, design }) => {
                     {/* Ad Description */}
                     <p style={{
                         fontSize: '14px',
-                        color: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(15, 23, 42, 0.7)',
+                        color: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(5, 5, 5, 0.7)',
                         lineHeight: '1.6',
                         marginBottom: '12px',
                     }}>

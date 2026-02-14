@@ -30,7 +30,7 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score, previousScore, breakdo
     const change = previousScore ? score - previousScore : 0;
 
     return (
-        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-8">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-8">
             <h3 className="text-lg font-bold mb-6">Score de santé global</h3>
 
             <div className="flex items-center gap-8">
@@ -94,7 +94,7 @@ const HealthScore: React.FC<HealthScoreProps> = ({ score, previousScore, breakdo
                         return (
                             <div key={key} className="flex items-center gap-3">
                                 <span className="text-sm font-medium w-32">{labels[key]}</span>
-                                <div className="flex-1 bg-neutral-200 dark:bg-neutral-700 rounded-full h-2">
+                                <div className="flex-1 bg-neutral-200 dark:bg-black rounded-full h-2">
                                     <div
                                         className={`h-2 rounded-full bg-gradient-to-r ${getScoreBg(value)}`}
                                         style={{ width: `${value}%` }}

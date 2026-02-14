@@ -44,8 +44,8 @@ export const SlideComponent = ({ node, updateAttributes, deleteNode, selected, g
     const isDarkMode = design?.mode === 'dark';
 
     // Use OPAQUE background from report theme, not app theme
-    const themeBg = design?.colorScheme?.background || (isDarkMode ? '#1e293b' : '#f9fafb');
-    const themeTextColor = design?.colorScheme?.text || (isDarkMode ? '#f1f5f9' : '#141415');
+    const themeBg = design?.colorScheme?.background || (isDarkMode ? '#0a0a0a' : '#f6f6f7');
+    const themeTextColor = design?.colorScheme?.text || (isDarkMode ? '#f0f1f2' : '#141415');
 
     // Use theme background (opaque, not transparent)
     const finalBackgroundColor = backgroundColor || themeBg;

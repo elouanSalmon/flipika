@@ -91,14 +91,14 @@ const Roadmap: React.FC = () => {
             subtitle: t('timeline.soon.subtitle'),
             description: t('timeline.soon.description'),
             features: soonFeatures,
-            dotBg: 'bg-blue-500',
-            dotShadow: 'shadow-blue-500/30',
-            badgeBg: 'bg-blue-500/10',
-            badgeText: 'text-blue-600 dark:text-blue-400',
-            subtitleText: 'text-blue-600 dark:text-blue-400',
-            bulletColor: 'text-blue-500',
-            accentBorder: 'border-blue-500/20',
-            glowColor: 'from-blue-500/20',
+            dotBg: 'bg-primary-500',
+            dotShadow: 'shadow-primary/30',
+            badgeBg: 'bg-primary-500/10',
+            badgeText: 'text-primary dark:text-primary-light',
+            subtitleText: 'text-primary dark:text-primary-light',
+            bulletColor: 'text-primary',
+            accentBorder: 'border-primary/20',
+            glowColor: 'from-primary/20',
             status: 'next' as const,
         },
         {
@@ -191,7 +191,7 @@ const Roadmap: React.FC = () => {
                     </motion.div>
 
                     <motion.h1
-                        className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-white mb-6 tracking-tight"
+                        className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-neutral-200 mb-6 tracking-tight"
                         variants={itemVariants}
                     >
                         {t('hero.title')}
@@ -211,7 +211,7 @@ const Roadmap: React.FC = () => {
                     >
                         <div className="relative flex items-center justify-between">
                             {/* Connecting line */}
-                            <div className="absolute top-5 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 opacity-30" />
+                            <div className="absolute top-5 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-green-500 via-primary to-purple-500 opacity-30" />
                             {/* Progress fill */}
                             <div className="absolute top-5 left-[15%] h-0.5 bg-green-500 opacity-80" style={{ width: '20%' }} />
 
@@ -282,7 +282,7 @@ const Roadmap: React.FC = () => {
                                                 )}
                                             </div>
 
-                                            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-2 tracking-tight">
+                                            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-2 tracking-tight">
                                                 {phase.title}
                                             </h2>
                                             <p className={`text-base font-medium ${phase.subtitleText} mb-3`}>
@@ -295,7 +295,7 @@ const Roadmap: React.FC = () => {
 
                                         {/* Right: Feature list */}
                                         <div className="flex-1">
-                                            <div className="bg-neutral-50/50 dark:bg-neutral-800/30 rounded-xl p-5 sm:p-6 border border-neutral-100/50 dark:border-neutral-700/30">
+                                            <div className="bg-neutral-50/50 dark:bg-black/30 rounded-xl p-5 sm:p-6 border border-neutral-100/50 dark:border-white/10">
                                                 <ul className="space-y-3">
                                                     {Array.isArray(phase.features) && phase.features.map((feature, fi) => (
                                                         <motion.li
@@ -337,7 +337,7 @@ const Roadmap: React.FC = () => {
                             <Star size={16} />
                             <span>{t('vision.badge')}</span>
                         </div>
-                        <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-white mb-4 tracking-tight">
+                        <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-neutral-200 mb-4 tracking-tight">
                             {t('vision.title')}
                         </h2>
                         <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
@@ -361,7 +361,7 @@ const Roadmap: React.FC = () => {
                                     <div className="w-14 h-14 mx-auto mb-5 bg-[var(--color-primary)]/10 rounded-2xl flex items-center justify-center group-hover:bg-[var(--color-primary)]/15 transition-colors">
                                         <Icon size={26} className="text-[var(--color-primary)]" />
                                     </div>
-                                    <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-3">
+                                    <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-200 mb-3">
                                         {point.title}
                                     </h3>
                                     <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">

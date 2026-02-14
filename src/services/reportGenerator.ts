@@ -15,8 +15,8 @@ class ReportGenerator {
     private pageHeight: number;
     private margin: number = 20;
     private currentY: number = 20;
-    private primaryColor: string = '#2563eb'; // Blue
-    private secondaryColor: string = '#64748b'; // Gray
+    private primaryColor: string = '#0741e0'; // Blue
+    private secondaryColor: string = '#6b6e77'; // Gray
     private accentColor: string = '#10b981'; // Green
 
     constructor() {
@@ -1029,7 +1029,7 @@ class ReportGenerator {
         });
 
         if (rows.length > 0) {
-            const borderRgb = this.hexToRgb('#e2e8f0'); // var(--color-border)
+            const borderRgb = this.hexToRgb('#dcdde0'); // var(--color-border)
             const bgSecondaryRgb = this.hexToRgb('#f8fafc'); // var(--color-bg-secondary)
 
             const head = hasHeader ? [rows[0]] : undefined;

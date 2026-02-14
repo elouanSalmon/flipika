@@ -81,7 +81,7 @@ export class ChartBlockErrorBoundary extends Component<
                             style={{
                                 margin: '0 0 0.5rem 0',
                                 fontSize: '0.875rem',
-                                color: '#6b7280',
+                                color: '#6b6e77',
                             }}
                         >
                             Type de bloc : <code>{this.props.blockType}</code>
@@ -102,7 +102,7 @@ export class ChartBlockErrorBoundary extends Component<
                                     style={{
                                         cursor: 'pointer',
                                         fontWeight: 500,
-                                        color: '#374151',
+                                        color: '#1a1a1a',
                                         marginBottom: '0.5rem',
                                     }}
                                 >
@@ -113,7 +113,7 @@ export class ChartBlockErrorBoundary extends Component<
                                         margin: '0',
                                         overflow: 'auto',
                                         fontSize: '0.75rem',
-                                        color: '#4b5563',
+                                        color: '#545660',
                                         whiteSpace: 'pre-wrap',
                                         wordBreak: 'break-word',
                                     }}

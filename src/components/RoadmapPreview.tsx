@@ -26,9 +26,9 @@ const RoadmapPreview: React.FC = () => {
             color: 'blue',
             title: t('common:roadmapPreview.soon'),
             description: t('common:roadmapPreview.soonDescription'),
-            dotClass: 'bg-blue-500',
-            textClass: 'text-blue-600 dark:text-blue-400',
-            bgClass: 'bg-blue-500/10',
+            dotClass: 'bg-primary-500',
+            textClass: 'text-primary dark:text-primary-light',
+            bgClass: 'bg-primary-500/10',
         },
         {
             icon: Rocket,
@@ -69,7 +69,7 @@ const RoadmapPreview: React.FC = () => {
                 >
                     {/* Horizontal line */}
                     {/* Horizontal line */}
-                    <div className="absolute top-6 left-[16%] right-[16%] h-px bg-gradient-to-r from-green-500/40 via-blue-500/40 to-purple-500/40" />
+                    <div className="absolute top-6 left-[16%] right-[16%] h-px bg-gradient-to-r from-green-500/40 via-primary/40 to-purple-500/40" />
 
                     <div className="grid grid-cols-3 gap-4 md:gap-8">
                         {phases.map((phase, i) => {

@@ -16,7 +16,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
             case 'warning':
                 return <AlertCircle size={20} className="text-orange-600 dark:text-orange-400" />;
             case 'info':
-                return <Info size={20} className="text-blue-600 dark:text-blue-400" />;
+                return <Info size={20} className="text-primary dark:text-primary-light" />;
         }
     };
 
@@ -27,19 +27,19 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
             case 'warning':
                 return 'border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/20';
             case 'info':
-                return 'border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20';
+                return 'border-primary-200 dark:border-primary-800 bg-primary-50 dark:bg-primary-900/20';
         }
     };
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
                 <h3 className="text-lg font-bold mb-4">Alertes et notifications</h3>
                 <div className="space-y-3">
                     {[1, 2, 3].map(i => (
-                        <div key={i} className="animate-pulse p-4 bg-neutral-100 dark:bg-neutral-700 rounded-xl">
-                            <div className="h-4 bg-neutral-200 dark:bg-neutral-600 rounded w-3/4 mb-2"></div>
-                            <div className="h-3 bg-neutral-200 dark:bg-neutral-600 rounded w-1/2"></div>
+                        <div key={i} className="animate-pulse p-4 bg-neutral-100 dark:bg-black rounded-xl">
+                            <div className="h-4 bg-neutral-200 dark:bg-black rounded w-3/4 mb-2"></div>
+                            <div className="h-3 bg-neutral-200 dark:bg-black rounded w-1/2"></div>
                         </div>
                     ))}
                 </div>
@@ -49,7 +49,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
 
     if (alerts.length === 0) {
         return (
-            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
                 <h3 className="text-lg font-bold mb-4">Alertes et notifications</h3>
                 <div className="text-center py-8 text-neutral-500">
                     <Info size={48} className="mx-auto mb-3 opacity-50" />
@@ -60,7 +60,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
     }
 
     return (
-        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-bold">Alertes et notifications</h3>
                 <span className="px-2.5 py-1 text-xs font-semibold bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-full">
@@ -83,7 +83,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
                                 {alert.actionUrl && (
                                     <a
                                         href={alert.actionUrl}
-                                        className="inline-block mt-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                                        className="inline-block mt-2 text-sm font-medium text-primary dark:text-primary-light hover:underline"
                                     >
                                         Voir les détails →
                                     </a>
@@ -92,7 +92,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, onDismiss, loading = 
                             {onDismiss && (
                                 <button
                                     onClick={() => onDismiss(alert.id)}
-                                    className="shrink-0 p-1 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded transition-colors"
+                                    className="shrink-0 p-1 hover:bg-neutral-200 dark:hover:bg-white/5 rounded transition-colors"
                                 >
                                     <X size={16} />
                                 </button>

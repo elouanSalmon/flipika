@@ -79,10 +79,10 @@ const Copilot = () => {
             <div className="grid gap-4">
                 <h2 className="text-xl font-bold mb-2">Recommandations Prioritaires</h2>
                 {auditItems.map((item) => (
-                    <div key={item.id} className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 hover:shadow-md transition-all group">
+                    <div key={item.id} className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 hover:shadow-md transition-all group">
                         <div className="flex items-start gap-4 p-5">
                             <div className={`mt-1 p-2 rounded-lg ${item.severity === 'high' ? 'bg-red-50 text-red-500' :
-                                item.severity === 'medium' ? 'bg-orange-50 text-orange-500' : 'bg-blue-50 text-blue-500'
+                                item.severity === 'medium' ? 'bg-orange-50 text-orange-500' : 'bg-primary-50 text-primary'
                                 }`}>
                                 <AlertTriangle size={20} />
                             </div>

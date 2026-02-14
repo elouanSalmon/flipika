@@ -218,24 +218,24 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
                     </button>
 
                     {showMenu && (
-                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] w-auto whitespace-nowrap bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 z-50 py-1">
+                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] w-auto whitespace-nowrap bg-white dark:bg-black rounded-lg shadow-xl border border-neutral-200 dark:border-white/10 z-50 py-1">
                             <button
                                 onClick={handleDuplicate}
-                                className="w-full px-4 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 flex items-center gap-2"
+                                className="w-full px-4 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-white/5 flex items-center gap-2"
                             >
                                 <Copy size={14} /> {t('card.actions.duplicate')}
                             </button>
                             {report.status !== 'archived' && (
                                 <button
                                     onClick={handleArchive}
-                                    className="w-full px-4 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 flex items-center gap-2"
+                                    className="w-full px-4 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-white/5 flex items-center gap-2"
                                 >
                                     <Archive size={14} /> {t('card.actions.archive')}
                                 </button>
                             )}
                             <button
                                 onClick={handleDelete}
-                                className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2 border-t border-neutral-100 dark:border-neutral-700 mt-1"
+                                className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2 border-t border-neutral-100 dark:border-white/10 mt-1"
                             >
                                 <Trash2 size={14} /> {t('card.actions.delete')}
                             </button>

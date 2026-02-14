@@ -87,13 +87,13 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete
                     {/* Configuration Chips */}
                     <div className="flex flex-wrap gap-2 mt-2">
                         {hasTheme && (
-                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-neutral-50 dark:bg-neutral-700 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-600">
+                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-neutral-50 dark:bg-black text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-white/10">
                                 <Palette size={10} />
                                 <span>{t('card.config.theme', { defaultValue: 'Thème' })}</span>
                             </div>
                         )}
                         {hasTemplate && (
-                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-neutral-50 dark:bg-neutral-700 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-600">
+                            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-neutral-50 dark:bg-black text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-white/10">
                                 <Layout size={10} />
                                 <span>{t('card.config.template', { defaultValue: 'Modèle' })}</span>
                             </div>
@@ -131,7 +131,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete
                     </button>
 
                     {showMenu && (
-                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 z-50 py-1">
+                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] bg-white dark:bg-black rounded-lg shadow-xl border border-neutral-200 dark:border-white/10 z-50 py-1">
                             <button
                                 onClick={() => handleAction(() => onDelete(client))}
                                 className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"

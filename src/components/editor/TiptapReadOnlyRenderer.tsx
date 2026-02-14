@@ -124,7 +124,7 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
 
     const highlightTextColor = design?.mode === 'dark'
         ? (design?.colorScheme?.text || '#f8fafc')
-        : '#1e293b';
+        : '#0a0a0a';
 
     return (
         <ReportEditorProvider

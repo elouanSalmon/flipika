@@ -91,7 +91,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             {/* Header Section */}
             <div className="flex justify-between items-start mb-3">
                 <div className="flex-1 min-w-0 pr-2">
-                    <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100 truncate flex items-center gap-2 group-hover:text-primary transition-colors">
+                    <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-200 truncate flex items-center gap-2 group-hover:text-primary transition-colors">
                         {schedule.name}
                     </h3>
                     <div className="flex items-center gap-2 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
@@ -113,7 +113,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             {/* Hero Section: Next Execution or Paused State */}
             <div className={`rounded-xl p-4 mb-4 border relative overflow-hidden ${schedule.isActive
                 ? 'bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 border-primary/10 dark:border-primary/20'
-                : 'bg-neutral-50 dark:bg-neutral-800/50 border-neutral-100 dark:border-neutral-700'
+                : 'bg-neutral-50 dark:bg-black/50 border-neutral-100 dark:border-white/10'
                 }`}>
                 {schedule.isActive ? (
                     <>
@@ -125,7 +125,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
 
                             <div className="flex items-end justify-between">
                                 <div>
-                                    <div className="text-2xl font-bold text-neutral-900 dark:text-white leading-none mb-1">
+                                    <div className="text-2xl font-bold text-neutral-900 dark:text-neutral-200 leading-none mb-1">
                                         {nextRun ? nextRun.toLocaleString('fr-FR', {
                                             hour: '2-digit',
                                             minute: '2-digit',
@@ -172,30 +172,30 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
             {/* Context Chips */}
             <div className="flex flex-wrap gap-2 mb-4">
                 {clientLogo && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-50 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-700">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-50 dark:bg-black text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-white/10">
                         <ClientLogoAvatar logo={clientLogo} name={accountName} size="xs" />
                     </div>
                 )}
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-50 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-700 max-w-full" title={templateName}>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-50 dark:bg-black text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-white/10 max-w-full" title={templateName}>
                     <BarChart2 size={12} className="text-neutral-400" />
                     <span className="truncate max-w-[120px]">{templateName || 'Template'}</span>
                 </div>
                 {accountName && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-50 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-neutral-700 max-w-full" title={accountName}>
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-neutral-50 dark:bg-black text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-white/10 max-w-full" title={accountName}>
                         <span className="truncate max-w-[120px]">{accountName}</span>
                     </div>
                 )}
             </div>
 
             {/* Footer Stats & Last Run */}
-            <div className="pt-3 border-t border-neutral-100 dark:border-neutral-700 mt-auto">
+            <div className="pt-3 border-t border-neutral-100 dark:border-white/10 mt-auto">
                 <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                         <div className="flex flex-col">
                             <span className="text-[10px] uppercase text-neutral-400 font-semibold">{t('card.stats.total')}</span>
                             <span className="text-sm font-bold text-neutral-700 dark:text-neutral-200">{schedule.totalRuns}</span>
                         </div>
-                        <div className="w-px h-6 bg-neutral-200 dark:bg-neutral-700"></div>
+                        <div className="w-px h-6 bg-neutral-200 dark:bg-black"></div>
                         <div className="flex flex-col text-green-600 dark:text-green-400">
                             <span className="text-[10px] uppercase font-semibold">{t('card.stats.success')}</span>
                             <span className="text-sm font-bold">{schedule.successfulRuns}</span>
@@ -208,7 +208,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                 </div>
 
                 {lastRun && (
-                    <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-800/50 rounded px-2 py-1.5">
+                    <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 bg-neutral-50 dark:bg-black/50 rounded px-2 py-1.5">
                         <div className="flex items-center gap-1.5">
                             <Calendar size={12} />
                             <span>{t('card.lastRun', { date: lastRun.toLocaleDateString() })}</span>
@@ -255,7 +255,7 @@ const ScheduleCard: React.FC<ScheduleCardProps> = ({
                     </button>
 
                     {showMenu && (
-                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 z-50 py-1">
+                        <div className="absolute right-0 top-full mt-1 min-w-[12rem] bg-white dark:bg-black rounded-lg shadow-xl border border-neutral-200 dark:border-white/10 z-50 py-1">
                             <button
                                 onClick={() => handleAction(() => onDelete(schedule))}
                                 className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"

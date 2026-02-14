@@ -54,7 +54,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({
                 {icon}
             </div>
 
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200 mb-2">
                 {title}
             </h3>
 
@@ -63,7 +63,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({
             </p>
 
             {suggestion && (
-                <p className="text-sm text-blue-600 dark:text-blue-400 mb-6 max-w-md">
+                <p className="text-sm text-primary dark:text-primary-light mb-6 max-w-md">
                     {suggestion}
                 </p>
             )}
@@ -105,7 +105,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({
                     </button>
 
                     {showDetails && (
-                        <div className="mt-3 p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg text-left">
+                        <div className="mt-3 p-3 bg-neutral-100 dark:bg-black rounded-lg text-left">
                             <pre className="text-xs text-neutral-600 dark:text-neutral-400 whitespace-pre-wrap break-words font-mono">
                                 {technicalDetails}
                             </pre>

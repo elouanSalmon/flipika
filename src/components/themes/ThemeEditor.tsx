@@ -34,11 +34,11 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
     const defaultDesign = presets[0]?.design || {
         mode: 'light' as const,
         colorScheme: {
-            primary: '#3b82f6',
+            primary: '#1963d5',
             secondary: '#1e40af',
-            accent: '#60a5fa',
+            accent: '#61abf7',
             background: '#ffffff',
-            text: '#1f2937',
+            text: '#0a0a0a',
         },
         typography: {
             fontFamily: 'Inter, sans-serif',
@@ -105,7 +105,7 @@ const ThemeEditor: React.FC<ThemeEditorProps> = ({
                 newBackground = '#141415';
             }
             if (isColorDark(design.colorScheme.text)) {
-                newText = '#f1f5f9';
+                newText = '#f0f1f2';
             }
         }
 

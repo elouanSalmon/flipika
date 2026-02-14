@@ -117,7 +117,7 @@ const PerformanceOverviewSlide: React.FC<PerformanceOverviewSlideProps> = ({
             backgroundColor: design?.colorScheme?.background || '#ffffff',
             // Border color based on report theme mode, NOT app theme
             borderColor: design?.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
-            color: design?.colorScheme?.text || '#111827',
+            color: design?.colorScheme?.text || '#050505',
         } as React.CSSProperties}>
             <div className="chart-block-header">
                 <h3 className="chart-block-title">Vue d'ensemble des performances</h3>

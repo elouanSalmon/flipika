@@ -15,9 +15,9 @@ const TemplateGallery: React.FC = () => {
     const templates = [
         {
             id: 'executive',
-            icon: <BarChart3 className="w-8 h-8 text-blue-500" />,
-            color: 'bg-blue-500/10',
-            borderColor: 'border-blue-500/20'
+            icon: <BarChart3 className="w-8 h-8 text-primary" />,
+            color: 'bg-primary-500/10',
+            borderColor: 'border-primary/20'
         },
         {
             id: 'ecommerce',
@@ -49,7 +49,7 @@ const TemplateGallery: React.FC = () => {
                         {template.icon}
                     </div>
 
-                    <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3">
+                    <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-200 mb-3">
                         {t(`gallery.${template.id}.title`)}
                     </h3>
 

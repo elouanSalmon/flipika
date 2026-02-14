@@ -116,7 +116,7 @@
 
 .metric-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.12);
+    box-shadow: 0 8px 24px rgba(25, 99, 213, 0.12);
     border-color: var(--color-primary, rgba(0, 102, 255, 0.2));
 }
 
@@ -210,21 +210,21 @@
 
 /* Dark Mode Support - Using data-theme attribute from slide container */
 [data-theme="dark"] .performance-widget {
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(0, 0, 0, 0.95);
     border-color: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .performance-overview-widget {
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(0, 0, 0, 0.95);
     border-color: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="dark"] .widget-header h3 {
-    color: var(--color-text-primary, #f1f5f9);
+    color: var(--color-text-primary, #f0f1f2);
 }
 
 [data-theme="dark"] .metric-card {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
     border-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -233,7 +233,7 @@
 }
 
 [data-theme="dark"] .widget-metric-value {
-    color: var(--color-text-primary, #f1f5f9);
+    color: var(--color-text-primary, #f0f1f2);
 }
 
 /* Animation */

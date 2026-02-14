@@ -72,9 +72,9 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ design, onChange, 
         const newDesign: ReportDesign = {
             mode: theme.design.mode || 'light',
             colorScheme: {
-                primary: theme.design.colorScheme.primary || '#3b82f6',
-                secondary: theme.design.colorScheme.secondary || '#60a5fa',
-                accent: theme.design.colorScheme.accent || '#93c5fd',
+                primary: theme.design.colorScheme.primary || '#1963d5',
+                secondary: theme.design.colorScheme.secondary || '#61abf7',
+                accent: theme.design.colorScheme.accent || '#a9d4fe',
                 background: theme.design.colorScheme.background || '#ffffff',
                 text: theme.design.colorScheme.text || '#141415',
             },
@@ -169,15 +169,15 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ design, onChange, 
                                                     <div className="flex -space-x-1 flex-shrink-0">
                                                         <span
                                                             className="w-5 h-5 rounded-full border border-[rgba(0,0,0,0.1)] z-30"
-                                                            style={{ background: theme.design.colorScheme.primary || '#3b82f6' }}
+                                                            style={{ background: theme.design.colorScheme.primary || '#1963d5' }}
                                                         />
                                                         <span
                                                             className="w-5 h-5 rounded-full border border-[rgba(0,0,0,0.1)] z-20"
-                                                            style={{ background: theme.design.colorScheme.secondary || '#60a5fa' }}
+                                                            style={{ background: theme.design.colorScheme.secondary || '#61abf7' }}
                                                         />
                                                         <span
                                                             className="w-5 h-5 rounded-full border border-[rgba(0,0,0,0.1)] z-10"
-                                                            style={{ background: theme.design.colorScheme.accent || '#93c5fd' }}
+                                                            style={{ background: theme.design.colorScheme.accent || '#a9d4fe' }}
                                                         />
                                                     </div>
 
@@ -205,7 +205,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({ design, onChange, 
                                                 <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <button
                                                         onClick={(e) => handleEditTheme(e, theme)}
-                                                        className="p-1.5 text-neutral-500 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                                                        className="p-1.5 text-neutral-500 hover:text-primary hover:bg-primary-50 rounded-md transition-colors"
                                                         title="Modifier le thème"
                                                     >
                                                         <Pencil size={14} />

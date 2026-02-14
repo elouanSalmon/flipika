@@ -137,7 +137,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
     // Function to get color based on intensity
     const getCellColor = (value: number) => {
         if (value === 0) return design.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)';
-        return design?.colorScheme?.primary || '#3b82f6';
+        return design?.colorScheme?.primary || '#1963d5';
     };
 
     const getCellOpacity = (value: number) => {
@@ -313,7 +313,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                 style={{
                     borderColor: design.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)',
                     backgroundColor: design?.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)',
-                    color: design?.colorScheme?.text || '#111827',
+                    color: design?.colorScheme?.text || '#050505',
                     padding: '2px 8px',
                     borderRadius: '6px',
                     fontSize: '11px',
@@ -400,8 +400,8 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                                                 <div
                                                     className="heatmap-tooltip opacity-0 group-hover:opacity-100 absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 rounded shadow-lg pointer-events-none transition-opacity z-50 whitespace-nowrap"
                                                     style={{
-                                                        backgroundColor: design?.colorScheme?.background || (design.mode === 'dark' ? '#fff' : '#1e293b'),
-                                                        color: design?.colorScheme?.text || (design.mode === 'dark' ? '#1e293b' : '#fff'),
+                                                        backgroundColor: design?.colorScheme?.background || (design.mode === 'dark' ? '#fff' : '#0a0a0a'),
+                                                        color: design?.colorScheme?.text || (design.mode === 'dark' ? '#0a0a0a' : '#fff'),
                                                         border: `1px solid ${design.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
                                                         fontSize: '11px'
                                                     }}
@@ -410,7 +410,7 @@ const HeatmapSlide: React.FC<HeatmapSlideProps> = ({
                                                     {formatValue(value, selectedMetric)} {METRIC_OPTIONS.find(o => o.value === selectedMetric)?.label}
                                                     <div
                                                         className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent"
-                                                        style={{ borderTopColor: design?.colorScheme?.background || (design.mode === 'dark' ? '#fff' : '#1e293b') }}
+                                                        style={{ borderTopColor: design?.colorScheme?.background || (design.mode === 'dark' ? '#fff' : '#0a0a0a') }}
                                                     ></div>
                                                 </div>
                                             </div>

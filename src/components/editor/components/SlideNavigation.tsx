@@ -182,8 +182,8 @@ const SlideThumbnail: React.FC<{ slide: SlideInfo; design: any }> = React.memo((
     const isDarkMode = design?.mode === 'dark';
 
     // Use OPAQUE background from report theme, not app theme (matches SlideComponent.tsx)
-    const themeBg = design?.colorScheme?.background || (isDarkMode ? '#1e293b' : '#f9fafb');
-    const themeTextColor = design?.colorScheme?.text || (isDarkMode ? '#f1f5f9' : '#141415');
+    const themeBg = design?.colorScheme?.background || (isDarkMode ? '#0a0a0a' : '#f6f6f7');
+    const themeTextColor = design?.colorScheme?.text || (isDarkMode ? '#f0f1f2' : '#141415');
 
     const finalBackgroundColor = slide.backgroundColor || themeBg;
 
@@ -300,7 +300,7 @@ export const SlideNavigation: React.FC<SlideNavigationProps> = ({ editor, scope 
     // Slides follow the REPORT's theme (design.mode), not the app's UI theme
     const isDarkMode = design?.mode === 'dark';
     // Use OPAQUE background from report theme (matches SlideComponent.tsx)
-    const themeBg = design?.colorScheme?.background || (isDarkMode ? '#1e293b' : '#f9fafb');
+    const themeBg = design?.colorScheme?.background || (isDarkMode ? '#0a0a0a' : '#f6f6f7');
 
     /* ... skipping effects ... */
     // Extract slides from editor content

@@ -27,7 +27,7 @@ const AccountsList: React.FC<AccountsListProps> = ({
     const getStatusBadge = (status: Account['status']) => {
         const styles = {
             active: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
-            inactive: 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-400',
+            inactive: 'bg-neutral-100 dark:bg-black text-neutral-700 dark:text-neutral-400',
             paused: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400',
         };
 
@@ -46,11 +46,11 @@ const AccountsList: React.FC<AccountsListProps> = ({
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
                 <h3 className="text-lg font-bold mb-4">Comptes clients</h3>
                 <div className="space-y-3">
                     {[1, 2, 3].map(i => (
-                        <div key={i} className="animate-pulse p-4 bg-neutral-100 dark:bg-neutral-700 rounded-xl h-20"></div>
+                        <div key={i} className="animate-pulse p-4 bg-neutral-100 dark:bg-black rounded-xl h-20"></div>
                     ))}
                 </div>
             </div>
@@ -58,8 +58,8 @@ const AccountsList: React.FC<AccountsListProps> = ({
     }
 
     return (
-        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 overflow-hidden">
-            <div className="p-6 border-b border-neutral-100 dark:border-neutral-700">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 overflow-hidden">
+            <div className="p-6 border-b border-neutral-100 dark:border-white/10">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-bold">Comptes clients</h3>
                     <div className="flex gap-2">
@@ -75,7 +75,7 @@ const AccountsList: React.FC<AccountsListProps> = ({
 
             <div className="overflow-x-auto">
                 <table className="w-full">
-                    <thead className="bg-neutral-50 dark:bg-neutral-700/30">
+                    <thead className="bg-neutral-50 dark:bg-black/30">
                         <tr>
                             <th className="px-6 py-3 text-left text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider">
                                 Compte
@@ -100,17 +100,17 @@ const AccountsList: React.FC<AccountsListProps> = ({
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-neutral-100 dark:divide-neutral-700">
+                    <tbody className="divide-y divide-neutral-100 dark:divide-white/10">
                         {accounts.map(account => {
                             const spendPercentage = account.budgetMonthly
                                 ? (account.currentSpend / account.budgetMonthly) * 100
                                 : 0;
 
                             return (
-                                <tr key={account.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-700/30 transition-colors">
+                                <tr key={account.id} className="hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors">
                                     <td className="px-6 py-4">
                                         <div>
-                                            <p className="font-semibold text-neutral-900 dark:text-neutral-100">{account.name}</p>
+                                            <p className="font-semibold text-neutral-900 dark:text-neutral-200">{account.name}</p>
                                             <p className="text-xs text-neutral-500">{account.id}</p>
                                         </div>
                                     </td>
@@ -134,7 +134,7 @@ const AccountsList: React.FC<AccountsListProps> = ({
                                                 })}{' '}
                                                 €
                                             </p>
-                                            <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-1.5">
+                                            <div className="w-full bg-neutral-200 dark:bg-black rounded-full h-1.5">
                                                 <div
                                                     className={`h-1.5 rounded-full ${spendPercentage > 90 ? 'bg-red-500' : spendPercentage > 70 ? 'bg-orange-500' : 'bg-green-500'
                                                         }`}

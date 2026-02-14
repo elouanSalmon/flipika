@@ -25,7 +25,7 @@
 }
 
 .dark .theme-editor-modal {
-    background: #1e293b;
+    background: #000000;
 }
 
 /* Header */
@@ -38,7 +38,7 @@
 }
 
 .dark .theme-editor-header {
-    border-bottom-color: rgba(148, 163, 184, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-editor-header-left {
@@ -48,7 +48,7 @@
 }
 
 .theme-editor-header-left svg {
-    color: #3b82f6;
+    color: #1963d5;
 }
 
 .theme-editor-header-left h2 {
@@ -59,7 +59,7 @@
 }
 
 .dark .theme-editor-header-left h2 {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .theme-editor-close {
@@ -77,13 +77,13 @@
 }
 
 .theme-editor-close:hover {
-    background: #f1f5f9;
+    background: #f0f1f2;
     color: #141415;
 }
 
 .dark .theme-editor-close:hover {
-    background: rgba(51, 65, 85, 0.5);
-    color: #f1f5f9;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f0f1f2;
 }
 
 /* Body - Two Column Layout */
@@ -102,7 +102,7 @@
 }
 
 .dark .theme-editor-form {
-    border-right-color: rgba(148, 163, 184, 0.2);
+    border-right-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-editor-preview {
@@ -113,7 +113,7 @@
 }
 
 .dark .theme-editor-preview {
-    background: rgba(15, 23, 42, 0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .theme-editor-preview-header {
@@ -122,7 +122,7 @@
 }
 
 .dark .theme-editor-preview-header {
-    border-bottom-color: rgba(148, 163, 184, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-editor-preview-header h3 {
@@ -133,7 +133,7 @@
 }
 
 .dark .theme-editor-preview-header h3 {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .theme-editor-preview-content {
@@ -165,7 +165,7 @@
 }
 
 .dark .theme-editor-section-header h3 {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .theme-editor-section-header p {
@@ -199,14 +199,14 @@
 }
 
 .dark .theme-editor-preset-button {
-    background: rgba(30, 41, 59, 0.5);
-    border-color: rgba(148, 163, 184, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-editor-preset-button:hover {
-    border-color: #3b82f6;
+    border-color: #1963d5;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 12px rgba(25, 99, 213, 0.2);
 }
 
 .theme-editor-preset-name {
@@ -217,7 +217,7 @@
 }
 
 .dark .theme-editor-preset-name {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 /* Form Fields */
@@ -234,7 +234,7 @@
 }
 
 .dark .theme-editor-field label {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .theme-editor-input,
@@ -253,17 +253,17 @@
 .dark .theme-editor-input,
 .dark .theme-editor-textarea,
 .dark .theme-editor-select {
-    background: rgba(51, 65, 85, 0.5);
-    border-color: rgba(148, 163, 184, 0.2);
-    color: #f1f5f9;
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #f0f1f2;
 }
 
 .theme-editor-input:focus,
 .theme-editor-textarea:focus,
 .theme-editor-select:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #1963d5;
+    box-shadow: 0 0 0 3px rgba(25, 99, 213, 0.1);
 }
 
 .theme-editor-textarea {
@@ -296,25 +296,25 @@
 }
 
 .dark .theme-editor-mode-button {
-    background: rgba(51, 65, 85, 0.5);
-    border-color: rgba(148, 163, 184, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-editor-mode-button:hover {
-    border-color: #3b82f6;
-    background: #eff6ff;
-    color: #3b82f6;
+    border-color: #1963d5;
+    background: #eaf2fe;
+    color: #1963d5;
 }
 
 .dark .theme-editor-mode-button:hover {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: #3b82f6;
-    color: #60a5fa;
+    background: rgba(25, 99, 213, 0.1);
+    border-color: #1963d5;
+    color: #61abf7;
 }
 
 .theme-editor-mode-button.active {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    border-color: #3b82f6;
+    background: linear-gradient(135deg, #1963d5 0%, #0741e0 100%);
+    border-color: #1963d5;
     color: #fff;
 }
 
@@ -329,11 +329,11 @@
     padding: 12px;
     background: #f6f6f7;
     border-radius: 8px;
-    border-left: 3px solid #3b82f6;
+    border-left: 3px solid #1963d5;
 }
 
 .dark .theme-editor-mode-hint {
-    background: rgba(30, 41, 59, 0.3);
+    background: rgba(0, 0, 0, 0.3);
     color: #8e9199;
 }
 
@@ -357,7 +357,7 @@
 }
 
 .dark .theme-editor-color-field label {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .theme-editor-color-button {
@@ -375,7 +375,7 @@
 }
 
 .dark .theme-editor-color-button {
-    border-color: rgba(148, 163, 184, 0.2);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-editor-color-button:hover {
@@ -406,7 +406,7 @@
 }
 
 .dark .theme-editor-color-picker-popup {
-    background: #1e293b;
+    background: #000000;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -430,25 +430,25 @@
 }
 
 .dark .theme-editor-checkbox-label {
-    background: rgba(30, 41, 59, 0.3);
-    border-color: rgba(148, 163, 184, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 .theme-editor-checkbox-label:hover {
-    background: #eff6ff;
-    border-color: #3b82f6;
+    background: #eaf2fe;
+    border-color: #1963d5;
 }
 
 .dark .theme-editor-checkbox-label:hover {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: #3b82f6;
+    background: rgba(25, 99, 213, 0.1);
+    border-color: #1963d5;
 }
 
 .theme-editor-checkbox-input {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    accent-color: #3b82f6;
+    accent-color: #1963d5;
 }
 
 .theme-editor-checkbox-label span {
@@ -459,7 +459,7 @@
 }
 
 .dark .theme-editor-checkbox-label span {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 /* Footer */
@@ -474,8 +474,8 @@
 }
 
 .dark .theme-editor-footer {
-    border-top-color: rgba(148, 163, 184, 0.2);
-    background: rgba(15, 23, 42, 0.5);
+    border-top-color: rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Buttons - Standardized with other modals */
@@ -537,13 +537,13 @@
 
 .theme-editor-form::-webkit-scrollbar-thumb,
 .theme-editor-preview::-webkit-scrollbar-thumb {
-    background: rgba(148, 163, 184, 0.3);
+    background: rgba(142, 145, 153, 0.3);
     border-radius: 4px;
 }
 
 .theme-editor-form::-webkit-scrollbar-thumb:hover,
 .theme-editor-preview::-webkit-scrollbar-thumb:hover {
-    background: rgba(148, 163, 184, 0.5);
+    background: rgba(142, 145, 153, 0.5);
 }
 
 /* Responsive */
@@ -558,7 +558,7 @@
     }
 
     .dark .theme-editor-form {
-        border-bottom-color: rgba(148, 163, 184, 0.2);
+        border-bottom-color: rgba(255, 255, 255, 0.08);
     }
 
     .theme-editor-preview {

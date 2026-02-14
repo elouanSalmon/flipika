@@ -15,11 +15,11 @@ const AdCreativeCardDemo: React.FC = () => {
         mode: theme,
         colorScheme: theme === 'dark'
             ? {
-                primary: '#3b82f6',
-                secondary: '#94a3b8',
+                primary: '#1963d5',
+                secondary: '#8e9199',
                 accent: '#06b6d4',
                 background: '#141415',
-                text: '#f1f5f9',
+                text: '#f0f1f2',
             }
             : defaultReportDesign.colorScheme,
     };
@@ -96,7 +96,7 @@ const AdCreativeCardDemo: React.FC = () => {
                     marginBottom: '32px',
                 }}>
                     <h1 style={{
-                        color: design?.colorScheme?.text || '#111827',
+                        color: design?.colorScheme?.text || '#050505',
                         fontSize: '32px',
                         fontWeight: '700',
                         margin: 0,
@@ -107,7 +107,7 @@ const AdCreativeCardDemo: React.FC = () => {
                         onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
                         style={{
                             padding: '8px 16px',
-                            background: design?.colorScheme?.primary || '#3b82f6',
+                            background: design?.colorScheme?.primary || '#1963d5',
                             color: '#ffffff',
                             border: 'none',
                             borderRadius: '6px',
@@ -127,7 +127,7 @@ const AdCreativeCardDemo: React.FC = () => {
                 }}>
                     <div>
                         <h2 style={{
-                            color: design?.colorScheme?.text || '#111827',
+                            color: design?.colorScheme?.text || '#050505',
                             fontSize: '20px',
                             fontWeight: '600',
                             marginBottom: '16px',
@@ -143,7 +143,7 @@ const AdCreativeCardDemo: React.FC = () => {
 
                     <div>
                         <h2 style={{
-                            color: design?.colorScheme?.text || '#111827',
+                            color: design?.colorScheme?.text || '#050505',
                             fontSize: '20px',
                             fontWeight: '600',
                             marginBottom: '16px',

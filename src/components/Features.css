@@ -198,7 +198,7 @@
   height: 32px;
   background: var(--gradient-primary);
   border-radius: var(--radius-full);
-  color: white;
+  color: var(--color-text-primary);
   font-size: var(--font-size-xs);
   font-weight: 700;
   text-transform: uppercase;

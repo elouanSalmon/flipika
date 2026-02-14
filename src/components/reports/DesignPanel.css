@@ -4,15 +4,15 @@
     height: 100%;
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
-    border-left: 1px solid rgba(59, 130, 246, 0.1);
+    border-left: 1px solid rgba(25, 99, 213, 0.1);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
 .dark .design-panel {
-    background: rgba(31, 41, 55, 0.7);
-    border-left-color: rgba(59, 130, 246, 0.2);
+    background: rgba(0, 0, 0, 0.7);
+    border-left-color: rgba(25, 99, 213, 0.2);
 }
 
 .design-panel-header {
@@ -20,11 +20,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem;
-    border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+    border-bottom: 1px solid rgba(25, 99, 213, 0.1);
 }
 
 .dark .design-panel-header {
-    border-bottom-color: rgba(59, 130, 246, 0.2);
+    border-bottom-color: rgba(25, 99, 213, 0.2);
 }
 
 .design-panel-title {
@@ -34,7 +34,7 @@
 }
 
 .dark .design-panel-title {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 .design-panel-close {
@@ -52,8 +52,8 @@
 }
 
 .design-panel-close:hover {
-    background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
+    background: rgba(25, 99, 213, 0.1);
+    color: #1963d5;
 }
 
 .design-panel-content {
@@ -71,7 +71,7 @@
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
-    color: #3b82f6;
+    color: #1963d5;
 }
 
 .design-section-title {
@@ -94,7 +94,7 @@
     gap: 0.75rem;
     padding: 0.75rem;
     background: white;
-    border: 2px solid rgba(59, 130, 246, 0.1);
+    border: 2px solid rgba(25, 99, 213, 0.1);
     border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -103,24 +103,24 @@
 }
 
 .dark .theme-preset {
-    background: rgba(51, 65, 85, 0.5);
-    border-color: rgba(59, 130, 246, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(25, 99, 213, 0.2);
 }
 
 .theme-preset:hover {
-    border-color: #3b82f6;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+    border-color: #1963d5;
+    box-shadow: 0 2px 8px rgba(25, 99, 213, 0.1);
 }
 
 .theme-preset.active {
-    border-color: #3b82f6;
-    background: rgba(59, 130, 246, 0.05);
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+    border-color: #1963d5;
+    background: rgba(25, 99, 213, 0.05);
+    box-shadow: 0 2px 8px rgba(25, 99, 213, 0.15);
 }
 
 .dark .theme-preset.active {
-    background: rgba(59, 130, 246, 0.15);
-    border-color: #60a5fa;
+    background: rgba(25, 99, 213, 0.15);
+    border-color: #61abf7;
 }
 
 .theme-preset-colors {
@@ -142,21 +142,21 @@
 }
 
 .dark .theme-preset-name {
-    color: #f1f5f9;
+    color: #f0f1f2;
 }
 
 /* Empty Themes State */
 .empty-themes {
     padding: 1rem;
     text-align: center;
-    background: rgba(59, 130, 246, 0.05);
-    border: 2px dashed rgba(59, 130, 246, 0.2);
+    background: rgba(25, 99, 213, 0.05);
+    border: 2px dashed rgba(25, 99, 213, 0.2);
     border-radius: 0.5rem;
 }
 
 .dark .empty-themes {
-    background: rgba(59, 130, 246, 0.1);
-    border-color: rgba(59, 130, 246, 0.3);
+    background: rgba(25, 99, 213, 0.1);
+    border-color: rgba(25, 99, 213, 0.3);
 }
 
 .empty-themes p {
@@ -218,7 +218,7 @@
     flex: 1;
     padding: 0.5rem 0.75rem;
     background: white;
-    border: 2px solid rgba(59, 130, 246, 0.1);
+    border: 2px solid rgba(25, 99, 213, 0.1);
     border-radius: 0.5rem;
     font-size: 0.875rem;
     font-family: 'Courier New', monospace;
@@ -227,15 +227,15 @@
 }
 
 .dark .color-input {
-    background: rgba(51, 65, 85, 0.5);
-    border-color: rgba(59, 130, 246, 0.2);
-    color: #f1f5f9;
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(25, 99, 213, 0.2);
+    color: #f0f1f2;
 }
 
 .color-input:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #1963d5;
+    box-shadow: 0 0 0 3px rgba(25, 99, 213, 0.1);
 }
 
 .color-picker-popover {
@@ -245,15 +245,15 @@
     margin-top: 0.5rem;
     padding: 1rem;
     background: white;
-    border: 2px solid rgba(59, 130, 246, 0.2);
+    border: 2px solid rgba(25, 99, 213, 0.2);
     border-radius: 0.75rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     z-index: 10;
 }
 
 .dark .color-picker-popover {
-    background: #1e293b;
-    border-color: rgba(59, 130, 246, 0.3);
+    background: #000000;
+    border-color: rgba(25, 99, 213, 0.3);
 }
 
 /* Typography & Layout Controls */
@@ -281,7 +281,7 @@
 .control-select {
     padding: 0.625rem 0.75rem;
     background: white;
-    border: 2px solid rgba(59, 130, 246, 0.1);
+    border: 2px solid rgba(25, 99, 213, 0.1);
     border-radius: 0.5rem;
     font-size: 0.875rem;
     color: #141415;
@@ -290,21 +290,21 @@
 }
 
 .dark .control-select {
-    background: rgba(51, 65, 85, 0.5);
-    border-color: rgba(59, 130, 246, 0.2);
-    color: #f1f5f9;
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(25, 99, 213, 0.2);
+    color: #f0f1f2;
 }
 
 .control-select:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #1963d5;
+    box-shadow: 0 0 0 3px rgba(25, 99, 213, 0.1);
 }
 
 .control-range {
     width: 100%;
     height: 6px;
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(25, 99, 213, 0.1);
     border-radius: 3px;
     outline: none;
     -webkit-appearance: none;
@@ -315,21 +315,21 @@
     -webkit-appearance: none;
     width: 18px;
     height: 18px;
-    background: #3b82f6;
+    background: #1963d5;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .control-range::-webkit-slider-thumb:hover {
-    background: #2563eb;
+    background: #0741e0;
     transform: scale(1.1);
 }
 
 .control-range::-moz-range-thumb {
     width: 18px;
     height: 18px;
-    background: #3b82f6;
+    background: #1963d5;
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -337,7 +337,7 @@
 }
 
 .control-range::-moz-range-thumb:hover {
-    background: #2563eb;
+    background: #0741e0;
     transform: scale(1.1);
 }
 
@@ -351,10 +351,10 @@
 }
 
 .design-panel-content::-webkit-scrollbar-thumb {
-    background: rgba(59, 130, 246, 0.2);
+    background: rgba(25, 99, 213, 0.2);
     border-radius: 3px;
 }
 
 .design-panel-content::-webkit-scrollbar-thumb:hover {
-    background: rgba(59, 130, 246, 0.3);
+    background: rgba(25, 99, 213, 0.3);
 }

@@ -29,14 +29,14 @@ const EmptyState: React.FC<EmptyStateProps> = ({
     const defaultIcon = variant === 'warning'
         ? <Info size={48} className="text-orange-500" />
         : variant === 'info'
-            ? <Info size={48} className="text-blue-500" />
+            ? <Info size={48} className="text-primary" />
             : <BarChart3 size={48} className="text-neutral-400" />;
 
     const bgColorClass = variant === 'warning'
         ? 'bg-orange-50 dark:bg-orange-900/10'
         : variant === 'info'
-            ? 'bg-blue-50 dark:bg-blue-900/10'
-            : 'bg-neutral-50 dark:bg-neutral-800/50';
+            ? 'bg-primary-50 dark:bg-primary-900/10'
+            : 'bg-neutral-50 dark:bg-black/50';
 
     return (
         <div className={`flex flex-col items-center justify-center py-12 text-center rounded-xl ${bgColorClass}`}>
@@ -44,7 +44,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
                 {icon || defaultIcon}
             </div>
 
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
+            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200 mb-2">
                 {title}
             </h3>
 
@@ -53,7 +53,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
             </p>
 
             {suggestion && (
-                <p className="text-sm text-blue-600 dark:text-blue-400 mb-6 max-w-md">
+                <p className="text-sm text-primary dark:text-primary-light mb-6 max-w-md">
                     {suggestion}
                 </p>
             )}
@@ -64,7 +64,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
                         <button
                             onClick={action.onClick}
                             className={action.variant === 'secondary'
-                                ? 'px-4 py-2 border-2 border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors'
+                                ? 'px-4 py-2 border-2 border-neutral-300 dark:border-white/10 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors'
                                 : 'btn btn-primary'
                             }
                         >
@@ -74,7 +74,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
                     {secondaryAction && (
                         <button
                             onClick={secondaryAction.onClick}
-                            className="px-4 py-2 border-2 border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                            className="px-4 py-2 border-2 border-neutral-300 dark:border-white/10 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-100 dark:hover:bg-white/5 transition-colors"
                         >
                             {secondaryAction.label}
                         </button>

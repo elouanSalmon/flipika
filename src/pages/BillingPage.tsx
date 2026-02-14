@@ -204,10 +204,10 @@ export default function BillingPage() {
                 </div>
 
                 {/* Subscription Status Card */}
-                <div className="bg-white/50 dark:bg-neutral-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 mb-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
+                <div className="bg-white/50 dark:bg-black/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 mb-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
                     <div className="flex items-center justify-between mb-6">
                         <div>
-                            <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+                            <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-200">
                                 {subscription
                                     ? (subscription.cancelAtPeriodEnd
                                         ? (subscription.status === 'trialing' ? t('status.trialCanceled') : t('status.subscriptionCanceled'))
@@ -234,10 +234,10 @@ export default function BillingPage() {
                             <div className={`px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 ${subscription?.cancelAtPeriodEnd
                                 ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400'
                                 : subscription?.status === 'trialing'
-                                    ? 'bg-blue-100 text-primary-dark dark:bg-blue-900/30 dark:text-primary-light'
+                                    ? 'bg-primary-100 text-primary-dark dark:bg-primary-900/30 dark:text-primary-light'
                                     : isActive
                                         ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                                        : 'bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-400'
+                                        : 'bg-neutral-100 text-neutral-800 dark:bg-black dark:text-neutral-400'
                                 }`}>
                                 {subscription?.cancelAtPeriodEnd ? (
                                     <>
@@ -268,7 +268,7 @@ export default function BillingPage() {
                             {subscription && isActive && (
                                 <button
                                     onClick={() => setShowPricingModal(true)}
-                                    className="p-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                                    className="p-2 rounded-full hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
                                     aria-label={t('status.pricingInfo')}
                                 >
                                     <Info className="w-5 h-5 text-primary dark:text-primary-light" />
@@ -296,7 +296,7 @@ export default function BillingPage() {
                                 <Users className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
                                     <p className="text-sm text-neutral-600 dark:text-neutral-400">{t('subscription.googleAdsAccounts')}</p>
-                                    <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">{subscription.currentSeats}</p>
+                                    <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-200">{subscription.currentSeats}</p>
                                 </div>
                             </div>
 
@@ -304,7 +304,7 @@ export default function BillingPage() {
                                 <CreditCard className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
                                     <p className="text-sm text-neutral-600 dark:text-neutral-400">{t('subscription.monthlyAmount')}</p>
-                                    <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">{totalMonthly} €</p>
+                                    <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-200">{totalMonthly} €</p>
                                     <p className="text-xs text-neutral-600 dark:text-neutral-400">{t('subscription.priceFormula', { seats: subscription.currentSeats })}</p>
                                 </div>
                             </div>
@@ -313,7 +313,7 @@ export default function BillingPage() {
                                 <Calendar className="w-5 h-5 text-primary mt-0.5" />
                                 <div>
                                     <p className="text-sm text-neutral-600 dark:text-neutral-400">{t('subscription.nextPayment')}</p>
-                                    <p className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                                    <p className="text-lg font-semibold text-neutral-900 dark:text-neutral-200">
                                         {subscription.currentPeriodEnd
                                             ? new Date(subscription.currentPeriodEnd).toLocaleDateString(i18n.language)
                                             : '-'}
@@ -325,14 +325,14 @@ export default function BillingPage() {
                         <div className="mb-6 space-y-4">
                             {/* Header */}
                             <div className="text-center">
-                                <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">{t('pricing.title')}</h3>
+                                <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-200 mb-2">{t('pricing.title')}</h3>
                                 <p className="text-neutral-600 dark:text-neutral-400">
                                     {t('pricing.subtitle')}
                                 </p>
                             </div>
 
                             {/* Pricing Grid */}
-                            <div className="bg-white/70 dark:bg-neutral-700/50 backdrop-blur-sm rounded-xl border border-neutral-200 dark:border-neutral-600 p-6">
+                            <div className="bg-white/70 dark:bg-black/50 backdrop-blur-sm rounded-xl border border-neutral-200 dark:border-white/10 p-6">
                                 <div className="text-center mb-4">
                                     <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-1">{t('pricing.simpleTransparent')}</p>
                                     <p className="text-3xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}{t('pricing.perMonth')}</p>
@@ -344,10 +344,10 @@ export default function BillingPage() {
                                     {[1, 2, 5, 10].map((seats) => (
                                         <div
                                             key={seats}
-                                            className="p-3 bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-600 dark:to-neutral-700 rounded-lg border border-neutral-200 dark:border-neutral-500 text-center hover:border-primary-light dark:hover:border-primary hover:shadow-md transition-all duration-200"
+                                            className="p-3 bg-gradient-to-br from-white to-neutral-50 dark:from-black dark:to-black rounded-lg border border-neutral-200 dark:border-white/10 text-center hover:border-primary-light dark:hover:border-primary hover:shadow-md transition-all duration-200"
                                         >
                                             <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-1">{t('pricing.accountsCount', { seats })}</p>
-                                            <p className="text-lg font-bold text-neutral-900 dark:text-neutral-100">{PRICE_PER_SEAT * seats}€</p>
+                                            <p className="text-lg font-bold text-neutral-900 dark:text-neutral-200">{PRICE_PER_SEAT * seats}€</p>
                                             <p className="text-xs text-neutral-500 dark:text-neutral-400">{t('pricing.monthly')}</p>
                                         </div>
                                     ))}
@@ -362,8 +362,8 @@ export default function BillingPage() {
                             </div>
 
                             {/* Features */}
-                            <div className="bg-white/70 dark:bg-neutral-700/50 backdrop-blur-sm rounded-xl border border-neutral-200 dark:border-neutral-600 p-6">
-                                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3">{t('pricing.features.title')}</p>
+                            <div className="bg-white/70 dark:bg-black/50 backdrop-blur-sm rounded-xl border border-neutral-200 dark:border-white/10 p-6">
+                                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-200 mb-3">{t('pricing.features.title')}</p>
                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-neutral-700 dark:text-neutral-300">
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
@@ -427,14 +427,14 @@ export default function BillingPage() {
                         <div className="mb-6 space-y-4">
                             {/* Header */}
                             <div className="text-center">
-                                <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">{t('pricing.title')}</h3>
+                                <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-200 mb-2">{t('pricing.title')}</h3>
                                 <p className="text-neutral-600 dark:text-neutral-400">
                                     {t('pricing.subtitle')}
                                 </p>
                             </div>
 
                             {/* Pricing Grid */}
-                            <div className="bg-white/70 dark:bg-neutral-700/50 backdrop-blur-sm rounded-xl border border-neutral-200 dark:border-neutral-600 p-6">
+                            <div className="bg-white/70 dark:bg-black/50 backdrop-blur-sm rounded-xl border border-neutral-200 dark:border-white/10 p-6">
                                 <div className="text-center mb-4">
                                     <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-1">{t('pricing.simpleTransparent')}</p>
                                     <p className="text-3xl font-bold text-primary dark:text-primary-light">{PRICE_PER_SEAT}{t('pricing.perMonth')}</p>
@@ -446,10 +446,10 @@ export default function BillingPage() {
                                     {[1, 2, 5, 10].map((seats) => (
                                         <div
                                             key={seats}
-                                            className="p-3 bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-600 dark:to-neutral-700 rounded-lg border border-neutral-200 dark:border-neutral-500 text-center hover:border-primary-light dark:hover:border-primary hover:shadow-md transition-all duration-200"
+                                            className="p-3 bg-gradient-to-br from-white to-neutral-50 dark:from-black dark:to-black rounded-lg border border-neutral-200 dark:border-white/10 text-center hover:border-primary-light dark:hover:border-primary hover:shadow-md transition-all duration-200"
                                         >
                                             <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-1">{t('pricing.accountsCount', { seats })}</p>
-                                            <p className="text-lg font-bold text-neutral-900 dark:text-neutral-100">{PRICE_PER_SEAT * seats}€</p>
+                                            <p className="text-lg font-bold text-neutral-900 dark:text-neutral-200">{PRICE_PER_SEAT * seats}€</p>
                                             <p className="text-xs text-neutral-500 dark:text-neutral-400">{t('pricing.monthly')}</p>
                                         </div>
                                     ))}
@@ -464,8 +464,8 @@ export default function BillingPage() {
                             </div>
 
                             {/* Features */}
-                            <div className="bg-white/70 dark:bg-neutral-700/50 backdrop-blur-sm rounded-xl border border-neutral-200 dark:border-neutral-600 p-6">
-                                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 mb-3">{t('pricing.features.title')}</p>
+                            <div className="bg-white/70 dark:bg-black/50 backdrop-blur-sm rounded-xl border border-neutral-200 dark:border-white/10 p-6">
+                                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-200 mb-3">{t('pricing.features.title')}</p>
                                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-neutral-700 dark:text-neutral-300">
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 flex-shrink-0 text-green-600 dark:text-green-400" />
@@ -605,8 +605,8 @@ export default function BillingPage() {
                 </div>
 
                 {/* Billing History */}
-                <div className="bg-white/50 dark:bg-neutral-800/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
-                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-4">{t('history.title')}</h2>
+                <div className="bg-white/50 dark:bg-black/50 backdrop-blur-xl rounded-2xl border border-primary/10 dark:border-primary/20 p-6 shadow-lg shadow-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
+                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-neutral-200 mb-4">{t('history.title')}</h2>
 
                     {loadingHistory ? (
                         <div className="flex justify-center py-8">
@@ -666,14 +666,14 @@ export default function BillingPage() {
                                 return (
                                     <div
                                         key={index}
-                                        className="flex items-center justify-between p-4 border border-primary/20 dark:border-primary/30 rounded-xl bg-white/30 dark:bg-neutral-700/30 hover:bg-white/50 dark:hover:bg-neutral-700/50 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-200"
+                                        className="flex items-center justify-between p-4 border border-primary/20 dark:border-primary/30 rounded-xl bg-white/30 dark:bg-black/30 hover:bg-white/50 dark:hover:bg-white/5 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-200"
                                     >
                                         <div className="flex items-start gap-3 flex-1">
                                             <div className="mt-0.5">
                                                 {getEventIcon()}
                                             </div>
                                             <div className="flex-1">
-                                                <p className="font-medium text-neutral-900 dark:text-neutral-100">
+                                                <p className="font-medium text-neutral-900 dark:text-neutral-200">
                                                     {getEventLabel()}
                                                 </p>
                                                 <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">
@@ -688,7 +688,7 @@ export default function BillingPage() {
                                         </div>
                                         {event.amount !== undefined && (
                                             <div className="text-right ml-4">
-                                                <p className="font-semibold text-neutral-900 dark:text-neutral-100">
+                                                <p className="font-semibold text-neutral-900 dark:text-neutral-200">
                                                     {event.amount.toFixed(2)} {event.currency?.toUpperCase() || 'EUR'}
                                                 </p>
                                             </div>

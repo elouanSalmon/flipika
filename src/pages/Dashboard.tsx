@@ -138,9 +138,9 @@ const Dashboard = () => {
 
     if (step === 'CONNECT') {
         return (
-            <div className="flex flex-col items-center justify-center text-center space-y-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-100 dark:border-neutral-700 shadow-sm p-12">
-                <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-full">
-                    <BarChart3 size={48} className="text-blue-600" />
+            <div className="flex flex-col items-center justify-center text-center space-y-8 bg-white dark:bg-black rounded-2xl border border-neutral-100 dark:border-white/10 shadow-sm p-12">
+                <div className="p-4 bg-primary-50 dark:bg-primary-900/20 rounded-full">
+                    <BarChart3 size={48} className="text-primary" />
                 </div>
                 <div className="max-w-md space-y-3">
                     <h2 className="text-2xl font-bold">{t('connect.title')}</h2>
@@ -175,9 +175,9 @@ const Dashboard = () => {
                     <div className="grid gap-3">
                         <div className="grid gap-3">
                             {accounts.map((cust) => (
-                                <button key={cust.id} onClick={() => selectCustomer(cust.id)} className="card p-5 hover:border-blue-500 hover:shadow-md transition-all flex items-center justify-between group text-left">
+                                <button key={cust.id} onClick={() => selectCustomer(cust.id)} className="card p-5 hover:border-primary hover:shadow-md transition-all flex items-center justify-between group text-left">
                                     <span className="font-medium text-lg">{cust.name} ({cust.id})</span>
-                                    <ArrowRight className="opacity-0 group-hover:opacity-100 text-blue-500 transition-opacity" />
+                                    <ArrowRight className="opacity-0 group-hover:opacity-100 text-primary transition-opacity" />
                                 </button>
                             ))}
                         </div>
@@ -191,7 +191,7 @@ const Dashboard = () => {
     // DASHBOARD VIEW
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center bg-white dark:bg-neutral-800 p-6 rounded-2xl border border-neutral-100 dark:border-neutral-700 shadow-sm">
+            <div className="flex justify-between items-center bg-white dark:bg-black p-6 rounded-2xl border border-neutral-100 dark:border-white/10 shadow-sm">
                 <div className="space-y-1">
                     <h1 className="text-2xl font-bold">{t('campaigns.title')}</h1>
                     <p className="text-neutral-500 text-sm">{t('accountSelector.accountLabel', { name: accounts.find(a => a.id === customerId)?.name || customerId })}</p>
@@ -208,10 +208,10 @@ const Dashboard = () => {
 
             {error && <ErrorCard message={error} />}
 
-            <div className="card overflow-hidden bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700">
+            <div className="card overflow-hidden bg-white dark:bg-black border-neutral-100 dark:border-white/10">
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-neutral-50 dark:bg-neutral-700/50 text-left text-xs uppercase tracking-wider text-neutral-500">
+                        <thead className="bg-neutral-50 dark:bg-black/50 text-left text-xs uppercase tracking-wider text-neutral-500">
                             <tr>
                                 <th className="p-4">{t('table.headers.name')}</th>
                                 <th className="p-4">{t('table.headers.status')}</th>
@@ -223,9 +223,9 @@ const Dashboard = () => {
                                 <th className="p-4 text-right">{t('table.headers.averageCpc')}</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-neutral-100 dark:divide-neutral-700">
+                        <tbody className="divide-y divide-neutral-100 dark:divide-white/10">
                             {campaigns.length > 0 ? campaigns.map((c) => (
-                                <tr key={c.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-700/30 transition-colors">
+                                <tr key={c.id} className="hover:bg-neutral-50 dark:hover:bg-white/5 transition-colors">
                                     <td className="p-4 font-medium">{c.name}</td>
                                     <td className="p-4"><span className={`badge badge-sm ${c.status === 'ENABLED' ? 'badge-success' : 'badge-ghost'}`}>{c.status}</span></td>
                                     <td className="p-4 text-xs text-neutral-500">{c.type || t('table.unknown')}</td>

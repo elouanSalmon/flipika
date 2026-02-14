@@ -86,8 +86,8 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.8rem;
-    color: var(--text-secondary, #6b7280);
-    background: var(--bg-secondary, #f3f4f6);
+    color: var(--text-secondary, #6b6e77);
+    background: var(--bg-secondary, #f0f1f2);
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     display: flex;
@@ -97,7 +97,7 @@
 
 .dark-mode .funnel-conversion-rate {
     background: rgba(255, 255, 255, 0.1);
-    color: var(--text-secondary, #9ca3af);
+    color: var(--text-secondary, #8e9199);
 }
 
 .funnel-arrow {
@@ -105,7 +105,7 @@
     left: 50%;
     bottom: -1rem;
     transform: translateX(-50%);
-    color: var(--text-tertiary, #9ca3af);
+    color: var(--text-tertiary, #8e9199);
 }
 
 /* Loading and Error States */

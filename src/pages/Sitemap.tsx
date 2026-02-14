@@ -18,7 +18,7 @@ const Sitemap: React.FC = () => {
     const sections = [
         {
             title: i18n.language === 'fr' ? 'Pages Principales' : 'Main Pages',
-            icon: <Globe className="w-5 h-5 text-blue-500" />,
+            icon: <Globe className="w-5 h-5 text-primary" />,
             links: [
                 { name: i18n.language === 'fr' ? 'Accueil' : 'Home', path: '/' },
                 { name: i18n.language === 'fr' ? 'Connexion' : 'Login', path: '/login' },
@@ -73,7 +73,7 @@ const Sitemap: React.FC = () => {
         <div className="flex-1 bg-[var(--color-bg-primary)] py-20 px-4 relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-                <div className="absolute top-[10%] left-[-5%] w-[40vw] h-[40vw] bg-blue-500/5 rounded-full blur-[120px]" />
+                <div className="absolute top-[10%] left-[-5%] w-[40vw] h-[40vw] bg-primary-500/5 rounded-full blur-[120px]" />
                 <div className="absolute bottom-[10%] right-[-5%] w-[30vw] h-[30vw] bg-indigo-500/5 rounded-full blur-[100px]" />
             </div>
 
@@ -89,7 +89,7 @@ const Sitemap: React.FC = () => {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm font-bold mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-500/10 border border-primary/20 text-primary dark:text-primary-light text-sm font-bold mb-6"
                     >
                         <Map size={16} />
                         <span>Sitemap</span>
@@ -133,15 +133,15 @@ const Sitemap: React.FC = () => {
                                     <button
                                         key={link.path}
                                         onClick={() => navigate(getLangPath(link.path))}
-                                        className="group flex items-center justify-between p-5 rounded-2xl glass-card border border-white/20 dark:border-white/10 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all text-left"
+                                        className="group flex items-center justify-between p-5 rounded-2xl glass-card border border-white/20 dark:border-white/10 hover:border-primary/30 hover:bg-primary-500/5 transition-all text-left"
                                     >
                                         <div className="flex items-center gap-4">
-                                            <div className="w-2 h-2 rounded-full bg-blue-600/20 group-hover:bg-blue-600 transition-colors" />
+                                            <div className="w-2 h-2 rounded-full bg-primary/20 group-hover:bg-primary transition-colors" />
                                             <span className="text-lg font-semibold text-secondary group-hover:text-primary transition-colors">
                                                 {link.name}
                                             </span>
                                         </div>
-                                        <ChevronRight size={18} className="text-secondary/30 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+                                        <ChevronRight size={18} className="text-secondary/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                                     </button>
                                 ))}
                             </div>
@@ -154,7 +154,7 @@ const Sitemap: React.FC = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.8 }}
-                    className="mt-20 p-8 rounded-3xl bg-blue-600/5 border border-blue-600/10 text-center"
+                    className="mt-20 p-8 rounded-3xl bg-primary/5 border border-primary/10 text-center"
                 >
                     <p className="text-secondary leading-relaxed">
                         {i18n.language === 'fr'
@@ -163,7 +163,7 @@ const Sitemap: React.FC = () => {
                         <br />
                         <span
                             onClick={() => navigate(getLangPath('/login'))}
-                            className="text-blue-600 font-bold cursor-pointer hover:underline underline-offset-4 ml-1"
+                            className="text-primary font-bold cursor-pointer hover:underline underline-offset-4 ml-1"
                         >
                             {i18n.language === 'fr' ? 'Accéder à votre espace' : 'Go to your workspace'}
                         </span>

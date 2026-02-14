@@ -48,8 +48,8 @@ export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
                 onClick();
             }}
             className={`p-1.5 rounded transition-colors ${isActive
-                ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'
-                : 'hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'
+                ? 'bg-primary-100 text-primary dark:bg-primary-900/30 dark:text-primary-light'
+                : 'hover:bg-neutral-100 dark:hover:bg-white/5 text-neutral-700 dark:text-neutral-300'
                 }`}
             title={title}
             type="button"
@@ -65,7 +65,7 @@ export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
             shouldShow={shouldShow}
             className="tiptap-bubble-menu"
         >
-            <div className="flex bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden divide-x divide-neutral-200 dark:divide-neutral-700">
+            <div className="flex bg-white dark:bg-black rounded-lg shadow-xl border border-neutral-200 dark:border-white/10 overflow-hidden divide-x divide-neutral-200 dark:divide-white/10">
                 {/* Text Formatting */}
                 <div className="flex p-1 gap-1">
                     <BubbleButton

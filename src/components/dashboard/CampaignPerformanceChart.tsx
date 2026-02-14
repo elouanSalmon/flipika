@@ -19,11 +19,11 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
     const isDark = theme === 'dark';
 
     const colors = {
-        grid: isDark ? '#374151' : '#e5e7eb',
-        axis: isDark ? '#9ca3af' : '#6b7280',
-        tooltipBg: isDark ? '#1f2937' : '#ffffff',
-        tooltipBorder: isDark ? '#374151' : '#e5e7eb',
-        tooltipText: isDark ? '#f3f4f6' : '#111827',
+        grid: isDark ? '#1a1a1a' : '#dcdde0',
+        axis: isDark ? '#8e9199' : '#6b6e77',
+        tooltipBg: isDark ? '#0a0a0a' : '#ffffff',
+        tooltipBorder: isDark ? '#1a1a1a' : '#dcdde0',
+        tooltipText: isDark ? '#f0f1f2' : '#050505',
     };
     const getMetricValue = (campaign: Campaign): number => {
         switch (metric) {
@@ -52,18 +52,18 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
 
     if (loading) {
         return (
-            <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6 h-96 flex items-center justify-center">
+            <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 h-96 flex items-center justify-center">
                 <Spinner size={32} />
             </div>
         );
     }
 
     return (
-        <div className="card bg-white dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 p-6">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
             <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold">Performance des campagnes (Top 5)</h3>
                 <select
-                    className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-700"
+                    className="px-3 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black"
                     defaultValue={metric}
                 >
                     <option value="cost">Dépenses</option>
@@ -85,7 +85,7 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
                         }}
                     />
                     <Legend />
-                    <Bar dataKey="value" fill="#3b82f6" radius={[0, 8, 8, 0]} isAnimationActive={false} />
+                    <Bar dataKey="value" fill="#1963d5" radius={[0, 8, 8, 0]} isAnimationActive={false} />
                 </BarChart>
             </ResponsiveContainer>
         </div>

@@ -206,8 +206,8 @@
 
 /* Dark mode support */
 [data-theme="dark"] .legal-content {
-  background: rgba(17, 24, 39, 0.8);
-  border-color: rgba(55, 65, 81, 0.5);
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(26, 26, 26, 0.5);
 }
 
 [data-theme="dark"] .legal-section h2 {
