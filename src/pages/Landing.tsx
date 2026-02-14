@@ -95,13 +95,6 @@ const Landing = () => {
                             "highPrice": "100",
                             "priceCurrency": "EUR",
                             "offerCount": "3"
-                        },
-                        "aggregateRating": {
-                            "@type": "AggregateRating",
-                            "ratingValue": "4.9",
-                            "ratingCount": "150",
-                            "bestRating": "5",
-                            "worstRating": "1"
                         }
                     })}
                 </script>

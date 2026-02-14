@@ -438,6 +438,9 @@ export default function Pricing() {
                                     <button
                                         onClick={() => setOpenFaq(openFaq === i ? null : i)}
                                         className="w-full flex items-center justify-between gap-4 p-5 text-left"
+                                        aria-expanded={openFaq === i}
+                                        aria-controls={`faq-answer-${i}`}
+                                        id={`faq-question-${i}`}
                                     >
                                         <span className="text-sm font-medium text-neutral-900 dark:text-neutral-200">
                                             {item.question}
@@ -446,6 +449,7 @@ export default function Pricing() {
                                             animate={{ rotate: openFaq === i ? 180 : 0 }}
                                             transition={{ duration: 0.2 }}
                                             className="flex-shrink-0"
+                                            aria-hidden="true"
                                         >
                                             <ChevronDown className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
                                         </motion.div>
@@ -454,6 +458,9 @@ export default function Pricing() {
                                     <AnimatePresence initial={false}>
                                         {openFaq === i && (
                                             <motion.div
+                                                id={`faq-answer-${i}`}
+                                                role="region"
+                                                aria-labelledby={`faq-question-${i}`}
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: 'auto', opacity: 1 }}
                                                 exit={{ height: 0, opacity: 0 }}

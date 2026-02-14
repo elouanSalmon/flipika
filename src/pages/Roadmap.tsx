@@ -48,7 +48,9 @@ const Roadmap: React.FC = () => {
     const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
     const getLangPath = (path: string) => {
-        return i18n.language === 'fr' ? `/fr${path}` : path;
+        if (i18n.language === 'fr') return `/fr${path}`;
+        if (i18n.language === 'es') return `/es${path}`;
+        return path;
     };
 
     const handleLifetimePurchase = async () => {

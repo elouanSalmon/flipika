@@ -10,8 +10,9 @@ const Hero: React.FC = () => {
   const navigate = useNavigate();
 
   const getLangPath = (path: string) => {
-    const isFrench = i18n.language === 'fr';
-    return isFrench ? `/fr${path}` : path;
+    if (i18n.language === 'fr') return `/fr${path}`;
+    if (i18n.language === 'es') return `/es${path}`;
+    return path;
   };
 
   return (

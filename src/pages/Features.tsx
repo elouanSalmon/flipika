@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
     Sparkles,
@@ -52,7 +52,9 @@ const Features: React.FC = () => {
     const navigate = useNavigate();
 
     const getLangPath = (path: string) => {
-        return i18n.language === 'fr' ? `/fr${path}` : path;
+        if (i18n.language === 'fr') return `/fr${path}`;
+        if (i18n.language === 'es') return `/es${path}`;
+        return path;
     };
 
     const features = t('features', { returnObjects: true }) as Array<{
@@ -184,16 +186,19 @@ const Features: React.FC = () => {
                         {features.map((feature) => {
                             const Icon = iconMap[feature.icon] || Sparkles;
                             return (
-                                <motion.div
+                                <Link
                                     key={feature.id}
-                                    className="glass rounded-2xl p-6 sm:p-8 flex flex-col group cursor-pointer"
+                                    to={getLangPath(`/features/${feature.id}`)}
+                                    className="block"
+                                >
+                                <motion.div
+                                    className="glass rounded-2xl p-6 sm:p-8 flex flex-col group h-full"
                                     variants={itemVariants}
                                     whileHover={{
                                         y: -8,
                                         boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
                                     }}
                                     transition={{ type: 'spring', stiffness: 300 }}
-                                    onClick={() => navigate(getLangPath(`/features/${feature.id}`))}
                                 >
                                     {/* Icon with glow effect */}
                                     <div className="relative w-14 h-14 bg-[var(--color-primary)]/10 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -230,10 +235,11 @@ const Features: React.FC = () => {
 
                                     {/* View more button */}
                                     <div className="flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all">
-                                        <span>Explorer cette fonctionnalité</span>
+                                        <span>{t('cta.viewFeature')}</span>
                                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                                     </div>
                                 </motion.div>
+                                </Link>
                             );
                         })}
                     </div>

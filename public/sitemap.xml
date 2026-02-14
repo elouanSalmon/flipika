@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ===== Main pages (EN default) ===== -->
+  <url>
+    <loc>https://flipika.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- ===== Pricing ===== -->
+  <url>
+    <loc>https://flipika.com/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/pricing"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/pricing"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/pricing"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/pricing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/es/pricing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ===== Features ===== -->
+  <url>
+    <loc>https://flipika.com/features</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/features"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/features"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/features"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/features</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/es/features</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Feature detail pages -->
+  <url><loc>https://flipika.com/features/report-generation</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/features/ai-narration</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/features/custom-templates</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/features/scheduling-automation</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/features/multi-format-exports</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/features/email-sending</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/features/slideshow-mode</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ===== Roadmap ===== -->
+  <url>
+    <loc>https://flipika.com/roadmap</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/roadmap"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/roadmap"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/roadmap"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/roadmap</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/es/roadmap</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ===== Solutions (persona-based) ===== -->
+  <url><loc>https://flipika.com/solutions/freelancers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/solutions/agencies</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/solutions/media-buyers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/solutions/marketing-managers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/fr/solutions/freelancers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/fr/solutions/agencies</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/fr/solutions/media-buyers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/fr/solutions/marketing-managers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/es/solutions/freelancers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/es/solutions/agencies</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/es/solutions/media-buyers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/es/solutions/marketing-managers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ===== Templates ===== -->
+  <url><loc>https://flipika.com/templates/google-ads</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/templates/ppc</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/templates/marketing-agency</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/templates/ecommerce</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/templates/executive</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://flipika.com/templates/real-estate</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://flipika.com/templates/freelancer</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://flipika.com/templates/saas</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- ===== Alternatives / Comparisons ===== -->
+  <url>
+    <loc>https://flipika.com/alternatives</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== Resources / Lead magnets ===== -->
+  <url><loc>https://flipika.com/resources/google-ads-excel-template</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://flipika.com/resources/google-ads-powerpoint-template</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://flipika.com/resources/google-ads-pdf-example</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- ===== Legal pages ===== -->
+  <url><loc>https://flipika.com/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://flipika.com/terms-of-service</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://flipika.com/legal-notices</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+
+</urlset>
