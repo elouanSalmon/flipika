@@ -28,8 +28,8 @@
 
 .footer-v2-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  gap: 30px;
   margin-bottom: 60px;
 }
 
