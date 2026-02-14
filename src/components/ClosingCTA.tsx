@@ -14,15 +14,24 @@ const ClosingCTA: React.FC = () => {
 
     return (
         <section className="relative py-24 sm:py-32 overflow-hidden">
-            {/* Gradient background */}
-            <div className="absolute inset-0" style={{
-                background: 'linear-gradient(135deg, var(--color-primary) 0%, #4f46e5 50%, #7c3aed 100%)',
-            }} />
+            {/* Background image with overlay */}
+            <div className="absolute inset-0 z-0">
+                <motion.img
+                    src="/assets/images/closing-cta-bg.png"
+                    alt=""
+                    className="w-full h-full object-cover"
+                    initial={{ scale: 1.15 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 2, ease: "easeOut" }}
+                />
+                <div className="absolute inset-0 bg-neutral-900/60 backdrop-blur-[2px]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-neutral-900/40" />
+            </div>
 
             {/* Subtle pattern overlay */}
-            <div className="absolute inset-0 opacity-[0.04]" style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-                backgroundSize: '32px 32px',
+            <div className="absolute inset-0 opacity-[0.1] z-0" style={{
+                backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+                backgroundSize: '48px 48px',
             }} />
 
             <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
