@@ -52,17 +52,21 @@
     "cta": "Get started for free",
     "ctaSecondary": "See an example",
     "stats": {
-      "reportTime": {
-        "value": "2 min",
-        "label": "per report"
+      "googleValidation": {
+        "value": "Verified",
+        "label": "by Google"
+      },
+      "security": {
+        "value": "Encrypted Data",
+        "label": "SOC 2/3, ISO 27001 Compliance"
+      },
+      "gdpr": {
+        "value": "GDPR Compliant",
+        "label": "Data hosted in Europe"
       },
       "reportsGenerated": {
         "value": "+2,500",
         "label": "reports generated"
-      },
-      "zeroFormatting": {
-        "value": "0",
-        "label": "manual formatting"
       }
     }
   },

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {
     ArrowRight, Loader2, Shield, Rocket,
     TrendingUp, Lock, Users,
-    CheckCircle, Zap, Crown, Star,
+    CheckCircle, Zap,
     MousePointerClick, Layout, Palette, Share2, CalendarClock, FileDown,
     Link, FileBarChart, GitMerge, Activity, LayoutTemplate, ArrowLeftRight,
     Globe, LayoutDashboard, Bot, Bell, Workflow
@@ -198,7 +198,6 @@ const Roadmap: React.FC = () => {
                         className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6"
                         variants={itemVariants}
                     >
-                        <Rocket size={16} />
                         <span>{t('hero.badge')}</span>
                     </motion.div>
 
@@ -330,10 +329,10 @@ const Roadmap: React.FC = () => {
 
                                             {phase.footerLogos && (
                                                 <div className="flex flex-col gap-3 px-2">
-                                                    <span className="text-xs font-semibold uppercase tracking-wider opacity-70 text-neutral-400 dark:text-neutral-600">Coming Next:</span>
+                                                    <span className="text-xs font-semibold uppercase tracking-wider opacity-100 text-neutral-500 dark:text-neutral-400">Coming Next:</span>
                                                     <div className="flex flex-wrap items-center gap-3">
                                                         {phase.footerLogos.map((Logo, li) => (
-                                                            <Logo key={li} size={20} className="text-neutral-300 dark:text-neutral-700 hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors" />
+                                                            <Logo key={li} size={24} className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors" />
                                                         ))}
                                                     </div>
                                                 </div>
@@ -360,7 +359,6 @@ const Roadmap: React.FC = () => {
                 >
                     <motion.div className="text-center mb-16" variants={itemVariants}>
                         <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6">
-                            <Star size={16} />
                             <span>{t('vision.badge')}</span>
                         </div>
                         <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 dark:text-neutral-200 mb-4 tracking-tight">
@@ -426,7 +424,6 @@ const Roadmap: React.FC = () => {
 
                         <div className="relative p-8 sm:p-12 text-center">
                             <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/10 dark:bg-yellow-500/20 text-yellow-700 dark:text-yellow-300 rounded-full text-sm font-medium mb-6">
-                                <Crown size={16} />
                                 <span>{t('cta.includes')}</span>
                             </div>
 

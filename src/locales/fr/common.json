@@ -52,17 +52,21 @@
     "cta": "Commencer gratuitement",
     "ctaSecondary": "Voir un exemple",
     "stats": {
-      "reportTime": {
-        "value": "2 min",
-        "label": "par rapport"
+      "googleValidation": {
+        "value": "Vérifié",
+        "label": "par Google"
+      },
+      "security": {
+        "value": "Données chiffrées",
+        "label": "Conformité SOC 2/3, ISO 27001"
+      },
+      "gdpr": {
+        "value": "Conforme RGPD",
+        "label": "Données hébergées en Europe"
       },
       "reportsGenerated": {
         "value": "+2 500",
         "label": "rapports générés"
-      },
-      "zeroFormatting": {
-        "value": "0",
-        "label": "mise en forme"
       }
     }
   },

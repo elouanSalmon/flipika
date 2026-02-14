@@ -64,6 +64,21 @@ const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" as const }}
             viewport={{ once: true }}
         >
+            <div
+                style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '120%',
+                    height: '120%',
+                    borderRadius: '50%',
+                    background: 'var(--gradient-primary)',
+                    opacity: 0.08,
+                    filter: 'blur(80px)',
+                    zIndex: -1,
+                }}
+            />
             {illustration ? (
                 illustration
             ) : (
