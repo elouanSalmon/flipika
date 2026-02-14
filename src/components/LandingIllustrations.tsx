@@ -12,6 +12,7 @@ import {
     Calendar,
     Feather,
     Edit2,
+    Loader2,
 } from 'lucide-react';
 import { SiGoogleads } from 'react-icons/si';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
@@ -81,13 +82,17 @@ export const HeroDashboardIllustration: React.FC = () => {
                 <div className="flex items-center gap-2 md:gap-3">
                     <SiGoogleads className="w-4 h-4 md:w-6 md:h-6 text-blue-500" />
                     <div className="flex flex-col">
-                        <span className="text-[7px] md:text-[9px] uppercase tracking-wider font-bold text-red-500">Source</span>
+                        <span className="text-[7px] md:text-[9px] uppercase tracking-wider font-bold text-neutral-400">Source</span>
                         <span className="text-[8px] md:text-xs font-semibold text-neutral-800 dark:text-neutral-200 leading-none">Google Ads</span>
                     </div>
                 </div>
 
                 <div className={`flex items-center gap-1.5 px-2 md:px-3 py-1 rounded-full transition-colors duration-300 ${state === 'loading' ? 'bg-neutral-100 dark:bg-neutral-800' : 'bg-green-100 dark:bg-green-900/30'}`}>
-                    <Zap className={`w-2.5 h-2.5 md:w-3 md:h-3 ${state === 'loading' ? 'text-neutral-400' : 'text-green-600 dark:text-green-400 fill-green-600 dark:fill-green-400'} ${state !== 'loading' ? 'animate-pulse' : ''}`} />
+                    {state === 'loading' ? (
+                        <Loader2 className="w-2.5 h-2.5 md:w-3 md:h-3 text-neutral-400 animate-spin" />
+                    ) : (
+                        <Zap className="w-2.5 h-2.5 md:w-3 md:h-3 text-green-600 dark:text-green-400 fill-green-600 dark:fill-green-400 animate-pulse" />
+                    )}
                     <span className={`text-[8px] md:text-[10px] font-bold ${state === 'loading' ? 'text-neutral-500' : 'text-green-700 dark:text-green-400'}`}>
                         {state === 'loading' ? 'Génération...' : '0.4s'}
                     </span>
