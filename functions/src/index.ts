@@ -35,6 +35,16 @@ export { generateScheduledReports, processScheduledReports };
 
 // Re-export Migration functions
 export { migrateReportsWithAccountNames } from "./migrateReports";
+export { migrateClientDataSources } from "./migrations/migrateClientDataSources";
+
+// Re-export Meta Ads OAuth functions
+export { initiateMetaOAuth, handleMetaOAuthCallback, revokeMetaOAuth } from "./metaOAuth";
+
+// Re-export Meta Ads Account functions
+export { getMetaAdAccounts } from "./metaAdAccounts";
+
+// Re-export Meta Ads Insights functions
+export { getMetaInsights } from "./metaInsights";
 
 // Re-export AI Analyst functions (Genkit Flow)
 // export { analyzeCampaignPerformanceFlow } from "./insights";

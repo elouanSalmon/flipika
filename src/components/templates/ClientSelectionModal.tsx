@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, X, Loader2 } from 'lucide-react';
 import { useClients } from '../../hooks/useClients';
+import { getGoogleAdsAccountId } from '../../types/clientHelpers';
 import { useTranslation } from 'react-i18next';
 
 interface ClientSelectionModalProps {
@@ -46,24 +47,17 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
         const client = clients.find(c => c.id === selectedClientId);
         if (!client) return;
 
-        // Ensure client has googleAdsCustomerId
-        if (!client.googleAdsCustomerId) {
-            // Should show error or UI feedback. 
-            // For now, validation is in UI (button disabled if no account logic?)
-            // But let's handle it gracefully
+        const googleAdsId = getGoogleAdsAccountId(client);
+        if (!googleAdsId) {
             return;
         }
 
         try {
             const result = onConfirm(
                 client.id,
-                client.googleAdsCustomerId,
+                googleAdsId,
                 client.name,
-                // We don't have account Name easily available unless we fetch it or client has it. 
-                // Client usually has googleAdsCustomerId. 
-                // We might need to lookup accountName from context or just use ID as fallback.
-                'Google Ads Account' // Fallback or if client object has it. 
-                // Looking at clientService/types: Client might not store account Name.
+                'Google Ads Account'
             );
             if (result instanceof Promise) {
                 setIsLoading(true);
@@ -78,7 +72,7 @@ const ClientSelectionModal: React.FC<ClientSelectionModalProps> = ({
     };
 
     const selectedClient = clients.find(c => c.id === selectedClientId);
-    const hasLinkedAccount = selectedClient && !!selectedClient.googleAdsCustomerId;
+    const hasLinkedAccount = selectedClient && !!getGoogleAdsAccountId(selectedClient);
 
     return ReactDOM.createPortal(
         <AnimatePresence>

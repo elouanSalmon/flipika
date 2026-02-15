@@ -6,7 +6,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DemoModeProvider } from './contexts/DemoModeContext';
 import { TutorialProvider } from './contexts/TutorialContext';
 import { GoogleAdsProvider } from './contexts/GoogleAdsContext';
-
+import { MetaAdsProvider } from './contexts/MetaAdsContext';
 
 import { FeatureFlagsProvider, useFeatureFlags } from './contexts/FeatureFlagsContext';
 import { SubscriptionProvider } from './contexts/SubscriptionContext';
@@ -25,6 +25,7 @@ import Login from './pages/Login';
 import AppLayout from './layouts/AppLayout';
 import PublicLayout from './layouts/PublicLayout';
 import OAuthCallback from './pages/OAuthCallback';
+import MetaOAuthCallback from './pages/MetaOAuthCallback';
 import Dashboard from './pages/Dashboard';
 import DashboardNew from './pages/DashboardNew';
 import AuditPage from './pages/AuditPage';
@@ -236,6 +237,13 @@ const AppRoutes = () => {
         </ProtectedRoute>
       } />
 
+      {/* Meta OAuth Callback - Protected */}
+      <Route path="/oauth/meta/callback" element={
+        <ProtectedRoute>
+          <MetaOAuthCallback />
+        </ProtectedRoute>
+      } />
+
       {/* Public Report View - No authentication required */}
       <Route path="/:username/reports/:reportId" element={<PublicReportView />} />
 
@@ -268,6 +276,7 @@ function App() {
         <AnalyticsTracker />
         <SubscriptionProvider>
           <GoogleAdsProvider>
+            <MetaAdsProvider>
             <TutorialProvider>
               <DemoModeProvider>
                 <FeatureFlagsProvider>
@@ -304,6 +313,7 @@ function App() {
                 </FeatureFlagsProvider>
               </DemoModeProvider>
             </TutorialProvider>
+            </MetaAdsProvider>
           </GoogleAdsProvider>
         </SubscriptionProvider>
       </AuthProvider>

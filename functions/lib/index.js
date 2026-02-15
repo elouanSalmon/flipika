@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createLifetimeCheckout = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.googleAdsQuery = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
+exports.debugTriggerSchedule = exports.syncBillingScheduled = exports.syncBillingManual = exports.stripeWebhook = exports.createLifetimeCheckout = exports.createStripePortal = exports.createStripeCheckout = exports.revokeOAuth = exports.getAccessibleCustomers = exports.listCampaigns = exports.getMetaInsights = exports.getMetaAdAccounts = exports.revokeMetaOAuth = exports.handleMetaOAuthCallback = exports.initiateMetaOAuth = exports.migrateClientDataSources = exports.migrateReportsWithAccountNames = exports.processScheduledReports = exports.generateScheduledReports = exports.googleAdsQuery = exports.getAdCreatives = exports.getWidgetMetrics = exports.backupFirestore = exports.generateSitemap = exports.domainRedirect = exports.handleOAuthCallback = exports.initiateOAuth = void 0;
 const admin = require("firebase-admin");
 const https_1 = require("firebase-functions/v2/https");
 const params_1 = require("firebase-functions/params");
@@ -37,6 +37,19 @@ Object.defineProperty(exports, "processScheduledReports", { enumerable: true, ge
 // Re-export Migration functions
 var migrateReports_1 = require("./migrateReports");
 Object.defineProperty(exports, "migrateReportsWithAccountNames", { enumerable: true, get: function () { return migrateReports_1.migrateReportsWithAccountNames; } });
+var migrateClientDataSources_1 = require("./migrations/migrateClientDataSources");
+Object.defineProperty(exports, "migrateClientDataSources", { enumerable: true, get: function () { return migrateClientDataSources_1.migrateClientDataSources; } });
+// Re-export Meta Ads OAuth functions
+var metaOAuth_1 = require("./metaOAuth");
+Object.defineProperty(exports, "initiateMetaOAuth", { enumerable: true, get: function () { return metaOAuth_1.initiateMetaOAuth; } });
+Object.defineProperty(exports, "handleMetaOAuthCallback", { enumerable: true, get: function () { return metaOAuth_1.handleMetaOAuthCallback; } });
+Object.defineProperty(exports, "revokeMetaOAuth", { enumerable: true, get: function () { return metaOAuth_1.revokeMetaOAuth; } });
+// Re-export Meta Ads Account functions
+var metaAdAccounts_1 = require("./metaAdAccounts");
+Object.defineProperty(exports, "getMetaAdAccounts", { enumerable: true, get: function () { return metaAdAccounts_1.getMetaAdAccounts; } });
+// Re-export Meta Ads Insights functions
+var metaInsights_1 = require("./metaInsights");
+Object.defineProperty(exports, "getMetaInsights", { enumerable: true, get: function () { return metaInsights_1.getMetaInsights; } });
 // Re-export AI Analyst functions (Genkit Flow)
 // export { analyzeCampaignPerformanceFlow } from "./insights";
 // Import Stripe functions

@@ -6,6 +6,7 @@ import { deleteReport, duplicateReport, archiveReport } from '../../../services/
 import { useAuth } from '../../../contexts/AuthContext';
 import type { EditableReport } from '../../../types/reportTypes';
 import type { Client } from '../../../types/client';
+import { getGoogleAdsAccountId } from '../../../types/clientHelpers';
 import toast from 'react-hot-toast';
 import ConfirmationModal from '../../common/ConfirmationModal';
 import './ReportCard.css'; // Keeping for potential specific overrides, but content will be minimized
@@ -128,7 +129,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
 
         // 2. Try matching by Google Ads Customer ID
         // Note: accountId in report is usually the Google Ads Customer ID
-        const linkedClient = clients.find(c => c.googleAdsCustomerId === report.accountId);
+        const linkedClient = clients.find(c => getGoogleAdsAccountId(c) === report.accountId);
         if (linkedClient) return linkedClient.name;
 
         // 3. Fallback to account name
@@ -137,7 +138,7 @@ const ReportCard: React.FC<ReportCardProps> = ({ report, onClick, onDeleted, acc
     };
 
     const displayName = getDisplayName();
-    const linkedClient = report.clientId ? clients.find(c => c.id === report.clientId) : clients.find(c => c.googleAdsCustomerId === report.accountId);
+    const linkedClient = report.clientId ? clients.find(c => c.id === report.clientId) : clients.find(c => getGoogleAdsAccountId(c) === report.accountId);
     const isClient = !!linkedClient;
     const clientLogo = linkedClient?.logoUrl;
 

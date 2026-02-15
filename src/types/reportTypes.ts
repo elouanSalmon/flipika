@@ -31,6 +31,10 @@ export const SlideType = {
     SECTION_TITLE: 'section_title',
     RICH_TEXT: 'rich_text',
     FLEXIBLE_DATA: 'flexible_data',
+    // Meta Ads slide types
+    META_PERFORMANCE_OVERVIEW: 'meta_performance_overview',
+    META_CAMPAIGN_CHART: 'meta_campaign_chart',
+    META_FUNNEL_ANALYSIS: 'meta_funnel_analysis',
 } as const;
 
 export type SlideType = typeof SlideType[keyof typeof SlideType];
@@ -101,6 +105,8 @@ export interface EditableReport {
     accountName?: string; // For display
     campaignIds: string[];
     campaignNames?: string[]; // For display
+    metaAccountId?: string; // Meta Ads account ID (if client has Meta linked)
+    metaAccountName?: string; // For display
     title: string;
     content: JSONContent;
     sections: ReportSection[];
@@ -131,7 +137,7 @@ export interface ReportSection {
     order: number;
     isCollapsed?: boolean;
     dataSource?: {
-        type: 'google_ads' | 'manual';
+        type: 'google_ads' | 'meta_ads' | 'manual';
         config?: any;
     };
 }

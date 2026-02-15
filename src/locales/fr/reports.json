@@ -190,7 +190,8 @@
     "scopeLabel": "Portée",
     "categories": {
       "all": "Toutes",
-      "analytics": "Analytique",
+      "analytics": "Google Ads",
+      "meta_ads": "Meta Ads",
       "content": "Contenu"
     },
     "scopes": {
@@ -257,6 +258,18 @@
       "rich_text": {
         "title": "Texte Riche",
         "description": "Paragraphe de texte libre"
+      },
+      "meta_performance_overview": {
+        "title": "Meta Ads - Performance",
+        "description": "Indicateurs Meta Ads : impressions, clics, budget, couverture"
+      },
+      "meta_campaign_chart": {
+        "title": "Meta Ads - Campagnes",
+        "description": "Graphique des campagnes Meta Ads"
+      },
+      "meta_funnel_analysis": {
+        "title": "Meta Ads - Tunnel",
+        "description": "Tunnel de conversion Meta : Couverture, Impressions, Clics, Conversions"
       }
     }
   },

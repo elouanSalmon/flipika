@@ -14,6 +14,9 @@ import DevicePlatformSplitSlide from './slides/DevicePlatformSplitSlide';
 import TopPerformersSlide from './slides/TopPerformersSlide';
 import SectionTitleSlide from './slides/SectionTitleSlide';
 import RichTextSlide from './slides/RichTextSlide';
+import MetaPerformanceOverviewSlide from './slides/MetaPerformanceOverviewSlide';
+import MetaCampaignChartSlide from './slides/MetaCampaignChartSlide';
+import MetaFunnelAnalysisSlide from './slides/MetaFunnelAnalysisSlide';
 import type { SlideConfig, ReportDesign, SlideScope } from '../../types/reportTypes';
 import { SlideType } from '../../types/reportTypes';
 import './SlideItem.css';
@@ -148,6 +151,42 @@ export const SlideItem: React.FC<SlideItemProps & {
                 case SlideType.TOP_PERFORMERS:
                     return (
                         <TopPerformersSlide
+                            accountId={slide.accountId || reportAccountId}
+                            campaignIds={slide.campaignIds || reportCampaignIds}
+                            config={slide}
+                            design={design}
+                            startDate={startDate}
+                            endDate={endDate}
+                            reportId={reportId}
+                        />
+                    );
+                case SlideType.META_PERFORMANCE_OVERVIEW:
+                    return (
+                        <MetaPerformanceOverviewSlide
+                            accountId={slide.accountId || reportAccountId}
+                            campaignIds={slide.campaignIds || reportCampaignIds}
+                            config={slide}
+                            design={design}
+                            startDate={startDate}
+                            endDate={endDate}
+                            reportId={reportId}
+                        />
+                    );
+                case SlideType.META_CAMPAIGN_CHART:
+                    return (
+                        <MetaCampaignChartSlide
+                            accountId={slide.accountId || reportAccountId}
+                            campaignIds={slide.campaignIds || reportCampaignIds}
+                            config={slide}
+                            design={design}
+                            startDate={startDate}
+                            endDate={endDate}
+                            reportId={reportId}
+                        />
+                    );
+                case SlideType.META_FUNNEL_ANALYSIS:
+                    return (
+                        <MetaFunnelAnalysisSlide
                             accountId={slide.accountId || reportAccountId}
                             campaignIds={slide.campaignIds || reportCampaignIds}
                             config={slide}

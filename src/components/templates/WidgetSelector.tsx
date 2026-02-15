@@ -41,10 +41,39 @@ const AVAILABLE_WIDGETS = [
     {
         type: SlideType.TEXT_BLOCK,
         name: 'Bloc de Texte',
-        description: 'Texte personnalisé',
+        description: 'Texte personnalise',
         icon: FileText,
         defaultSettings: {
             content: '',
+        },
+    },
+    // Meta Ads widgets
+    {
+        type: SlideType.META_PERFORMANCE_OVERVIEW,
+        name: 'Meta Ads - Performance',
+        description: 'Metriques Meta Ads (impressions, clics, budget...)',
+        icon: TrendingUp,
+        defaultSettings: {
+            metrics: ['impressions', 'clicks', 'spend', 'ctr', 'reach', 'conversions'],
+            showComparison: true,
+        },
+    },
+    {
+        type: SlideType.META_CAMPAIGN_CHART,
+        name: 'Meta Ads - Campagnes',
+        description: 'Graphique campagnes Meta Ads',
+        icon: LineChart,
+        defaultSettings: {
+            chartType: 'line' as const,
+        },
+    },
+    {
+        type: SlideType.META_FUNNEL_ANALYSIS,
+        name: 'Meta Ads - Tunnel',
+        description: 'Tunnel de conversion Meta Ads',
+        icon: TrendingUp,
+        defaultSettings: {
+            metrics: ['reach', 'impressions', 'clicks', 'conversions'],
         },
     },
 ];

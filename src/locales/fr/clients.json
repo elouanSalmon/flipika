@@ -101,6 +101,25 @@
         "modalTitle": "Qu'est-ce qu'un compte ?",
         "modalContent": "Les comptes représentent vos clients ou unités commerciales dans Flipika, vous permettant d'organiser et de gérer vos rapports Google Ads par compte.\n\nAvec les comptes, vous pouvez :\n• Associer chaque compte à un compte Google Ads spécifique\n• Télécharger des logos personnalisés pour des rapports brandés\n• Définir des templates et thèmes par défaut pour une application automatique\n• Enregistrer les informations de contact pour adresser automatiquement les rapports à l'email du compte\n• Organiser vos rapports par compte pour un accès facile\n\nLes comptes vous aident à rationaliser votre flux de travail et à garantir des rapports cohérents et professionnels pour chaque client."
     },
+    "dataSources": {
+        "platforms": {
+            "google_ads": "Google Ads",
+            "meta_ads": "Meta Ads"
+        },
+        "badge": {
+            "google_ads": "Google Ads",
+            "meta_ads": "Meta Ads"
+        },
+        "noPlatform": "Aucune plateforme",
+        "addSource": "Ajouter une source",
+        "removeSource": "Retirer la source",
+        "metaAds": {
+            "label": "Compte Meta Ads",
+            "placeholder": "Selectionner un compte",
+            "helper": "Selectionnez le compte Meta Ads a associer.",
+            "noConnection": "Vous devez connecter votre compte Meta Ads pour selectionner un compte."
+        }
+    },
     "delete": {
         "title": "Supprimer le compte",
         "message": "Êtes-vous sûr de vouloir supprimer le compte \"{{name}}\" ? Cette action est irréversible.",

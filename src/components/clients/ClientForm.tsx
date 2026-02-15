@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Client, CreateClientInput, UpdateClientInput } from '../../types/client';
+import { getMetaAdsAccountId } from '../../types/clientHelpers';
 import type { ReportTemplate } from '../../types/templateTypes';
 import type { ReportTheme } from '../../types/reportThemes';
 import { Upload, Loader2, X, Building2, Mail, Palette, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
+import { useMetaAds } from '../../contexts/MetaAdsContext';
 import { listUserTemplates } from '../../services/templateService';
 import themeService from '../../services/themeService';
 import { getAuth } from 'firebase/auth';
@@ -33,8 +35,10 @@ export const ClientForm: React.FC<ClientFormProps> = ({
     const [googleAdsId, setGoogleAdsId] = useState(initialData?.googleAdsCustomerId || '');
     const [logoFile, setLogoFile] = useState<File | null>(null);
     const [logoPreview, setLogoPreview] = useState<string | null>(initialData?.logoUrl || null);
+    const [metaAdsId, setMetaAdsId] = useState(initialData ? (getMetaAdsAccountId(initialData) || '') : '');
     const [errors, setErrors] = useState<{ name?: string, email?: string, googleAdsId?: string }>({});
     const { accounts, isConnected } = useGoogleAds();
+    const { accounts: metaAccounts, isConnected: isMetaConnected } = useMetaAds();
     const { refresh: refreshTutorial } = useTutorial();
 
     // Preset configuration state
@@ -72,8 +76,9 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             setLogoPreview(initialData.logoUrl || null);
             setDefaultTemplateId(initialData.defaultTemplateId || '');
             setDefaultThemeId(initialData.defaultThemeId || '');
-            // Only update email preset if it exists, otherwise define defaults logic if needed, 
-            // but usually we keep existing local state if user started typing? 
+            setMetaAdsId(getMetaAdsAccountId(initialData) || '');
+            // Only update email preset if it exists, otherwise define defaults logic if needed,
+            // but usually we keep existing local state if user started typing?
             // Better to overwrite if initialData is late-arriving essentially "loading".
             if (initialData.emailPreset) {
                 setEmailSubject(initialData.emailPreset.subject);
@@ -150,6 +155,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             if (name !== initialData.name) updateData.name = name;
             if (email !== initialData.email) updateData.email = email;
             if (cleanAdsId !== initialData.googleAdsCustomerId) updateData.googleAdsCustomerId = cleanAdsId;
+            if (metaAdsId !== (getMetaAdsAccountId(initialData) || '')) updateData.metaAdsAccountId = metaAdsId || undefined;
             if (logoFile) updateData.logoFile = logoFile;
 
             // Handle preset changes
@@ -178,6 +184,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                 name,
                 email,
                 googleAdsCustomerId: cleanAdsId,
+                metaAdsAccountId: metaAdsId || undefined,
                 logoFile: logoFile || undefined,
                 defaultTemplateId: defaultTemplateId || undefined,
                 defaultThemeId: defaultThemeId || undefined,
@@ -312,6 +319,33 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     )}
                     {errors.googleAdsId && <p className="client-form-error">{errors.googleAdsId}</p>}
                     <p className="client-form-helper">{t('form.googleAds.helper')}</p>
+                </div>
+
+                {/* Meta Ads Account (Optional) */}
+                <div className="client-form-group">
+                    <label htmlFor="metaAdsId" className="client-form-label">
+                        {t('dataSources.metaAds.label')}
+                    </label>
+                    {!isMetaConnected ? (
+                        <div className="client-form-warning">
+                            <p>{t('dataSources.metaAds.noConnection')}</p>
+                        </div>
+                    ) : (
+                        <select
+                            id="metaAdsId"
+                            value={metaAdsId}
+                            onChange={(e) => setMetaAdsId(e.target.value)}
+                            className="client-form-select"
+                        >
+                            <option value="">{t('dataSources.metaAds.placeholder')}</option>
+                            {metaAccounts.map((account) => (
+                                <option key={account.id} value={account.id}>
+                                    {account.name} ({account.id})
+                                </option>
+                            ))}
+                        </select>
+                    )}
+                    <p className="client-form-helper">{t('dataSources.metaAds.helper')}</p>
                 </div>
 
                 {/* Email */}

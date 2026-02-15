@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { X, Loader2 } from 'lucide-react';
 import type { Campaign } from '../../types/business';
 import { useClients } from '../../hooks/useClients';
+import { getGoogleAdsAccountId } from '../../types/clientHelpers';
 import './ReportConfigModal.css';
 
 interface GoogleAdsAccount {
@@ -29,6 +30,7 @@ export interface ReportConfig {
     clientId: string; // NEW: Required
     accountId: string;
     campaignIds: string[];
+    metaAccountId?: string;
     dateRange: {
         start: string;
         end: string;
@@ -108,10 +110,10 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     useEffect(() => {
         if (selectedClientId) {
             const client = clients.find(c => c.id === selectedClientId);
-            if (client && client.googleAdsCustomerId) {
-                // Determine if we need to notify parent about account change (to fetch campaigns)
-                if (client.googleAdsCustomerId !== selectedAccountId) {
-                    onAccountChange(client.googleAdsCustomerId);
+            const clientGoogleAdsId = client ? getGoogleAdsAccountId(client) : null;
+            if (clientGoogleAdsId) {
+                if (clientGoogleAdsId !== selectedAccountId) {
+                    onAccountChange(clientGoogleAdsId);
                 }
             }
         }
@@ -123,7 +125,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     // In that case, we should try to reverse-match accountId to a client?
     useEffect(() => {
         if (isEditMode && initialConfig?.accountId && !selectedClientId && clients.length > 0) {
-            const matchingClient = clients.find(c => c.googleAdsCustomerId === initialConfig.accountId);
+            const matchingClient = clients.find(c => getGoogleAdsAccountId(c) === initialConfig.accountId);
             if (matchingClient) {
                 setSelectedClientId(matchingClient.id);
             }

@@ -7,7 +7,8 @@ import {
     getDocs,
     query,
     where,
-    serverTimestamp
+    serverTimestamp,
+    Timestamp
 } from 'firebase/firestore';
 import {
     ref,
@@ -16,7 +17,7 @@ import {
     deleteObject
 } from 'firebase/storage';
 import { db, storage } from '../firebase/config';
-import type { Client, CreateClientInput, UpdateClientInput } from '../types/client';
+import type { Client, CreateClientInput, UpdateClientInput, DataSource, AdPlatform } from '../types/client';
 
 const COLLECTION_NAME = 'clients';
 
@@ -66,14 +67,34 @@ export const clientService = {
                 logoUrl = await this.uploadLogo(userId, input.logoFile, clientId);
             }
 
-            // Step 3: Set doc data
+            // Step 3: Build dataSources array
+            const now = Timestamp.now();
+            const dataSources: Array<{ platform: string; accountId: string; accountName: string; addedAt: Timestamp }> = [];
+            if (input.googleAdsCustomerId) {
+                dataSources.push({
+                    platform: 'google_ads',
+                    accountId: input.googleAdsCustomerId,
+                    accountName: '',
+                    addedAt: now,
+                });
+            }
+            if (input.metaAdsAccountId) {
+                dataSources.push({
+                    platform: 'meta_ads',
+                    accountId: input.metaAdsAccountId,
+                    accountName: '',
+                    addedAt: now,
+                });
+            }
+
             await setDoc(newClientRef, {
                 name: input.name,
                 email: input.email,
                 googleAdsCustomerId: input.googleAdsCustomerId,
+                dataSources,
                 logoUrl: logoUrl,
-                createdAt: serverTimestamp(), // Use server timestamp
-                updatedAt: serverTimestamp(),
+                createdAt: now,
+                updatedAt: now,
                 ...(input.emailPreset && { emailPreset: input.emailPreset }),
                 ...(input.defaultTemplateId && { defaultTemplateId: input.defaultTemplateId }),
                 ...(input.defaultThemeId && { defaultThemeId: input.defaultThemeId }),
@@ -174,6 +195,61 @@ export const clientService = {
                     throw new Error('This Google Ads Customer ID is already linked to another client.');
                 }
                 updates.googleAdsCustomerId = input.googleAdsCustomerId;
+
+                // Sync dataSources: update google_ads entry or add one
+                const { getDoc: getDocFn } = await import('firebase/firestore');
+                const currentDoc = await getDocFn(docRef);
+                const currentData = currentDoc.data();
+                const currentSources: DataSource[] = currentData?.dataSources || [];
+                const otherSources = currentSources.filter(s => s.platform !== 'google_ads');
+                updates.dataSources = [...otherSources, {
+                    platform: 'google_ads' as const,
+                    accountId: input.googleAdsCustomerId,
+                    accountName: '',
+                    addedAt: currentSources.find(s => s.platform === 'google_ads')?.addedAt || Timestamp.now(),
+                }];
+            }
+
+            // Handle Meta Ads account changes
+            if (input.metaAdsAccountId !== undefined) {
+                // Need to read current dataSources to update meta_ads entry
+                if (!updates.dataSources) {
+                    const { getDoc: getDocFn2 } = await import('firebase/firestore');
+                    const currentDoc2 = await getDocFn2(docRef);
+                    const currentData2 = currentDoc2.data();
+                    const currentSources2: DataSource[] = currentData2?.dataSources || [];
+
+                    if (input.metaAdsAccountId) {
+                        const otherSources = currentSources2.filter(s => s.platform !== 'meta_ads');
+                        updates.dataSources = [...otherSources, {
+                            platform: 'meta_ads' as const,
+                            accountId: input.metaAdsAccountId,
+                            accountName: '',
+                            addedAt: currentSources2.find(s => s.platform === 'meta_ads')?.addedAt || Timestamp.now(),
+                        }];
+                    } else {
+                        // Remove meta_ads source
+                        updates.dataSources = (currentSources2 || []).filter(
+                            (s: DataSource) => s.platform !== 'meta_ads'
+                        );
+                    }
+                } else {
+                    // dataSources was already updated above (google_ads change), also handle meta_ads
+                    const currentDs = updates.dataSources as DataSource[];
+                    if (input.metaAdsAccountId) {
+                        const withoutMeta = currentDs.filter(s => s.platform !== 'meta_ads');
+                        updates.dataSources = [...withoutMeta, {
+                            platform: 'meta_ads' as const,
+                            accountId: input.metaAdsAccountId,
+                            accountName: '',
+                            addedAt: Timestamp.now(),
+                        }];
+                    } else {
+                        updates.dataSources = currentDs.filter(
+                            (s: DataSource) => s.platform !== 'meta_ads'
+                        );
+                    }
+                }
             }
 
             if (input.logoFile) {
@@ -205,6 +281,76 @@ export const clientService = {
             await updateDoc(docRef, updates);
         } catch (error) {
             console.error('Error updating client:', error);
+            throw error;
+        }
+    },
+
+    /**
+     * Add a data source to a client
+     */
+    async addDataSource(userId: string, clientId: string, dataSource: DataSource): Promise<void> {
+        try {
+            const docRef = doc(db, 'users', userId, COLLECTION_NAME, clientId);
+            const { getDoc: getDocFn } = await import('firebase/firestore');
+            const docSnap = await getDocFn(docRef);
+            if (!docSnap.exists()) throw new Error('Client not found');
+
+            const client = docSnap.data();
+            const existing: DataSource[] = client.dataSources || [];
+
+            const duplicate = existing.find(
+                d => d.platform === dataSource.platform && d.accountId === dataSource.accountId
+            );
+            if (duplicate) {
+                throw new Error('DUPLICATE_DATA_SOURCE');
+            }
+
+            const updates: Record<string, unknown> = {
+                dataSources: [...existing, dataSource],
+                updatedAt: serverTimestamp(),
+            };
+
+            // Keep legacy field in sync
+            if (dataSource.platform === 'google_ads') {
+                updates.googleAdsCustomerId = dataSource.accountId;
+            }
+
+            await updateDoc(docRef, updates);
+        } catch (error) {
+            console.error('Error adding data source:', error);
+            throw error;
+        }
+    },
+
+    /**
+     * Remove a data source from a client
+     */
+    async removeDataSource(userId: string, clientId: string, platform: AdPlatform, accountId: string): Promise<void> {
+        try {
+            const docRef = doc(db, 'users', userId, COLLECTION_NAME, clientId);
+            const { getDoc: getDocFn } = await import('firebase/firestore');
+            const docSnap = await getDocFn(docRef);
+            if (!docSnap.exists()) throw new Error('Client not found');
+
+            const client = docSnap.data();
+            const existing: DataSource[] = client.dataSources || [];
+            const updated = existing.filter(
+                d => !(d.platform === platform && d.accountId === accountId)
+            );
+
+            const updates: Record<string, unknown> = {
+                dataSources: updated,
+                updatedAt: serverTimestamp(),
+            };
+
+            // Clear legacy field if removing Google Ads source
+            if (platform === 'google_ads') {
+                updates.googleAdsCustomerId = '';
+            }
+
+            await updateDoc(docRef, updates);
+        } catch (error) {
+            console.error('Error removing data source:', error);
             throw error;
         }
     },

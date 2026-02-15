@@ -112,7 +112,22 @@
       "googleError": "Erreur lors de la connexion Google",
       "googleAdsDisconnected": "Compte Google Ads déconnecté",
       "disconnectError": "Erreur lors de la déconnexion",
-      "defaultAccountUpdated": "Compte par défaut mis à jour"
+      "defaultAccountUpdated": "Compte par défaut mis à jour",
+      "metaAdsInitiated": "Connexion a Meta Ads initiee",
+      "metaAdsError": "Erreur lors de la connexion a Meta Ads",
+      "metaAdsDisconnected": "Compte Meta Ads deconnecte",
+      "metaDisconnectError": "Erreur lors de la deconnexion de Meta Ads"
+    },
+    "metaAds": {
+      "title": "Meta Ads",
+      "description": "Connectez votre compte publicitaire Meta (Facebook/Instagram)",
+      "tokenExpiry": "Le jeton expire le {{date}}",
+      "tokenExpired": "Jeton expire - veuillez reconnecter"
+    },
+    "metaModal": {
+      "disconnectTitle": "Deconnecter Meta Ads",
+      "disconnectMessage": "Voulez-vous vraiment deconnecter votre compte Meta Ads ?",
+      "disconnectConfirm": "Deconnecter"
     }
   },
   "subscription": {

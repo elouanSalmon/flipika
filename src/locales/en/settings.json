@@ -112,7 +112,22 @@
       "googleError": "Error connecting to Google",
       "googleAdsDisconnected": "Google Ads account disconnected",
       "disconnectError": "Error disconnecting",
-      "defaultAccountUpdated": "Default account updated"
+      "defaultAccountUpdated": "Default account updated",
+      "metaAdsInitiated": "Meta Ads connection initiated",
+      "metaAdsError": "Error connecting to Meta Ads",
+      "metaAdsDisconnected": "Meta Ads account disconnected",
+      "metaDisconnectError": "Error disconnecting Meta Ads"
+    },
+    "metaAds": {
+      "title": "Meta Ads",
+      "description": "Connect your Meta advertising account (Facebook/Instagram)",
+      "tokenExpiry": "Token expires on {{date}}",
+      "tokenExpired": "Token expired - please reconnect"
+    },
+    "metaModal": {
+      "disconnectTitle": "Disconnect Meta Ads",
+      "disconnectMessage": "Are you sure you want to disconnect your Meta Ads account?",
+      "disconnectConfirm": "Disconnect"
     }
   },
   "subscription": {

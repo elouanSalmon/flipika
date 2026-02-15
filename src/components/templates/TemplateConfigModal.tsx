@@ -10,6 +10,7 @@ import './TemplateConfigModal.css';
 import { useTutorial } from '../../contexts/TutorialContext';
 import { useTranslation } from 'react-i18next';
 import { useClients } from '../../hooks/useClients';
+import { getGoogleAdsAccountId } from '../../types/clientHelpers';
 
 interface GoogleAdsAccount {
     id: string;
@@ -69,17 +70,16 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
     useEffect(() => {
         if (selectedClientId) {
             const client = clients.find(c => c.id === selectedClientId);
-            if (client && client.googleAdsCustomerId) {
-                // If account changed, update it
-                if (client.googleAdsCustomerId !== accountId) {
-                    setAccountId(client.googleAdsCustomerId);
+            const clientGoogleAdsId = client ? getGoogleAdsAccountId(client) : null;
+            if (clientGoogleAdsId) {
+                if (clientGoogleAdsId !== accountId) {
+                    setAccountId(clientGoogleAdsId);
                     if (onAccountChange) {
-                        onAccountChange(client.googleAdsCustomerId);
+                        onAccountChange(clientGoogleAdsId);
                     }
-                    setSelectedCampaigns([]); // Reset campaigns on account change
+                    setSelectedCampaigns([]);
                 }
-            } else if (client && !client.googleAdsCustomerId) {
-                // Client has no account
+            } else if (client && !clientGoogleAdsId) {
                 setAccountId('');
                 if (onAccountChange) {
                     onAccountChange('');
@@ -92,7 +92,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
     // Backward compatibility: If editing and we have accountId but no clientId, try to match
     useEffect(() => {
         if (isEditMode && initialConfig?.accountId && !selectedClientId && clients.length > 0) {
-            const matchingClient = clients.find(c => c.googleAdsCustomerId === initialConfig.accountId);
+            const matchingClient = clients.find(c => getGoogleAdsAccountId(c) === initialConfig.accountId);
             if (matchingClient) {
                 setSelectedClientId(matchingClient.id);
             }

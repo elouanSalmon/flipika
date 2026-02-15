@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
+import { SiMeta } from 'react-icons/si';
+import { useMetaAds } from '../../contexts/MetaAdsContext';
 import { initiateGoogleAdsOAuth } from '../../services/googleAds';
+import { initiateMetaAdsOAuth } from '../../services/metaAds';
 import { useAuth } from '../../contexts/AuthContext';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
@@ -10,13 +13,19 @@ import { useTranslation } from 'react-i18next';
 
 const ConnectionsCard = () => {
     const { t } = useTranslation('settings');
-    // accounts is now provided by useGoogleAds
     const { isConnected, refreshConnectionStatus, disconnect, customerId, setLinkedCustomerId, accounts } = useGoogleAds();
+    const {
+        isConnected: isMetaConnected,
+        disconnect: disconnectMeta,
+        tokenExpiresAt,
+        isTokenExpired,
+        refreshAccounts: refreshMetaAccounts,
+    } = useMetaAds();
     const { currentUser, loginWithGoogle } = useAuth();
     const [showDisconnectModal, setShowDisconnectModal] = useState(false);
+    const [showMetaDisconnectModal, setShowMetaDisconnectModal] = useState(false);
     const [isConnecting, setIsConnecting] = useState(false);
-
-    // Removed local useEffect for loading accounts as context handles it
+    const [isMetaConnecting, setIsMetaConnecting] = useState(false);
 
     const handleConnectGoogleAds = async () => {
         setIsConnecting(true);
@@ -31,6 +40,19 @@ const ConnectionsCard = () => {
         }
     };
 
+    const handleConnectMetaAds = async () => {
+        setIsMetaConnecting(true);
+        try {
+            await initiateMetaAdsOAuth();
+            toast.success(t('connections.toast.metaAdsInitiated'));
+            refreshMetaAccounts();
+        } catch (error) {
+            console.error('Error connecting Meta Ads:', error);
+            toast.error(t('connections.toast.metaAdsError'));
+            setIsMetaConnecting(false);
+        }
+    };
+
     const handleConnectGoogle = async () => {
         try {
             await loginWithGoogle();
@@ -39,6 +61,11 @@ const ConnectionsCard = () => {
             console.error('Error connecting Google:', error);
             toast.error(t('connections.toast.googleError'));
         }
+    };
+
+    const formatExpiryDate = (date: Date | null): string => {
+        if (!date) return '';
+        return date.toLocaleDateString();
     };
 
     return (
@@ -114,6 +141,7 @@ const ConnectionsCard = () => {
                     </div>
                 </div>
 
+                {/* Google Ads */}
                 <div className="flex flex-col gap-4 p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-black/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-white/5 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
@@ -190,8 +218,78 @@ const ConnectionsCard = () => {
                         </div>
                     )}
                 </div>
+
+                {/* Meta Ads */}
+                <div className="flex flex-col gap-4 p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-black/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-white/5 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-full bg-white dark:bg-black flex items-center justify-center border-2 border-primary/20">
+                                <SiMeta className="w-7 h-7 text-[#0668E1]" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-neutral-900 dark:text-neutral-200">{t('connections.metaAds.title')}</h3>
+                                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                                    {t('connections.metaAds.description')}
+                                </p>
+                                {isMetaConnected && tokenExpiresAt && (
+                                    <p className={`text-xs mt-1 ${isTokenExpired ? 'text-red-500' : 'text-primary dark:text-primary-light'}`}>
+                                        {isTokenExpired
+                                            ? t('connections.metaAds.tokenExpired')
+                                            : t('connections.metaAds.tokenExpiry', { date: formatExpiryDate(tokenExpiresAt) })
+                                        }
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${isMetaConnected && !isTokenExpired
+                                ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                                : isMetaConnected && isTokenExpired
+                                    ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400'
+                                    : 'bg-neutral-100 dark:bg-black text-neutral-600 dark:text-neutral-400'
+                                }`}>
+                                {isMetaConnected && !isTokenExpired
+                                    ? t('connections.status.connected')
+                                    : isMetaConnected && isTokenExpired
+                                        ? t('connections.metaAds.tokenExpired')
+                                        : t('connections.status.notConnected')
+                                }
+                            </span>
+                            {isMetaConnected ? (
+                                <div className="flex items-center gap-2">
+                                    {isTokenExpired && (
+                                        <button
+                                            onClick={handleConnectMetaAds}
+                                            disabled={isMetaConnecting}
+                                            className="btn btn-primary btn-sm flex items-center gap-2"
+                                        >
+                                            {isMetaConnecting && <Spinner size={16} className="text-white" />}
+                                            <span>{isMetaConnecting ? t('connections.actions.connecting') : t('connections.actions.connect')}</span>
+                                        </button>
+                                    )}
+                                    <button
+                                        onClick={() => setShowMetaDisconnectModal(true)}
+                                        className="btn btn-secondary btn-sm"
+                                    >
+                                        {t('connections.actions.disconnect')}
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={handleConnectMetaAds}
+                                    disabled={isMetaConnecting}
+                                    className="btn btn-primary btn-sm flex items-center gap-2"
+                                >
+                                    {isMetaConnecting && <Spinner size={16} className="text-white" />}
+                                    <span>{isMetaConnecting ? t('connections.actions.connecting') : t('connections.actions.connect')}</span>
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
 
+            {/* Google Ads Disconnect Modal */}
             <ConfirmationModal
                 isOpen={showDisconnectModal}
                 onClose={() => setShowDisconnectModal(false)}
@@ -209,7 +307,26 @@ const ConnectionsCard = () => {
                 confirmLabel={t('connections.modal.disconnectConfirm')}
                 isDestructive={true}
             />
-        </motion.div >
+
+            {/* Meta Ads Disconnect Modal */}
+            <ConfirmationModal
+                isOpen={showMetaDisconnectModal}
+                onClose={() => setShowMetaDisconnectModal(false)}
+                onConfirm={async () => {
+                    try {
+                        await disconnectMeta();
+                        toast.success(t('connections.toast.metaAdsDisconnected'));
+                    } catch (error) {
+                        console.error('Error disconnecting Meta:', error);
+                        toast.error(t('connections.toast.metaDisconnectError'));
+                    }
+                }}
+                title={t('connections.metaModal.disconnectTitle')}
+                message={t('connections.metaModal.disconnectMessage')}
+                confirmLabel={t('connections.metaModal.disconnectConfirm')}
+                isDestructive={true}
+            />
+        </motion.div>
     );
 };
 

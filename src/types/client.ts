@@ -1,21 +1,26 @@
 import { Timestamp } from 'firebase/firestore';
 
+export type AdPlatform = 'google_ads' | 'meta_ads';
+
+export interface DataSource {
+    platform: AdPlatform;
+    accountId: string;
+    accountName?: string;
+    addedAt: Timestamp;
+}
+
 export interface Client {
     id: string;
     name: string;
     email: string;
     logoUrl?: string;
-    googleAdsCustomerId: string; // Validated unique ID (10 digits)
+    googleAdsCustomerId: string; // @deprecated Use dataSources instead. Kept for backwards compatibility.
+    dataSources?: DataSource[];
 
-    // Preset configuration (optional)
-    // Note: Client can have ONE default theme
-    // But can be linked to MULTIPLE themes (Many-to-Many)
-    // Templates are linked separately (multiple templates can reference a client)
-    // Period is managed at template level, not client level
-    defaultTemplateId?: string; // Default template to use for this client
-    defaultThemeId?: string; // Default theme for reports (preferred)
-    linkedThemeIds?: string[]; // All themes available to this client
-    emailPreset?: EmailPreset; // Custom email preset for this client
+    defaultTemplateId?: string;
+    defaultThemeId?: string;
+    linkedThemeIds?: string[];
+    emailPreset?: EmailPreset;
 
     createdAt: Timestamp;
     updatedAt: Timestamp;
@@ -30,6 +35,7 @@ export interface CreateClientInput {
     name: string;
     email: string;
     googleAdsCustomerId: string;
+    metaAdsAccountId?: string;
     logoFile?: File;
     emailPreset?: EmailPreset;
     defaultTemplateId?: string;
@@ -41,6 +47,7 @@ export interface UpdateClientInput {
     name?: string;
     email?: string;
     googleAdsCustomerId?: string;
+    metaAdsAccountId?: string;
     logoFile?: File;
 
     // Preset configuration (optional)

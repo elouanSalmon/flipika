@@ -189,9 +189,10 @@
     "categoryLabel": "Catégorie",
     "scopeLabel": "Portée",
     "categories": {
-      "all": "Toutes",
-      "analytics": "Analytique",
-      "content": "Contenu"
+      "all": "All",
+      "analytics": "Google Ads",
+      "meta_ads": "Meta Ads",
+      "content": "Content"
     },
     "scopes": {
       "all": "Toutes",
@@ -255,8 +256,20 @@
         "description": "Séparateur avec titre et sous-titre"
       },
       "rich_text": {
-        "title": "Texte Riche",
-        "description": "Paragraphe de texte libre"
+        "title": "Rich Text",
+        "description": "Free text paragraph"
+      },
+      "meta_performance_overview": {
+        "title": "Meta Ads - Performance",
+        "description": "Meta Ads metrics: impressions, clicks, spend, reach"
+      },
+      "meta_campaign_chart": {
+        "title": "Meta Ads - Campaigns",
+        "description": "Meta Ads campaign chart"
+      },
+      "meta_funnel_analysis": {
+        "title": "Meta Ads - Funnel",
+        "description": "Meta conversion funnel: Reach, Impressions, Clicks, Conversions"
       }
     }
   },

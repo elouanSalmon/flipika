@@ -9,7 +9,7 @@ import './SlideLibrary.css';
 interface SlideTemplate {
     type: SlideType;
     icon: React.ReactNode;
-    category: 'analytics' | 'content';
+    category: 'analytics' | 'content' | 'meta_ads';
     scopeType: 'modifiable' | 'single_campaign' | 'multiple_campaigns';
 }
 
@@ -98,6 +98,25 @@ const SLIDE_TEMPLATES: SlideTemplate[] = [
         category: 'content',
         scopeType: 'modifiable',
     },
+    // Meta Ads slides
+    {
+        type: SlideType.META_PERFORMANCE_OVERVIEW,
+        icon: <TrendingUp size={24} />,
+        category: 'meta_ads',
+        scopeType: 'modifiable',
+    },
+    {
+        type: SlideType.META_CAMPAIGN_CHART,
+        icon: <BarChart3 size={24} />,
+        category: 'meta_ads',
+        scopeType: 'multiple_campaigns',
+    },
+    {
+        type: SlideType.META_FUNNEL_ANALYSIS,
+        icon: <Filter size={24} />,
+        category: 'meta_ads',
+        scopeType: 'modifiable',
+    },
 ];
 
 const SlideLibrary: React.FC<SlideLibraryProps> = ({
@@ -109,7 +128,7 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
     onCreateTheme,
 }) => {
     const { t } = useTranslation('reports');
-    const [selectedCategory, setSelectedCategory] = React.useState<'all' | 'analytics' | 'content'>('all');
+    const [selectedCategory, setSelectedCategory] = React.useState<'all' | 'analytics' | 'content' | 'meta_ads'>('all');
     const [selectedScope, setSelectedScope] = React.useState<'all' | 'modifiable' | 'single_campaign' | 'multiple_campaigns'>('all');
 
     // Filter by both category and scope
@@ -143,7 +162,7 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
                 </label>
                 <select
                     value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value as 'all' | 'analytics' | 'content')}
+                    onChange={(e) => setSelectedCategory(e.target.value as 'all' | 'analytics' | 'content' | 'meta_ads')}
                     style={{
                         width: '100%',
                         padding: '0.5rem 0.75rem',
@@ -157,6 +176,7 @@ const SlideLibrary: React.FC<SlideLibraryProps> = ({
                 >
                     <option value="all">{t('slideLibrary.categories.all')}</option>
                     <option value="analytics">{t('slideLibrary.categories.analytics')}</option>
+                    <option value="meta_ads">{t('slideLibrary.categories.meta_ads')}</option>
                     <option value="content">{t('slideLibrary.categories.content')}</option>
                 </select>
             </div>

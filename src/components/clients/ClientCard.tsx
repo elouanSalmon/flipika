@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { Client } from '../../types/client';
+import { getDataSources } from '../../types/clientHelpers';
 import { Edit2, Trash2, MoreVertical, Mail, Palette, Layout, Calendar, Building, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ClientLogoAvatar from '../common/ClientLogoAvatar';
@@ -68,11 +69,22 @@ export const ClientCard: React.FC<ClientCardProps> = ({ client, onEdit, onDelete
             {/* Body Section */}
             <div className="listing-card-body">
                 <div className="space-y-2">
-                    {/* Google Ads ID */}
+                    {/* Data Sources */}
                     <div className="listing-card-row">
-                        <div className="listing-card-info-item" title={t('card.googleAdsId', { defaultValue: 'ID Google Ads' })}>
-                            <Building size={14} />
-                            <span className="font-mono text-xs">{client.googleAdsCustomerId || '-'}</span>
+                        <div className="listing-card-info-item flex flex-wrap gap-1.5">
+                            {getDataSources(client).map((ds) => (
+                                <span
+                                    key={`${ds.platform}-${ds.accountId}`}
+                                    className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-neutral-50 dark:bg-black text-xs font-medium text-neutral-600 dark:text-neutral-300 border border-neutral-100 dark:border-white/10"
+                                    title={ds.accountId}
+                                >
+                                    <Building size={10} />
+                                    {ds.platform === 'google_ads' ? 'Google Ads' : 'Meta Ads'}
+                                </span>
+                            ))}
+                            {getDataSources(client).length === 0 && (
+                                <span className="text-xs text-neutral-400">-</span>
+                            )}
                         </div>
                     </div>
 

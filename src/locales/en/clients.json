@@ -101,6 +101,25 @@
         "modalTitle": "What are Accounts?",
         "modalContent": "Accounts represent your customers or business units in Flipika, allowing you to organize and manage your Google Ads reporting by account.\n\nWith accounts, you can:\n• Associate each account with a specific Google Ads account\n• Upload custom logos for branded reports\n• Set default templates and themes for automatic application\n• Store contact information to automatically address reports to the account's email\n• Organize your reports by account for easy access\n\nAccounts help you streamline your workflow and ensure consistent, professional reporting for each customer."
     },
+    "dataSources": {
+        "platforms": {
+            "google_ads": "Google Ads",
+            "meta_ads": "Meta Ads"
+        },
+        "badge": {
+            "google_ads": "Google Ads",
+            "meta_ads": "Meta Ads"
+        },
+        "noPlatform": "No platform",
+        "addSource": "Add source",
+        "removeSource": "Remove source",
+        "metaAds": {
+            "label": "Meta Ads Account",
+            "placeholder": "Select an account",
+            "helper": "Select the Meta Ads account to associate.",
+            "noConnection": "You must connect your Meta Ads account to select an account."
+        }
+    },
     "delete": {
         "title": "Delete Account",
         "message": "Are you sure you want to delete account \"{{name}}\"? This action cannot be undone.",
