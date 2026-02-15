@@ -74,6 +74,20 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
     const [selectedMetaCampaigns, setSelectedMetaCampaigns] = useState<string[]>(initialConfig?.metaCampaignIds || []);
     const [isLoadingMetaCampaigns, setIsLoadingMetaCampaigns] = useState(false);
 
+    // Sync internal state with initialConfig when it changes (essential for edit mode)
+    useEffect(() => {
+        if (initialConfig) {
+            if (initialConfig.name) setName(initialConfig.name);
+            if (initialConfig.description) setDescription(initialConfig.description);
+            if (initialConfig.clientId) setSelectedClientId(initialConfig.clientId);
+            if (initialConfig.accountId) setAccountId(initialConfig.accountId);
+            if (initialConfig.campaignIds) setSelectedCampaigns(initialConfig.campaignIds);
+            if (initialConfig.metaAccountId) setMetaAccountId(initialConfig.metaAccountId);
+            if (initialConfig.metaCampaignIds) setSelectedMetaCampaigns(initialConfig.metaCampaignIds);
+            if (initialConfig.periodPreset) setPeriodPreset(initialConfig.periodPreset);
+        }
+    }, [initialConfig]);
+
     // Effect: When client selection changes, update account ID
     useEffect(() => {
         if (selectedClientId) {
@@ -87,7 +101,10 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                     if (onAccountChange) {
                         onAccountChange(clientGoogleAdsId);
                     }
-                    setSelectedCampaigns([]);
+                    // Only reset campaigns if changing to a DIFFERENT non-empty account
+                    if (accountId) {
+                        setSelectedCampaigns([]);
+                    }
                 }
             } else if (client && !clientGoogleAdsId) {
                 setAccountId('');
@@ -101,7 +118,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
             const clientMetaAdsId = client ? getMetaAdsAccountId(client) : null;
             if (clientMetaAdsId && clientMetaAdsId !== metaAccountId) {
                 setMetaAccountId(clientMetaAdsId);
-                setSelectedMetaCampaigns([]);
+                if (metaAccountId) setSelectedMetaCampaigns([]);
             } else if (!clientMetaAdsId) {
                 setMetaAccountId('');
                 setMetaCampaigns([]);

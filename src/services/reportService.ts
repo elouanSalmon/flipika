@@ -118,6 +118,10 @@ export async function getReportWithSlides(
             updatedAt: reportData.updatedAt?.toDate() || new Date(),
             publishedAt: reportData.publishedAt?.toDate() || undefined,
             lastAutoSave: reportData.lastAutoSave?.toDate() || undefined,
+            metaAccountId: reportData.metaAccountId,
+            metaAccountName: reportData.metaAccountName,
+            metaCampaignIds: reportData.metaCampaignIds || [],
+            metaCampaignNames: reportData.metaCampaignNames || [],
             startDate: reportData.startDate?.toDate ? reportData.startDate.toDate() : (reportData.startDate ? new Date(reportData.startDate) : undefined),
             endDate: reportData.endDate?.toDate ? reportData.endDate.toDate() : (reportData.endDate ? new Date(reportData.endDate) : undefined),
             slides,
@@ -367,6 +371,10 @@ export async function listUserReports(
                 status: data.status,
                 publishedAt: data.publishedAt?.toDate() || undefined,
                 lastAutoSave: data.lastAutoSave?.toDate() || undefined,
+                metaAccountId: data.metaAccountId,
+                metaAccountName: data.metaAccountName,
+                metaCampaignIds: data.metaCampaignIds || [],
+                metaCampaignNames: data.metaCampaignNames || [],
                 shareUrl: data.shareUrl || undefined,
                 isPasswordProtected: data.isPasswordProtected || false,
                 passwordHash: data.passwordHash || undefined,
@@ -457,6 +465,10 @@ export async function getPublicReport(
             updatedAt: reportData.updatedAt?.toDate() || new Date(),
             publishedAt: reportData.publishedAt?.toDate() || undefined,
             lastAutoSave: reportData.lastAutoSave?.toDate() || undefined,
+            metaAccountId: reportData.metaAccountId,
+            metaAccountName: reportData.metaAccountName,
+            metaCampaignIds: reportData.metaCampaignIds || [],
+            metaCampaignNames: reportData.metaCampaignNames || [],
             startDate: reportData.startDate?.toDate ? reportData.startDate.toDate() : (reportData.startDate ? new Date(reportData.startDate) : undefined),
             endDate: reportData.endDate?.toDate ? reportData.endDate.toDate() : (reportData.endDate ? new Date(reportData.endDate) : undefined),
             slides,
@@ -585,6 +597,10 @@ export async function updateReportSettings(
         dateRangePreset?: string;
         accountName?: string;
         campaignNames?: string[];
+        metaAccountId?: string;
+        metaCampaignIds?: string[];
+        metaAccountName?: string;
+        metaCampaignNames?: string[];
     }
 ): Promise<void> {
     try {
@@ -621,11 +637,23 @@ export async function updateReportSettings(
         if (settings.dateRangePreset !== undefined) {
             reportUpdates.dateRangePreset = settings.dateRangePreset;
         }
+        if (settings.metaAccountId !== undefined) {
+            reportUpdates.metaAccountId = settings.metaAccountId;
+        }
+        if (settings.metaCampaignIds !== undefined) {
+            reportUpdates.metaCampaignIds = settings.metaCampaignIds;
+        }
+        if (settings.metaAccountName !== undefined) {
+            reportUpdates.metaAccountName = settings.metaAccountName;
+        }
+        if (settings.metaCampaignNames !== undefined) {
+            reportUpdates.metaCampaignNames = settings.metaCampaignNames;
+        }
 
         batch.update(reportRef, reportUpdates);
 
         // Update all slides with new accountId and campaignIds
-        if (settings.accountId !== undefined || settings.campaignIds !== undefined) {
+        if (settings.accountId !== undefined || settings.campaignIds !== undefined || settings.metaAccountId !== undefined || settings.metaCampaignIds !== undefined) {
             const slidesRef = collection(db, REPORTS_COLLECTION, reportId, WIDGETS_SUBCOLLECTION);
             const slidesSnap = await getDocs(slidesRef);
 
@@ -640,6 +668,12 @@ export async function updateReportSettings(
                 }
                 if (settings.campaignIds !== undefined) {
                     widgetUpdates.campaignIds = settings.campaignIds;
+                }
+                if (settings.metaAccountId !== undefined) {
+                    widgetUpdates.metaAccountId = settings.metaAccountId;
+                }
+                if (settings.metaCampaignIds !== undefined) {
+                    widgetUpdates.metaCampaignIds = settings.metaCampaignIds;
                 }
 
                 batch.update(widgetRef, widgetUpdates);

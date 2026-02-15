@@ -107,6 +107,8 @@ export interface EditableReport {
     campaignNames?: string[]; // For display
     metaAccountId?: string; // Meta Ads account ID (if client has Meta linked)
     metaAccountName?: string; // For display
+    metaCampaignIds?: string[];
+    metaCampaignNames?: string[];
     title: string;
     content: JSONContent;
     sections: ReportSection[];

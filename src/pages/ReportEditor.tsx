@@ -378,6 +378,8 @@ const ReportEditor: React.FC = () => {
                 clientId: config.clientId,
                 accountId: config.accountId,
                 campaignIds: config.campaignIds,
+                metaAccountId: config.metaAccountId,
+                metaCampaignIds: config.metaCampaignIds,
                 startDate: new Date(config.dateRange.start),
                 endDate: new Date(config.dateRange.end),
                 dateRangePreset: config.dateRange.preset,
@@ -389,6 +391,8 @@ const ReportEditor: React.FC = () => {
                 clientId: config.clientId,
                 accountId: config.accountId,
                 campaignIds: config.campaignIds,
+                metaAccountId: config.metaAccountId,
+                metaCampaignIds: config.metaCampaignIds,
                 startDate: new Date(config.dateRange.start),
                 endDate: new Date(config.dateRange.end),
             });
@@ -662,9 +666,11 @@ ${profile?.company ? t('editor.email.signatureCompany', { company: profile.compa
                         clientId: report.clientId, // Pass existing client ID
                         accountId: report.accountId,
                         campaignIds: report.campaignIds,
+                        metaAccountId: report.metaAccountId,
+                        metaCampaignIds: report.metaCampaignIds,
                         dateRange: {
-                            start: report.startDate?.toISOString().split('T')[0] || new Date().toISOString().split('T')[0],
-                            end: report.endDate?.toISOString().split('T')[0] || new Date().toISOString().split('T')[0],
+                            start: report.startDate ? (report.startDate instanceof Date ? report.startDate.toISOString().split('T')[0] : new Date(report.startDate).toISOString().split('T')[0]) : new Date().toISOString().split('T')[0],
+                            end: report.endDate ? (report.endDate instanceof Date ? report.endDate.toISOString().split('T')[0] : new Date(report.endDate).toISOString().split('T')[0]) : new Date().toISOString().split('T')[0],
                             preset: 'custom',
                         },
                     }}
