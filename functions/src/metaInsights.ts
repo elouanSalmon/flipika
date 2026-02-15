@@ -153,7 +153,9 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
                     return cost ? parseFloat(cost.value) : 0;
                 };
 
+                // Create a clean object with parsed metrics, but keep original fields for breakdowns/dates
                 return {
+                    ...row,
                     campaignId: row.campaign_id,
                     campaignName: row.campaign_name,
                     impressions: parseInt(row.impressions || '0'),
@@ -173,9 +175,6 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
                     // Cost per action
                     costPerPurchase: getCostPerAction('purchase'),
                     costPerLead: getCostPerAction('lead'),
-                    // Raw data for flexibility
-                    rawActions: actions,
-                    rawCostPerAction: costPerAction,
                 };
             });
 

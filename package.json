@@ -15,8 +15,8 @@
     "deploy:prod": "npm run build:prod && firebase deploy -P production",
     "deploy:hosting:dev": "npm run build:dev && firebase deploy --only hosting -P dev",
     "deploy:hosting:prod": "npm run build:prod && firebase deploy --only hosting -P production",
-    "deploy:functions:dev": "firebase deploy --only functions -P dev",
-    "deploy:functions:prod": "firebase deploy --only functions -P production",
+    "deploy:functions:dev": "cd functions && npm run build && cd .. && firebase deploy --only functions -P dev",
+    "deploy:functions:prod": "cd functions && npm run build && cd .. && firebase deploy --only functions -P production",
     "firebase:init": "firebase init",
     "firebase:login": "firebase login"
   },
