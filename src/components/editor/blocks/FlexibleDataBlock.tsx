@@ -152,9 +152,15 @@ const DataRenderer: React.FC<{
         setError(null);
         setIsMockData(false);
         try {
-            // Ensure dates are parsed correctly, handling both Date objects and strings
-            const sDate = new Date(startDate);
-            const eDate = new Date(endDate);
+            // Robust Date Parsing (handle Firestore Timestamp objects, Strings, or Date objects)
+            const parseDate = (d: any): Date => {
+                if (d instanceof Date) return d;
+                if (d && typeof d.toDate === 'function') return d.toDate(); // Handle Firestore Timestamp
+                return new Date(d);
+            };
+
+            const sDate = parseDate(startDate);
+            const eDate = parseDate(endDate);
 
             if (isNaN(sDate.getTime()) || isNaN(eDate.getTime())) {
                 console.warn("Invalid Date detected:", { startDate, endDate });
@@ -446,7 +452,7 @@ const DataRenderer: React.FC<{
     };
 
     return (
-        <div className="link-renderer-root flex-1 w-full flex flex-col min-h-0 relative" style={{ fontFamily: effectiveFontFamily }}>
+        <div className="link-renderer-root flex-1 w-full flex flex-col min-h-[300px] relative" style={{ fontFamily: effectiveFontFamily }}>
             {isMockData && (
                 <div
                     className="absolute top-2 right-2 z-10 text-[8px] font-bold px-2 py-0.5 rounded-full border backdrop-blur-md flex items-center gap-1 shadow-sm"

@@ -118,16 +118,30 @@ export const FlexibleMetaBlock: React.FC<FlexibleMetaBlockProps> = ({
         try {
             const { level, timeIncrement, breakdowns } = getMetaParams();
 
-            // Additional Date Validation
-            if (startDate.getFullYear() < 2000) {
-                console.warn("[MetaBlock] Date detected before year 2000, falling back to mock data:", startDate);
+            // Robust Date Parsing (handle Firestore Timestamp objects, Strings, or Date objects)
+            const parseDate = (d: any): Date => {
+                if (d instanceof Date) return d;
+                if (d && typeof d.toDate === 'function') return d.toDate(); // Handle Firestore Timestamp
+                return new Date(d);
+            };
+
+            const sDate = parseDate(startDate);
+            const eDate = parseDate(endDate);
+
+            // Additional Date Validation (Year 2000 Sanity Check)
+            if (sDate.getFullYear() < 2000) {
+                console.warn("[MetaBlock] Date detected before year 2000, falling back to mock data:", {
+                    original: startDate,
+                    parsed: sDate,
+                    year: sDate.getFullYear()
+                });
                 generateMockData();
                 return;
             }
 
             const formatDate = (d: Date) => d.toISOString().split('T')[0];
-            const startStr = formatDate(startDate);
-            const endStr = formatDate(endDate);
+            const startStr = formatDate(sDate);
+            const endStr = formatDate(eDate);
 
             // Fetch Current Period
             const response = await fetchMetaInsights(accountId, startStr, endStr, {
@@ -306,7 +320,7 @@ export const FlexibleMetaBlock: React.FC<FlexibleMetaBlockProps> = ({
                 </div>
             )}
 
-            <div className="flex-1 min-h-0">
+            <div className="flex-1 min-h-[300px]">
                 {(() => {
                     switch (config.visualization) {
                         case 'table':
