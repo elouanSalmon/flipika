@@ -112,6 +112,8 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
                 + `&limit=500`
                 + `&access_token=${accessToken}`;
 
+            console.log(`[getMetaInsights] Requesting URL (token redacted): ${insightsUrl.replace(accessToken, 'REDACTED')}`);
+
             if (timeIncrement) {
                 insightsUrl += `&time_increment=${timeIncrement}`;
             }
@@ -124,17 +126,24 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
             const data = await response.json();
 
             if (data.error) {
-                console.error("[getMetaInsights] Meta API error:", data.error);
+                console.error("[getMetaInsights] Meta API Full Error:", JSON.stringify(data.error, null, 2));
 
                 if (data.error.code === 190) {
                     res.status(401).json({
                         error: 'Meta Ads token is invalid or expired. Please reconnect.',
                         code: 'TOKEN_EXPIRED',
+                        metaError: data.error,
                     });
                     return;
                 }
 
-                throw new Error(`Meta API error: ${data.error.message}`);
+                res.status(500).json({
+                    error: `Meta API error: ${data.error.message}`,
+                    code: data.error.code,
+                    subcode: data.error.error_subcode,
+                    fbtrace_id: data.error.fbtrace_id,
+                });
+                return;
             }
 
             // 7. Format response

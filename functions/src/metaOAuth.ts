@@ -100,7 +100,8 @@ export const initiateMetaOAuth = onRequest({ memory: '512MiB' }, async (req, res
                 + `&redirect_uri=${encodeURIComponent(redirectUri)}`
                 + `&scope=${encodeURIComponent(META_SCOPES)}`
                 + `&state=${state}`
-                + `&response_type=code`;
+                + `&response_type=code`
+                + `&auth_type=rerequest`;
 
             console.log("[initiateMetaOAuth] Auth URL generated for user:", userId);
             res.status(200).json({ success: true, authUrl });
