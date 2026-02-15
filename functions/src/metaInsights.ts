@@ -81,6 +81,12 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
 
             // 4. Decrypt token
             const accessToken = decrypt(tokenData.encrypted_access_token);
+            const scopes = tokenData.scopes || [];
+
+            console.log(`[getMetaInsights] User ${userId} has token with scopes: ${scopes.join(', ')}`);
+
+            // Clean account ID - remove 'act_' if present to avoid dual prefix 'act_act_...'
+            const cleanAccountId = accountId.replace('act_', '');
 
             // 5. Build fields list
             const defaultFields = [
@@ -105,7 +111,7 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
                 : defaultFields;
 
             // 6. Fetch insights from Meta API
-            let insightsUrl = `${META_GRAPH_URL}/${META_API_VERSION}/act_${accountId}/insights`
+            let insightsUrl = `${META_GRAPH_URL}/${META_API_VERSION}/act_${cleanAccountId}/insights`
                 + `?fields=${requestFields.join(',')}`
                 + `&time_range={"since":"${startDate}","until":"${endDate}"}`
                 + `&level=${level}`

@@ -102,6 +102,7 @@ export const fetchMetaInsights = async (
 ) => {
     try {
         const headers = await getAuthHeaders();
+        console.log(`[metaAds.ts] fetchMetaInsights for account: ${accountId}`, options);
         const response = await fetch(`${FUNCTIONS_BASE_URL}/getMetaInsights`, {
             method: 'POST',
             headers,
