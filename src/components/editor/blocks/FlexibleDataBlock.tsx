@@ -161,6 +161,14 @@ const DataRenderer: React.FC<{
                 throw new Error('Invalid date range');
             }
 
+            // Sanity check: Google Ads API throws error for dates before 1970 (or very old)
+            // If we receive 1970-01-01, it's likely a default initialization issue.
+            if (sDate.getFullYear() < 2000) {
+                console.warn("Date detected before year 2000, falling back to mock data:", sDate);
+                generateMockData();
+                return;
+            }
+
             const formatDate = (d: Date) => d.toISOString().split('T')[0];
             const startStr = formatDate(sDate);
             const endStr = formatDate(eDate);

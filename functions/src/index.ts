@@ -44,7 +44,11 @@ export { initiateMetaOAuth, handleMetaOAuthCallback, revokeMetaOAuth } from "./m
 export { getMetaAdAccounts } from "./metaAdAccounts";
 
 // Re-export Meta Ads Insights functions
+// Re-export Meta Ads Insights functions
 export { getMetaInsights } from "./metaInsights";
+
+// Re-export Meta Ads Campaigns functions
+export { getMetaCampaigns } from "./metaCampaigns";
 
 // Re-export AI Analyst functions (Genkit Flow)
 // export { analyzeCampaignPerformanceFlow } from "./insights";

@@ -38,6 +38,8 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
                 endDate,
                 level = 'campaign',
                 fields,
+                timeIncrement,
+                breakdowns,
             } = req.body;
 
             if (!accountId || !startDate || !endDate) {
@@ -46,8 +48,8 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
             }
 
             // Validate level
-            if (!['campaign', 'adset', 'ad'].includes(level)) {
-                res.status(400).json({ error: 'Invalid level. Must be campaign, adset, or ad.' });
+            if (!['campaign', 'adset', 'ad', 'account'].includes(level)) {
+                res.status(400).json({ error: 'Invalid level. Must be campaign, adset, ad, or account.' });
                 return;
             }
 
@@ -103,12 +105,20 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
                 : defaultFields;
 
             // 6. Fetch insights from Meta API
-            const insightsUrl = `${META_GRAPH_URL}/${META_API_VERSION}/act_${accountId}/insights`
+            let insightsUrl = `${META_GRAPH_URL}/${META_API_VERSION}/act_${accountId}/insights`
                 + `?fields=${requestFields.join(',')}`
                 + `&time_range={"since":"${startDate}","until":"${endDate}"}`
                 + `&level=${level}`
                 + `&limit=500`
                 + `&access_token=${accessToken}`;
+
+            if (timeIncrement) {
+                insightsUrl += `&time_increment=${timeIncrement}`;
+            }
+
+            if (breakdowns && Array.isArray(breakdowns) && breakdowns.length > 0) {
+                insightsUrl += `&breakdowns=${breakdowns.join(',')}`;
+            }
 
             const response = await fetch(insightsUrl);
             const data = await response.json();

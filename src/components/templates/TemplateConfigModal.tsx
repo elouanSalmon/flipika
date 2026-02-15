@@ -10,7 +10,8 @@ import './TemplateConfigModal.css';
 import { useTutorial } from '../../contexts/TutorialContext';
 import { useTranslation } from 'react-i18next';
 import { useClients } from '../../hooks/useClients';
-import { getGoogleAdsAccountId } from '../../types/clientHelpers';
+import { getGoogleAdsAccountId, getMetaAdsAccountId } from '../../types/clientHelpers';
+import { fetchMetaCampaigns } from '../../services/metaAds';
 
 interface GoogleAdsAccount {
     id: string;
@@ -35,9 +36,10 @@ export interface TemplateConfig {
     clientId?: string;
     clientName?: string;
     accountId?: string;
-    accountName?: string;
     campaignIds: string[];
     campaignNames?: string[];
+    metaAccountId?: string;
+    metaCampaignIds?: string[];
     periodPreset: PeriodPreset;
     slideConfigs: TemplateSlideConfig[];
 }
@@ -66,10 +68,18 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
     const [periodPreset, setPeriodPreset] = useState<PeriodPreset>(initialConfig?.periodPreset || 'last_30_days');
     const { t } = useTranslation('templates');
 
+    // Meta Ads State
+    const [metaAccountId, setMetaAccountId] = useState<string>(initialConfig?.metaAccountId || '');
+    const [metaCampaigns, setMetaCampaigns] = useState<any[]>([]);
+    const [selectedMetaCampaigns, setSelectedMetaCampaigns] = useState<string[]>(initialConfig?.metaCampaignIds || []);
+    const [isLoadingMetaCampaigns, setIsLoadingMetaCampaigns] = useState(false);
+
     // Effect: When client selection changes, update account ID
     useEffect(() => {
         if (selectedClientId) {
             const client = clients.find(c => c.id === selectedClientId);
+
+            // Handle Google Ads
             const clientGoogleAdsId = client ? getGoogleAdsAccountId(client) : null;
             if (clientGoogleAdsId) {
                 if (clientGoogleAdsId !== accountId) {
@@ -86,8 +96,45 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                 }
                 setSelectedCampaigns([]);
             }
+
+            // Handle Meta Ads
+            const clientMetaAdsId = client ? getMetaAdsAccountId(client) : null;
+            if (clientMetaAdsId && clientMetaAdsId !== metaAccountId) {
+                setMetaAccountId(clientMetaAdsId);
+                setSelectedMetaCampaigns([]);
+            } else if (!clientMetaAdsId) {
+                setMetaAccountId('');
+                setMetaCampaigns([]);
+                setSelectedMetaCampaigns([]);
+            }
         }
     }, [selectedClientId, clients]);
+
+    // Effect: Load Meta Campaigns
+    useEffect(() => {
+        if (metaAccountId) {
+            loadMetaCampaigns(metaAccountId);
+        } else {
+            setMetaCampaigns([]);
+        }
+    }, [metaAccountId]);
+
+    const loadMetaCampaigns = async (accountId: string) => {
+        setIsLoadingMetaCampaigns(true);
+        try {
+            const response = await fetchMetaCampaigns(accountId);
+            if (response.success && response.campaigns) {
+                setMetaCampaigns(response.campaigns);
+            } else {
+                setMetaCampaigns([]);
+            }
+        } catch (error) {
+            console.error('Error loading Meta campaigns:', error);
+            setMetaCampaigns([]);
+        } finally {
+            setIsLoadingMetaCampaigns(false);
+        }
+    };
 
     // Backward compatibility: If editing and we have accountId but no clientId, try to match
     useEffect(() => {
@@ -145,6 +192,22 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
         }
     };
 
+    const handleToggleMetaCampaign = (campaignId: string) => {
+        setSelectedMetaCampaigns(prev =>
+            prev.includes(campaignId)
+                ? prev.filter(id => id !== campaignId)
+                : [...prev, campaignId]
+        );
+    };
+
+    const handleSelectAllMetaCampaigns = () => {
+        if (selectedMetaCampaigns.length === metaCampaigns.length) {
+            setSelectedMetaCampaigns([]);
+        } else {
+            setSelectedMetaCampaigns(metaCampaigns.map(c => c.id));
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -163,7 +226,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
             return;
         }
 
-        if (selectedCampaigns.length === 0) {
+        if (selectedCampaigns.length === 0 && selectedMetaCampaigns.length === 0) {
             toast.error(t('configModal.validation.campaignsRequired'));
             return;
         }
@@ -178,11 +241,12 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                 clientId: selectedClientId,
                 clientName: client?.name,
                 accountId: accountId || undefined,
-                accountName: accounts.find(a => a.id === accountId)?.name,
                 campaignIds: selectedCampaigns,
                 campaignNames: campaigns
                     .filter(c => selectedCampaigns.includes(c.id))
                     .map(c => c.name),
+                metaAccountId: metaAccountId || undefined,
+                metaCampaignIds: selectedMetaCampaigns.length > 0 ? selectedMetaCampaigns : undefined,
                 periodPreset,
                 slideConfigs: [], // Empty array - slides will be configured in editor
             });
@@ -390,6 +454,49 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                     </div>
                                 )}
 
+                                {metaAccountId && (
+                                    <div className="form-group mt-6">
+                                        <label>Meta Ads ({selectedMetaCampaigns.length})</label>
+                                        <div className="campaigns-selection">
+                                            <div className="campaigns-header">
+                                                <button
+                                                    type="button"
+                                                    className="select-all-btn"
+                                                    onClick={handleSelectAllMetaCampaigns}
+                                                    disabled={isSubmitting}
+                                                >
+                                                    {selectedMetaCampaigns.length === metaCampaigns.length && metaCampaigns.length > 0 ? t('configModal.account.deselectAll') : t('configModal.account.selectAll')}
+                                                </button>
+                                            </div>
+                                            <div className="campaigns-list">
+                                                {isLoadingMetaCampaigns ? (
+                                                    <div className="flex flex-col items-center justify-center p-4">
+                                                        <Loader2 className="animate-spin text-primary-500" size={24} />
+                                                    </div>
+                                                ) : metaCampaigns.length === 0 ? (
+                                                    <div className="empty-message">{t('configModal.account.noCampaigns')}</div>
+                                                ) : (
+                                                    metaCampaigns.map(campaign => (
+                                                        <label key={campaign.id} className="campaign-item">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={selectedMetaCampaigns.includes(campaign.id)}
+                                                                onChange={() => handleToggleMetaCampaign(campaign.id)}
+                                                                disabled={isSubmitting}
+                                                            />
+                                                            <span className="campaign-name">{campaign.name}</span>
+                                                            {campaign.status && (
+                                                                <span className={`campaign-status status-${String(campaign.status).toLowerCase()}`}>
+                                                                    {String(campaign.status)}
+                                                                </span>
+                                                            )}
+                                                        </label>
+                                                    ))
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Actions */}
@@ -400,7 +507,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = ({
                                 <button
                                     type="submit"
                                     className="btn-primary"
-                                    disabled={!name.trim() || !selectedClientId || !accountId || selectedCampaigns.length === 0 || isSubmitting}
+                                    disabled={!name.trim() || !selectedClientId || (!accountId && !metaAccountId) || (selectedCampaigns.length === 0 && selectedMetaCampaigns.length === 0) || isSubmitting}
                                 >
                                     {isSubmitting ? (
                                         <>

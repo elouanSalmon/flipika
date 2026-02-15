@@ -120,7 +120,7 @@
     },
     "metaAds": {
       "title": "Meta Ads",
-      "description": "Connectez votre compte publicitaire Meta (Facebook/Instagram)",
+      "description": "Connectez votre compte publicitaire",
       "tokenExpiry": "Le jeton expire le {{date}}",
       "tokenExpired": "Jeton expire - veuillez reconnecter"
     },

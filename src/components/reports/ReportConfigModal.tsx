@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { X, Loader2 } from 'lucide-react';
 import type { Campaign } from '../../types/business';
 import { useClients } from '../../hooks/useClients';
-import { getGoogleAdsAccountId } from '../../types/clientHelpers';
+import { getGoogleAdsAccountId, getMetaAdsAccountId } from '../../types/clientHelpers';
+import { fetchMetaCampaigns } from '../../services/metaAds';
 import './ReportConfigModal.css';
 
 interface GoogleAdsAccount {
@@ -31,6 +32,7 @@ export interface ReportConfig {
     accountId: string;
     campaignIds: string[];
     metaAccountId?: string;
+    metaCampaignIds?: string[];
     dateRange: {
         start: string;
         end: string;
@@ -99,7 +101,15 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     // New state for Client
     const [selectedClientId, setSelectedClientId] = useState<string>(initialConfig?.clientId || '');
 
+    // Google Ads State
     const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>(initialConfig?.campaignIds || []);
+
+    // Meta Ads State
+    const [metaAccountId, setMetaAccountId] = useState<string>(initialConfig?.metaAccountId || '');
+    const [metaCampaigns, setMetaCampaigns] = useState<any[]>([]); // Using any for now or needs type
+    const [selectedMetaCampaigns, setSelectedMetaCampaigns] = useState<string[]>(initialConfig?.metaCampaignIds || []);
+    const [isLoadingMetaCampaigns, setIsLoadingMetaCampaigns] = useState(false);
+
     const [datePreset, setDatePreset] = useState<string>(initialConfig?.dateRange?.preset || 'last_30_days');
     const [customDateRange, setCustomDateRange] = useState(
         initialConfig?.dateRange ? { start: initialConfig.dateRange.start, end: initialConfig.dateRange.end } : getDateRangeFromPreset('last_30_days')
@@ -110,14 +120,51 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
     useEffect(() => {
         if (selectedClientId) {
             const client = clients.find(c => c.id === selectedClientId);
+
+            // Handle Google Ads Account
             const clientGoogleAdsId = client ? getGoogleAdsAccountId(client) : null;
             if (clientGoogleAdsId) {
                 if (clientGoogleAdsId !== selectedAccountId) {
                     onAccountChange(clientGoogleAdsId);
                 }
             }
+
+            // Handle Meta Ads Account
+            const clientMetaAdsId = client ? getMetaAdsAccountId(client) : null;
+            if (clientMetaAdsId && clientMetaAdsId !== metaAccountId) {
+                setMetaAccountId(clientMetaAdsId);
+            } else if (!clientMetaAdsId) {
+                setMetaAccountId('');
+                setMetaCampaigns([]);
+            }
         }
     }, [selectedClientId, clients]);
+
+    // Effect: Load Meta Campaigns when Meta Account ID changes
+    useEffect(() => {
+        if (metaAccountId) {
+            loadMetaCampaigns(metaAccountId);
+        } else {
+            setMetaCampaigns([]);
+        }
+    }, [metaAccountId]);
+
+    const loadMetaCampaigns = async (accountId: string) => {
+        setIsLoadingMetaCampaigns(true);
+        try {
+            const response = await fetchMetaCampaigns(accountId);
+            if (response.success && response.campaigns) {
+                setMetaCampaigns(response.campaigns);
+            } else {
+                setMetaCampaigns([]);
+            }
+        } catch (error) {
+            console.error('Error loading Meta campaigns:', error);
+            setMetaCampaigns([]);
+        } finally {
+            setIsLoadingMetaCampaigns(false);
+        }
+    };
 
     // Initial load: If in edit mode and we have clientId, explicit set
     // This is handled by useState initialization if initialConfig has clientId.
@@ -134,9 +181,10 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
 
     const handleClientChange = (clientId: string) => {
         setSelectedClientId(clientId);
-        // Effects will trigger account update
+        // Effects will trigger account updates
         // Reset campaigns when switching client
         setSelectedCampaigns([]);
+        setSelectedMetaCampaigns([]);
     };
 
     const handlePresetChange = (preset: string) => {
@@ -154,6 +202,14 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
         );
     };
 
+    const handleToggleMetaCampaign = (campaignId: string) => {
+        setSelectedMetaCampaigns(prev =>
+            prev.includes(campaignId)
+                ? prev.filter(id => id !== campaignId)
+                : [...prev, campaignId]
+        );
+    };
+
     const handleSelectAll = () => {
         if (selectAll) {
             setSelectedCampaigns([]);
@@ -161,6 +217,14 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
             setSelectedCampaigns(campaigns.map(c => c.id));
         }
         setSelectAll(!selectAll);
+    };
+
+    const handleSelectAllMeta = () => {
+        if (selectedMetaCampaigns.length === metaCampaigns.length) {
+            setSelectedMetaCampaigns([]);
+        } else {
+            setSelectedMetaCampaigns(metaCampaigns.map(c => c.id));
+        }
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -171,7 +235,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
             return;
         }
 
-        if (selectedCampaigns.length === 0) {
+        if (selectedCampaigns.length === 0 && selectedMetaCampaigns.length === 0) {
             alert(t('config.campaigns.atLeastOne'));
             return;
         }
@@ -181,6 +245,8 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
             clientId: selectedClientId,
             accountId: selectedAccountId,
             campaignIds: selectedCampaigns,
+            metaAccountId: metaAccountId || undefined,
+            metaCampaignIds: selectedMetaCampaigns.length > 0 ? selectedMetaCampaigns : undefined,
             dateRange: {
                 ...customDateRange,
                 preset: datePreset as any,
@@ -370,6 +436,56 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                         </div>
                     </div>
 
+                    {/* Meta Ads Campaigns */}
+                    {metaAccountId && (
+                        <div className="form-group mt-6">
+                            <label>
+                                Meta Ads ({selectedMetaCampaigns.length})
+                            </label>
+
+                            <div className="campaigns-header">
+                                <button
+                                    type="button"
+                                    className="select-all-btn"
+                                    onClick={handleSelectAllMeta}
+                                >
+                                    {selectedMetaCampaigns.length === metaCampaigns.length && metaCampaigns.length > 0
+                                        ? t('config.campaigns.deselectAll')
+                                        : t('config.campaigns.selectAll')}
+                                </button>
+                            </div>
+
+                            <div className="campaigns-list">
+                                {isLoadingMetaCampaigns ? (
+                                    <div className="flex flex-col items-center justify-center p-8 space-y-3">
+                                        <Loader2 className="animate-spin text-primary-500" size={32} />
+                                        <p className="text-sm text-neutral-500">{t('config.loadingCampaigns', { defaultValue: 'Chargement des campagnes...' })}</p>
+                                    </div>
+                                ) : metaCampaigns.length === 0 ? (
+                                    <div className="empty-campaigns">
+                                        {t('config.campaigns.noCampaigns')}
+                                    </div>
+                                ) : (
+                                    metaCampaigns.map(campaign => (
+                                        <label key={campaign.id} className="campaign-item">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedMetaCampaigns.includes(campaign.id)}
+                                                onChange={() => handleToggleMetaCampaign(campaign.id)}
+                                            />
+                                            <span className="campaign-name">{campaign.name}</span>
+                                            {campaign.status && (
+                                                <span className={`campaign-status status-${String(campaign.status).toLowerCase()}`}>
+                                                    {String(campaign.status)}
+                                                </span>
+                                            )}
+                                        </label>
+                                    ))
+                                )}
+                            </div>
+                        </div>
+                    )}
+
                     {/* Actions */}
                     <div className="modal-footer">
                         <button type="button" className="btn-secondary" onClick={onClose} disabled={isSubmitting}>
@@ -378,7 +494,7 @@ const ReportConfigModal: React.FC<ReportConfigModalProps> = ({
                         <button
                             type="submit"
                             className="btn-primary"
-                            disabled={selectedCampaigns.length === 0 || isSubmitting}
+                            disabled={(selectedCampaigns.length === 0 && selectedMetaCampaigns.length === 0) || isSubmitting}
                         >
                             {isSubmitting ? (
                                 <>

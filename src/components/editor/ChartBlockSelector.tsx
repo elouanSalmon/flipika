@@ -15,17 +15,17 @@ interface BlockOption {
     type: string;
     label: string;
     description: string;
-    icon: React.ElementType;
-    config?: any;
-    category: 'analytics' | 'charts' | 'content' | 'layout' | 'slides';
-    action?: 'dataBlock' | 'content' | 'event';
+    icon: any;
+    config?: Record<string, any>;
+    category: 'google' | 'meta' | 'content' | 'layout' | 'slides';
+    action: 'dataBlock' | 'content' | 'event';
     eventName?: string;
 }
 
 interface Category {
-    id: string;
+    id: 'all' | 'google' | 'meta' | 'content' | 'layout' | 'slides';
     label: string;
-    icon: React.ElementType;
+    icon: any;
     items: BlockOption[];
 }
 
@@ -35,7 +35,7 @@ interface Section {
     items: BlockOption[];
 }
 
-const ANALYTICS_ITEMS: BlockOption[] = [
+const GOOGLE_ITEMS: BlockOption[] = [
     {
         type: 'flexible_data',
         label: 'Donnees Flexibles',
@@ -48,7 +48,7 @@ const ANALYTICS_ITEMS: BlockOption[] = [
             dimension: 'segments.date',
             isNew: true
         },
-        category: 'analytics',
+        category: 'google',
         action: 'dataBlock'
     },
     {
@@ -57,7 +57,7 @@ const ANALYTICS_ITEMS: BlockOption[] = [
         description: 'Metriques cles & comparaisons',
         icon: TrendingUp,
         config: {},
-        category: 'analytics',
+        category: 'google',
         action: 'dataBlock'
     },
     {
@@ -66,7 +66,7 @@ const ANALYTICS_ITEMS: BlockOption[] = [
         description: 'Grille 2x2 de KPIs',
         icon: Target,
         config: {},
-        category: 'analytics',
+        category: 'google',
         action: 'dataBlock'
     },
     {
@@ -75,19 +75,16 @@ const ANALYTICS_ITEMS: BlockOption[] = [
         description: 'Top campagnes/groupes',
         icon: Trophy,
         config: {},
-        category: 'analytics',
+        category: 'google',
         action: 'dataBlock'
     },
-];
-
-const CHARTS_ITEMS: BlockOption[] = [
     {
         type: 'campaign_chart',
         label: 'Graphique',
         description: 'Ligne, barre, aire',
         icon: BarChart3,
         config: { chartType: 'line' },
-        category: 'charts',
+        category: 'google',
         action: 'dataBlock'
     },
     {
@@ -96,7 +93,7 @@ const CHARTS_ITEMS: BlockOption[] = [
         description: 'Taux de conversion',
         icon: Filter,
         config: {},
-        category: 'charts',
+        category: 'google',
         action: 'dataBlock'
     },
     {
@@ -105,7 +102,7 @@ const CHARTS_ITEMS: BlockOption[] = [
         description: 'Carte de chaleur',
         icon: Layout,
         config: {},
-        category: 'charts',
+        category: 'google',
         action: 'dataBlock'
     },
     {
@@ -114,7 +111,28 @@ const CHARTS_ITEMS: BlockOption[] = [
         description: 'Par appareil/plateforme',
         icon: PieChart,
         config: {},
-        category: 'charts',
+        category: 'google',
+        action: 'dataBlock'
+    },
+];
+
+const META_ITEMS: BlockOption[] = [
+    {
+        type: 'meta_performance_overview',
+        label: "Vue d'ensemble Meta",
+        description: 'Performances Meta Ads',
+        icon: TrendingUp,
+        config: {},
+        category: 'meta',
+        action: 'dataBlock'
+    },
+    {
+        type: 'meta_campaign_chart',
+        label: 'Graphique Meta',
+        description: 'Evolution Meta Ads',
+        icon: BarChart3,
+        config: { chartType: 'line' },
+        category: 'meta',
         action: 'dataBlock'
     },
 ];
@@ -201,13 +219,13 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
     }, []);
 
     // Combine all items into one master list
-    const ALL_ITEMS = [...ANALYTICS_ITEMS, ...CHARTS_ITEMS, ...CONTENT_ITEMS, ...LAYOUT_ITEMS, ...SLIDES_ITEMS];
+    const ALL_ITEMS = [...GOOGLE_ITEMS, ...META_ITEMS, ...CONTENT_ITEMS, ...LAYOUT_ITEMS, ...SLIDES_ITEMS];
 
     // Define categories for the sidebar
     const categories: Category[] = [
         { id: 'all', label: 'Tout', icon: Grid3x3, items: ALL_ITEMS },
-        { id: 'analytics', label: 'Analytics', icon: TrendingUp, items: ANALYTICS_ITEMS },
-        { id: 'charts', label: 'Graphiques', icon: BarChart3, items: CHARTS_ITEMS },
+        { id: 'google', label: 'Google Ads', icon: Search, items: GOOGLE_ITEMS },
+        { id: 'meta', label: 'Meta Ads', icon: Target, items: META_ITEMS },
         { id: 'content', label: 'Contenu', icon: Image, items: CONTENT_ITEMS },
         { id: 'layout', label: 'Mise en page', icon: Columns2, items: LAYOUT_ITEMS },
         { id: 'slides', label: 'Slides', icon: Presentation, items: SLIDES_ITEMS },
@@ -287,27 +305,27 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
         // Multiple sections for "all" category
         const sections: Section[] = [];
 
-        const analyticsFiltered = filteredItems.filter(i => i.category === 'analytics');
-        if (analyticsFiltered.length > 0) {
-            sections.push({ id: 'analytics', label: 'Analytics', items: analyticsFiltered });
+        const googleFiltered = filteredItems.filter(i => GOOGLE_ITEMS.includes(i));
+        if (googleFiltered.length > 0) {
+            sections.push({ id: 'google', label: 'Google Ads', items: googleFiltered });
         }
 
-        const chartsFiltered = filteredItems.filter(i => i.category === 'charts');
-        if (chartsFiltered.length > 0) {
-            sections.push({ id: 'charts', label: 'Graphiques', items: chartsFiltered });
+        const metaFiltered = filteredItems.filter(i => META_ITEMS.includes(i));
+        if (metaFiltered.length > 0) {
+            sections.push({ id: 'meta', label: 'Meta Ads', items: metaFiltered });
         }
 
-        const contentFiltered = filteredItems.filter(i => i.category === 'content');
+        const contentFiltered = filteredItems.filter(i => CONTENT_ITEMS.includes(i));
         if (contentFiltered.length > 0) {
             sections.push({ id: 'content', label: 'Contenu', items: contentFiltered });
         }
 
-        const layoutFiltered = filteredItems.filter(i => i.category === 'layout');
+        const layoutFiltered = filteredItems.filter(i => LAYOUT_ITEMS.includes(i));
         if (layoutFiltered.length > 0) {
             sections.push({ id: 'layout', label: 'Mise en page', items: layoutFiltered });
         }
 
-        const slidesFiltered = filteredItems.filter(i => i.category === 'slides');
+        const slidesFiltered = filteredItems.filter(i => SLIDES_ITEMS.includes(i));
         if (slidesFiltered.length > 0) {
             sections.push({ id: 'slides', label: 'Slides', items: slidesFiltered });
         }

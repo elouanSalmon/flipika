@@ -15,6 +15,7 @@ import HeatmapSlide from '../../reports/slides/HeatmapSlide';
 
 import FlexibleDataBlock from './FlexibleDataBlock';
 import type { FlexibleDataConfig } from './FlexibleDataBlock';
+import FlexibleMetaBlock from './FlexibleMetaBlock';
 
 // Default configurations for standard blocks
 const PERF_OVERVIEW_DEFAULT_CONFIG: FlexibleDataConfig = {
@@ -60,6 +61,25 @@ const TOP_PERFORMERS_DEFAULT_CONFIG: FlexibleDataConfig = {
     limit: 10,
     sortBy: 'metrics.conversions',
     sortOrder: 'DESC'
+};
+
+// Meta Ads Default Configs
+const META_PERF_OVERVIEW_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Vue d'ensemble Meta Ads",
+    visualization: 'scorecard',
+    metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.spend', 'metrics.purchases', 'metrics.leads', 'metrics.ctr'],
+    dimension: 'segments.date',
+    showComparison: true,
+    comparisonType: 'previous_period'
+};
+
+const META_CAMPAIGN_CHART_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Performance Campagnes Meta",
+    visualization: 'line',
+    metrics: ['metrics.clicks', 'metrics.impressions'],
+    dimension: 'segments.date',
+    showComparison: true,
+    comparisonType: 'previous_period'
 };
 
 /**
@@ -326,6 +346,52 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         design={design}
                         variant="chromeless"
                     />
+                );
+            case SlideType.META_PERFORMANCE_OVERVIEW:
+                return (
+                    <FlexibleMetaBlock
+                        config={{ ...META_PERF_OVERVIEW_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
+                        accountId={effectiveAccountId} // Note: This might need to be context.metaAccountId
+                        campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
+                        design={design}
+                        variant="chromeless"
+                    />
+                );
+            case SlideType.META_CAMPAIGN_CHART:
+                return (
+                    <FlexibleMetaBlock
+                        config={{ ...META_CAMPAIGN_CHART_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
+                        accountId={effectiveAccountId}
+                        campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
+                        design={design}
+                        variant="chromeless"
+                    />
+                );
+            case SlideType.META_FUNNEL_ANALYSIS:
+                return (
+                    <div className="p-4 bg-gray-50 border rounded text-center text-sm text-gray-500">
+                        Meta Funnel Analysis - Coming Soon
+                    </div>
                 );
             default:
                 return (

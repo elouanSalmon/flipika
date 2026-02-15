@@ -5,6 +5,7 @@ import type { Client } from '../types/client';
 interface ReportEditorContextType {
     design: ReportDesign | null;
     accountId: string;
+    metaAccountId?: string;
     campaignIds: string[];
     reportId?: string;
     reportTitle?: string;
@@ -35,6 +36,7 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
     children,
     design,
     accountId,
+    metaAccountId,
     campaignIds,
     reportId,
     reportTitle,
@@ -53,6 +55,7 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
     const contextValue = React.useMemo(() => ({
         design,
         accountId,
+        metaAccountId,
         campaignIds,
         reportId,
         reportTitle,
@@ -70,6 +73,7 @@ export const ReportEditorProvider: React.FC<ReportEditorContextType & { children
     }), [
         design,
         accountId,
+        metaAccountId,
         campaignIds,
         reportId,
         reportTitle,

@@ -120,7 +120,7 @@
     },
     "metaAds": {
       "title": "Meta Ads",
-      "description": "Connect your Meta advertising account (Facebook/Instagram)",
+      "description": "Connect your Meta advertising account ",
       "tokenExpiry": "Token expires on {{date}}",
       "tokenExpired": "Token expired - please reconnect"
     },

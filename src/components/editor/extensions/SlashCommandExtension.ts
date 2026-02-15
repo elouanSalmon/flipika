@@ -131,6 +131,38 @@ export const SlashCommandExtension = Extension.create({
                             },
                         },
                         {
+                            title: "Vue d'ensemble Meta",
+                            description: "Performances et KPIs Meta Ads",
+                            icon: TrendingUp, // Make sure TrendingUp is imported! It is.
+                            command: ({ editor, range }) => {
+                                editor
+                                    .chain()
+                                    .focus()
+                                    .deleteRange(range)
+                                    .insertDataBlock({
+                                        blockType: 'meta_performance_overview',
+                                        config: {},
+                                    })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: "Graphique Meta",
+                            description: "Evolution des campagnes Meta Ads",
+                            icon: BarChart3, // Make sure BarChart3 is imported! It is.
+                            command: ({ editor, range }) => {
+                                editor
+                                    .chain()
+                                    .focus()
+                                    .deleteRange(range)
+                                    .insertDataBlock({
+                                        blockType: 'meta_campaign_chart',
+                                        config: { chartType: 'line' },
+                                    })
+                                    .run();
+                            },
+                        },
+                        {
                             title: 'Image (Médiathèque)',
                             description: 'Insérer une image depuis votre galerie',
                             icon: Image,

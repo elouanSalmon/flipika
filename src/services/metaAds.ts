@@ -94,8 +94,10 @@ export const fetchMetaInsights = async (
     startDate: string, // YYYY-MM-DD
     endDate: string,   // YYYY-MM-DD
     options?: {
-        level?: 'campaign' | 'adset' | 'ad';
+        level?: 'campaign' | 'adset' | 'ad' | 'account';
         fields?: string[];
+        timeIncrement?: string | number;
+        breakdowns?: string[];
     }
 ) => {
     try {
@@ -109,6 +111,8 @@ export const fetchMetaInsights = async (
                 endDate,
                 level: options?.level || 'campaign',
                 fields: options?.fields,
+                timeIncrement: options?.timeIncrement,
+                breakdowns: options?.breakdowns,
             }),
         });
 
@@ -153,5 +157,41 @@ export const revokeMetaOAuth = async () => {
     } catch (error: any) {
         console.error("Failed to revoke Meta OAuth:", error);
         throw error;
+    }
+};
+
+/**
+ * Fetch Meta Ads campaigns for a given ad account.
+ */
+export const fetchMetaCampaigns = async (accountId: string) => {
+    try {
+        const headers = await getAuthHeaders();
+        const response = await fetch(`${FUNCTIONS_BASE_URL}/getMetaCampaigns`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                accountId,
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+
+            if (response.status === 401 && errorData.code === 'TOKEN_EXPIRED') {
+                return {
+                    success: false,
+                    error: 'Token expired',
+                    code: 'TOKEN_EXPIRED',
+                };
+            }
+
+            throw new Error(`Error ${response.status}: ${errorData.error || 'Failed to fetch campaigns'}`);
+        }
+
+        const data = await response.json();
+        return data; // { success: true, campaigns: [...] }
+    } catch (error: any) {
+        console.error("Failed to fetch Meta campaigns:", error);
+        return { success: false, error: error.message || 'Failed to fetch Meta campaigns' };
     }
 };
