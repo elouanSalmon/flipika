@@ -59,6 +59,11 @@ const SLIDE_SCOPE_COMPATIBILITY: Record<SlideType, SlideScope['type'][]> = {
 
     // Flexible Meta Data Block
     flexible_meta_data: ['report_default', 'specific_campaigns', 'single_campaign'],
+
+    // Meta Ads Preset Blocks
+    meta_key_metrics: ['report_default', 'specific_campaigns', 'single_campaign'],
+    meta_top_performers: ['report_default', 'specific_campaigns'],
+    meta_device_split: ['report_default', 'specific_campaigns', 'single_campaign'],
 };
 
 const SCOPE_LABELS: Record<SlideScope['type'], string> = {

@@ -36,6 +36,10 @@ export const SlideType = {
     META_CAMPAIGN_CHART: 'meta_campaign_chart',
     META_FUNNEL_ANALYSIS: 'meta_funnel_analysis',
     FLEXIBLE_META_DATA: 'flexible_meta_data',
+    // Meta Ads preset block types
+    META_KEY_METRICS: 'meta_key_metrics',
+    META_TOP_PERFORMERS: 'meta_top_performers',
+    META_DEVICE_SPLIT: 'meta_device_split',
 } as const;
 
 export type SlideType = typeof SlideType[keyof typeof SlideType];

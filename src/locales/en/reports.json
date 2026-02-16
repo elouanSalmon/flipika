@@ -316,44 +316,44 @@
   },
   "slashCommand": {
     "performanceOverview": {
-      "title": "Performance Overview",
-      "description": "Insert a performance metrics grid"
+      "title": "Google Overview",
+      "description": "Google Ads performance metrics"
     },
     "flexibleData": {
-      "title": "Flexible Data",
-      "description": "Customizable data block (Table, Chart, Scorecard)"
+      "title": "Google Flexible Data",
+      "description": "Customizable Google Ads block (Table, Chart, Scorecard)"
     },
     "chart": {
-      "title": "Chart",
-      "description": "Insert a line, bar, or area chart"
+      "title": "Google Chart",
+      "description": "Google Ads line, bar, or area chart"
     },
     "keyMetrics": {
-      "title": "Key Metrics",
-      "description": "Insert a 2x2 grid of key KPIs"
+      "title": "Google Key Metrics",
+      "description": "2x2 grid of Google Ads KPIs"
     },
     "adCreative": {
-      "title": "Ad Creative",
-      "description": "Show top performing ad creatives"
+      "title": "Ad Creatives",
+      "description": "Top performing ad creatives"
     },
     "funnelAnalysis": {
-      "title": "Funnel Analysis",
-      "description": "Visualize conversion funnel"
+      "title": "Google Funnel",
+      "description": "Google Ads conversion funnel"
     },
     "heatmap": {
-      "title": "Heatmap",
-      "description": "View performance heatmap"
+      "title": "Google Heatmap",
+      "description": "Google Ads performance heatmap"
     },
     "devicePlatformSplit": {
-      "title": "Device Platform Split",
-      "description": "Breakdown by device/platform"
+      "title": "Google Device Split",
+      "description": "Google Ads breakdown by device/platform"
     },
     "table": {
       "title": "Table",
       "description": "Insert a table"
     },
     "topPerformers": {
-      "title": "Top Performers",
-      "description": "List of top campaigns/ad groups"
+      "title": "Google Top Campaigns",
+      "description": "Top Google Ads campaigns/ad groups"
     },
     "clientLogo": {
       "title": "Client Logo",
@@ -374,6 +374,30 @@
     "flexibleMetaData": {
       "title": "Flexible Meta Data",
       "description": "Customizable Meta Ads block (Table, Chart, Scorecard)"
+    },
+    "metaOverview": {
+      "title": "Meta Overview",
+      "description": "Meta Ads performance & KPIs"
+    },
+    "metaChart": {
+      "title": "Meta Chart",
+      "description": "Meta Ads campaign trends"
+    },
+    "metaKeyMetrics": {
+      "title": "Meta Key Metrics",
+      "description": "Spend, purchases, cost per purchase, leads"
+    },
+    "metaTopPerformers": {
+      "title": "Meta Top Campaigns",
+      "description": "Best performing Meta Ads campaigns"
+    },
+    "metaDeviceSplit": {
+      "title": "Meta Device Split",
+      "description": "By device (Meta Ads)"
+    },
+    "metaFunnel": {
+      "title": "Meta Funnel",
+      "description": "Impressions > Clicks > Leads > Purchases"
     }
   },
   "coverPage": {

@@ -8,6 +8,7 @@
     z-index: 50;
     display: flex;
     align-items: center;
+    /* Changed from baseline to center for vertical alignment */
     gap: 16px;
     overflow: visible;
 }
@@ -117,6 +118,46 @@
 [data-theme='dark'] .chart-sidebar-btn.is-active .sidebar-badge {
     background: rgba(255, 255, 255, 0.95);
     border-color: #61abf7;
+}
+
+/* Sidebar Logo Buttons (Google Ads / Meta Ads) */
+.chart-sidebar-btn--logo {
+    padding: 6px;
+}
+
+.sidebar-logo-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.sidebar-logo-icon--google {
+    color: #4285f4;
+}
+
+.sidebar-logo-icon--meta {
+    color: #0668E1;
+}
+
+.chart-sidebar-btn--logo:hover .sidebar-logo-icon {
+    transform: scale(1.1);
+}
+
+.chart-sidebar-btn--logo.is-active .sidebar-logo-icon {
+    color: white;
+}
+
+[data-theme='dark'] .sidebar-logo-icon--google {
+    color: #82b4f8;
+}
+
+[data-theme='dark'] .sidebar-logo-icon--meta {
+    color: #5b9cf5;
+}
+
+[data-theme='dark'] .chart-sidebar-btn--logo.is-active .sidebar-logo-icon {
+    color: white;
 }
 
 /* ===========================
@@ -324,12 +365,46 @@
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+.section-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Improvements for alignment */
+    height: 24px;
+}
+
+.section-header-logo {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.section-header-logo--google {
+    color: #4285f4;
+}
+
+.section-header-logo--meta {
+    color: #0668E1;
+}
+
+[data-theme='dark'] .section-header-logo--google {
+    color: #82b4f8;
+}
+
+[data-theme='dark'] .section-header-logo--meta {
+    color: #5b9cf5;
+}
+
 .section-title {
     margin: 0;
     font-size: 0.8125rem;
     font-weight: 600;
     color: #545660;
     letter-spacing: 0.01em;
+    /* Improved vertical alignment */
+    line-height: 1;
+    display: flex;
+    align-items: center;
 }
 
 [data-theme='dark'] .section-title {
@@ -346,8 +421,17 @@
     box-shadow: 0 2px 4px rgba(51, 133, 255, 0.2);
 }
 
+.section-count--meta {
+    background: linear-gradient(135deg, #4B9BF5 0%, #0668E1 100%);
+    box-shadow: 0 2px 4px rgba(6, 104, 225, 0.2);
+}
+
 [data-theme='dark'] .section-count {
     box-shadow: 0 2px 4px rgba(51, 133, 255, 0.3);
+}
+
+[data-theme='dark'] .section-count--meta {
+    box-shadow: 0 2px 4px rgba(6, 104, 225, 0.3);
 }
 
 /* ===========================
@@ -488,4 +572,60 @@
 
 [data-theme='dark'] .empty-state-subtext {
     color: #6b6e77;
+}
+
+/* ===========================
+   META ICON VARIANT (Meta uses Accent/Purple to differentiate)
+   =========================== */
+.flyout-item-icon--meta {
+    background: linear-gradient(135deg, rgba(145, 69, 236, 0.1) 0%, rgba(145, 69, 236, 0.1) 100%);
+    color: #9145ec;
+    border-color: rgba(145, 69, 236, 0.2);
+}
+
+.chart-flyout-item:hover .flyout-item-icon--meta {
+    background: linear-gradient(135deg, #bc98fd 0%, #9145ec 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(145, 69, 236, 0.3);
+}
+
+[data-theme='dark'] .flyout-item-icon--meta {
+    background: linear-gradient(135deg, rgba(145, 69, 236, 0.15) 0%, rgba(145, 69, 236, 0.15) 100%);
+    color: #bc98fd;
+    border-color: rgba(145, 69, 236, 0.3);
+}
+
+[data-theme='dark'] .chart-flyout-item:hover .flyout-item-icon--meta {
+    background: linear-gradient(135deg, #bc98fd 0%, #9145ec 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(145, 69, 236, 0.4);
+}
+
+/* ===========================
+   SECONDARY ICON VARIANT (Orange #ff6b0b)
+   =========================== */
+.flyout-item-icon--secondary {
+    background: linear-gradient(135deg, rgba(255, 107, 11, 0.1) 0%, rgba(255, 140, 51, 0.1) 100%);
+    color: #ff6b0b;
+    border-color: rgba(255, 107, 11, 0.2);
+}
+
+.chart-flyout-item:hover .flyout-item-icon--secondary {
+    background: linear-gradient(135deg, #ff8c33 0%, #ff6b0b 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(255, 107, 11, 0.3);
+}
+
+[data-theme='dark'] .flyout-item-icon--secondary {
+    background: linear-gradient(135deg, rgba(255, 107, 11, 0.15) 0%, rgba(255, 107, 11, 0.15) 100%);
+    color: #ff8c33;
+    border-color: rgba(255, 107, 11, 0.3);
+}
+
+[data-theme='dark'] .chart-flyout-item:hover .flyout-item-icon--secondary {
+    background: linear-gradient(135deg, #ff8c33 0%, #ff6b0b 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 107, 11, 0.4);
 }

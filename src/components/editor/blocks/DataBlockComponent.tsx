@@ -82,6 +82,33 @@ const META_CAMPAIGN_CHART_DEFAULT_CONFIG: FlexibleDataConfig = {
     comparisonType: 'previous_period'
 };
 
+const META_KEY_METRICS_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Metriques Cles Meta",
+    visualization: 'scorecard',
+    metrics: ['metrics.spend', 'metrics.purchases', 'metrics.cost_per_purchase', 'metrics.leads'],
+    dimension: 'segments.date',
+    showComparison: true,
+    comparisonType: 'previous_period'
+};
+
+const META_TOP_PERFORMERS_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Top Campagnes Meta",
+    visualization: 'table',
+    metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.spend', 'metrics.purchases', 'metrics.ctr'],
+    dimension: 'campaign.name',
+    limit: 10,
+    sortBy: 'metrics.purchases',
+    sortOrder: 'DESC'
+};
+
+const META_DEVICE_SPLIT_DEFAULT_CONFIG: FlexibleDataConfig = {
+    title: "Repartition par Appareil Meta",
+    visualization: 'pie',
+    metrics: ['metrics.clicks'],
+    dimension: 'segments.device',
+    limit: 10
+};
+
 /**
  * Data Block Component (Epic 13 - Story 13.2)
  *
@@ -388,11 +415,93 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         variant="chromeless"
                     />
                 );
+            case SlideType.META_KEY_METRICS:
+                return (
+                    <FlexibleMetaBlock
+                        config={{ ...META_KEY_METRICS_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
+                        accountId={effectiveMetaAccountId}
+                        campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
+                        design={design}
+                        variant="chromeless"
+                    />
+                );
+            case SlideType.META_TOP_PERFORMERS:
+                return (
+                    <FlexibleMetaBlock
+                        config={{ ...META_TOP_PERFORMERS_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
+                        accountId={effectiveMetaAccountId}
+                        campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
+                        design={design}
+                        variant="chromeless"
+                    />
+                );
+            case SlideType.META_DEVICE_SPLIT:
+                return (
+                    <FlexibleMetaBlock
+                        config={{ ...META_DEVICE_SPLIT_DEFAULT_CONFIG, ...(config as any) }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
+                        accountId={effectiveMetaAccountId}
+                        campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
+                        design={design}
+                        variant="chromeless"
+                    />
+                );
             case SlideType.META_FUNNEL_ANALYSIS:
                 return (
-                    <div className="p-4 bg-gray-50 border rounded text-center text-sm text-gray-500">
-                        Meta Funnel Analysis - Coming Soon
-                    </div>
+                    <FlexibleMetaBlock
+                        config={{
+                            title: "Entonnoir Meta",
+                            visualization: 'scorecard',
+                            metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.leads', 'metrics.purchases'],
+                            dimension: 'segments.date',
+                            showComparison: true,
+                            comparisonType: 'previous_period',
+                            ...(config as any)
+                        }}
+                        onUpdateConfig={(newConfig: Partial<FlexibleDataConfig>) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
+                        accountId={effectiveMetaAccountId}
+                        campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
+                        design={design}
+                        variant="chromeless"
+                    />
                 );
             case SlideType.FLEXIBLE_META_DATA:
                 return (

@@ -316,44 +316,44 @@
   },
   "slashCommand": {
     "performanceOverview": {
-      "title": "Aperçu des performances",
-      "description": "Insérer une grille de métriques de performance"
+      "title": "Vue d'ensemble Google",
+      "description": "Métriques de performance Google Ads"
     },
     "flexibleData": {
-      "title": "Données Flexibles",
-      "description": "Bloc de données personnalisable (Tableau, Graphique, Scorecard)"
+      "title": "Données Google Flexibles",
+      "description": "Bloc Google Ads personnalisable (Tableau, Graphique, Scorecard)"
     },
     "chart": {
-      "title": "Graphique",
-      "description": "Insérer un graphique linéaire, à barres ou en aires"
+      "title": "Graphique Google",
+      "description": "Graphique linéaire, barres ou aires Google Ads"
     },
     "keyMetrics": {
-      "title": "Métriques Clés",
-      "description": "Insérer une grille 2x2 de KPIs clés"
+      "title": "Métriques Clés Google",
+      "description": "Grille 2x2 de KPIs Google Ads"
     },
     "adCreative": {
-      "title": "Créative Publicitaire",
-      "description": "Afficher les meilleures créatives publicitaires"
+      "title": "Créatives Publicitaires",
+      "description": "Meilleures créatives publicitaires"
     },
     "funnelAnalysis": {
-      "title": "Analyse du Tunnel",
-      "description": "Visualiser le tunnel de conversion"
+      "title": "Entonnoir Google",
+      "description": "Tunnel de conversion Google Ads"
     },
     "heatmap": {
-      "title": "Heatmap",
-      "description": "Voir la heatmap des performances"
+      "title": "Heatmap Google",
+      "description": "Carte de chaleur Google Ads"
     },
     "devicePlatformSplit": {
-      "title": "Répartition Appareils/Plateformes",
-      "description": "Répartition par appareil/plateforme"
+      "title": "Répartition Google",
+      "description": "Par appareil/plateforme Google Ads"
     },
     "table": {
       "title": "Tableau",
       "description": "Insérer un tableau"
     },
     "topPerformers": {
-      "title": "Top Performers",
-      "description": "Liste des meilleures campagnes/groupes d'annonces"
+      "title": "Top Campagnes Google",
+      "description": "Meilleures campagnes/groupes Google Ads"
     },
     "clientLogo": {
       "title": "Logo Client",
@@ -372,8 +372,32 @@
       "description": "Insérer une slide de conclusion éditable"
     },
     "flexibleMetaData": {
-      "title": "Donnees Meta Flexibles",
+      "title": "Données Meta Flexibles",
       "description": "Bloc Meta Ads personnalisable (Tableau, Graphique, Scorecard)"
+    },
+    "metaOverview": {
+      "title": "Vue d'ensemble Meta",
+      "description": "Performances et KPIs Meta Ads"
+    },
+    "metaChart": {
+      "title": "Graphique Meta",
+      "description": "Evolution des campagnes Meta Ads"
+    },
+    "metaKeyMetrics": {
+      "title": "Métriques Clés Meta",
+      "description": "Dépenses, achats, coût par achat, leads"
+    },
+    "metaTopPerformers": {
+      "title": "Top Campagnes Meta",
+      "description": "Meilleures campagnes Meta Ads"
+    },
+    "metaDeviceSplit": {
+      "title": "Répartition Meta",
+      "description": "Par appareil (Meta Ads)"
+    },
+    "metaFunnel": {
+      "title": "Entonnoir Meta",
+      "description": "Impressions > Clics > Leads > Achats"
     }
   },
   "coverPage": {

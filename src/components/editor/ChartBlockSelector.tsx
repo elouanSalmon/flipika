@@ -5,6 +5,7 @@ import {
     Image, Filter, Layout, Trophy, X, Search, Grid3x3, Settings,
     Building2, Table as TableIcon, Columns2, Presentation, PartyPopper
 } from 'lucide-react';
+import { SiGoogleads, SiMeta } from 'react-icons/si';
 import './ChartBlockSelector.css';
 
 interface ChartBlockSelectorProps {
@@ -26,20 +27,23 @@ interface Category {
     id: 'all' | 'google' | 'meta' | 'content' | 'layout' | 'slides';
     label: string;
     icon: any;
+    /** If set, renders this React component instead of a Lucide icon */
+    logoComponent?: React.ReactNode;
     items: BlockOption[];
 }
 
 interface Section {
     id: string;
     label: string;
+    logoComponent?: React.ReactNode;
     items: BlockOption[];
 }
 
 const GOOGLE_ITEMS: BlockOption[] = [
     {
         type: 'flexible_data',
-        label: 'Donnees Flexibles',
-        description: 'Tableau/Graphique personnalise',
+        label: 'Données Google Flexibles',
+        description: 'Tableau/Graphique Google Ads personnalisé',
         icon: Settings,
         config: {
             title: 'Nouveau Bloc',
@@ -53,8 +57,8 @@ const GOOGLE_ITEMS: BlockOption[] = [
     },
     {
         type: 'performance_overview',
-        label: 'Vue d\'ensemble',
-        description: 'Metriques cles & comparaisons',
+        label: 'Vue d\'ensemble Google',
+        description: 'Métriques clés & comparaisons',
         icon: TrendingUp,
         config: {},
         category: 'google',
@@ -62,8 +66,8 @@ const GOOGLE_ITEMS: BlockOption[] = [
     },
     {
         type: 'key_metrics',
-        label: 'Metriques Cles',
-        description: 'Grille 2x2 de KPIs',
+        label: 'Métriques Clés Google',
+        description: 'Grille 2x2 de KPIs Google Ads',
         icon: Target,
         config: {},
         category: 'google',
@@ -71,8 +75,8 @@ const GOOGLE_ITEMS: BlockOption[] = [
     },
     {
         type: 'top_performers',
-        label: 'Meilleurs Elements',
-        description: 'Top campagnes/groupes',
+        label: 'Top Campagnes Google',
+        description: 'Meilleures campagnes/groupes',
         icon: Trophy,
         config: {},
         category: 'google',
@@ -80,8 +84,8 @@ const GOOGLE_ITEMS: BlockOption[] = [
     },
     {
         type: 'campaign_chart',
-        label: 'Graphique',
-        description: 'Ligne, barre, aire',
+        label: 'Graphique Google',
+        description: 'Ligne, barre, aire Google Ads',
         icon: BarChart3,
         config: { chartType: 'line' },
         category: 'google',
@@ -89,8 +93,8 @@ const GOOGLE_ITEMS: BlockOption[] = [
     },
     {
         type: 'funnel_analysis',
-        label: 'Entonnoir',
-        description: 'Taux de conversion',
+        label: 'Entonnoir Google',
+        description: 'Tunnel de conversion Google Ads',
         icon: Filter,
         config: {},
         category: 'google',
@@ -98,8 +102,8 @@ const GOOGLE_ITEMS: BlockOption[] = [
     },
     {
         type: 'heatmap',
-        label: 'Heatmap',
-        description: 'Carte de chaleur',
+        label: 'Heatmap Google',
+        description: 'Carte de chaleur Google Ads',
         icon: Layout,
         config: {},
         category: 'google',
@@ -107,8 +111,8 @@ const GOOGLE_ITEMS: BlockOption[] = [
     },
     {
         type: 'device_platform_split',
-        label: 'Repartition',
-        description: 'Par appareil/plateforme',
+        label: 'Répartition Google',
+        description: 'Par appareil/plateforme Google Ads',
         icon: PieChart,
         config: {},
         category: 'google',
@@ -119,8 +123,8 @@ const GOOGLE_ITEMS: BlockOption[] = [
 const META_ITEMS: BlockOption[] = [
     {
         type: 'flexible_meta_data',
-        label: 'Donnees Meta Flexibles',
-        description: 'Tableau/Graphique Meta personnalise',
+        label: 'Données Meta Flexibles',
+        description: 'Tableau/Graphique Meta Ads personnalisé',
         icon: Settings,
         config: {
             title: 'Nouveau Bloc Meta',
@@ -147,6 +151,42 @@ const META_ITEMS: BlockOption[] = [
         description: 'Evolution Meta Ads',
         icon: BarChart3,
         config: { chartType: 'line' },
+        category: 'meta',
+        action: 'dataBlock'
+    },
+    {
+        type: 'meta_key_metrics',
+        label: 'Métriques Clés Meta',
+        description: 'Dépenses, achats, CPP, leads',
+        icon: Target,
+        config: {},
+        category: 'meta',
+        action: 'dataBlock'
+    },
+    {
+        type: 'meta_top_performers',
+        label: 'Top Campagnes Meta',
+        description: 'Meilleures campagnes Meta',
+        icon: Trophy,
+        config: {},
+        category: 'meta',
+        action: 'dataBlock'
+    },
+    {
+        type: 'meta_device_split',
+        label: 'Répartition Meta',
+        description: 'Par appareil (Meta Ads)',
+        icon: PieChart,
+        config: {},
+        category: 'meta',
+        action: 'dataBlock'
+    },
+    {
+        type: 'meta_funnel_analysis',
+        label: 'Entonnoir Meta',
+        description: 'Impressions > Clics > Leads > Achats',
+        icon: Filter,
+        config: {},
         category: 'meta',
         action: 'dataBlock'
     },
@@ -239,8 +279,8 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
     // Define categories for the sidebar
     const categories: Category[] = [
         { id: 'all', label: 'Tout', icon: Grid3x3, items: ALL_ITEMS },
-        { id: 'google', label: 'Google Ads', icon: Search, items: GOOGLE_ITEMS },
-        { id: 'meta', label: 'Meta Ads', icon: Target, items: META_ITEMS },
+        { id: 'google', label: 'Google Ads', icon: null, logoComponent: <SiGoogleads className="sidebar-logo-icon sidebar-logo-icon--google" />, items: GOOGLE_ITEMS },
+        { id: 'meta', label: 'Meta Ads', icon: null, logoComponent: <SiMeta className="sidebar-logo-icon sidebar-logo-icon--meta" />, items: META_ITEMS },
         { id: 'content', label: 'Contenu', icon: Image, items: CONTENT_ITEMS },
         { id: 'layout', label: 'Mise en page', icon: Columns2, items: LAYOUT_ITEMS },
         { id: 'slides', label: 'Slides', icon: Presentation, items: SLIDES_ITEMS },
@@ -310,9 +350,11 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
 
         if (activeCategory !== 'all') {
             // Single section for specific categories
+            const cat = categories.find(c => c.id === activeCategory);
             return [{
                 id: activeCategory || 'default',
-                label: categories.find(c => c.id === activeCategory)?.label || '',
+                label: cat?.label || '',
+                logoComponent: cat?.logoComponent,
                 items: filteredItems
             }];
         }
@@ -322,12 +364,12 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
 
         const googleFiltered = filteredItems.filter(i => GOOGLE_ITEMS.includes(i));
         if (googleFiltered.length > 0) {
-            sections.push({ id: 'google', label: 'Google Ads', items: googleFiltered });
+            sections.push({ id: 'google', label: 'Google Ads', logoComponent: <SiGoogleads className="section-header-logo section-header-logo--google" />, items: googleFiltered });
         }
 
         const metaFiltered = filteredItems.filter(i => META_ITEMS.includes(i));
         if (metaFiltered.length > 0) {
-            sections.push({ id: 'meta', label: 'Meta Ads', items: metaFiltered });
+            sections.push({ id: 'meta', label: 'Meta Ads', logoComponent: <SiMeta className="section-header-logo section-header-logo--meta" />, items: metaFiltered });
         }
 
         const contentFiltered = filteredItems.filter(i => CONTENT_ITEMS.includes(i));
@@ -390,9 +432,12 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
                         sections.map((section) => (
                             <div key={section.id} className="chart-section">
                                 {activeCategory === 'all' && (
-                                    <div className="section-header">
-                                        <h5 className="section-title">{section.label}</h5>
-                                        <span className="section-count">{section.items.length}</span>
+                                    <div className={`section-header ${section.id === 'meta' ? 'section-header--meta' : ''}`}>
+                                        <div className="section-header-left">
+                                            {section.logoComponent}
+                                            <h5 className="section-title">{section.label}</h5>
+                                        </div>
+                                        <span className={`section-count ${section.id === 'meta' ? 'section-count--meta' : ''}`}>{section.items.length}</span>
                                     </div>
                                 )}
                                 <div className="chart-flyout-grid">
@@ -404,7 +449,7 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
                                                 className="chart-flyout-item"
                                                 onClick={() => handleInsertBlock(item)}
                                             >
-                                                <div className="flyout-item-icon">
+                                                <div className={`flyout-item-icon ${item.category === 'meta' ? 'flyout-item-icon--meta' : ''} ${['content', 'layout', 'slides'].includes(item.category) ? 'flyout-item-icon--secondary' : ''}`}>
                                                     <Icon size={20} />
                                                 </div>
                                                 <div className="flyout-item-content">
@@ -429,11 +474,15 @@ export const ChartBlockSelector: React.FC<ChartBlockSelectorProps> = ({ editor }
                     return (
                         <button
                             key={category.id}
-                            className={`chart-sidebar-btn ${isActive ? 'is-active' : ''}`}
+                            className={`chart-sidebar-btn ${isActive ? 'is-active' : ''} ${category.logoComponent ? 'chart-sidebar-btn--logo' : ''}`}
                             onClick={() => setActiveCategory(isActive ? null : category.id)}
                             title={category.label}
                         >
-                            <Icon size={20} />
+                            {category.logoComponent ? (
+                                category.logoComponent
+                            ) : (
+                                Icon && <Icon size={20} />
+                            )}
                             {category.items.length > 0 && (
                                 <span className="sidebar-badge">{category.items.length}</span>
                             )}

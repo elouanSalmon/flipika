@@ -1943,6 +1943,84 @@
     color: var(--color-text-muted);
 }
 
+/* Slash Command Section Headers */
+.slash-command-group + .slash-command-group {
+    margin-top: 4px;
+    border-top: 1px solid rgba(203, 213, 225, 0.2);
+    padding-top: 4px;
+}
+
+.slash-command-section-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px 2px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #8e9199;
+    user-select: none;
+}
+
+.slash-command-section-logo {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+}
+
+.slash-command-section-logo--google {
+    color: #4285f4;
+}
+
+.slash-command-section-logo--meta {
+    color: #0668E1;
+}
+
+[data-theme='dark'] .slash-command-section-logo--google {
+    color: #82b4f8;
+}
+
+[data-theme='dark'] .slash-command-section-logo--meta {
+    color: #5b9cf5;
+}
+
+[data-theme='dark'] .slash-command-section-header {
+    color: #6b6e77;
+}
+
+[data-theme='dark'] .slash-command-group + .slash-command-group {
+    border-color: rgba(26, 26, 26, 0.3);
+}
+
+/* Slash Command Meta icon variant (Meta blue tint) */
+.slash-command-icon--meta {
+    background: linear-gradient(135deg, rgba(6, 104, 225, 0.1) 0%, rgba(6, 104, 225, 0.1) 100%);
+    color: #0668E1;
+    border-color: rgba(6, 104, 225, 0.2);
+}
+
+.slash-command-item:hover .slash-command-icon--meta,
+.slash-command-item.selected .slash-command-icon--meta {
+    background: linear-gradient(135deg, #4B9BF5 0%, #0668E1 100%);
+    color: var(--color-text-inverse);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(6, 104, 225, 0.3);
+}
+
+[data-theme='dark'] .slash-command-icon--meta {
+    background: linear-gradient(135deg, rgba(6, 104, 225, 0.15) 0%, rgba(6, 104, 225, 0.15) 100%);
+    color: #5b9cf5;
+    border-color: rgba(6, 104, 225, 0.3);
+}
+
+[data-theme='dark'] .slash-command-item:hover .slash-command-icon--meta,
+[data-theme='dark'] .slash-command-item.selected .slash-command-icon--meta {
+    background: linear-gradient(135deg, #5b9cf5 0%, #0668E1 100%);
+    color: var(--color-text-inverse);
+    box-shadow: 0 4px 12px rgba(6, 104, 225, 0.4);
+}
+
 /* Client Logo Block */
 .client-logo-block {
     display: flex;
