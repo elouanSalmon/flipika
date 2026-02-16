@@ -1944,7 +1944,7 @@
 }
 
 /* Slash Command Section Headers */
-.slash-command-group + .slash-command-group {
+.slash-command-group+.slash-command-group {
     margin-top: 4px;
     border-top: 1px solid rgba(203, 213, 225, 0.2);
     padding-top: 4px;
@@ -1989,36 +1989,92 @@
     color: #6b6e77;
 }
 
-[data-theme='dark'] .slash-command-group + .slash-command-group {
+[data-theme='dark'] .slash-command-group+.slash-command-group {
     border-color: rgba(26, 26, 26, 0.3);
 }
 
-/* Slash Command Meta icon variant (Meta blue tint) */
+/* Slash Command Google icon variant (Default Blue) */
+.slash-command-icon--google {
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(66, 133, 244, 0.1) 100%);
+    color: #4285f4;
+    border-color: rgba(66, 133, 244, 0.2);
+}
+
+.slash-command-item:hover .slash-command-icon--google,
+.slash-command-item.selected .slash-command-icon--google {
+    background: linear-gradient(135deg, #4285f4 0%, #1963d5 100%);
+    color: var(--color-text-inverse);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+}
+
+[data-theme='dark'] .slash-command-icon--google {
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.15) 0%, rgba(66, 133, 244, 0.15) 100%);
+    color: #82b4f8;
+    border-color: rgba(66, 133, 244, 0.3);
+}
+
+[data-theme='dark'] .slash-command-item:hover .slash-command-icon--google,
+[data-theme='dark'] .slash-command-item.selected .slash-command-icon--google {
+    background: linear-gradient(135deg, #82b4f8 0%, #4285f4 100%);
+    color: var(--color-text-inverse);
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
+}
+
+/* Slash Command Meta icon variant (Accent Purple) */
 .slash-command-icon--meta {
-    background: linear-gradient(135deg, rgba(6, 104, 225, 0.1) 0%, rgba(6, 104, 225, 0.1) 100%);
-    color: #0668E1;
-    border-color: rgba(6, 104, 225, 0.2);
+    background: linear-gradient(135deg, rgba(145, 69, 236, 0.1) 0%, rgba(145, 69, 236, 0.1) 100%);
+    color: #9145ec;
+    border-color: rgba(145, 69, 236, 0.2);
 }
 
 .slash-command-item:hover .slash-command-icon--meta,
 .slash-command-item.selected .slash-command-icon--meta {
-    background: linear-gradient(135deg, #4B9BF5 0%, #0668E1 100%);
+    background: linear-gradient(135deg, #bc98fd 0%, #9145ec 100%);
     color: var(--color-text-inverse);
     border-color: transparent;
-    box-shadow: 0 4px 12px rgba(6, 104, 225, 0.3);
+    box-shadow: 0 4px 12px rgba(145, 69, 236, 0.3);
 }
 
 [data-theme='dark'] .slash-command-icon--meta {
-    background: linear-gradient(135deg, rgba(6, 104, 225, 0.15) 0%, rgba(6, 104, 225, 0.15) 100%);
-    color: #5b9cf5;
-    border-color: rgba(6, 104, 225, 0.3);
+    background: linear-gradient(135deg, rgba(145, 69, 236, 0.15) 0%, rgba(145, 69, 236, 0.15) 100%);
+    color: #bc98fd;
+    border-color: rgba(145, 69, 236, 0.3);
 }
 
 [data-theme='dark'] .slash-command-item:hover .slash-command-icon--meta,
 [data-theme='dark'] .slash-command-item.selected .slash-command-icon--meta {
-    background: linear-gradient(135deg, #5b9cf5 0%, #0668E1 100%);
+    background: linear-gradient(135deg, #bc98fd 0%, #9145ec 100%);
     color: var(--color-text-inverse);
-    box-shadow: 0 4px 12px rgba(6, 104, 225, 0.4);
+    box-shadow: 0 4px 12px rgba(145, 69, 236, 0.4);
+}
+
+/* Slash Command Secondary icon variant (Orange) */
+.slash-command-icon--secondary {
+    background: linear-gradient(135deg, rgba(255, 107, 11, 0.1) 0%, rgba(255, 140, 51, 0.1) 100%);
+    color: #ff6b0b;
+    border-color: rgba(255, 107, 11, 0.2);
+}
+
+.slash-command-item:hover .slash-command-icon--secondary,
+.slash-command-item.selected .slash-command-icon--secondary {
+    background: linear-gradient(135deg, #ff8c33 0%, #ff6b0b 100%);
+    color: var(--color-text-inverse);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(255, 107, 11, 0.3);
+}
+
+[data-theme='dark'] .slash-command-icon--secondary {
+    background: linear-gradient(135deg, rgba(255, 107, 11, 0.15) 0%, rgba(255, 107, 11, 0.15) 100%);
+    color: #ff8c33;
+    border-color: rgba(255, 107, 11, 0.3);
+}
+
+[data-theme='dark'] .slash-command-item:hover .slash-command-icon--secondary,
+[data-theme='dark'] .slash-command-item.selected .slash-command-icon--secondary {
+    background: linear-gradient(135deg, #ff8c33 0%, #ff6b0b 100%);
+    color: var(--color-text-inverse);
+    box-shadow: 0 4px 12px rgba(255, 107, 11, 0.4);
 }
 
 /* Client Logo Block */

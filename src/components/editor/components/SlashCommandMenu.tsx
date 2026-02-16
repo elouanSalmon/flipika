@@ -136,6 +136,9 @@ export const SlashCommandMenu = forwardRef((props: SlashCommandMenuProps, ref) =
                     {group.items.map((item) => {
                         const currentIndex = flatIndex++;
                         const isMeta = item.category === 'meta';
+                        const isGoogle = item.category === 'google';
+                        const isSecondary = ['content', 'layout', 'slides'].includes(item.category || '');
+
                         return (
                             <button
                                 key={currentIndex}
@@ -147,7 +150,7 @@ export const SlashCommandMenu = forwardRef((props: SlashCommandMenuProps, ref) =
                                 onMouseEnter={() => setSelectedIndex(currentIndex)}
                                 type="button"
                             >
-                                <span className={`slash-command-icon ${isMeta ? 'slash-command-icon--meta' : ''}`}>
+                                <span className={`slash-command-icon ${isMeta ? 'slash-command-icon--meta' : ''} ${isGoogle ? 'slash-command-icon--google' : ''} ${isSecondary ? 'slash-command-icon--secondary' : ''}`}>
                                     {item.icon && <item.icon size={18} />}
                                 </span>
                                 <div className="slash-command-content">
