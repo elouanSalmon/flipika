@@ -370,6 +370,10 @@
     "conclusionPage": {
       "title": "Conclusion",
       "description": "Insérer une slide de conclusion éditable"
+    },
+    "flexibleMetaData": {
+      "title": "Donnees Meta Flexibles",
+      "description": "Bloc Meta Ads personnalisable (Tableau, Graphique, Scorecard)"
     }
   },
   "coverPage": {
@@ -635,23 +639,38 @@
       "date": "Date",
       "campaign": "Campagne",
       "ad_group": "Groupe d'annonces",
-      "device": "Appareil"
+      "adset": "Ensemble de pubs",
+      "ad": "Publicite",
+      "device": "Appareil",
+      "platform": "Plateforme",
+      "placement": "Emplacement",
+      "name": "Nom"
     },
     "metricsList": {
       "impressions": "Impressions",
       "clicks": "Clics",
-      "cost": "Coût",
-      "cost_micros": "Coût",
+      "cost": "Budget",
+      "cost_micros": "Budget",
       "ctr": "CTR",
       "cpc": "CPC Moyen",
       "average_cpc": "CPC Moyen",
+      "cpm": "CPM",
       "conversions": "Conversions",
       "convValue": "Valeur Conv.",
       "conversions_value": "Valeur Conv.",
-      "costPerConv": "Coût / Conv.",
-      "cost_per_conversion": "Coût / Conv.",
-      "conversions_value_per_cost": "ROAS"
+      "costPerConv": "Budget / Conv.",
+      "cost_per_conversion": "Budget / Conv.",
+      "conversions_value_per_cost": "ROAS",
+      "spend": "Budget",
+      "reach": "Couverture",
+      "frequency": "Frequence",
+      "purchases": "Achats",
+      "leads": "Leads",
+      "cost_per_purchase": "Budget / Achat",
+      "cost_per_lead": "Budget / Lead"
     },
+    "metaModalTitle": "Configuration Meta Ads",
+    "metaModalSubtitle": "Personnalisez les metriques et la visualisation",
     "actions": {
       "cancel": "Annuler",
       "create": "Générer le bloc",

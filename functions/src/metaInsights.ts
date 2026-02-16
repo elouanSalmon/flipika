@@ -134,6 +134,20 @@ export const getMetaInsights = onRequest({ memory: '512MiB' }, async (req, res) 
             if (data.error) {
                 console.error("[getMetaInsights] Meta API Full Error:", JSON.stringify(data.error, null, 2));
 
+                // Debug permissions
+                try {
+                    const permResponse = await fetch(`${META_GRAPH_URL}/${META_API_VERSION}/me/permissions?access_token=${accessToken}`);
+                    const permData = await permResponse.json();
+                    console.log(`[getMetaInsights] Actual token permissions from Meta:`, JSON.stringify(permData, null, 2));
+
+                    // Also check if the account itself is accessible
+                    const checkAccResponse = await fetch(`${META_GRAPH_URL}/${META_API_VERSION}/act_${cleanAccountId}?fields=name,account_id&access_token=${accessToken}`);
+                    const checkAccData = await checkAccResponse.json();
+                    console.log(`[getMetaInsights] Account access check for act_${cleanAccountId}:`, JSON.stringify(checkAccData, null, 2));
+                } catch (e) {
+                    console.error("[getMetaInsights] Failed to fetch debug info:", e);
+                }
+
                 if (data.error.code === 190) {
                     res.status(401).json({
                         error: 'Meta Ads token is invalid or expired. Please reconnect.',

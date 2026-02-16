@@ -46,6 +46,7 @@ interface TiptapReportEditorProps {
     placeholder?: string;
     design?: ReportDesign;
     accountId?: string;
+    metaAccountId?: string;
     campaignIds?: string[];
     reportId?: string;
     reportTitle?: string;
@@ -68,6 +69,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     placeholder = 'Commencez à écrire... (tapez "/" pour insérer un bloc)',
     design,
     accountId = '',
+    metaAccountId,
     campaignIds = [],
     reportId,
     reportTitle,
@@ -484,6 +486,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             <ReportEditorProvider
                 design={design || null}
                 accountId={accountId}
+                metaAccountId={metaAccountId}
                 campaignIds={campaignIds}
                 reportId={reportId}
                 reportTitle={reportTitle}

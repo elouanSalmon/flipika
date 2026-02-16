@@ -149,7 +149,7 @@ export const SlashCommandExtension = Extension.create({
                         {
                             title: "Graphique Meta",
                             description: "Evolution des campagnes Meta Ads",
-                            icon: BarChart3, // Make sure BarChart3 is imported! It is.
+                            icon: BarChart3,
                             command: ({ editor, range }) => {
                                 editor
                                     .chain()
@@ -158,6 +158,30 @@ export const SlashCommandExtension = Extension.create({
                                     .insertDataBlock({
                                         blockType: 'meta_campaign_chart',
                                         config: { chartType: 'line' },
+                                    })
+                                    .run();
+                            },
+                        },
+                        {
+                            title: i18n.t('reports:slashCommand.flexibleMetaData.title', 'Donnees Meta Flexibles'),
+                            titleKey: 'reports:slashCommand.flexibleMetaData.title',
+                            description: i18n.t('reports:slashCommand.flexibleMetaData.description', 'Tableau/Graphique Meta Ads personnalise'),
+                            descriptionKey: 'reports:slashCommand.flexibleMetaData.description',
+                            icon: Settings,
+                            command: ({ editor, range }) => {
+                                editor
+                                    .chain()
+                                    .focus()
+                                    .deleteRange(range)
+                                    .insertDataBlock({
+                                        blockType: 'flexible_meta_data',
+                                        config: {
+                                            title: 'Nouveau Bloc Meta',
+                                            visualization: 'table',
+                                            metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.spend'],
+                                            dimension: 'segments.date',
+                                            isNew: true
+                                        },
                                     })
                                     .run();
                             },

@@ -92,7 +92,7 @@ const META_CAMPAIGN_CHART_DEFAULT_CONFIG: FlexibleDataConfig = {
 export const DataBlockComponent = React.memo((props: NodeViewProps) => {
     const { node, deleteNode, selected, editor, updateAttributes } = props;
     const { blockType, config } = node.attrs;
-    const { design, client, accountId, campaignIds, reportId, isTemplateMode, startDate, endDate } = useReportEditor();
+    const { design, client, accountId, metaAccountId, campaignIds, reportId, isTemplateMode, startDate, endDate } = useReportEditor();
 
     if (!design) {
         return (
@@ -104,6 +104,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
 
     // In template mode, use empty values to force demo data
     const effectiveAccountId = isTemplateMode ? '' : accountId;
+    const effectiveMetaAccountId = isTemplateMode ? '' : (metaAccountId || '');
     const effectiveCampaignIds = isTemplateMode ? [] : campaignIds;
 
     // Synthesize a SlideConfig-like object for the component
@@ -359,7 +360,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         editable={editor.isEditable}
                         selected={selected}
                         onDelete={() => deleteNode()}
-                        accountId={effectiveAccountId} // Note: This might need to be context.metaAccountId
+                        accountId={effectiveMetaAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
                         endDate={endDate}
@@ -379,7 +380,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         editable={editor.isEditable}
                         selected={selected}
                         onDelete={() => deleteNode()}
-                        accountId={effectiveAccountId}
+                        accountId={effectiveMetaAccountId}
                         campaignIds={effectiveCampaignIds}
                         startDate={startDate}
                         endDate={endDate}
@@ -392,6 +393,26 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                     <div className="p-4 bg-gray-50 border rounded text-center text-sm text-gray-500">
                         Meta Funnel Analysis - Coming Soon
                     </div>
+                );
+            case SlideType.FLEXIBLE_META_DATA:
+                return (
+                    <FlexibleMetaBlock
+                        config={config as any}
+                        onUpdateConfig={(newConfig: any) => {
+                            updateAttributes({
+                                config: { ...config, ...newConfig }
+                            });
+                        }}
+                        editable={editor.isEditable}
+                        selected={selected}
+                        onDelete={() => deleteNode()}
+                        accountId={effectiveMetaAccountId}
+                        campaignIds={effectiveCampaignIds}
+                        startDate={startDate}
+                        endDate={endDate}
+                        design={design}
+                        variant="chromeless"
+                    />
                 );
             default:
                 return (

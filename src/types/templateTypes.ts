@@ -64,10 +64,14 @@ export interface ReportTemplate {
     // Configuration - optional fields can be set when using the template
     clientId?: string; // Optional - Linked Client ID
     clientName?: string; // Optional - for display
-    accountId?: string; // Optional - can be set when using template
+    accountId?: string; // Optional - Google Ads account, can be set when using template
     accountName?: string; // Optional - for display
     campaignIds: string[]; // Can be empty - set when using template
     campaignNames?: string[]; // Optional - for display
+    metaAccountId?: string; // Optional - Meta Ads account ID
+    metaAccountName?: string; // Optional - for display
+    metaCampaignIds?: string[]; // Optional - Meta campaign IDs
+    metaCampaignNames?: string[]; // Optional - for display
 
     // Period preset (no fixed dates)
     periodPreset: PeriodPreset;

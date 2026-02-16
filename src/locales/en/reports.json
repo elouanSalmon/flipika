@@ -370,6 +370,10 @@
     "conclusionPage": {
       "title": "Conclusion",
       "description": "Insert an editable conclusion slide"
+    },
+    "flexibleMetaData": {
+      "title": "Flexible Meta Data",
+      "description": "Customizable Meta Ads block (Table, Chart, Scorecard)"
     }
   },
   "coverPage": {
@@ -635,7 +639,12 @@
       "date": "Date",
       "campaign": "Campaign",
       "ad_group": "Ad Group",
-      "device": "Device"
+      "adset": "Ad Set",
+      "ad": "Ad",
+      "device": "Device",
+      "platform": "Platform",
+      "placement": "Placement",
+      "name": "Name"
     },
     "metricsList": {
       "impressions": "Impressions",
@@ -645,13 +654,23 @@
       "ctr": "CTR",
       "cpc": "Average CPC",
       "average_cpc": "Average CPC",
+      "cpm": "CPM",
       "conversions": "Conversions",
       "convValue": "Conv. Value",
       "conversions_value": "Conv. Value",
       "costPerConv": "Cost / Conv.",
       "cost_per_conversion": "Cost / Conv.",
-      "conversions_value_per_cost": "ROAS"
+      "conversions_value_per_cost": "ROAS",
+      "spend": "Spend",
+      "reach": "Reach",
+      "frequency": "Frequency",
+      "purchases": "Purchases",
+      "leads": "Leads",
+      "cost_per_purchase": "Cost / Purchase",
+      "cost_per_lead": "Cost / Lead"
     },
+    "metaModalTitle": "Meta Ads Configuration",
+    "metaModalSubtitle": "Customize metrics and visualization",
     "actions": {
       "cancel": "Cancel",
       "create": "Generate Block",

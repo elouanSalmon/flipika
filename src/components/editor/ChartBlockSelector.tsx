@@ -118,6 +118,21 @@ const GOOGLE_ITEMS: BlockOption[] = [
 
 const META_ITEMS: BlockOption[] = [
     {
+        type: 'flexible_meta_data',
+        label: 'Donnees Meta Flexibles',
+        description: 'Tableau/Graphique Meta personnalise',
+        icon: Settings,
+        config: {
+            title: 'Nouveau Bloc Meta',
+            visualization: 'table',
+            metrics: ['metrics.impressions', 'metrics.clicks', 'metrics.spend'],
+            dimension: 'segments.date',
+            isNew: true
+        },
+        category: 'meta',
+        action: 'dataBlock'
+    },
+    {
         type: 'meta_performance_overview',
         label: "Vue d'ensemble Meta",
         description: 'Performances Meta Ads',

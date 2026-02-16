@@ -413,6 +413,7 @@ const TiptapTemplateEditorPage: React.FC = () => {
                     onChange={handleEditorChange}
                     design={template.design as ReportDesign}
                     accountId={template.accountId || ''}
+                    metaAccountId={template.metaAccountId}
                     campaignIds={template.campaignIds || []}
                     reportId={template.id}
                     clientId={template.clientId}

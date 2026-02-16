@@ -27,6 +27,7 @@ interface TiptapReadOnlyRendererProps {
     content: JSONContent;
     design?: ReportDesign;
     accountId?: string;
+    metaAccountId?: string;
     campaignIds?: string[];
     reportId?: string;
     reportTitle?: string;
@@ -48,6 +49,7 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
     content,
     design,
     accountId = '',
+    metaAccountId,
     campaignIds = [],
     reportId,
     reportTitle,
@@ -130,6 +132,7 @@ export const TiptapReadOnlyRenderer: React.FC<TiptapReadOnlyRendererProps> = ({
         <ReportEditorProvider
             design={design || null}
             accountId={accountId}
+            metaAccountId={metaAccountId}
             campaignIds={campaignIds}
             reportId={reportId}
             reportTitle={reportTitle}

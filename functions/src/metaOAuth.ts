@@ -32,7 +32,6 @@ const META_GRAPH_URL = "https://graph.facebook.com";
 const META_SCOPES = [
     "ads_read",
     "ads_management",
-    "business_management",
 ].join(",");
 
 /**

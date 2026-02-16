@@ -375,6 +375,8 @@ const TiptapReportEditorPage: React.FC = () => {
                 clientId: config.clientId,
                 accountId: config.accountId,
                 campaignIds: config.campaignIds,
+                metaAccountId: config.metaAccountId,
+                metaCampaignIds: config.metaCampaignIds,
                 startDate: new Date(config.dateRange.start),
                 endDate: new Date(config.dateRange.end),
                 dateRangePreset: config.dateRange.preset,
@@ -385,6 +387,7 @@ const TiptapReportEditorPage: React.FC = () => {
                 clientId: config.clientId,
                 accountId: config.accountId,
                 campaignIds: config.campaignIds,
+                metaAccountId: config.metaAccountId,
                 startDate: new Date(config.dateRange.start),
                 endDate: new Date(config.dateRange.end),
             });
@@ -844,6 +847,7 @@ const TiptapReportEditorPage: React.FC = () => {
                     onChange={handleEditorChange}
                     design={report.design}
                     accountId={report.accountId}
+                    metaAccountId={report.metaAccountId}
                     campaignIds={report.campaignIds}
                     reportId={report.id}
                     reportTitle={title}
@@ -870,6 +874,8 @@ const TiptapReportEditorPage: React.FC = () => {
                             clientId: report.clientId,
                             accountId: settingsAccountId || report.accountId,
                             campaignIds: report.campaignIds,
+                            metaAccountId: report.metaAccountId,
+                            metaCampaignIds: report.metaCampaignIds,
                             dateRange: {
                                 start: report.startDate ? new Date(report.startDate).toISOString() : new Date().toISOString(),
                                 end: report.endDate ? new Date(report.endDate).toISOString() : new Date().toISOString(),
