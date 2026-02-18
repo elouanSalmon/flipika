@@ -220,7 +220,12 @@ const ConnectionsCard = () => {
                 </div>
 
                 {/* Meta Ads */}
-                <div className="flex flex-col gap-4 p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-black/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-white/5 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5">
+                <div className="relative flex flex-col gap-4 p-4 rounded-xl border-2 border-primary/20 dark:border-primary/30 bg-white/30 dark:bg-black/30 backdrop-blur-sm hover:bg-white/50 dark:hover:bg-white/5 hover:border-primary/30 dark:hover:border-primary/40 transition-all duration-300 shadow-lg shadow-primary/5">
+                    {import.meta.env.PROD && (
+                        <div className="absolute inset-0 z-10 bg-white/60 dark:bg-black/60 backdrop-blur-[2px] flex items-center justify-center rounded-xl">
+                            <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">Coming Soon</span>
+                        </div>
+                    )}
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-full bg-white dark:bg-black flex items-center justify-center border-2 border-primary/20">
