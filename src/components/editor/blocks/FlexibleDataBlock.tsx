@@ -452,7 +452,7 @@ const DataRenderer: React.FC<{
     };
 
     return (
-        <div className="link-renderer-root flex-1 w-full flex flex-col min-h-[300px] relative" style={{ fontFamily: effectiveFontFamily }}>
+        <div className="link-renderer-root flex-1 w-full flex flex-col relative" style={{ fontFamily: effectiveFontFamily }}>
             {isMockData && (
                 <div
                     className="absolute top-2 right-2 z-10 text-[8px] font-bold px-2 py-0.5 rounded-full border backdrop-blur-md flex items-center gap-1 shadow-sm"
@@ -966,7 +966,9 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                                                 </select>
                                             </div>
                                             <div>
-                                                <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest mb-2">{t('flexibleBlock.fields.limit')}</label>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <label className="block text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-widest">{t('flexibleBlock.fields.limit')}</label>
+                                                </div>
                                                 <input
                                                     type="number"
                                                     value={editConfig.limit}
@@ -975,6 +977,10 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                                                     onChange={(e) => setEditConfig({ ...editConfig, limit: parseInt(e.target.value) || 10 })}
                                                     className="w-full px-3 py-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl text-sm text-[var(--color-text-primary)] focus:ring-2 focus:ring-primary outline-none"
                                                 />
+                                                <p className="mt-2 text-[10px] text-[var(--color-text-muted)] flex items-center gap-1.5 leading-tight">
+                                                    <Info size={12} className="shrink-0 opacity-70" />
+                                                    <span className="opacity-80">{t('flexibleBlock.fields.limitHelp', 'Limite le nombre de résultats affichés (ex: Top 10)')}</span>
+                                                </p>
                                             </div>
                                         </section>
 
@@ -1186,11 +1192,11 @@ export const FlexibleDataBlock: React.FC<FlexibleDataBlockProps> = React.memo(({
                 descriptionIsStale={descriptionIsStale}
                 onRegenerateAnalysis={handleBulkGenerateAnalysis}
                 isGeneratingAnalysis={isGeneratingAnalysis}
-                minHeight={['bar', 'line', 'pie'].includes(activeConfig.visualization) ? (activeConfig.description ? 450 : 350) : 300}
+                minHeight={300}
                 variant={blockVariant}
             >
                 <div
-                    className={`flex-1 w-full min-h-0 flex flex-col ${['table', 'scorecard'].includes(activeConfig.visualization) ? 'overflow-auto report-scrollbar' : 'overflow-hidden'}`}
+                    className={`flex-1 w-full flex flex-col ${['table', 'scorecard'].includes(activeConfig.visualization) ? 'overflow-auto report-scrollbar' : 'overflow-hidden'}`}
                     style={['table', 'scorecard'].includes(activeConfig.visualization) ? {
                         '--scrollbar-track': design?.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.02)',
                         '--scrollbar-thumb': design?.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)',

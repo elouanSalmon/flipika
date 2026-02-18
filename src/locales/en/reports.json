@@ -643,6 +643,7 @@
       "visualStyle": "Visual Style",
       "dimension": "Dimension",
       "limit": "Limit",
+      "limitHelp": "Limit the number of results displayed (e.g., Top 10)",
       "metrics": "Metrics",
       "none": "None (Totals)",
       "comparison": "Compare Period",
