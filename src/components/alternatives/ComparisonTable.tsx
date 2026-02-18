@@ -29,7 +29,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ competitor }) => {
                             {competitor.features.map((feature: any, index: number) => (
                                 <tr key={index} className="hover:bg-white/30 dark:hover:bg-white/5 transition-colors">
                                     <td className="px-8 py-6 text-base font-semibold text-primary">
-                                        {feature.name}
+                                        {t(`alternatives:features.${feature.name}`)}
                                     </td>
                                     <td className="px-8 py-6">
                                         {feature.hasCompetitor ? (

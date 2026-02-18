@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import type { Competitor } from '../../data/competitors';
 
 interface ComparisonJSONLDProps {
@@ -7,12 +8,14 @@ interface ComparisonJSONLDProps {
 }
 
 const ComparisonJSONLD: React.FC<ComparisonJSONLDProps> = ({ competitor }) => {
+    const { t } = useTranslation();
+
     const productSchema = {
         '@context': 'https://schema.org/',
         '@type': 'Product',
         name: 'Flipika',
         image: 'https://flipika.com/logo.png', // Replace with actual logo URL
-        description: `Best ${competitor.name} alternative for Google Ads reporting. Save time and automate your reports.`,
+        description: t('alternatives:schema.productDescription', { competitor: competitor.name }),
         brand: {
             '@type': 'Brand',
             name: 'Flipika',
@@ -38,18 +41,18 @@ const ComparisonJSONLD: React.FC<ComparisonJSONLDProps> = ({ competitor }) => {
         mainEntity: [
             {
                 '@type': 'Question',
-                name: `Why is Flipika the best ${competitor.name} alternative?`,
+                name: t('alternatives:schema.faq.whyBest.question', { competitor: competitor.name }),
                 acceptedAnswer: {
                     '@type': 'Answer',
-                    text: `Flipika offers better speed, more specialized Google Ads insights, and a presentation-first layout compared to ${competitor.name}.`,
+                    text: t('alternatives:schema.faq.whyBest.answer', { competitor: competitor.name }),
                 },
             },
             {
                 '@type': 'Question',
-                name: `Is Flipika cheaper than ${competitor.name}?`,
+                name: t('alternatives:schema.faq.isCheaper.question', { competitor: competitor.name }),
                 acceptedAnswer: {
                     '@type': 'Answer',
-                    text: `Flipika offers competitive plans starting at 29€/month with unlimited reports, often making it more cost-effective than ${competitor.name}.`,
+                    text: t('alternatives:schema.faq.isCheaper.answer', { competitor: competitor.name }),
                 },
             },
         ],

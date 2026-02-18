@@ -43,7 +43,7 @@ const ComparisonIndex: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-6xl font-bold mb-6 text-primary tracking-tight"
+                        className="text-4xl md:text-6xl font-bold mb-6 text-primary tracking-tight text-balance"
                     >
                         {t('alternatives:index.title')}
                     </motion.h1>
@@ -124,6 +124,63 @@ const ComparisonIndex: React.FC = () => {
                         </div>
                     </div>
                 </motion.div>
+                <div className="mt-32 max-w-4xl mx-auto space-y-24">
+                    {/* SEO Section 1: The Problem */}
+                    <section className="text-center md:text-left">
+                        <h2 className="text-3xl md:text-5xl font-bold mb-8 text-primary tracking-tight text-balance">
+                            {t('alternatives:index.seoContent.problem.title')}
+                        </h2>
+                        <div className="space-y-6 text-xl text-secondary leading-relaxed">
+                            <p>{t('alternatives:index.seoContent.problem.p1')}</p>
+                            <p>{t('alternatives:index.seoContent.problem.p2')}</p>
+                        </div>
+                    </section>
+
+                    {/* SEO Section 2: The Solution */}
+                    <section>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-primary tracking-tight text-balance">
+                            {t('alternatives:index.seoContent.solution.title')}
+                        </h2>
+                        <p className="text-xl text-center text-secondary mb-12 max-w-2xl mx-auto">
+                            {t('alternatives:index.seoContent.solution.intro')}
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {[1, 2, 3].map((i) => (
+                                <div key={i} className="bg-white/50 dark:bg-white/5 p-8 rounded-3xl border border-white/20 dark:border-white/10 backdrop-blur-sm">
+                                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+                                        <span className="text-2xl font-bold text-primary">{i}</span>
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-4 text-primary">
+                                        {t(`alternatives:index.seoContent.solution.point${i}Title`)}
+                                    </h3>
+                                    <p className="text-secondary leading-relaxed">
+                                        {t(`alternatives:index.seoContent.solution.point${i}Desc`)}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* SEO Section 3: FAQ */}
+                    <section>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center text-primary tracking-tight text-balance">
+                            {t('alternatives:index.seoContent.faq.title')}
+                        </h2>
+                        <div className="grid grid-cols-1 gap-6">
+                            {[1, 2, 3].map((i) => (
+                                <div key={i} className="group p-8 rounded-3xl bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 shadow-lg shadow-black/5">
+                                    <h3 className="text-xl font-bold mb-4 text-primary flex items-start gap-3">
+                                        <span className="text-primary/40">Q.</span>
+                                        {t(`alternatives:index.seoContent.faq.q${i}`)}
+                                    </h3>
+                                    <p className="text-lg text-secondary pl-8 border-l-2 border-primary/20">
+                                        {t(`alternatives:index.seoContent.faq.a${i}`)}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     );

@@ -12,7 +12,33 @@
         "highlight1": "AI-Powered Insights",
         "highlight1Desc": "Get instant summaries of your Google Ads performance without manual analysis.",
         "highlight2": "Built for Agencies",
-        "highlight2Desc": "Automate client reports and spend more time on strategy, less on formatting."
+        "highlight2Desc": "Automate client reports and spend more time on strategy, less on formatting.",
+        "seoContent": {
+            "problem": {
+                "title": "Why Marketing Agencies Are Leaving Legacy Reporting Tools",
+                "p1": "For over a decade, marketing reporting has been stuck in the past. Tools like Excel and early dashboards were revolutionary in 2010, but in 2026, they are bottlenecks. Slow loading times, manual data entry, and broken API connectors are costing agencies thousands of billable hours every year.",
+                "p2": "Modern agencies need speed. Waiting 30 seconds for a report to load during a client presentation is no longer acceptable. Clients expect real-time access, interactive data, and mobile-ready designs that look as professional as the campaigns you run for them."
+            },
+            "solution": {
+                "title": "What Defines a Modern Reporting Platform in 2026?",
+                "intro": "When evaluating alternatives to Looker Studio or other legacy tools, look for these three critical capabilities:",
+                "point1Title": "Zero-Latency Rendering",
+                "point1Desc": "Pre-fetched data architecture that eliminates loading spinners completely.",
+                "point2Title": "Generative AI Insights",
+                "point2Desc": "Automated text summaries that explain the 'why' behind the metrics, not just the 'what'.",
+                "point3Title": "Presentation-First Design",
+                "point3Desc": "Interfaces designed for storytelling, not just data dumping. Think 'slides' rather than 'spreadsheets'."
+            },
+            "faq": {
+                "title": "Common Questions About Switching Reporting Tools",
+                "q1": "Is it difficult to migrate from Looker Studio?",
+                "a1": "Not with Flipika. We offer a migration service that replicates your existing setups, but often, our native templates provide a better starting point that requires less maintenance.",
+                "q2": "Do I need technical skills to use Flipika?",
+                "a2": "No. Unlike legacy tools that require SQL or complex formula knowledge, Flipika is a no-code platform designed for marketers, not data scientists.",
+                "q3": "Can I white-label the reports?",
+                "a3": "Yes. Every part of the experience can be branded, from colors to logos. Your clients will never see Flipika's branding."
+            }
+        }
     },
     "page": {
         "seoTitle": "Best {{competitor}} Alternative for {{year}} | Flipika",
@@ -80,7 +106,7 @@
         },
         "whitelabel": {
             "title": "Complete White Label",
-            "description": "Your logo, your colors, your custom domain. Flipika vanishes behind your brand."
+            "description": "Your logo, your colors. Flipika vanishes behind your brand."
         },
         "ai": {
             "title": "AI Insights",
@@ -187,7 +213,7 @@
         },
         "tip4": {
             "title": "Configure white label from the start",
-            "description": "Upload your logo, define your brand colors, and set up your custom domain before creating your first reports. This avoids redoing everything later."
+            "description": "Upload your logo and define your brand colors before creating your first reports. This avoids redoing everything later."
         },
         "tip5": {
             "title": "Use templates as a base",
@@ -210,7 +236,7 @@
         "q3": "Is my data secure?",
         "a3": "Absolutely. Flipika is hosted on Google Cloud (same servers as Google Ads), uses SSL/TLS encryption, and is GDPR compliant. Your data is stored in Europe and never shared with third parties. We have the same security standards as online banks.",
         "q4": "Can I customize reports to my brand?",
-        "a4": "Yes, completely. You can upload your logo, define your brand colors, customize displayed metrics, and even use your own domain (e.g., reports.youragency.com). White label is included in all plans.",
+        "a4": "Yes, completely. You can upload your logo, define your brand colors, and customize displayed metrics. White label is included in all plans.",
         "q5": "How does migration work?",
         "a5": "Our team supports you for free. Send us your current Looker Studio dashboard links, we analyze them, and create the equivalents in Flipika. Typical migration: 1-2 days for 10-20 dashboards. You validate, and we launch.",
         "q6": "What happens if Google Ads changes their API?",
@@ -244,6 +270,24 @@
             "heroSubtitle": "Human error is inevitable. Automation is essential.",
             "painPointTitle": "The Copy-Paste Nightmare",
             "painPointDesc": "Spending Mondays copy-pasting Google Ads data is a waste of your talent. Automate the boring parts with Flipika."
+        },
+        "swydo": {
+            "indexDescription": "Design hasn't changed since 2015. Give your clients the modern experience they deserve.",
+            "heroSubtitle": "Your clients deserve better than 2015-style reports.",
+            "painPointTitle": "Outdated Design",
+            "painPointDesc": "Swydo reports look dated. Flipika offers a modern glassmorphism experience that impresses."
+        },
+        "reportgarden": {
+            "indexDescription": "Rare updates and slow interface. Flipika innovates weekly for you.",
+            "heroSubtitle": "Don't get stuck in the past. Flipika evolves as fast as marketing does.",
+            "painPointTitle": "Stalled Innovation",
+            "painPointDesc": "ReportGarden isn't evolving. Flipika ships new features every week."
+        },
+        "whatagraph": {
+            "indexDescription": "Very expensive as soon as you add sources. Flipika is unlimited and transparent.",
+            "heroSubtitle": "Stop paying extra for every new data source.",
+            "painPointTitle": "Escalating Costs",
+            "painPointDesc": "Whatagraph's pricing explodes with your growth. Flipika stays flat-rate."
         }
     },
     "highlights": {
@@ -254,6 +298,45 @@
         "simplicity": {
             "title": "Pure Clarity",
             "desc": "Minimalist design that highlights what matters: your ROI."
+        }
+    },
+    "features": {
+        "setupTime": "Setup Time",
+        "whiteLabel": "White Label",
+        "aiInsights": "AI Insights",
+        "automatedScheduling": "Automated Scheduling",
+        "pptxExport": "PPTX Export",
+        "costPerClient": "Cost per Client",
+        "unlimitedReports": "Unlimited Reports",
+        "slideBasedEditing": "Slide-based Editing",
+        "realTimeSync": "Real-time Sync",
+        "automatedDataSync": "Automated Data Sync",
+        "visualBranding": "Visual Branding",
+        "clientLogin": "Client Login",
+        "versionControl": "Version Control",
+        "modernUiUx": "Modern UI/UX",
+        "interactiveCharts": "Interactive Charts",
+        "unlimitedUsers": "Unlimited Users",
+        "innovationSpeed": "Innovation Speed",
+        "customerSupport": "Customer Support",
+        "aiCapabilities": "AI Capabilities",
+        "easeOfUse": "Ease of Use",
+        "affordableScaling": "Affordable Scaling",
+        "visualQuality": "Visual Quality",
+        "dataSourceLimit": "Data Source Limit",
+        "clientPortal": "Client Portal"
+    },
+    "schema": {
+        "productDescription": "Best {{competitor}} alternative for Google Ads reporting. Save time and automate your reports.",
+        "faq": {
+            "whyBest": {
+                "question": "Why is Flipika the best {{competitor}} alternative?",
+                "answer": "Flipika offers better speed, more specialized Google Ads insights, and a presentation-first layout compared to {{competitor}}."
+            },
+            "isCheaper": {
+                "question": "Is Flipika cheaper than {{competitor}}?",
+                "answer": "Flipika offers competitive plans starting at 29€/month with unlimited reports, often making it more cost-effective than {{competitor}}."
+            }
         }
     }
 }

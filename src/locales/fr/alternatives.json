@@ -12,7 +12,33 @@
         "highlight1": "Analyses Propulsées par l'IA",
         "highlight1Desc": "Obtenez des résumés instantanés de vos performances Google Ads sans analyse manuelle.",
         "highlight2": "Pensé pour les Agences",
-        "highlight2Desc": "Automatisez vos rapports clients et consacrez plus de temps à la stratégie qu'à la mise en forme."
+        "highlight2Desc": "Automatisez vos rapports clients et consacrez plus de temps à la stratégie qu'à la mise en forme.",
+        "seoContent": {
+            "problem": {
+                "title": "Pourquoi les Agences abandonnent les outils de reporting obsolètes",
+                "p1": "Bien qu'Excel et les premiers tableaux de bord aient été révolutionnaires en 2010, ils représentent aujourd'hui un frein. Les temps de chargement lents, la saisie manuelle et les connecteurs API défaillants coûtent aux agences des milliers d'heures facturables chaque année.",
+                "p2": "Les agences modernes ont besoin de vitesse. Attendre 30 secondes qu'un rapport charge en pleine présentation client n'est plus acceptable. Les clients exigent un accès temps réel, des données interactives et des designs mobile-first aussi professionnels que les campagnes que vous gérez pour eux."
+            },
+            "solution": {
+                "title": "Qu'est-ce qu'une Plateforme de Reporting Moderne en 2026 ?",
+                "intro": "Lorsque vous évaluez les alternatives à Looker Studio ou autres outils hérités, cherchez ces trois capacités critiques :",
+                "point1Title": "Rendu Zéro Latence",
+                "point1Desc": "Une architecture de pré-chargement des données éliminant totalement les temps d'attente.",
+                "point2Title": "Insights d'IA Générative",
+                "point2Desc": "Des résumés textuels automatisés qui expliquent le 'pourquoi' derrière les chiffres, pas juste le 'quoi'.",
+                "point3Title": "Design Orienté Présentation",
+                "point3Desc": "Des interfaces conçues pour le storytelling, pas juste pour l'affichage de données. Pensez « diapositives » plutôt que « tableurs »."
+            },
+            "faq": {
+                "title": "Questions Fréquentes sur la Migration",
+                "q1": "Est-ce difficile de migrer depuis Looker Studio ?",
+                "a1": "Pas avec Flipika. Nous offrons un service de migration qui reproduit vos configurations existantes, mais souvent, nos templates natifs offrent un meilleur point de départ nécessitant moins de maintenance.",
+                "q2": "Faut-il des compétences techniques pour utiliser Flipika ?",
+                "a2": "Non. Contrairement aux outils hérités qui nécessitent du SQL ou des formules complexes, Flipika est une plateforme no-code conçue pour les marketeurs, pas les data scientists.",
+                "q3": "Puis-je mettre les rapports en marque blanche ?",
+                "a3": "Oui. Chaque partie de l'expérience peut être brandée, des couleurs aux logos. Vos clients ne verront jamais la marque Flipika."
+            }
+        }
     },
     "page": {
         "seoTitle": "Meilleure Alternative à {{competitor}} en {{year}} | Flipika",
@@ -80,7 +106,7 @@
         },
         "whitelabel": {
             "title": "White Label Complet",
-            "description": "Votre logo, vos couleurs, votre domaine personnalisé. Flipika disparaît derrière votre marque."
+            "description": "Votre logo, vos couleurs. Flipika disparaît derrière votre marque."
         },
         "ai": {
             "title": "Insights IA",
@@ -187,7 +213,7 @@
         },
         "tip4": {
             "title": "Configurez votre white label dès le départ",
-            "description": "Uploadez votre logo, définissez vos couleurs de marque et paramétrez votre domaine personnalisé avant de créer vos premiers rapports. Ça évitera de tout refaire après."
+            "description": "Uploadez votre logo et définissez vos couleurs de marque avant de créer vos premiers rapports. Ça évitera de tout refaire après."
         },
         "tip5": {
             "title": "Utilisez les templates comme base",
@@ -210,7 +236,7 @@
         "q3": "Mes données sont-elles sécurisées ?",
         "a3": "Absolument. Flipika est hébergé sur Google Cloud (mêmes serveurs que Google Ads), utilise le chiffrement SSL/TLS, et est conforme RGPD. Vos données sont stockées en Europe et jamais partagées avec des tiers. Nous avons les mêmes standards de sécurité que les banques en ligne.",
         "q4": "Puis-je personnaliser les rapports à mon image ?",
-        "a4": "Oui, complètement. Vous pouvez uploader votre logo, définir vos couleurs de marque, personnaliser les métriques affichées, et même utiliser votre propre domaine (ex: reports.votreagence.com). Le white label est inclus dans tous nos plans.",
+        "a4": "Oui, complètement. Vous pouvez uploader votre logo, définir vos couleurs de marque et personnaliser les métriques affichées. Le white label est inclus dans tous nos plans.",
         "q5": "Comment fonctionne la migration ?",
         "a5": "Notre équipe vous accompagne gratuitement. Vous nous envoyez les liens de vos dashboards Looker Studio actuels, nous les analysons, et nous créons les équivalents dans Flipika. Migration typique : 1-2 jours pour 10-20 dashboards. Vous validez, et on lance.",
         "q6": "Qu'arrive-t-il si Google Ads change son API ?",
@@ -244,6 +270,24 @@
             "heroSubtitle": "L'erreur humaine est inévitable. L'automatisation est indispensable.",
             "painPointTitle": "Le Cauchemar du Copier-Coller",
             "painPointDesc": "Passer vos lundis à copier-coller des données Google Ads est un gâchis de talent. Automatisez le tout avec Flipika."
+        },
+        "swydo": {
+            "indexDescription": "Le design n'a pas bougé depuis 2015. Offrez à vos clients l'expérience moderne qu'ils méritent.",
+            "heroSubtitle": "Vos clients méritent mieux que des rapports au look 2015.",
+            "painPointTitle": "Design Dépassé",
+            "painPointDesc": "Les rapports Swydo font datés. Flipika offre une expérience glassmorphism moderne qui impressionne."
+        },
+        "reportgarden": {
+            "indexDescription": "Mises à jour rares et interface lente. Flipika innove chaque semaine pour vous.",
+            "heroSubtitle": "Ne restez pas bloqué dans le passé. Flipika évolue aussi vite que le marketing.",
+            "painPointTitle": "Innovation au Point Mort",
+            "painPointDesc": "ReportGarden n'évolue plus. Flipika sort de nouvelles fonctionnalités chaque semaine."
+        },
+        "whatagraph": {
+            "indexDescription": "Très cher dès que vous ajoutez des sources. Flipika est illimité et transparent.",
+            "heroSubtitle": "Arrêtez de payer un supplément pour chaque nouvelle source de données.",
+            "painPointTitle": "L'Escalade des Coûts",
+            "painPointDesc": "Le pricing de Whatagraph explose avec votre croissance. Flipika propose un prix fixe."
         }
     },
     "highlights": {
@@ -254,6 +298,45 @@
         "simplicity": {
             "title": "Pure Clarté",
             "desc": "Un design minimaliste qui met en avant l'essentiel : votre ROI."
+        }
+    },
+    "features": {
+        "setupTime": "Temps de configuration",
+        "whiteLabel": "Marque blanche",
+        "aiInsights": "Insights IA",
+        "automatedScheduling": "Planification automatisée",
+        "pptxExport": "Export PPTX",
+        "costPerClient": "Coût par client",
+        "unlimitedReports": "Rapports illimités",
+        "slideBasedEditing": "Édition type slides",
+        "realTimeSync": "Synchro temps réel",
+        "automatedDataSync": "Synchro auto des données",
+        "visualBranding": "Branding visuel",
+        "clientLogin": "Connexion client",
+        "versionControl": "Contrôle de version",
+        "modernUiUx": "UI/UX Moderne",
+        "interactiveCharts": "Graphiques interactifs",
+        "unlimitedUsers": "Utilisateurs illimités",
+        "innovationSpeed": "Vitesse d'innovation",
+        "customerSupport": "Support client",
+        "aiCapabilities": "Capacités IA",
+        "easeOfUse": "Facilité d'utilisation",
+        "affordableScaling": "Croissance abordable",
+        "visualQuality": "Qualité visuelle",
+        "dataSourceLimit": "Limite de sources de données",
+        "clientPortal": "Portail client"
+    },
+    "schema": {
+        "productDescription": "Meilleure alternative à {{competitor}} pour le reporting Google Ads. Gagnez du temps et automatisez vos rapports.",
+        "faq": {
+            "whyBest": {
+                "question": "Pourquoi Flipika est la meilleure alternative à {{competitor}} ?",
+                "answer": "Flipika offre une meilleure vitesse, des insights Google Ads plus spécialisés et une mise en page orientée présentation par rapport à {{competitor}}."
+            },
+            "isCheaper": {
+                "question": "Flipika est-il moins cher que {{competitor}} ?",
+                "answer": "Flipika propose des plans compétitifs à partir de 29€/mois avec des rapports illimités, ce qui est souvent plus rentable que {{competitor}}."
+            }
         }
     }
 }

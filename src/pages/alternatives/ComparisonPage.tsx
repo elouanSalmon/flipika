@@ -33,6 +33,16 @@ const ComparisonPage: React.FC = () => {
         setOpenUseCase(openUseCase === id ? null : id);
     };
 
+    // FAQ Schema
+    const faqSchema = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8'].map(qKey => ({
+        "@type": "Question",
+        "name": t(`${competitor.slug}:faq.${qKey}`),
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": t(`${competitor.slug}:faq.${qKey.replace('q', 'a')}`)
+        }
+    }));
+
     // Structured Data for SEO
     const structuredData = {
         "@context": "https://schema.org",
@@ -47,9 +57,10 @@ const ComparisonPage: React.FC = () => {
         },
         "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "500"
-        }
+            "ratingValue": competitor.ratingValue,
+            "reviewCount": competitor.reviewCount
+        },
+        "mainEntity": faqSchema
     };
 
     return (
@@ -100,7 +111,7 @@ const ComparisonPage: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-7xl font-bold mb-10 text-[var(--color-text-primary)] leading-[1.1] tracking-tight whitespace-pre-line"
+                            className="text-5xl md:text-7xl font-bold mb-10 text-[var(--color-text-primary)] leading-[1.1] tracking-tight whitespace-pre-line text-balance drop-shadow-sm"
                         >
                             {t(`${competitor.slug}:page.h1Title`, { competitor: competitor.name, year: '2026' })}
                         </motion.h1>
@@ -130,10 +141,10 @@ const ComparisonPage: React.FC = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
                             onClick={() => window.location.href = i18n.language === 'fr' ? '/fr/login' : '/login'}
-                            className="px-10 py-5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] hover:opacity-90 text-white rounded-2xl font-bold text-lg shadow-lg hover:shadow-[var(--shadow-glow-blue)] hover:-translate-y-1 transition-all flex items-center gap-3 mx-auto"
+                            className="group px-10 py-5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] hover:opacity-90 text-white rounded-2xl font-bold text-lg shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all flex items-center gap-3 mx-auto"
                         >
                             {t('alternatives:page.cta')}
-                            <ArrowRight size={20} />
+                            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                         </motion.button>
                     </section>
 
