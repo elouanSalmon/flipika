@@ -1,6 +1,7 @@
 import React from 'react';
 import { Editor, isNodeSelection } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
+import { CellSelection } from '@tiptap/pm/tables';
 
 import {
     Bold,
@@ -18,9 +19,10 @@ import {
 
 interface TextBubbleMenuProps {
     editor: Editor;
+    appendTo?: React.RefObject<HTMLElement | null>;
 }
 
-export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
+export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor, appendTo }) => {
     if (!editor) {
         return null;
     }
@@ -28,11 +30,15 @@ export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
     const shouldShow = ({ editor }: { editor: Editor }) => {
         const { selection } = editor.state;
 
-        // Show bubble menu only when there is a selection and it's not a custom block or node selection
-        return !selection.empty &&
-            !isNodeSelection(selection) &&
-            !editor.isActive('table') &&
-            !editor.isActive('dataBlock');
+        // Never show for empty selections, node selections, or data blocks
+        if (selection.empty || isNodeSelection(selection)) return false;
+        if (editor.isActive('dataBlock')) return false;
+
+        // Don't show for cell selections (multi-cell drag) — let the table bubble menu handle those
+        if (selection instanceof CellSelection) return false;
+
+        // Show for text selections, including text selected inside table cells
+        return true;
     };
 
     const BubbleButton: React.FC<{
@@ -42,7 +48,7 @@ export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
         title: string;
     }> = ({ onClick, isActive, icon: Icon, title }) => (
         <button
-            onClick={(e) => {
+            onMouseDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 onClick();
@@ -63,6 +69,13 @@ export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
             editor={editor}
             pluginKey="text-bubble-menu"
             shouldShow={shouldShow}
+            updateDelay={0}
+            appendTo={appendTo ? () => appendTo.current ?? document.body : undefined}
+            options={{
+                strategy: 'fixed',
+                placement: 'top',
+                offset: 8,
+            }}
             className="tiptap-bubble-menu"
         >
             <div className="flex bg-white dark:bg-black rounded-lg shadow-xl border border-neutral-200 dark:border-white/10 overflow-hidden divide-x divide-neutral-200 dark:divide-white/10">
@@ -84,13 +97,13 @@ export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
                         onClick={() => editor.chain().focus().toggleUnderline().run()}
                         isActive={editor.isActive('underline')}
                         icon={Underline}
-                        title="Souligné (Ctrl+U)"
+                        title="Souligne (Ctrl+U)"
                     />
                     <BubbleButton
                         onClick={() => editor.chain().focus().toggleStrike().run()}
                         isActive={editor.isActive('strike')}
                         icon={Strikethrough}
-                        title="Barré"
+                        title="Barre"
                     />
                     <BubbleButton
                         onClick={() => editor.chain().focus().toggleHighlight().run()}
@@ -128,7 +141,7 @@ export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
                         onClick={() => editor.chain().focus().setTextAlign('left').run()}
                         isActive={editor.isActive({ textAlign: 'left' })}
                         icon={AlignLeft}
-                        title="Aligner à gauche"
+                        title="Aligner a gauche"
                     />
                     <BubbleButton
                         onClick={() => editor.chain().focus().setTextAlign('center').run()}
@@ -140,7 +153,7 @@ export const TextBubbleMenu: React.FC<TextBubbleMenuProps> = ({ editor }) => {
                         onClick={() => editor.chain().focus().setTextAlign('right').run()}
                         isActive={editor.isActive({ textAlign: 'right' })}
                         icon={AlignRight}
-                        title="Aligner à droite"
+                        title="Aligner a droite"
                     />
                 </div>
             </div>

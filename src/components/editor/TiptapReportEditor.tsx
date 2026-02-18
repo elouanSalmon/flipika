@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useRef } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
@@ -85,6 +85,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
     onOpenSettings,
 }) => {
     const [showMediaManager, setShowMediaManager] = useState(false);
+    const bubbleMenuContainerRef = useRef<HTMLDivElement>(null);
 
     const defaultContent = {
         type: 'doc',
@@ -110,9 +111,24 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
             underline: false,
         }),
         Placeholder.configure({
-            placeholder: ({ node }) => {
+            placeholder: ({ editor, node, pos }) => {
+                // Never show placeholder inside table cells or headers
                 if (node.type.name === 'tableCell' || node.type.name === 'tableHeader') {
                     return '';
+                }
+                // Also check if a paragraph is inside a table cell (the placeholder applies to child <p> nodes)
+                if (node.type.name === 'paragraph' && pos >= 0) {
+                    try {
+                        const $pos = editor.state.doc.resolve(pos);
+                        for (let d = $pos.depth; d > 0; d--) {
+                            const parentName = $pos.node(d).type.name;
+                            if (parentName === 'tableCell' || parentName === 'tableHeader') {
+                                return '';
+                            }
+                        }
+                    } catch {
+                        // Ignore resolve errors on stale positions
+                    }
                 }
                 return placeholder;
             },
@@ -502,6 +518,7 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                 onOpenSettings={onOpenSettings}
             >
                 <div
+                    ref={bubbleMenuContainerRef}
                     className="tiptap-slide-editor-layout"
                     style={{
                         '--highlight-color': highlightColor,
@@ -521,8 +538,6 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                         />
                         <div className="tiptap-editor-content slide-editor-container">
                             <EditorContent editor={editor} />
-                            <TableBubbleMenu editor={editor} />
-                            <TextBubbleMenu editor={editor} />
                         </div>
                         {/* Floating Chart Selector */}
                         <ChartBlockSelector editor={editor} />
@@ -535,6 +550,10 @@ export const TiptapReportEditor: React.FC<TiptapReportEditorProps> = ({
                         />
 
                     </div>
+
+                    {/* Bubble Menus — rendered outside overflow:hidden containers */}
+                    <TableBubbleMenu editor={editor} appendTo={bubbleMenuContainerRef} />
+                    <TextBubbleMenu editor={editor} appendTo={bubbleMenuContainerRef} />
                 </div>
             </ReportEditorProvider>
         </FontProvider>

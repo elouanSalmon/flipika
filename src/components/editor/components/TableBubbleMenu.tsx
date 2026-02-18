@@ -1,30 +1,67 @@
 import React from 'react';
 import { Editor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
+import { CellSelection } from '@tiptap/pm/tables';
 import {
-    BetweenHorizonalStart, // Add Col Before
-    BetweenHorizonalEnd,   // Add Col After
-    BetweenVerticalStart,  // Add Row Before
-    BetweenVerticalEnd,    // Add Row After
-    Trash2,                // Delete
-    Merge,                 // Merge Cells
-    Split,                 // Split Cell
-    Grid3X3,               // Header Toggle (visual cue)
-    Columns,               // Delete Col
-    Rows                   // Delete Row
+    BetweenVerticalStart,    // Add Col Before (vertical bars = columns)
+    BetweenVerticalEnd,      // Add Col After
+    BetweenHorizontalStart,  // Add Row Before (horizontal bars = rows)
+    BetweenHorizontalEnd,    // Add Row After
+    Trash2,                  // Delete table
+    Columns,                 // Delete Col
+    Rows                     // Delete Row
 } from 'lucide-react';
 
 interface TableBubbleMenuProps {
     editor: Editor;
+    appendTo?: React.RefObject<HTMLElement | null>;
 }
 
-export const TableBubbleMenu: React.FC<TableBubbleMenuProps> = ({ editor }) => {
+const TableButton: React.FC<{
+    onAction: () => void;
+    icon: React.ElementType;
+    title: string;
+    disabled?: boolean;
+    variant?: 'default' | 'danger';
+}> = ({ onAction, icon: Icon, title, disabled = false, variant = 'default' }) => {
+    const baseClass = 'p-1.5 rounded disabled:opacity-30 disabled:cursor-not-allowed';
+    const variantClass = variant === 'danger'
+        ? 'hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400'
+        : 'hover:bg-neutral-100 dark:hover:bg-white/5 text-neutral-700 dark:text-neutral-300';
+
+    return (
+        <button
+            type="button"
+            disabled={disabled}
+            onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (!disabled) {
+                    onAction();
+                }
+            }}
+            className={`${baseClass} ${variantClass}`}
+            title={title}
+        >
+            <Icon size={16} />
+        </button>
+    );
+};
+
+export const TableBubbleMenu: React.FC<TableBubbleMenuProps> = ({ editor, appendTo }) => {
     if (!editor) {
         return null;
     }
 
     const shouldShow = ({ editor }: { editor: Editor }) => {
-        return editor.isActive('table');
+        if (!editor.isActive('table')) return false;
+
+        const { selection } = editor.state;
+
+        // Show for cell selections (multi-cell) or empty selections (cursor in cell)
+        // Hide when there's a text selection inside a cell — TextBubbleMenu handles that
+        if (selection instanceof CellSelection) return true;
+        return selection.empty;
     };
 
     return (
@@ -32,95 +69,67 @@ export const TableBubbleMenu: React.FC<TableBubbleMenuProps> = ({ editor }) => {
             editor={editor}
             pluginKey="table-bubble-menu"
             shouldShow={shouldShow}
+            updateDelay={0}
+            appendTo={appendTo ? () => appendTo.current ?? document.body : undefined}
+            options={{
+                strategy: 'fixed',
+                placement: 'top',
+                offset: 8,
+                flip: { fallbackPlacements: ['bottom', 'top-start', 'bottom-start'] },
+            }}
             className="tiptap-bubble-menu"
         >
             <div className="flex bg-white dark:bg-black rounded-lg shadow-xl border border-neutral-200 dark:border-white/10 overflow-hidden divide-x divide-neutral-200 dark:divide-white/10">
-                {/* Columns */}
+                {/* Columns — vertical bars icon = columns */}
                 <div className="flex p-1 gap-1">
-                    <button
-                        onClick={() => editor.chain().focus().addColumnBefore().run()}
-                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-white/5 rounded text-neutral-700 dark:text-neutral-300"
+                    <TableButton
+                        onAction={() => editor.chain().focus().addColumnBefore().run()}
+                        icon={BetweenVerticalStart}
                         title="Ajouter colonne avant"
-                    >
-                        <BetweenHorizonalStart size={16} />
-                    </button>
-                    <button
-                        onClick={() => editor.chain().focus().addColumnAfter().run()}
-                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-white/5 rounded text-neutral-700 dark:text-neutral-300"
-                        title="Ajouter colonne après"
-                    >
-                        <BetweenHorizonalEnd size={16} />
-                    </button>
-                    <button
-                        onClick={() => editor.chain().focus().deleteColumn().run()}
-                        className="p-1.5 hover:bg-red-100 dark:hover:bg-red-900/30 rounded text-red-600 dark:text-red-400"
+                    />
+                    <TableButton
+                        onAction={() => editor.chain().focus().addColumnAfter().run()}
+                        icon={BetweenVerticalEnd}
+                        title="Ajouter colonne apres"
+                    />
+                    <TableButton
+                        onAction={() => editor.chain().focus().deleteColumn().run()}
+                        icon={Columns}
                         title="Supprimer la colonne"
-                    >
-                        <Columns size={16} />
-                    </button>
+                        variant="danger"
+                    />
                 </div>
 
-                {/* Rows */}
+                {/* Rows — horizontal bars icon = rows */}
                 <div className="flex p-1 gap-1">
-                    <button
-                        onClick={() => editor.chain().focus().addRowBefore().run()}
-                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-white/5 rounded text-neutral-700 dark:text-neutral-300"
+                    <TableButton
+                        onAction={() => editor.chain().focus().addRowBefore().run()}
+                        icon={BetweenHorizontalStart}
                         title="Ajouter ligne avant"
-                    >
-                        <BetweenVerticalStart size={16} />
-                    </button>
-                    <button
-                        onClick={() => editor.chain().focus().addRowAfter().run()}
-                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-white/5 rounded text-neutral-700 dark:text-neutral-300"
-                        title="Ajouter ligne après"
-                    >
-                        <BetweenVerticalEnd size={16} />
-                    </button>
-                    <button
-                        onClick={() => editor.chain().focus().deleteRow().run()}
-                        className="p-1.5 hover:bg-red-100 dark:hover:bg-red-900/30 rounded text-red-600 dark:text-red-400"
+                        disabled={!editor.can().addRowBefore()}
+                    />
+                    <TableButton
+                        onAction={() => editor.chain().focus().addRowAfter().run()}
+                        icon={BetweenHorizontalEnd}
+                        title="Ajouter ligne apres"
+                    />
+                    <TableButton
+                        onAction={() => editor.chain().focus().deleteRow().run()}
+                        icon={Rows}
                         title="Supprimer la ligne"
-                    >
-                        <Rows size={16} />
-                    </button>
+                        variant="danger"
+                        disabled={!editor.can().deleteRow()}
+                    />
                 </div>
 
-                {/* Cells */}
+                {/* Delete table */}
                 <div className="flex p-1 gap-1">
-                    <button
-                        onClick={() => editor.chain().focus().mergeCells().run()}
-                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-white/5 rounded text-neutral-700 dark:text-neutral-300"
-                        title="Fusionner les cellules"
-                        disabled={!editor.can().mergeCells()}
-                    >
-                        <Merge size={16} />
-                    </button>
-                    <button
-                        onClick={() => editor.chain().focus().splitCell().run()}
-                        className="p-1.5 hover:bg-neutral-100 dark:hover:bg-white/5 rounded text-neutral-700 dark:text-neutral-300"
-                        title="Diviser la cellule"
-                        disabled={!editor.can().splitCell()}
-                    >
-                        <Split size={16} />
-                    </button>
-                </div>
-
-                {/* Headers / Table */}
-                <div className="flex p-1 gap-1">
-                    <button
-                        onClick={() => editor.chain().focus().toggleHeaderRow().run()}
-                        className={`p-1.5 rounded ${editor.isActive('tableHeader') ? 'bg-primary-100 text-primary dark:bg-primary-900/30 dark:text-primary-light' : 'hover:bg-neutral-100 dark:hover:bg-white/5 text-neutral-700 dark:text-neutral-300'}`}
-                        title="En-tête"
-                    >
-                        <Grid3X3 size={16} />
-                    </button>
-                    <button
-                        onClick={() => editor.chain().focus().deleteTable().run()}
-                        className="p-1.5 hover:bg-red-100 dark:hover:bg-red-900/30 rounded text-red-600 dark:text-red-400"
+                    <TableButton
+                        onAction={() => editor.chain().focus().deleteTable().run()}
+                        icon={Trash2}
                         title="Supprimer le tableau"
-                    >
-                        <Trash2 size={16} />
-                    </button>
+                        variant="danger"
+                    />
                 </div>
             </div>
         </BubbleMenu>
