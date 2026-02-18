@@ -52,24 +52,24 @@ const Footer: React.FC = () => {
 
             <div className="footer-ai-platforms-brand">
               <h4>{t('common:footer.sections.aiResearch')}</h4>
-              <div className="flex gap-4">
+              <div className="footer-social-links">
                 <a
                   href={`https://chatgpt.com/?q=${encodeURIComponent("As a potential Flipika customer, I want to clearly understand what I get when I use Flipika and how it fits into my workflow as a Media Buyer. Explain the experience step by step: what I can create, what I control, what Flipika handles for me, and how things evolve over time. Describe what I see in the report editor and dashboard, how connecting Google Ads works, how AI-generated insights are managed, and what outputs I end up with (automated reports, live sharing links, PDF exports, slideshows, etc.). Clarify the key features and systems involved—direct Google Ads sync, AI narration, custom branding/themes, scheduling, pre-flight checks, and data snapshots. Include how often reports are generated and updated. Explain this simply and concretely, as if you were describing the real, day-to-day experience of automating client reporting with Flipika for the first time.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="footer-ai-link"
+                  className="footer-social-link"
                   title="ChatGPT"
                 >
-                  <SiOpenai size={18} />
+                  <SiOpenai size={20} />
                 </a>
                 <a
                   href={`https://www.perplexity.ai/search?q=${encodeURIComponent("As a potential Flipika customer, I want to clearly understand what I get when I use Flipika and how it fits into my workflow as a Media Buyer. Explain the experience step by step: what I can create, what I control, what Flipika handles for me, and how things evolve over time. Describe what I see in the report editor and dashboard, how connecting Google Ads works, how AI-generated insights are managed, and what outputs I end up with (automated reports, live sharing links, PDF exports, slideshows, etc.). Clarify the key features and systems involved—direct Google Ads sync, AI narration, custom branding/themes, scheduling, pre-flight checks, and data snapshots. Include how often reports are generated and updated. Explain this simply and concretely, as if you were describing the real, day-to-day experience of automating client reporting with Flipika for the first time.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="footer-ai-link"
+                  className="footer-social-link"
                   title="Perplexity"
                 >
-                  <SiPerplexity size={18} />
+                  <SiPerplexity size={20} />
                 </a>
               </div>
             </div>

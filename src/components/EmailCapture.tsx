@@ -197,7 +197,6 @@ const EmailCapture: React.FC = () => {
           {/* Trust Indicators */}
           <div className="flex flex-wrap justify-center gap-10">
             {[
-              { value: '127', label: t('common:emailCapture.trust.activeBeta') },
               { value: '73', label: t('common:emailCapture.trust.remainingSpots') },
               { value: '+340%', label: t('common:emailCapture.trust.averageRoas') }
             ].map((stat) => (
@@ -211,6 +210,8 @@ const EmailCapture: React.FC = () => {
               </div>
             ))}
           </div>
+
+
         </motion.div>
       </div>
     </section>

@@ -306,7 +306,7 @@
   },
   "emailCapture": {
     "title": "Ready to ditch manual reporting?",
-    "subtitle": "Join the Media Buyers saving hours every week.",
+    "subtitle": "Join the marketers who save hours every week with Flipika.",
     "emailPlaceholder": "Your work email",
     "submitButton": "Get started for free",
     "successMessage": "Welcome! Your access is coming by email.",
@@ -319,7 +319,6 @@
       "influence": "No commitment"
     },
     "trust": {
-      "activeBeta": "active users",
       "remainingSpots": "remaining spots",
       "averageRoas": "Average time saved"
     }

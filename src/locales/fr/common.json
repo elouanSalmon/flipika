@@ -306,7 +306,7 @@
   },
   "emailCapture": {
     "title": "Prêt à en finir avec les reportings manuels ?",
-    "subtitle": "Rejoignez les Media Buyers qui gagnent des heures chaque semaine.",
+    "subtitle": "Rejoignez les marketeurs qui gagnent des heures chaque semaine avec Flipika.",
     "emailPlaceholder": "Votre email professionnel",
     "submitButton": "Commencer gratuitement",
     "successMessage": "Bienvenue ! Votre accès arrive par email.",
@@ -319,7 +319,6 @@
       "influence": "Sans engagement"
     },
     "trust": {
-      "activeBeta": "utilisateurs actifs",
       "remainingSpots": "places restantes",
       "averageRoas": "Temps gagné moyen"
     }
