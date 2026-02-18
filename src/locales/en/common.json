@@ -772,5 +772,57 @@
         "cnilWebsite": "<a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener noreferrer\">www.cnil.fr</a>"
       }
     }
+  },
+  "salesTerms": {
+    "title": "General Terms of Sales",
+    "backToHome": "Back to Home",
+    "lastUpdate": "<strong>Last updated:</strong> February 18, 2026",
+    "sections": {
+      "preamble": {
+        "title": "1. Preamble",
+        "content": "These General Terms of Sales (GTS) apply, without restriction or reservation, to all sales of services offered by Flipika (\"the Vendor\") to professional clients (\"the Client\") on the website flipika.com.<br/><br/>The Client declares having read and accepted these GTS before placing an order. The validation of the order implies unreserved acceptance of these GTS."
+      },
+      "services": {
+        "title": "2. Services and Plans",
+        "intro": "Flipika offers the following services:",
+        "subscription": "<strong>Subscription Plans:</strong> Monthly access to the service, renewable tacitly.",
+        "lifetime": "<strong>Lifetime Plan:</strong> One-time payment for perpetual access to the service version available at the time of purchase, including future updates, for the duration of the product's existence."
+      },
+      "orders": {
+        "title": "3. Orders",
+        "content": "The order is validated once the payment has been accepted. Flipika reserves the right to cancel or refuse any order from a Client with whom there is a dispute over payment of a previous order."
+      },
+      "pricing": {
+        "title": "4. Pricing",
+        "content": "Prices are indicated in Euros (€) excluding taxes (HT) or including taxes (TTC) depending on the Client's location. Flipika reserves the right to modify its prices at any time, but the Service will be invoiced based on the rates in effect at the time of order validation."
+      },
+      "payment": {
+        "title": "5. Payment Terms",
+        "content": "Payment is due immediately upon ordering. Payments are processed securely via Stripe. The Client guarantees that they have the necessary authorizations to use the chosen payment method."
+      },
+      "subscriptionTerms": {
+        "title": "6. Subscription Terms",
+        "duration": "<strong>Duration:</strong> Subscriptions are taken out for a specific period (monthly or annually) and are automatically renewed for the same duration unless terminated.",
+        "termination": "<strong>Termination:</strong> The Client may terminate their subscription at any time via their account settings. Termination takes effect at the end of the current subscription period. No prorated refund is granted for the current period."
+      },
+      "lifetimeTerms": {
+        "title": "7. Lifetime Plan Specificities",
+        "definition": "<strong>\"Lifetime\" Definition:</strong> \"Lifetime\" refers to the lifetime of the Product (Flipika), not the Client's life. If Flipika ceases operations, access may be terminated.",
+        "nonTransferable": "Access is personal, non-transferable, and linked to the initial purchaser account.",
+        "refund": "<strong>Refund Policy:</strong> The Lifetime plan is satisfied or refunded for 14 days after purchase. Beyond this period, no refund will be granted."
+      },
+      "withdrawal": {
+        "title": "8. Right of Withdrawal",
+        "content": "For professional clients, the right of withdrawal does not apply. However, Flipika offers a commercial \"money-back guarantee\" period of 14 days for all new subscriptions or lifetime plan purchases."
+      },
+      "liability": {
+        "title": "9. Liability",
+        "content": "Flipika is bound by an update of means. Its liability cannot be engaged for damages resulting from the use of the Internet network (loss of data, intrusion, virus, service disruption). Flipika's liability is limited to the amount paid by the Client for the service."
+      },
+      "applicableLaw": {
+        "title": "10. Applicable Law",
+        "content": "These GTS are subject to French law. Any dispute relating to their interpretation and/or execution falls under the jurisdiction of the French courts."
+      }
+    }
   }
 }

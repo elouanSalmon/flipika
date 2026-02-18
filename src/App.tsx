@@ -43,6 +43,7 @@ import ThemesPage from './pages/ThemesPage';
 import LegalNotices from './pages/LegalNotices';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import SalesTerms from './pages/SalesTerms';
 import Sitemap from './pages/Sitemap';
 import NotFound from './pages/NotFound';
 import ClientsPage from './pages/ClientsPage';
@@ -137,6 +138,7 @@ const AppRoutes = () => {
         <Route path="legal-notices" element={<LegalNotices />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="terms-of-service" element={<TermsOfService />} />
+        <Route path="sales-terms" element={<SalesTerms />} />
         <Route path="alternatives" element={<ComparisonIndex />} />
         <Route path="alternatives/:slug" element={<ComparisonPage />} />
         <Route path="templates/:slug" element={<TemplateLandingPage />} />
@@ -251,6 +253,7 @@ const AppRoutes = () => {
       <Route path="/mentions-legales" element={<Navigate to="/legal-notices" replace />} />
       <Route path="/politique-confidentialite" element={<Navigate to="/privacy-policy" replace />} />
       <Route path="/conditions-utilisation" element={<Navigate to="/terms-of-service" replace />} />
+      <Route path="/cgv" element={<Navigate to="/sales-terms" replace />} />
     </Routes>
   );
 };
@@ -277,42 +280,42 @@ function App() {
         <SubscriptionProvider>
           <GoogleAdsProvider>
             <MetaAdsProvider>
-            <TutorialProvider>
-              <DemoModeProvider>
-                <FeatureFlagsProvider>
-                  <Toaster
-                    position="top-right"
-                    toastOptions={{
-                      duration: 4000,
-                      style: {
-                        background: 'var(--color-bg-primary)',
-                        color: 'var(--color-text-primary)',
-                        border: '1px solid var(--color-border)',
-                      },
-                      success: {
-                        iconTheme: {
-                          primary: '#10b981',
-                          secondary: '#fff',
+              <TutorialProvider>
+                <DemoModeProvider>
+                  <FeatureFlagsProvider>
+                    <Toaster
+                      position="top-right"
+                      toastOptions={{
+                        duration: 4000,
+                        style: {
+                          background: 'var(--color-bg-primary)',
+                          color: 'var(--color-text-primary)',
+                          border: '1px solid var(--color-border)',
                         },
-                      },
-                      error: {
-                        iconTheme: {
-                          primary: '#ef4444',
-                          secondary: '#fff',
+                        success: {
+                          iconTheme: {
+                            primary: '#10b981',
+                            secondary: '#fff',
+                          },
                         },
-                      },
-                    }}
-                  />
-                  <HubSpotChat />
-                  <CookieConsent />
-                  <InstallPWA />
-                  <AnalyticsTracker />
-                  <div className="App">
-                    <AppContent />
-                  </div>
-                </FeatureFlagsProvider>
-              </DemoModeProvider>
-            </TutorialProvider>
+                        error: {
+                          iconTheme: {
+                            primary: '#ef4444',
+                            secondary: '#fff',
+                          },
+                        },
+                      }}
+                    />
+                    <HubSpotChat />
+                    <CookieConsent />
+                    <InstallPWA />
+                    <AnalyticsTracker />
+                    <div className="App">
+                      <AppContent />
+                    </div>
+                  </FeatureFlagsProvider>
+                </DemoModeProvider>
+              </TutorialProvider>
             </MetaAdsProvider>
           </GoogleAdsProvider>
         </SubscriptionProvider>

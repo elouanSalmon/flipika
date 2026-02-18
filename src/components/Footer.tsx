@@ -144,6 +144,7 @@ const Footer: React.FC = () => {
             <Link to={getPath('/legal-notices')}>{t('common:footer.legal')}</Link>
             <Link to={getPath('/privacy-policy')}>{t('common:footer.privacy')}</Link>
             <Link to={getPath('/terms-of-service')}>{t('common:footer.terms')}</Link>
+            <Link to={getPath('/sales-terms')}>{t('common:salesTerms.title')}</Link>
           </div>
           <div className="footer-copyright">
             © {new Date().getFullYear()} Flipika. {t('common:footer.copyright')}.

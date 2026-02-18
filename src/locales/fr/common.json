@@ -926,7 +926,57 @@
   "actions": {
     "clear": "Effacer"
   },
-  "status": {
-    "loading": "Chargement..."
+  "status": {},
+  "salesTerms": {
+    "title": "Conditions Générales de Vente",
+    "backToHome": "Retour à l'accueil",
+    "lastUpdate": "<strong>Dernière mise à jour :</strong> 18 février 2026",
+    "sections": {
+      "preamble": {
+        "title": "1. Préambule",
+        "content": "Les présentes Conditions Générales de Vente (CGV) s'appliquent, sans restriction ni réserve, à l'ensemble des ventes de services proposées par Flipika (« le Vendeur ») aux clients professionnels (« le Client ») sur le site flipika.com.<br/><br/>Le Client déclare avoir pris connaissance des présentes CGV et les avoir acceptées avant la passation de sa commande. La validation de la commande vaut acceptation sans réserve des présentes CGV."
+      },
+      "services": {
+        "title": "2. Services et Plans",
+        "intro": "Flipika propose les services suivants :",
+        "subscription": "<strong>Plans par Abonnement :</strong> Accès mensuel au service, renouvelable par tacite reconduction.",
+        "lifetime": "<strong>Plan à Vie (Lifetime) :</strong> Paiement unique pour un accès perpétuel à la version du service disponible au moment de l'achat, incluant les mises à jour futures, pour la durée d'existence du produit."
+      },
+      "orders": {
+        "title": "3. Commandes",
+        "content": "La commande est validée une fois le paiement accepté. Flipika se réserve le droit d'annuler ou de refuser toute commande d'un Client avec lequel il existerait un litige relatif au paiement d'une commande antérieure."
+      },
+      "pricing": {
+        "title": "4. Tarifs",
+        "content": "Les prix sont indiqués en Euros (€) Hors Taxes (HT) ou Toutes Taxes Comprises (TTC) selon la localisation du Client. Flipika se réserve le droit de modifier ses prix à tout moment, mais le Service sera facturé sur la base des tarifs en vigueur au moment de la validation de la commande."
+      },
+      "payment": {
+        "title": "5. Conditions de Paiement",
+        "content": "Le paiement est exigible immédiatement à la commande. Les paiements sont traités de manière sécurisée via Stripe. Le Client garantit qu'il dispose des autorisations nécessaires pour utiliser le mode de paiement choisi."
+      },
+      "subscriptionTerms": {
+        "title": "6. Modalités d'Abonnement",
+        "duration": "<strong>Durée :</strong> Les abonnements sont souscrits pour une durée déterminée (mensuelle ou annuelle) et sont renouvelés automatiquement pour la même durée, sauf résiliation.",
+        "termination": "<strong>Résiliation :</strong> Le Client peut résilier son abonnement à tout moment via les paramètres de son compte. La résiliation prend effet à la fin de la période d'abonnement en cours. Aucun remboursement au prorata n'est accordé pour la période en cours."
+      },
+      "lifetimeTerms": {
+        "title": "7. Spécificités du Plan à Vie",
+        "definition": "<strong>Définition \"à Vie\" :</strong> \"À vie\" fait référence à la durée de vie du Produit (Flipika), et non à la vie du Client. Si Flipika cesse ses activités, l'accès peut être résilié.",
+        "nonTransferable": "L'accès est personnel, non transférable et lié au compte de l'acheteur initial.",
+        "refund": "<strong>Politique de Remboursement :</strong> Le plan à vie est satisfait ou remboursé pendant 14 jours après l'achat. Au-delà de ce délai, aucun remboursement ne sera accordé."
+      },
+      "withdrawal": {
+        "title": "8. Droit de Rétractation",
+        "content": "Pour les clients professionnels, le droit de rétractation ne s'applique pas. Toutefois, Flipika offre une garantie commerciale \"satisfait ou remboursé\" de 14 jours pour tout nouvel abonnement ou achat de plan à vie."
+      },
+      "liability": {
+        "title": "9. Responsabilité",
+        "content": "Flipika est tenu à une obligation de moyens. Sa responsabilité ne saurait être engagée pour des dommages résultant de l'utilisation du réseau Internet (perte de données, intrusion, virus, rupture du service). La responsabilité de Flipika est limitée au montant payé par le Client pour le service."
+      },
+      "applicableLaw": {
+        "title": "10. Droit Applicable",
+        "content": "Les présentes CGV sont soumises au droit français. Tout litige relatif à leur interprétation et/ou à leur exécution relève des juridictions françaises."
+      }
+    }
   }
 }
