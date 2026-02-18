@@ -220,6 +220,7 @@ const PublicReportView: React.FC = () => {
                         accountId={report.accountId}
                         campaignIds={report.campaignIds}
                         reportId={report.id}
+                        reportTitle={report.title}
                         clientId={report.clientId}
                         userId={report.userId}
                         userName={author ? `${author.firstName} ${author.lastName}`.trim() : ''}
