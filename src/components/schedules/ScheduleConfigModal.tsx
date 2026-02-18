@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { X, Loader2, Info } from 'lucide-react';
 import type { ScheduledReport, ScheduleConfig } from '../../types/scheduledReportTypes';
 import type { ReportTemplate } from '../../types/templateTypes';
+import { PERIOD_PRESETS } from '../../types/templateTypes';
 import FrequencySelector from './FrequencySelector';
 import ConfirmationModal from '../common/ConfirmationModal';
 import './ScheduleConfigModal.css';
@@ -162,7 +163,10 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                             id="name"
                                             type="text"
                                             value={formData.name}
-                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                            onChange={(e) => {
+                                            const val = e.target.value;
+                                            setFormData(prev => ({ ...prev, name: val }));
+                                        }}
                                             placeholder={t('config.name.placeholder')}
                                             className={errors.name ? 'error' : ''}
                                             disabled={isSubmitting}
@@ -177,7 +181,10 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                         <textarea
                                             id="description"
                                             value={formData.description}
-                                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                            onChange={(e) => {
+                                            const val = e.target.value;
+                                            setFormData(prev => ({ ...prev, description: val }));
+                                        }}
                                             placeholder={t('config.description.placeholder')}
                                             rows={3}
                                             disabled={isSubmitting}
@@ -199,7 +206,10 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                         <select
                                             id="template"
                                             value={formData.templateId}
-                                            onChange={(e) => setFormData({ ...formData, templateId: e.target.value })}
+                                            onChange={(e) => {
+                                                const val = e.target.value;
+                                                setFormData(prev => ({ ...prev, templateId: val }));
+                                            }}
                                             className={errors.templateId ? 'error' : ''}
                                             disabled={isSubmitting}
                                         >
@@ -218,7 +228,7 @@ const ScheduleConfigModal: React.FC<ScheduleConfigModalProps> = ({
                                     <div className="template-preview">
                                         <div className="preview-item">
                                             <span className="preview-label">{t('config.preview.period')}:</span>
-                                            <span className="preview-value">{selectedTemplate?.periodPreset}</span>
+                                            <span className="preview-value">{PERIOD_PRESETS.find(p => p.value === selectedTemplate?.periodPreset)?.label || selectedTemplate?.periodPreset}</span>
                                         </div>
                                         <div className="preview-item">
                                             <span className="preview-label">{t('config.preview.slides')}:</span>

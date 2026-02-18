@@ -551,6 +551,19 @@ async function updateScheduleAfterExecution(
 }
 
 /**
+ * Get current Paris UTC offset in hours, handling DST automatically.
+ * CET (winter) = UTC+1, CEST (summer) = UTC+2
+ */
+function getParisOffsetHours(): number {
+    const now = new Date();
+    // Format a date in Europe/Paris to extract the UTC offset
+    const parisStr = now.toLocaleString("en-US", { timeZone: "Europe/Paris" });
+    const parisDate = new Date(parisStr);
+    const utcDate = new Date(now.toLocaleString("en-US", { timeZone: "UTC" }));
+    return Math.round((parisDate.getTime() - utcDate.getTime()) / (1000 * 60 * 60));
+}
+
+/**
  * Calculate next run time based on schedule configuration
  * All times are calculated in Europe/Paris timezone for consistency
  */
@@ -559,9 +572,8 @@ function calculateNextRunTime(config: any): Date {
     // Cloud Functions run in UTC, so we need to calculate the offset
     const now = new Date();
 
-    // Simple approach: use UTC and add 1 hour for CET (winter time)
-    // Note: This doesn't handle DST automatically, but it's good enough for most cases
-    const parisOffsetHours = 1; // CET = UTC+1 (for CEST it would be 2)
+    // Dynamically compute Paris offset to handle CET/CEST (DST) correctly
+    const parisOffsetHours = getParisOffsetHours();
 
     // Calculate next run based on frequency
     const next = new Date(now);
@@ -651,6 +663,15 @@ function calculateNextRunTime(config: any): Date {
 
         default:
             next.setUTCDate(next.getUTCDate() + 1);
+    }
+
+    // If a startDate is configured and is in the future, ensure nextRun is not before it
+    if (config.startDate) {
+        const startDate = new Date(config.startDate);
+        if (!isNaN(startDate.getTime()) && next < startDate) {
+            // Recalculate from startDate instead
+            return calculateNextRunTime({ ...config, startDate: undefined });
+        }
     }
 
     console.log(`Next run calculated: ${next.toISOString()} (config.hour=${config.hour}, frequency=${config.frequency})`);

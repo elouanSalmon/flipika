@@ -14,6 +14,7 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }
     const [dayOfWeek, setDayOfWeek] = useState<DayOfWeek>(value.dayOfWeek || 'monday');
     const [dayOfMonth, setDayOfMonth] = useState<number>(value.dayOfMonth || 1);
     const [cronExpression, setCronExpression] = useState<string>(value.cronExpression || '');
+    const [startDate, setStartDate] = useState<string>(value.startDate || '');
     const [error, setError] = useState<string>('');
 
     // Sync local state when incoming value prop changes (e.g., when editing a different schedule)
@@ -23,8 +24,10 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }
         setDayOfWeek(value.dayOfWeek || 'monday');
         setDayOfMonth(value.dayOfMonth || 1);
         setCronExpression(value.cronExpression || '');
-    }, [value.frequency, value.hour, value.dayOfWeek, value.dayOfMonth, value.cronExpression]);
+        setStartDate(value.startDate || '');
+    }, [value.frequency, value.hour, value.dayOfWeek, value.dayOfMonth, value.cronExpression, value.startDate]);
 
+    // Build config and notify parent when any field changes
     useEffect(() => {
         const config: ScheduleConfig = {
             frequency,
@@ -32,6 +35,7 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }
             ...(frequency === 'weekly' ? { dayOfWeek: dayOfWeek || 'monday' } : {}),
             ...(frequency === 'monthly' ? { dayOfMonth: dayOfMonth || 1 } : {}),
             ...(frequency === 'custom' ? { cronExpression } : {}),
+            ...(startDate ? { startDate } : {}),
         };
 
         const validation = validateScheduleConfig(config);
@@ -41,7 +45,7 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }
             setError('');
             onChange(config);
         }
-    }, [frequency, hour, dayOfWeek, dayOfMonth, cronExpression, onChange]);
+    }, [frequency, hour, dayOfWeek, dayOfMonth, cronExpression, startDate, onChange]);
 
     const getNextRunPreview = (): string => {
         try {
@@ -51,6 +55,7 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }
                 ...(frequency === 'weekly' ? { dayOfWeek: dayOfWeek || 'monday' } : {}),
                 ...(frequency === 'monthly' ? { dayOfMonth: dayOfMonth || 1 } : {}),
                 ...(frequency === 'custom' ? { cronExpression } : {}),
+                ...(startDate ? { startDate } : {}),
             };
 
             const validation = validateScheduleConfig(config);
@@ -78,28 +83,34 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }
         sunday: 'Dimanche'
     };
 
+
+
     return (
         <div className="frequency-selector">
             <div className="frequency-tabs">
                 <button
+                    type="button"
                     className={`frequency-tab ${frequency === 'daily' ? 'active' : ''}`}
                     onClick={() => setFrequency('daily')}
                 >
                     Quotidien
                 </button>
                 <button
+                    type="button"
                     className={`frequency-tab ${frequency === 'weekly' ? 'active' : ''}`}
                     onClick={() => setFrequency('weekly')}
                 >
                     Hebdomadaire
                 </button>
                 <button
+                    type="button"
                     className={`frequency-tab ${frequency === 'monthly' ? 'active' : ''}`}
                     onClick={() => setFrequency('monthly')}
                 >
                     Mensuel
                 </button>
                 <button
+                    type="button"
                     className={`frequency-tab ${frequency === 'custom' ? 'active' : ''}`}
                     onClick={() => setFrequency('custom')}
                 >
@@ -229,6 +240,8 @@ const FrequencySelector: React.FC<FrequencySelectorProps> = ({ value, onChange }
                         </a>
                     </div>
                 )}
+
+
             </div>
 
             {error && (

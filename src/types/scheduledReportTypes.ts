@@ -22,6 +22,9 @@ export interface ScheduleConfig {
 
     // Timezone for execution (default: user's timezone)
     timezone?: string;
+
+    // Optional start date: first execution will not happen before this date (ISO string)
+    startDate?: string;
 }
 
 // Scheduled report status
@@ -130,6 +133,15 @@ export function calculateNextRun(config: ScheduleConfig, fromDate: Date = new Da
             // For now, default to 1 hour from now
             next.setHours(next.getHours() + 1, 0, 0, 0);
             break;
+    }
+
+    // If a startDate is configured and is in the future, ensure nextRun is not before it
+    if (config.startDate) {
+        const startDate = new Date(config.startDate);
+        if (!isNaN(startDate.getTime()) && next < startDate) {
+            // Recalculate from startDate instead
+            return calculateNextRun({ ...config, startDate: undefined }, startDate);
+        }
     }
 
     return next;
