@@ -31,7 +31,7 @@ const GoogleOneTapInner: React.FC = () => {
         },
         // Only show when authentication loading is finished and user is not logged in
         disabled: loading || !!currentUser,
-        use_fedcm_for_prompt: false,
+        use_fedcm_for_prompt: true,
     });
 
     return null;

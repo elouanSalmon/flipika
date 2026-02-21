@@ -71,7 +71,7 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
                     <option value="roas">ROAS</option>
                 </select>
             </div>
-            <ResponsiveContainer width="100%" height={350} minHeight={350}>
+            <ResponsiveContainer width="100%" height={350} minHeight={350} minWidth={1}>
                 <BarChart data={chartData} layout="horizontal" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
                     <XAxis type="number" stroke={colors.axis} tick={{ fill: colors.axis }} style={{ fontSize: '12px' }} />

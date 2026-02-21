@@ -107,8 +107,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to initiate OAuth');
+                let errorDetails = '';
+                try {
+                    const errorData = await response.json();
+                    errorDetails = errorData.error || errorData.message || JSON.stringify(errorData);
+                } catch (e) {
+                    // If not JSON, get text (could be HTML)
+                    const text = await response.text();
+                    errorDetails = text.substring(0, 200); // Grab a snippet
+                    console.error('Non-JSON error response from initiateOAuth:', errorDetails);
+                }
+                throw new Error(`Failed to initiate OAuth: ${errorDetails}`);
             }
 
             const data = await response.json();
