@@ -1,9 +1,8 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, BarChart3, Target, Zap, LayoutDashboard, Share2, TrendingUp, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, BarChart3, Target, Zap, LayoutDashboard, Share2 } from 'lucide-react';
 import { SiGoogleads } from 'react-icons/si';
 
 import Header from '../../components/Header';
