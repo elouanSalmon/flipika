@@ -118,7 +118,7 @@ const META_DEVICE_SPLIT_DEFAULT_CONFIG: FlexibleDataConfig = {
  */
 export const DataBlockComponent = React.memo((props: NodeViewProps) => {
     const { node, deleteNode, selected, editor, updateAttributes } = props;
-    const { blockType, config } = node.attrs;
+    const { blockType, config, snapshot, snapshotComparison } = node.attrs;
     const { design, client, accountId, metaAccountId, campaignIds, reportId, isTemplateMode, startDate, endDate } = useReportEditor();
 
     if (!design) {
@@ -173,6 +173,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.CAMPAIGN_CHART:
@@ -194,6 +196,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.KEY_METRICS:
@@ -215,6 +219,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.AD_CREATIVE:
@@ -240,6 +246,7 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                             });
                         }}
                         variant="chromeless"
+                        snapshot={snapshot}
                     />
                 );
             case SlideType.FUNNEL_ANALYSIS:
@@ -310,6 +317,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.TOP_PERFORMERS:
@@ -330,6 +339,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case 'clientLogo':
@@ -373,6 +384,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.META_PERFORMANCE_OVERVIEW:
@@ -393,6 +406,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.META_CAMPAIGN_CHART:
@@ -413,6 +428,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.META_KEY_METRICS:
@@ -433,6 +450,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.META_TOP_PERFORMERS:
@@ -453,6 +472,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.META_DEVICE_SPLIT:
@@ -473,6 +494,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.META_FUNNEL_ANALYSIS:
@@ -501,6 +524,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             case SlideType.FLEXIBLE_META_DATA:
@@ -521,6 +546,8 @@ export const DataBlockComponent = React.memo((props: NodeViewProps) => {
                         endDate={endDate}
                         design={design}
                         variant="chromeless"
+                        snapshot={snapshot}
+                        snapshotComparison={snapshotComparison}
                     />
                 );
             default:

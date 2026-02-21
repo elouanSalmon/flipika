@@ -51,6 +51,34 @@ export const DataBlockExtension = Node.create({
                     'data-block-config': JSON.stringify(attributes.config),
                 }),
             },
+            snapshot: {
+                default: null,
+                parseHTML: element => {
+                    const dataAttr = element.getAttribute('data-snapshot');
+                    try {
+                        return dataAttr ? JSON.parse(dataAttr) : null;
+                    } catch {
+                        return null;
+                    }
+                },
+                renderHTML: attributes => ({
+                    'data-snapshot': attributes.snapshot ? JSON.stringify(attributes.snapshot) : null,
+                }),
+            },
+            snapshotComparison: {
+                default: null,
+                parseHTML: element => {
+                    const dataAttr = element.getAttribute('data-snapshot-comparison');
+                    try {
+                        return dataAttr ? JSON.parse(dataAttr) : null;
+                    } catch {
+                        return null;
+                    }
+                },
+                renderHTML: attributes => ({
+                    'data-snapshot-comparison': attributes.snapshotComparison ? JSON.stringify(attributes.snapshotComparison) : null,
+                }),
+            },
         };
     },
 

@@ -68,6 +68,8 @@ export interface FlexibleDataBlockProps {
     endDate?: Date;
     design?: ReportDesign;
     variant?: 'default' | 'chromeless';
+    snapshot?: any[];
+    snapshotComparison?: any[];
 }
 
 // Internal component for the Preview section to share data fetching logic
@@ -81,7 +83,9 @@ const DataRenderer: React.FC<{
     showRawData?: boolean;
     design?: ReportDesign;
     onDataLoaded?: (currentData: any[], comparisonData: any[]) => void;
-}> = React.memo(({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false, design, onDataLoaded }) => {
+    snapshot?: any[];
+    snapshotComparison?: any[];
+}> = React.memo(({ config, accountId, campaignIds, startDate, endDate, height = '100%', showRawData = false, design, onDataLoaded, snapshot, snapshotComparison }) => {
     const { t } = useTranslation('reports');
 
     // Get chart font from context - chartKey changes when fonts are loaded
@@ -138,10 +142,69 @@ const DataRenderer: React.FC<{
         config.sortOrder,
         config.showComparison,
         config.comparisonType,
-        JSON.stringify(config.metrics)
+        JSON.stringify(config.metrics),
+        JSON.stringify(snapshot),
+        JSON.stringify(snapshotComparison)
     ]);
 
+    const getEffectiveMetrics = useCallback((metrics: string[], visualization: string) => {
+        // For scorecard, we MUST fetch dependencies instead of rate metrics to aggregate correctly
+        if (visualization === 'scorecard') {
+            const effective = new Set<string>();
+            metrics.forEach(m => {
+                if (COMPUTED_METRICS[m]) {
+                    COMPUTED_METRICS[m].dependencies.forEach(d => effective.add(d));
+                } else {
+                    effective.add(m);
+                }
+            });
+            return Array.from(effective);
+        }
+        return metrics;
+    }, []);
+
+    const processResults = useCallback((results: any[]) => {
+        return (results || []).map((row: any) => {
+            const flatRow: any = {};
+            if (config.dimension) {
+                const dimParts = config.dimension.split('.');
+                if (dimParts.length === 2 && row[dimParts[0]]) {
+                    flatRow[config.dimension] = row[dimParts[0]][dimParts[1]];
+                } else if (dimParts[0] === 'segments' && row.segments) {
+                    flatRow[config.dimension] = row.segments[dimParts[1]];
+                }
+            }
+            config.metrics.forEach((m: string) => {
+                const parts = m.split('.');
+                if (row[parts[0]]) {
+                    flatRow[m] = row[parts[0]][parts[1]];
+                }
+            });
+
+            // Also ensure dependencies are present for client-side calc
+            if (config.visualization === 'scorecard') {
+                getEffectiveMetrics(config.metrics, config.visualization).forEach(m => {
+                    const parts = m.split('.');
+                    if (row[parts[0]]) flatRow[m] = row[parts[0]][parts[1]];
+                });
+            }
+
+            return flatRow;
+        });
+    }, [config.dimension, config.metrics, config.visualization]);
+
     const fetchData = async () => {
+        // Use snapshot data if available (Public Frozen View)
+        if (snapshot) {
+            setData(processResults(snapshot));
+            if (config.showComparison && snapshotComparison) {
+                setComparisonData(processResults(snapshotComparison));
+            }
+            setLoading(false);
+            onDataLoaded?.(processResults(snapshot), snapshotComparison ? processResults(snapshotComparison) : []);
+            return;
+        }
+
         // If missing context, use mock data (Template Mode)
         if (!accountId || !startDate || !endDate) {
             generateMockData();
@@ -220,35 +283,6 @@ const DataRenderer: React.FC<{
 
             setRawResults(result.results || []);
 
-            const processResults = (results: any[]) => {
-                return (results || []).map((row: any) => {
-                    const flatRow: any = {};
-                    if (config.dimension) {
-                        const dimParts = config.dimension.split('.');
-                        if (dimParts.length === 2 && row[dimParts[0]]) {
-                            flatRow[config.dimension] = row[dimParts[0]][dimParts[1]];
-                        } else if (dimParts[0] === 'segments' && row.segments) {
-                            flatRow[config.dimension] = row.segments[dimParts[1]];
-                        }
-                    }
-                    config.metrics.forEach((m: string) => {
-                        const parts = m.split('.');
-                        if (row[parts[0]]) {
-                            flatRow[m] = row[parts[0]][parts[1]];
-                        }
-                    });
-
-                    // Also ensure dependencies are present for client-side calc
-                    if (config.visualization === 'scorecard') {
-                        getEffectiveMetrics(config.metrics, config.visualization).forEach(m => {
-                            const parts = m.split('.');
-                            if (row[parts[0]]) flatRow[m] = row[parts[0]][parts[1]];
-                        });
-                    }
-
-                    return flatRow;
-                });
-            };
 
             const processedCurrent = processResults(result.results);
             const processedComparison = config.showComparison ? processResults(comparisonResult.results) : [];
@@ -266,21 +300,6 @@ const DataRenderer: React.FC<{
         }
     };
 
-    const getEffectiveMetrics = (metrics: string[], visualization: string) => {
-        // For scorecard, we MUST fetch dependencies instead of rate metrics to aggregate correctly
-        if (visualization === 'scorecard') {
-            const effective = new Set<string>();
-            metrics.forEach(m => {
-                if (COMPUTED_METRICS[m]) {
-                    COMPUTED_METRICS[m].dependencies.forEach(d => effective.add(d));
-                } else {
-                    effective.add(m);
-                }
-            });
-            return Array.from(effective);
-        }
-        return metrics;
-    };
 
     const generateMockData = () => {
         setIsMockData(true);

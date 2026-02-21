@@ -164,7 +164,8 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
   padding: var(--spacing-sm);
-  min-width: 220px;
+  min-width: 320px;
+  max-width: none;
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-normal);

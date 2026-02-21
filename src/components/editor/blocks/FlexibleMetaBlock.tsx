@@ -43,6 +43,8 @@ export interface FlexibleMetaBlockProps {
     endDate?: Date;
     design?: ReportDesign;
     variant?: 'default' | 'chromeless';
+    snapshot?: any[];
+    snapshotComparison?: any[];
 }
 
 // ─── Meta-specific metrics available for config ─────────────────────────
@@ -83,7 +85,9 @@ const MetaDataRenderer: React.FC<{
     endDate: Date | string;
     design?: ReportDesign;
     onDataLoaded?: (currentData: any[], comparisonData: any[]) => void;
-}> = React.memo(({ config, accountId, startDate, endDate, design, onDataLoaded }) => {
+    snapshot?: any[];
+    snapshotComparison?: any[];
+}> = React.memo(({ config, accountId, startDate, endDate, design, onDataLoaded, snapshot, snapshotComparison }) => {
     const { t } = useTranslation('reports');
     const context = useReportEditor();
     const { fontFamily: chartFontFamily, chartKey } = useChartFont();
@@ -162,10 +166,46 @@ const MetaDataRenderer: React.FC<{
         config.limit,
         config.showComparison,
         config.comparisonType,
-        JSON.stringify(config.metrics)
+        JSON.stringify(config.metrics),
+        JSON.stringify(snapshot),
+        JSON.stringify(snapshotComparison)
     ]);
 
+    const processResults = useCallback((results: any[]) => {
+        return (results || []).map(row => {
+            const newRow: any = { ...row };
+            if (config.dimension === 'segments.date') {
+                newRow[config.dimension] = row.date_start;
+            } else if (config.dimension === 'campaign.name') {
+                newRow[config.dimension] = row.campaignName || row.campaign_name;
+            } else if (config.dimension === 'adset.name') {
+                newRow[config.dimension] = row.adset_name;
+            } else if (config.dimension === 'ad.name') {
+                newRow[config.dimension] = row.ad_name;
+            } else if (config.dimension === 'segments.device') {
+                newRow[config.dimension] = row.impression_device;
+            } else if (config.dimension === 'segments.platform') {
+                newRow[config.dimension] = row.publisher_platform;
+            } else if (config.dimension === 'segments.placement') {
+                newRow[config.dimension] = row.platform_position;
+            }
+            return newRow;
+        });
+    }, [config.dimension]);
+
     const fetchData = async () => {
+        // Use snapshot data if available (Public Frozen View)
+        if (snapshot) {
+            const processed = processResults(snapshot);
+            setData(processed);
+            if (config.showComparison && snapshotComparison) {
+                setComparisonData(processResults(snapshotComparison));
+            }
+            setLoading(false);
+            onDataLoaded?.(processed, snapshotComparison ? processResults(snapshotComparison) : []);
+            return;
+        }
+
         if (!accountId || !startDate || !endDate) {
             generateMockData();
             return;
@@ -246,27 +286,6 @@ const MetaDataRenderer: React.FC<{
         }
     };
 
-    const processResults = (results: any[]) => {
-        return results.map(row => {
-            const newRow: any = { ...row };
-            if (config.dimension === 'segments.date') {
-                newRow[config.dimension] = row.date_start;
-            } else if (config.dimension === 'campaign.name') {
-                newRow[config.dimension] = row.campaignName || row.campaign_name;
-            } else if (config.dimension === 'adset.name') {
-                newRow[config.dimension] = row.adset_name;
-            } else if (config.dimension === 'ad.name') {
-                newRow[config.dimension] = row.ad_name;
-            } else if (config.dimension === 'segments.device') {
-                newRow[config.dimension] = row.impression_device;
-            } else if (config.dimension === 'segments.platform') {
-                newRow[config.dimension] = row.publisher_platform;
-            } else if (config.dimension === 'segments.placement') {
-                newRow[config.dimension] = row.platform_position;
-            }
-            return newRow;
-        });
-    };
 
     const getPreviousPeriod = (s: Date, e: Date, type: 'previous_period' | 'previous_year') => {
         const start = new Date(s);

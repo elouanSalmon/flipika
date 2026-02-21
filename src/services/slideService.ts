@@ -129,6 +129,12 @@ export async function getSlideData(
         const { type, settings } = widgetConfig;
         const isAuthenticated = !!auth.currentUser;
 
+        // NEW: Check for snapshot data first (Published Frozen View)
+        if (settings?.snapshot) {
+            console.log('❄️ Using snapshot data for slide:', widgetConfig.id);
+            return settings.snapshot;
+        }
+
         // Try to load from cache first if widget ID and report ID are available
         if (widgetConfig.id && reportId) {
             const cachedData = await loadCachedWidgetData(widgetConfig.id, reportId);
@@ -1164,7 +1170,7 @@ async function getMetaCampaignChartData(
         }
 
         // Group data by date and campaign
-        const dateMap = new Map<string, { date: string; [key: string]: any }>();
+        const dateMap = new Map<string, { date: string;[key: string]: any }>();
         const campaignMap = new Map<string, string>();
 
         for (const row of result.data) {

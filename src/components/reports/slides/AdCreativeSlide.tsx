@@ -31,6 +31,7 @@ interface AdCreativeSlideProps {
     onDelete?: () => void;
     onUpdateConfig?: (newConfig: Partial<AdCreativeConfig> & { title?: string }) => void;
     variant?: 'default' | 'chromeless';
+    snapshot?: any[];
 }
 
 interface RealAdCreative {
@@ -65,6 +66,7 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
     onDelete,
     onUpdateConfig,
     variant,
+    snapshot,
 }) => {
     const { t } = useTranslation('reports');
     const [loading, setLoading] = useState(true);
@@ -132,6 +134,14 @@ const AdCreativeSlide: React.FC<AdCreativeSlideProps> = ({
         try {
             setLoading(true);
             setError(null);
+
+            if (snapshot) {
+                setRealAds(snapshot);
+                setIsMockData(false);
+                capturedDataRef.current = snapshot;
+                setLoading(false);
+                return;
+            }
 
             if (!effectiveAccountId) {
                 setIsMockData(true);

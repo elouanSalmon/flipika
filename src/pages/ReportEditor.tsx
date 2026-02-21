@@ -13,6 +13,7 @@ import {
     updateReportSettings,
     updateReportPassword,
 } from '../services/reportService';
+import { snapshotTiptapContent, snapshotSlides } from '../services/snapshotService';
 import { getUserProfile } from '../services/userProfileService';
 import dataService from '../services/dataService';
 import { fetchCampaigns } from '../services/googleAds';
@@ -244,15 +245,59 @@ const ReportEditor: React.FC = () => {
                 return;
             }
 
-            // Save first
-            await handleSave();
+            // 1. Prepare context for snapshotting
+            if (!report.startDate || !report.endDate || !report.accountId) {
+                toast.error(t('editor.messages.missingContextForSnapshot', 'Dates ou compte manquants pour générer l\'instantané'));
+                return;
+            }
 
-            // Then publish
-            const shareUrl = await publishReport(report.id, profile.username);
+            const context = {
+                accountId: report.accountId,
+                metaAccountId: report.metaAccountId,
+                campaignIds: report.campaignIds,
+                startDate: report.startDate,
+                endDate: report.endDate
+            };
 
-            setReport({ ...report, status: 'published', shareUrl });
-            await refreshTutorial(); // Refresh tutorial status as sending/publishing report is a step
-            toast.success(t('editor.messages.published'));
+            // 2. Perform snapshotting
+            toast.loading(t('editor.messages.snapshotting', 'Génération de l\'instantané des données...'), { id: 'publish-snapshot' });
+
+            try {
+                const snapshottedContent = await snapshotTiptapContent(report.content, context);
+                const snapshottedSlides = await snapshotSlides(slides, context);
+
+                // 3. Save the snapshotted report directly (bypassing local state first to avoid flickering if save fails)
+                await saveReportWithSlides(report.id, {
+                    title: report.title,
+                    design: report.design,
+                    content: snapshottedContent,
+                    status: 'published',
+                    publishedAt: new Date(),
+                }, snapshottedSlides);
+
+                // 4. Update local state with snapshotted data and published status
+                setReport({
+                    ...report,
+                    content: snapshottedContent,
+                    status: 'published',
+                    publishedAt: new Date(),
+                    lastAutoSave: new Date()
+                });
+                setSlides(snapshottedSlides);
+                setIsDirty(false);
+                setLastSaved(new Date());
+
+                // 5. Generate share URL (publishReport update shares metadata if needed, but saveReportWithSlides handled most)
+                const shareUrl = await publishReport(report.id, profile.username);
+                setReport(prev => prev ? { ...prev, shareUrl } : null);
+
+                toast.success(t('editor.messages.published'), { id: 'publish-snapshot' });
+                await refreshTutorial();
+            } catch (snapError) {
+                console.error('Snapshot error:', snapError);
+                toast.error(t('editor.messages.snapshotError', 'Erreur lors de la capture des données'), { id: 'publish-snapshot' });
+                throw snapError;
+            }
         } catch (error) {
             console.error('Publish error:', error);
             toast.error(t('editor.messages.publishError'));

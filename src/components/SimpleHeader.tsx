@@ -120,7 +120,8 @@ const SimpleHeader = () => {
                                     <motion.div
                                         className="absolute top-full left-0 mt-2 rounded-xl shadow-xl overflow-hidden z-50"
                                         style={{
-                                            width: '500px',
+                                            width: '600px',
+                                            maxWidth: 'none',
                                             backgroundColor: 'var(--color-bg-secondary)',
                                             backdropFilter: 'blur(12px)',
                                             border: '1px solid var(--color-border)',
@@ -130,51 +131,55 @@ const SimpleHeader = () => {
                                         exit={{ opacity: 0, y: -10 }}
                                         transition={{ duration: 0.15 }}
                                     >
-                                        <div className="py-1">
+                                        <div className="p-4 grid grid-cols-2 gap-x-6 gap-y-1">
                                             {features.map((feature) => {
                                                 return (
                                                     <Link
                                                         key={feature.id}
                                                         to={getLangPath(`/features/${feature.id}`)}
-                                                        className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                                        className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] rounded-lg transition-colors"
                                                     >
-                                                        <span className="text-sm text-[var(--color-text-primary)]">
+                                                        <span className="text-sm text-[var(--color-text-primary)] whitespace-nowrap">
                                                             {feature.title}
                                                         </span>
                                                     </Link>
                                                 );
                                             })}
-                                            <div className="my-1 border-t border-[var(--color-border)]" />
+                                        </div>
+                                        <div className="my-1 border-t border-[var(--color-border)]" />
+                                        <div className="p-4 grid grid-cols-2 gap-x-6 gap-y-1">
                                             <Link
                                                 to={getLangPath('/tools/roas-calculator')}
-                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] rounded-lg transition-colors"
                                             >
-                                                <span className="text-sm text-[var(--color-text-primary)] font-medium text-[var(--color-primary)]">
+                                                <span className="text-sm text-[var(--color-text-primary)] font-medium text-[var(--color-primary)] whitespace-nowrap">
                                                     {i18n.language === 'fr' ? 'Calculateur de ROAS' : (i18n.language === 'es' ? 'Calculadora de ROAS' : 'ROAS Calculator')}
                                                 </span>
                                             </Link>
                                             <Link
                                                 to={getLangPath('/tools/media-buying-glossary')}
-                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] rounded-lg transition-colors"
                                             >
-                                                <span className="text-sm text-[var(--color-text-primary)] font-medium text-[var(--color-primary)]">
+                                                <span className="text-sm text-[var(--color-text-primary)] font-medium text-[var(--color-primary)] whitespace-nowrap">
                                                     {i18n.language === 'fr' ? 'Glossaire du Media Buying' : (i18n.language === 'es' ? 'Glosario de Media Buying' : 'Media Buying Glossary')}
                                                 </span>
                                             </Link>
-                                            <div className="my-1 border-t border-[var(--color-border)]" />
+                                        </div>
+                                        <div className="my-1 border-t border-[var(--color-border)]" />
+                                        <div className="p-4 grid grid-cols-2 gap-x-6 gap-y-1">
                                             <Link
                                                 to={getLangPath('/google-ads-reporting')}
-                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] rounded-lg transition-colors"
                                             >
-                                                <span className="text-sm text-[var(--color-text-primary)]">
+                                                <span className="text-sm text-[var(--color-text-primary)] whitespace-nowrap">
                                                     {i18n.language === 'fr' ? 'Reporting Google Ads' : (i18n.language === 'es' ? 'Informes Google Ads' : 'Google Ads Reporting')}
                                                 </span>
                                             </Link>
                                             <Link
                                                 to={getLangPath('/meta-ads-reporting')}
-                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] rounded-lg transition-colors"
                                             >
-                                                <span className="text-sm text-[var(--color-text-primary)]">
+                                                <span className="text-sm text-[var(--color-text-primary)] whitespace-nowrap">
                                                     {i18n.language === 'fr' ? 'Reporting Meta Ads' : (i18n.language === 'es' ? 'Informes Meta Ads' : 'Meta Ads Reporting')}
                                                 </span>
                                             </Link>
