@@ -23,7 +23,9 @@
       "error": "An error occurred during login.",
       "configError": "Missing Firebase configuration.",
       "popupError": "Login popup was closed.",
-      "disabledError": "Google login is not enabled."
+      "disabledError": "Google login is not enabled.",
+      "inProgress": "Logging in...",
+      "success": "Login successful"
     },
     "benefits": {
       "title": "Why Flipika?",

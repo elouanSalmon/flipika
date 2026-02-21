@@ -12,6 +12,11 @@
     overflow: visible !important;
   }
 
+  /* Google One Tap Override */
+  #credential_picker_container {
+    top: 80px !important;
+  }
+
   .listing-card:hover {
     @apply border-primary/20 dark:border-primary/30 -translate-y-1;
   }

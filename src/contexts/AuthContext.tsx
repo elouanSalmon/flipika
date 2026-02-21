@@ -9,7 +9,8 @@ import {
     EmailAuthProvider,
     linkWithCredential,
     updatePassword,
-    reauthenticateWithCredential
+    reauthenticateWithCredential,
+    signInWithCredential
 } from 'firebase/auth';
 import type { UserProfile, UpdateUserProfileData } from '../types/userProfile';
 import { getUserProfile, updateUserProfile as updateUserProfileService } from '../services/userProfileService';
@@ -20,6 +21,7 @@ interface AuthContextType {
     loading: boolean;
     profileLoading: boolean;
     loginWithGoogle: () => Promise<void>;
+    loginWithGoogleCredential: (credentialString: string) => Promise<void>;
     linkGoogleAds: () => Promise<boolean>;
     logout: () => Promise<void>;
     hasPasswordProvider: () => boolean;
@@ -74,6 +76,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const loginWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
         await signInWithPopup(auth, provider);
+    };
+
+    const loginWithGoogleCredential = async (credentialString: string) => {
+        const credential = GoogleAuthProvider.credential(credentialString);
+        await signInWithCredential(auth, credential);
     };
 
     const linkGoogleAds = async (): Promise<boolean> => {
@@ -193,6 +200,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loading,
         profileLoading,
         loginWithGoogle,
+        loginWithGoogleCredential,
         linkGoogleAds,
         logout,
         hasPasswordProvider,

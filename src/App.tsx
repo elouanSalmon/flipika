@@ -20,6 +20,7 @@ import OnboardingModal from './components/onboarding/OnboardingModal';
 import OfflineAlert from './components/common/OfflineAlert';
 import PageTransition from './components/common/PageTransition';
 import { useNetworkStatus } from './hooks/useNetworkStatus';
+import { GoogleOneTap } from './components/common/GoogleOneTap';
 import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
 import GoogleAdsLanding from './pages/seo/GoogleAdsLanding';
@@ -294,6 +295,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <AnalyticsTracker />
+        <GoogleOneTap />
         <SubscriptionProvider>
           <GoogleAdsProvider>
             <MetaAdsProvider>
