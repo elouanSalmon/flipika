@@ -184,7 +184,7 @@
   "themes": {
     "title": "Report Themes",
     "subtitle": "Customize the appearance of your reports",
-    "description": "Create custom themes for your Google Ads reports and link them to your accounts for automatic application.",
+    "description": "Create custom themes for your Google Ads & Meta Ads reports and link them to your accounts for automatic application.",
     "manageButton": "Manage my themes",
     "closeButton": "Close"
   },

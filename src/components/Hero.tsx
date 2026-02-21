@@ -49,12 +49,12 @@ const Hero: React.FC = () => {
 
             {/* Title */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-neutral-900 dark:text-neutral-200 leading-[1.1] tracking-tight">
-              {t('common:hero.title')}
+              {t('hero.title')}
             </h1>
 
             {/* Subtitle */}
             <p className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
-              {t('common:hero.subtitle')}
+              {t('hero.subtitle')}
             </p>
 
             {/* CTA Buttons */}
@@ -66,7 +66,7 @@ const Hero: React.FC = () => {
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <span>{t('common:hero.cta')}</span>
+                <span>{t('hero.cta')}</span>
                 <ArrowRight size={18} />
               </motion.button>
 
@@ -77,13 +77,13 @@ const Hero: React.FC = () => {
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <span>{t('common:hero.ctaSecondary')}</span>
+                <span>{t('hero.ctaSecondary')}</span>
               </motion.button>
             </div>
 
             {/* Trust line */}
             <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
-              {t('common:hero.noCreditCard')}
+              {t('hero.noCreditCard')}
             </p>
           </motion.div>
 

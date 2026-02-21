@@ -1,19 +1,19 @@
 {
   "hero": {
-    "title": "Des rapports Google Ads automatiques que vos clients comprennent",
+    "title": "Des rapports Google Ads & Meta Ads automatiques que vos clients comprennent",
     "subtitle": "Gagnez des heures chaque mois sur vos reportings clients",
-    "description": "Flipika génère automatiquement des rapports Google Ads clairs, expliqués et prêts à envoyer. Plus besoin d’exporter, de mise en forme ou de justifier chaque chiffre.",
+    "description": "Flipika génère automatiquement des rapports Google Ads & Meta Ads clairs, expliqués et prêts à envoyer. Plus besoin d’exporter, de mise en forme ou de justifier chaque chiffre.",
     "getStarted": "Voir un exemple de rapport",
     "noCreditCard": "Aucune carte bancaire requise",
     "cta": "Accéder à la bêta",
     "ctaSecondary": "Voir comment ça marche"
   },
   "features": {
-    "title": "Le reporting Google Ads, enfin simple",
+    "title": "Le reporting Google Ads & Meta Ads, enfin simple",
     "subtitle": "Automatique, clair et orienté business",
     "aiGeneration": {
       "title": "Rapports clients automatiques",
-      "description": "Générez des rapports Google Ads complets avec KPIs clés, variations et explications prêtes à envoyer."
+      "description": "Générez des rapports Google Ads & Meta Ads complets avec KPIs clés, variations et explications prêtes à envoyer."
     },
     "analytics": {
       "title": "Performances expliquées",
@@ -79,7 +79,7 @@
     }
   },
   "problem": {
-    "title": "Le reporting Google Ads vous fait perdre un temps fou",
+    "title": "Le reporting Google Ads & Meta Ads vous fait perdre un temps fou",
     "subtitle": "Des heures passées sur une tâche à faible valeur",
     "description": "Entre les exports, les dashboards et l’explication des performances, le reporting client devient une corvée récurrente.",
     "issues": {

@@ -18,37 +18,37 @@ const Features: React.FC = () => {
     {
       id: 'create-campaigns',
       icon: LayoutGrid,
-      title: t('common:features.createCampaigns.title'),
-      subtitle: t('common:features.createCampaigns.subtitle'),
-      description: t('common:features.createCampaigns.description'),
+      title: t('features.createCampaigns.title'),
+      subtitle: t('features.createCampaigns.subtitle'),
+      description: t('features.createCampaigns.description'),
       benefits: [
-        t('common:features.createCampaigns.benefits.0'),
-        t('common:features.createCampaigns.benefits.1'),
-        t('common:features.createCampaigns.benefits.2')
+        t('features.createCampaigns.benefits.0'),
+        t('features.createCampaigns.benefits.1'),
+        t('features.createCampaigns.benefits.2')
       ]
     },
     {
       id: 'auto-optimize',
       icon: MessageSquare,
-      title: t('common:features.autoOptimize.title'),
-      subtitle: t('common:features.autoOptimize.subtitle'),
-      description: t('common:features.autoOptimize.description'),
+      title: t('features.autoOptimize.title'),
+      subtitle: t('features.autoOptimize.subtitle'),
+      description: t('features.autoOptimize.description'),
       benefits: [
-        t('common:features.autoOptimize.benefits.0'),
-        t('common:features.autoOptimize.benefits.1'),
-        t('common:features.autoOptimize.benefits.2')
+        t('features.autoOptimize.benefits.0'),
+        t('features.autoOptimize.benefits.1'),
+        t('features.autoOptimize.benefits.2')
       ]
     },
     {
       id: 'actionable-insights',
       icon: Calendar,
-      title: t('common:features.actionableInsights.title'),
-      subtitle: t('common:features.actionableInsights.subtitle'),
-      description: t('common:features.actionableInsights.description'),
+      title: t('features.actionableInsights.title'),
+      subtitle: t('features.actionableInsights.subtitle'),
+      description: t('features.actionableInsights.description'),
       benefits: [
-        t('common:features.actionableInsights.benefits.0'),
-        t('common:features.actionableInsights.benefits.1'),
-        t('common:features.actionableInsights.benefits.2')
+        t('features.actionableInsights.benefits.0'),
+        t('features.actionableInsights.benefits.1'),
+        t('features.actionableInsights.benefits.2')
       ]
     }
   ];
@@ -126,10 +126,10 @@ const Features: React.FC = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-neutral-200 mb-5 tracking-tight">
-            {t('common:features.title')}
+            {t('features.title')}
           </h2>
           <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            {t('common:features.subtitle')}
+            {t('features.subtitle')}
           </p>
         </motion.div>
 
@@ -227,11 +227,11 @@ const Features: React.FC = () => {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              const isFrench = t('common:language') === 'fr';
+              const isFrench = t('language') === 'fr';
               navigate(isFrench ? '/fr/features' : '/features');
             }}
           >
-            <span>{t('common:features.viewAll') || (t('common:language') === 'fr' ? 'Voir toutes les fonctionnalités' : 'View all features')}</span>
+            <span>{t('features.viewAll') || (t('language') === 'fr' ? 'Voir toutes les fonctionnalités' : 'View all features')}</span>
             <ArrowRight size={20} />
           </motion.button>
         </motion.div>

@@ -194,7 +194,7 @@
     "info": {
         "buttonLabel": "Información",
         "modalTitle": "¿Qué son las Plantillas?",
-        "modalContent": "Las plantillas son configuraciones de informes reutilizables que te permiten generar informes de Google Ads consistentes con un solo clic.\n\nCon las plantillas, puedes:\n• Definir un conjunto estándar de diapositivas y métricas para informes recurrentes\n• Pre-configurar cuentas y campañas de Google Ads para analizar\n• Establecer periodos de análisis por defecto (últimos 7 días, mes pasado, etc.)\n• Crear informes al instante sin volver a configurar los ajustes cada vez\n• Usar plantillas como base para informes automáticos programados\n\nLas plantillas son perfectas para estandarizar tu proceso de informes y asegurar la consistencia en todos tus entregables."
+        "modalContent": "Las plantillas son configuraciones de informes reutilizables que te permiten generar informes de Google Ads & Meta Ads consistentes con un solo clic.\n\nCon las plantillas, puedes:\n• Definir un conjunto estándar de diapositivas y métricas para informes recurrentes\n• Pre-configurar cuentas y campañas de Google Ads & Meta Ads para analizar\n• Establecer periodos de análisis por defecto (últimos 7 días, mes pasado, etc.)\n• Crear informes al instante sin volver a configurar los ajustes cada vez\n• Usar plantillas como base para informes automáticos programados\n\nLas plantillas son perfectas para estandarizar tu proceso de informes y asegurar la consistencia en todos tus entregables."
     },
     "editor": {
         "backToTemplates": "Volver a las plantillas",

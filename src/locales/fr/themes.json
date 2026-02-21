@@ -2,7 +2,7 @@
     "list": {
         "title": "Mes thèmes",
         "pageTitle": "Mes thèmes de rapport",
-        "pageSubtitle": "Créez et gérez vos thèmes personnalisés pour vos rapports Google Ads",
+        "pageSubtitle": "Créez et gérez vos thèmes personnalisés pour vos rapports Google Ads & Meta Ads",
         "newButton": "Nouveau",
         "createButton": "Créer un thème",
         "loading": "Chargement des thèmes..."
@@ -102,6 +102,6 @@
     "info": {
         "buttonLabel": "Information",
         "modalTitle": "Qu'est-ce qu'un thème ?",
-        "modalContent": "Les thèmes vous permettent de personnaliser l'apparence visuelle de vos rapports Google Ads pour correspondre à l'identité de marque de vos comptes.\n\nAvec les thèmes, vous pouvez :\n• Définir des couleurs personnalisées (principale et secondaire)\n• Choisir entre les modes clair et sombre\n• Sélectionner des polices personnalisées pour vos rapports\n• Lier des thèmes à des comptes Google Ads spécifiques pour une application automatique\n• Définir un thème par défaut pour tous vos rapports\n\nLes thèmes sont appliqués lors de la génération des rapports PDF, garantissant une cohérence de marque sur tous vos livrables comptes."
+        "modalContent": "Les thèmes vous permettent de personnaliser l'apparence visuelle de vos rapports Google Ads & Meta Ads pour correspondre à l'identité de marque de vos comptes.\n\nAvec les thèmes, vous pouvez :\n• Définir des couleurs personnalisées (principale et secondaire)\n• Choisir entre les modes clair et sombre\n• Sélectionner des polices personnalisées pour vos rapports\n• Lier des thèmes à des comptes Google Ads spécifiques pour une application automatique\n• Définir un thème par défaut pour tous vos rapports\n\nLes thèmes sont appliqués lors de la génération des rapports PDF, garantissant une cohérence de marque sur tous vos livrables comptes."
     }
 }

@@ -2,7 +2,7 @@
     "list": {
         "title": "My Themes",
         "pageTitle": "My Report Themes",
-        "pageSubtitle": "Create and manage your custom themes for Google Ads reports",
+        "pageSubtitle": "Create and manage your custom themes for Google Ads & Meta Ads reports",
         "newButton": "New",
         "createButton": "Create Theme",
         "loading": "Loading themes..."
@@ -102,6 +102,6 @@
     "info": {
         "buttonLabel": "Information",
         "modalTitle": "What are Themes?",
-        "modalContent": "Themes allow you to customize the visual appearance of your Google Ads reports to match your accounts' brand identity.\n\nWith themes, you can:\n• Define custom colors (primary and secondary)\n• Choose between light and dark modes\n• Select custom fonts for your reports\n• Link themes to specific Google Ads accounts for automatic application\n• Set a default theme for all your reports\n\nThemes are applied when generating PDF reports, ensuring consistent branding across all your account deliverables."
+        "modalContent": "Themes allow you to customize the visual appearance of your Google Ads & Meta Ads reports to match your accounts' brand identity.\n\nWith themes, you can:\n• Define custom colors (primary and secondary)\n• Choose between light and dark modes\n• Select custom fonts for your reports\n• Link themes to specific Google Ads accounts for automatic application\n• Set a default theme for all your reports\n\nThemes are applied when generating PDF reports, ensuring consistent branding across all your account deliverables."
     }
 }

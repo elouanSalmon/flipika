@@ -1,0 +1,184 @@
+{
+  "default": {
+    "title": "Flipika - Google Ads reports for Media Buyers",
+    "description": "Generate automated, clear, and professional Google Ads reports for your clients. The ideal solution for demanding media buyers.",
+    "keywords": "Google Ads reports, Media Buyer, Automated Reporting, Google Ads Audit, PPC Freelancer, PPC Agency",
+    "ogTitle": "Flipika - Google Ads reports for Media Buyers",
+    "ogDescription": "Generate automated, clear, and professional Google Ads reports for your clients."
+  },
+  "landing": {
+    "title": "Flipika - Google Ads reports in 2 Minutes | Automated PPC Reporting",
+    "description": "Generate professional Google Ads reports in 2 minutes instead of 3 hours. Automated data sync, AI-powered insights, white-label ready. Free trial for media buyers.",
+    "keywords": "Google Ads reports, automated PPC reporting, client reporting tool, media buyer software, Google Ads dashboard, white-label reports",
+    "ogTitle": "Flipika - Google Ads reports from 3h to 2 min",
+    "ogDescription": "Stop wasting time on manual reporting. Flipika auto-generates beautiful Google Ads reports for your clients."
+  },
+  "login": {
+    "title": "Login | Flipika - Google Ads reporting Platform",
+    "description": "Sign in to your Flipika account to access your Google Ads reports, templates, and client dashboards. Secure Google authentication.",
+    "keywords": "Flipika login, Google Ads reporting login, PPC dashboard sign in",
+    "ogTitle": "Login to Flipika",
+    "ogDescription": "Access your Google Ads reporting dashboard."
+  },
+  "roadmap": {
+    "title": "Flipika Roadmap | From Google Ads to Meta Ads & Beyond",
+    "description": "Discover Flipika's vision: from Google Ads reporting to Meta Ads, towards the ultimate Media Buyer Super App. See what's coming and get lifetime access.",
+    "keywords": "Flipika roadmap, Google Ads tool features, Meta Ads reporting, media buyer app, PPC tool roadmap",
+    "ogTitle": "Flipika Roadmap - The Future of Media Buyer Reporting",
+    "ogDescription": "From Google Ads to Meta Ads and beyond. Discover what's next for Flipika."
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy | Flipika - Google Ads reporting",
+    "description": "Learn how Flipika protects your data and Google Ads account information. GDPR compliant, secure European hosting, transparent data practices.",
+    "keywords": "Flipika privacy policy, Google Ads data security, GDPR compliance, data protection",
+    "ogTitle": "Privacy Policy - Flipika",
+    "ogDescription": "How we protect your data and Google Ads information."
+  },
+  "termsOfService": {
+    "title": "Terms of Service | Flipika - Google Ads reporting",
+    "description": "Read Flipika's terms of service. Understand your rights and obligations when using our Google Ads reporting platform.",
+    "keywords": "Flipika terms of service, Google Ads API terms, user agreement",
+    "ogTitle": "Terms of Service - Flipika",
+    "ogDescription": "Terms and conditions for using Flipika's reporting platform."
+  },
+  "legalNotices": {
+    "title": "Legal Notices | Flipika - Company Information",
+    "description": "Legal information about Flipika SAS. Company registration, hosting details, and legal contact information.",
+    "keywords": "Flipika legal notices, company information, imprint",
+    "ogTitle": "Legal Notices - Flipika",
+    "ogDescription": "Legal and company information for Flipika SAS."
+  },
+  "sitemap": {
+    "title": "Sitemap | Flipika - All Pages",
+    "description": "Browse all pages of Flipika.com. Find report templates, alternatives comparisons, resources, and legal information.",
+    "keywords": "Flipika sitemap, all pages, navigation",
+    "ogTitle": "Sitemap - Flipika",
+    "ogDescription": "Explore all pages of Flipika.com"
+  },
+  "pricing": {
+    "title": "Pricing: 10€/seat or 100€ Lifetime | Flipika",
+    "description": "Google Ads reporting from 10€/seat/month or 100€ lifetime access. Free trial, no credit card required. All features included.",
+    "keywords": "Flipika pricing, Google Ads reporting cost, PPC reporting tool price, lifetime deal",
+    "ogTitle": "Flipika Pricing — 10€/month or 100€ Lifetime",
+    "ogDescription": "Google Ads reporting from 10€/seat/month or one-time 100€ lifetime access."
+  },
+  "features": {
+    "title": "The reporting tool built for Google Ads",
+    "subtitle": "Save hours at the end of each month by automating your reports.",
+    "aiGeneration": {
+      "title": "Tailored Models",
+      "description": "Visualize your Google Ads Ad Groups, Campaigns, and Creatives in clear slides."
+    },
+    "analytics": {
+      "title": "Customization",
+      "description": "Apply your colors and logo for 100% white-label reporting."
+    },
+    "optimization": {
+      "title": "AI Insights",
+      "description": "Artificial Intelligence analyzes your Google Ads performance to help you conclude."
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found | Flipika",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "keywords": "",
+    "ogTitle": "Page Not Found - Flipika",
+    "ogDescription": "This page doesn't exist."
+  },
+  "alternativesIndex": {
+    "title": "Best Google Ads reporting Alternatives 2026 | Flipika vs Competitors",
+    "description": "Compare Flipika to Looker Studio, AgencyAnalytics, DashThis, Swydo and more. Find the best Google Ads reporting tool for your agency or freelance business.",
+    "keywords": "Google Ads reporting alternatives, Looker Studio alternative, AgencyAnalytics alternative, best PPC reporting tool, DashThis vs Flipika",
+    "ogTitle": "Google Ads reporting Alternatives - Flipika Comparisons",
+    "ogDescription": "Compare the best Google Ads reporting tools and find the right solution for your business."
+  },
+  "solutions": {
+    "title": "Google Ads reporting Solutions for {persona} | Flipika",
+    "description": "Discover how Flipika helps {persona} automate their Google Ads reports, save time, and improve client satisfaction.",
+    "keywords": "Google Ads reporting {persona}, {persona} report automation, PPC tool for {persona}, reporting time saver"
+  },
+  "featureDetails": {
+    "report-generation": {
+      "title": "Automated Report Generation | Flipika - Google Ads reporting",
+      "description": "Generate professional Google Ads reports in 2 minutes. Automatic data sync, optimized layout, real-time metrics. Save hours on monthly reporting.",
+      "keywords": "Google Ads report generator, automated PPC reports, Google Ads data sync, professional report layout"
+    },
+    "ai-narration": {
+      "title": "AI-Powered Narration & Insights | Flipika - Smart Reporting",
+      "description": "Let AI analyze your Google Ads data and generate insights, optimization suggestions, and natural language comments for your client reports.",
+      "keywords": "AI Google Ads analysis, automated insights, PPC optimization suggestions, AI report narration"
+    },
+    "custom-templates": {
+      "title": "Custom Report Templates | Flipika - White-Label Reporting",
+      "description": "Create and save custom Google Ads report templates with your branding, favorite KPIs, and personalized layout. White-label ready.",
+      "keywords": "custom Google Ads templates, white-label PPC reports, branded report templates, drag and drop report builder"
+    },
+    "scheduling-automation": {
+      "title": "Report Scheduling & Automation | Flipika - Set & Forget",
+      "description": "Schedule automatic Google Ads report delivery: daily, weekly, or monthly. Your clients get insights without any effort on your part.",
+      "keywords": "automated report scheduling, Google Ads report automation, recurring PPC reports, automatic email reporting"
+    },
+    "multi-format-exports": {
+      "title": "PDF, Slides & Web Exports | Flipika - Multi-Format Reporting",
+      "description": "Export Google Ads reports as PDF, PowerPoint slides, or interactive web links. Choose the format that suits your clients best.",
+      "keywords": "Google Ads PDF export, PPC PowerPoint report, interactive web report, multi-format export"
+    },
+    "email-sending": {
+      "title": "Email Report Delivery | Flipika - Direct Client Reporting",
+      "description": "Send Google Ads reports directly from Flipika with personalized messages. Track opens and maintain a complete sending history.",
+      "keywords": "email Google Ads reports, direct report delivery, report open tracking, client email reporting"
+    },
+    "slideshow-mode": {
+      "title": "Slideshow Presentation Mode | Flipika - Present Like a Pro",
+      "description": "Transform your Google Ads reports into full-screen interactive presentations. Perfect for client meetings and performance reviews.",
+      "keywords": "Google Ads presentation, PPC slideshow, report presentation mode, client meeting reporting"
+    }
+  },
+  "hero": {
+    "badge": "Powered by AI",
+    "title": "Your Google Ads reports, generated in one click.",
+    "subtitle": "Analyze your Google Ads campaigns effortlessly. Get clear insights on CPA, ROAS, and budgets, perfectly formatted for your clients.",
+    "description": "Flipika connects directly to your Google Ads account, extracts key campaign data, and creates a ready-to-send report.",
+    "getStarted": "Create free report",
+    "noCreditCard": "No credit card required",
+    "cta": "Start for free",
+    "ctaSecondary": "View template"
+  },
+  "workflow": {
+    "badge": "Fast and Simple",
+    "title": "How to automate your Google Ads reporting?",
+    "subtitle": "Forget tedious CSV exports from the Google Ads manager.",
+    "step1": {
+      "title": "Connect Google Ads",
+      "description": "Securely link your Google Ads account in seconds.",
+      "bullets": [
+        "Direct API Connection",
+        "Account selection",
+        "Real-time sync"
+      ]
+    },
+    "step2": {
+      "title": "Generate",
+      "description": "Pick a template, and Flipika pulls clicks, impressions, and conversions.",
+      "bullets": [
+        "Pre-built templates",
+        "Client selection",
+        "Automated analysis"
+      ]
+    },
+    "step3": {
+      "title": "Send",
+      "description": "Add your insights, visually approve, and send the report to your client.",
+      "bullets": [
+        "Custom comments",
+        "PDF or web link",
+        "One-click sending"
+      ]
+    }
+  },
+  "closingCta": {
+    "title": "Stop copy-pasting your Google Ads metrics",
+    "subtitle": "Spend more time optimizing campaigns, and less time building slides.",
+    "cta": "Try for free"
+  }
+}

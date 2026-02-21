@@ -1,7 +1,7 @@
 {
   "page": {
     "title": "Flipika Roadmap - The Future of Reporting for Media Buyers",
-    "metaDescription": "Discover Flipika's vision: from Google Ads reporting to Meta Ads, towards the ultimate Media Buyer Super App. Join us now."
+    "metaDescription": "Discover Flipika's vision: from Google Ads & Meta Ads reporting to Meta Ads, towards the ultimate Media Buyer Super App. Join us now."
   },
   "hero": {
     "badge": "ROADMAP 2026-2027",
@@ -11,11 +11,11 @@
   "timeline": {
     "now": {
       "badge": "AVAILABLE NOW",
-      "title": "Google Ads Reporting",
-      "subtitle": "The best Google Ads reporting tool on the market",
+      "title": "Google Ads & Meta Ads reporting",
+      "subtitle": "The best Google Ads & Meta Ads reporting tool on the market",
       "description": "Professional reports in just a few clicks. Customizable templates, automatic exports, client branding, public share links.",
       "features": [
-        "One-click Google Ads reports",
+        "One-click Google Ads & Meta Ads reports",
         "Customizable drag & drop templates",
         "Per-client branding and themes",
         "Public share links",

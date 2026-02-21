@@ -14,38 +14,38 @@ const Testimonials: React.FC = () => {
   const testimonials = [
     {
       id: 'pierre',
-      name: t('common:testimonials.reviews.pierre.name'),
-      role: t('common:testimonials.reviews.pierre.role'),
-      company: t('common:testimonials.reviews.pierre.company'),
-      content: t('common:testimonials.reviews.pierre.content'),
-      metric: t('common:testimonials.reviews.pierre.metric'),
+      name: t('testimonials.reviews.pierre.name'),
+      role: t('testimonials.reviews.pierre.role'),
+      company: t('testimonials.reviews.pierre.company'),
+      content: t('testimonials.reviews.pierre.content'),
+      metric: t('testimonials.reviews.pierre.metric'),
       avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
     },
     {
       id: 'julien',
-      name: t('common:testimonials.reviews.julien.name'),
-      role: t('common:testimonials.reviews.julien.role'),
-      company: t('common:testimonials.reviews.julien.company'),
-      content: t('common:testimonials.reviews.julien.content'),
-      metric: t('common:testimonials.reviews.julien.metric'),
+      name: t('testimonials.reviews.julien.name'),
+      role: t('testimonials.reviews.julien.role'),
+      company: t('testimonials.reviews.julien.company'),
+      content: t('testimonials.reviews.julien.content'),
+      metric: t('testimonials.reviews.julien.metric'),
       avatar: 'https://randomuser.me/api/portraits/men/75.jpg'
     },
     {
       id: 'sarah',
-      name: t('common:testimonials.reviews.sarah.name'),
-      role: t('common:testimonials.reviews.sarah.role'),
-      company: t('common:testimonials.reviews.sarah.company'),
-      content: t('common:testimonials.reviews.sarah.content'),
-      metric: t('common:testimonials.reviews.sarah.metric'),
+      name: t('testimonials.reviews.sarah.name'),
+      role: t('testimonials.reviews.sarah.role'),
+      company: t('testimonials.reviews.sarah.company'),
+      content: t('testimonials.reviews.sarah.content'),
+      metric: t('testimonials.reviews.sarah.metric'),
       avatar: 'https://randomuser.me/api/portraits/women/44.jpg'
     },
     {
       id: 'thomas',
-      name: t('common:testimonials.reviews.thomas.name'),
-      role: t('common:testimonials.reviews.thomas.role'),
-      company: t('common:testimonials.reviews.thomas.company'),
-      content: t('common:testimonials.reviews.thomas.content'),
-      metric: t('common:testimonials.reviews.thomas.metric'),
+      name: t('testimonials.reviews.thomas.name'),
+      role: t('testimonials.reviews.thomas.role'),
+      company: t('testimonials.reviews.thomas.company'),
+      content: t('testimonials.reviews.thomas.content'),
+      metric: t('testimonials.reviews.thomas.metric'),
       avatar: 'https://randomuser.me/api/portraits/men/52.jpg'
     }
   ];
@@ -115,10 +115,10 @@ const Testimonials: React.FC = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-neutral-200 tracking-tight mb-4">
-            {t('common:testimonials.title')}
+            {t('testimonials.title')}
           </h2>
           <p className="text-lg text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto">
-            {t('common:testimonials.subtitle')}
+            {t('testimonials.subtitle')}
           </p>
         </motion.div>
 

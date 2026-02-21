@@ -26,37 +26,37 @@ const Differentiation: React.FC = () => {
   const differentiators = [
     {
       icon: FileText,
-      title: t('common:differentiation.notCopywritingTool.title'),
-      subtitle: t('common:differentiation.notCopywritingTool.subtitle'),
-      description: t('common:differentiation.notCopywritingTool.description')
+      title: t('differentiation.notCopywritingTool.title'),
+      subtitle: t('differentiation.notCopywritingTool.subtitle'),
+      description: t('differentiation.notCopywritingTool.description')
     },
     {
       icon: Users,
-      title: t('common:differentiation.designedForMediaBuyers.title'),
-      subtitle: t('common:differentiation.designedForMediaBuyers.subtitle'),
-      description: t('common:differentiation.designedForMediaBuyers.description')
+      title: t('differentiation.designedForMediaBuyers.title'),
+      subtitle: t('differentiation.designedForMediaBuyers.subtitle'),
+      description: t('differentiation.designedForMediaBuyers.description')
     },
     {
       icon: Database,
-      title: t('common:differentiation.usesRealData.title'),
-      subtitle: t('common:differentiation.usesRealData.subtitle'),
-      description: t('common:differentiation.usesRealData.description')
+      title: t('differentiation.usesRealData.title'),
+      subtitle: t('differentiation.usesRealData.subtitle'),
+      description: t('differentiation.usesRealData.description')
     },
     {
       icon: Sparkles,
-      title: t('common:differentiation.learnsAndImproves.title'),
-      subtitle: t('common:differentiation.learnsAndImproves.subtitle'),
-      description: t('common:differentiation.learnsAndImproves.description')
+      title: t('differentiation.learnsAndImproves.title'),
+      subtitle: t('differentiation.learnsAndImproves.subtitle'),
+      description: t('differentiation.learnsAndImproves.description')
     }
   ];
 
   const comparison = [
-    { feature: t('common:differentiation.comparison.campaignManagement'), flipika: true, others: false },
-    { feature: t('common:differentiation.comparison.realTimeOptimization'), flipika: true, others: false },
-    { feature: t('common:differentiation.comparison.directGoogleAds'), flipika: true, others: false },
-    { feature: t('common:differentiation.comparison.specializedAI'), flipika: true, others: false },
-    { feature: t('common:differentiation.comparison.continuousLearning'), flipika: true, others: false },
-    { feature: t('common:differentiation.comparison.genericText'), flipika: false, others: true }
+    { feature: t('differentiation.comparison.campaignManagement'), flipika: true, others: false },
+    { feature: t('differentiation.comparison.realTimeOptimization'), flipika: true, others: false },
+    { feature: t('differentiation.comparison.directGoogleAds'), flipika: true, others: false },
+    { feature: t('differentiation.comparison.specializedAI'), flipika: true, others: false },
+    { feature: t('differentiation.comparison.continuousLearning'), flipika: true, others: false },
+    { feature: t('differentiation.comparison.genericText'), flipika: false, others: true }
   ];
 
   const containerVariants = {
@@ -123,13 +123,13 @@ const Differentiation: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6 border border-white/10 dark:border-white/5">
             <Shield size={16} />
-            <span>{t('common:differentiation.title')}</span>
+            <span>{t('differentiation.title')}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-neutral-200 mb-5 tracking-tight">
-            {t('common:differentiation.subtitle')}
+            {t('differentiation.subtitle')}
           </h2>
           <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-            {t('common:differentiation.description')}
+            {t('differentiation.description')}
           </p>
         </motion.div>
 
@@ -184,10 +184,10 @@ const Differentiation: React.FC = () => {
         >
           <div className="text-center mb-8">
             <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-neutral-200 mb-3">
-              {t('common:differentiation.comparison.title')}
+              {t('differentiation.comparison.title')}
             </h3>
             <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              {t('common:differentiation.comparison.subtitle')}
+              {t('differentiation.comparison.subtitle')}
             </p>
           </div>
 
@@ -195,14 +195,14 @@ const Differentiation: React.FC = () => {
             {/* Table Header */}
             <div className="grid grid-cols-3 gap-4 p-5 bg-neutral-50/50 dark:bg-black/50 border-b border-neutral-200/50 dark:border-white/10">
               <div className="text-sm font-semibold text-neutral-600 dark:text-neutral-400">
-                {t('common:differentiation.comparison.featureHeader')}
+                {t('differentiation.comparison.featureHeader')}
               </div>
               <div className="flex items-center justify-center gap-2 text-sm font-bold text-primary">
                 <Zap size={16} />
-                <span>{t('common:differentiation.comparison.flipikaHeader')}</span>
+                <span>{t('differentiation.comparison.flipikaHeader')}</span>
               </div>
               <div className="text-sm font-semibold text-neutral-500 dark:text-neutral-400 text-center">
-                {t('common:differentiation.comparison.othersHeader')}
+                {t('differentiation.comparison.othersHeader')}
               </div>
             </div>
 
@@ -246,10 +246,10 @@ const Differentiation: React.FC = () => {
         >
           <div>
             <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-200 mb-2">
-              {t('common:differentiation.cta')}
+              {t('differentiation.cta')}
             </h3>
             <p className="text-neutral-600 dark:text-neutral-400">
-              {t('common:differentiation.ctaSubtitle') || 'Discover why Media Buyers choose Flipika'}
+              {t('differentiation.ctaSubtitle') || 'Discover why Media Buyers choose Flipika'}
             </p>
           </div>
           <motion.button
@@ -259,7 +259,7 @@ const Differentiation: React.FC = () => {
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", stiffness: 400 }}
           >
-            <span>{t('common:hero.cta')}</span>
+            <span>{t('hero.cta')}</span>
             <ArrowRight size={18} />
           </motion.button>
         </motion.div>

@@ -30,22 +30,22 @@ const Problem: React.FC = () => {
     {
       number: '01',
       icon: Link2,
-      title: t('common:workflow.step1.title'),
-      description: t('common:workflow.step1.description'),
+      title: t('workflow.step1.title'),
+      description: t('workflow.step1.description'),
       bullets: t('common:workflow.step1.bullets', { returnObjects: true }) as string[]
     },
     {
       number: '02',
       icon: FileText,
-      title: t('common:workflow.step2.title'),
-      description: t('common:workflow.step2.description'),
+      title: t('workflow.step2.title'),
+      description: t('workflow.step2.description'),
       bullets: t('common:workflow.step2.bullets', { returnObjects: true }) as string[]
     },
     {
       number: '03',
       icon: Send,
-      title: t('common:workflow.step3.title'),
-      description: t('common:workflow.step3.description'),
+      title: t('workflow.step3.title'),
+      description: t('workflow.step3.description'),
       bullets: t('common:workflow.step3.bullets', { returnObjects: true }) as string[]
     }
   ];
@@ -88,13 +88,13 @@ const Problem: React.FC = () => {
           {/* Section Header */}
           <motion.div className="mb-14" variants={itemVariants}>
             <div className="inline-flex items-center gap-2 px-4 py-2 glass text-primary rounded-full text-sm font-medium mb-6 border border-white/10 dark:border-white/5">
-              <span>{t('common:workflow.badge')}</span>
+              <span>{t('workflow.badge')}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 dark:text-neutral-200 tracking-tight mb-5">
-              {t('common:workflow.title')}
+              {t('workflow.title')}
             </h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-              {t('common:workflow.subtitle')}
+              {t('workflow.subtitle')}
             </p>
           </motion.div>
 

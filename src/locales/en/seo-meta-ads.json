@@ -1,0 +1,184 @@
+{
+  "default": {
+    "title": "Flipika - Meta Ads reports for Media Buyers",
+    "description": "Generate automated, clear, and professional Meta Ads reports for your clients. The ideal solution for demanding media buyers.",
+    "keywords": "Meta Ads reports, Media Buyer, Automated Reporting, Meta Ads Audit, Social Ads Freelancer, Social Ads Agency",
+    "ogTitle": "Flipika - Meta Ads reports for Media Buyers",
+    "ogDescription": "Generate automated, clear, and professional Meta Ads reports for your clients."
+  },
+  "landing": {
+    "title": "Flipika - Meta Ads reports in 2 Minutes | Automated Social Ads Reporting",
+    "description": "Generate professional Meta Ads reports in 2 minutes instead of 3 hours. Automated data sync, AI-powered insights, white-label ready. Free trial for media buyers.",
+    "keywords": "Meta Ads reports, automated Social Ads reporting, client reporting tool, media buyer software, Meta Ads dashboard, white-label reports",
+    "ogTitle": "Flipika - Meta Ads reports from 3h to 2 min",
+    "ogDescription": "Stop wasting time on manual reporting. Flipika auto-generates beautiful Meta Ads reports for your clients."
+  },
+  "login": {
+    "title": "Login | Flipika - Meta Ads reporting Platform",
+    "description": "Sign in to your Flipika account to access your Meta Ads reports, templates, and client dashboards. Secure Google authentication.",
+    "keywords": "Flipika login, Meta Ads reporting login, Social Ads dashboard sign in",
+    "ogTitle": "Login to Flipika",
+    "ogDescription": "Access your Meta Ads reporting dashboard."
+  },
+  "roadmap": {
+    "title": "Flipika Roadmap | From Meta Ads to Meta Ads & Beyond",
+    "description": "Discover Flipika's vision: from Meta Ads reporting to Meta Ads, towards the ultimate Media Buyer Super App. See what's coming and get lifetime access.",
+    "keywords": "Flipika roadmap, Meta Ads tool features, Meta Ads reporting, media buyer app, Social Ads tool roadmap",
+    "ogTitle": "Flipika Roadmap - The Future of Media Buyer Reporting",
+    "ogDescription": "From Meta Ads to Meta Ads and beyond. Discover what's next for Flipika."
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy | Flipika - Meta Ads reporting",
+    "description": "Learn how Flipika protects your data and Meta Ads account information. GDPR compliant, secure European hosting, transparent data practices.",
+    "keywords": "Flipika privacy policy, Meta Ads data security, GDPR compliance, data protection",
+    "ogTitle": "Privacy Policy - Flipika",
+    "ogDescription": "How we protect your data and Meta Ads information."
+  },
+  "termsOfService": {
+    "title": "Terms of Service | Flipika - Meta Ads reporting",
+    "description": "Read Flipika's terms of service. Understand your rights and obligations when using our Meta Ads reporting platform.",
+    "keywords": "Flipika terms of service, Meta Ads API terms, user agreement",
+    "ogTitle": "Terms of Service - Flipika",
+    "ogDescription": "Terms and conditions for using Flipika's reporting platform."
+  },
+  "legalNotices": {
+    "title": "Legal Notices | Flipika - Company Information",
+    "description": "Legal information about Flipika SAS. Company registration, hosting details, and legal contact information.",
+    "keywords": "Flipika legal notices, company information, imprint",
+    "ogTitle": "Legal Notices - Flipika",
+    "ogDescription": "Legal and company information for Flipika SAS."
+  },
+  "sitemap": {
+    "title": "Sitemap | Flipika - All Pages",
+    "description": "Browse all pages of Flipika.com. Find report templates, alternatives comparisons, resources, and legal information.",
+    "keywords": "Flipika sitemap, all pages, navigation",
+    "ogTitle": "Sitemap - Flipika",
+    "ogDescription": "Explore all pages of Flipika.com"
+  },
+  "pricing": {
+    "title": "Pricing: 10€/seat or 100€ Lifetime | Flipika",
+    "description": "Meta Ads reporting from 10€/seat/month or 100€ lifetime access. Free trial, no credit card required. All features included.",
+    "keywords": "Flipika pricing, Meta Ads reporting cost, Social Ads reporting tool price, lifetime deal",
+    "ogTitle": "Flipika Pricing — 10€/month or 100€ Lifetime",
+    "ogDescription": "Meta Ads reporting from 10€/seat/month or one-time 100€ lifetime access."
+  },
+  "features": {
+    "title": "The reporting tool built for Meta Ads",
+    "subtitle": "Save hours at the end of each month by automating your reports.",
+    "aiGeneration": {
+      "title": "Tailored Models",
+      "description": "Visualize your Meta Ads Ad Groups, Campaigns, and Creatives in clear slides."
+    },
+    "analytics": {
+      "title": "Customization",
+      "description": "Apply your colors and logo for 100% white-label reporting."
+    },
+    "optimization": {
+      "title": "AI Insights",
+      "description": "Artificial Intelligence analyzes your Meta Ads performance to help you conclude."
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found | Flipika",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "keywords": "",
+    "ogTitle": "Page Not Found - Flipika",
+    "ogDescription": "This page doesn't exist."
+  },
+  "alternativesIndex": {
+    "title": "Best Meta Ads reporting Alternatives 2026 | Flipika vs Competitors",
+    "description": "Compare Flipika to Looker Studio, AgencyAnalytics, DashThis, Swydo and more. Find the best Meta Ads reporting tool for your agency or freelance business.",
+    "keywords": "Meta Ads reporting alternatives, Looker Studio alternative, AgencyAnalytics alternative, best Social Ads reporting tool, DashThis vs Flipika",
+    "ogTitle": "Meta Ads reporting Alternatives - Flipika Comparisons",
+    "ogDescription": "Compare the best Meta Ads reporting tools and find the right solution for your business."
+  },
+  "solutions": {
+    "title": "Meta Ads reporting Solutions for {persona} | Flipika",
+    "description": "Discover how Flipika helps {persona} automate their Meta Ads reports, save time, and improve client satisfaction.",
+    "keywords": "Meta Ads reporting {persona}, {persona} report automation, Social Ads tool for {persona}, reporting time saver"
+  },
+  "featureDetails": {
+    "report-generation": {
+      "title": "Automated Report Generation | Flipika - Meta Ads reporting",
+      "description": "Generate professional Meta Ads reports in 2 minutes. Automatic data sync, optimized layout, real-time metrics. Save hours on monthly reporting.",
+      "keywords": "Meta Ads report generator, automated Social Ads reports, Meta Ads data sync, professional report layout"
+    },
+    "ai-narration": {
+      "title": "AI-Powered Narration & Insights | Flipika - Smart Reporting",
+      "description": "Let AI analyze your Meta Ads data and generate insights, optimization suggestions, and natural language comments for your client reports.",
+      "keywords": "AI Meta Ads analysis, automated insights, Social Ads optimization suggestions, AI report narration"
+    },
+    "custom-templates": {
+      "title": "Custom Report Templates | Flipika - White-Label Reporting",
+      "description": "Create and save custom Meta Ads report templates with your branding, favorite KPIs, and personalized layout. White-label ready.",
+      "keywords": "custom Meta Ads templates, white-label Social Ads reports, branded report templates, drag and drop report builder"
+    },
+    "scheduling-automation": {
+      "title": "Report Scheduling & Automation | Flipika - Set & Forget",
+      "description": "Schedule automatic Meta Ads report delivery: daily, weekly, or monthly. Your clients get insights without any effort on your part.",
+      "keywords": "automated report scheduling, Meta Ads report automation, recurring Social Ads reports, automatic email reporting"
+    },
+    "multi-format-exports": {
+      "title": "PDF, Slides & Web Exports | Flipika - Multi-Format Reporting",
+      "description": "Export Meta Ads reports as PDF, PowerPoint slides, or interactive web links. Choose the format that suits your clients best.",
+      "keywords": "Meta Ads PDF export, Social Ads PowerPoint report, interactive web report, multi-format export"
+    },
+    "email-sending": {
+      "title": "Email Report Delivery | Flipika - Direct Client Reporting",
+      "description": "Send Meta Ads reports directly from Flipika with personalized messages. Track opens and maintain a complete sending history.",
+      "keywords": "email Meta Ads reports, direct report delivery, report open tracking, client email reporting"
+    },
+    "slideshow-mode": {
+      "title": "Slideshow Presentation Mode | Flipika - Present Like a Pro",
+      "description": "Transform your Meta Ads reports into full-screen interactive presentations. Perfect for client meetings and performance reviews.",
+      "keywords": "Meta Ads presentation, Social Ads slideshow, report presentation mode, client meeting reporting"
+    }
+  },
+  "hero": {
+    "badge": "Powered by AI",
+    "title": "Your Meta Ads reports, generated in one click.",
+    "subtitle": "Analyze your Meta Ads campaigns effortlessly. Get clear insights on CPA, ROAS, and budgets, perfectly formatted for your clients.",
+    "description": "Flipika connects directly to your Meta Ads account, extracts key campaign data, and creates a ready-to-send report.",
+    "getStarted": "Create free report",
+    "noCreditCard": "No credit card required",
+    "cta": "Start for free",
+    "ctaSecondary": "View template"
+  },
+  "workflow": {
+    "badge": "Fast and Simple",
+    "title": "How to automate your Meta Ads reporting?",
+    "subtitle": "Forget tedious CSV exports from the Meta Ads manager.",
+    "step1": {
+      "title": "Connect Meta Ads",
+      "description": "Securely link your Meta Ads account in seconds.",
+      "bullets": [
+        "Direct API Connection",
+        "Account selection",
+        "Real-time sync"
+      ]
+    },
+    "step2": {
+      "title": "Generate",
+      "description": "Pick a template, and Flipika pulls clicks, impressions, and conversions.",
+      "bullets": [
+        "Pre-built templates",
+        "Client selection",
+        "Automated analysis"
+      ]
+    },
+    "step3": {
+      "title": "Send",
+      "description": "Add your insights, visually approve, and send the report to your client.",
+      "bullets": [
+        "Custom comments",
+        "PDF or web link",
+        "One-click sending"
+      ]
+    }
+  },
+  "closingCta": {
+    "title": "Stop copy-pasting your Meta Ads metrics",
+    "subtitle": "Spend more time optimizing campaigns, and less time building slides.",
+    "cta": "Try for free"
+  }
+}

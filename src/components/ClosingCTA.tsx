@@ -42,7 +42,7 @@ const ClosingCTA: React.FC = () => {
                     transition={{ duration: 0.7 }}
                     viewport={{ once: true }}
                 >
-                    {t('common:closingCta.title')}
+                    {t('closingCta.title')}
                 </motion.h2>
 
                 <motion.p
@@ -52,7 +52,7 @@ const ClosingCTA: React.FC = () => {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     viewport={{ once: true }}
                 >
-                    {t('common:closingCta.subtitle')}
+                    {t('closingCta.subtitle')}
                 </motion.p>
 
                 <motion.button
@@ -65,7 +65,7 @@ const ClosingCTA: React.FC = () => {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     viewport={{ once: true }}
                 >
-                    <span>{t('common:closingCta.cta')}</span>
+                    <span>{t('closingCta.cta')}</span>
                     <ArrowRight size={18} />
                 </motion.button>
             </div>

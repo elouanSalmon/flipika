@@ -32,17 +32,17 @@ const RoadmapPreview: React.FC = () => {
                     className="text-center max-w-3xl mx-auto mb-16"
                 >
                     <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] mb-6">
-                        {t('common:roadmapPreview.title', 'All your ad platforms, one place.')}
+                        {t('roadmapPreview.title', 'All your ad platforms, one place.')}
                     </h2>
                     <p className="text-lg text-[var(--color-text-secondary)] mb-8">
-                        {t('common:roadmapPreview.description', 'From Google Ads to TikTok, we are building the ultimate reporting hub for every media buyer.')}
+                        {t('roadmapPreview.description', 'From Google Ads to TikTok, we are building the ultimate reporting hub for every media buyer.')}
                     </p>
 
                     <Link
                         to={getLangPath('/roadmap')}
                         className="btn btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold transition-all hover:-translate-y-0.5"
                     >
-                        {t('common:roadmapPreview.cta', 'See our Roadmap')}
+                        {t('roadmapPreview.cta', 'See our Roadmap')}
                         <ArrowRight size={20} />
                     </Link>
                 </motion.div>

@@ -2,7 +2,7 @@
     "hero": {
         "badge": "Solutions",
         "title": "A tailored solution for every profile",
-        "subtitle": "Whether you are a freelancer, agency, or marketing manager, Flipika adapts to your needs to automate your Google Ads reporting."
+        "subtitle": "Whether you are a freelancer, agency, or marketing manager, Flipika adapts to your needs to automate your Google Ads & Meta Ads reporting."
     },
     "solutions": [
         {
@@ -49,7 +49,7 @@
             "icon": "PieChart",
             "title": "Marketing Managers",
             "subtitle": "Clear and serene management of your investments",
-            "description": "Get a crystal-clear view of your Google Ads performance without technical effort. Readable reports for you and your management.",
+            "description": "Get a crystal-clear view of your Google Ads & Meta Ads performance without technical effort. Readable reports for you and your management.",
             "benefits": [
                 "Clear and actionable dashboards",
                 "AI-driven summary (voice/text)",

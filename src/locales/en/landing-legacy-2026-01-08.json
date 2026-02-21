@@ -1,19 +1,19 @@
 {
   "hero": {
-    "title": "Automatic Google Ads reports your clients actually understand",
+    "title": "Automatic Google Ads & Meta Ads reports your clients actually understand",
     "subtitle": "Save hours every month on client reporting",
-    "description": "Flipika automatically generates clear, explained, and ready-to-send Google Ads reports. No more exporting, formatting, or justifying every number.",
+    "description": "Flipika automatically generates clear, explained, and ready-to-send Google Ads & Meta Ads reports. No more exporting, formatting, or justifying every number.",
     "getStarted": "See a report example",
     "noCreditCard": "No credit card required",
     "cta": "Access the beta",
     "ctaSecondary": "See how it works"
   },
   "features": {
-    "title": "Google Ads reporting, finally simple",
+    "title": "Google Ads & Meta Ads reporting, finally simple",
     "subtitle": "Automatic, clear, and business-oriented",
     "aiGeneration": {
       "title": "Automatic client reports",
-      "description": "Generate complete Google Ads reports with key KPIs, variations, and ready-to-send explanations."
+      "description": "Generate complete Google Ads & Meta Ads reports with key KPIs, variations, and ready-to-send explanations."
     },
     "analytics": {
       "title": "Explained performance",
@@ -79,7 +79,7 @@
     }
   },
   "problem": {
-    "title": "Google Ads reporting wastes your time",
+    "title": "Google Ads & Meta Ads reporting wastes your time",
     "subtitle": "Hours spent on low-value tasks",
     "description": "Between exports, dashboards, and explaining performance, client reporting becomes a recurring chore.",
     "issues": {

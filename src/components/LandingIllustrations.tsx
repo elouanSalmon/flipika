@@ -21,7 +21,7 @@ import {
     ChevronLeft,
     Maximize2
 } from 'lucide-react';
-import { SiGoogleads } from 'react-icons/si';
+import { SiGoogleads, SiMeta } from 'react-icons/si';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 /* ─────────────────────────────────────────────
@@ -78,10 +78,13 @@ export const HeroDashboardIllustration: React.FC = () => {
             {/* Header: Source & Speed */}
             <div className="h-10 md:h-14 border-b border-neutral-100 dark:border-white/5 flex items-center px-3 md:px-6 justify-between bg-neutral-50/50 dark:bg-white/5 backdrop-blur-sm shrink-0">
                 <div className="flex items-center gap-2 md:gap-3">
-                    <SiGoogleads className="w-4 h-4 md:w-6 md:h-6 text-blue-500" />
+                    <div className="flex items-center gap-1.5 md:gap-2">
+                        <SiGoogleads className="w-4 h-4 md:w-6 md:h-6 text-blue-500" />
+                        <SiMeta className="w-4 h-4 md:w-6 md:h-6 text-blue-600" />
+                    </div>
                     <div className="flex flex-col">
-                        <span className="text-[7px] md:text-[9px] uppercase tracking-wider font-bold text-neutral-400">Source</span>
-                        <span className="text-[8px] md:text-xs font-semibold text-neutral-800 dark:text-neutral-200 leading-none">Google Ads</span>
+                        <span className="text-[7px] md:text-[9px] uppercase tracking-wider font-bold text-neutral-400">Sources</span>
+                        <span className="text-[8px] md:text-xs font-semibold text-neutral-800 dark:text-neutral-200 leading-none">Google Ads & Meta Ads</span>
                     </div>
                 </div>
 

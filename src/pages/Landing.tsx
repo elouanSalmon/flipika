@@ -86,7 +86,7 @@ const Landing = () => {
                         "name": "Flipika",
                         "url": "https://flipika.com",
                         "image": "https://flipika.com/og-image.png",
-                        "description": "Generate professional Google Ads reports in 2 minutes. Automated data sync, AI-powered insights, white-label ready.",
+                        "description": "Generate professional Google Ads & Meta Ads reports in 2 minutes. Automated data sync, AI-powered insights, white-label ready.",
                         "operatingSystem": "Web",
                         "applicationCategory": "BusinessApplication",
                         "offers": {
@@ -105,7 +105,7 @@ const Landing = () => {
                         "name": "Flipika",
                         "url": "https://flipika.com",
                         "logo": "https://flipika.com/logo.png",
-                        "description": "Automated Google Ads reporting platform for media buyers, agencies and freelancers.",
+                        "description": "Automated Google Ads & Meta Ads reporting platform for media buyers, agencies and freelancers.",
                         "foundingDate": "2024",
                         "sameAs": []
                     })}

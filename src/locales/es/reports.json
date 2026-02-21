@@ -2,7 +2,7 @@
     "featureName": "los informes",
     "list": {
         "title": "Mis Informes",
-        "description": "Gestiona y organiza tus informes de Google Ads",
+        "description": "Gestiona y organiza tus informes de Google Ads & Meta Ads",
         "createFromTemplate": "Crear desde plantilla",
         "newReport": "Nuevo informe",
         "connectRequired": "Conecta Google Ads para crear informes",
@@ -168,7 +168,7 @@
             "presetThemeApplied": "Tema \"{{themeName}}\" aplicado desde las preferencias del cliente"
         },
         "email": {
-            "subject": "Informe de Google Ads - {{title}}",
+            "subject": "informe de Google Ads & Meta Ads - {{title}}",
             "greeting": "Hola,",
             "intro": "Te comparto el siguiente informe de análisis de Google Ads...",
             "reportTitle": "Informe: {{title}}",
@@ -588,7 +588,7 @@
     "info": {
         "buttonLabel": "Información",
         "modalTitle": "¿Qué es un informe?",
-        "modalContent": "Los informes son documentos personalizables de rendimiento de Google Ads que puedes crear y compartir con tus clientes o partes interesadas.\n\nCon los informes, puedes:\n• Combinar múltiples tipos de diapositivas (métricas, gráficos, texto, creatividades) en presentaciones completas\n• Analizar campañas y periodos de tiempo específicos\n• Guardar como borrador, publicar o archivar para organización\n• Proteger informes con contraseña para un intercambio seguro\n• Generar exportaciones a PDF para distribución offline\n• Compartir por correo con contenido pre-completado\n\nLos informes pueden crearse desde cero o generarse a partir de plantillas para entregas más rápidas y consistentes."
+        "modalContent": "Los informes son documentos personalizables de rendimiento de Google Ads & Meta Ads que puedes crear y compartir con tus clientes o partes interesadas.\n\nCon los informes, puedes:\n• Combinar múltiples tipos de diapositivas (métricas, gráficos, texto, creatividades) en presentaciones completas\n• Analizar campañas y periodos de tiempo específicos\n• Guardar como borrador, publicar o archivar para organización\n• Proteger informes con contraseña para un intercambio seguro\n• Generar exportaciones a PDF para distribución offline\n• Compartir por correo con contenido pre-completado\n\nLos informes pueden crearse desde cero o generarse a partir de plantillas para entregas más rápidas y consistentes."
     },
     "flexibleBlock": {
         "modalTitle": "Configuración del Bloque de Datos",

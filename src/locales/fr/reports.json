@@ -2,7 +2,7 @@
   "featureName": "les rapports",
   "list": {
     "title": "Mes Rapports",
-    "description": "Gérez et organisez vos rapports Google Ads",
+    "description": "Gérez et organisez vos rapports Google Ads & Meta Ads",
     "createFromTemplate": "Créer à partir d'un template",
     "newReport": "Nouveau Rapport",
     "connectRequired": "Connectez Google Ads pour créer des rapports",
@@ -168,7 +168,7 @@
       "presetThemeApplied": "Thème \"{{themeName}}\" appliqué depuis les préférences du client"
     },
     "email": {
-      "subject": "Rapport Google Ads - {{title}}",
+      "subject": "rapport Google Ads & Meta Ads - {{title}}",
       "greeting": "Bonjour,",
       "intro": "Je vous partage le rapport d'analyse Google Ads suivant...",
       "reportTitle": "Rapport : {{title}}",

@@ -423,7 +423,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                     {!defaultTemplateId && <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
                         {t('form.presets.template.recommended', { defaultValue: 'Recommandé pour la génération de rapports' })}
                     </p>}
-                    {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
+                    {loadingPresets && <p className="client-form-helper">{t('loading')}...</p>}
                 </div>
 
                 <div className="client-form-group">
@@ -444,7 +444,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                             </option>
                         ))}
                     </select>
-                    {loadingPresets && <p className="client-form-helper">{t('common:loading')}...</p>}
+                    {loadingPresets && <p className="client-form-helper">{t('loading')}...</p>}
                 </div>
             </motion.div>
 

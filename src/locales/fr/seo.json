@@ -1,42 +1,42 @@
 {
     "default": {
-        "title": "Flipika - Rapports Google Ads pour Media Buyers",
-        "description": "Générez des rapports Google Ads automatisés, clairs et professionnels pour vos clients. La solution idéale pour les media buyers exigeants.",
-        "keywords": "Rapports Google Ads, Media Buyer, Reporting automatisé, Audit Google Ads, Freelance PPC, Agence PPC",
-        "ogTitle": "Flipika - Rapports Google Ads pour Media Buyers",
-        "ogDescription": "Générez des rapports Google Ads automatisés, clairs et professionnels pour vos clients."
+        "title": "Flipika - rapports Google Ads & Meta Ads pour Media Buyers",
+        "description": "Générez des rapports Google Ads & Meta Ads automatisés, clairs et professionnels pour vos clients. La solution idéale pour les media buyers exigeants.",
+        "keywords": "rapports Google Ads & Meta Ads, Media Buyer, Reporting automatisé, Audit Google Ads, Freelance PPC, Agence PPC",
+        "ogTitle": "Flipika - rapports Google Ads & Meta Ads pour Media Buyers",
+        "ogDescription": "Générez des rapports Google Ads & Meta Ads automatisés, clairs et professionnels pour vos clients."
     },
     "landing": {
-        "title": "Flipika - Rapports Google Ads en 2 Minutes | Reporting PPC Automatisé",
-        "description": "Créez des rapports Google Ads professionnels en 2 minutes au lieu de 3 heures. Synchronisation automatique, insights IA, marque blanche. Essai gratuit pour media buyers.",
-        "keywords": "rapports Google Ads, reporting PPC automatisé, outil reporting client, logiciel media buyer, dashboard Google Ads, rapports marque blanche",
-        "ogTitle": "Flipika - Rapports Google Ads de 3h à 2 min",
-        "ogDescription": "Arrêtez de perdre du temps sur le reporting manuel. Flipika génère automatiquement de beaux rapports Google Ads pour vos clients."
+        "title": "Flipika - rapports Google Ads & Meta Ads en 2 Minutes | Reporting PPC Automatisé",
+        "description": "Créez des rapports Google Ads & Meta Ads professionnels en 2 minutes au lieu de 3 heures. Synchronisation automatique, insights IA, marque blanche. Essai gratuit pour media buyers.",
+        "keywords": "rapports Google Ads & Meta Ads, reporting PPC automatisé, outil reporting client, logiciel media buyer, dashboard Google Ads, rapports marque blanche",
+        "ogTitle": "Flipika - rapports Google Ads & Meta Ads de 3h à 2 min",
+        "ogDescription": "Arrêtez de perdre du temps sur le reporting manuel. Flipika génère automatiquement de beaux rapports Google Ads & Meta Ads pour vos clients."
     },
     "login": {
-        "title": "Connexion | Flipika - Plateforme de Reporting Google Ads",
-        "description": "Connectez-vous à votre compte Flipika pour accéder à vos rapports Google Ads, templates et dashboards clients. Authentification sécurisée via Google.",
-        "keywords": "connexion Flipika, login reporting Google Ads, connexion dashboard PPC",
+        "title": "Connexion | Flipika - Plateforme de reporting Google Ads & Meta Ads",
+        "description": "Connectez-vous à votre compte Flipika pour accéder à vos rapports Google Ads & Meta Ads, templates et dashboards clients. Authentification sécurisée via Google.",
+        "keywords": "connexion Flipika, login reporting Google Ads & Meta Ads, connexion dashboard PPC",
         "ogTitle": "Connexion à Flipika",
-        "ogDescription": "Accédez à votre tableau de bord de reporting Google Ads."
+        "ogDescription": "Accédez à votre tableau de bord de reporting Google Ads & Meta Ads."
     },
     "roadmap": {
         "title": "Roadmap Flipika | De Google Ads à Meta Ads & Au-delà",
-        "description": "Découvrez la vision de Flipika : du reporting Google Ads vers Meta Ads, vers la Super App ultime pour Media Buyers. Voyez ce qui arrive et obtenez l'accès lifetime.",
+        "description": "Découvrez la vision de Flipika : du reporting Google Ads & Meta Ads vers Meta Ads, vers la Super App ultime pour Media Buyers. Voyez ce qui arrive et obtenez l'accès lifetime.",
         "keywords": "roadmap Flipika, fonctionnalités outil Google Ads, reporting Meta Ads, app media buyer, roadmap outil PPC",
         "ogTitle": "Roadmap Flipika - Le Futur du Reporting Media Buyer",
         "ogDescription": "De Google Ads à Meta Ads et au-delà. Découvrez ce qui arrive chez Flipika."
     },
     "privacyPolicy": {
-        "title": "Politique de Confidentialité | Flipika - Reporting Google Ads",
+        "title": "Politique de Confidentialité | Flipika - reporting Google Ads & Meta Ads",
         "description": "Découvrez comment Flipika protège vos données et informations de compte Google Ads. Conforme RGPD, hébergement européen sécurisé, pratiques transparentes.",
         "keywords": "politique confidentialité Flipika, sécurité données Google Ads, conformité RGPD, protection des données",
         "ogTitle": "Politique de Confidentialité - Flipika",
         "ogDescription": "Comment nous protégeons vos données et informations Google Ads."
     },
     "termsOfService": {
-        "title": "Conditions d'Utilisation | Flipika - Reporting Google Ads",
-        "description": "Lisez les conditions d'utilisation de Flipika. Comprenez vos droits et obligations lors de l'utilisation de notre plateforme de reporting Google Ads.",
+        "title": "Conditions d'Utilisation | Flipika - reporting Google Ads & Meta Ads",
+        "description": "Lisez les conditions d'utilisation de Flipika. Comprenez vos droits et obligations lors de l'utilisation de notre plateforme de reporting Google Ads & Meta Ads.",
         "keywords": "conditions utilisation Flipika, termes API Google Ads, accord utilisateur",
         "ogTitle": "Conditions d'Utilisation - Flipika",
         "ogDescription": "Termes et conditions d'utilisation de la plateforme de reporting Flipika."
@@ -57,16 +57,16 @@
     },
     "pricing": {
         "title": "Tarifs : 10€/compte ou 100€ à vie | Flipika",
-        "description": "Reporting Google Ads à partir de 10€/compte/mois ou 100€ en accès à vie. Essai gratuit, sans carte bancaire. Toutes les fonctionnalités incluses.",
-        "keywords": "Tarifs Flipika, prix reporting Google Ads, coût outil PPC, offre à vie",
+        "description": "reporting Google Ads & Meta Ads à partir de 10€/compte/mois ou 100€ en accès à vie. Essai gratuit, sans carte bancaire. Toutes les fonctionnalités incluses.",
+        "keywords": "Tarifs Flipika, prix reporting Google Ads & Meta Ads, coût outil PPC, offre à vie",
         "ogTitle": "Tarifs Flipika — 10€/mois ou 100€ à vie",
-        "ogDescription": "Reporting Google Ads à partir de 10€/compte/mois ou accès à vie unique à 100€."
+        "ogDescription": "reporting Google Ads & Meta Ads à partir de 10€/compte/mois ou accès à vie unique à 100€."
     },
     "features": {
-        "title": "Fonctionnalités | Flipika - Reporting Google Ads Automatisé",
+        "title": "Fonctionnalités | Flipika - reporting Google Ads & Meta Ads Automatisé",
         "description": "Découvrez toutes les fonctionnalités de Flipika : génération de rapports, narration IA, templates personnalisés, automatisation, exports multi-formats et plus.",
         "keywords": "fonctionnalités Flipika, reporting automatisé Google Ads, templates personnalisés, narration IA, export PDF slides, mode diaporama",
-        "ogTitle": "Fonctionnalités Flipika - Tout pour vos rapports Google Ads",
+        "ogTitle": "Fonctionnalités Flipika - Tout pour vos rapports Google Ads & Meta Ads",
         "ogDescription": "Génération automatique, narration IA, templates sur mesure, exports multi-formats et plus encore."
     },
     "notFound": {
@@ -77,22 +77,22 @@
         "ogDescription": "Cette page n'existe pas."
     },
     "alternativesIndex": {
-        "title": "Meilleures Alternatives Reporting Google Ads 2026 | Flipika vs Concurrents",
-        "description": "Comparez Flipika à Looker Studio, AgencyAnalytics, DashThis, Swydo et plus encore. Trouvez le meilleur outil de reporting Google Ads pour votre agence ou activité freelance.",
-        "keywords": "alternatives reporting Google Ads, alternative Looker Studio, alternative AgencyAnalytics, meilleur outil reporting PPC, DashThis vs Flipika",
-        "ogTitle": "Alternatives Reporting Google Ads - Comparatifs Flipika",
-        "ogDescription": "Comparez les meilleurs outils de reporting Google Ads et trouvez la solution adaptée à votre activité."
+        "title": "Meilleures Alternatives reporting Google Ads & Meta Ads 2026 | Flipika vs Concurrents",
+        "description": "Comparez Flipika à Looker Studio, AgencyAnalytics, DashThis, Swydo et plus encore. Trouvez le meilleur outil de reporting Google Ads & Meta Ads pour votre agence ou activité freelance.",
+        "keywords": "alternatives reporting Google Ads & Meta Ads, alternative Looker Studio, alternative AgencyAnalytics, meilleur outil reporting PPC, DashThis vs Flipika",
+        "ogTitle": "Alternatives reporting Google Ads & Meta Ads - Comparatifs Flipika",
+        "ogDescription": "Comparez les meilleurs outils de reporting Google Ads & Meta Ads et trouvez la solution adaptée à votre activité."
     },
     "solutions": {
-        "title": "Solutions de Reporting Google Ads pour {persona} | Flipika",
-        "description": "Découvrez comment Flipika aide les {persona} à automatiser leurs rapports Google Ads, gagner du temps et améliorer la satisfaction client.",
-        "keywords": "reporting Google Ads {persona}, automatisation rapports {persona}, outil PPC {persona}, gain de temps reporting"
+        "title": "Solutions de reporting Google Ads & Meta Ads pour {persona} | Flipika",
+        "description": "Découvrez comment Flipika aide les {persona} à automatiser leurs rapports Google Ads & Meta Ads, gagner du temps et améliorer la satisfaction client.",
+        "keywords": "reporting Google Ads & Meta Ads {persona}, automatisation rapports {persona}, outil PPC {persona}, gain de temps reporting"
     },
     "featureDetails": {
         "report-generation": {
-            "title": "Génération automatique de rapports | Flipika - Reporting Google Ads",
-            "description": "Créez des rapports Google Ads professionnels en 2 minutes. Synchronisation automatique, mise en page optimisée, données en temps réel.",
-            "keywords": "générateur rapports Google Ads, rapports PPC automatisés, synchronisation données Google Ads, mise en page rapports"
+            "title": "Génération automatique de rapports | Flipika - reporting Google Ads & Meta Ads",
+            "description": "Créez des rapports Google Ads & Meta Ads professionnels en 2 minutes. Synchronisation automatique, mise en page optimisée, données en temps réel.",
+            "keywords": "générateur rapports Google Ads & Meta Ads, rapports PPC automatisés, synchronisation données Google Ads, mise en page rapports"
         },
         "ai-narration": {
             "title": "Narration IA & Insights | Flipika - Reporting Intelligent",
@@ -106,22 +106,22 @@
         },
         "scheduling-automation": {
             "title": "Planification & Automatisation | Flipika - Reporting Automatique",
-            "description": "Planifiez l'envoi automatique de rapports Google Ads : quotidien, hebdomadaire ou mensuel. Vos clients reçoivent leurs insights sans effort.",
-            "keywords": "planification rapports automatique, automatisation reporting Google Ads, rapports PPC récurrents, envoi email automatique"
+            "description": "Planifiez l'envoi automatique de rapports Google Ads & Meta Ads : quotidien, hebdomadaire ou mensuel. Vos clients reçoivent leurs insights sans effort.",
+            "keywords": "planification rapports automatique, automatisation reporting Google Ads & Meta Ads, rapports PPC récurrents, envoi email automatique"
         },
         "multi-format-exports": {
             "title": "Exports PDF, Slides & Web | Flipika - Reporting Multi-Format",
-            "description": "Exportez vos rapports Google Ads en PDF, diapositives PowerPoint ou liens web interactifs. Le format idéal pour chaque client.",
+            "description": "Exportez vos rapports Google Ads & Meta Ads en PDF, diapositives PowerPoint ou liens web interactifs. Le format idéal pour chaque client.",
             "keywords": "export PDF Google Ads, rapport PPC PowerPoint, rapport web interactif, export multi-format"
         },
         "email-sending": {
             "title": "Envoi de rapports par email | Flipika - Reporting Direct",
-            "description": "Envoyez vos rapports Google Ads directement depuis Flipika avec un message personnalisé. Suivi des ouvertures et historique complet.",
-            "keywords": "envoi rapports Google Ads, livraison directe rapports, suivi ouvertures, reporting email client"
+            "description": "Envoyez vos rapports Google Ads & Meta Ads directement depuis Flipika avec un message personnalisé. Suivi des ouvertures et historique complet.",
+            "keywords": "envoi rapports Google Ads & Meta Ads, livraison directe rapports, suivi ouvertures, reporting email client"
         },
         "slideshow-mode": {
             "title": "Mode Diaporama | Flipika - Présentez comme un Pro",
-            "description": "Transformez vos rapports Google Ads en présentations interactives plein écran. Parfait pour les réunions clients et bilans de performance.",
+            "description": "Transformez vos rapports Google Ads & Meta Ads en présentations interactives plein écran. Parfait pour les réunions clients et bilans de performance.",
             "keywords": "présentation Google Ads, diaporama PPC, mode présentation rapports, reporting réunion client"
         }
     }

@@ -1,6 +1,6 @@
 {
     "header": {
-        "tagline": "Informes de Google Ads",
+        "tagline": "informes de Google Ads & Meta Ads",
         "getStarted": "Ver un ejemplo",
         "language": "Idioma",
         "home": "Inicio",
@@ -17,7 +17,7 @@
     "auth": {
         "login": {
             "title": "Bienvenido de nuevo",
-            "subtitle": "Informes de Google Ads, reinventados.",
+            "subtitle": "informes de Google Ads & Meta Ads, reinventados.",
             "subtitle2": "Rápido, fiable y seguro.",
             "google": "Continuar con Google",
             "error": "Ocurrió un error durante el inicio de sesión.",
@@ -27,7 +27,7 @@
         },
         "benefits": {
             "title": "¿Por qué Flipika?",
-            "reports": "Informes de Google Ads en 1 clic",
+            "reports": "informes de Google Ads & Meta Ads en 1 clic",
             "ai": "Análisis de IA contextual",
             "security": "Seguridad de nivel empresarial"
         },
@@ -37,15 +37,15 @@
         }
     },
     "meta": {
-        "title": "Flipika - Informes de Google Ads para Media Buyers",
-        "description": "Genera informes de Google Ads automatizados, claros y profesionales para tus clientes. La solución ideal para media buyers exigentes.",
-        "keywords": "Informes de Google Ads, Media Buyer, Informes Automatizados, Auditoría de Google Ads, Freelance PPC, Agencia PPC",
-        "ogTitle": "Flipika - Informes de Google Ads para Media Buyers",
-        "ogDescription": "Genera informes de Google Ads automatizados, claros y profesionales para tus clientes."
+        "title": "Flipika - informes de Google Ads & Meta Ads para Media Buyers",
+        "description": "Genera informes de Google Ads & Meta Ads automatizados, claros y profesionales para tus clientes. La solución ideal para media buyers exigentes.",
+        "keywords": "informes de Google Ads & Meta Ads, Media Buyer, Informes Automatizados, Auditoría de Google Ads, Freelance PPC, Agencia PPC",
+        "ogTitle": "Flipika - informes de Google Ads & Meta Ads para Media Buyers",
+        "ogDescription": "Genera informes de Google Ads & Meta Ads automatizados, claros y profesionales para tus clientes."
     },
     "hero": {
         "badge": "Potenciado por IA",
-        "title": "Tus informes de Google Ads, listos en 2 minutos.",
+        "title": "Informes de Google & Meta Ads, listos en 2 minutos.",
         "subtitle": "Informes impecables para clientes, generados automáticamente a partir de tus datos de Google Ads. Tú revisas, tú envías. Así de simple.",
         "description": "Flipika se conecta a tus cuentas de Google Ads, genera informes para clientes y te los presenta para tu revisión. Tú compruebas, tú envías. Cero formato, cero estrés.",
         "getStarted": "Ver un informe de ejemplo",
@@ -229,7 +229,7 @@
                 "name": "Pierre M.",
                 "role": "Media Buyer Freelance",
                 "company": "Gestiona 12 cuentas de clientes",
-                "content": "Pasaba varias horas a la semana en informes. Con Flipika, mis informes de Google Ads se generan automáticamente y mis clientes finalmente entienden el rendimiento.",
+                "content": "Pasaba varias horas a la semana en informes. Con Flipika, mis informes de Google Ads & Meta Ads se generan automáticamente y mis clientes finalmente entienden el rendimiento.",
                 "metric": "4h ahorradas / semana"
             },
             "julien": {
@@ -261,7 +261,7 @@
         "cta": "Ver nuestra hoja de ruta"
     },
     "bigStatement": {
-        "title": "Informes de Google Ads impecables, en piloto automático.",
+        "title": "informes de Google Ads & Meta Ads impecables, en piloto automático.",
         "subtitle": "Flipika hace el trabajo que tú no deberías tener que hacer."
     },
     "showcase": {
@@ -358,7 +358,7 @@
         "legal": "Aviso legal",
         "privacy": "Política de privacidad",
         "terms": "Términos de servicio",
-        "tagline": "Informes de Google Ads listos en 2 minutos.",
+        "tagline": "Informes de Google Ads & Meta Ads en un clic.",
         "sections": {
             "product": "Producto",
             "solutions": "Soluciones",
@@ -559,7 +559,7 @@
         "sections": {
             "introduction": {
                 "title": "1. Introducción",
-                "content": "Flipika (\"nosotros\", \"nuestro\") se compromete a proteger la privacidad de sus usuarios. Esta política describe cómo recopilamos, usamos, almacenamos y protegemos los datos personales y los datos de Google Ads de nuestros usuarios.<br/><br/><strong>Nuestro servicio:</strong> Flipika es una plataforma de gestión y análisis de campañas de Google Ads que permite a los usuarios visualizar el rendimiento de sus campañas publicitarias."
+                "content": "Flipika (\"nosotros\", \"nuestro\") se compromete a proteger la privacidad de sus usuarios. Esta política describe cómo recopilamos, usamos, almacenamos y protegemos los datos personales y los datos de Google Ads de nuestros usuarios.<br/><br/><strong>Nuestro servicio:</strong> Flipika es una plataforma de gestión y análisis de campañas de Google Ads & Meta Ads que permite a los usuarios visualizar el rendimiento de sus campañas publicitarias."
             },
             "whoWeAre": {
                 "title": "2. Quiénes somos",

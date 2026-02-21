@@ -75,9 +75,9 @@ const SimpleHeader = () => {
 
 
     const navItems = [
-        { label: t('common:header.home'), path: '/' },
-        { label: t('common:header.roadmap'), path: '/roadmap' },
-        { label: t('common:header.pricing'), path: '/pricing' },
+        { label: t('header.home'), path: '/' },
+        { label: t('header.roadmap'), path: '/roadmap' },
+        { label: t('header.pricing'), path: '/pricing' },
     ];
 
     return (
@@ -94,7 +94,7 @@ const SimpleHeader = () => {
                             to={getLangPath('/')}
                             className="nav-link"
                         >
-                            {t('common:header.home')}
+                            {t('header.home')}
                         </Link>
 
                         {/* Features Dropdown */}
@@ -107,7 +107,7 @@ const SimpleHeader = () => {
                                 to={getLangPath('/features')}
                                 className="nav-link inline-flex items-center gap-1"
                             >
-                                <span>{t('common:header.features')}</span>
+                                <span>{t('header.features')}</span>
                                 <ChevronDown
                                     size={14}
                                     className={`transition-transform ${featuresDropdownOpen ? 'rotate-180' : ''
@@ -154,14 +154,14 @@ const SimpleHeader = () => {
                             to={getLangPath('/pricing')}
                             className="nav-link"
                         >
-                            {t('common:header.pricing')}
+                            {t('header.pricing')}
                         </Link>
 
                         <Link
                             to={getLangPath('/roadmap')}
                             className="nav-link"
                         >
-                            {t('common:header.roadmap')}
+                            {t('header.roadmap')}
                         </Link>
                     </nav>
 
@@ -176,13 +176,13 @@ const SimpleHeader = () => {
                                 className="btn btn-secondary login-button"
                                 onClick={() => navigate(getLangPath('/login'))}
                             >
-                                {t('common:header.login')}
+                                {t('header.login')}
                             </button>
                             <button
                                 className="btn btn-primary signup-button"
                                 onClick={() => navigate(getLangPath('/login'))}
                             >
-                                {t('common:header.signup')}
+                                {t('header.signup')}
                             </button>
                         </div>
 
@@ -241,7 +241,7 @@ const SimpleHeader = () => {
                                         className="px-4 py-3 rounded-xl text-sm font-semibold text-primary hover:bg-[var(--glass-bg)] transition-colors block"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
-                                        {t('common:header.features')}
+                                        {t('header.features')}
                                     </Link>
 
                                     <div className="ml-2 mt-1 space-y-0.5">
@@ -272,14 +272,14 @@ const SimpleHeader = () => {
                                         className="btn btn-secondary w-full text-center py-3"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
-                                        {t('common:header.login')}
+                                        {t('header.login')}
                                     </Link>
                                     <Link
                                         to={getLangPath('/login')}
                                         className="btn btn-primary w-full text-center py-3"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
-                                        {t('common:header.signup')}
+                                        {t('header.signup')}
                                     </Link>
                                 </div>
                             </div>

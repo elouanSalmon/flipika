@@ -1,42 +1,42 @@
 {
     "default": {
-        "title": "Flipika - Informes de Google Ads para Media Buyers",
-        "description": "Genera informes de Google Ads automatizados, claros y profesionales para tus clientes. La solución ideal para media buyers exigentes.",
-        "keywords": "Informes de Google Ads, Media Buyer, Informes Automatizados, Auditoría de Google Ads, Freelance PPC, Agencia PPC",
-        "ogTitle": "Flipika - Informes de Google Ads para Media Buyers",
-        "ogDescription": "Genera informes de Google Ads automatizados, claros y profesionales para tus clientes."
+        "title": "Flipika - informes de Google Ads & Meta Ads para Media Buyers",
+        "description": "Genera informes de Google Ads & Meta Ads automatizados, claros y profesionales para tus clientes. La solución ideal para media buyers exigentes.",
+        "keywords": "informes de Google Ads & Meta Ads, Media Buyer, Informes Automatizados, Auditoría de Google Ads, Freelance PPC, Agencia PPC",
+        "ogTitle": "Flipika - informes de Google Ads & Meta Ads para Media Buyers",
+        "ogDescription": "Genera informes de Google Ads & Meta Ads automatizados, claros y profesionales para tus clientes."
     },
     "landing": {
-        "title": "Flipika - Informes de Google Ads en 2 Minutos | Informes PPC Automatizados",
-        "description": "Genera informes profesionales de Google Ads en 2 minutos en lugar de 3 horas. Sincronización automática de datos, perspectivas potenciadas por IA, listo para marca blanca. Prueba gratuita para media buyers.",
-        "keywords": "Informes de Google Ads, informes PPC automatizados, herramienta de informes para clientes, software para media buyers, panel de Google Ads, informes de marca blanca",
-        "ogTitle": "Flipika - Informes de Google Ads de 3h a 2 min",
-        "ogDescription": "Deja de perder tiempo en informes manuales. Flipika genera automáticamente hermosos informes de Google Ads para tus clientes."
+        "title": "Flipika - informes de Google Ads & Meta Ads en 2 Minutos | Informes PPC Automatizados",
+        "description": "Genera informes profesionales de Google Ads & Meta Ads en 2 minutos en lugar de 3 horas. Sincronización automática de datos, perspectivas potenciadas por IA, listo para marca blanca. Prueba gratuita para media buyers.",
+        "keywords": "informes de Google Ads & Meta Ads, informes PPC automatizados, herramienta de informes para clientes, software para media buyers, panel de Google Ads, informes de marca blanca",
+        "ogTitle": "Flipika - informes de Google Ads & Meta Ads de 3h a 2 min",
+        "ogDescription": "Deja de perder tiempo en informes manuales. Flipika genera automáticamente hermosos informes de Google Ads & Meta Ads para tus clientes."
     },
     "login": {
-        "title": "Iniciar sesión | Flipika - Plataforma de Informes de Google Ads",
-        "description": "Inicia sesión en tu cuenta de Flipika para acceder a tus informes de Google Ads, plantillas y paneles de clientes. Autenticación segura de Google.",
+        "title": "Iniciar sesión | Flipika - Plataforma de informes de Google Ads & Meta Ads",
+        "description": "Inicia sesión en tu cuenta de Flipika para acceder a tus informes de Google Ads & Meta Ads, plantillas y paneles de clientes. Autenticación segura de Google.",
         "keywords": "Flipika login, iniciar sesión informes Google Ads, acceso panel PPC",
         "ogTitle": "Iniciar sesión en Flipika",
-        "ogDescription": "Accede a tu panel de informes de Google Ads."
+        "ogDescription": "Accede a tu panel de informes de Google Ads & Meta Ads."
     },
     "roadmap": {
         "title": "Hoja de Ruta de Flipika | De Google Ads a Meta Ads y más allá",
-        "description": "Descubre la visión de Flipika: de los informes de Google Ads a Meta Ads, hacia la Super App definitiva para Media Buyers. Mira lo que viene y obtén acceso de por vida.",
+        "description": "Descubre la visión de Flipika: de los informes de Google Ads & Meta Ads a Meta Ads, hacia la Super App definitiva para Media Buyers. Mira lo que viene y obtén acceso de por vida.",
         "keywords": "hoja de ruta Flipika, funcionalidades herramienta Google Ads, informes Meta Ads, app para media buyers, hoja de ruta herramienta PPC",
         "ogTitle": "Hoja de Ruta de Flipika - El Futuro de los Informes para Media Buyers",
         "ogDescription": "De Google Ads a Meta Ads y más allá. Descubre lo que viene para Flipika."
     },
     "privacyPolicy": {
-        "title": "Política de Privacidad | Flipika - Informes de Google Ads",
+        "title": "Política de Privacidad | Flipika - informes de Google Ads & Meta Ads",
         "description": "Aprende cómo Flipika protege tus datos y la información de tu cuenta de Google Ads. Cumple con el RGPD, alojamiento europeo seguro, prácticas de datos transparentes.",
         "keywords": "política de privacidad Flipika, seguridad datos Google Ads, cumplimiento RGPD, protección de datos",
         "ogTitle": "Política de Privacidad - Flipika",
         "ogDescription": "Cómo protegemos tus datos y la información de Google Ads."
     },
     "termsOfService": {
-        "title": "Términos de Servicio | Flipika - Informes de Google Ads",
-        "description": "Lee los términos de servicio de Flipika. Comprende tus derechos y obligaciones al usar nuestra plataforma de informes de Google Ads.",
+        "title": "Términos de Servicio | Flipika - informes de Google Ads & Meta Ads",
+        "description": "Lee los términos de servicio de Flipika. Comprende tus derechos y obligaciones al usar nuestra plataforma de informes de Google Ads & Meta Ads.",
         "keywords": "términos de servicio Flipika, términos API Google Ads, acuerdo de usuario",
         "ogTitle": "Términos de Servicio - Flipika",
         "ogDescription": "Términos y condiciones para el uso de la plataforma de informes de Flipika."
@@ -57,16 +57,16 @@
     },
     "pricing": {
         "title": "Precios: 10€/cuenta o 100€ de por vida | Flipika",
-        "description": "Informes de Google Ads desde 10€/cuenta/mes o 100€ de acceso de por vida. Prueba gratuita, sin tarjeta de crédito. Todas las funcionalidades incluidas.",
+        "description": "informes de Google Ads & Meta Ads desde 10€/cuenta/mes o 100€ de acceso de por vida. Prueba gratuita, sin tarjeta de crédito. Todas las funcionalidades incluidas.",
         "keywords": "precios Flipika, coste informes Google Ads, precio herramienta informes PPC, oferta de por vida",
         "ogTitle": "Precios Flipika — 10€/mes o 100€ de por vida",
-        "ogDescription": "Informes de Google Ads desde 10€/cuenta/mes o acceso único de por vida a 100€."
+        "ogDescription": "informes de Google Ads & Meta Ads desde 10€/cuenta/mes o acceso único de por vida a 100€."
     },
     "features": {
-        "title": "Funcionalidades | Flipika - Informes de Google Ads Automatizados",
+        "title": "Funcionalidades | Flipika - informes de Google Ads & Meta Ads Automatizados",
         "description": "Descubre todas las funcionalidades de Flipika: generación de informes, narración por IA, plantillas personalizadas, automatización, exportaciones multiformato y más.",
         "keywords": "funcionalidades Flipika, informes Google Ads automatizados, plantillas personalizadas, narración por IA, exportación PDF slides, modo presentación",
-        "ogTitle": "Funcionalidades de Flipika - Todo para tus informes de Google Ads",
+        "ogTitle": "Funcionalidades de Flipika - Todo para tus informes de Google Ads & Meta Ads",
         "ogDescription": "Generación automática, narración por IA, plantillas personalizadas, exportaciones multiformato y más."
     },
     "notFound": {
@@ -77,15 +77,15 @@
         "ogDescription": "Esta página no existe."
     },
     "alternativesIndex": {
-        "title": "Mejores Alternativas de Informes de Google Ads 2026 | Flipika vs Competidores",
-        "description": "Compara Flipika con Looker Studio, AgencyAnalytics, DashThis, Swydo y más. Encuentra la mejor herramienta de informes de Google Ads para tu agencia o negocio freelance.",
+        "title": "Mejores Alternativas de informes de Google Ads & Meta Ads 2026 | Flipika vs Competidores",
+        "description": "Compara Flipika con Looker Studio, AgencyAnalytics, DashThis, Swydo y más. Encuentra la mejor herramienta de informes de Google Ads & Meta Ads para tu agencia o negocio freelance.",
         "keywords": "alternativas informes Google Ads, alternativa Looker Studio, alternativa AgencyAnalytics, mejor herramienta informes PPC, DashThis vs Flipika",
-        "ogTitle": "Alternativas de Informes de Google Ads - Comparaciones de Flipika",
-        "ogDescription": "Compara las mejores herramientas de informes de Google Ads y encuentra la solución adecuada para tu negocio."
+        "ogTitle": "Alternativas de informes de Google Ads & Meta Ads - Comparaciones de Flipika",
+        "ogDescription": "Compara las mejores herramientas de informes de Google Ads & Meta Ads y encuentra la solución adecuada para tu negocio."
     },
     "solutions": {
-        "title": "Soluciones de Informes de Google Ads para {persona} | Flipika",
-        "description": "Descubre cómo Flipika ayuda a {persona} a automatizar sus informes de Google Ads, ahorrar tiempo y mejorar la satisfacción del cliente.",
+        "title": "Soluciones de informes de Google Ads & Meta Ads para {persona} | Flipika",
+        "description": "Descubre cómo Flipika ayuda a {persona} a automatizar sus informes de Google Ads & Meta Ads, ahorrar tiempo y mejorar la satisfacción del cliente.",
         "keywords": "informes Google Ads {persona}, automatización informes {persona}, herramienta PPC para {persona}, ahorro de tiempo en informes"
     }
 }

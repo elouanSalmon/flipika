@@ -1,7 +1,7 @@
 {
     "hero": {
         "badge": "Fonctionnalités",
-        "title": "Tout ce dont vous avez besoin pour vos rapports Google Ads",
+        "title": "Tout ce dont vous avez besoin pour vos rapports Google Ads & Meta Ads",
         "subtitle": "Découvrez comment Flipika transforme votre reporting client en processus automatisé, professionnel et entièrement personnalisable."
     },
     "stats": {
@@ -18,7 +18,7 @@
             "icon": "FileBarChart",
             "title": "Génération de rapports",
             "subtitle": "Rapports automatiques en quelques clics",
-            "description": "Créez des rapports Google Ads professionnels en 2 minutes au lieu de 3 heures. Synchronisation automatique des données, mise en page optimisée.",
+            "description": "Créez des rapports Google Ads & Meta Ads professionnels en 2 minutes au lieu de 3 heures. Synchronisation automatique des données, mise en page optimisée.",
             "benefits": [
                 "Synchronisation automatique avec Google Ads",
                 "Mise en page professionnelle pré-configurée",
@@ -109,7 +109,7 @@
         "report-generation": {
             "hero": {
                 "title": "Génération de rapports automatique",
-                "subtitle": "Créez des rapports Google Ads professionnels en 2 minutes au lieu de 3 heures",
+                "subtitle": "Créez des rapports Google Ads & Meta Ads professionnels en 2 minutes au lieu de 3 heures",
                 "cta": "Essayer gratuitement"
             },
             "whyItMatters": {
@@ -122,7 +122,7 @@
                     },
                     {
                         "title": "Toujours à jour",
-                        "description": "Synchronisation en temps réel avec vos campagnes Google Ads"
+                        "description": "Synchronisation en temps réel avec vos campagnes Google Ads & Meta Ads"
                     },
                     {
                         "title": "Zéro erreur",
@@ -192,7 +192,7 @@
                 },
                 {
                     "question": "Les données sont-elles mises à jour en temps réel ?",
-                    "answer": "Oui, chaque ouverture de rapport synchronise les dernières données de vos campagnes Google Ads."
+                    "answer": "Oui, chaque ouverture de rapport synchronise les dernières données de vos campagnes Google Ads & Meta Ads."
                 },
                 {
                     "question": "Combien de temps faut-il pour générer un rapport ?",

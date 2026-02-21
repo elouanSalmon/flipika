@@ -21,6 +21,8 @@ import PageTransition from './components/common/PageTransition';
 import { useNetworkStatus } from './hooks/useNetworkStatus';
 import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
+import GoogleAdsLanding from './pages/seo/GoogleAdsLanding';
+import MetaAdsLanding from './pages/seo/MetaAdsLanding';
 import Login from './pages/Login';
 import AppLayout from './layouts/AppLayout';
 import PublicLayout from './layouts/PublicLayout';
@@ -134,6 +136,8 @@ const AppRoutes = () => {
 
       {/* Other public pages with header/footer */}
       <Route element={<PublicLayout lang={lang} />}>
+        <Route path="google-ads-reporting" element={<GoogleAdsLanding />} />
+        <Route path="meta-ads-reporting" element={<MetaAdsLanding />} />
         {enableFullLanding && <Route path="full" element={<LandingFull />} />}
         <Route path="legal-notices" element={<LegalNotices />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />

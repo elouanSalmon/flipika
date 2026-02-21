@@ -2,7 +2,7 @@
     "hero": {
         "badge": "Solutions",
         "title": "Une solution sur mesure pour chaque profil",
-        "subtitle": "Que vous soyez freelance, agence ou responsable marketing, Flipika s'adapte à vos besoins pour automatiser votre reporting Google Ads."
+        "subtitle": "Que vous soyez freelance, agence ou responsable marketing, Flipika s'adapte à vos besoins pour automatiser votre reporting Google Ads & Meta Ads."
     },
     "solutions": [
         {
@@ -49,7 +49,7 @@
             "icon": "PieChart",
             "title": "Responsables Marketing",
             "subtitle": "Le pilotage clair et serein de vos investissements",
-            "description": "Obtenez une vision limpide de vos performances Google Ads sans effort technique. Des rapports lisibles pour vous et votre direction.",
+            "description": "Obtenez une vision limpide de vos performances Google Ads & Meta Ads sans effort technique. Des rapports lisibles pour vous et votre direction.",
             "benefits": [
                 "Tableaux de bord clairs et actionnables",
                 "Synthèse vocale/écrite par l'IA",

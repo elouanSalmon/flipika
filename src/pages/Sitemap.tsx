@@ -22,13 +22,15 @@ const Sitemap: React.FC = () => {
             links: [
                 { name: i18n.language === 'fr' ? 'Accueil' : 'Home', path: '/' },
                 { name: i18n.language === 'fr' ? 'Connexion' : 'Login', path: '/login' },
+                { name: i18n.language === 'fr' ? 'Reporting Google Ads' : 'Google Ads Reporting', path: '/google-ads-reporting' },
+                { name: i18n.language === 'fr' ? 'Reporting Meta Ads' : 'Meta Ads Reporting', path: '/meta-ads-reporting' },
             ]
         },
         {
             title: i18n.language === 'fr' ? 'Modèles de Rapports (Templates)' : 'Report Templates',
             icon: <LayoutTemplate className="w-5 h-5 text-pink-500" />,
             links: [
-                { name: i18n.language === 'fr' ? 'Modèle Google Ads' : 'Google Ads Template', path: '/templates/google-ads' },
+                { name: i18n.language === 'fr' ? 'Modèle Google Ads & Meta Ads' : 'Google Ads & Meta Ads Template', path: '/templates/google-ads' },
                 { name: i18n.language === 'fr' ? 'Modèle PPC' : 'PPC Report Template', path: '/templates/ppc' },
                 { name: i18n.language === 'fr' ? 'Modèle Agence Marketing' : 'Marketing Agency Template', path: '/templates/marketing-agency' },
                 { name: i18n.language === 'fr' ? 'Modèle E-commerce' : 'Ecommerce Report Template', path: '/templates/ecommerce' },
@@ -53,9 +55,9 @@ const Sitemap: React.FC = () => {
             title: i18n.language === 'fr' ? 'Ressources Gratuites' : 'Free Resources',
             icon: <LayoutTemplate className="w-5 h-5 text-purple-500" />,
             links: [
-                { name: i18n.language === 'fr' ? 'Modèle Excel Google Ads' : 'Google Ads Excel Template', path: '/resources/google-ads-excel-template' },
-                { name: i18n.language === 'fr' ? 'Modèle PowerPoint Google Ads' : 'Google Ads PowerPoint Template', path: '/resources/google-ads-powerpoint-template' },
-                { name: i18n.language === 'fr' ? 'Exemple Rapport PDF' : 'Google Ads PDF Example', path: '/resources/google-ads-pdf-example' },
+                { name: i18n.language === 'fr' ? 'Modèle Excel Google Ads & Meta Ads' : 'Google Ads & Meta Ads Excel Template', path: '/resources/google-ads-excel-template' },
+                { name: i18n.language === 'fr' ? 'Modèle PowerPoint Google Ads & Meta Ads' : 'Google Ads & Meta Ads PowerPoint Template', path: '/resources/google-ads-powerpoint-template' },
+                { name: i18n.language === 'fr' ? 'Exemple Rapport PDF' : 'Google Ads & Meta Ads PDF Example', path: '/resources/google-ads-pdf-example' },
             ]
         },
         {

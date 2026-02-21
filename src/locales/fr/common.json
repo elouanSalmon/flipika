@@ -1,6 +1,6 @@
 {
   "header": {
-    "tagline": "Rapports Google Ads",
+    "tagline": "rapports Google Ads & Meta Ads",
     "getStarted": "Voir un exemple",
     "language": "Langue",
     "home": "Accueil",
@@ -17,7 +17,7 @@
   "auth": {
     "login": {
       "title": "Accédez à votre espace",
-      "subtitle": "Le reporting Google Ads réinventé.",
+      "subtitle": "Le reporting Google Ads & Meta Ads réinventé.",
       "subtitle2": "Rapide, fiable et sécurisé.",
       "google": "Continuer avec Google",
       "error": "Une erreur est survenue lors de la connexion.",
@@ -27,7 +27,7 @@
     },
     "benefits": {
       "title": "Pourquoi Flipika ?",
-      "reports": "Rapports Google Ads en 1 clic",
+      "reports": "rapports Google Ads & Meta Ads en 1 clic",
       "ai": "Analyses IA contextuelles",
       "security": "Sécurité niveau entreprise"
     },
@@ -37,15 +37,15 @@
     }
   },
   "meta": {
-    "title": "Flipika - Rapports Google Ads pour Media Buyers",
-    "description": "Générez des rapports Google Ads automatisés, clairs et professionnels pour vos clients. La solution idéale pour les media buyers exigeants.",
-    "keywords": "Rapports Google Ads, Media Buyer, Reporting Automatisé, Audit Google Ads, Freelance SEA, Agence SEA",
-    "ogTitle": "Flipika - Rapports Google Ads pour Media Buyers",
-    "ogDescription": "Générez des rapports Google Ads automatisés, clairs et professionnels pour vos clients."
+    "title": "Flipika - rapports Google Ads & Meta Ads pour Media Buyers",
+    "description": "Générez des rapports Google Ads & Meta Ads automatisés, clairs et professionnels pour vos clients. La solution idéale pour les media buyers exigeants.",
+    "keywords": "rapports Google Ads & Meta Ads, Media Buyer, Reporting Automatisé, Audit Google Ads, Freelance SEA, Agence SEA",
+    "ogTitle": "Flipika - rapports Google Ads & Meta Ads pour Media Buyers",
+    "ogDescription": "Générez des rapports Google Ads & Meta Ads automatisés, clairs et professionnels pour vos clients."
   },
   "hero": {
     "badge": "Propulsé par l'IA",
-    "title": "Vos rapports Google Ads, prêts en 2 minutes.",
+    "title": "Rapports Google & Meta Ads, prêts en 2 minutes.",
     "subtitle": "Des rapports clients impeccables, générés automatiquement à partir de vos données Google Ads. Vous validez, vous envoyez. C'est aussi simple que ça.",
     "description": "Flipika connecte vos comptes Google Ads, génère vos rapports clients et vous les soumet pour validation. Vous relisez, vous envoyez. Zéro formatage, zéro stress.",
     "getStarted": "Voir un exemple de rapport",
@@ -229,7 +229,7 @@
         "name": "Pierre M.",
         "role": "Media Buyer Freelance",
         "company": "Gère 12 comptes clients",
-        "content": "Je passais plusieurs heures par semaine à faire des reportings. Avec Flipika, mes rapports Google Ads sont générés automatiquement et mes clients comprennent enfin les performances.",
+        "content": "Je passais plusieurs heures par semaine à faire des reportings. Avec Flipika, mes rapports Google Ads & Meta Ads sont générés automatiquement et mes clients comprennent enfin les performances.",
         "metric": "4h gagnées / semaine"
       },
       "julien": {
@@ -261,7 +261,7 @@
     "cta": "Voir la roadmap complète"
   },
   "bigStatement": {
-    "title": "Des rapports Google Ads impeccables, en autopilote.",
+    "title": "Des rapports Google Ads & Meta Ads impeccables, en autopilote.",
     "subtitle": "Flipika fait le travail que vous ne devriez plus faire."
   },
   "showcase": {
@@ -357,7 +357,7 @@
     "legal": "Mentions Légales",
     "privacy": "Politique de Confidentialité",
     "terms": "Conditions d'Utilisation",
-    "tagline": "Rapports Google Ads prêts en 2 minutes.",
+    "tagline": "Rapports Google Ads & Meta Ads en un clic.",
     "sections": {
       "product": "Produit",
       "solutions": "Solutions",
@@ -454,7 +454,7 @@
     "sections": {
       "introduction": {
         "title": "1. Introduction",
-        "content": "Flipika (\"nous\", \"notre\", \"nos\") s'engage à protéger la confidentialité de ses utilisateurs. Cette politique décrit comment nous collectons, utilisons, stockons et protégeons les données personnelles et les données Google Ads de nos utilisateurs.<br/><br/><strong>Notre service :</strong> Flipika est une plateforme de gestion et d'analyse de campagnes Google Ads qui permet aux utilisateurs de visualiser les performances de leurs campagnes publicitaires."
+        "content": "Flipika (\"nous\", \"notre\", \"nos\") s'engage à protéger la confidentialité de ses utilisateurs. Cette politique décrit comment nous collectons, utilisons, stockons et protégeons les données personnelles et les données Google Ads de nos utilisateurs.<br/><br/><strong>Notre service :</strong> Flipika est une plateforme de gestion et d'analyse de campagnes Google Ads & Meta Ads qui permet aux utilisateurs de visualiser les performances de leurs campagnes publicitaires."
       },
       "whoWeAre": {
         "title": "2. Qui sommes-nous ?",
@@ -475,7 +475,7 @@
         ],
         "step2Title": "<strong>Étape 2 - Connexion du compte Google Ads</strong> (uniquement lorsque l'utilisateur choisit de connecter son compte Google Ads) :",
         "step2List": [
-          "<code>auth/adwords</code> : Accès en lecture aux données de vos campagnes Google Ads (impressions, clics, coûts, ROI, créatifs publicitaires)"
+          "<code>auth/adwords</code> : Accès en lecture aux données de vos campagnes Google Ads & Meta Ads (impressions, clics, coûts, ROI, créatifs publicitaires)"
         ],
         "usageDataTitle": "Données d'utilisation :",
         "usageDataList": [
@@ -800,7 +800,7 @@
   "onboarding": {
     "welcome": {
       "title": "Bienvenue sur Flipika !",
-      "description": "Configurons votre profil en quelques étapes rapides pour commencer à créer des rapports Google Ads professionnels.",
+      "description": "Configurons votre profil en quelques étapes rapides pour commencer à créer des rapports Google Ads & Meta Ads professionnels.",
       "start": "Commencer"
     },
     "username": {
@@ -928,54 +928,65 @@
   },
   "status": {},
   "salesTerms": {
-    "title": "Conditions Générales de Vente",
+    "title": "Conditions Générales de Vente (CGV)",
     "backToHome": "Retour à l'accueil",
     "lastUpdate": "<strong>Dernière mise à jour :</strong> 18 février 2026",
     "sections": {
       "preamble": {
-        "title": "1. Préambule",
-        "content": "Les présentes Conditions Générales de Vente (CGV) s'appliquent, sans restriction ni réserve, à l'ensemble des ventes de services proposées par Flipika (« le Vendeur ») aux clients professionnels (« le Client ») sur le site flipika.com.<br/><br/>Le Client déclare avoir pris connaissance des présentes CGV et les avoir acceptées avant la passation de sa commande. La validation de la commande vaut acceptation sans réserve des présentes CGV."
+        "title": "1. Objet et Champ d'application",
+        "content": "Les présentes Conditions Générales de Vente (ci-après « CGV ») ont pour objet de définir les conditions dans lesquelles la société DISCO SAS (ci-après « Flipika » ou « le Prestataire ») fournit aux clients professionnels (ci-après « le Client ») les services accessibles depuis le site internet <strong>flipika.com</strong> (ci-après « le Site »).<br/><br/>Toute commande ou souscription aux Services implique l'acceptation sans réserve par le Client des présentes CGV, qui prévalent sur tout autre document du Client, et notamment sur toutes conditions générales d'achat, sauf accord dérogatoire exprès et préalable de Flipika."
       },
-      "services": {
-        "title": "2. Services et Plans",
-        "intro": "Flipika propose les services suivants :",
-        "subscription": "<strong>Plans par Abonnement :</strong> Accès mensuel au service, renouvelable par tacite reconduction.",
-        "lifetime": "<strong>Plan à Vie (Lifetime) :</strong> Paiement unique pour un accès perpétuel à la version du service disponible au moment de l'achat, incluant les mises à jour futures, pour la durée d'existence du produit."
+      "definitions": {
+        "title": "2. Définitions",
+        "content": "<ul><li><strong>Client :</strong> Toute personne physique ou morale agissant à des fins professionnelles qui souscrit aux Services.</li><li><strong>Services :</strong> Ensemble des fonctionnalités SaaS (Software as a Service) de reporting et d'analyse Google Ads proposées par Flipika.</li><li><strong>Utilisateur :</strong> Personne physique placée sous la responsabilité du Client (préposé, salarié, mandataire) et accédant aux Services.</li><li><strong>Données Client :</strong> Données, informations et contenus, y compris les données provenant des comptes Google Ads, traités par le biais des Services.</li></ul>"
       },
       "orders": {
-        "title": "3. Commandes",
-        "content": "La commande est validée une fois le paiement accepté. Flipika se réserve le droit d'annuler ou de refuser toute commande d'un Client avec lequel il existerait un litige relatif au paiement d'une commande antérieure."
+        "title": "3. Commandes et Formation du Contrat",
+        "content": "Le contrat est réputé formé lors de la validation de la commande en ligne par le Client. Le Client sélectionne l'offre de son choix (Abonnement ou Plan à Vie), remplit le formulaire d'identification et procède au paiement sécurisé via le prestataire de paiement (Stripe). Flipika confirme la commande par l'envoi d'un email récapitulatif. Flipika se réserve le droit de refuser toute commande pour motif légitime (ex: incident de paiement, compte précédemment suspendu)."
       },
-      "pricing": {
-        "title": "4. Tarifs",
-        "content": "Les prix sont indiqués en Euros (€) Hors Taxes (HT) ou Toutes Taxes Comprises (TTC) selon la localisation du Client. Flipika se réserve le droit de modifier ses prix à tout moment, mais le Service sera facturé sur la base des tarifs en vigueur au moment de la validation de la commande."
+      "services": {
+        "title": "4. Description des Services",
+        "intro": "Flipika fournit une solution SaaS d'automatisation de reporting Google Ads & Meta Ads. Les offres sont détaillées sur le Site.",
+        "subscription": "<strong>Abonnements (SaaS) :</strong> Accès aux Services pour une durée déterminée (mensuelle ou annuelle), renouvelable par tacite reconduction. L'abonnement inclut l'hébergement, la maintenance et le support standard.",
+        "lifetime": "<strong>Plan à Vie (« Lifetime Deal ») :</strong> Droit d'accès aux Services pour la durée de vie commerciale du produit Flipika. Ce droit est non-exclusif, personnel et non-cessible. Il inclut les mises à jour mineures futures de la version actuelle, mais peut exclure certaines fonctionnalités futures majeures ou « add-ons » payants."
       },
-      "payment": {
-        "title": "5. Conditions de Paiement",
-        "content": "Le paiement est exigible immédiatement à la commande. Les paiements sont traités de manière sécurisée via Stripe. Le Client garantit qu'il dispose des autorisations nécessaires pour utiliser le mode de paiement choisi."
+      "financial": {
+        "title": "5. Conditions Financières",
+        "pricing": "<strong>Prix :</strong> Les prix sont indiqués en Euros (€) hors taxes (HT). La TVA applicable est celle en vigueur au jour de la facturation. Flipika se réserve le droit de modifier ses tarifs à tout moment. Les nouveaux tarifs s'appliquent au renouvellement de l'abonnement après notification préalable au Client.",
+        "payment": "<strong>Modalités de paiement :</strong> Le paiement est exigible immédiatement à la commande puis à chaque échéance (pour les abonnements). Les paiements sont effectués par carte bancaire via Stripe. Le Client garantit disposer des fonds et des autorisations nécessaires.",
+        "latePayment": "<strong>Retard de paiement :</strong> Tout retard de paiement entraîne de plein droit l'application de pénalités de retard égales à trois (3) fois le taux d'intérêt légal, ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros (Art. L.441-10 du Code de commerce). Flipika se réserve le droit de suspendre l'accès aux Services jusqu'à régularisation."
       },
-      "subscriptionTerms": {
-        "title": "6. Modalités d'Abonnement",
-        "duration": "<strong>Durée :</strong> Les abonnements sont souscrits pour une durée déterminée (mensuelle ou annuelle) et sont renouvelés automatiquement pour la même durée, sauf résiliation.",
-        "termination": "<strong>Résiliation :</strong> Le Client peut résilier son abonnement à tout moment via les paramètres de son compte. La résiliation prend effet à la fin de la période d'abonnement en cours. Aucun remboursement au prorata n'est accordé pour la période en cours."
+      "duration": {
+        "title": "6. Durée et Résiliation",
+        "subscriptionDuration": "<strong>Abonnements :</strong> Durée initiale d'un mois ou d'un an selon l'option choisie. Renouvellement automatique par tacite reconduction sauf dénonciation par le Client depuis son espace personnel avant la date d'échéance. Tout mois entamé est dû.",
+        "terminationForBreach": "<strong>Résiliation pour faute :</strong> En cas de manquement grave de l'une des parties à ses obligations non réparé dans un délai de 30 jours après mise en demeure, l'autre partie pourra résilier le contrat de plein droit.",
+        "lifetimeDuration": "<strong>Plan à Vie :</strong> Le contrat prend fin à l'arrêt définitif de la commercialisation ou du maintien du produit Flipika par le Prestataire, ou en cas de fermeture du compte Client pour faute."
       },
-      "lifetimeTerms": {
-        "title": "7. Spécificités du Plan à Vie",
-        "definition": "<strong>Définition \"à Vie\" :</strong> \"À vie\" fait référence à la durée de vie du Produit (Flipika), et non à la vie du Client. Si Flipika cesse ses activités, l'accès peut être résilié.",
-        "nonTransferable": "L'accès est personnel, non transférable et lié au compte de l'acheteur initial.",
-        "refund": "<strong>Politique de Remboursement :</strong> Le plan à vie est satisfait ou remboursé pendant 14 jours après l'achat. Au-delà de ce délai, aucun remboursement ne sera accordé."
-      },
-      "withdrawal": {
-        "title": "8. Droit de Rétractation",
-        "content": "Pour les clients professionnels, le droit de rétractation ne s'applique pas. Toutefois, Flipika offre une garantie commerciale \"satisfait ou remboursé\" de 14 jours pour tout nouvel abonnement ou achat de plan à vie."
+      "obligations": {
+        "title": "7. Obligations des Parties",
+        "flipika": "<strong>Obligations de Flipika :</strong> Flipika s'engage à fournir les Services avec diligence et selon les règles de l'art (obligation de moyens). Flipika s'efforce d'assurer une disponibilité maximale des Services mais ne garantit pas une accessibilité ininterrompue.",
+        "client": "<strong>Obligations du Client :</strong> Le Client s'engage à utiliser les Services de manière loyale, légale et conforme à leur destination. Il est seul responsable de ses identifiants de connexion et de l'utilisation faite par ses Utilisateurs. Il s'interdit de tenter de porter atteinte à la sécurité des Services ou d'en faire de l'ingénierie inverse."
       },
       "liability": {
-        "title": "9. Responsabilité",
-        "content": "Flipika est tenu à une obligation de moyens. Sa responsabilité ne saurait être engagée pour des dommages résultant de l'utilisation du réseau Internet (perte de données, intrusion, virus, rupture du service). La responsabilité de Flipika est limitée au montant payé par le Client pour le service."
+        "title": "8. Responsabilité",
+        "content": "La responsabilité de Flipika est limitée aux dommages directs et prévisibles subis par le Client. Flipika ne saurait être tenue responsable des dommages indirects (perte de chiffre d'affaires, perte de données, préjudice commercial, etc.). En tout état de cause, la responsabilité globale de Flipika est plafonnée au montant des sommes versées par le Client au cours des 12 mois précédant le fait générateur du dommage (ou au montant du Plan à Vie le cas échéant)."
+      },
+      "ip": {
+        "title": "9. Propriété Intellectuelle",
+        "flipika": "Flipika reste titulaire exclusif de l'ensemble des droits de propriété intellectuelle sur les Services, le Site, les logiciels, les codes sources, les modèles de rapports. Le Client ne bénéficie que d'un droit d'utilisation personnel, non exclusif et non transférable.",
+        "client": "Le Client reste propriétaire de ses Données (incluant les données Google Ads). Il concède à Flipika une licence d'utilisation pour les besoins stricts de l'exécution des Services (hébergement, calculs, affichage)."
+      },
+      "personalData": {
+        "title": "10. Données Personnelles",
+        "content": "Les Parties s'engagent à respecter la réglementation applicable en matière de données personnelles (RGPD). Flipika agit en qualité de sous-traitant pour les données traitées pour le compte du Client via les Services. Les détails sont précisés dans la Politique de Confidentialité."
+      },
+      "forceMajeure": {
+        "title": "11. Force Majeure",
+        "content": "Aucune des parties ne pourra être tenue responsable d'un manquement à ses obligations résultant d'un cas de force majeure au sens de l'article 1218 du Code civil."
       },
       "applicableLaw": {
-        "title": "10. Droit Applicable",
-        "content": "Les présentes CGV sont soumises au droit français. Tout litige relatif à leur interprétation et/ou à leur exécution relève des juridictions françaises."
+        "title": "12. Droit Applicable et Juridiction",
+        "content": "Les présentes CGV sont régies par le droit français. En cas de litige, les parties s'efforceront de trouver une solution amiable. À défaut, compétence expresse est attribuée aux tribunaux compétents du ressort de la Cour d'appel de Paris, nonobstant pluralité de défendeurs ou appel en garantie."
       }
     }
   }

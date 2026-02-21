@@ -99,7 +99,7 @@
     "info": {
         "buttonLabel": "Información",
         "modalTitle": "¿Qué son las Cuentas?",
-        "modalContent": "Las cuentas representan a tus clientes o unidades de negocio en Flipika, permitiéndote organizar y gestionar tus informes de Google Ads por cuenta.\n\nCon las cuentas, puedes:\n• Asociar cada cuenta con una cuenta específica de Google Ads\n• Subir logotipos personalizados para informes con marca blanca\n• Establecer plantillas y temas por defecto para su aplicación automática\n• Almacenar información de contacto para enviar informes automáticamente al correo de la cuenta\n• Organizar tus informes por cuenta para un acceso fácil\n\nLas cuentas te ayudan a agilizar tu flujo de trabajo y asegurar informes consistentes y profesionales para cada cliente."
+        "modalContent": "Las cuentas representan a tus clientes o unidades de negocio en Flipika, permitiéndote organizar y gestionar tus informes de Google Ads & Meta Ads por cuenta.\n\nCon las cuentas, puedes:\n• Asociar cada cuenta con una cuenta específica de Google Ads\n• Subir logotipos personalizados para informes con marca blanca\n• Establecer plantillas y temas por defecto para su aplicación automática\n• Almacenar información de contacto para enviar informes automáticamente al correo de la cuenta\n• Organizar tus informes por cuenta para un acceso fácil\n\nLas cuentas te ayudan a agilizar tu flujo de trabajo y asegurar informes consistentes y profesionales para cada cliente."
     },
     "delete": {
         "title": "Eliminar Cuenta",

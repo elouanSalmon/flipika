@@ -1,7 +1,7 @@
 {
     "hero": {
         "badge": "Funcionalidades",
-        "title": "Todo lo que necesitas para tus informes de Google Ads",
+        "title": "Todo lo que necesitas para tus informes de Google Ads & Meta Ads",
         "subtitle": "Descubre cómo Flipika transforma tus informes de clientes en un proceso automatizado, profesional y totalmente personalizable."
     },
     "stats": {
@@ -18,7 +18,7 @@
             "icon": "FileBarChart",
             "title": "Generación de informes",
             "subtitle": "Informes automáticos en pocos clics",
-            "description": "Crea informes profesionales de Google Ads en 2 minutos en lugar de 3 horas. Sincronización automática de datos, diseño optimizado.",
+            "description": "Crea informes profesionales de Google Ads & Meta Ads en 2 minutos en lugar de 3 horas. Sincronización automática de datos, diseño optimizado.",
             "benefits": [
                 "Sincronización automática con Google Ads",
                 "Diseño profesional preconfigurado",
@@ -109,7 +109,7 @@
         "report-generation": {
             "hero": {
                 "title": "Generación automática de informes",
-                "subtitle": "Crea informes profesionales de Google Ads en 2 minutos en lugar de 3 horas",
+                "subtitle": "Crea informes profesionales de Google Ads & Meta Ads en 2 minutos en lugar de 3 horas",
                 "cta": "Probar gratis"
             },
             "whyItMatters": {
@@ -122,7 +122,7 @@
                     },
                     {
                         "title": "Siempre actualizado",
-                        "description": "Sincronización en tiempo real con tus campañas de Google Ads"
+                        "description": "Sincronización en tiempo real con tus campañas de Google Ads & Meta Ads"
                     },
                     {
                         "title": "Cero errores",
@@ -192,7 +192,7 @@
                 },
                 {
                     "question": "¿Se actualizan los datos en tiempo real?",
-                    "answer": "Sí, cada apertura del informe sincroniza los últimos datos de tus campañas de Google Ads."
+                    "answer": "Sí, cada apertura del informe sincroniza los últimos datos de tus campañas de Google Ads & Meta Ads."
                 },
                 {
                     "question": "¿Cuánto tiempo se tarda en generar un informe?",

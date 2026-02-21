@@ -1,0 +1,147 @@
+{
+  "default": {
+    "title": "Flipika - informes de Google Ads para Media Buyers",
+    "description": "Genera informes de Google Ads automatizados, claros y profesionales para tus clientes. La solución ideal para media buyers exigentes.",
+    "keywords": "informes de Google Ads, Media Buyer, Informes Automatizados, Auditoría de Google Ads, Freelance PPC, Agencia PPC",
+    "ogTitle": "Flipika - informes de Google Ads para Media Buyers",
+    "ogDescription": "Genera informes de Google Ads automatizados, claros y profesionales para tus clientes."
+  },
+  "landing": {
+    "title": "Flipika - informes de Google Ads en 2 Minutos | Informes PPC Automatizados",
+    "description": "Genera informes profesionales de Google Ads en 2 minutos en lugar de 3 horas. Sincronización automática de datos, perspectivas potenciadas por IA, listo para marca blanca. Prueba gratuita para media buyers.",
+    "keywords": "informes de Google Ads, informes PPC automatizados, herramienta de informes para clientes, software para media buyers, panel de Google Ads, informes de marca blanca",
+    "ogTitle": "Flipika - informes de Google Ads de 3h a 2 min",
+    "ogDescription": "Deja de perder tiempo en informes manuales. Flipika genera automáticamente hermosos informes de Google Ads para tus clientes."
+  },
+  "login": {
+    "title": "Iniciar sesión | Flipika - Plataforma de informes de Google Ads",
+    "description": "Inicia sesión en tu cuenta de Flipika para acceder a tus informes de Google Ads, plantillas y paneles de clientes. Autenticación segura de Google.",
+    "keywords": "Flipika login, iniciar sesión informes Google Ads, acceso panel PPC",
+    "ogTitle": "Iniciar sesión en Flipika",
+    "ogDescription": "Accede a tu panel de informes de Google Ads."
+  },
+  "roadmap": {
+    "title": "Hoja de Ruta de Flipika | De Google Ads a Meta Ads y más allá",
+    "description": "Descubre la visión de Flipika: de los informes de Google Ads a Meta Ads, hacia la Super App definitiva para Media Buyers. Mira lo que viene y obtén acceso de por vida.",
+    "keywords": "hoja de ruta Flipika, funcionalidades herramienta Google Ads, informes Meta Ads, app para media buyers, hoja de ruta herramienta PPC",
+    "ogTitle": "Hoja de Ruta de Flipika - El Futuro de los Informes para Media Buyers",
+    "ogDescription": "De Google Ads a Meta Ads y más allá. Descubre lo que viene para Flipika."
+  },
+  "privacyPolicy": {
+    "title": "Política de Privacidad | Flipika - informes de Google Ads",
+    "description": "Aprende cómo Flipika protege tus datos y la información de tu cuenta de Google Ads. Cumple con el RGPD, alojamiento europeo seguro, prácticas de datos transparentes.",
+    "keywords": "política de privacidad Flipika, seguridad datos Google Ads, cumplimiento RGPD, protección de datos",
+    "ogTitle": "Política de Privacidad - Flipika",
+    "ogDescription": "Cómo protegemos tus datos y la información de Google Ads."
+  },
+  "termsOfService": {
+    "title": "Términos de Servicio | Flipika - informes de Google Ads",
+    "description": "Lee los términos de servicio de Flipika. Comprende tus derechos y obligaciones al usar nuestra plataforma de informes de Google Ads.",
+    "keywords": "términos de servicio Flipika, términos API Google Ads, acuerdo de usuario",
+    "ogTitle": "Términos de Servicio - Flipika",
+    "ogDescription": "Términos y condiciones para el uso de la plataforma de informes de Flipika."
+  },
+  "legalNotices": {
+    "title": "Aviso Legal | Flipika - Información de la Empresa",
+    "description": "Información legal sobre Flipika SAS. Registro de la empresa, detalles de alojamiento e información de contacto legal.",
+    "keywords": "aviso legal Flipika, información de la empresa, pie de imprenta",
+    "ogTitle": "Aviso Legal - Flipika",
+    "ogDescription": "Información legal y de la empresa para Flipika SAS."
+  },
+  "sitemap": {
+    "title": "Mapa del sitio | Flipika - Todas las páginas",
+    "description": "Explora todas las páginas de Flipika.com. Encuentra plantillas de informes, comparaciones de alternativas, recursos e información legal.",
+    "keywords": "mapa del sitio Flipika, todas las páginas, navegación",
+    "ogTitle": "Mapa del sitio - Flipika",
+    "ogDescription": "Explora todas las páginas de Flipika.com"
+  },
+  "pricing": {
+    "title": "Precios: 10€/cuenta o 100€ de por vida | Flipika",
+    "description": "informes de Google Ads desde 10€/cuenta/mes o 100€ de acceso de por vida. Prueba gratuita, sin tarjeta de crédito. Todas las funcionalidades incluidas.",
+    "keywords": "precios Flipika, coste informes Google Ads, precio herramienta informes PPC, oferta de por vida",
+    "ogTitle": "Precios Flipika — 10€/mes o 100€ de por vida",
+    "ogDescription": "informes de Google Ads desde 10€/cuenta/mes o acceso único de por vida a 100€."
+  },
+  "features": {
+    "title": "La herramienta de informes diseñada para Google Ads",
+    "subtitle": "Ahorra horas a fin de mes automatizando tus informes.",
+    "aiGeneration": {
+      "title": "Modelos adaptados",
+      "description": "Visualiza tus grupos de anuncios, campañas y creatividades de Google Ads en diapositivas claras."
+    },
+    "analytics": {
+      "title": "Personalización",
+      "description": "Aplica tus colores y logo para informes 100% de marca blanca."
+    },
+    "optimization": {
+      "title": "Perspectivas de IA",
+      "description": "La inteligencia artificial analiza el rendimiento de Google Ads para ayudarte a concluir."
+    }
+  },
+  "notFound": {
+    "title": "Página no encontrada | Flipika",
+    "description": "La página que buscas no existe o ha sido movida.",
+    "keywords": "",
+    "ogTitle": "Página no encontrada - Flipika",
+    "ogDescription": "Esta página no existe."
+  },
+  "alternativesIndex": {
+    "title": "Mejores Alternativas de informes de Google Ads 2026 | Flipika vs Competidores",
+    "description": "Compara Flipika con Looker Studio, AgencyAnalytics, DashThis, Swydo y más. Encuentra la mejor herramienta de informes de Google Ads para tu agencia o negocio freelance.",
+    "keywords": "alternativas informes Google Ads, alternativa Looker Studio, alternativa AgencyAnalytics, mejor herramienta informes PPC, DashThis vs Flipika",
+    "ogTitle": "Alternativas de informes de Google Ads - Comparaciones de Flipika",
+    "ogDescription": "Compara las mejores herramientas de informes de Google Ads y encuentra la solución adecuada para tu negocio."
+  },
+  "solutions": {
+    "title": "Soluciones de informes de Google Ads para {persona} | Flipika",
+    "description": "Descubre cómo Flipika ayuda a {persona} a automatizar sus informes de Google Ads, ahorrar tiempo y mejorar la satisfacción del cliente.",
+    "keywords": "informes Google Ads {persona}, automatización informes {persona}, herramienta PPC para {persona}, ahorro de tiempo en informes"
+  },
+  "hero": {
+    "badge": "Potenciado por IA",
+    "title": "Tus informes de Google Ads, generados en un clic.",
+    "subtitle": "Analiza tus campañas de Google Ads sin esfuerzo. Obtén información clara sobre CPA, ROAS y presupuestos, perfectamente formateada para tus clientes.",
+    "description": "Flipika se conecta directamente a tu cuenta de Google Ads, extrae datos clave de la campaña y crea un informe listo para enviar.",
+    "getStarted": "Crear informe gratis",
+    "noCreditCard": "No se requiere tarjeta",
+    "cta": "Empieza gratis",
+    "ctaSecondary": "Ver plantilla"
+  },
+  "workflow": {
+    "badge": "Rápido y Simple",
+    "title": "¿Cómo automatizar tus informes de Google Ads?",
+    "subtitle": "Olvídate de las tediosas exportaciones CSV desde el administrador de Google Ads.",
+    "step1": {
+      "title": "Conectar Google Ads",
+      "description": "Vincula tu cuenta de Google Ads de forma segura en segundos.",
+      "bullets": [
+        "Conexión directa a la API",
+        "Selección de cuenta",
+        "Sincronización en tiempo real"
+      ]
+    },
+    "step2": {
+      "title": "Generar",
+      "description": "Elige una plantilla y Flipika extrae clics, impresiones y conversiones.",
+      "bullets": [
+        "Plantillas preconstruidas",
+        "Selección de cliente",
+        "Análisis automatizado"
+      ]
+    },
+    "step3": {
+      "title": "Enviar",
+      "description": "Agrega tus comentarios, aprueba visualmente y envía el informe a tu cliente.",
+      "bullets": [
+        "Comentarios personalizados",
+        "PDF o enlace web",
+        "Envío con un clic"
+      ]
+    }
+  },
+  "closingCta": {
+    "title": "Deja de copiar y pegar tus métricas de Google Ads",
+    "subtitle": "Dedica más tiempo a optimizar campañas y menos a crear diapositivas.",
+    "cta": "Prueba gratis"
+  }
+}

@@ -13,7 +13,7 @@
     },
     "pages": {
         "google-ads-excel-template": {
-            "title": "Plantilla Definitiva de Informe de Google Ads en Excel (Edición 2026)",
+            "title": "Plantilla Definitiva de informe de Google Ads & Meta Ads en Excel (Edición 2026)",
             "metaDescription": "Deja de perder tiempo en informes manuales. Descarga la plantilla de Excel estándar del sector para Google Ads. Incluye fórmulas automatizadas para ROAS, CPA y seguimiento de conversiones.",
             "h1": "La Última Plantilla de Google Ads en Excel que Necesitarás.",
             "subtitle": "Copiar y pegar manualmente CSVs en Excel es cosa del pasado. Pero si debes usar Excel, usa esta plantilla probada en mil batallas.",
@@ -135,8 +135,8 @@
             ]
         },
         "google-ads-pdf-example": {
-            "title": "Ejemplo Perfecto de Informe de Google Ads en PDF (Benchmark)",
-            "metaDescription": "¿No estás seguro de qué informar? Descarga este ejemplo profesional de informe de Google Ads en PDF para ver las mejores prácticas del sector.",
+            "title": "Ejemplo Perfecto de informe de Google Ads & Meta Ads en PDF (Benchmark)",
+            "metaDescription": "¿No estás seguro de qué informar? Descarga este ejemplo profesional de informe de Google Ads & Meta Ads en PDF para ver las mejores prácticas del sector.",
             "h1": "El Estándar de Oro de los Informes de PPC.",
             "subtitle": "Mira exactamente qué incluyen las agencias de primer nivel en sus informes. Usa este PDF como referencia para tus propios entregables a clientes.",
             "painTitle": "Las Limitaciones del PDF",
@@ -168,7 +168,7 @@
             ],
             "faq": [
                 {
-                    "q": "¿Qué hace que un informe de Google Ads sea 'perfecto'?",
+                    "q": "¿Qué hace que un informe de Google Ads & Meta Ads sea 'perfecto'?",
                     "a": "Un informe perfecto equilibra la granularidad con la claridad. Debe responder a tres preguntas de inmediato: '¿Cuánto gastamos?', '¿Qué obtuvimos a cambio?' y '¿Qué haremos a continuación?'. Este ejemplo en PDF demuestra el flujo ideal: comenzando con KPIs de alto nivel, pasando al rendimiento de la campaña y terminando con perspectivas accionables."
                 },
                 {

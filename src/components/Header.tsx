@@ -3,8 +3,9 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggle from './ThemeToggle';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import Logo from './Logo';
+import { ChevronDown } from 'lucide-react';
 import './Header.css';
 
 const Header: React.FC = () => {
@@ -20,14 +21,24 @@ const Header: React.FC = () => {
     return path;
   };
 
+  const location = useLocation();
+
   const handleNavigation = (sectionId: string) => {
+    // If not on landing page, navigate to landing page first
+    if (location.pathname !== '/' && location.pathname !== '/fr' && location.pathname !== '/es') {
+      navigate(getLangPath('/'));
+      setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      return;
+    }
+
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,10 +50,20 @@ const Header: React.FC = () => {
   }, []);
 
   const navItems = [
-    { label: t('common:header.home'), sectionId: 'hero' },
-    { label: t('common:header.problem'), sectionId: 'problem' },
-    { label: t('common:header.features'), sectionId: 'features' },
-    { label: t('common:header.testimonials'), sectionId: 'testimonials' },
+    { label: t('header.home'), sectionId: 'hero' },
+    { label: t('header.problem'), sectionId: 'problem' },
+    { label: t('header.testimonials'), sectionId: 'testimonials' },
+  ];
+
+  const featureItems = [
+    { label: t('header.features'), sectionId: 'features' },
+    { label: t('footer.sections.templates'), path: '/features/report-generation' },
+    { label: t('footer.sections.ai'), path: '/features/ai-narration' },
+    { label: t('footer.sections.automation'), path: '/features/scheduling-automation' },
+    { label: t('footer.sections.exports'), path: '/features/multi-format-exports' },
+    { label: t('footer.sections.slideshow'), path: '/features/slideshow-mode' },
+    { label: i18n.language === 'fr' ? 'Reporting Google Ads' : (i18n.language === 'es' ? 'Informes Google Ads' : 'Google Ads Reporting'), path: '/google-ads-reporting', isAction: true },
+    { label: i18n.language === 'fr' ? 'Reporting Meta Ads' : (i18n.language === 'es' ? 'Informes Meta Ads' : 'Meta Ads Reporting'), path: '/meta-ads-reporting', isAction: true }
   ];
 
   return (
@@ -61,19 +82,71 @@ const Header: React.FC = () => {
 
         {/* Desktop Navigation */}
         <nav className="nav-desktop">
-          {navItems.map((item, index) => (
-            <motion.button
-              key={item.label}
-              onClick={() => handleNavigation(item.sectionId)}
-              className="nav-link"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 + 0.3 }}
-              whileHover={{ y: -2 }}
-            >
-              {item.label}
-            </motion.button>
-          ))}
+          <motion.button
+            onClick={() => handleNavigation(navItems[0].sectionId)}
+            className="nav-link"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            whileHover={{ y: -2 }}
+          >
+            {navItems[0].label}
+          </motion.button>
+
+          <motion.button
+            onClick={() => handleNavigation(navItems[1].sectionId)}
+            className="nav-link"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            whileHover={{ y: -2 }}
+          >
+            {navItems[1].label}
+          </motion.button>
+
+          {/* Features Dropdown */}
+          <motion.div
+            className="nav-dropdown-container"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <button className="nav-link nav-dropdown-trigger">
+              {t('header.features')} <ChevronDown size={14} className="dropdown-icon" />
+            </button>
+            <div className="nav-dropdown-menu">
+              {featureItems.map((item, index) => (
+                item.path ? (
+                  <Link
+                    key={index}
+                    to={getLangPath(item.path)}
+                    className={`dropdown-item ${item.isAction ? 'action-item' : ''}`}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={index}
+                    onClick={() => handleNavigation(item.sectionId as string)}
+                    className="dropdown-item"
+                  >
+                    {item.label}
+                  </button>
+                )
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.button
+            onClick={() => handleNavigation(navItems[2].sectionId)}
+            className="nav-link"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            whileHover={{ y: -2 }}
+          >
+            {navItems[2].label}
+          </motion.button>
         </nav>
 
         {/* Header Actions */}
@@ -102,7 +175,7 @@ const Header: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {t('common:header.login')}
+              {t('header.login')}
             </motion.button>
 
             <motion.button
@@ -114,7 +187,7 @@ const Header: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {t('common:header.signup')}
+              {t('header.signup')}
             </motion.button>
           </div>
         </div>

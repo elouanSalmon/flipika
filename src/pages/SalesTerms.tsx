@@ -51,8 +51,18 @@ const SalesTerms: React.FC = () => {
                         </section>
 
                         <section className="legal-section">
+                            <h2>{t('common:salesTerms.sections.definitions.title')}</h2>
+                            <div dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.definitions.content') }} />
+                        </section>
+
+                        <section className="legal-section">
+                            <h2>{t('common:salesTerms.sections.orders.title')}</h2>
+                            <p dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.orders.content') }} />
+                        </section>
+
+                        <section className="legal-section">
                             <h2>{t('common:salesTerms.sections.services.title')}</h2>
-                            <p>{t('common:salesTerms.sections.services.intro')}</p>
+                            <p dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.services.intro') }} />
                             <ul>
                                 <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.services.subscription') }} />
                                 <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.services.lifetime') }} />
@@ -60,50 +70,57 @@ const SalesTerms: React.FC = () => {
                         </section>
 
                         <section className="legal-section">
-                            <h2>{t('common:salesTerms.sections.orders.title')}</h2>
-                            <p>{t('common:salesTerms.sections.orders.content')}</p>
-                        </section>
-
-                        <section className="legal-section">
-                            <h2>{t('common:salesTerms.sections.pricing.title')}</h2>
-                            <p>{t('common:salesTerms.sections.pricing.content')}</p>
-                        </section>
-
-                        <section className="legal-section">
-                            <h2>{t('common:salesTerms.sections.payment.title')}</h2>
-                            <p>{t('common:salesTerms.sections.payment.content')}</p>
-                        </section>
-
-                        <section className="legal-section">
-                            <h2>{t('common:salesTerms.sections.subscriptionTerms.title')}</h2>
+                            <h2>{t('common:salesTerms.sections.financial.title')}</h2>
                             <ul>
-                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.subscriptionTerms.duration') }} />
-                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.subscriptionTerms.termination') }} />
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.financial.pricing') }} />
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.financial.payment') }} />
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.financial.latePayment') }} />
                             </ul>
                         </section>
 
                         <section className="legal-section">
-                            <h2>{t('common:salesTerms.sections.lifetimeTerms.title')}</h2>
+                            <h2>{t('common:salesTerms.sections.duration.title')}</h2>
                             <ul>
-                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.lifetimeTerms.definition') }} />
-                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.lifetimeTerms.nonTransferable') }} />
-                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.lifetimeTerms.refund') }} />
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.duration.subscriptionDuration') }} />
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.duration.terminationForBreach') }} />
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.duration.lifetimeDuration') }} />
                             </ul>
                         </section>
 
                         <section className="legal-section">
-                            <h2>{t('common:salesTerms.sections.withdrawal.title')}</h2>
-                            <p>{t('common:salesTerms.sections.withdrawal.content')}</p>
+                            <h2>{t('common:salesTerms.sections.obligations.title')}</h2>
+                            <ul>
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.obligations.flipika') }} />
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.obligations.client') }} />
+                            </ul>
                         </section>
 
                         <section className="legal-section">
                             <h2>{t('common:salesTerms.sections.liability.title')}</h2>
-                            <p>{t('common:salesTerms.sections.liability.content')}</p>
+                            <p dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.liability.content') }} />
+                        </section>
+
+                        <section className="legal-section">
+                            <h2>{t('common:salesTerms.sections.ip.title')}</h2>
+                            <ul>
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.ip.flipika') }} />
+                                <li dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.ip.client') }} />
+                            </ul>
+                        </section>
+
+                        <section className="legal-section">
+                            <h2>{t('common:salesTerms.sections.personalData.title')}</h2>
+                            <p dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.personalData.content') }} />
+                        </section>
+
+                        <section className="legal-section">
+                            <h2>{t('common:salesTerms.sections.forceMajeure.title')}</h2>
+                            <p dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.forceMajeure.content') }} />
                         </section>
 
                         <section className="legal-section">
                             <h2>{t('common:salesTerms.sections.applicableLaw.title')}</h2>
-                            <p>{t('common:salesTerms.sections.applicableLaw.content')}</p>
+                            <p dangerouslySetInnerHTML={{ __html: t('common:salesTerms.sections.applicableLaw.content') }} />
                         </section>
 
                         <div className="legal-update-info">

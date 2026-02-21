@@ -18,13 +18,13 @@ const EmailCapture: React.FC = () => {
 
     if (!email.trim()) {
       setStatus('error');
-      setMessage(t('common:emailCapture.errorEmailRequired') || 'Veuillez entrer votre adresse email');
+      setMessage(t('emailCapture.errorEmailRequired') || 'Veuillez entrer votre adresse email');
       return;
     }
 
     if (!validateEmail(email)) {
       setStatus('error');
-      setMessage(t('common:emailCapture.errorEmailInvalid') || 'Veuillez entrer une adresse email valide');
+      setMessage(t('emailCapture.errorEmailInvalid') || 'Veuillez entrer une adresse email valide');
       return;
     }
 
@@ -49,7 +49,7 @@ const EmailCapture: React.FC = () => {
       }
     } catch {
       setStatus('error');
-      setMessage(t('common:emailCapture.errorGeneric') || 'Une erreur est survenue. Veuillez réessayer.');
+      setMessage(t('emailCapture.errorGeneric') || 'Une erreur est survenue. Veuillez réessayer.');
     } finally {
       setIsSubmitting(false);
     }
@@ -121,11 +121,11 @@ const EmailCapture: React.FC = () => {
             </div>
 
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-neutral-200 mb-4 tracking-tight">
-              {t('common:emailCapture.title')}
+              {t('emailCapture.title')}
             </h2>
 
             <p className="text-neutral-600 dark:text-neutral-400 max-w-lg mx-auto leading-relaxed">
-              {t('common:emailCapture.subtitle')}
+              {t('emailCapture.subtitle')}
             </p>
           </div>
 
@@ -136,7 +136,7 @@ const EmailCapture: React.FC = () => {
                 <Mail size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-primary/70 pointer-events-none z-10" />
                 <input
                   type="email"
-                  placeholder={t('common:emailCapture.emailPlaceholder')}
+                  placeholder={t('emailCapture.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={`w-full pl-12 pr-4 py-4 bg-white/80 dark:bg-black/50 border-2 rounded-2xl text-neutral-900 dark:text-neutral-200 placeholder-neutral-400 transition-all duration-300 focus:outline-none focus:ring-0 focus:border-primary focus:bg-white dark:focus:bg-neutral-700/70 focus:shadow-lg focus:shadow-primary/10 ${status === 'error' ? 'border-primary' : 'border-neutral-200/50 dark:border-white/10'
@@ -160,7 +160,7 @@ const EmailCapture: React.FC = () => {
                   />
                 ) : (
                   <>
-                    <span>{t('common:emailCapture.submitButton')}</span>
+                    <span>{t('emailCapture.submitButton')}</span>
                     <ArrowRight size={20} />
                   </>
                 )}
@@ -189,7 +189,7 @@ const EmailCapture: React.FC = () => {
             {['freeBeta', 'prioritySupport', 'influence'].map((key) => (
               <div key={key} className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
                 <CheckCircle size={16} className="text-primary flex-shrink-0" />
-                <span>{t(`common:emailCapture.benefits.${key}`)}</span>
+                <span>{t('emailCapture.benefits.${key}')}</span>
               </div>
             ))}
           </div>
@@ -197,8 +197,8 @@ const EmailCapture: React.FC = () => {
           {/* Trust Indicators */}
           <div className="flex flex-wrap justify-center gap-10">
             {[
-              { value: '73', label: t('common:emailCapture.trust.remainingSpots') },
-              { value: '+340%', label: t('common:emailCapture.trust.averageRoas') }
+              { value: '73', label: t('emailCapture.trust.remainingSpots') },
+              { value: '+340%', label: t('emailCapture.trust.averageRoas') }
             ].map((stat) => (
               <div key={stat.label} className="flex flex-col items-center gap-1">
                 <span className="text-2xl font-extrabold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">

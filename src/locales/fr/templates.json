@@ -194,7 +194,7 @@
   "info": {
     "buttonLabel": "Information",
     "modalTitle": "Qu'est-ce qu'un modèle ?",
-    "modalContent": "Les modèles sont des configurations de rapports réutilisables qui vous permettent de générer des rapports Google Ads cohérents en un seul clic.\n\nAvec les modèles, vous pouvez :\n• Définir un ensemble standard de slides et de métriques pour les rapports récurrents\n• Pré-configurer les comptes et campagnes Google Ads à analyser\n• Définir des périodes d'analyse par défaut (7 derniers jours, mois dernier, etc.)\n• Créer des rapports instantanément sans reconfigurer les paramètres à chaque fois\n• Utiliser les modèles comme base pour les rapports programmés automatisés\n\nLes modèles sont parfaits pour standardiser votre processus de reporting et garantir la cohérence de vos livrables comptes."
+    "modalContent": "Les modèles sont des configurations de rapports réutilisables qui vous permettent de générer des rapports Google Ads & Meta Ads cohérents en un seul clic.\n\nAvec les modèles, vous pouvez :\n• Définir un ensemble standard de slides et de métriques pour les rapports récurrents\n• Pré-configurer les comptes et campagnes Google Ads & Meta Ads à analyser\n• Définir des périodes d'analyse par défaut (7 derniers jours, mois dernier, etc.)\n• Créer des rapports instantanément sans reconfigurer les paramètres à chaque fois\n• Utiliser les modèles comme base pour les rapports programmés automatisés\n\nLes modèles sont parfaits pour standardiser votre processus de reporting et garantir la cohérence de vos livrables comptes."
   },
   "editor": {
     "backToTemplates": "Retour aux modèles",

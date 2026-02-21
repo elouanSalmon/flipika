@@ -23,10 +23,10 @@ const TrustBar: React.FC = () => {
     const { t } = useTranslation();
 
     const stats = [
-        { icon: GoogleLogo, value: t('common:hero.stats.googleValidation.value'), label: t('common:hero.stats.googleValidation.label') },
-        { icon: Lock, value: t('common:hero.stats.security.value'), label: t('common:hero.stats.security.label') },
-        { icon: ShieldCheck, value: t('common:hero.stats.gdpr.value'), label: t('common:hero.stats.gdpr.label') },
-        { icon: TrendingUp, value: t('common:hero.stats.reportsGenerated.value'), label: t('common:hero.stats.reportsGenerated.label') }
+        { icon: GoogleLogo, value: t('hero.stats.googleValidation.value'), label: t('hero.stats.googleValidation.label') },
+        { icon: Lock, value: t('hero.stats.security.value'), label: t('hero.stats.security.label') },
+        { icon: ShieldCheck, value: t('hero.stats.gdpr.value'), label: t('hero.stats.gdpr.label') },
+        { icon: TrendingUp, value: t('hero.stats.reportsGenerated.value'), label: t('hero.stats.reportsGenerated.label') }
     ];
 
     return (

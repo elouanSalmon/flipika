@@ -15,8 +15,8 @@
   },
   "campaigns": {
     "title": "Vos Campagnes",
-    "overview": "Vue d'ensemble de vos campagnes Google Ads",
-    "overviewDemo": "Mode Démo - Vue d'ensemble de vos campagnes Google Ads",
+    "overview": "Vue d'ensemble de vos campagnes Google Ads & Meta Ads",
+    "overviewDemo": "Mode Démo - Vue d'ensemble de vos campagnes Google Ads & Meta Ads",
     "noCampaigns": "Aucune campagne active trouvée.",
     "createReport": "Créer un rapport",
     "refresh": "Actualiser"

@@ -10,7 +10,7 @@
         "subtitle": "Découvrez pourquoi les agences modernes quittent leurs anciens outils pour la clarté et la rapidité de Flipika.",
         "whyFlipika": "Pourquoi Flipika ?",
         "highlight1": "Analyses Propulsées par l'IA",
-        "highlight1Desc": "Obtenez des résumés instantanés de vos performances Google Ads sans analyse manuelle.",
+        "highlight1Desc": "Obtenez des résumés instantanés de vos performances Google Ads & Meta Ads sans analyse manuelle.",
         "highlight2": "Pensé pour les Agences",
         "highlight2Desc": "Automatisez vos rapports clients et consacrez plus de temps à la stratégie qu'à la mise en forme.",
         "seoContent": {
@@ -42,7 +42,7 @@
     },
     "page": {
         "seoTitle": "Meilleure Alternative à {{competitor}} en {{year}} | Flipika",
-        "seoDescription": "Fatigué des limites de {{competitor}} ? Découvrez pourquoi Flipika est l'alternative numéro 1 pour des rapports Google Ads rapides.",
+        "seoDescription": "Fatigué des limites de {{competitor}} ? Découvrez pourquoi Flipika est l'alternative numéro 1 pour des rapports Google Ads & Meta Ads rapides.",
         "updatedBadge": "Dernière mise à jour : {{date}}",
         "h1Title": "Pourquoi Flipika est la meilleure alternative à {{competitor}} en {{year}}",
         "subtitle": "Arrêtez d'attendre que vos dashboards chargent. Obtenez vos insights instantanément avec Flipika.",
@@ -62,7 +62,7 @@
         "howItWorksTitle": "Comment ça fonctionne",
         "howItWorksSubtitle": "Passez de Looker Studio à Flipika en 4 étapes simples",
         "benefitsTitle": "Pourquoi choisir Flipika",
-        "benefitsSubtitle": "Tout ce dont vous avez besoin pour des rapports Google Ads professionnels",
+        "benefitsSubtitle": "Tout ce dont vous avez besoin pour des rapports Google Ads & Meta Ads professionnels",
         "useCasesTitle": "Cas d'usage",
         "useCasesSubtitle": "Flipika s'adapte à tous les types de business",
         "costTitle": "Le coût caché de {{competitor}}",
@@ -327,7 +327,7 @@
         "clientPortal": "Portail client"
     },
     "schema": {
-        "productDescription": "Meilleure alternative à {{competitor}} pour le reporting Google Ads. Gagnez du temps et automatisez vos rapports.",
+        "productDescription": "Meilleure alternative à {{competitor}} pour le reporting Google Ads & Meta Ads. Gagnez du temps et automatisez vos rapports.",
         "faq": {
             "whyBest": {
                 "question": "Pourquoi Flipika est la meilleure alternative à {{competitor}} ?",

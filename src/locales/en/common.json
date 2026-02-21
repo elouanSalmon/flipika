@@ -1,6 +1,6 @@
 {
   "header": {
-    "tagline": "Google Ads Reports",
+    "tagline": "Google Ads & Meta Ads reports",
     "getStarted": "See an example",
     "language": "Language",
     "home": "Home",
@@ -17,7 +17,7 @@
   "auth": {
     "login": {
       "title": "Welcome back",
-      "subtitle": "Google Ads Reporting, Reinvented.",
+      "subtitle": "Google Ads & Meta Ads reporting, Reinvented.",
       "subtitle2": "Fast, reliable, and secure.",
       "google": "Continue with Google",
       "error": "An error occurred during login.",
@@ -27,7 +27,7 @@
     },
     "benefits": {
       "title": "Why Flipika?",
-      "reports": "Google Ads Reports in 1 click",
+      "reports": "Google Ads & Meta Ads reports in 1 click",
       "ai": "Contextual AI Analysis",
       "security": "Enterprise-grade security"
     },
@@ -37,15 +37,15 @@
     }
   },
   "meta": {
-    "title": "Flipika - Google Ads Reports for Media Buyers",
-    "description": "Generate automated, clear, and professional Google Ads reports for your clients. The ideal solution for demanding media buyers.",
-    "keywords": "Google Ads Reports, Media Buyer, Automated Reporting, Google Ads Audit, PPC Freelancer, PPC Agency",
-    "ogTitle": "Flipika - Google Ads Reports for Media Buyers",
-    "ogDescription": "Generate automated, clear, and professional Google Ads reports for your clients."
+    "title": "Flipika - Google Ads & Meta Ads reports for Media Buyers",
+    "description": "Generate automated, clear, and professional Google Ads & Meta Ads reports for your clients. The ideal solution for demanding media buyers.",
+    "keywords": "Google Ads & Meta Ads reports, Media Buyer, Automated Reporting, Google Ads Audit, PPC Freelancer, PPC Agency",
+    "ogTitle": "Flipika - Google Ads & Meta Ads reports for Media Buyers",
+    "ogDescription": "Generate automated, clear, and professional Google Ads & Meta Ads reports for your clients."
   },
   "hero": {
     "badge": "Powered by AI",
-    "title": "Your Google Ads reports, ready in 2 minutes.",
+    "title": "Google & Meta Ads reports, ready in 2 minutes.",
     "subtitle": "Flawless client reports, auto-generated from your Google Ads data. You review, you send. It's that simple.",
     "description": "Flipika connects to your Google Ads accounts, generates client reports, and submits them for your review. You check, you send. Zero formatting, zero stress.",
     "getStarted": "See a sample report",
@@ -229,7 +229,7 @@
         "name": "Pierre M.",
         "role": "Freelance Media Buyer",
         "company": "Manages 12 client accounts",
-        "content": "I was spending several hours a week on reporting. With Flipika, my Google Ads reports are automatically generated and my clients finally understand the performance.",
+        "content": "I was spending several hours a week on reporting. With Flipika, my Google Ads & Meta Ads reports are automatically generated and my clients finally understand the performance.",
         "metric": "4h saved / week"
       },
       "julien": {
@@ -261,7 +261,7 @@
     "cta": "See our Roadmap"
   },
   "bigStatement": {
-    "title": "Flawless Google Ads reports, on autopilot.",
+    "title": "Flawless Google Ads & Meta Ads reports, on autopilot.",
     "subtitle": "Flipika does the work you shouldn't have to do."
   },
   "showcase": {
@@ -357,7 +357,7 @@
     "legal": "Legal Notices",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "tagline": "Google Ads reports ready in 2 minutes.",
+    "tagline": "Google Ads & Meta Ads reports in one click.",
     "sections": {
       "product": "Product",
       "solutions": "Solutions",
@@ -423,7 +423,7 @@
   "onboarding": {
     "welcome": {
       "title": "Welcome to Flipika!",
-      "description": "Let's set up your profile in a few quick steps to start creating professional Google Ads reports.",
+      "description": "Let's set up your profile in a few quick steps to start creating professional Google Ads & Meta Ads reports.",
       "start": "Get Started"
     },
     "username": {
@@ -774,54 +774,65 @@
     }
   },
   "salesTerms": {
-    "title": "General Terms of Sales",
+    "title": "General Terms of Sales (GTS)",
     "backToHome": "Back to Home",
     "lastUpdate": "<strong>Last updated:</strong> February 18, 2026",
     "sections": {
       "preamble": {
-        "title": "1. Preamble",
-        "content": "These General Terms of Sales (GTS) apply, without restriction or reservation, to all sales of services offered by Flipika (\"the Vendor\") to professional clients (\"the Client\") on the website flipika.com.<br/><br/>The Client declares having read and accepted these GTS before placing an order. The validation of the order implies unreserved acceptance of these GTS."
+        "title": "1. Purpose and Scope",
+        "content": "These General Terms of Sales (hereinafter \"GTS\") define the conditions under which DISCO SAS (hereinafter \"Flipika\" or \"the Provider\") provides professional clients (hereinafter \"the Client\") with services accessible from the website <strong>flipika.com</strong> (hereinafter \"the Site\").<br/><br/>Any order or subscription to the Services implies the Client's unreserved acceptance of these GTS, which prevail over any other document of the Client, specifically including any general terms of purchase, unless expressly agreed otherwise by Flipika."
       },
-      "services": {
-        "title": "2. Services and Plans",
-        "intro": "Flipika offers the following services:",
-        "subscription": "<strong>Subscription Plans:</strong> Monthly access to the service, renewable tacitly.",
-        "lifetime": "<strong>Lifetime Plan:</strong> One-time payment for perpetual access to the service version available at the time of purchase, including future updates, for the duration of the product's existence."
+      "definitions": {
+        "title": "2. Definitions",
+        "content": "<ul><li><strong>Client:</strong> Any natural or legal person acting for professional purposes who subscribes to the Services.</li><li><strong>Services:</strong> Set of SaaS (Software as a Service) features for Google Ads & Meta Ads reporting and analysis offered by Flipika.</li><li><strong>User:</strong> Natural person under the responsibility of the Client (employee, agent) accessing the Services.</li><li><strong>Client Data:</strong> Data, information, and content, including data from Google Ads accounts, processed through the Services.</li></ul>"
       },
       "orders": {
-        "title": "3. Orders",
-        "content": "The order is validated once the payment has been accepted. Flipika reserves the right to cancel or refuse any order from a Client with whom there is a dispute over payment of a previous order."
+        "title": "3. Orders and Contract Formation",
+        "content": "The contract is deemed formed upon validation of the online order by the Client. The Client selects the offer of their choice (Subscription or Lifetime Plan), completes the identification form, and proceeds with secure payment via the payment provider (Stripe). Flipika confirms the order by sending a summary email. Flipika reserves the right to refuse any order for legitimate reasons (e.g., payment incident, previously suspended account)."
       },
-      "pricing": {
-        "title": "4. Pricing",
-        "content": "Prices are indicated in Euros (€) excluding taxes (HT) or including taxes (TTC) depending on the Client's location. Flipika reserves the right to modify its prices at any time, but the Service will be invoiced based on the rates in effect at the time of order validation."
+      "services": {
+        "title": "4. Service Description",
+        "intro": "Flipika provides a SaaS solution for Google Ads & Meta Ads reporting automation. Offers are detailed on the Site.",
+        "subscription": "<strong>Subscriptions (SaaS):</strong> Access to Services for a determined duration (monthly or annual), renewable by tacit agreement. The subscription includes hosting, maintenance, and standard support.",
+        "lifetime": "<strong>Lifetime Plan (\"Lifetime Deal\"):</strong> Right to access Services for the commercial lifetime of the Flipika product. This right is non-exclusive, personal, and non-transferable. It includes future minor updates of the current version but may exclude certain future major features or paid \"add-ons\"."
       },
-      "payment": {
-        "title": "5. Payment Terms",
-        "content": "Payment is due immediately upon ordering. Payments are processed securely via Stripe. The Client guarantees that they have the necessary authorizations to use the chosen payment method."
+      "financial": {
+        "title": "5. Financial Conditions",
+        "pricing": "<strong>Prices:</strong> Prices are indicated in Euros (€) excluding taxes (HT). Applicable VAT is that in force on the day of invoicing. Flipika reserves the right to modify its rates at any time. New rates apply to subscription renewals after prior notification to the Client.",
+        "payment": "<strong>Payment Terms:</strong> Payment is due immediately upon ordering and then at each due date (for subscriptions). Payments are made by credit card via Stripe. The Client guarantees they have the necessary funds and authorizations.",
+        "latePayment": "<strong>Late Payment:</strong> Any late payment automatically entails the application of late penalties equal to three (3) times the legal interest rate, as well as a fixed indemnity for recovery costs of 40 euros (Art. L.441-10 of the French Commercial Code). Flipika reserves the right to suspend access to Services until regularization."
       },
-      "subscriptionTerms": {
-        "title": "6. Subscription Terms",
-        "duration": "<strong>Duration:</strong> Subscriptions are taken out for a specific period (monthly or annually) and are automatically renewed for the same duration unless terminated.",
-        "termination": "<strong>Termination:</strong> The Client may terminate their subscription at any time via their account settings. Termination takes effect at the end of the current subscription period. No prorated refund is granted for the current period."
+      "duration": {
+        "title": "6. Duration and Termination",
+        "subscriptionDuration": "<strong>Subscriptions:</strong> Initial duration of one month or one year depending on the chosen option. Automatic renewal by tacit agreement unless cancelled by the Client from their personal space before the due date. Any started month is due.",
+        "terminationForBreach": "<strong>Termination for Breach:</strong> In the event of a serious breach by one of the parties of its obligations not remedied within 30 days after formal notice, the other party may terminate the contract by right.",
+        "lifetimeDuration": "<strong>Lifetime Plan:</strong> The contract ends upon the definitive cessation of marketing or maintenance of the Flipika product by the Provider, or in case of account closure for Client misconduct."
       },
-      "lifetimeTerms": {
-        "title": "7. Lifetime Plan Specificities",
-        "definition": "<strong>\"Lifetime\" Definition:</strong> \"Lifetime\" refers to the lifetime of the Product (Flipika), not the Client's life. If Flipika ceases operations, access may be terminated.",
-        "nonTransferable": "Access is personal, non-transferable, and linked to the initial purchaser account.",
-        "refund": "<strong>Refund Policy:</strong> The Lifetime plan is satisfied or refunded for 14 days after purchase. Beyond this period, no refund will be granted."
-      },
-      "withdrawal": {
-        "title": "8. Right of Withdrawal",
-        "content": "For professional clients, the right of withdrawal does not apply. However, Flipika offers a commercial \"money-back guarantee\" period of 14 days for all new subscriptions or lifetime plan purchases."
+      "obligations": {
+        "title": "7. Obligations of the Parties",
+        "flipika": "<strong>Flipika's Obligations:</strong> Flipika undertakes to provide Services with diligence and according to best practices (obligation of means). Flipika strives to ensure maximum availability of Services but does not guarantee uninterrupted accessibility.",
+        "client": "<strong>Client's Obligations:</strong> The Client undertakes to use Services fairly, lawfully, and in accordance with their purpose. They are solely responsible for their login credentials and use by their Users. They are prohibited from attempting to compromise the security of Services or reverse engineering them."
       },
       "liability": {
-        "title": "9. Liability",
-        "content": "Flipika is bound by an update of means. Its liability cannot be engaged for damages resulting from the use of the Internet network (loss of data, intrusion, virus, service disruption). Flipika's liability is limited to the amount paid by the Client for the service."
+        "title": "8. Liability",
+        "content": "Flipika's liability is limited to direct and foreseeable damages suffered by the Client. Flipika cannot be held liable for indirect damages (loss of turnover, loss of data, commercial prejudice, etc.). In any event, Flipika's aggregate liability is capped at the amount of sums paid by the Client during the 12 months preceding the event giving rise to the damage (or the amount of the Lifetime Plan if applicable)."
+      },
+      "ip": {
+        "title": "9. Intellectual Property",
+        "flipika": "Flipika remains the exclusive holder of all intellectual property rights on Services, the Site, software, source codes, report templates. The Client only benefits from a personal, non-exclusive, and non-transferable right of use.",
+        "client": "The Client remains the owner of their Data (including Google Ads data). They grant Flipika a license to use strictly for the needs of performing Services (hosting, calculations, display)."
+      },
+      "personalData": {
+        "title": "10. Personal Data",
+        "content": "The Parties undertake to comply with applicable regulations regarding personal data (GDPR). Flipika acts as a processor for data processed on behalf of the Client via Services. Details are specified in the Privacy Policy."
+      },
+      "forceMajeure": {
+        "title": "11. Force Majeure",
+        "content": "Neither party can be held liable for a failure to perform its obligations resulting from a case of force majeure as defined by Article 1218 of the French Civil Code."
       },
       "applicableLaw": {
-        "title": "10. Applicable Law",
-        "content": "These GTS are subject to French law. Any dispute relating to their interpretation and/or execution falls under the jurisdiction of the French courts."
+        "title": "12. Applicable Law and Jurisdiction",
+        "content": "These GTS are governed by French law. In case of dispute, the parties will strive to find an amicable solution. Failing that, express jurisdiction is attributed to the competent courts within the jurisdiction of the Court of Appeal of Paris, notwithstanding multiple defendants or third-party claims."
       }
     }
   }

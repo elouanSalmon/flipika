@@ -15,7 +15,7 @@ const BigStatement: React.FC = () => {
                     transition={{ duration: 0.7, ease: "easeOut" as const }}
                     viewport={{ once: true }}
                 >
-                    {t('common:bigStatement.title')}
+                    {t('bigStatement.title')}
                 </motion.h2>
                 <motion.p
                     className="mt-6 text-lg sm:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto"
@@ -24,7 +24,7 @@ const BigStatement: React.FC = () => {
                     transition={{ duration: 0.6, delay: 0.15 }}
                     viewport={{ once: true }}
                 >
-                    {t('common:bigStatement.subtitle')}
+                    {t('bigStatement.subtitle')}
                 </motion.p>
             </div>
         </section>

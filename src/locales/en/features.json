@@ -1,7 +1,7 @@
 {
     "hero": {
         "badge": "Features",
-        "title": "Everything you need for your Google Ads reports",
+        "title": "Everything you need for your Google Ads & Meta Ads reports",
         "subtitle": "Discover how Flipika transforms your client reporting into an automated, professional, and fully customizable process."
     },
     "stats": {
@@ -18,7 +18,7 @@
             "icon": "FileBarChart",
             "title": "Report generation",
             "subtitle": "Automatic reports in just a few clicks",
-            "description": "Create professional Google Ads reports in 2 minutes instead of 3 hours. Automatic data sync, optimized layout.",
+            "description": "Create professional Google Ads & Meta Ads reports in 2 minutes instead of 3 hours. Automatic data sync, optimized layout.",
             "benefits": [
                 "Automatic sync with Google Ads",
                 "Pre-configured professional layout",
@@ -109,7 +109,7 @@
         "report-generation": {
             "hero": {
                 "title": "Automatic report generation",
-                "subtitle": "Create professional Google Ads reports in 2 minutes instead of 3 hours",
+                "subtitle": "Create professional Google Ads & Meta Ads reports in 2 minutes instead of 3 hours",
                 "cta": "Try for free"
             },
             "whyItMatters": {
@@ -122,7 +122,7 @@
                     },
                     {
                         "title": "Always up-to-date",
-                        "description": "Real-time sync with your Google Ads campaigns"
+                        "description": "Real-time sync with your Google Ads & Meta Ads campaigns"
                     },
                     {
                         "title": "Zero errors",
@@ -192,7 +192,7 @@
                 },
                 {
                     "question": "Is data updated in real-time?",
-                    "answer": "Yes, each report opening syncs the latest data from your Google Ads campaigns."
+                    "answer": "Yes, each report opening syncs the latest data from your Google Ads & Meta Ads campaigns."
                 },
                 {
                     "question": "How long does it take to generate a report?",

@@ -84,7 +84,7 @@
   "info": {
     "buttonLabel": "Information",
     "modalTitle": "What are Scheduled Reports?",
-    "modalContent": "Scheduled Reports automatically generate your Google Ads reports on a recurring basis, with slides populated with up-to-date data and analyzed by Narrative Layer AI.\n\nWith scheduled reports, you can:\n• Automatically generate reports daily, weekly, or monthly\n• Get fresh data for the selected period with each generation\n• Benefit from AI-powered analysis of performance trends and insights\n• Review reports before sending them to accounts (sending remains manual)\n• Use templates as the foundation for automated reports\n• Track execution history and success rates\n\nScheduled reports save you time by automating data collection and analysis, while keeping you in control of client communications."
+    "modalContent": "Scheduled Reports automatically generate your Google Ads & Meta Ads reports on a recurring basis, with slides populated with up-to-date data and analyzed by Narrative Layer AI.\n\nWith scheduled reports, you can:\n• Automatically generate reports daily, weekly, or monthly\n• Get fresh data for the selected period with each generation\n• Benefit from AI-powered analysis of performance trends and insights\n• Review reports before sending them to accounts (sending remains manual)\n• Use templates as the foundation for automated reports\n• Track execution history and success rates\n\nScheduled reports save you time by automating data collection and analysis, while keeping you in control of client communications."
   },
   "config": {
     "title": "New schedule",

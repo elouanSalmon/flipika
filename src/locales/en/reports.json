@@ -2,7 +2,7 @@
   "featureName": "les rapports",
   "list": {
     "title": "My Reports",
-    "description": "Manage and organize your Google Ads reports",
+    "description": "Manage and organize your Google Ads & Meta Ads reports",
     "createFromTemplate": "Create from template",
     "newReport": "New Report",
     "connectRequired": "Connect Google Ads to create reports",
@@ -168,7 +168,7 @@
       "presetThemeApplied": "Thème \"{{themeName}}\" appliqué depuis les préférences du client"
     },
     "email": {
-      "subject": "Rapport Google Ads - {{title}}",
+      "subject": "rapport Google Ads & Meta Ads - {{title}}",
       "greeting": "Bonjour,",
       "intro": "Je vous partage le rapport d'analyse Google Ads suivant...",
       "reportTitle": "Rapport : {{title}}",
@@ -317,7 +317,7 @@
   "slashCommand": {
     "performanceOverview": {
       "title": "Google Overview",
-      "description": "Google Ads performance metrics"
+      "description": "Google Ads & Meta Ads performance metrics"
     },
     "flexibleData": {
       "title": "Google Flexible Data",
@@ -341,7 +341,7 @@
     },
     "heatmap": {
       "title": "Google Heatmap",
-      "description": "Google Ads performance heatmap"
+      "description": "Google Ads & Meta Ads performance heatmap"
     },
     "devicePlatformSplit": {
       "title": "Google Device Split",
@@ -353,7 +353,7 @@
     },
     "topPerformers": {
       "title": "Google Top Campaigns",
-      "description": "Top Google Ads campaigns/ad groups"
+      "description": "Top Google Ads & Meta Ads campaigns/ad groups"
     },
     "clientLogo": {
       "title": "Client Logo",
@@ -629,7 +629,7 @@
   "info": {
     "buttonLabel": "Information",
     "modalTitle": "What is a report?",
-    "modalContent": "Reports are customizable Google Ads performance documents you create and share with your accounts or stakeholders.\n\nWith reports, you can:\n• Combine multiple slide types (metrics, charts, text, creatives) into complete presentations\n• Analyze specific campaigns and time periods\n• Save as draft, publish, or archive for organization\n• Password-protect reports for secure sharing\n• Generate PDF exports for offline distribution\n• Share by email with pre-filled content\n\nReports can be built from scratch or generated from templates for faster, consistent deliverables."
+    "modalContent": "Reports are customizable Google Ads & Meta Ads performance documents you create and share with your accounts or stakeholders.\n\nWith reports, you can:\n• Combine multiple slide types (metrics, charts, text, creatives) into complete presentations\n• Analyze specific campaigns and time periods\n• Save as draft, publish, or archive for organization\n• Password-protect reports for secure sharing\n• Generate PDF exports for offline distribution\n• Share by email with pre-filled content\n\nReports can be built from scratch or generated from templates for faster, consistent deliverables."
   },
   "flexibleBlock": {
     "modalTitle": "Data Block Configuration",

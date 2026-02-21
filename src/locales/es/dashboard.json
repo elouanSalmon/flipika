@@ -15,8 +15,8 @@
     },
     "campaigns": {
         "title": "Tus campañas",
-        "overview": "Resumen de tus campañas de Google Ads",
-        "overviewDemo": "Modo Demo - Resumen de tus campañas de Google Ads",
+        "overview": "Resumen de tus campañas de Google Ads & Meta Ads",
+        "overviewDemo": "Modo Demo - Resumen de tus campañas de Google Ads & Meta Ads",
         "noCampaigns": "No se encontraron campañas activas.",
         "createReport": "Crear un informe",
         "refresh": "Actualizar"

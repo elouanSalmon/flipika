@@ -2,7 +2,7 @@
     "list": {
         "title": "Mis Temas",
         "pageTitle": "Mis Temas de Informes",
-        "pageSubtitle": "Crea y gestiona tus temas personalizados para informes de Google Ads",
+        "pageSubtitle": "Crea y gestiona tus temas personalizados para informes de Google Ads & Meta Ads",
         "newButton": "Nuevo",
         "createButton": "Crear Tema",
         "loading": "Cargando temas..."
@@ -102,6 +102,6 @@
     "info": {
         "buttonLabel": "Información",
         "modalTitle": "¿Qué son los Temas?",
-        "modalContent": "Los temas te permiten personalizar la apariencia visual de tus informes de Google Ads para que coincidan con la identidad de marca de tus cuentas.\n\nCon los temas, puedes:\n• Definir colores personalizados (primario y secundario)\n• Elegir entre modos claro y oscuro\n• Seleccionar fuentes personalizadas para tus informes\n• Vincular temas a cuentas específicas de Google Ads para su aplicación automática\n• Establecer un tema por defecto para todos tus informes\n\nLos temas se aplican al generar informes en PDF, asegurando una imagen de marca consistente en todos los entregables de tus cuentas."
+        "modalContent": "Los temas te permiten personalizar la apariencia visual de tus informes de Google Ads & Meta Ads para que coincidan con la identidad de marca de tus cuentas.\n\nCon los temas, puedes:\n• Definir colores personalizados (primario y secundario)\n• Elegir entre modos claro y oscuro\n• Seleccionar fuentes personalizadas para tus informes\n• Vincular temas a cuentas específicas de Google Ads para su aplicación automática\n• Establecer un tema por defecto para todos tus informes\n\nLos temas se aplican al generar informes en PDF, asegurando una imagen de marca consistente en todos los entregables de tus cuentas."
     }
 }
