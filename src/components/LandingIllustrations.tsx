@@ -365,7 +365,13 @@ export const TemplateIllustration: React.FC = () => {
    ───────────────────────────────────────────── */
 export const AIInsightIllustration: React.FC = () => {
     const [text, setText] = useState("");
+    const [isLoaded, setIsLoaded] = useState(false);
     const fullText = "Revenue spiked by 24% this weekend due to the new campaign.";
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoaded(true), 200);
+        return () => clearTimeout(timer);
+    }, []);
 
     useEffect(() => {
         let currentIndex = 0;
@@ -415,32 +421,34 @@ export const AIInsightIllustration: React.FC = () => {
             <div className="flex flex-col gap-3 relative w-full">
                 {/* 1. The Line Chart to Analyze (Recharts) */}
                 <div className="h-48 md:h-56 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-white/5 p-2 relative overflow-hidden group w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1} debounce={1}>
-                        <LineChart data={data}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" vertical={false} />
-                            <XAxis
-                                dataKey="day"
-                                axisLine={false}
-                                tickLine={false}
-                                tick={{ fontSize: 8, fill: '#888' }}
-                                interval={0}
-                            />
-                            <YAxis
-                                hide
-                                domain={['dataMin - 10', 'dataMax + 10']}
-                            />
-                            <Line
-                                type="monotone"
-                                dataKey="value"
-                                stroke="#8b5cf6"
-                                strokeWidth={2}
-                                dot={{ r: 2, fill: '#8b5cf6', strokeWidth: 0 }}
-                                activeDot={{ r: 4, strokeWidth: 0 }}
-                                isAnimationActive={true}
-                                animationDuration={1500}
-                            />
-                        </LineChart>
-                    </ResponsiveContainer>
+                    {isLoaded && (
+                        <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1} debounce={100}>
+                            <LineChart data={data}>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" vertical={false} />
+                                <XAxis
+                                    dataKey="day"
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tick={{ fontSize: 8, fill: '#888' }}
+                                    interval={0}
+                                />
+                                <YAxis
+                                    hide
+                                    domain={['dataMin - 10', 'dataMax + 10']}
+                                />
+                                <Line
+                                    type="monotone"
+                                    dataKey="value"
+                                    stroke="#8b5cf6"
+                                    strokeWidth={2}
+                                    dot={{ r: 2, fill: '#8b5cf6', strokeWidth: 0 }}
+                                    activeDot={{ r: 4, strokeWidth: 0 }}
+                                    isAnimationActive={true}
+                                    animationDuration={1500}
+                                />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    )}
 
                     {/* Scanning Effect Overlay */}
                     <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-lg">
