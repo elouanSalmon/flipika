@@ -57,9 +57,9 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ data, loading = false }) 
     });
 
     return (
-        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 min-h-[400px]">
             <h3 className="text-lg font-bold mb-6 dark:text-neutral-200">Évolution des dépenses</h3>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300} minHeight={300}>
                 <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
                     <XAxis

@@ -44,9 +44,9 @@ const BudgetDistributionChart: React.FC<BudgetDistributionChartProps> = ({ accou
     }));
 
     return (
-        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 min-h-[400px]">
             <h3 className="text-lg font-bold mb-6">Répartition du budget par compte</h3>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300} minHeight={300}>
                 <PieChart>
                     <Pie
                         data={chartData}

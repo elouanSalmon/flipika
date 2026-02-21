@@ -59,7 +59,7 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
     }
 
     return (
-        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6">
+        <div className="card bg-white dark:bg-black border-neutral-100 dark:border-white/10 p-6 min-h-[450px]">
             <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold">Performance des campagnes (Top 5)</h3>
                 <select
@@ -71,7 +71,7 @@ const CampaignPerformanceChart: React.FC<CampaignPerformanceChartProps> = ({
                     <option value="roas">ROAS</option>
                 </select>
             </div>
-            <ResponsiveContainer width="100%" height={350}>
+            <ResponsiveContainer width="100%" height={350} minHeight={350}>
                 <BarChart data={chartData} layout="horizontal" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke={colors.grid} />
                     <XAxis type="number" stroke={colors.axis} tick={{ fill: colors.axis }} style={{ fontSize: '12px' }} />
