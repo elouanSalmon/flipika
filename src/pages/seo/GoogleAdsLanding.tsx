@@ -9,9 +9,11 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import PricingPreview from '../../components/PricingPreview';
 import TrustBar from '../../components/TrustBar';
+import SEO from '../../components/SEO';
 
 const GoogleAdsLanding = () => {
     const { i18n } = useTranslation();
+    const { t: tSeo } = useTranslation('seo-google-ads');
     const navigate = useNavigate();
 
     const getLangPath = (path: string) => {
@@ -20,9 +22,34 @@ const GoogleAdsLanding = () => {
         return path;
     };
 
-    // Translated basic strings could use t('seo-google-ads:...') but to be sure we have original unbugged content we embed logic
     const isFr = i18n.language === 'fr';
     const isEs = i18n.language === 'es';
+
+    const googleAdsSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Flipika - Google Ads Reporting",
+        "applicationCategory": "BusinessApplication",
+        "description": tSeo('landing.description'),
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+        },
+        "featureList": [
+            "Google Ads automated reporting",
+            "Performance Max (PMax) campaign tracking",
+            "Keyword analysis & Quality Score reporting",
+            "ROAS & CPA automatic calculation",
+            "AI-powered insights & narration",
+            "White-label Google Ads reports",
+            "PDF & PowerPoint export"
+        ]
+    };
+
+
 
     const title = isFr
         ? <>Vos rapports <span className="text-blue-600">Google Ads</span> générés en un clic.</>
@@ -40,13 +67,24 @@ const GoogleAdsLanding = () => {
 
     return (
         <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 selection:bg-primary/20 selection:text-primary pt-20">
+            <SEO
+                title={tSeo('landing.title')}
+                description={tSeo('landing.description')}
+                keywords={tSeo('landing.keywords')}
+                canonicalPath="/google-ads-reporting"
+                breadcrumbs={[
+                    { name: 'Flipika', path: '/' },
+                    { name: isFr ? 'Reporting Google Ads' : 'Google Ads Reporting', path: '/google-ads-reporting' },
+                ]}
+            />
             <Helmet>
-                <title>{isFr ? "Reporting Google Ads Automatisé | Flipika" : "Automated Google Ads Reporting | Flipika"}</title>
-                <meta name="description" content={isFr ? "Automatisez vos rapports Google Ads. Suivi du ROAS, CPA, et budgets avec l'IA." : "Automate your Google Ads reporting. Track ROAS, CPA, and budgets with AI."} />
-                <link rel="canonical" href="https://flipika.com/google-ads-reporting" />
+                <script type="application/ld+json">
+                    {JSON.stringify(googleAdsSchema)}
+                </script>
             </Helmet>
 
             <Header />
+
 
             <main>
                 {/* Custom Google Ads Hero */}

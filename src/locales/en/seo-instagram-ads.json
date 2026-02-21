@@ -1,0 +1,78 @@
+{
+    "landing": {
+        "title": "Automated Instagram Ads Reports in 2 Min | Flipika",
+        "description": "Create professional Instagram Ads reports in 2 minutes. Stories, Reels, Feed Ads and Shopping analysis. Engagement rate, CPM, ROAS by placement. White-label included.",
+        "keywords": "Instagram Ads report, automated Instagram Ads reporting, Instagram Ads dashboard, Instagram campaign analysis, Instagram Stories report, Reels Ads report, Instagram reporting tool, CPA Instagram Ads, ROAS Instagram Ads, white-label Instagram Ads reports",
+        "ogTitle": "Flipika — Automated Instagram Ads Reporting in 2 minutes",
+        "ogDescription": "Analyze your Instagram Ads campaigns effortlessly. Flipika generates clear reports on your Stories, Reels, and Feed Ads for your clients."
+    },
+    "hero": {
+        "badge": "Instagram Ads Integration via Meta API",
+        "title": "Your Instagram Ads reports, ready in 2 minutes.",
+        "subtitle": "Stories, Reels, Feed and Shopping Ads — analyze every Instagram placement and present results to your clients in beautiful automated slides.",
+        "cta": "Build my Instagram Ads Report",
+        "noCreditCard": "No credit card required"
+    },
+    "features": {
+        "title": "Instagram Ads reporting built for modern agencies",
+        "subtitle": "The metrics that actually matter for Social Ads.",
+        "card1": {
+            "title": "Performance by Placement",
+            "description": "Compare results across Stories, Reels, Feed and Instagram Shopping to identify the most profitable formats for each client."
+        },
+        "card2": {
+            "title": "Engagement & Click Rates",
+            "description": "CTR, engagement rate, interactions — visualize how your audience responds to your Instagram Ads content with clear charts."
+        },
+        "card3": {
+            "title": "Creatives & Visuals Embedded",
+            "description": "Flipika automatically imports your Instagram creatives from Business Manager and displays them in the report to contextualize performance."
+        }
+    },
+    "workflow": {
+        "title": "How to automatically create your Instagram Ads reports?",
+        "subtitle": "3 steps to impress your clients with visual, professional reports.",
+        "step1": {
+            "title": "Connect Instagram via Meta",
+            "description": "Link your Meta ad account to import all your Instagram Ads data in real time."
+        },
+        "step2": {
+            "title": "Generate in one click",
+            "description": "Choose the right Instagram Ads template and Flipika fills in all the data automatically."
+        },
+        "step3": {
+            "title": "Share in style",
+            "description": "Send a white-label PDF or interactive live link to your client — no coding required."
+        }
+    },
+    "faq": {
+        "title": "Frequently asked questions about Instagram Ads reporting",
+        "items": [
+            {
+                "question": "Does Flipika support Instagram Stories and Reels placements?",
+                "answer": "Yes. Flipika breaks down performance by Meta placement: Instagram Feed, Stories, Reels, and Instagram Shopping. You can filter and compare each format in your report."
+            },
+            {
+                "question": "Are Instagram engagement metrics available?",
+                "answer": "Yes. Flipika imports engagement rate, interactions (likes, comments, shares), reach, and frequency directly from the Meta API for your Instagram Ads campaigns."
+            },
+            {
+                "question": "Can I include my Instagram creatives in the report?",
+                "answer": "Absolutely. Flipika automatically fetches images and videos from your Instagram ads via Business Manager and displays them in slides for a visually impactful presentation."
+            },
+            {
+                "question": "Is the Instagram Ads report white-label?",
+                "answer": "Yes. Customize with your logo, colors and agency name. The report will be 100% your brand."
+            },
+            {
+                "question": "How do I separate Facebook and Instagram data?",
+                "answer": "Flipika automatically segments performance by network. Create a report dedicated only to Instagram placements, or combine Facebook and Instagram into a single multi-platform report."
+            }
+        ]
+    },
+    "closingCta": {
+        "title": "Impress your clients with visual Instagram Ads reports",
+        "subtitle": "Stories, Reels, Feed — all in one automated report.",
+        "cta": "Try for free"
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "landing": {
+        "title": "Automated Facebook Ads Reports in 2 Min | Flipika",
+        "description": "Create professional Facebook Ads reports in 2 minutes. Automatic campaign, ad set, creative and audience analysis. ROAS, CPA, CTR without copy-pasting. Free trial.",
+        "keywords": "Facebook Ads report, automated Facebook Ads reporting, Facebook Ads dashboard, Facebook campaign analysis, Facebook Ads agency report, Facebook reporting tool, CPA Facebook Ads, ROAS Facebook Ads, white-label Facebook Ads reports, Ads Manager report",
+        "ogTitle": "Flipika — Automated Facebook Ads Reporting in 2 minutes",
+        "ogDescription": "Stop copy-pasting from Facebook Ads Manager. Flipika automatically generates professional Facebook Ads client reports."
+    },
+    "hero": {
+        "badge": "Official Facebook Ads Integration",
+        "title": "Your Facebook Ads reports, generated automatically.",
+        "subtitle": "No more CSV exports from Ads Manager. Get clear reports on your Facebook campaigns, ad sets and creatives — in 2 minutes.",
+        "cta": "Build my Facebook Ads Report",
+        "noCreditCard": "No credit card required"
+    },
+    "features": {
+        "title": "Everything your clients want to see in a Facebook Ads report",
+        "subtitle": "From ROAS to creatives, configured in a few clicks.",
+        "card1": {
+            "title": "Campaign Performance",
+            "description": "Impressions, Clicks, CTR, CPC, Cost and Conversions per campaign — pulled directly from the Facebook Marketing API."
+        },
+        "card2": {
+            "title": "Creative Analysis",
+            "description": "Visualize which images and videos generate the most conversions. Flipika automatically fetches your visuals from Business Manager."
+        },
+        "card3": {
+            "title": "ROAS & CPA by Audience",
+            "description": "Compare return on ad spend and cost per acquisition across your Facebook audiences to guide your optimization decisions."
+        }
+    },
+    "workflow": {
+        "title": "How to automate your Facebook Ads reports?",
+        "subtitle": "3 steps to never manually build a report again.",
+        "step1": {
+            "title": "Connect Facebook Ads",
+            "description": "Link your Facebook Business Manager in seconds via secure OAuth."
+        },
+        "step2": {
+            "title": "Choose your template",
+            "description": "Pick a Facebook Ads template or build your own with your preferred KPIs."
+        },
+        "step3": {
+            "title": "Send to your client",
+            "description": "Export as white-label PDF, share a secure live link, or present in slideshow mode."
+        }
+    },
+    "faq": {
+        "title": "Frequently asked questions about Facebook Ads reporting",
+        "items": [
+            {
+                "question": "Does Flipika connect directly to Facebook Ads?",
+                "answer": "Yes. Flipika uses the official Meta Marketing API to access your Facebook Ads data in real time. The connection is secured via OAuth 2.0, without sharing your credentials."
+            },
+            {
+                "question": "Which Facebook Ads metrics can I include in my reports?",
+                "answer": "Flipika supports all standard metrics: Impressions, Reach, Clicks, CTR, CPC, Cost, Conversions, CPA, ROAS, Frequency, CPM, and performance by placement (Facebook, Instagram, Audience Network)."
+            },
+            {
+                "question": "Can I include my ad creatives in the report?",
+                "answer": "Yes. Flipika automatically pulls images and videos from your ads via Business Manager and embeds them in your report to visualize creative performance."
+            },
+            {
+                "question": "Is the Facebook Ads report white-label?",
+                "answer": "Absolutely. Add your logo, colors and custom domain. Your clients will see only your agency — no Flipika branding."
+            },
+            {
+                "question": "Can I automate monthly Facebook Ads report delivery?",
+                "answer": "Yes. Set up automatic scheduling: daily, weekly or monthly. Flipika generates and sends the report directly to your client without any action on your part."
+            }
+        ]
+    },
+    "closingCta": {
+        "title": "Stop wasting time on your Facebook Ads reports",
+        "subtitle": "Join the agencies sending professional reports in 2 minutes.",
+        "cta": "Try for free"
+    }
+}

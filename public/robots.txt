@@ -11,8 +11,8 @@ Sitemap: https://flipika.com/sitemap.xml
 # Bloquer les pages privées de l'application
 Disallow: /app/
 
-# Bloquer les pages d'authentification
-Disallow: /login
-Disallow: /fr/login
-Disallow: /es/login
+# Autoriser les pages d'authentification (SEO Friendly)
+Allow: /login
+Allow: /fr/login
+Allow: /es/login
 Disallow: /oauth/

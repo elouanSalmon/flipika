@@ -9,9 +9,11 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import PricingPreview from '../../components/PricingPreview';
 import TrustBar from '../../components/TrustBar';
+import SEO from '../../components/SEO';
 
 const MetaAdsLanding = () => {
     const { i18n } = useTranslation();
+    const { t: tSeo } = useTranslation('seo-meta-ads');
     const navigate = useNavigate();
 
     const getLangPath = (path: string) => {
@@ -22,6 +24,31 @@ const MetaAdsLanding = () => {
 
     const isFr = i18n.language === 'fr';
     const isEs = i18n.language === 'es';
+
+    const metaAdsSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Flipika - Meta Ads Reporting",
+        "applicationCategory": "BusinessApplication",
+        "description": tSeo('landing.description'),
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
+        },
+        "featureList": [
+            "Meta Ads automated reporting",
+            "Facebook & Instagram Ads dashboard",
+            "Creative performance analysis",
+            "ROAS & CPA tracking by audience",
+            "Reach & Frequency reporting",
+            "White-label Meta Ads reports",
+            "AI-powered insights"
+        ]
+    };
+
 
     const title = isFr
         ? <>Vos rapports <span className="text-indigo-600">Meta Ads</span> 100% automatisés.</>
@@ -39,13 +66,24 @@ const MetaAdsLanding = () => {
 
     return (
         <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 selection:bg-primary/20 selection:text-primary pt-20">
+            <SEO
+                title={tSeo('landing.title')}
+                description={tSeo('landing.description')}
+                keywords={tSeo('landing.keywords')}
+                canonicalPath="/meta-ads-reporting"
+                breadcrumbs={[
+                    { name: 'Flipika', path: '/' },
+                    { name: isFr ? 'Reporting Meta Ads' : 'Meta Ads Reporting', path: '/meta-ads-reporting' },
+                ]}
+            />
             <Helmet>
-                <title>{isFr ? "Reporting Meta Ads Automatisé | Flipika" : "Automated Meta Ads Reporting | Flipika"}</title>
-                <meta name="description" content={isFr ? "Automatisez vos rapports Meta Ads. Suivez les audiences, le ROAS et les créatives." : "Automate your Meta Ads reporting. Track audiences, ROAS and creative assets."} />
-                <link rel="canonical" href="https://flipika.com/meta-ads-reporting" />
+                <script type="application/ld+json">
+                    {JSON.stringify(metaAdsSchema)}
+                </script>
             </Helmet>
 
             <Header />
+
 
             <main>
                 {/* Custom Meta Ads Hero */}

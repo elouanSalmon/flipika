@@ -25,6 +25,8 @@ import frRoadmap from './locales/fr/roadmap.json';
 import frFeatures from './locales/fr/features.json';
 import frSolutions from './locales/fr/solutions.json';
 import frSeo from './locales/fr/seo.json';
+import frSeoFacebookAds from './locales/fr/seo-facebook-ads.json';
+import frSeoInstagramAds from './locales/fr/seo-instagram-ads.json';
 import frLookerStudio from './locales/fr/alternatives/looker-studio.json';
 import frAgencyAnalytics from './locales/fr/alternatives/agency-analytics.json';
 import frDashThis from './locales/fr/alternatives/dashthis.json';
@@ -52,6 +54,8 @@ import enRoadmap from './locales/en/roadmap.json';
 import enFeatures from './locales/en/features.json';
 import enSolutions from './locales/en/solutions.json';
 import enSeo from './locales/en/seo.json';
+import enSeoFacebookAds from './locales/en/seo-facebook-ads.json';
+import enSeoInstagramAds from './locales/en/seo-instagram-ads.json';
 import enLookerStudio from './locales/en/alternatives/looker-studio.json';
 import enAgencyAnalytics from './locales/en/alternatives/agency-analytics.json';
 import enDashThis from './locales/en/alternatives/dashthis.json';
@@ -160,6 +164,8 @@ const resources = {
     'templates-freelancer': enFreelancer,
     'templates-saas': enSaas,
     seo: enSeo,
+    'seo-facebook-ads': enSeoFacebookAds,
+    'seo-instagram-ads': enSeoInstagramAds,
   },
   fr: {
     common: frCommon,
@@ -198,6 +204,8 @@ const resources = {
     'templates-freelancer': frFreelancer,
     'templates-saas': frSaas,
     seo: frSeo,
+    'seo-facebook-ads': frSeoFacebookAds,
+    'seo-instagram-ads': frSeoInstagramAds,
   },
   es: {
     common: esCommon,
@@ -291,7 +299,9 @@ i18n
       'templates-freelancer',
       'templates-saas',
       'solutions',
-      'seo'
+      'seo',
+      'seo-facebook-ads',
+      'seo-instagram-ads'
     ],
     load: 'languageOnly',
   });

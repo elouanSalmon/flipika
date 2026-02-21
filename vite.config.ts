@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: 'Flipika',
           short_name: 'Flipika',
-          description: 'Flipika crée, gère et optimise automatiquement vos campagnes Google Ads comme un Media Buyer expert, mais 100x plus rapide.',
+          description: 'Générez des rapports Google Ads & Meta Ads professionnels en 2 minutes. L\'outil de reporting automatisé pour media buyers et agences.',
           theme_color: '#0066ff',
           background_color: '#ffffff',
           display: 'standalone',

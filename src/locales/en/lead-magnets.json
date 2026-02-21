@@ -141,9 +141,9 @@
             "subtitle": "See exactly what top-tier agencies include in their reports. Use this PDF as a benchmark for your own client deliverables.",
             "painTitle": "The Limitations of PDF",
             "painPoints": [
-                "Fichiers perdus dans les emails",
-                "Illisible sur mobile",
-                "Impossible de filtrer ou changer les dates"
+                "Files lost in email threads",
+                "Unreadable on mobile",
+                "Impossible to filter or change date ranges"
             ],
             "trap": {
                 "title": "PDFs are 'Dead' Documents",

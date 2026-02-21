@@ -121,9 +121,105 @@
   <url><loc>https://flipika.com/templates/freelancer</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://flipika.com/templates/saas</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
+  <!-- ===== Authentication ===== -->
+  <url>
+    <loc>https://flipika.com/login</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/login"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/login"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/login"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/login</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/es/login</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- ===== Alternatives / Comparisons ===== -->
   <url>
     <loc>https://flipika.com/alternatives</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== Resources / Lead magnets ===== -->
+  <url>
+    <loc>https://flipika.com/meta-ads-reporting</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/meta-ads-reporting"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/meta-ads-reporting"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/meta-ads-reporting"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/meta-ads-reporting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/es/meta-ads-reporting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== SEO Landing pages ===== -->
+  <url>
+    <loc>https://flipika.com/google-ads-reporting</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/google-ads-reporting"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/google-ads-reporting"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/google-ads-reporting"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/google-ads-reporting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/es/google-ads-reporting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/facebook-ads-reporting</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/facebook-ads-reporting"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/facebook-ads-reporting"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/facebook-ads-reporting"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/facebook-ads-reporting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/es/facebook-ads-reporting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/instagram-ads-reporting</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://flipika.com/instagram-ads-reporting"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://flipika.com/fr/instagram-ads-reporting"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://flipika.com/es/instagram-ads-reporting"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/fr/instagram-ads-reporting</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://flipika.com/es/instagram-ads-reporting</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -135,7 +231,16 @@
 
   <!-- ===== Legal pages ===== -->
   <url><loc>https://flipika.com/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://flipika.com/fr/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://flipika.com/terms-of-service</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://flipika.com/fr/terms-of-service</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://flipika.com/legal-notices</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://flipika.com/fr/legal-notices</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://flipika.com/sales-terms</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://flipika.com/fr/sales-terms</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+
+  <!-- ===== Sitemap page ===== -->
+  <url><loc>https://flipika.com/sitemap</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://flipika.com/fr/sitemap</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
 
 </urlset>

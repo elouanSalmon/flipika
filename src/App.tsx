@@ -23,6 +23,8 @@ import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
 import GoogleAdsLanding from './pages/seo/GoogleAdsLanding';
 import MetaAdsLanding from './pages/seo/MetaAdsLanding';
+import FacebookAdsLanding from './pages/seo/FacebookAdsLanding';
+import InstagramAdsLanding from './pages/seo/InstagramAdsLanding';
 import Login from './pages/Login';
 import AppLayout from './layouts/AppLayout';
 import PublicLayout from './layouts/PublicLayout';
@@ -138,6 +140,8 @@ const AppRoutes = () => {
       <Route element={<PublicLayout lang={lang} />}>
         <Route path="google-ads-reporting" element={<GoogleAdsLanding />} />
         <Route path="meta-ads-reporting" element={<MetaAdsLanding />} />
+        <Route path="facebook-ads-reporting" element={<FacebookAdsLanding />} />
+        <Route path="instagram-ads-reporting" element={<InstagramAdsLanding />} />
         {enableFullLanding && <Route path="full" element={<LandingFull />} />}
         <Route path="legal-notices" element={<LegalNotices />} />
         <Route path="privacy-policy" element={<PrivacyPolicy />} />

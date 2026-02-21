@@ -24,6 +24,8 @@ const Sitemap: React.FC = () => {
                 { name: i18n.language === 'fr' ? 'Connexion' : 'Login', path: '/login' },
                 { name: i18n.language === 'fr' ? 'Reporting Google Ads' : 'Google Ads Reporting', path: '/google-ads-reporting' },
                 { name: i18n.language === 'fr' ? 'Reporting Meta Ads' : 'Meta Ads Reporting', path: '/meta-ads-reporting' },
+                { name: i18n.language === 'fr' ? 'Reporting Facebook Ads' : 'Facebook Ads Reporting', path: '/facebook-ads-reporting' },
+                { name: i18n.language === 'fr' ? 'Reporting Instagram Ads' : 'Instagram Ads Reporting', path: '/instagram-ads-reporting' },
             ]
         },
         {
