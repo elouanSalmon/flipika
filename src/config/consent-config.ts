@@ -59,9 +59,9 @@ export const cookieConsentConfig: CookieConsentConfig = {
     // GUI Options
     guiOptions: {
         consentModal: {
-            layout: 'box inline',
-            position: 'bottom center',
-            equalWeightButtons: true,
+            layout: 'bar inline',
+            position: 'bottom',
+            equalWeightButtons: false,
             flipButtons: false,
         },
         preferencesModal: {
@@ -126,16 +126,12 @@ export const cookieConsentConfig: CookieConsentConfig = {
         translations: {
             fr: {
                 consentModal: {
-                    title: '🍪 Nous utilisons des cookies',
+                    title: 'Nous utilisons des cookies',
                     description:
-                        'Nous utilisons des cookies pour améliorer votre expérience, analyser le trafic et personnaliser les publicités. Vous pouvez choisir les cookies que vous acceptez.',
+                        'Nous utilisons des cookies pour améliorer votre expérience, analyser le trafic et personnaliser les publicités. En savoir plus dans notre <a href="/politique-confidentialite">Politique de confidentialité</a>.',
                     acceptAllBtn: 'Tout accepter',
                     acceptNecessaryBtn: 'Tout refuser',
                     showPreferencesBtn: 'Personnaliser',
-                    footer: `
-                        <a href="/politique-confidentialite">Politique de confidentialité</a>
-                        <a href="/mentions-legales">Mentions légales</a>
-                    `,
                 },
                 preferencesModal: {
                     title: 'Préférences de cookies',
@@ -173,16 +169,12 @@ export const cookieConsentConfig: CookieConsentConfig = {
             },
             en: {
                 consentModal: {
-                    title: '🍪 We use cookies',
+                    title: 'We use cookies',
                     description:
-                        'We use cookies to enhance your experience, analyze traffic, and personalize ads. You can choose which cookies you accept.',
+                        'We use cookies to enhance your experience, analyze traffic, and personalize ads. Learn more in our <a href="/politique-confidentialite">Privacy Policy</a>.',
                     acceptAllBtn: 'Accept all',
                     acceptNecessaryBtn: 'Reject all',
                     showPreferencesBtn: 'Customize',
-                    footer: `
-                        <a href="/politique-confidentialite">Privacy Policy</a>
-                        <a href="/mentions-legales">Legal Notices</a>
-                    `,
                 },
                 preferencesModal: {
                     title: 'Cookie Preferences',

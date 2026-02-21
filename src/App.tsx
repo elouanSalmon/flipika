@@ -21,6 +21,7 @@ import OfflineAlert from './components/common/OfflineAlert';
 import PageTransition from './components/common/PageTransition';
 import { useNetworkStatus } from './hooks/useNetworkStatus';
 import { GoogleOneTap } from './components/common/GoogleOneTap';
+import ScrollToTop from './components/ScrollToTop';
 import Landing from './pages/Landing';
 import LandingFull from './pages/LandingFull';
 import GoogleAdsLanding from './pages/seo/GoogleAdsLanding';
@@ -284,6 +285,7 @@ const AppContent = () => {
       <PageTransition>
         <AppRoutes />
       </PageTransition>
+      <ScrollToTop />
       {/* SEO is now handled per-page for unique metadata */}
       <OfflineAlert isOnline={isOnline} />
     </>

@@ -9,9 +9,9 @@ const LanguageSwitcher = () => {
   const navigate = useNavigate();
 
   const languages = [
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'en', name: 'English' },
+    { code: 'fr', name: 'Français' },
+    { code: 'es', name: 'Español' },
   ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
@@ -50,7 +50,7 @@ const LanguageSwitcher = () => {
     <div className="language-switcher">
       <div className="language-switcher__current">
         <Globe size={16} />
-        <span>{currentLanguage.flag} {currentLanguage.name}</span>
+        <span>{currentLanguage.name}</span>
       </div>
       <div className="language-switcher__dropdown">
         {languages.map((language) => (
@@ -60,7 +60,7 @@ const LanguageSwitcher = () => {
             className={`language-switcher__option ${language.code === i18n.language ? 'language-switcher__option--active' : ''
               }`}
           >
-            {language.flag} {language.name}
+            {language.name}
           </button>
         ))}
       </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Zap, AlertCircle, Play, Linkedin } from 'lucide-react';
+import { Zap, AlertCircle, Play, Linkedin, Share2 } from 'lucide-react';
 import { getPublicReport } from '../services/reportService';
 import { getUserProfileByUsername } from '../services/userProfileService';
 import { verifyPassword, storeReportAccess, hasReportAccess } from '../utils/passwordUtils';
@@ -134,6 +134,26 @@ const PublicReportView: React.FC = () => {
         }
     };
 
+    const handleShare = async () => {
+        const shareData = {
+            title: report?.title || 'Flipika Report',
+            text: `Consultez ce rapport Flipika : ${report?.title}`,
+            url: window.location.href,
+        };
+
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+            } else {
+                await navigator.clipboard.writeText(window.location.href);
+                const toastModule = await import('react-hot-toast');
+                toastModule.default.success('Lien copié dans le presse-papier !');
+            }
+        } catch (err) {
+            console.error('Error sharing:', err);
+        }
+    };
+
     if (loading) {
         return (
             <div className="public-report-loading">
@@ -198,6 +218,16 @@ const PublicReportView: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-2">
+                        {/* Share Button */}
+                        <button
+                            onClick={handleShare}
+                            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
+                            title="Partager le rapport"
+                        >
+                            <Share2 size={16} />
+                            <span className="hidden sm:inline">Partager</span>
+                        </button>
+
                         {/* Presentation Mode Button */}
                         <button
                             onClick={() => setShowPresentationMode(true)}
