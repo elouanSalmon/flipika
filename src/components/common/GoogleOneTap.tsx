@@ -11,6 +11,13 @@ const GoogleOneTapInner: React.FC = () => {
     const { loginWithGoogleCredential, currentUser, loading } = useAuth();
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const [ready, setReady] = React.useState(false);
+
+    // Add a small delay for FedCM to avoid "signal is aborted" during rapid mounting/animations
+    React.useEffect(() => {
+        const timer = setTimeout(() => setReady(true), 1500);
+        return () => clearTimeout(timer);
+    }, []);
 
     useGoogleOneTapLogin({
         onSuccess: async (credentialResponse) => {
@@ -29,8 +36,8 @@ const GoogleOneTapInner: React.FC = () => {
         onError: () => {
             console.error('Google One Tap Login Error');
         },
-        // Only show when authentication loading is finished and user is not logged in
-        disabled: loading || !!currentUser,
+        // Only show when authentication loading is finished, user is not logged in, and delay has passed
+        disabled: loading || !!currentUser || !ready,
         use_fedcm_for_prompt: true,
     });
 

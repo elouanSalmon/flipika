@@ -415,7 +415,7 @@ export const AIInsightIllustration: React.FC = () => {
             <div className="flex flex-col gap-3 relative w-full">
                 {/* 1. The Line Chart to Analyze (Recharts) */}
                 <div className="h-48 md:h-56 bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-white/5 p-2 relative overflow-hidden group w-full">
-                    <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
+                    <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1} debounce={1}>
                         <LineChart data={data}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#e5e5e5" vertical={false} />
                             <XAxis
