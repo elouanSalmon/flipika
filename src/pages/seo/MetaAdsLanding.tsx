@@ -38,6 +38,11 @@ const MetaAdsLanding = () => {
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock"
         },
+        "author": {
+            "@type": "Organization",
+            "name": "Flipika",
+            "url": "https://flipika.com"
+        },
         "featureList": [
             "Meta Ads automated reporting",
             "Facebook & Instagram Ads dashboard",

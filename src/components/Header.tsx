@@ -62,8 +62,10 @@ const Header: React.FC = () => {
     { label: t('footer.sections.automation'), path: '/features/scheduling-automation' },
     { label: t('footer.sections.exports'), path: '/features/multi-format-exports' },
     { label: t('footer.sections.slideshow'), path: '/features/slideshow-mode' },
-    { label: i18n.language === 'fr' ? 'Reporting Google Ads' : (i18n.language === 'es' ? 'Informes Google Ads' : 'Google Ads Reporting'), path: '/google-ads-reporting', isAction: true },
-    { label: i18n.language === 'fr' ? 'Reporting Meta Ads' : (i18n.language === 'es' ? 'Informes Meta Ads' : 'Meta Ads Reporting'), path: '/meta-ads-reporting', isAction: true }
+    { label: i18n.language === 'fr' ? 'Calculateur de ROAS' : (i18n.language === 'es' ? 'Calculadora de ROAS' : 'ROAS Calculator'), path: '/tools/roas-calculator', isAction: true },
+    { label: i18n.language === 'fr' ? 'Glossaire du Media Buying' : (i18n.language === 'es' ? 'Glosario de Media Buying' : 'Media Buying Glossary'), path: '/tools/media-buying-glossary', isAction: true },
+    { label: i18n.language === 'fr' ? 'Reporting Google Ads' : (i18n.language === 'es' ? 'Informes Google Ads' : 'Google Ads Reporting'), path: '/google-ads-reporting' },
+    { label: i18n.language === 'fr' ? 'Reporting Meta Ads' : (i18n.language === 'es' ? 'Informes Meta Ads' : 'Meta Ads Reporting'), path: '/meta-ads-reporting' }
   ];
 
   return (

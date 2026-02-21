@@ -1,0 +1,104 @@
+{
+    "roas": {
+        "seo": {
+            "title": "Calculadora de ROAS Gratis | Flipika",
+            "description": "Calcula tu Retorno de la Inversión Publicitaria (ROAS) al instante con nuestra herramienta de marketing online gratuita."
+        },
+        "hero": {
+            "badge": "Herramienta Gratuita",
+            "title": "Calculadora de ROAS",
+            "subtitle": "Calcula instantáneamente la rentabilidad de tus campañas de Google Ads o Meta Ads."
+        },
+        "calculator": {
+            "title": "Tu Cálculo de ROAS",
+            "adSpend": "Inversión Publicitaria",
+            "adSpendPlaceholder": "Ej: 1000",
+            "revenue": "Ingresos Generados",
+            "revenuePlaceholder": "Ej: 4500",
+            "currency": "Moneda",
+            "results": {
+                "title": "Tus Resultados",
+                "roas": "ROAS (Retorno de Inversión Publicitaria)",
+                "roi": "ROI (Retorno de la Inversión)",
+                "profit": "Beneficio Neto",
+                "breakEven": "ROAS de Equilibrio (margen est. 50%)"
+            },
+            "status": {
+                "excellent": "¡Excelente! Tus campañas son muy rentables.",
+                "good": "Bien. Estás generando beneficios constantes.",
+                "average": "Promedio. Hay margen para optimizar costes.",
+                "bad": "Atención. Probablemente estés perdiendo dinero."
+            }
+        },
+        "explanation": {
+            "title": "¿Qué es el ROAS?",
+            "p1": "El ROAS (Return On Ad Spend) mide los ingresos generados por cada dólar o euro invertido en publicidad. Un ROAS del 400% (o 4x) significa que ganas 4€ por cada 1€ gastado.",
+            "formulaTitle": "La fórmula del ROAS:",
+            "formula": "ROAS = (Ingresos por Publicidad / Coste de Publicidad) × 100"
+        },
+        "cta": {
+            "title": "Automatiza estos cálculos",
+            "subtitle": "¿Por qué calcular esto a mano? Flipika se conecta a tus cuentas de anuncios y calcula el ROAS de cada campaña, conjunto y anuncio en tiempo real.",
+            "button": "Olvídate de Excel"
+        }
+    },
+    "glossary": {
+        "seo": {
+            "title": "Glosario de Media Buying y Diccionario de Ads | Flipika",
+            "description": "Aprende el vocabulario del Media Buying. Definiciones simples para CPC, CPA, ROAS, CPM, CTR y todos los acrónimos de publicidad digital."
+        },
+        "hero": {
+            "badge": "Recurso Gratuito",
+            "title": "El Glosario del Media Buying",
+            "subtitle": "Descifra la jerga de la publicidad en línea. Desde el A/B Testing hasta el ROAS, todas las definiciones explicadas de manera sencilla."
+        },
+        "search": "Buscar un término (ej: CPC, Retargeting...)",
+        "terms": {
+            "cpc": {
+                "name": "Cost Per Click (CPC) / Coste Por Clic",
+                "definition": "La cantidad que pagas cada vez que un usuario hace clic en tu anuncio. Es la métrica fundamental de las campañas de adquisición de tráfico."
+            },
+            "cpa": {
+                "name": "Cost Per Acquisition (CPA) / Coste Por Adquisición",
+                "definition": "El coste total para adquirir un cliente de pago a través de una campaña. Se calcula dividiendo el coste total entre el número de conversiones."
+            },
+            "ctr": {
+                "name": "Click-Through Rate (CTR) / Tasa de Clics",
+                "definition": "El porcentaje de personas que hicieron clic en tu anuncio después de verlo. Un CTR alto generalmente indica un anuncio muy relevante para la audiencia objetivo."
+            },
+            "cpm": {
+                "name": "Cost Per Mille (CPM) / Coste Por Mil",
+                "definition": "El precio que pagas para que tu anuncio se muestre 1.000 veces. Muy utilizado en campañas de notoriedad de marca (branding)."
+            },
+            "roas": {
+                "name": "Return on Ad Spend (ROAS) / Retorno de la Inversión Publicitaria",
+                "definition": "Mide los ingresos brutos generados por cada moneda invertida en una campaña publicitaria específica."
+            },
+            "roi": {
+                "name": "Return On Investment (ROI) / Retorno de Inversión",
+                "definition": "Mide la rentabilidad neta de una acción. A diferencia del ROAS, el ROI tiene en cuenta todos los costes (márgenes, herramientas, salarios), no solo el gasto publicitario."
+            },
+            "cac": {
+                "name": "Customer Acquisition Cost (CAC) / Coste de Adquisición de Cliente",
+                "definition": "Agrupa todos los gastos (marketing, ventas, salarios) necesarios para adquirir un nuevo cliente, dividido por el número de clientes adquiridos."
+            },
+            "ltv": {
+                "name": "LifeTime Value (LTV) / Valor de Vida del Cliente",
+                "definition": "La estimación de los ingresos totales que un cliente generará para tu empresa a lo largo de toda su relación contigo."
+            },
+            "retargeting": {
+                "name": "Retargeting",
+                "definition": "Técnica publicitaria que se dirige específicamente a los usuarios que ya han interactuado con tu marca (visita al sitio, añadido al carrito sin comprar) para animarles a convertir."
+            },
+            "lookalike": {
+                "name": "Lookalike Audience / Audiencia Similar",
+                "definition": "Una audiencia generada por un algoritmo (ej: Meta Ads) que identifica a nuevos usuarios que comparten características y comportamientos similares con una lista de clientes existente."
+            }
+        },
+        "cta": {
+            "title": "Deja de perderte en los datos",
+            "subtitle": "Deja que Flipika transforme toneladas de métricas complicadas en informes visuales claros para ti y tus clientes.",
+            "button": "Crear mi primer informe"
+        }
+    }
+}

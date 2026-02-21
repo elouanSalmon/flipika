@@ -50,6 +50,11 @@ const ComparisonPage: React.FC = () => {
         "name": `Flipika - Alternative to ${competitor.name}`,
         "applicationCategory": "BusinessApplication",
         "description": t('alternatives:page.seoDescription', { competitor: competitor.name }),
+        "author": {
+            "@type": "Organization",
+            "name": "Flipika",
+            "url": "https://flipika.com"
+        },
         "offers": {
             "@type": "Offer",
             "price": "0",

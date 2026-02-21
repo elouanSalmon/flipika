@@ -1,0 +1,104 @@
+{
+    "roas": {
+        "seo": {
+            "title": "Calculateur de ROAS Gratuit | Flipika",
+            "description": "Calculez votre Retour sur Investissement Publicitaire (ROAS) instantanément avec notre outil gratuit en ligne. Optimisez vos campagnes Ads."
+        },
+        "hero": {
+            "badge": "Outil Gratuit",
+            "title": "Calculateur de ROAS",
+            "subtitle": "Calculez instantanément la rentabilité de vos campagnes Google Ads ou Meta Ads."
+        },
+        "calculator": {
+            "title": "Votre Calcul de ROAS",
+            "adSpend": "Dépenses Publicitaires",
+            "adSpendPlaceholder": "Ex: 1000",
+            "revenue": "Revenus Générés",
+            "revenuePlaceholder": "Ex: 4500",
+            "currency": "Devise",
+            "results": {
+                "title": "Vos Résultats",
+                "roas": "ROAS (Retour sur Investissement Publicitaire)",
+                "roi": "ROI (Retour sur Investissement)",
+                "profit": "Bénéfice Net",
+                "breakEven": "ROAS au Point Mort estimé (Marge 50%)"
+            },
+            "status": {
+                "excellent": "Excellent ! Vos campagnes sont très rentables.",
+                "good": "Bon. Vous générez du profit régulier.",
+                "average": "Moyen. Vous pouvez optimiser vos coûts.",
+                "bad": "Attention. Vous perdez probablement de l'argent."
+            }
+        },
+        "explanation": {
+            "title": "Qu'est-ce que le ROAS ?",
+            "p1": "Le ROAS (Return On Ad Spend) mesure les revenus générés pour chaque euro dépensé en publicité. Un ROAS de 400% (ou 4x) signifie que vous gagnez 4€ pour chaque 1€ dépensé.",
+            "formulaTitle": "La formule du ROAS :",
+            "formula": "ROAS = (Revenus liés à la publicité / Coût de la publicité) × 100"
+        },
+        "cta": {
+            "title": "Automatisez ces calculs",
+            "subtitle": "Pourquoi calculer ça à la main ? Flipika se connecte à vos comptes de publicité et calcule le ROAS de chaque campagne, ad set et pub en temps réel.",
+            "button": "Cacher les classeurs Excel"
+        }
+    },
+    "glossary": {
+        "seo": {
+            "title": "Dictionnaire du Media Buying & Glossaire Ads | Flipika",
+            "description": "Apprenez le vocabulaire du Media Buying. Définitions simples pour CPC, CPA, ROAS, CPM, CTR et tous les acronymes de la publicité digitale."
+        },
+        "hero": {
+            "badge": "Ressource Gratuite",
+            "title": "Le Glossaire du Media Buying",
+            "subtitle": "Décryptez le jargon de la publicité en ligne. De l'A/B Testing au ROAS, toutes les définitions expliquées simplement pour les marketeurs."
+        },
+        "search": "Rechercher un terme (ex: CPC, Retargeting...)",
+        "terms": {
+            "cpc": {
+                "name": "Cost Per Click (CPC)",
+                "definition": "Le Coût Par Clic est le montant que vous payez chaque fois qu'un utilisateur clique sur votre annonce. C'est l'indicateur de base des campagnes d'acquisition de trafic."
+            },
+            "cpa": {
+                "name": "Cost Per Acquisition (CPA)",
+                "definition": "Le Coût Par Acquisition (ou Coût par Action) est le coût global pour acquérir un client payant au travers d'une campagne. Il se calcule en divisant le coût total par le nombre de conversions."
+            },
+            "ctr": {
+                "name": "Click-Through Rate (CTR)",
+                "definition": "Le Taux de Clic (ou Click-Through Rate) représente le pourcentage de personnes qui ont cliqué sur votre annonce après l'avoir vue. Un CTR élevé indique généralement une annonce très pertinente pour l'audience ciblée."
+            },
+            "cpm": {
+                "name": "Cost Per Mille (CPM)",
+                "definition": "Le Coût pour Mille Impressions. C'est le prix que vous payez pour que votre annonce soit affichée 1 000 fois. Très utilisé dans les campagnes de notoriété (branding)."
+            },
+            "roas": {
+                "name": "Return on Ad Spend (ROAS)",
+                "definition": "Le Retour sur les Dépenses Publicitaires. Il mesure les revenus bruts générés pour chaque euro investi dans une campagne publicitaire spécifique."
+            },
+            "roi": {
+                "name": "Return On Investment (ROI)",
+                "definition": "Le Retour sur Investissement mesure la rentabilité nette d'une action. À la différence du ROAS, le ROI prend en compte tous les coûts (marges produits, outils, salaires) et non juste le coût publicitaire."
+            },
+            "cac": {
+                "name": "Customer Acquisition Cost (CAC)",
+                "definition": "Le Coût d'Acquisition Client regroupe toutes les dépenses (marketing, ventes, salaires) nécessaires pour acquérir un nouveau client, divisé par le nombre de clients acquis."
+            },
+            "ltv": {
+                "name": "LifeTime Value (LTV)",
+                "definition": "La Valeur Vie Client est l'estimation du revenu total qu'un client générera pour votre entreprise tout au long de sa relation avec vous."
+            },
+            "retargeting": {
+                "name": "Retargeting (Reciblage)",
+                "definition": "Technique publicitaire ciblant spécifiquement les utilisateurs qui ont déjà interagi avec votre marque (visite du site, ajout au panier sans achat) pour les inciter à convertir."
+            },
+            "lookalike": {
+                "name": "Lookalike Audience (Audience Similaire)",
+                "definition": "Une audience générée par un algorithme (ex: Meta Ads) qui identifie de nouveaux utilisateurs partageant les mêmes caractéristiques et comportements qu'une liste de clients existante (audience source)."
+            }
+        },
+        "cta": {
+            "title": "Ne vous perdez plus dans les données",
+            "subtitle": "Laissez Flipika transformer des tonnes de métriques compliquées en rapports visuels clairs et actionnables pour vous et vos clients.",
+            "button": "Créer mon premier rapport"
+        }
+    }
+}

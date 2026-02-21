@@ -1,0 +1,104 @@
+{
+    "roas": {
+        "seo": {
+            "title": "Free ROAS Calculator | Flipika",
+            "description": "Calculate your Return on Ad Spend (ROAS) instantly with our free online marketing tool. Optimize your ad budget today."
+        },
+        "hero": {
+            "badge": "Free Tool",
+            "title": "ROAS Calculator",
+            "subtitle": "Instantly calculate the profitability of your Google Ads or Meta Ads campaigns."
+        },
+        "calculator": {
+            "title": "Your ROAS Calculation",
+            "adSpend": "Advertising Spend",
+            "adSpendPlaceholder": "E.g. 1000",
+            "revenue": "Generated Revenue",
+            "revenuePlaceholder": "E.g. 4500",
+            "currency": "Currency",
+            "results": {
+                "title": "Your Results",
+                "roas": "ROAS (Return on Ad Spend)",
+                "roi": "ROI (Return on Investment)",
+                "profit": "Net Profit",
+                "breakEven": "Breakeven ROAS (estimated at 50% margin)"
+            },
+            "status": {
+                "excellent": "Excellent! Your campaigns are highly profitable.",
+                "good": "Good. You are generating a steady profit.",
+                "average": "Average. There's room for cost optimization.",
+                "bad": "Warning. You are likely losing money."
+            }
+        },
+        "explanation": {
+            "title": "What is ROAS?",
+            "p1": "ROAS (Return On Ad Spend) measures the revenue generated for every dollar spent on advertising. A ROAS of 400% (or 4x) means you earn $4 for every $1 spent.",
+            "formulaTitle": "The ROAS formula:",
+            "formula": "ROAS = (Revenue from Advertising / Cost of Advertising) × 100"
+        },
+        "cta": {
+            "title": "Automate these calculations",
+            "subtitle": "Why calculate this manually? Flipika connects directly to your ad accounts to calculate ROAS for every campaign, ad set, and ad in real-time.",
+            "button": "Ditch the Spreadsheets"
+        }
+    },
+    "glossary": {
+        "seo": {
+            "title": "Media Buying Glossary & Ads Dictionary | Flipika",
+            "description": "Learn the vocabulary of Media Buying. Simple definitions for CPC, CPA, ROAS, CPM, CTR and all digital advertising acronyms."
+        },
+        "hero": {
+            "badge": "Free Resource",
+            "title": "The Media Buying Glossary",
+            "subtitle": "Decode online advertising jargon. From A/B Testing to ROAS, all definitions explained simply for marketers."
+        },
+        "search": "Search a term (e.g., CPC, Retargeting...)",
+        "terms": {
+            "cpc": {
+                "name": "Cost Per Click (CPC)",
+                "definition": "The amount you pay each time a user clicks on your ad. It’s the foundational metric for traffic-driving campaigns."
+            },
+            "cpa": {
+                "name": "Cost Per Acquisition (CPA)",
+                "definition": "The total cost to acquire a paying customer through a campaign. Calculated by dividing total cost by the number of conversions."
+            },
+            "ctr": {
+                "name": "Click-Through Rate (CTR)",
+                "definition": "The percentage of people who clicked on your ad after seeing it. A high CTR generally indicates a highly relevant ad for the targeted audience."
+            },
+            "cpm": {
+                "name": "Cost Per Mille (CPM)",
+                "definition": "Cost Per Thousand Impressions. The price you pay for your ad to be shown 1,000 times. Highly used in brand awareness campaigns."
+            },
+            "roas": {
+                "name": "Return on Ad Spend (ROAS)",
+                "definition": "Measures the gross revenue generated for every dollar spent on a specific advertising campaign."
+            },
+            "roi": {
+                "name": "Return On Investment (ROI)",
+                "definition": "Measures the net profitability of an action. Unlike ROAS, ROI includes all costs (product margins, tools, salaries), not just ad spend."
+            },
+            "cac": {
+                "name": "Customer Acquisition Cost (CAC)",
+                "definition": "Groups all expenses (marketing, sales, salaries) needed to acquire a new customer, divided by the number of acquired customers."
+            },
+            "ltv": {
+                "name": "LifeTime Value (LTV)",
+                "definition": "The estimated total revenue a customer will generate for your business throughout their entire relationship with you."
+            },
+            "retargeting": {
+                "name": "Retargeting",
+                "definition": "An advertising technique specifically targeting users who have already interacted with your brand (visited site, added to cart without buying) to encourage them to convert."
+            },
+            "lookalike": {
+                "name": "Lookalike Audience",
+                "definition": "An algorithm-generated audience (e.g., Meta Ads) that identifies new users sharing similar characteristics and behaviors to an existing customer list (source audience)."
+            }
+        },
+        "cta": {
+            "title": "Stop getting lost in the data",
+            "subtitle": "Let Flipika turn tons of complicated metrics into clear, actionable visual reports for you and your clients.",
+            "button": "Create my first report"
+        }
+    }
+}

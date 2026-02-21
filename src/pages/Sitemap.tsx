@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Map, ChevronRight, Globe, Shield, Zap, LayoutTemplate } from 'lucide-react';
+import { Map, ChevronRight, Globe, Shield, Zap, LayoutTemplate, Calculator } from 'lucide-react';
 import { competitors } from '../data/competitors';
 import SEO from '../components/SEO';
 
@@ -69,6 +69,15 @@ const Sitemap: React.FC = () => {
                 { name: i18n.language === 'fr' ? 'Mentions Légales' : 'Legal Notices', path: '/legal-notices' },
                 { name: i18n.language === 'fr' ? 'Politique de Confidentialité' : 'Privacy Policy', path: '/privacy-policy' },
                 { name: i18n.language === 'fr' ? 'Conditions d\'Utilisation' : 'Terms of Service', path: '/terms-of-service' },
+            ]
+        },
+        {
+            title: i18n.language === 'fr' ? 'Outils Gratuits' : 'Free Tools',
+            icon: <Calculator className="w-5 h-5 text-blue-500" />,
+            links: [
+                { name: i18n.language === 'fr' ? 'Tous les Outils' : 'All Free Tools', path: '/tools' },
+                { name: i18n.language === 'fr' ? 'Calculateur de ROAS' : 'ROAS Calculator', path: '/tools/roas-calculator' },
+                { name: i18n.language === 'fr' ? 'Glossaire du Media Buying' : 'Media Buying Glossary', path: '/tools/media-buying-glossary' },
             ]
         }
     ];

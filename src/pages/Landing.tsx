@@ -89,6 +89,11 @@ const Landing = () => {
                         "description": "Generate professional Google Ads & Meta Ads reports in 2 minutes. Automated data sync, AI-powered insights, white-label ready.",
                         "operatingSystem": "Web",
                         "applicationCategory": "BusinessApplication",
+                        "author": {
+                            "@type": "Organization",
+                            "name": "Flipika",
+                            "url": "https://flipika.com"
+                        },
                         "offers": {
                             "@type": "AggregateOffer",
                             "lowPrice": "0",
@@ -103,11 +108,23 @@ const Landing = () => {
                         "@context": "https://schema.org",
                         "@type": "Organization",
                         "name": "Flipika",
+                        "alternateName": "Flipika Report",
                         "url": "https://flipika.com",
                         "logo": "https://flipika.com/logo.png",
                         "description": "Automated Google Ads & Meta Ads reporting platform for media buyers, agencies and freelancers.",
                         "foundingDate": "2024",
-                        "sameAs": []
+                        "email": "helloflipika@gmail.com",
+                        "contactPoint": {
+                            "@type": "ContactPoint",
+                            "email": "helloflipika@gmail.com",
+                            "contactType": "customer service",
+                            "url": "https://flipika.com",
+                            "availableLanguage": ["English", "French", "Spanish"]
+                        },
+                        "sameAs": [
+                            "https://www.wikidata.org/wiki/Q138391914",
+                            "https://www.linkedin.com/company/flipika/"
+                        ]
                     })}
                 </script>
             </Helmet>

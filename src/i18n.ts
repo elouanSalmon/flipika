@@ -27,6 +27,7 @@ import frSolutions from './locales/fr/solutions.json';
 import frSeo from './locales/fr/seo.json';
 import frSeoFacebookAds from './locales/fr/seo-facebook-ads.json';
 import frSeoInstagramAds from './locales/fr/seo-instagram-ads.json';
+import frTools from './locales/fr/tools.json';
 import frLookerStudio from './locales/fr/alternatives/looker-studio.json';
 import frAgencyAnalytics from './locales/fr/alternatives/agency-analytics.json';
 import frDashThis from './locales/fr/alternatives/dashthis.json';
@@ -56,6 +57,7 @@ import enSolutions from './locales/en/solutions.json';
 import enSeo from './locales/en/seo.json';
 import enSeoFacebookAds from './locales/en/seo-facebook-ads.json';
 import enSeoInstagramAds from './locales/en/seo-instagram-ads.json';
+import enTools from './locales/en/tools.json';
 import enLookerStudio from './locales/en/alternatives/looker-studio.json';
 import enAgencyAnalytics from './locales/en/alternatives/agency-analytics.json';
 import enDashThis from './locales/en/alternatives/dashthis.json';
@@ -104,6 +106,7 @@ import esRoadmap from './locales/es/roadmap.json';
 import esFeatures from './locales/es/features.json';
 import esSolutions from './locales/es/solutions.json';
 import esSeo from './locales/es/seo.json';
+import esTools from './locales/es/tools.json';
 
 // Alternatives - Spanish
 import esLookerStudio from './locales/es/alternatives/looker-studio.json';
@@ -166,6 +169,7 @@ const resources = {
     seo: enSeo,
     'seo-facebook-ads': enSeoFacebookAds,
     'seo-instagram-ads': enSeoInstagramAds,
+    tools: enTools,
   },
   fr: {
     common: frCommon,
@@ -206,6 +210,7 @@ const resources = {
     seo: frSeo,
     'seo-facebook-ads': frSeoFacebookAds,
     'seo-instagram-ads': frSeoInstagramAds,
+    tools: frTools,
   },
   es: {
     common: esCommon,
@@ -244,6 +249,7 @@ const resources = {
     'templates-freelancer': esFreelancer,
     'templates-saas': esSaas,
     seo: esSeo,
+    tools: esTools,
   },
 };
 
@@ -301,7 +307,8 @@ i18n
       'solutions',
       'seo',
       'seo-facebook-ads',
-      'seo-instagram-ads'
+      'seo-instagram-ads',
+      'tools'
     ],
     load: 'languageOnly',
   });

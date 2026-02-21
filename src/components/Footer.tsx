@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
           {/* Brand Column */}
           <div className="footer-brand-col">
             <Link to={getPath('/')} className="footer-logo">
-              <Zap size={20} className="text-primary fill-primary" />
+              <Zap size={20} className="text-[#61abf7] fill-[#61abf7]" />
               <span className="gradient-text">Flipika</span>
             </Link>
             <p className="footer-tagline">

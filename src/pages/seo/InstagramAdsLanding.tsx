@@ -39,6 +39,11 @@ const InstagramAdsLanding = () => {
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock"
         },
+        "author": {
+            "@type": "Organization",
+            "name": "Flipika",
+            "url": "https://flipika.com"
+        },
         "featureList": [
             "Instagram Ads automated reporting",
             "Stories, Reels & Feed performance breakdown",

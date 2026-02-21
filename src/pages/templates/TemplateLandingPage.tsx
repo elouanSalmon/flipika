@@ -56,6 +56,11 @@ const TemplateLandingPage: React.FC = () => {
             "price": "0",
             "priceCurrency": "USD"
         },
+        "author": {
+            "@type": "Organization",
+            "name": "Flipika",
+            "url": "https://flipika.com"
+        },
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.8",

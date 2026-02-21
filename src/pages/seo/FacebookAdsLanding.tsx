@@ -39,6 +39,11 @@ const FacebookAdsLanding = () => {
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock"
         },
+        "author": {
+            "@type": "Organization",
+            "name": "Flipika",
+            "url": "https://flipika.com"
+        },
         "featureList": [
             "Facebook Ads automated reporting",
             "Campaign & Ad Set performance tracking",

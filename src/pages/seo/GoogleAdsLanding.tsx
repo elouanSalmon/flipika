@@ -38,6 +38,11 @@ const GoogleAdsLanding = () => {
             "priceCurrency": "EUR",
             "availability": "https://schema.org/InStock"
         },
+        "author": {
+            "@type": "Organization",
+            "name": "Flipika",
+            "url": "https://flipika.com"
+        },
         "featureList": [
             "Google Ads automated reporting",
             "Performance Max (PMax) campaign tracking",

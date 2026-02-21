@@ -144,6 +144,40 @@ const SimpleHeader = () => {
                                                     </Link>
                                                 );
                                             })}
+                                            <div className="my-1 border-t border-[var(--color-border)]" />
+                                            <Link
+                                                to={getLangPath('/tools/roas-calculator')}
+                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                            >
+                                                <span className="text-sm text-[var(--color-text-primary)] font-medium text-[var(--color-primary)]">
+                                                    {i18n.language === 'fr' ? 'Calculateur de ROAS' : (i18n.language === 'es' ? 'Calculadora de ROAS' : 'ROAS Calculator')}
+                                                </span>
+                                            </Link>
+                                            <Link
+                                                to={getLangPath('/tools/media-buying-glossary')}
+                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                            >
+                                                <span className="text-sm text-[var(--color-text-primary)] font-medium text-[var(--color-primary)]">
+                                                    {i18n.language === 'fr' ? 'Glossaire du Media Buying' : (i18n.language === 'es' ? 'Glosario de Media Buying' : 'Media Buying Glossary')}
+                                                </span>
+                                            </Link>
+                                            <div className="my-1 border-t border-[var(--color-border)]" />
+                                            <Link
+                                                to={getLangPath('/google-ads-reporting')}
+                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                            >
+                                                <span className="text-sm text-[var(--color-text-primary)]">
+                                                    {i18n.language === 'fr' ? 'Reporting Google Ads' : (i18n.language === 'es' ? 'Informes Google Ads' : 'Google Ads Reporting')}
+                                                </span>
+                                            </Link>
+                                            <Link
+                                                to={getLangPath('/meta-ads-reporting')}
+                                                className="flex items-center px-4 py-2.5 hover:bg-[var(--glass-bg)] transition-colors"
+                                            >
+                                                <span className="text-sm text-[var(--color-text-primary)]">
+                                                    {i18n.language === 'fr' ? 'Reporting Meta Ads' : (i18n.language === 'es' ? 'Informes Meta Ads' : 'Meta Ads Reporting')}
+                                                </span>
+                                            </Link>
                                         </div>
                                     </motion.div>
                                 )}
@@ -261,6 +295,46 @@ const SimpleHeader = () => {
                                                 </Link>
                                             );
                                         })}
+                                        <div className="my-2 border-t border-[var(--color-border)] opacity-50 mx-4" />
+                                        <Link
+                                            to={getLangPath('/tools/roas-calculator')}
+                                            className="flex items-center gap-2.5 px-4 py-2 rounded-xl hover:bg-[var(--glass-bg)] transition-colors"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                        >
+                                            <Sparkles size={14} className="text-primary" />
+                                            <span className="text-xs text-[var(--color-primary)] font-medium">
+                                                {i18n.language === 'fr' ? 'Calculateur de ROAS' : (i18n.language === 'es' ? 'Calculadora de ROAS' : 'ROAS Calculator')}
+                                            </span>
+                                        </Link>
+                                        <Link
+                                            to={getLangPath('/tools/media-buying-glossary')}
+                                            className="flex items-center gap-2.5 px-4 py-2 rounded-xl hover:bg-[var(--glass-bg)] transition-colors"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                        >
+                                            <FileText size={14} className="text-primary" />
+                                            <span className="text-xs text-[var(--color-primary)] font-medium">
+                                                {i18n.language === 'fr' ? 'Glossaire du Media Buying' : (i18n.language === 'es' ? 'Glosario de Media Buying' : 'Media Buying Glossary')}
+                                            </span>
+                                        </Link>
+                                        <div className="my-2 border-t border-[var(--color-border)] opacity-50 mx-4" />
+                                        <Link
+                                            to={getLangPath('/google-ads-reporting')}
+                                            className="flex items-center gap-2.5 px-4 py-2 rounded-xl hover:bg-[var(--glass-bg)] transition-colors"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                        >
+                                            <span className="text-xs text-[var(--color-text-secondary)] ml-6">
+                                                {i18n.language === 'fr' ? 'Reporting Google Ads' : (i18n.language === 'es' ? 'Informes Google Ads' : 'Google Ads Reporting')}
+                                            </span>
+                                        </Link>
+                                        <Link
+                                            to={getLangPath('/meta-ads-reporting')}
+                                            className="flex items-center gap-2.5 px-4 py-2 rounded-xl hover:bg-[var(--glass-bg)] transition-colors"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                        >
+                                            <span className="text-xs text-[var(--color-text-secondary)] ml-6">
+                                                {i18n.language === 'fr' ? 'Reporting Meta Ads' : (i18n.language === 'es' ? 'Informes Meta Ads' : 'Meta Ads Reporting')}
+                                            </span>
+                                        </Link>
                                     </div>
                                 </div>
 
