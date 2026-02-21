@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DemoModeProvider } from './contexts/DemoModeContext';
+import { CrmModeProvider } from './contexts/CrmModeContext';
 import { TutorialProvider } from './contexts/TutorialContext';
 import { GoogleAdsProvider } from './contexts/GoogleAdsContext';
 import { MetaAdsProvider } from './contexts/MetaAdsContext';
@@ -51,6 +52,7 @@ import SalesTerms from './pages/SalesTerms';
 import Sitemap from './pages/Sitemap';
 import NotFound from './pages/NotFound';
 import ClientsPage from './pages/ClientsPage';
+import CrmPage from './pages/CrmPage';
 import ClientEditPage from './pages/ClientEditPage';
 import ReportPreview from './pages/ReportPreview';
 import TiptapTemplateEditorPage from './pages/TiptapTemplateEditorPage';
@@ -198,6 +200,7 @@ const AppRoutes = () => {
         <Route path="clients" element={<ClientsPage />} />
         <Route path="clients/new" element={<ClientEditPage />} />
         <Route path="clients/:id" element={<ClientEditPage />} />
+        <Route path="crm" element={<CrmPage />} />
         <Route path="themes" element={<ThemesPage />} />
         <Route path="billing" element={<BillingPage />} />
         <Route path="settings" element={<Settings />} />
@@ -289,40 +292,42 @@ function App() {
           <GoogleAdsProvider>
             <MetaAdsProvider>
               <TutorialProvider>
-                <DemoModeProvider>
-                  <FeatureFlagsProvider>
-                    <Toaster
-                      position="top-right"
-                      toastOptions={{
-                        duration: 4000,
-                        style: {
-                          background: 'var(--color-bg-primary)',
-                          color: 'var(--color-text-primary)',
-                          border: '1px solid var(--color-border)',
-                        },
-                        success: {
-                          iconTheme: {
-                            primary: '#10b981',
-                            secondary: '#fff',
+                <CrmModeProvider>
+                  <DemoModeProvider>
+                    <FeatureFlagsProvider>
+                      <Toaster
+                        position="top-right"
+                        toastOptions={{
+                          duration: 4000,
+                          style: {
+                            background: 'var(--color-bg-primary)',
+                            color: 'var(--color-text-primary)',
+                            border: '1px solid var(--color-border)',
                           },
-                        },
-                        error: {
-                          iconTheme: {
-                            primary: '#ef4444',
-                            secondary: '#fff',
+                          success: {
+                            iconTheme: {
+                              primary: '#10b981',
+                              secondary: '#fff',
+                            },
                           },
-                        },
-                      }}
-                    />
-                    <HubSpotChat />
-                    <CookieConsent />
-                    <InstallPWA />
-                    <AnalyticsTracker />
-                    <div className="App">
-                      <AppContent />
-                    </div>
-                  </FeatureFlagsProvider>
-                </DemoModeProvider>
+                          error: {
+                            iconTheme: {
+                              primary: '#ef4444',
+                              secondary: '#fff',
+                            },
+                          },
+                        }}
+                      />
+                      <HubSpotChat />
+                      <CookieConsent />
+                      <InstallPWA />
+                      <AnalyticsTracker />
+                      <div className="App">
+                        <AppContent />
+                      </div>
+                    </FeatureFlagsProvider>
+                  </DemoModeProvider>
+                </CrmModeProvider>
               </TutorialProvider>
             </MetaAdsProvider>
           </GoogleAdsProvider>

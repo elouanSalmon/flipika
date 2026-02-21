@@ -15,9 +15,11 @@ import {
     LayoutTemplate,
     Clock,
     Users,
+    Shield,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useDemoMode } from "../../contexts/DemoModeContext";
+import { useCrmMode } from "../../contexts/CrmModeContext";
 import { useTheme } from "../../hooks/useTheme";
 import { useFeatureFlags } from "../../contexts/FeatureFlagsContext";
 import { useTranslation } from "react-i18next";
@@ -32,6 +34,7 @@ const ConnectedHeader = () => {
     const { logout } = useAuth();
     const { theme, toggleTheme } = useTheme();
     const { isDemoMode } = useDemoMode();
+    const { isCrmModeAvailable } = useCrmMode();
     const { enableDashboard, enableAudit, enableReports } = useFeatureFlags();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -58,13 +61,14 @@ const ConnectedHeader = () => {
 
     // Filter navigation items based on feature flags
     const navItems = [
-        enableDashboard && { path: "/app/dashboard", label: t('appNavigation.dashboard'), icon: LayoutDashboard },
-        enableAudit && { path: "/app/audit", label: t('appNavigation.audit'), icon: TrendingUp },
-        enableReports && { path: "/app/reports", label: t('appNavigation.reports'), icon: Presentation },
-        enableReports && { path: "/app/schedules", label: t('appNavigation.schedules'), icon: Clock },
-        enableReports && { path: "/app/templates", label: t('appNavigation.templates'), icon: LayoutTemplate },
-        { path: "/app/themes", label: t('appNavigation.themes'), icon: Palette },
-        { path: "/app/clients", label: t('appNavigation.clients'), icon: Users },
+        !isCrmModeAvailable && enableDashboard && { path: "/app/dashboard", label: t('appNavigation.dashboard'), icon: LayoutDashboard },
+        !isCrmModeAvailable && enableAudit && { path: "/app/audit", label: t('appNavigation.audit'), icon: TrendingUp },
+        !isCrmModeAvailable && enableReports && { path: "/app/reports", label: t('appNavigation.reports'), icon: Presentation },
+        !isCrmModeAvailable && enableReports && { path: "/app/schedules", label: t('appNavigation.schedules'), icon: Clock },
+        !isCrmModeAvailable && enableReports && { path: "/app/templates", label: t('appNavigation.templates'), icon: LayoutTemplate },
+        !isCrmModeAvailable && { path: "/app/themes", label: t('appNavigation.themes'), icon: Palette },
+        !isCrmModeAvailable && { path: "/app/clients", label: t('appNavigation.clients'), icon: Users },
+        isCrmModeAvailable && { path: "/app/crm", label: "CRM", icon: Shield },
     ].filter(Boolean) as Array<{ path: string; label: string; icon: typeof LayoutDashboard }>;
 
     return (

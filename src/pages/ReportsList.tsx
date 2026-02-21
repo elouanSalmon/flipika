@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useGoogleAds } from '../contexts/GoogleAdsContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import { useDemoMode } from '../contexts/DemoModeContext';
+import { useCrmMode } from '../contexts/CrmModeContext';
 import FeatureAccessGuard from '../components/common/FeatureAccessGuard';
 import { listUserReports, getReportCountByStatus } from '../services/reportService';
 import { fetchCampaigns } from '../services/googleAds';
@@ -34,6 +35,7 @@ const ReportsList: React.FC = () => {
     const { isConnected: isGoogleAdsConnected, accounts } = useGoogleAds();
     const { canAccess } = useSubscription();
     const { isDemoMode } = useDemoMode();
+    const { isCrmMode, impersonatedUser, effectiveUserId } = useCrmMode();
 
     const hasAccess = (canAccess && isGoogleAdsConnected) || isDemoMode;
 
@@ -56,22 +58,25 @@ const ReportsList: React.FC = () => {
     const [loadingCampaigns, setLoadingCampaigns] = useState(false);
     const [showInfoModal, setShowInfoModal] = useState(false);
 
-    const loadReports = async () => {
-        if (!currentUser) return;
-
-        try {
+    useEffect(() => {
+        const fetchReports = async () => {
+            const uid = effectiveUserId;
+            if (!uid) return;
             setLoading(true);
-            const userReports = await listUserReports(currentUser.uid);
-            setReports(userReports);
-        } catch (error) {
-            console.error('Error loading reports:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+            try {
+                const data = await listUserReports(uid);
+                setReports(data);
+            } catch (err) {
+                console.error('Error loading reports:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchReports();
+    }, [effectiveUserId]);
 
     const loadStatusCounts = async () => {
-        if (!currentUser) return;
+        if (!currentUser) return; // Note: This still uses currentUser.uid, consider if it should be effectiveUserId
 
         try {
             const counts = await getReportCountByStatus(currentUser.uid);
@@ -140,11 +145,9 @@ const ReportsList: React.FC = () => {
         setFilteredReports(filtered);
     };
 
-    // UseEffect for loading accounts removed
-
+    // Reports are loaded by the effectiveUserId useEffect above
     useEffect(() => {
         if (currentUser) {
-            loadReports();
             loadStatusCounts();
             loadClients();
         }
@@ -161,7 +164,7 @@ const ReportsList: React.FC = () => {
 
     useEffect(() => {
         filterReports();
-        setCurrentPage(1); // Reset to first page when filtering
+        setCurrentPage(1);
     }, [reports, statusFilter, searchQuery, selectedAccountId, selectedCampaignId]);
 
     const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
@@ -176,8 +179,16 @@ const ReportsList: React.FC = () => {
         navigate(`/app/reports/${reportId}`);
     };
 
-    const handleReportDeleted = () => {
-        loadReports();
+    const handleReportDeleted = async () => {
+        // Refresh reports by re-triggering the effectiveUserId effect
+        const uid = effectiveUserId;
+        if (!uid) return;
+        try {
+            const data = await listUserReports(uid);
+            setReports(data);
+        } catch (err) {
+            console.error('Error refreshing reports:', err);
+        }
         loadStatusCounts();
     };
 
@@ -198,7 +209,12 @@ const ReportsList: React.FC = () => {
                 <div className="header-content">
                     <div className="header-title-row" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <Presentation size={32} className="header-icon" />
-                        <h1>{t('list.title')}</h1>
+                        <h1>
+                            {isCrmMode && impersonatedUser
+                                ? `Rapports de ${[impersonatedUser.firstName, impersonatedUser.lastName].filter(Boolean).join(' ') || impersonatedUser.email}`
+                                : t('list.title')
+                            }
+                        </h1>
                         <button
                             onClick={() => setShowInfoModal(true)}
                             className="info-button"

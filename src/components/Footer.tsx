@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Linkedin, Shield, Lock, CreditCard } from 'lucide-react';
+import { Linkedin, Shield, Lock, CreditCard, Zap } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { SiOpenai, SiPerplexity } from 'react-icons/si';
 import './Footer.css';
@@ -24,6 +24,7 @@ const Footer: React.FC = () => {
           {/* Brand Column */}
           <div className="footer-brand-col">
             <Link to={getPath('/')} className="footer-logo">
+              <Zap size={20} className="text-primary fill-primary" />
               <span className="gradient-text">Flipika</span>
             </Link>
             <p className="footer-tagline">

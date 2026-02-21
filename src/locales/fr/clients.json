@@ -125,5 +125,12 @@
         "message": "Êtes-vous sûr de vouloir supprimer le compte \"{{name}}\" ? Cette action est irréversible.",
         "confirm": "Supprimer",
         "cancel": "Annuler"
+    },
+    "crmMode": {
+        "enterButton": "Voir en tant que client",
+        "bannerLabel": "Mode CRM",
+        "viewingAs": "Vue de",
+        "exitButton": "Quitter",
+        "reportsFiltered": "Rapports filtrés pour"
     }
 }

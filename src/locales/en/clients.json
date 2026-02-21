@@ -125,5 +125,12 @@
         "message": "Are you sure you want to delete account \"{{name}}\"? This action cannot be undone.",
         "confirm": "Delete",
         "cancel": "Cancel"
+    },
+    "crmMode": {
+        "enterButton": "View as client",
+        "bannerLabel": "CRM Mode",
+        "viewingAs": "Viewing as",
+        "exitButton": "Exit",
+        "reportsFiltered": "Reports filtered for"
     }
 }
