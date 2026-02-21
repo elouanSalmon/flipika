@@ -91,8 +91,68 @@
                 "definition": "Técnica publicitaria que se dirige específicamente a los usuarios que ya han interactuado con tu marca (visita al sitio, añadido al carrito sin comprar) para animarles a convertir."
             },
             "lookalike": {
-                "name": "Lookalike Audience / Audiencia Similar",
-                "definition": "Una audiencia generada por un algoritmo (ej: Meta Ads) que identifica a nuevos usuarios que comparten características y comportamientos similares con una lista de clientes existente."
+                "name": "Lookalike Audience (Público Similar)",
+                "definition": "Una audiencia generada por un algoritmo (ej. Meta Ads) que identifica a nuevos usuarios que comparten características y comportamientos similares a los de una lista de clientes existente (audiencia de origen)."
+            },
+            "cpl": {
+                "name": "Cost Per Lead (CPL)",
+                "definition": "El costo promedio para adquirir un prospecto (lead) calificado que completó un formulario o dejó su información de contacto."
+            },
+            "cpv": {
+                "name": "Cost Per View (CPV)",
+                "definition": "La cantidad promedio pagada cada vez que un usuario ve su anuncio de video (muy utilizado en YouTube Ads)."
+            },
+            "rtb": {
+                "name": "Real-Time Bidding (RTB)",
+                "definition": "La compra y venta de impresiones de anuncios digitales a través de subastas instantáneas que ocurren en milisegundos."
+            },
+            "dsp": {
+                "name": "Demand-Side Platform (DSP)",
+                "definition": "Un software utilizado por los anunciantes para comprar espacio publicitario automáticamente a través de múltiples redes publicitarias al mismo tiempo."
+            },
+            "ssp": {
+                "name": "Supply-Side Platform (SSP)",
+                "definition": "Una plataforma tecnológica que permite a los editores web vender automáticamente sus espacios publicitarios no vendidos a los anunciantes."
+            },
+            "cvr": {
+                "name": "Conversion Rate (CVR - Tasa de Conversión)",
+                "definition": "El porcentaje de usuarios que completaron una acción deseada (compra, registro) después de hacer clic en un anuncio, en comparación con el número total de visitas."
+            },
+            "bounce_rate": {
+                "name": "Tasa de Rebote (Bounce Rate)",
+                "definition": "El porcentaje de visitantes que abandonan su sitio web después de ver solo una página, sin interactuar más (0 segundos invertidos)."
+            },
+            "utm": {
+                "name": "Parámetros UTM",
+                "definition": "Etiquetas de texto añadidas al final de una URL que permiten a las herramientas analíticas (como Google Analytics) rastrear de manera muy precisa la fuente y el rendimiento de un clic de campaña."
+            },
+            "ad_fatigue": {
+                "name": "Fatiga Publicitaria (Ad Fatigue)",
+                "definition": "La caída en la efectividad de la campaña (y el ROAS) que ocurre cuando su público objetivo ha visto el mismo anuncio con demasiada frecuencia."
+            },
+            "broad_match": {
+                "name": "Concordancia Amplia (Broad Match)",
+                "definition": "Un tipo de segmentación en Google Ads donde su anuncio puede mostrarse para búsquedas que incluyan errores ortográficos, sinónimos o búsquedas relacionadas."
+            },
+            "negative_keyword": {
+                "name": "Palabra Clave Negativa (Negative Keyword)",
+                "definition": "Una palabra para la cual evita específicamente que su anuncio se muestre, con el fin de evitar clics irrelevantes e innecesariamente costosos."
+            },
+            "impression": {
+                "name": "Impresión",
+                "definition": "El número bruto de veces que su anuncio fue mostrado y cargado en una pantalla para un usuario, independientemente de si fue clicado o no."
+            },
+            "reach": {
+                "name": "Alcance (Reach)",
+                "definition": "El número total estimado de cuentas / personas únicas que estuvieron físicamente expuestas a su anuncio al menos una vez durante la campaña."
+            },
+            "frequency": {
+                "name": "Frecuencia (Frequency)",
+                "definition": "El número promedio de veces que una persona única de su público objetivo fue expuesta a su anuncio. Se calcula como Impresiones divididas por Alcance."
+            },
+            "a_b_testing": {
+                "name": "Prueba A/B (A/B Testing)",
+                "definition": "Un método de experimentación muy popular que consiste en comparar simultáneamente dos versiones de un anuncio (A y B) para determinar matemáticamente cuál rinde mejor."
             }
         },
         "cta": {

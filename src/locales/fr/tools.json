@@ -93,6 +93,66 @@
             "lookalike": {
                 "name": "Lookalike Audience (Audience Similaire)",
                 "definition": "Une audience générée par un algorithme (ex: Meta Ads) qui identifie de nouveaux utilisateurs partageant les mêmes caractéristiques et comportements qu'une liste de clients existante (audience source)."
+            },
+            "cpl": {
+                "name": "Cost Per Lead (CPL)",
+                "definition": "Le coût moyen pour acquérir un prospect (lead) qualifié qui a rempli un formulaire ou laissé ses coordonnées."
+            },
+            "cpv": {
+                "name": "Cost Per View (CPV)",
+                "definition": "Le montant moyen payé chaque fois qu'un utilisateur regarde une de vos annonces vidéos (très utilisé sur YouTube Ads)."
+            },
+            "rtb": {
+                "name": "Real-Time Bidding (RTB)",
+                "definition": "L'achat et la vente d'impressions publicitaires numériques via des enchères instantanées de l'ordre de la milliseconde."
+            },
+            "dsp": {
+                "name": "Demand-Side Platform (DSP)",
+                "definition": "Un logiciel utilisé par les annonceurs pour acheter de l'espace publicitaire de manière automatisée sur de multiples réseaux publicitaires en même temps."
+            },
+            "ssp": {
+                "name": "Supply-Side Platform (SSP)",
+                "definition": "Une plateforme technologique qui permet aux éditeurs de sites web de vendre automatiquement leurs espaces publicitaires invendus aux annonceurs."
+            },
+            "cvr": {
+                "name": "Conversion Rate (CVR)",
+                "definition": "Le pourcentage d'utilisateurs qui ont accompli l'action souhaitée (achat, inscription) après avoir cliqué sur une annonce vis-à-vis du nombre total de visites."
+            },
+            "bounce_rate": {
+                "name": "Taux de Rebond (Bounce Rate)",
+                "definition": "Le pourcentage de visiteurs qui quittent votre site web après n'avoir consulté qu'une seule page ou sans interagir davantage (0 seconde passée)."
+            },
+            "utm": {
+                "name": "Paramètres UTM",
+                "definition": "Des balises textuelles ajoutées à la fin d'une URL permettant aux outils d'analyse (comme Google Analytics) de traquer très précisément la source et la performance d'un clic de campagne."
+            },
+            "ad_fatigue": {
+                "name": "Fatigue Publicitaire (Ad Fatigue)",
+                "definition": "La baisse d'efficacité (et du ROAS) d'une campagne qui survient lorsque votre audience cible a vu et revu la même annonce de façon trop répétée."
+            },
+            "broad_match": {
+                "name": "Requête Large (Broad Match)",
+                "definition": "Un type de ciblage sur Google Ads où votre annonce peut être diffusée sur des recherches incluant des fautes de frappe, des synonymes ou des recherches globalement associées."
+            },
+            "negative_keyword": {
+                "name": "Mot-clé à exclure (Negative Keyword)",
+                "definition": "Un mot pour lequel vous refusez spécifiquement que votre annonce soit diffusée afin d'éviter les clics non pertinents et inutilement coûteux."
+            },
+            "impression": {
+                "name": "Impression",
+                "definition": "Le nombre brut de fois où votre annonce a été affichée et chargée sur un écran pour un utilisateur, indépendamment du fait qu'elle ait été cliquée ou non."
+            },
+            "reach": {
+                "name": "Couverture (Reach)",
+                "definition": "Le nombre total estimé de compte / personnes uniques qui ont été physiquement exposées à votre annonce au moins une fois pendant la durée de la campagne."
+            },
+            "frequency": {
+                "name": "Répétition (Frequency)",
+                "definition": "Le nombre moyen de fois où une personne unique de votre audience cible a été exposée à votre annonce. Impression divisé par Reach."
+            },
+            "a_b_testing": {
+                "name": "Test A/B (A/B Testing)",
+                "definition": "Une méthode d'expérimentation hyper populaire consistant à comparer simultanément deux versions d'une annonce (A et B) pour déterminer laquelle est la plus performante mathématiquement."
             }
         },
         "cta": {

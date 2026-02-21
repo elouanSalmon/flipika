@@ -5,7 +5,9 @@ import { Search, BookOpen, ArrowRight } from 'lucide-react';
 import SEO from '../../components/SEO';
 
 const glossaryTermsList = [
-    'cpc', 'cpa', 'ctr', 'cpm', 'roas', 'roi', 'cac', 'ltv', 'retargeting', 'lookalike'
+    'cpc', 'cpa', 'ctr', 'cpm', 'roas', 'roi', 'cac', 'ltv', 'retargeting', 'lookalike',
+    'cpl', 'cpv', 'rtb', 'dsp', 'ssp', 'cvr', 'bounce_rate', 'utm', 'ad_fatigue',
+    'broad_match', 'negative_keyword', 'impression', 'reach', 'frequency', 'a_b_testing'
 ];
 
 const MediaBuyingGlossary: React.FC = () => {

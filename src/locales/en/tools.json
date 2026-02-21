@@ -93,6 +93,66 @@
             "lookalike": {
                 "name": "Lookalike Audience",
                 "definition": "An algorithm-generated audience (e.g., Meta Ads) that identifies new users sharing similar characteristics and behaviors to an existing customer list (source audience)."
+            },
+            "cpl": {
+                "name": "Cost Per Lead (CPL)",
+                "definition": "The average cost to acquire a qualified prospect (lead) who filled out a form or left their contact info."
+            },
+            "cpv": {
+                "name": "Cost Per View (CPV)",
+                "definition": "The average amount paid each time a user watches your video ad (widely used on YouTube Ads)."
+            },
+            "rtb": {
+                "name": "Real-Time Bidding (RTB)",
+                "definition": "The buying and selling of digital ad impressions via instantaneous auctions that happen in milliseconds."
+            },
+            "dsp": {
+                "name": "Demand-Side Platform (DSP)",
+                "definition": "A software used by advertisers to buy advertising space automatically across multiple ad networks at the same time."
+            },
+            "ssp": {
+                "name": "Supply-Side Platform (SSP)",
+                "definition": "A technology platform that enables web publishers to automatically sell their unsold ad spaces to advertisers."
+            },
+            "cvr": {
+                "name": "Conversion Rate (CVR)",
+                "definition": "The percentage of users who completed a desired action (purchase, sign-up) after clicking on an ad, compared to the total number of visits."
+            },
+            "bounce_rate": {
+                "name": "Bounce Rate",
+                "definition": "The percentage of visitors who leave your website after viewing only one page, without interacting further (0 seconds spent)."
+            },
+            "utm": {
+                "name": "UTM Parameters",
+                "definition": "Text tags added to the end of a URL allowing analytics tools (like Google Analytics) to very precisely track the source and performance of a campaign click."
+            },
+            "ad_fatigue": {
+                "name": "Ad Fatigue",
+                "definition": "The drop in campaign effectiveness (and ROAS) that occurs when your target audience has seen the same ad too repeatedly."
+            },
+            "broad_match": {
+                "name": "Broad Match",
+                "definition": "A targeting type on Google Ads where your ad can show for searches including misspellings, synonyms, or related searches."
+            },
+            "negative_keyword": {
+                "name": "Negative Keyword",
+                "definition": "A word for which you specifically prevent your ad from showing, in order to avoid irrelevant and unnecessarily costly clicks."
+            },
+            "impression": {
+                "name": "Impression",
+                "definition": "The raw number of times your ad was displayed and loaded on a screen for a user, regardless of whether it was clicked or not."
+            },
+            "reach": {
+                "name": "Reach",
+                "definition": "The estimated total number of unique accounts / people who were physically exposed to your ad at least once during the campaign."
+            },
+            "frequency": {
+                "name": "Frequency",
+                "definition": "The average number of times a unique person from your target audience was exposed to your ad. Calculated as Impressions divided by Reach."
+            },
+            "a_b_testing": {
+                "name": "A/B Testing",
+                "definition": "A highly popular experimentation method consisting of simultaneously comparing two versions of an ad (A and B) to mathematically determine which performs best."
             }
         },
         "cta": {
