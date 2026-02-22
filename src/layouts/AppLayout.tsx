@@ -6,9 +6,17 @@ import Footer from "../components/Footer";
 
 import { TutorialWidget } from "../components/tutorial/TutorialWidget";
 
+import { useCrmMode } from "../contexts/CrmModeContext";
+
 const AppLayout = () => {
+  const { isCrmMode } = useCrmMode();
+  const bannerHeight = isCrmMode ? "40px" : "0px";
+
   return (
-    <div className="min-h-dvh flex bg-[var(--color-bg-secondary)]">
+    <div
+      className="min-h-dvh flex bg-[var(--color-bg-secondary)]"
+      style={{ "--crm-banner-height": bannerHeight } as React.CSSProperties}
+    >
       <Sidebar />
 
       {/* Main content area — pushed right by sidebar */}

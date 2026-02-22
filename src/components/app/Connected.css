@@ -17,6 +17,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 200px;
+  padding-top: var(--crm-banner-height, 0);
   transition: margin-left var(--transition-normal);
 }
 
@@ -29,8 +30,8 @@
 @media (max-width: 767px) {
   .app-layout-main {
     margin-left: 0;
-    padding-top: 60px;
-    /* height of mobile top bar */
+    padding-top: calc(60px + var(--crm-banner-height, 0));
+    /* height of mobile top bar + banner height */
   }
 }
 

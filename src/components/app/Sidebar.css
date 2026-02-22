@@ -5,7 +5,7 @@
 /* Sidebar Container */
 .app-sidebar {
     position: fixed;
-    top: 0;
+    top: var(--crm-banner-height, 0);
     left: 0;
     bottom: 0;
     width: 200px;
@@ -196,7 +196,7 @@
 .sidebar-mobile-topbar {
     display: none;
     position: fixed;
-    top: 0;
+    top: var(--crm-banner-height, 0);
     left: 0;
     right: 0;
     height: 60px;

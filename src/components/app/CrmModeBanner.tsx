@@ -22,9 +22,10 @@ const CrmModeBanner: React.FC = () => {
         <div
             style={{
                 position: 'fixed',
-                top: '72px',
+                top: 0,
                 left: 0,
                 right: 0,
+                height: '40px',
                 zIndex: 45,
                 display: 'flex',
                 alignItems: 'center',
