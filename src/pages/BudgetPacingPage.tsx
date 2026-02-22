@@ -622,6 +622,7 @@ export default function BudgetPacingPage() {
     const navigate = useNavigate();
     const { clients, isLoading, updateClient } = useClients();
 
+    const [activeTab, setActiveTab] = useState<'global' | 'accounts'>('global');
     const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
     const [manualSpendMap, setManualSpendMap] = useState<Record<string, number>>({});
     const [spendResults, setSpendResults] = useState<Record<string, SpendResult>>({});
@@ -777,10 +778,10 @@ export default function BudgetPacingPage() {
     const overallPacing = calculatePacing(summary.totalBudget, summary.totalSpend, today);
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-160px)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-160px)] flex flex-col gap-6">
             {/* Page Header */}
             <motion.div
-                className="page-header"
+                className="page-header !mb-0"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
@@ -808,7 +809,7 @@ export default function BudgetPacingPage() {
 
             {/* Month Progress */}
             <motion.div
-                className="mb-6 flex items-center gap-3"
+                className="flex items-center gap-3"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
@@ -832,129 +833,195 @@ export default function BudgetPacingPage() {
                 )}
             </motion.div>
 
-            {/* Summary Cards */}
-            <motion.div
-                className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-            >
-                {/* Total Budget with gauge */}
-                <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
-                    <div className="flex items-center justify-between mb-3 sm:mb-4">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                            <Wallet size={20} className="text-primary" />
-                        </div>
-                        <CircularGauge percent={overallPacing.progressPercent} status={overallPacing.status} size={48} />
-                    </div>
-                    <div>
-                        <p className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">{formatCurrency(summary.totalBudget)}</p>
-                        <p className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 mt-1">{t('summary.totalBudget')}</p>
-                    </div>
-                </motion.div>
-
-                {/* Total Spend */}
-                <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3 sm:mb-4">
-                        <DollarSign size={20} className="text-emerald-500" />
-                    </div>
-                    <div>
-                        <p className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">{formatCurrency(summary.totalSpend)}</p>
-                        <p className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 mt-1">{t('summary.totalSpend')}</p>
-                    </div>
-                </motion.div>
-
-                {/* Status breakdown */}
-                <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
-                    <div className="flex items-center justify-between mb-3 sm:mb-4">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                            <Users size={20} className="text-primary" />
-                        </div>
-                        <div className="flex items-center gap-1.5 text-xs">
-                            {summary.onTrack > 0 && <span className="text-emerald-500 font-medium">✓ {summary.onTrack}</span>}
-                            {summary.over > 0 && <span className="text-red-500 font-medium">↑ {summary.over}</span>}
-                            {summary.under > 0 && <span className="text-amber-500 font-medium">↓ {summary.under}</span>}
-                        </div>
-                    </div>
-                    <div>
-                        <p className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">{summary.totalClients}</p>
-                        <p className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 mt-1">{t('summary.totalClients')}</p>
-                    </div>
-                </motion.div>
-
-                {/* Avg Pacing */}
-                <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 sm:mb-4 ${summary.avgPacing > 1.15 ? 'bg-red-500/10' : summary.avgPacing < 0.85 ? 'bg-amber-500/10' : 'bg-emerald-500/10'}`}>
-                        <TrendingUp size={20} className={summary.avgPacing > 1.15 ? 'text-red-500' : summary.avgPacing < 0.85 ? 'text-amber-500' : 'text-emerald-500'} />
-                    </div>
-                    <div>
-                        <p className={`text-xl sm:text-2xl font-bold ${summary.avgPacing > 1.15 ? 'text-red-600 dark:text-red-400' : summary.avgPacing < 0.85 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
-                            {formatPercent(summary.avgPacing)}
-                        </p>
-                        <p className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 mt-1">{t('summary.avgPacing')}</p>
-                    </div>
-                </motion.div>
-            </motion.div>
-
-            {/* Alerts */}
-            <AlertsSection clients={clients} pacingMap={pacingMap} t={t} />
-
-            {/* Controls Bar with View Toggle */}
-            <div className="flex justify-end mb-2 mt-2">
-                <div className="view-controls flex gap-2">
-                    <button
-                        className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'cards'
-                            ? 'bg-primary text-white border-primary'
-                            : 'bg-white dark:bg-black text-neutral-500 border-neutral-200 dark:border-white/10 hover:border-primary hover:text-primary'
-                            }`}
-                        onClick={() => setViewMode('cards')}
-                        title={t('viewCards')}
-                    >
-                        <Grid size={18} />
-                    </button>
-                    <button
-                        className={`p-2.5 rounded-lg border-2 transition-all ${viewMode === 'table'
-                            ? 'bg-primary text-white border-primary'
-                            : 'bg-white dark:bg-black text-neutral-500 border-neutral-200 dark:border-white/10 hover:border-primary hover:text-primary'
-                            }`}
-                        onClick={() => setViewMode('table')}
-                        title={t('viewTable')}
-                    >
-                        <List size={18} />
-                    </button>
-                </div>
+            {/* Tabs Navigation */}
+            <div className="flex border-b border-neutral-200 dark:border-white/10 -mt-2">
+                <button
+                    className={`pb-3 px-1 border-b-2 font-medium text-sm mr-8 transition-colors ${
+                        activeTab === 'global'
+                            ? 'border-primary text-primary'
+                            : 'border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-600'
+                    }`}
+                    onClick={() => setActiveTab('global')}
+                >
+                    {t('tabs.global', 'Suivi global')}
+                </button>
+                <button
+                    className={`pb-3 px-1 border-b-2 font-medium text-sm transition-colors ${
+                        activeTab === 'accounts'
+                            ? 'border-primary text-primary'
+                            : 'border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-600'
+                    }`}
+                    onClick={() => setActiveTab('accounts')}
+                >
+                    {t('tabs.accounts', 'Compte par compte')}
+                </button>
             </div>
 
-            {/* Content */}
             <AnimatePresence mode="wait">
-                {viewMode === 'cards' ? (
+                {activeTab === 'global' && (
                     <motion.div
-                        key="cards"
-                        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 w-full"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit={{ opacity: 0, transition: { duration: 0.15 } }}
+                        key="global"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                        className="space-y-6"
                     >
-                        {clients.map(client => (
-                            <ClientPacingCard
-                                key={client.id}
-                                client={client}
-                                spendResult={spendResults[client.id] || { spend: 0, isAuto: false, isLoading: false, error: null }}
-                                manualSpend={manualSpendMap[client.id] || 0}
-                                onManualSpendChange={(val) => handleManualSpendChange(client.id, val)}
-                                onBudgetSave={handleBudgetSave}
-                                t={t}
-                            />
-                        ))}
+                        {/* Summary Cards */}
+                        <motion.div
+                            className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            {/* Total Budget with gauge */}
+                            <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
+                                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                        <Wallet size={20} className="text-primary" />
+                                    </div>
+                                    <CircularGauge percent={overallPacing.progressPercent} status={overallPacing.status} size={48} />
+                                </div>
+                                <div>
+                                    <p className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">{formatCurrency(summary.totalBudget)}</p>
+                                    <p className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 mt-1">{t('summary.totalBudget')}</p>
+                                </div>
+                            </motion.div>
+
+                            {/* Total Spend */}
+                            <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
+                                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3 sm:mb-4">
+                                    <DollarSign size={20} className="text-emerald-500" />
+                                </div>
+                                <div>
+                                    <p className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">{formatCurrency(summary.totalSpend)}</p>
+                                    <p className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 mt-1">{t('summary.totalSpend')}</p>
+                                </div>
+                            </motion.div>
+
+                            {/* Status breakdown */}
+                            <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
+                                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                                        <Users size={20} className="text-primary" />
+                                    </div>
+                                    <div className="flex items-center gap-1.5 text-xs">
+                                        {summary.onTrack > 0 && <span className="text-emerald-500 font-medium">✓ {summary.onTrack}</span>}
+                                        {summary.over > 0 && <span className="text-red-500 font-medium">↑ {summary.over}</span>}
+                                        {summary.under > 0 && <span className="text-amber-500 font-medium">↓ {summary.under}</span>}
+                                    </div>
+                                </div>
+                                <div>
+                                    <p className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">{summary.totalClients}</p>
+                                    <p className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 mt-1">{t('summary.totalClients')}</p>
+                                </div>
+                            </motion.div>
+
+                            {/* Avg Pacing */}
+                            <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 sm:mb-4 ${summary.avgPacing > 1.15 ? 'bg-red-500/10' : summary.avgPacing < 0.85 ? 'bg-amber-500/10' : 'bg-emerald-500/10'}`}>
+                                    <TrendingUp size={20} className={summary.avgPacing > 1.15 ? 'text-red-500' : summary.avgPacing < 0.85 ? 'text-amber-500' : 'text-emerald-500'} />
+                                </div>
+                                <div>
+                                    <p className={`text-xl sm:text-2xl font-bold ${summary.avgPacing > 1.15 ? 'text-red-600 dark:text-red-400' : summary.avgPacing < 0.85 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                                        {formatPercent(summary.avgPacing)}
+                                    </p>
+                                    <p className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 mt-1">{t('summary.avgPacing')}</p>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+
+                        {/* Alerts Summary Table (Replacing Cards for "Global") */}
+                        <div className="bg-white dark:bg-black rounded-2xl border border-neutral-200 dark:border-white/10 shadow-sm overflow-hidden">
+                            <div className="p-4 sm:p-5 border-b border-neutral-200 dark:border-white/10 flex justify-between items-center">
+                                <div>
+                                    <h3 className="font-bold text-neutral-900 dark:text-white">Alertes & Recommandations</h3>
+                                    <p className="text-sm text-neutral-500">Vue synthétique des comptes nécessitant votre attention</p>
+                                </div>
+                            </div>
+                            <div className="p-2 sm:p-4">
+                                <AlertsSection clients={clients} pacingMap={pacingMap} t={t} />
+                            </div>
+                        </div>
                     </motion.div>
-                ) : (
-                    <TableView
-                        key="table"
-                        clients={clients}
-                        pacingMap={pacingMap}
-                        t={t}
-                    />
+                )}
+
+                {activeTab === 'accounts' && (
+                    <motion.div
+                        key="accounts"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                        className="space-y-4 sm:space-y-6"
+                    >
+                        {/* Header accounts */}
+                        <div className="flex justify-between items-center min-h-[48px]">
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                    <Users size={16} className="text-primary" />
+                                </div>
+                                <div>
+                                    <h2 className="text-sm font-bold text-neutral-900 dark:text-neutral-100 leading-tight">Liste des comptes</h2>
+                                </div>
+                            </div>
+                            
+                            <div className="view-controls flex gap-2">
+                                <button
+                                    className={`p-2 rounded-lg border-2 transition-all ${viewMode === 'cards'
+                                        ? 'bg-primary text-white border-primary shadow-sm'
+                                        : 'bg-white dark:bg-black text-neutral-500 border-neutral-200 dark:border-white/10 hover:border-primary/50 hover:text-primary'
+                                        }`}
+                                    onClick={() => setViewMode('cards')}
+                                    title={t('viewCards')}
+                                >
+                                    <Grid size={16} />
+                                </button>
+                                <button
+                                    className={`p-2 rounded-lg border-2 transition-all ${viewMode === 'table'
+                                        ? 'bg-primary text-white border-primary shadow-sm'
+                                        : 'bg-white dark:bg-black text-neutral-500 border-neutral-200 dark:border-white/10 hover:border-primary/50 hover:text-primary'
+                                        }`}
+                                    onClick={() => setViewMode('table')}
+                                    title={t('viewTable')}
+                                >
+                                    <List size={16} />
+                                </button>
+                            </div>
+                        </div>
+
+                        <AnimatePresence mode="wait">
+                            {viewMode === 'cards' ? (
+                                <motion.div
+                                    key="cards"
+                                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 w-full"
+                                    variants={containerVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit={{ opacity: 0, transition: { duration: 0.15 } }}
+                                >
+                                    {clients.map(client => (
+                                        <ClientPacingCard
+                                            key={client.id}
+                                            client={client}
+                                            spendResult={spendResults[client.id] || { spend: 0, isAuto: false, isLoading: false, error: null }}
+                                            manualSpend={manualSpendMap[client.id] || 0}
+                                            onManualSpendChange={(val) => handleManualSpendChange(client.id, val)}
+                                            onBudgetSave={handleBudgetSave}
+                                            t={t}
+                                        />
+                                    ))}
+                                </motion.div>
+                            ) : (
+                                <TableView
+                                    key="table"
+                                    clients={clients}
+                                    pacingMap={pacingMap}
+                                    t={t}
+                                />
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </div>

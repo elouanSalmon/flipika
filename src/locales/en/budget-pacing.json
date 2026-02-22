@@ -1,13 +1,17 @@
 {
     "title": "Budget Pacing",
-    "subtitle": "Track your clients' spending pace in real time",
+    "subtitle": "Track your accounts' spending pace in real time",
     "refresh": "Refresh",
     "refreshing": "Refreshing...",
     "lastRefresh": "Last refresh: {{time}}",
     "viewCards": "Card view",
     "viewTable": "Table view",
+    "tabs": {
+        "global": "Global tracking",
+        "accounts": "Account by account"
+    },
     "summary": {
-        "totalClients": "Tracked clients",
+        "totalClients": "Tracked accounts",
         "totalBudget": "Total budget",
         "totalSpend": "Total spend",
         "avgPacing": "Avg. pacing",
@@ -47,11 +51,11 @@
         "title": "Alerts & Recommendations",
         "overPacing": "{{name}} is spending too fast. Reduce by {{amount}} € / day to stay on budget.",
         "underPacing": "{{name}} is spending too slowly. Increase by {{amount}} € / day to meet budget.",
-        "noBudgetClients": "{{count}} client(s) with no budget set.",
-        "allGood": "All clients are on track. Nothing to report."
+        "noBudgetClients": "{{count}} account(s) with no budget set.",
+        "allGood": "All accounts are on track. Nothing to report."
     },
     "table": {
-        "client": "Client",
+        "client": "Account",
         "platform": "Platform",
         "budget": "Budget",
         "spend": "Spend",
@@ -60,9 +64,9 @@
         "status": "Status"
     },
     "empty": {
-        "title": "No clients configured",
-        "description": "Create clients and set their monthly budget to start tracking pacing.",
-        "cta": "Manage clients"
+        "title": "No accounts configured",
+        "description": "Create accounts and set their monthly budget to start tracking pacing.",
+        "cta": "Manage accounts"
     },
     "month": {
         "label": "Current month",

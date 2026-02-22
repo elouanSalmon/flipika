@@ -1,13 +1,17 @@
 {
     "title": "Suivi de Budget",
-    "subtitle": "Suivez le rythme de dépense de vos clients en temps réel",
+    "subtitle": "Suivez le rythme de dépense de vos comptes en temps réel",
     "refresh": "Actualiser",
     "refreshing": "Actualisation...",
     "lastRefresh": "Dernière actualisation : {{time}}",
     "viewCards": "Vue cartes",
     "viewTable": "Vue tableau",
+    "tabs": {
+        "global": "Suivi global",
+        "accounts": "Compte par compte"
+    },
     "summary": {
-        "totalClients": "Clients suivis",
+        "totalClients": "Comptes suivis",
         "totalBudget": "Budget total",
         "totalSpend": "Dépense totale",
         "avgPacing": "Pacing moyen",
@@ -47,11 +51,11 @@
         "title": "Alertes & Recommandations",
         "overPacing": "{{name}} dépense trop vite. Réduire de {{amount}} € / jour pour rester dans le budget.",
         "underPacing": "{{name}} dépense trop lentement. Augmenter de {{amount}} € / jour pour atteindre le budget.",
-        "noBudgetClients": "{{count}} client(s) sans budget configuré.",
-        "allGood": "Tous les clients sont on track. Rien à signaler."
+        "noBudgetClients": "{{count}} compte(s) sans budget configuré.",
+        "allGood": "Tous les comptes sont on track. Rien à signaler."
     },
     "table": {
-        "client": "Client",
+        "client": "Compte",
         "platform": "Plateforme",
         "budget": "Budget",
         "spend": "Dépense",
@@ -60,9 +64,9 @@
         "status": "Statut"
     },
     "empty": {
-        "title": "Aucun client configuré",
-        "description": "Créez des clients et définissez leur budget mensuel pour commencer le suivi de pacing.",
-        "cta": "Gérer les clients"
+        "title": "Aucun compte configuré",
+        "description": "Créez des comptes et définissez leur budget mensuel pour commencer le suivi de pacing.",
+        "cta": "Gérer les comptes"
     },
     "month": {
         "label": "Mois en cours",
