@@ -9,6 +9,8 @@ import {
     Grid, List, AlertTriangle, CheckCircle2,
     Zap, ArrowUpRight, ArrowDownRight
 } from 'lucide-react';
+import { FcGoogle } from 'react-icons/fc';
+import { FaMeta } from 'react-icons/fa6';
 import { useClients } from '../hooks/useClients';
 import { executeQuery } from '../services/googleAds';
 import { fetchMetaInsights } from '../services/metaAds';
@@ -224,13 +226,15 @@ function StatusBadge({ status, t }: { status: PacingStatus; t: (key: string) => 
 function PlatformBadge({ platform }: { platform: string }) {
     if (platform === 'google_ads') {
         return (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-white/5 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-white/10">
+                <FcGoogle size={14} />
                 Google Ads
             </span>
         );
     }
     return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-white/5 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-white/10">
+            <FaMeta size={14} className="text-[#0668E1]" />
             Meta Ads
         </span>
     );
@@ -291,8 +295,8 @@ function ClientPacingCard({
                             className="w-10 h-10 rounded-xl object-cover border border-neutral-200 dark:border-white/10 flex-shrink-0 bg-white"
                         />
                     ) : (
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                            <span className="text-primary font-bold text-sm">
+                        <div className="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 flex items-center justify-center flex-shrink-0">
+                            <span className="text-neutral-500 font-bold text-sm">
                                 {client.name.charAt(0).toUpperCase()}
                             </span>
                         </div>
@@ -307,12 +311,12 @@ function ClientPacingCard({
                                     <PlatformBadge key={i} platform={ds.platform} />
                                 ))}
                                 {spendResult.isAuto ? (
-                                    <span className="inline-flex items-center gap-1 px-1 py-0.5 rounded text-[10px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                                        <Zap size={10} />
+                                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-white/5 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-white/10">
+                                        <Zap size={10} className="text-emerald-500" />
                                         {t('card.autoFetched')}
                                     </span>
                                 ) : !spendResult.isLoading && (
-                                    <span className="inline-flex items-center gap-1 px-1 py-0.5 rounded text-[10px] font-medium bg-neutral-500/10 text-neutral-500">
+                                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-medium bg-neutral-100 dark:bg-white/5 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-white/10">
                                         {t('card.manualEntry')}
                                     </span>
                                 )}
@@ -325,131 +329,153 @@ function ClientPacingCard({
                 </div>
             </div>
 
-            <div className="listing-card-body flex-1 !pb-4">
-                {/* Gauge + Metrics block */}
+            <div className="listing-card-body flex-1 !pb-4 flex flex-col justify-between">
                 {budget > 0 ? (
-                    <div className="flex flex-col gap-4">
-                        <div className="flex items-center justify-between p-3 rounded-xl bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5">
-                            <div className="flex items-center gap-4">
-                                <CircularGauge percent={pacing.progressPercent} status={pacing.status} size={52} />
+                    <div className="space-y-6">
+                        {/* Spend Progress Bar */}
+                        <div>
+                            <div className="flex justify-between items-end mb-2.5">
                                 <div>
-                                    <p className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium mb-0.5">{t('card.currentSpend')}</p>
+                                    <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-semibold mb-0.5">{t('card.currentSpend')}</p>
                                     <div className="flex items-baseline gap-1.5">
-                                        <span className="text-lg font-bold text-neutral-900 dark:text-white leading-none">
+                                        <span className="text-xl font-bold text-neutral-900 dark:text-white leading-none">
                                             {formatCurrency(effectiveSpend)}
                                         </span>
-                                        <span className="text-xs text-neutral-400 font-medium">/ {formatCurrency(budget)}</span>
                                     </div>
                                 </div>
+                                <div className="text-right">
+                                    <p className="text-[11px] text-neutral-400 font-medium tracking-wide">/ {formatCurrency(budget)}</p>
+                                    <p className={`text-xs font-bold mt-0.5 ${pacing.status === 'over' ? 'text-red-500' :
+                                        pacing.status === 'under' ? 'text-amber-500' : 'text-emerald-500'
+                                        }`}>
+                                        {formatPercent(pacing.progressPercent / 100)}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="h-2 w-full bg-neutral-100 dark:bg-white/5 rounded-full overflow-hidden shadow-inner">
+                                <motion.div
+                                    className={`h-full rounded-full shadow-sm ${pacing.status === 'over' ? 'bg-red-500' :
+                                        pacing.status === 'under' ? 'bg-amber-500' : 'bg-emerald-500'
+                                        }`}
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${Math.min(pacing.progressPercent, 100)}%` }}
+                                    transition={{ duration: 1, ease: 'easeOut' }}
+                                />
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-2">
-                            <div className="p-2.5 rounded-lg bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5 flex flex-col justify-center">
-                                <p className="text-[10px] font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 flex items-center gap-1">
-                                    <TrendingUp size={10} />
+                        {/* Metrics Grid */}
+                        <div className="grid grid-cols-2 gap-y-4 gap-x-3">
+                            <div>
+                                <p className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold mb-1 flex items-center gap-1.5">
+                                    <TrendingUp size={12} className="text-neutral-400" />
                                     {t('card.projected')}
                                 </p>
-                                <p className={`text-sm font-bold truncate leading-tight ${pacing.status === 'over' ? 'text-red-600 dark:text-red-400' :
+                                <p className={`text-sm font-bold truncate ${pacing.status === 'over' ? 'text-red-600 dark:text-red-400' :
                                     pacing.status === 'under' ? 'text-amber-600 dark:text-amber-400' :
                                         'text-emerald-600 dark:text-emerald-400'
                                     }`}>
                                     {formatCurrency(pacing.forecastedSpend)}
                                 </p>
                             </div>
-                            <div className="p-2.5 rounded-lg bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5 flex flex-col justify-center">
-                                <p className="text-[10px] font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 flex items-center gap-1">
-                                    <TrendingDown size={10} />
+                            <div>
+                                <p className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold mb-1 flex items-center gap-1.5">
+                                    <TrendingDown size={12} className="text-neutral-400" />
                                     {t('card.dailyRecommended')}
                                 </p>
-                                <p className="text-sm font-bold text-neutral-800 dark:text-neutral-200 truncate leading-tight">
+                                <p className="text-sm font-bold text-neutral-900 dark:text-white truncate">
                                     {formatCurrency(pacing.dailyRecommended)}
                                 </p>
                             </div>
-                            <div className="p-2.5 rounded-lg bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5 flex flex-col justify-center">
-                                <p className="text-[10px] font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 flex items-center gap-1">
-                                    <Zap size={10} className="text-amber-500" />
+                            <div>
+                                <p className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold mb-1 flex items-center gap-1.5">
+                                    <Zap size={12} className="text-amber-500" />
                                     {t('card.burnRate')}
                                 </p>
-                                <p className="text-sm font-bold text-neutral-800 dark:text-neutral-200 truncate leading-tight">
+                                <p className="text-sm font-bold text-neutral-900 dark:text-white truncate">
                                     {formatCurrency(pacing.burnRate)}
                                 </p>
                             </div>
-                            <div className="p-2.5 rounded-lg bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5 flex flex-col justify-center">
-                                <p className="text-[10px] font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 flex items-center gap-1">
-                                    <Calendar size={10} />
+                            <div>
+                                <p className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold mb-1 flex items-center gap-1.5">
+                                    <Calendar size={12} className="text-neutral-400" />
                                     {t('card.daysRemaining')}
                                 </p>
-                                <p className="text-sm font-bold text-neutral-800 dark:text-neutral-200 truncate leading-tight">
+                                <p className="text-sm font-bold text-neutral-900 dark:text-white truncate">
                                     {pacing.daysRemaining} <span className="text-[10px] font-normal text-neutral-400">/ {pacing.daysInMonth}</span>
                                 </p>
                             </div>
                         </div>
                     </div>
                 ) : (
-                    <div className="h-full flex flex-col items-center justify-center py-6 text-center">
-                        <div className="w-10 h-10 rounded-full bg-neutral-100 dark:bg-white/5 flex items-center justify-center mb-3">
-                            <Wallet size={16} className="text-neutral-400" />
-                        </div>
+                    <div className="flex-1 flex flex-col items-center justify-center py-6 text-center">
+                        <Wallet size={32} className="text-neutral-300 dark:text-neutral-700 mb-4" />
                         <p className="text-sm font-medium text-neutral-900 dark:text-white mb-1">Aucun budget défini</p>
-                        <p className="text-xs text-neutral-500 px-4">
-                            Saisissez un budget mensuel ci-dessous pour suivre le rythme de dépense.
+                        <p className="text-xs text-neutral-400 px-4">
+                            Saisissez un budget mensuel ci-dessous pour activer le suivi.
                         </p>
                     </div>
                 )}
-            </div>
 
-            <div className="listing-card-footer mt-auto flex-col gap-3 py-3 px-4 bg-neutral-50/30 dark:bg-white/[0.01]">
-                <div className="w-full space-y-2.5">
-                    {/* Budget Input */}
-                    <div className="flex items-center gap-2">
-                        <label className="text-xs font-medium text-neutral-600 dark:text-neutral-400 flex-shrink-0 w-16">
-                            Budget
-                        </label>
-                        <div className="flex gap-1.5 flex-1">
-                            <div className="relative flex-1">
-                                <input
-                                    type="number"
-                                    value={budgetInput}
-                                    onChange={e => setBudgetInput(e.target.value)}
-                                    placeholder={t('card.budgetPlaceholder')}
-                                    className="w-full px-2.5 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black/50 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-neutral-400"
-                                    min="0"
-                                    step="100"
-                                />
-                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 font-medium">€</span>
-                            </div>
-                            <button
-                                onClick={handleSaveBudget}
-                                disabled={isSaving || budgetInput === String(client.monthlyBudget || '')}
-                                className="px-3 py-1.5 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors disabled:opacity-40 disabled:hover:bg-primary flex items-center justify-center"
-                                title={t('card.saveBudget')}
-                            >
-                                <Save size={14} />
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Manual spend input (only when no auto-data) */}
-                    {!spendResult.isAuto && !spendResult.isLoading && (
-                        <div className="flex items-center gap-2">
-                            <label className="text-xs font-medium text-neutral-600 dark:text-neutral-400 flex-shrink-0 w-16">
-                                Dépense
+                <div className="mt-6 border-t border-neutral-100 dark:border-white/5 pt-3">
+                    <div className="flex flex-col gap-2">
+                        {/* Budget Input */}
+                        <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+                            <label className="text-[10px] uppercase tracking-wider font-semibold text-neutral-500 flex-shrink-0">
+                                Budget
                             </label>
-                            <div className="relative flex-1">
-                                <input
-                                    type="number"
-                                    value={manualSpend || ''}
-                                    onChange={e => onManualSpendChange(parseFloat(e.target.value) || 0)}
-                                    placeholder={t('card.spendPlaceholder')}
-                                    className="w-full px-2.5 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black/50 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-neutral-400"
-                                    min="0"
-                                    step="50"
-                                />
-                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 font-medium">€</span>
+                            <div className="flex items-center gap-2 flex-1 justify-end min-w-[120px]">
+                                <div className="relative w-full max-w-[100px]">
+                                    <input
+                                        type="number"
+                                        value={budgetInput}
+                                        onChange={e => setBudgetInput(e.target.value)}
+                                        placeholder="0"
+                                        className="w-full bg-transparent text-right pr-4 text-sm font-bold text-neutral-900 dark:text-white placeholder:text-neutral-300 dark:placeholder:text-neutral-700 outline-none border-b border-transparent hover:border-neutral-200 dark:hover:border-white/10 focus:border-primary transition-colors py-0.5"
+                                        min="0"
+                                        step="100"
+                                    />
+                                    <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs text-neutral-400 font-bold">€</span>
+                                </div>
+                                <div className="w-6 flex-shrink-0 flex items-center justify-center">
+                                    {budgetInput !== String(client.monthlyBudget || '') && (
+                                        <button
+                                            onClick={handleSaveBudget}
+                                            disabled={isSaving}
+                                            className="p-1 rounded bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
+                                            title={t('card.saveBudget')}
+                                        >
+                                            <Save size={12} />
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    )}
+
+                        {/* Manual spend input */}
+                        {!spendResult.isAuto && !spendResult.isLoading && (
+                            <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+                                <label className="text-[10px] uppercase tracking-wider font-semibold text-neutral-500 flex-shrink-0">
+                                    Dépense
+                                </label>
+                                <div className="flex items-center gap-2 flex-1 justify-end min-w-[120px]">
+                                    <div className="relative w-full max-w-[100px]">
+                                        <input
+                                            type="number"
+                                            value={manualSpend || ''}
+                                            onChange={e => onManualSpendChange(parseFloat(e.target.value) || 0)}
+                                            placeholder="0"
+                                            className="w-full bg-transparent text-right pr-4 text-sm font-bold text-neutral-900 dark:text-white placeholder:text-neutral-300 dark:placeholder:text-neutral-700 outline-none border-b border-transparent hover:border-neutral-200 dark:hover:border-white/10 focus:border-primary transition-colors py-0.5"
+                                            min="0"
+                                            step="50"
+                                        />
+                                        <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs text-neutral-400 font-bold">€</span>
+                                    </div>
+                                    <div className="w-6 flex-shrink-0"></div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </motion.div >
@@ -755,9 +781,7 @@ export default function BudgetPacingPage() {
     if (clients.length === 0) {
         return (
             <div className="max-w-lg mx-auto text-center py-24 px-4">
-                <div className="w-16 h-16 mx-auto mb-6 bg-primary/10 rounded-2xl flex items-center justify-center">
-                    <Wallet size={28} className="text-primary" />
-                </div>
+                <Wallet size={48} className="mx-auto mb-6 text-neutral-400" />
                 <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-3">
                     {t('empty.title')}
                 </h2>
@@ -778,7 +802,7 @@ export default function BudgetPacingPage() {
     const overallPacing = calculatePacing(summary.totalBudget, summary.totalSpend, today);
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-160px)] flex flex-col gap-6">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 min-h-[calc(100vh-160px)] flex flex-col gap-6">
             {/* Page Header */}
             <motion.div
                 className="page-header !mb-0"
@@ -836,21 +860,19 @@ export default function BudgetPacingPage() {
             {/* Tabs Navigation */}
             <div className="flex border-b border-neutral-200 dark:border-white/10 -mt-2">
                 <button
-                    className={`pb-3 px-1 border-b-2 font-medium text-sm mr-8 transition-colors ${
-                        activeTab === 'global'
-                            ? 'border-primary text-primary'
-                            : 'border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-600'
-                    }`}
+                    className={`pb-3 px-1 border-b-2 font-medium text-sm mr-8 transition-colors ${activeTab === 'global'
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-600'
+                        }`}
                     onClick={() => setActiveTab('global')}
                 >
                     {t('tabs.global', 'Suivi global')}
                 </button>
                 <button
-                    className={`pb-3 px-1 border-b-2 font-medium text-sm transition-colors ${
-                        activeTab === 'accounts'
-                            ? 'border-primary text-primary'
-                            : 'border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-600'
-                    }`}
+                    className={`pb-3 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'accounts'
+                        ? 'border-primary text-primary'
+                        : 'border-transparent text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-600'
+                        }`}
                     onClick={() => setActiveTab('accounts')}
                 >
                     {t('tabs.accounts', 'Compte par compte')}
@@ -876,10 +898,8 @@ export default function BudgetPacingPage() {
                         >
                             {/* Total Budget with gauge */}
                             <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
-                                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                                        <Wallet size={20} className="text-primary" />
-                                    </div>
+                                <div className="flex items-start justify-between mb-4">
+                                    <Wallet size={28} className="text-primary mt-1" />
                                     <CircularGauge percent={overallPacing.progressPercent} status={overallPacing.status} size={48} />
                                 </div>
                                 <div>
@@ -890,9 +910,7 @@ export default function BudgetPacingPage() {
 
                             {/* Total Spend */}
                             <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
-                                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3 sm:mb-4">
-                                    <DollarSign size={20} className="text-emerald-500" />
-                                </div>
+                                <DollarSign size={24} className="text-emerald-500 mb-4" />
                                 <div>
                                     <p className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100">{formatCurrency(summary.totalSpend)}</p>
                                     <p className="text-[10px] sm:text-xs uppercase tracking-wider text-neutral-500 mt-1">{t('summary.totalSpend')}</p>
@@ -901,10 +919,8 @@ export default function BudgetPacingPage() {
 
                             {/* Status breakdown */}
                             <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
-                                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                                        <Users size={20} className="text-primary" />
-                                    </div>
+                                <div className="flex items-start justify-between mb-4">
+                                    <Users size={24} className="text-primary" />
                                     <div className="flex items-center gap-1.5 text-xs">
                                         {summary.onTrack > 0 && <span className="text-emerald-500 font-medium">✓ {summary.onTrack}</span>}
                                         {summary.over > 0 && <span className="text-red-500 font-medium">↑ {summary.over}</span>}
@@ -919,9 +935,7 @@ export default function BudgetPacingPage() {
 
                             {/* Avg Pacing */}
                             <motion.div className="bg-white dark:bg-black border border-neutral-200 dark:border-white/10 rounded-2xl shadow-sm p-4 sm:p-5" variants={itemVariants}>
-                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 sm:mb-4 ${summary.avgPacing > 1.15 ? 'bg-red-500/10' : summary.avgPacing < 0.85 ? 'bg-amber-500/10' : 'bg-emerald-500/10'}`}>
-                                    <TrendingUp size={20} className={summary.avgPacing > 1.15 ? 'text-red-500' : summary.avgPacing < 0.85 ? 'text-amber-500' : 'text-emerald-500'} />
-                                </div>
+                                <TrendingUp size={24} className={`mb-4 ${summary.avgPacing > 1.15 ? 'text-red-500' : summary.avgPacing < 0.85 ? 'text-amber-500' : 'text-emerald-500'}`} />
                                 <div>
                                     <p className={`text-xl sm:text-2xl font-bold ${summary.avgPacing > 1.15 ? 'text-red-600 dark:text-red-400' : summary.avgPacing < 0.85 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
                                         {formatPercent(summary.avgPacing)}
@@ -957,15 +971,11 @@ export default function BudgetPacingPage() {
                     >
                         {/* Header accounts */}
                         <div className="flex justify-between items-center min-h-[48px]">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                    <Users size={16} className="text-primary" />
-                                </div>
-                                <div>
-                                    <h2 className="text-sm font-bold text-neutral-900 dark:text-neutral-100 leading-tight">Liste des comptes</h2>
-                                </div>
+                            <div className="flex items-center gap-2.5">
+                                <Users size={20} className="text-primary" />
+                                <h2 className="text-sm font-bold text-neutral-900 dark:text-neutral-100 leading-tight">Liste des comptes</h2>
                             </div>
-                            
+
                             <div className="view-controls flex gap-2">
                                 <button
                                     className={`p-2 rounded-lg border-2 transition-all ${viewMode === 'cards'
