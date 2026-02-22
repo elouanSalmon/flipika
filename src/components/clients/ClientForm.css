@@ -312,7 +312,7 @@
 
 .client-form-btn-primary {
     background: var(--gradient-primary);
-    color: var(--color-text-primary);
+    color: var(--color-text-inverse);
     box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
     border: none;
 }

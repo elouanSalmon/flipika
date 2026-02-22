@@ -98,7 +98,9 @@ export const clientService = {
                 ...(input.emailPreset && { emailPreset: input.emailPreset }),
                 ...(input.defaultTemplateId && { defaultTemplateId: input.defaultTemplateId }),
                 ...(input.defaultThemeId && { defaultThemeId: input.defaultThemeId }),
-                ...(input.linkedThemeIds && { linkedThemeIds: input.linkedThemeIds })
+                ...(input.linkedThemeIds && { linkedThemeIds: input.linkedThemeIds }),
+                ...(input.startDate && { startDate: input.startDate }),
+                ...(input.endDate && { endDate: input.endDate })
             });
 
             return clientId;
@@ -280,6 +282,14 @@ export const clientService = {
 
             if (input.monthlyBudget !== undefined) {
                 updates.monthlyBudget = input.monthlyBudget;
+            }
+
+            if (input.startDate !== undefined) {
+                updates.startDate = input.startDate;
+            }
+
+            if (input.endDate !== undefined) {
+                updates.endDate = input.endDate;
             }
 
             await updateDoc(docRef, updates);

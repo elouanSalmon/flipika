@@ -4,7 +4,7 @@ import type { Client, CreateClientInput, UpdateClientInput } from '../../types/c
 import { getMetaAdsAccountId } from '../../types/clientHelpers';
 import type { ReportTemplate } from '../../types/templateTypes';
 import type { ReportTheme } from '../../types/reportThemes';
-import { Upload, Loader2, X, Building2, Mail, Palette, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Upload, Loader2, X, Building2, Mail, Palette, AlertTriangle, ShieldCheck, Calendar } from 'lucide-react';
 import { useGoogleAds } from '../../contexts/GoogleAdsContext';
 import { useMetaAds } from '../../contexts/MetaAdsContext';
 import { listUserTemplates } from '../../services/templateService';
@@ -40,6 +40,10 @@ export const ClientForm: React.FC<ClientFormProps> = ({
     const { accounts, isConnected } = useGoogleAds();
     const { accounts: metaAccounts, isConnected: isMetaConnected } = useMetaAds();
     const { refresh: refreshTutorial } = useTutorial();
+
+    // Flight Dates
+    const [startDate, setStartDate] = useState(initialData?.startDate || '');
+    const [endDate, setEndDate] = useState(initialData?.endDate || '');
 
     // Preset configuration state
     const [defaultTemplateId, setDefaultTemplateId] = useState<string>(initialData?.defaultTemplateId || '');
@@ -77,6 +81,8 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             setDefaultTemplateId(initialData.defaultTemplateId || '');
             setDefaultThemeId(initialData.defaultThemeId || '');
             setMetaAdsId(getMetaAdsAccountId(initialData) || '');
+            setStartDate(initialData.startDate || '');
+            setEndDate(initialData.endDate || '');
             // Only update email preset if it exists, otherwise define defaults logic if needed,
             // but usually we keep existing local state if user started typing?
             // Better to overwrite if initialData is late-arriving essentially "loading".
@@ -158,6 +164,9 @@ export const ClientForm: React.FC<ClientFormProps> = ({
             if (metaAdsId !== (getMetaAdsAccountId(initialData) || '')) updateData.metaAdsAccountId = metaAdsId || undefined;
             if (logoFile) updateData.logoFile = logoFile;
 
+            if (startDate !== (initialData.startDate || '')) updateData.startDate = startDate || undefined;
+            if (endDate !== (initialData.endDate || '')) updateData.endDate = endDate || undefined;
+
             // Handle preset changes
             if (defaultTemplateId !== (initialData.defaultTemplateId || '')) {
                 updateData.defaultTemplateId = defaultTemplateId || undefined;
@@ -188,6 +197,8 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                 logoFile: logoFile || undefined,
                 defaultTemplateId: defaultTemplateId || undefined,
                 defaultThemeId: defaultThemeId || undefined,
+                startDate: startDate || undefined,
+                endDate: endDate || undefined,
                 emailPreset: {
                     subject: emailSubject,
                     body: emailBody
@@ -362,6 +373,36 @@ export const ClientForm: React.FC<ClientFormProps> = ({
                         placeholder={t('form.email.placeholder')}
                     />
                     {errors.email && <p className="client-form-error">{errors.email}</p>}
+                </div>
+
+                {/* Flight Dates */}
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="client-form-group">
+                        <label htmlFor="startDate" className="client-form-label flex items-center gap-1.5">
+                            <Calendar size={14} className="text-neutral-400" />
+                            Date de début de budget
+                        </label>
+                        <input
+                            type="date"
+                            id="startDate"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            className="client-form-input"
+                        />
+                    </div>
+                    <div className="client-form-group">
+                        <label htmlFor="endDate" className="client-form-label flex items-center gap-1.5">
+                            <Calendar size={14} className="text-neutral-400" />
+                            Date de fin de budget
+                        </label>
+                        <input
+                            type="date"
+                            id="endDate"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            className="client-form-input"
+                        />
+                    </div>
                 </div>
             </motion.div>
 

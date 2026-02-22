@@ -7,7 +7,7 @@ import {
     Users, DollarSign, Calendar,
     ArrowRight, Save, Check, RefreshCw,
     Grid, List, AlertTriangle, CheckCircle2,
-    Zap, ArrowUpRight, ArrowDownRight
+    Zap, ArrowUpRight, ArrowDownRight, ExternalLink
 } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaMeta } from 'react-icons/fa6';
@@ -24,6 +24,11 @@ function getDaysInMonth(date: Date): number {
 
 function getDayOfMonth(date: Date): number {
     return date.getDate();
+}
+
+function getDaysBetween(start: Date, end: Date): number {
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // inclusive
 }
 
 function formatDateGAQL(date: Date): string {
@@ -51,18 +56,33 @@ interface PacingData {
     remaining: number;
 }
 
-function calculatePacing(budget: number, spent: number, today: Date): PacingData {
-    const daysInMonth = getDaysInMonth(today);
-    const dayOfMonth = getDayOfMonth(today);
-    const daysRemaining = daysInMonth - dayOfMonth;
+function calculatePacing(budget: number, spent: number, today: Date, startDate?: string, endDate?: string): PacingData {
+    let daysInPeriod = getDaysInMonth(today);
+    let dayOfPeriod = getDayOfMonth(today);
 
-    const idealSpend = (budget / daysInMonth) * dayOfMonth;
-    const forecastedSpend = dayOfMonth > 0 ? (spent / dayOfMonth) * daysInMonth : 0;
+    if (startDate && endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        daysInPeriod = getDaysBetween(start, end);
+
+        if (today < start) {
+            dayOfPeriod = 0;
+        } else if (today > end) {
+            dayOfPeriod = daysInPeriod;
+        } else {
+            dayOfPeriod = getDaysBetween(start, today);
+        }
+    }
+
+    const daysRemaining = Math.max(daysInPeriod - dayOfPeriod, 0);
+
+    const idealSpend = (budget / daysInPeriod) * dayOfPeriod;
+    const forecastedSpend = dayOfPeriod > 0 ? (spent / dayOfPeriod) * daysInPeriod : 0;
     const pacingRatio = idealSpend > 0 ? spent / idealSpend : 0;
     const progressPercent = budget > 0 ? Math.min((spent / budget) * 100, 100) : 0;
     const remaining = Math.max(budget - spent, 0);
     const dailyRecommended = daysRemaining > 0 ? remaining / daysRemaining : 0;
-    const burnRate = dayOfMonth > 0 ? spent / dayOfMonth : 0;
+    const burnRate = dayOfPeriod > 0 ? spent / dayOfPeriod : 0;
 
     let status: PacingStatus;
     if (budget <= 0) status = 'no_budget';
@@ -72,7 +92,7 @@ function calculatePacing(budget: number, spent: number, today: Date): PacingData
 
     return {
         budget, spent, idealSpend, forecastedSpend,
-        pacingRatio, status, daysInMonth, dayOfMonth,
+        pacingRatio, status, daysInMonth: daysInPeriod, dayOfMonth: dayOfPeriod,
         daysRemaining, progressPercent, dailyRecommended,
         burnRate, remaining,
     };
@@ -81,22 +101,35 @@ function calculatePacing(budget: number, spent: number, today: Date): PacingData
 // ─── Spend fetching ────────────────────────────────────
 interface SpendResult {
     spend: number;
+    platformSpends?: Record<string, number>;
     isAuto: boolean;
     isLoading: boolean;
     error: string | null;
 }
 
-async function fetchClientSpend(client: Client): Promise<{ spend: number; isAuto: boolean }> {
+async function fetchClientSpend(client: Client): Promise<{ spend: number; platformSpends: Record<string, number>; isAuto: boolean }> {
     if (!client.dataSources || client.dataSources.length === 0) {
-        return { spend: 0, isAuto: false };
+        return { spend: 0, platformSpends: {}, isAuto: false };
     }
 
     const today = new Date();
-    const firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    const startStr = formatDateGAQL(firstOfMonth);
-    const endStr = formatDateGAQL(today);
+    let startStr = '';
+    let endStr = formatDateGAQL(today);
+
+    if (client.startDate && client.endDate) {
+        startStr = client.startDate;
+        // If today is past the end date, only fetch up to end date to lock the spend
+        const endDateObj = new Date(client.endDate);
+        if (today > endDateObj) {
+            endStr = client.endDate;
+        }
+    } else {
+        const firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        startStr = formatDateGAQL(firstOfMonth);
+    }
 
     let totalSpend = 0;
+    const platformSpends: Record<string, number> = {};
     let hasAutoData = false;
 
     for (const ds of client.dataSources) {
@@ -105,10 +138,13 @@ async function fetchClientSpend(client: Client): Promise<{ spend: number; isAuto
                 const query = `SELECT metrics.cost_micros FROM customer WHERE segments.date BETWEEN '${startStr}' AND '${endStr}'`;
                 const result = await executeQuery(ds.accountId, query);
                 if (result.success && result.results) {
+                    let dsSpend = 0;
                     for (const row of result.results) {
                         const costMicros = Number(row?.metrics?.costMicros || row?.metrics?.cost_micros || 0);
-                        totalSpend += costMicros / 1_000_000;
+                        dsSpend += costMicros / 1_000_000;
                     }
+                    totalSpend += dsSpend;
+                    platformSpends['google_ads'] = (platformSpends['google_ads'] || 0) + dsSpend;
                     hasAutoData = true;
                 }
             } else if (ds.platform === 'meta_ads') {
@@ -117,9 +153,12 @@ async function fetchClientSpend(client: Client): Promise<{ spend: number; isAuto
                     fields: ['spend'],
                 });
                 if (result.success && result.data) {
+                    let dsSpend = 0;
                     for (const row of result.data) {
-                        totalSpend += Number(row.spend || 0);
+                        dsSpend += Number(row.spend || 0);
                     }
+                    totalSpend += dsSpend;
+                    platformSpends['meta_ads'] = (platformSpends['meta_ads'] || 0) + dsSpend;
                     hasAutoData = true;
                 }
             }
@@ -128,7 +167,7 @@ async function fetchClientSpend(client: Client): Promise<{ spend: number; isAuto
         }
     }
 
-    return { spend: totalSpend, isAuto: hasAutoData };
+    return { spend: totalSpend, platformSpends, isAuto: hasAutoData };
 }
 
 // ─── Animation variants ────────────────────────────────
@@ -266,7 +305,7 @@ function ClientPacingCard({
     const today = new Date();
     const budget = client.monthlyBudget || 0;
     const effectiveSpend = spendResult.isAuto ? spendResult.spend : manualSpend;
-    const pacing = calculatePacing(budget, effectiveSpend, today);
+    const pacing = calculatePacing(budget, effectiveSpend, today, client.startDate, client.endDate);
 
     const handleSaveBudget = async () => {
         const val = parseFloat(budgetInput);
@@ -275,6 +314,12 @@ function ClientPacingCard({
         await onBudgetSave(client.id, val);
         setIsSaving(false);
     };
+
+    const googleSpend = spendResult.platformSpends?.['google_ads'] || 0;
+    const metaSpend = spendResult.platformSpends?.['meta_ads'] || 0;
+    const totalPlatformSpend = googleSpend + metaSpend;
+    const hasMultiplePlatforms = client.dataSources && new Set(client.dataSources.map(ds => ds.platform)).size > 1;
+    const showDistribution = totalPlatformSpend > 0 && hasMultiplePlatforms;
 
 
 
@@ -329,154 +374,183 @@ function ClientPacingCard({
                 </div>
             </div>
 
-            <div className="listing-card-body flex-1 !pb-4 flex flex-col justify-between">
+            <div className="listing-card-body flex-1 !pb-4">
+                {/* Gauge + Metrics block */}
                 {budget > 0 ? (
-                    <div className="space-y-6">
-                        {/* Spend Progress Bar */}
-                        <div>
-                            <div className="flex justify-between items-end mb-2.5">
-                                <div>
-                                    <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-semibold mb-0.5">{t('card.currentSpend')}</p>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex items-center justify-between p-3 rounded-xl bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5">
+                            <div className="flex items-center gap-4">
+                                <CircularGauge percent={pacing.progressPercent} status={pacing.status} size={52} />
+                                <div className="flex-1">
+                                    <p className="text-[10px] text-neutral-500 dark:text-neutral-400 font-medium mb-0.5">{t('card.currentSpend')}</p>
                                     <div className="flex items-baseline gap-1.5">
-                                        <span className="text-xl font-bold text-neutral-900 dark:text-white leading-none">
+                                        <span className="text-lg font-bold text-neutral-900 dark:text-white leading-none">
                                             {formatCurrency(effectiveSpend)}
                                         </span>
+                                        <span className="text-xs text-neutral-400 font-medium">/ {formatCurrency(budget)}</span>
                                     </div>
+                                    {showDistribution && (
+                                        <div className="mt-2.5 space-y-1">
+                                            <div className="flex w-full h-1.5 rounded-full overflow-hidden bg-neutral-200 dark:bg-white/10">
+                                                <div
+                                                    className="h-full bg-neutral-800 dark:bg-white"
+                                                    style={{ width: `${(googleSpend / totalPlatformSpend) * 100}%` }}
+                                                    title={`Google Ads: ${formatCurrency(googleSpend)}`}
+                                                />
+                                                <div
+                                                    className="h-full bg-[#0668E1]"
+                                                    style={{ width: `${(metaSpend / totalPlatformSpend) * 100}%` }}
+                                                    title={`Meta Ads: ${formatCurrency(metaSpend)}`}
+                                                />
+                                            </div>
+                                            <div className="flex items-center justify-between text-[9px] font-medium text-neutral-500">
+                                                <span className="flex items-center gap-1">
+                                                    <FcGoogle size={10} className="flex-shrink-0" />
+                                                    {Math.round((googleSpend / totalPlatformSpend) * 100)}%
+                                                </span>
+                                                <span className="flex items-center gap-1">
+                                                    {Math.round((metaSpend / totalPlatformSpend) * 100)}%
+                                                    <FaMeta size={10} className="text-[#0668E1] flex-shrink-0" />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="text-right">
-                                    <p className="text-[11px] text-neutral-400 font-medium tracking-wide">/ {formatCurrency(budget)}</p>
-                                    <p className={`text-xs font-bold mt-0.5 ${pacing.status === 'over' ? 'text-red-500' :
-                                        pacing.status === 'under' ? 'text-amber-500' : 'text-emerald-500'
-                                        }`}>
-                                        {formatPercent(pacing.progressPercent / 100)}
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="h-2 w-full bg-neutral-100 dark:bg-white/5 rounded-full overflow-hidden shadow-inner">
-                                <motion.div
-                                    className={`h-full rounded-full shadow-sm ${pacing.status === 'over' ? 'bg-red-500' :
-                                        pacing.status === 'under' ? 'bg-amber-500' : 'bg-emerald-500'
-                                        }`}
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${Math.min(pacing.progressPercent, 100)}%` }}
-                                    transition={{ duration: 1, ease: 'easeOut' }}
-                                />
                             </div>
                         </div>
 
-                        {/* Metrics Grid */}
-                        <div className="grid grid-cols-2 gap-y-4 gap-x-3">
-                            <div>
-                                <p className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold mb-1 flex items-center gap-1.5">
-                                    <TrendingUp size={12} className="text-neutral-400" />
+                        <div className="grid grid-cols-2 gap-2">
+                            <div className="p-2.5 rounded-lg bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5 flex flex-col justify-center">
+                                <p className="text-[10px] font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 flex items-center gap-1">
+                                    <TrendingUp size={10} />
                                     {t('card.projected')}
                                 </p>
-                                <p className={`text-sm font-bold truncate ${pacing.status === 'over' ? 'text-red-600 dark:text-red-400' :
+                                <p className={`text-sm font-bold truncate leading-tight ${pacing.status === 'over' ? 'text-red-600 dark:text-red-400' :
                                     pacing.status === 'under' ? 'text-amber-600 dark:text-amber-400' :
                                         'text-emerald-600 dark:text-emerald-400'
                                     }`}>
                                     {formatCurrency(pacing.forecastedSpend)}
                                 </p>
                             </div>
-                            <div>
-                                <p className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold mb-1 flex items-center gap-1.5">
-                                    <TrendingDown size={12} className="text-neutral-400" />
+                            <div className="p-2.5 rounded-lg bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5 flex flex-col justify-center">
+                                <p className="text-[10px] font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 flex items-center gap-1">
+                                    <TrendingDown size={10} />
                                     {t('card.dailyRecommended')}
                                 </p>
-                                <p className="text-sm font-bold text-neutral-900 dark:text-white truncate">
+                                <p className="text-sm font-bold text-neutral-800 dark:text-neutral-200 truncate leading-tight">
                                     {formatCurrency(pacing.dailyRecommended)}
                                 </p>
                             </div>
-                            <div>
-                                <p className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold mb-1 flex items-center gap-1.5">
-                                    <Zap size={12} className="text-amber-500" />
+                            <div className="p-2.5 rounded-lg bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5 flex flex-col justify-center">
+                                <p className="text-[10px] font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 flex items-center gap-1">
+                                    <Zap size={10} className="text-amber-500" />
                                     {t('card.burnRate')}
                                 </p>
-                                <p className="text-sm font-bold text-neutral-900 dark:text-white truncate">
+                                <p className="text-sm font-bold text-neutral-800 dark:text-neutral-200 truncate leading-tight">
                                     {formatCurrency(pacing.burnRate)}
                                 </p>
                             </div>
-                            <div>
-                                <p className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold mb-1 flex items-center gap-1.5">
-                                    <Calendar size={12} className="text-neutral-400" />
+                            <div className="p-2.5 rounded-lg bg-neutral-50/50 dark:bg-white/[0.02] border border-neutral-100 dark:border-white/5 flex flex-col justify-center">
+                                <p className="text-[10px] font-medium text-neutral-500 dark:text-neutral-400 mb-0.5 flex items-center gap-1">
+                                    <Calendar size={10} />
                                     {t('card.daysRemaining')}
                                 </p>
-                                <p className="text-sm font-bold text-neutral-900 dark:text-white truncate">
+                                <p className="text-sm font-bold text-neutral-800 dark:text-neutral-200 truncate leading-tight">
                                     {pacing.daysRemaining} <span className="text-[10px] font-normal text-neutral-400">/ {pacing.daysInMonth}</span>
                                 </p>
                             </div>
                         </div>
                     </div>
                 ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center py-6 text-center">
-                        <Wallet size={32} className="text-neutral-300 dark:text-neutral-700 mb-4" />
+                    <div className="h-full flex flex-col items-center justify-center py-6 text-center">
+                        <Wallet size={32} className="text-neutral-400 mb-4" />
                         <p className="text-sm font-medium text-neutral-900 dark:text-white mb-1">Aucun budget défini</p>
-                        <p className="text-xs text-neutral-400 px-4">
-                            Saisissez un budget mensuel ci-dessous pour activer le suivi.
+                        <p className="text-xs text-neutral-500 px-4">
+                            Saisissez un budget mensuel ci-dessous pour suivre le rythme de dépense.
                         </p>
                     </div>
                 )}
+            </div>
 
-                <div className="mt-6 border-t border-neutral-100 dark:border-white/5 pt-3">
-                    <div className="flex flex-col gap-2">
-                        {/* Budget Input */}
-                        <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
-                            <label className="text-[10px] uppercase tracking-wider font-semibold text-neutral-500 flex-shrink-0">
-                                Budget
+            <div className="listing-card-footer mt-auto flex-col gap-3 py-3 px-4 bg-neutral-50/30 dark:bg-white/[0.01]">
+                <div className="w-full space-y-2.5">
+                    {/* Budget Input */}
+                    <div className="flex items-center gap-2">
+                        <label className="text-xs font-medium text-neutral-600 dark:text-neutral-400 flex-shrink-0 w-16">
+                            Budget
+                        </label>
+                        <div className="flex gap-1.5 flex-1">
+                            <div className="relative flex-1">
+                                <input
+                                    type="number"
+                                    value={budgetInput}
+                                    onChange={e => setBudgetInput(e.target.value)}
+                                    placeholder={t('card.budgetPlaceholder')}
+                                    className="w-full px-2.5 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black/50 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-neutral-400"
+                                    min="0"
+                                    step="100"
+                                />
+                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 font-medium">€</span>
+                            </div>
+                            <button
+                                onClick={handleSaveBudget}
+                                disabled={isSaving || budgetInput === String(client.monthlyBudget || '')}
+                                className="px-3 py-1.5 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors disabled:opacity-40 disabled:hover:bg-primary flex items-center justify-center"
+                                title={t('card.saveBudget')}
+                            >
+                                <Save size={14} />
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Manual spend input (only when no auto-data) */}
+                    {!spendResult.isAuto && !spendResult.isLoading && (
+                        <div className="flex items-center gap-2">
+                            <label className="text-xs font-medium text-neutral-600 dark:text-neutral-400 flex-shrink-0 w-16">
+                                Dépense
                             </label>
-                            <div className="flex items-center gap-2 flex-1 justify-end min-w-[120px]">
-                                <div className="relative w-full max-w-[100px]">
-                                    <input
-                                        type="number"
-                                        value={budgetInput}
-                                        onChange={e => setBudgetInput(e.target.value)}
-                                        placeholder="0"
-                                        className="w-full bg-transparent text-right pr-4 text-sm font-bold text-neutral-900 dark:text-white placeholder:text-neutral-300 dark:placeholder:text-neutral-700 outline-none border-b border-transparent hover:border-neutral-200 dark:hover:border-white/10 focus:border-primary transition-colors py-0.5"
-                                        min="0"
-                                        step="100"
-                                    />
-                                    <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs text-neutral-400 font-bold">€</span>
-                                </div>
-                                <div className="w-6 flex-shrink-0 flex items-center justify-center">
-                                    {budgetInput !== String(client.monthlyBudget || '') && (
-                                        <button
-                                            onClick={handleSaveBudget}
-                                            disabled={isSaving}
-                                            className="p-1 rounded bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
-                                            title={t('card.saveBudget')}
-                                        >
-                                            <Save size={12} />
-                                        </button>
-                                    )}
-                                </div>
+                            <div className="relative flex-1">
+                                <input
+                                    type="number"
+                                    value={manualSpend || ''}
+                                    onChange={e => onManualSpendChange(parseFloat(e.target.value) || 0)}
+                                    placeholder={t('card.spendPlaceholder')}
+                                    className="w-full px-2.5 py-1.5 text-sm rounded-lg border border-neutral-200 dark:border-white/10 bg-white dark:bg-black/50 text-neutral-900 dark:text-neutral-100 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-neutral-400"
+                                    min="0"
+                                    step="50"
+                                />
+                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 font-medium">€</span>
                             </div>
                         </div>
-
-                        {/* Manual spend input */}
-                        {!spendResult.isAuto && !spendResult.isLoading && (
-                            <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
-                                <label className="text-[10px] uppercase tracking-wider font-semibold text-neutral-500 flex-shrink-0">
-                                    Dépense
-                                </label>
-                                <div className="flex items-center gap-2 flex-1 justify-end min-w-[120px]">
-                                    <div className="relative w-full max-w-[100px]">
-                                        <input
-                                            type="number"
-                                            value={manualSpend || ''}
-                                            onChange={e => onManualSpendChange(parseFloat(e.target.value) || 0)}
-                                            placeholder="0"
-                                            className="w-full bg-transparent text-right pr-4 text-sm font-bold text-neutral-900 dark:text-white placeholder:text-neutral-300 dark:placeholder:text-neutral-700 outline-none border-b border-transparent hover:border-neutral-200 dark:hover:border-white/10 focus:border-primary transition-colors py-0.5"
-                                            min="0"
-                                            step="50"
-                                        />
-                                        <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs text-neutral-400 font-bold">€</span>
-                                    </div>
-                                    <div className="w-6 flex-shrink-0"></div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
+
+                {/* Platform Links */}
+                {client.dataSources && client.dataSources.length > 0 && (
+                    <div className="flex flex-wrap gap-2 pt-3 mt-1 border-t border-neutral-200 dark:border-white/10 w-full">
+                        {client.dataSources.map((ds, i) => {
+                            const isGoogle = ds.platform === 'google_ads';
+                            const url = isGoogle
+                                ? `https://ads.google.com/aw/campaigns?ocid=${ds.accountId.replace(/-/g, '')}`
+                                : `https://adsmanager.facebook.com/adsmanager/manage/campaigns?act=${ds.accountId}`;
+
+                            return (
+                                <a
+                                    key={i}
+                                    href={url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white dark:bg-black text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-white/10 hover:border-primary/50 hover:text-primary hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors"
+                                    title={`Ouvrir dans ${isGoogle ? 'Google Ads' : 'Meta Ads'}`}
+                                >
+                                    {isGoogle ? <FcGoogle size={14} className="flex-shrink-0" /> : <FaMeta size={14} className="text-[#0668E1] flex-shrink-0" />}
+                                    <span className="truncate">Ouvrir {isGoogle ? 'Google Ads' : 'Meta Ads'}</span>
+                                    <ExternalLink size={12} className="opacity-50 ml-auto flex-shrink-0" />
+                                </a>
+                            );
+                        })}
+                    </div>
+                )}
             </div>
         </motion.div >
     );
@@ -673,9 +747,9 @@ export default function BudgetPacingPage() {
             clients.map(async (client) => {
                 try {
                     const result = await fetchClientSpend(client);
-                    return { clientId: client.id, spend: result.spend, isAuto: result.isAuto, error: null };
+                    return { clientId: client.id, spend: result.spend, platformSpends: result.platformSpends, isAuto: result.isAuto, error: null };
                 } catch (err: any) {
-                    return { clientId: client.id, spend: 0, isAuto: false, error: err.message || 'Error' };
+                    return { clientId: client.id, spend: 0, platformSpends: {}, isAuto: false, error: err.message || 'Error' };
                 }
             })
         );
@@ -685,6 +759,7 @@ export default function BudgetPacingPage() {
             if (r.status === 'fulfilled') {
                 newResults[r.value.clientId] = {
                     spend: r.value.spend,
+                    platformSpends: r.value.platformSpends,
                     isAuto: r.value.isAuto,
                     isLoading: false,
                     error: r.value.error,
@@ -725,7 +800,7 @@ export default function BudgetPacingPage() {
             const budget = c.monthlyBudget || 0;
             const sr = spendResults[c.id];
             const effectiveSpend = sr?.isAuto ? sr.spend : (manualSpendMap[c.id] || 0);
-            map[c.id] = calculatePacing(budget, effectiveSpend, today);
+            map[c.id] = calculatePacing(budget, effectiveSpend, today, c.startDate, c.endDate);
         });
         return map;
     }, [clients, spendResults, manualSpendMap]);
@@ -767,8 +842,6 @@ export default function BudgetPacingPage() {
     }, [clients, pacingMap]);
 
     const today = new Date();
-    const daysInMonth = getDaysInMonth(today);
-    const dayOfMonth = getDayOfMonth(today);
 
     if (isLoading) {
         return (
@@ -831,7 +904,7 @@ export default function BudgetPacingPage() {
                 </div>
             </motion.div>
 
-            {/* Month Progress */}
+            {/* Période Progress */}
             <motion.div
                 className="flex items-center gap-3"
                 initial={{ opacity: 0 }}
@@ -840,13 +913,13 @@ export default function BudgetPacingPage() {
             >
                 <Calendar size={16} className="text-neutral-400 flex-shrink-0" />
                 <span className="text-sm text-neutral-600 dark:text-neutral-400">
-                    {t('month.label')} — {t('month.progress', { current: dayOfMonth, total: daysInMonth })}
+                    Avancement Global — Jour {overallPacing.dayOfMonth} sur {overallPacing.daysInMonth}
                 </span>
                 <div className="flex-1 h-1.5 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden max-w-xs">
                     <motion.div
                         className="h-full bg-primary rounded-full"
                         initial={{ width: 0 }}
-                        animate={{ width: `${(dayOfMonth / daysInMonth) * 100}%` }}
+                        animate={{ width: `${(overallPacing.dayOfMonth / Math.max(overallPacing.daysInMonth, 1)) * 100}%` }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     />
                 </div>
