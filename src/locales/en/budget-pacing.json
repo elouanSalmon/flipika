@@ -1,0 +1,71 @@
+{
+    "title": "Budget Pacing",
+    "subtitle": "Track your clients' spending pace in real time",
+    "refresh": "Refresh",
+    "refreshing": "Refreshing...",
+    "lastRefresh": "Last refresh: {{time}}",
+    "viewCards": "Card view",
+    "viewTable": "Table view",
+    "summary": {
+        "totalClients": "Tracked clients",
+        "totalBudget": "Total budget",
+        "totalSpend": "Total spend",
+        "avgPacing": "Avg. pacing",
+        "onTrackCount": "On Track",
+        "overCount": "Over-pacing",
+        "underCount": "Under-pacing",
+        "dailyRecommended": "Remaining daily recommended"
+    },
+    "card": {
+        "monthlyBudget": "Monthly budget",
+        "currentSpend": "Current spend",
+        "budgetPlaceholder": "e.g. 5000",
+        "spendPlaceholder": "e.g. 2400",
+        "idealSpend": "Ideal spend",
+        "projected": "Projected end of month",
+        "daysRemaining": "Days remaining",
+        "daysElapsed": "Days elapsed",
+        "pacingRatio": "Pacing ratio",
+        "noBudget": "No budget set. Define a budget to start tracking.",
+        "saveBudget": "Save",
+        "budgetSaved": "Budget saved",
+        "dailyRecommended": "Recommended / day",
+        "burnRate": "Burn rate / day",
+        "remaining": "Remaining",
+        "autoFetched": "Auto",
+        "manualEntry": "Manual",
+        "loadingSpend": "Loading spend data...",
+        "spendError": "Failed to load"
+    },
+    "status": {
+        "onTrack": "On Track",
+        "underPacing": "Under-pacing",
+        "overPacing": "Over-pacing",
+        "noBudget": "Not configured"
+    },
+    "alerts": {
+        "title": "Alerts & Recommendations",
+        "overPacing": "{{name}} is spending too fast. Reduce by {{amount}} € / day to stay on budget.",
+        "underPacing": "{{name}} is spending too slowly. Increase by {{amount}} € / day to meet budget.",
+        "noBudgetClients": "{{count}} client(s) with no budget set.",
+        "allGood": "All clients are on track. Nothing to report."
+    },
+    "table": {
+        "client": "Client",
+        "platform": "Platform",
+        "budget": "Budget",
+        "spend": "Spend",
+        "pacing": "Pacing",
+        "dailyRemaining": "Recommended / day",
+        "status": "Status"
+    },
+    "empty": {
+        "title": "No clients configured",
+        "description": "Create clients and set their monthly budget to start tracking pacing.",
+        "cta": "Manage clients"
+    },
+    "month": {
+        "label": "Current month",
+        "progress": "Day {{current}} / {{total}}"
+    }
+}

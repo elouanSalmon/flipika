@@ -404,13 +404,9 @@ const Templates: React.FC = () => {
                     <p>{t('description')}</p>
                 </div>
                 <button
-                    className="btn-primary"
+                    className="create-btn"
                     onClick={() => setShowCreateModal(true)}
                     disabled={!hasAccess}
-                    style={{
-                        opacity: !hasAccess ? 0.5 : 1,
-                        cursor: !hasAccess ? 'not-allowed' : 'pointer'
-                    }}
                     title={!hasAccess ? t('connectToCreate') : ''}
                 >
                     <Plus size={20} />
@@ -524,13 +520,9 @@ const Templates: React.FC = () => {
                         </p>
                         {!searchQuery && (
                             <button
-                                className="btn-primary"
+                                className="create-btn"
                                 onClick={() => setShowCreateModal(true)}
                                 disabled={!hasAccess}
-                                style={{
-                                    opacity: !hasAccess ? 0.5 : 1,
-                                    cursor: !hasAccess ? 'not-allowed' : 'pointer'
-                                }}
                             >
                                 {t('emptyState.createButton')}
                             </button>

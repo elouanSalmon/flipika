@@ -519,7 +519,8 @@
         "theme": "Tema",
         "toggleTheme": "Cambiar al tema {{theme}}",
         "light": "claro",
-        "dark": "oscuro"
+        "dark": "oscuro",
+        "budgetPacing": "Presupuesto"
     },
     "accessDenied": {
         "subscription": {

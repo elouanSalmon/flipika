@@ -1,0 +1,71 @@
+{
+    "title": "Suivi de Budget",
+    "subtitle": "Suivez le rythme de dépense de vos clients en temps réel",
+    "refresh": "Actualiser",
+    "refreshing": "Actualisation...",
+    "lastRefresh": "Dernière actualisation : {{time}}",
+    "viewCards": "Vue cartes",
+    "viewTable": "Vue tableau",
+    "summary": {
+        "totalClients": "Clients suivis",
+        "totalBudget": "Budget total",
+        "totalSpend": "Dépense totale",
+        "avgPacing": "Pacing moyen",
+        "onTrackCount": "On Track",
+        "overCount": "Sur-rythme",
+        "underCount": "Sous-rythme",
+        "dailyRecommended": "Budget quotidien recommandé restant"
+    },
+    "card": {
+        "monthlyBudget": "Budget mensuel",
+        "currentSpend": "Dépense actuelle",
+        "budgetPlaceholder": "Ex: 5000",
+        "spendPlaceholder": "Ex: 2400",
+        "idealSpend": "Dépense idéale",
+        "projected": "Projection fin de mois",
+        "daysRemaining": "Jours restants",
+        "daysElapsed": "Jours écoulés",
+        "pacingRatio": "Ratio de pacing",
+        "noBudget": "Aucun budget configuré. Définissez un budget pour commencer le suivi.",
+        "saveBudget": "Enregistrer",
+        "budgetSaved": "Budget enregistré",
+        "dailyRecommended": "Recommandé / jour",
+        "burnRate": "Cadence / jour",
+        "remaining": "Restant",
+        "autoFetched": "Auto",
+        "manualEntry": "Manuel",
+        "loadingSpend": "Chargement des dépenses...",
+        "spendError": "Erreur de chargement"
+    },
+    "status": {
+        "onTrack": "On Track",
+        "underPacing": "Sous-rythme",
+        "overPacing": "Sur-rythme",
+        "noBudget": "Non configuré"
+    },
+    "alerts": {
+        "title": "Alertes & Recommandations",
+        "overPacing": "{{name}} dépense trop vite. Réduire de {{amount}} € / jour pour rester dans le budget.",
+        "underPacing": "{{name}} dépense trop lentement. Augmenter de {{amount}} € / jour pour atteindre le budget.",
+        "noBudgetClients": "{{count}} client(s) sans budget configuré.",
+        "allGood": "Tous les clients sont on track. Rien à signaler."
+    },
+    "table": {
+        "client": "Client",
+        "platform": "Plateforme",
+        "budget": "Budget",
+        "spend": "Dépense",
+        "pacing": "Pacing",
+        "dailyRemaining": "Recommandé / jour",
+        "status": "Statut"
+    },
+    "empty": {
+        "title": "Aucun client configuré",
+        "description": "Créez des clients et définissez leur budget mensuel pour commencer le suivi de pacing.",
+        "cta": "Gérer les clients"
+    },
+    "month": {
+        "label": "Mois en cours",
+        "progress": "Jour {{current}} / {{total}}"
+    }
+}

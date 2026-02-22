@@ -898,7 +898,8 @@
     "theme": "Thème",
     "toggleTheme": "Changer vers le thème {{theme}}",
     "light": "clair",
-    "dark": "sombre"
+    "dark": "sombre",
+    "budgetPacing": "Budget"
   },
   "accessDenied": {
     "subscription": {

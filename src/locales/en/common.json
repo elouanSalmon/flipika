@@ -520,7 +520,8 @@
     "theme": "Theme",
     "toggleTheme": "Switch to {{theme}} theme",
     "light": "light",
-    "dark": "dark"
+    "dark": "dark",
+    "budgetPacing": "Budget"
   },
   "accessDenied": {
     "subscription": {

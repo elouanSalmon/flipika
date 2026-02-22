@@ -278,6 +278,10 @@ export const clientService = {
                 updates.emailPreset = input.emailPreset;
             }
 
+            if (input.monthlyBudget !== undefined) {
+                updates.monthlyBudget = input.monthlyBudget;
+            }
+
             await updateDoc(docRef, updates);
         } catch (error) {
             console.error('Error updating client:', error);

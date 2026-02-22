@@ -56,6 +56,7 @@ import NotFound from './pages/NotFound';
 import ClientsPage from './pages/ClientsPage';
 import CrmPage from './pages/CrmPage';
 import ClientEditPage from './pages/ClientEditPage';
+import BudgetPacingPage from './pages/BudgetPacingPage';
 import ReportPreview from './pages/ReportPreview';
 import TiptapTemplateEditorPage from './pages/TiptapTemplateEditorPage';
 import GoogleAdsPlayground from './pages/GoogleAdsPlayground';
@@ -208,6 +209,7 @@ const AppRoutes = () => {
         <Route path="clients" element={<ClientsPage />} />
         <Route path="clients/new" element={<ClientEditPage />} />
         <Route path="clients/:id" element={<ClientEditPage />} />
+        <Route path="budget-pacing" element={<BudgetPacingPage />} />
         <Route path="crm" element={<CrmPage />} />
         <Route path="themes" element={<ThemesPage />} />
         <Route path="billing" element={<BillingPage />} />

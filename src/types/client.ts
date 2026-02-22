@@ -21,6 +21,7 @@ export interface Client {
     defaultThemeId?: string;
     linkedThemeIds?: string[];
     emailPreset?: EmailPreset;
+    monthlyBudget?: number;
 
     createdAt: Timestamp;
     updatedAt: Timestamp;
@@ -41,6 +42,7 @@ export interface CreateClientInput {
     defaultTemplateId?: string;
     defaultThemeId?: string;
     linkedThemeIds?: string[];
+    monthlyBudget?: number;
 }
 
 export interface UpdateClientInput {
@@ -55,4 +57,5 @@ export interface UpdateClientInput {
     defaultThemeId?: string;
     linkedThemeIds?: string[];
     emailPreset?: EmailPreset;
+    monthlyBudget?: number;
 }

@@ -16,6 +16,7 @@ import {
     Clock,
     Users,
     Shield,
+    Wallet,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useDemoMode } from "../../contexts/DemoModeContext";
@@ -68,6 +69,7 @@ const ConnectedHeader = () => {
         enableReports && { path: "/app/templates", label: t('appNavigation.templates'), icon: LayoutTemplate },
         { path: "/app/themes", label: t('appNavigation.themes'), icon: Palette },
         { path: "/app/clients", label: t('appNavigation.clients'), icon: Users },
+        { path: "/app/budget-pacing", label: t('appNavigation.budgetPacing'), icon: Wallet },
         isCrmModeAvailable && { path: "/app/crm", label: "CRM", icon: Shield },
     ].filter(Boolean) as Array<{ path: string; label: string; icon: typeof LayoutDashboard }>;
 

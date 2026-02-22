@@ -22,6 +22,7 @@ import frAlternatives from './locales/fr/alternatives.json';
 import frTemplatesPillar from './locales/fr/templates-pillar.json';
 import frLeadMagnets from './locales/fr/lead-magnets.json';
 import frRoadmap from './locales/fr/roadmap.json';
+import frBudgetPacing from './locales/fr/budget-pacing.json';
 import frFeatures from './locales/fr/features.json';
 import frSolutions from './locales/fr/solutions.json';
 import frSeo from './locales/fr/seo.json';
@@ -52,6 +53,7 @@ import enAlternatives from './locales/en/alternatives.json';
 import enTemplatesPillar from './locales/en/templates-pillar.json';
 import enLeadMagnets from './locales/en/lead-magnets.json';
 import enRoadmap from './locales/en/roadmap.json';
+import enBudgetPacing from './locales/en/budget-pacing.json';
 import enFeatures from './locales/en/features.json';
 import enSolutions from './locales/en/solutions.json';
 import enSeo from './locales/en/seo.json';
@@ -103,6 +105,7 @@ import esAlternatives from './locales/es/alternatives.json';
 import esTemplatesPillar from './locales/es/templates-pillar.json';
 import esLeadMagnets from './locales/es/lead-magnets.json';
 import esRoadmap from './locales/es/roadmap.json';
+import esBudgetPacing from './locales/es/budget-pacing.json';
 import esFeatures from './locales/es/features.json';
 import esSolutions from './locales/es/solutions.json';
 import esSeo from './locales/es/seo.json';
@@ -170,6 +173,7 @@ const resources = {
     'seo-facebook-ads': enSeoFacebookAds,
     'seo-instagram-ads': enSeoInstagramAds,
     tools: enTools,
+    'budget-pacing': enBudgetPacing,
   },
   fr: {
     common: frCommon,
@@ -211,6 +215,7 @@ const resources = {
     'seo-facebook-ads': frSeoFacebookAds,
     'seo-instagram-ads': frSeoInstagramAds,
     tools: frTools,
+    'budget-pacing': frBudgetPacing,
   },
   es: {
     common: esCommon,
@@ -250,6 +255,7 @@ const resources = {
     'templates-saas': esSaas,
     seo: esSeo,
     tools: esTools,
+    'budget-pacing': esBudgetPacing,
   },
 };
 
@@ -308,7 +314,8 @@ i18n
       'seo',
       'seo-facebook-ads',
       'seo-instagram-ads',
-      'tools'
+      'tools',
+      'budget-pacing'
     ],
     load: 'languageOnly',
   });

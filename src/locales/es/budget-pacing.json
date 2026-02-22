@@ -1,0 +1,71 @@
+{
+    "title": "Seguimiento de Presupuesto",
+    "subtitle": "Controla el ritmo de gasto de tus clientes en tiempo real",
+    "refresh": "Actualizar",
+    "refreshing": "Actualizando...",
+    "lastRefresh": "Última actualización: {{time}}",
+    "viewCards": "Vista tarjetas",
+    "viewTable": "Vista tabla",
+    "summary": {
+        "totalClients": "Clientes rastreados",
+        "totalBudget": "Presupuesto total",
+        "totalSpend": "Gasto total",
+        "avgPacing": "Pacing promedio",
+        "onTrackCount": "En Línea",
+        "overCount": "Sobre Ritmo",
+        "underCount": "Bajo Ritmo",
+        "dailyRecommended": "Presupuesto diario recomendado restante"
+    },
+    "card": {
+        "monthlyBudget": "Presupuesto mensual",
+        "currentSpend": "Gasto actual",
+        "budgetPlaceholder": "Ej: 5000",
+        "spendPlaceholder": "Ej: 2400",
+        "idealSpend": "Gasto ideal",
+        "projected": "Proyección fin de mes",
+        "daysRemaining": "Días restantes",
+        "daysElapsed": "Días transcurridos",
+        "pacingRatio": "Ratio de pacing",
+        "noBudget": "Sin presupuesto configurado. Define un presupuesto para comenzar el seguimiento.",
+        "saveBudget": "Guardar",
+        "budgetSaved": "Presupuesto guardado",
+        "dailyRecommended": "Recomendado / día",
+        "burnRate": "Cadencia / día",
+        "remaining": "Restante",
+        "autoFetched": "Auto",
+        "manualEntry": "Manual",
+        "loadingSpend": "Cargando gastos...",
+        "spendError": "Error de carga"
+    },
+    "status": {
+        "onTrack": "En Línea",
+        "underPacing": "Bajo Ritmo",
+        "overPacing": "Sobre Ritmo",
+        "noBudget": "No configurado"
+    },
+    "alerts": {
+        "title": "Alertas y Recomendaciones",
+        "overPacing": "{{name}} está gastando demasiado rápido. Reducir {{amount}} € / día para mantenerse en presupuesto.",
+        "underPacing": "{{name}} está gastando demasiado lento. Aumentar {{amount}} € / día para alcanzar el presupuesto.",
+        "noBudgetClients": "{{count}} cliente(s) sin presupuesto configurado.",
+        "allGood": "Todos los clientes están en línea. Nada que reportar."
+    },
+    "table": {
+        "client": "Cliente",
+        "platform": "Plataforma",
+        "budget": "Presupuesto",
+        "spend": "Gasto",
+        "pacing": "Pacing",
+        "dailyRemaining": "Recomendado / día",
+        "status": "Estado"
+    },
+    "empty": {
+        "title": "Sin clientes configurados",
+        "description": "Crea clientes y define su presupuesto mensual para comenzar el seguimiento de pacing.",
+        "cta": "Gestionar clientes"
+    },
+    "month": {
+        "label": "Mes actual",
+        "progress": "Día {{current}} / {{total}}"
+    }
+}
