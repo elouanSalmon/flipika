@@ -24,6 +24,8 @@ export interface Client {
     monthlyBudget?: number;
     startDate?: string; // YYYY-MM-DD
     endDate?: string; // YYYY-MM-DD
+    targetCpa?: number;
+    targetRoas?: number;
 
     createdAt: Timestamp;
     updatedAt: Timestamp;
@@ -47,6 +49,8 @@ export interface CreateClientInput {
     monthlyBudget?: number;
     startDate?: string;
     endDate?: string;
+    targetCpa?: number;
+    targetRoas?: number;
 }
 
 export interface UpdateClientInput {
@@ -64,4 +68,6 @@ export interface UpdateClientInput {
     monthlyBudget?: number;
     startDate?: string;
     endDate?: string;
+    targetCpa?: number;
+    targetRoas?: number;
 }

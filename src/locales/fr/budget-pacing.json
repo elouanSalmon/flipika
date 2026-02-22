@@ -21,6 +21,7 @@
         "dailyRecommended": "Budget quotidien recommandé restant"
     },
     "card": {
+        "budget": "Budget",
         "monthlyBudget": "Budget mensuel",
         "currentSpend": "Dépense actuelle",
         "budgetPlaceholder": "Ex: 5000",

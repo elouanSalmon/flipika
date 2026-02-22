@@ -17,6 +17,7 @@
         "dailyRecommended": "Presupuesto diario recomendado restante"
     },
     "card": {
+        "budget": "Presupuesto",
         "monthlyBudget": "Presupuesto mensual",
         "currentSpend": "Gasto actual",
         "budgetPlaceholder": "Ej: 5000",
