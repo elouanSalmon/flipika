@@ -4,35 +4,15 @@ import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { HeroDashboardIllustration } from './LandingIllustrations';
 import { useNavigate } from 'react-router-dom';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import { useAuth } from '../contexts/AuthContext';
-import toast from 'react-hot-toast';
-
-const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const Hero: React.FC = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const { loginWithGoogleCredential } = useAuth();
 
   const getLangPath = (path: string) => {
     if (i18n.language === 'fr') return `/fr${path}`;
     if (i18n.language === 'es') return `/es${path}`;
     return path;
-  };
-
-  const handleGoogleSuccess = async (credentialResponse: any) => {
-    if (credentialResponse.credential) {
-      try {
-        toast.loading(t('auth.login.inProgress') || 'Connexion en cours...', { id: 'google-hero-login' });
-        await loginWithGoogleCredential(credentialResponse.credential);
-        toast.success(t('auth.login.success') || 'Connexion réussie', { id: 'google-hero-login' });
-        navigate('/app');
-      } catch (error) {
-        console.error('Google Login Failed', error);
-        toast.error(t('auth.login.error') || 'Échec de la connexion', { id: 'google-hero-login' });
-      }
-    }
   };
 
   return (
@@ -79,24 +59,6 @@ const Hero: React.FC = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mt-4 items-center">
-              {GOOGLE_CLIENT_ID && (
-                <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-                  <div className="min-w-[250px] flex items-center justify-center overflow-visible px-2">
-                    <GoogleLogin
-                      onSuccess={handleGoogleSuccess}
-                      onError={() => {
-                        console.error('Google Login Failed');
-                        toast.error(t('auth.login.error') || 'Échec de la connexion');
-                      }}
-                      theme={document.documentElement.getAttribute('data-theme') === 'dark' ? 'filled_black' : 'outline'}
-                      shape="rectangular"
-                      size="large"
-                      text="continue_with"
-                      context="use"
-                    />
-                  </div>
-                </GoogleOAuthProvider>
-              )}
               <motion.button
                 className="btn btn-primary inline-flex items-center justify-center gap-2 px-6 h-[40px] text-sm font-semibold rounded-[4px] shadow-md shadow-primary/20 whitespace-nowrap overflow-hidden"
                 onClick={() => navigate(getLangPath('/login'))}
